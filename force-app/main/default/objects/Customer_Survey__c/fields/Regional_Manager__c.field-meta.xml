@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Regional_Manager__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Regional Manager field populated via Process Builder from the associated Office record</description>
+    <externalId>false</externalId>
+    <label>Regional Manager (DEL)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Customer_SurveyswjaO</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

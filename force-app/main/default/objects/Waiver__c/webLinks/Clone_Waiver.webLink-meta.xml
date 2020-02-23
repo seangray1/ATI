@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Clone_Waiver</fullName>
+    <availability>online</availability>
+    <description>Clones a waiver and resets fields as necessary to unlock the clone</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Clone</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/{!Waiver__c.Id}/e?clone=1&amp;00N70000003XGLx= 
+&amp;00N70000003XGML= 
+&amp;00N70000003XGML_lkid=
+&amp;00N70000003XGMF=
+&amp;00N70000003XGMA=
+&amp;00N70000003XGM4=
+&amp;RecordType=01270000000UQ0Y&amp;01270000000UQ0X=0&amp;retURL={!Waiver__c.Id}</url>
+</WebLink>

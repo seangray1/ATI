@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>USAA_Surveys</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Job_Name__c</columns>
+    <columns>Account_Name__c</columns>
+    <columns>Office__c</columns>
+    <columns>Overall_Score_10pt_Percent__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Account_Name__c</field>
+        <operation>contains</operation>
+        <value>USAA</value>
+    </filters>
+    <filters>
+        <field>Office__c</field>
+        <operation>equals</operation>
+        <value>San Diego</value>
+    </filters>
+    <label>USAA Surveys</label>
+</ListView>

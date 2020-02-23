@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Modify_Final_Invoice1</fullName>
+    <active>false</active>
+    <description>Prevents users from editing invoices marked as &quot;Final.&quot;  This validation rule can be bypassed by users with appropriately configured &quot;Invoice Settings&quot; custom settings.</description>
+    <errorConditionFormula>AND( Is_Final__c = True, PRIORVALUE(Is_Final__c)  =  True )</errorConditionFormula>
+    <errorMessage>This invoice has been marked as FINAL and cannot be modified</errorMessage>
+</ValidationRule>

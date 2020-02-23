@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activity_w_o_Scores</fullName>
+    <columns>NAME</columns>
+    <columns>Office__c</columns>
+    <columns>Date__c</columns>
+    <columns>Attendees__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <columns>Reason__c</columns>
+    <columns>Type_of_Suspension__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Activity__c</field>
+        <operation>equals</operation>
+        <value>Training Sessions,Job Issue,Performance meeting,On Hold Request,Suspension</value>
+    </filters>
+    <label>Activity w/o Scores</label>
+</ListView>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsAbleToModifyBookings__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, this group/individual has the ability to edit bookings via the Resource Scheduler interface</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, this group/individual has the ability to edit bookings via the Resource Scheduler interface</inlineHelpText>
+    <label>Is Able To Modify Bookings</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

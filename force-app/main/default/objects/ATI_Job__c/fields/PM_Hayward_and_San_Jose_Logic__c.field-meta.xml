@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PM_Hayward_and_San_Jose_Logic__c</fullName>
+    <description>Evaluates which office a Project Director is from.</description>
+    <externalId>false</externalId>
+    <formula>CASE(Project_Manager__r.Office__c, &#39;San Francisco&#39;, 1, &#39;San Jose&#39;, 1, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>PD - Hayward and San Jose Logic</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

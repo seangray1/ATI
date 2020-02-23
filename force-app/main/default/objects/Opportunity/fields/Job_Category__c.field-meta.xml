@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Category__c</fullName>
+    <description>Category of job</description>
+    <externalId>false</externalId>
+    <label>Job Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hurricane Florence</fullName>
+                <default>false</default>
+                <label>Hurricane Florence</label>
+            </value>
+            <value>
+                <fullName>Hurricane Harvey</fullName>
+                <default>false</default>
+                <label>Hurricane Harvey</label>
+            </value>
+            <value>
+                <fullName>Hurricane Irma</fullName>
+                <default>false</default>
+                <label>Hurricane Irma</label>
+            </value>
+            <value>
+                <fullName>Napa Earthquake</fullName>
+                <default>false</default>
+                <label>Napa Earthquake</label>
+            </value>
+            <value>
+                <fullName>AZ 0914 Monsoon</fullName>
+                <default>false</default>
+                <label>AZ 0914 Monsoon</label>
+            </value>
+            <value>
+                <fullName>Wine Country Fires</fullName>
+                <default>false</default>
+                <label>Wine Country Fires</label>
+            </value>
+            <value>
+                <fullName>2018 - Southern CA fires</fullName>
+                <default>false</default>
+                <label>2018 - Southern CA fires</label>
+            </value>
+            <value>
+                <fullName>2018 - Northern CA fires</fullName>
+                <default>false</default>
+                <label>2018 - Northern CA fires</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

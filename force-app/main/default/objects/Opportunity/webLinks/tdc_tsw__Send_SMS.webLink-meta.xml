@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>tdc_tsw__Send_SMS</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Send SMS</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&#39;/js/functions.js&#39;)} 
+{!REQUIRESCRIPT(&#39;resource/tdc_tsw__jQueryForPopup/jQuery/jquery-1.8.2.min.js&#39;)} 
+{!REQUIRESCRIPT(&#39;resource/tdc_tsw__jQueryForPopup/jQuery/ui/jquery-ui-1.9.1.custom.min.js&#39;)} 
+{!REQUIRESCRIPT(&#39;resource/tdc_tsw__jQueryForPopup/jQuery/postmessage/jquery.ba-postmessage.js&#39;)} 
+{!REQUIRESCRIPT(&#39;resource/tdc_tsw__jQueryForPopup/jQuery/bbq/jquery.ba-bbq.min.js&#39;)} 
+requireCssFile(&#39;resource/tdc_tsw__jQueryForPopup/jQuery/ui/css/ui-lightness/jquery-ui-1.9.1.custom.min.css&#39;); 
+
+
+function requireCssFile(filename) 
+{ 
+var fileref = document.createElement(&#39;link&#39;); 
+fileref.setAttribute(&#39;rel&#39;, &#39;stylesheet&#39;); 
+fileref.setAttribute(&#39;type&#39;, &#39;text/css&#39;); 
+fileref.setAttribute(&#39;href&#39;, filename); 
+document.getElementsByTagName(&#39;head&#39;)[0].appendChild(fileref); 
+} 
+
+var j$ = jQuery.noConflict(); 
+var contactid=&quot;{!Opportunity.Id}&quot;; 
+//alert(leadid); 
+var iframe_url = &#39;{!URLFOR(&quot;apex/tdc_tsw__SendSMS?id=&quot;)}&#39;+contactid+&#39;&amp;retURL=&#39;+window.location.href; 
+//alert(iframe_url); 
+var child_domain = iframe_url.substring(0, iframe_url.indexOf(&#39;/&#39;, 9)); 
+var parent_domain = window.location.protocol + &#39;//&#39; + window.location.host; 
+var j$modalDialog = j$(&#39;&lt;div id=&quot;opppopup&quot;&gt;&lt;/div&gt;&#39;) 
+.html(&#39;&lt;iframe id=&quot;iframeContentId&quot; src=&quot;&#39; + iframe_url + &#39;&quot; frameborder=&quot;0&quot; height=&quot;100%&quot; width=&quot;100%&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; /&gt;&#39;) 
+.dialog({ 
+autoOpen: false, 
+resizable: false, 
+width: 800, 
+height: 500, 
+autoResize: true, 
+modal: true, 
+draggable: true, 
+margin:0, 
+padding:0 
+}); 
+
+j$modalDialog.dialog(&#39;open&#39;);</url>
+</WebLink>

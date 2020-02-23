@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sync_FotoIn</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Sync FotoIn</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/apex.js&quot;)} 
+
+try { 
+var msg = sforce.apex.execute(&quot;JobCall&quot;,&quot;syncFotoIn&quot;,{jobId:&quot;{!ATI_Job__c.Id}&quot;}); 
+
+alert(msg); 
+} catch(e) { 
+console.log(e.message); 
+}finally{ 
+
+}</url>
+</WebLink>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Sends all unsent SMS (from Triggered SMS Handler object)</description>
+    <interviewLabel>SMS Trigger Handler Processor {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SMS Trigger Handler Processor</label>
+    <loops>
+        <name>Loop_through_found_records</name>
+        <label>Loop through found records</label>
+        <locationX>233</locationX>
+        <locationY>210</locationY>
+        <assignNextValueToReference>recSMStriggeredrecord</assignNextValueToReference>
+        <collectionReference>colSMStriggerrecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_Triggered_SMS_Record_ISSENT_to_True</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Unsent_Trigger_Handler_Records</name>
+        <label>Unsent Trigger Handler Records</label>
+        <locationX>233</locationX>
+        <locationY>50</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_through_found_records</targetReference>
+        </connector>
+        <filters>
+            <field>IsSent__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Triggered_SMS_Handler__c</object>
+        <outputReference>colSMStriggerrecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>IsSent__c</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Triggered_SMS_Record_ISSENT_to_True</name>
+        <label>Update Triggered SMS Record ISSENT to True</label>
+        <locationX>233</locationX>
+        <locationY>480</locationY>
+        <connector>
+            <targetReference>Loop_through_found_records</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recSMStriggeredrecord.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>IsSent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Triggered_SMS_Handler__c</object>
+    </recordUpdates>
+    <startElementReference>Unsent_Trigger_Handler_Records</startElementReference>
+    <status>Draft</status>
+    <variables>
+        <description>This is the collection of found unsent SMS trigger records.</description>
+        <name>colSMStriggerrecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Triggered_SMS_Handler__c</objectType>
+    </variables>
+    <variables>
+        <name>recSMStriggeredrecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Triggered_SMS_Handler__c</objectType>
+    </variables>
+</Flow>

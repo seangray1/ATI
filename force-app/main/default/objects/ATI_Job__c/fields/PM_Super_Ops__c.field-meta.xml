@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PM_Super_Ops__c</fullName>
+    <description>Formula field used in 3 Day survey reminder and 6 day survey reminder, in the case that the Superintendent or the Ops Manager is the same as the Project Manager.</description>
+    <externalId>false</externalId>
+    <formula>IF (Project_Manager_new__c  = Project_Manager__c, 
+Project_Manager_new__r.FirstName &amp; &quot; &quot; &amp;  Project_Manager_new__r.LastName, 
+Project_Manager_FirstName__c &amp; &quot; &quot; &amp; Project_Manager_LastName__c &amp; &quot; &quot; &amp; &quot;and&quot; &amp; &quot; &quot; &amp; Project_Manager_new__r.FirstName &amp; &quot; &quot; &amp;  Project_Manager_new__r.LastName)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>PM Super Ops</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

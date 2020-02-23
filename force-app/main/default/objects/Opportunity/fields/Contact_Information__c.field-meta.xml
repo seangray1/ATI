@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Information__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Contact__c)=true, &quot;&quot;, 
+
+if(Contact__r.IsPersonAccount = true, (Contact__r.Account.BillingStreet +&quot;, &quot;+  Contact__r.Account.BillingCity +&quot;, &quot;+ Contact__r.Account.BillingState +&quot; &quot;+ Contact__r.Account.BillingPostalCode &amp; BR() &amp;
+Contact__r.Account.Phone +&quot; Work &quot; &amp; BR() &amp;   Contact__r.MobilePhone +&quot; Mobile &quot; &amp; BR() &amp;
+Contact__r.Email),
+(Contact__r.MailingStreet +&quot;, &quot;+ Contact__r.MailingCity +&quot;, &quot;+ Contact__r.MailingState +&quot; &quot;+ Contact__r.MailingPostalCode &amp; BR() &amp;
+Contact__r.Phone +&quot; Work &quot; &amp; BR() &amp;  Contact__r.MobilePhone +&quot; Mobile &quot; &amp; BR() &amp;
+Contact__r.Email)))</formula>
+    <inlineHelpText>Information is carried over from Contact&#39;s Mailing Address.</inlineHelpText>
+    <label>Contact Information</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

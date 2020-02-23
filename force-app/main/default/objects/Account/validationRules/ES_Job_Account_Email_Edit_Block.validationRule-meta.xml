@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ES_Job_Account_Email_Edit_Block</fullName>
+    <active>true</active>
+    <description>To prevent users from editing the Email on the ES Job Person Account</description>
+    <errorConditionFormula>AND(
+
+ IsPersonAccount = TRUE, 
+
+  Id = &#39;0010g00001bRgPo&#39; ,
+
+ ISCHANGED (PersonEmail ))</errorConditionFormula>
+    <errorMessage>The ES Job Account Email cannot be changed. Please first update the Project Site account on the job.</errorMessage>
+</ValidationRule>

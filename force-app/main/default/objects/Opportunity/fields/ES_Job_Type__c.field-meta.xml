@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ES_Job_Type__c</fullName>
+    <description>This field is to further clarify the type of ES job.</description>
+    <externalId>false</externalId>
+    <label>ES Job Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Board-Up</fullName>
+                <default>false</default>
+                <label>Board-Up</label>
+            </value>
+            <value>
+                <fullName>Roof Tarp</fullName>
+                <default>false</default>
+                <label>Roof Tarp</label>
+            </value>
+            <value>
+                <fullName>Water Mitigation</fullName>
+                <default>false</default>
+                <label>Water Mitigation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage_cannot_be_won_without_amount</fullName>
+    <active>false</active>
+    <description>Stage cannot be marked won unless there is an estimate amount or a billing forecast entered.</description>
+    <errorConditionFormula>OR(ISNULL(Amount), NOT(Total_Billing_Forecast_Amount__c&gt;0))   &amp;&amp; ISPICKVAL(StageName, &#39;Won&#39;) &amp;&amp; NOT(ISPICKVAL(Division__c, &#39;Emergency Svces&#39;)) &amp;&amp; NOT(ISPICKVAL(Division__c, &#39;Consulting&#39;)) &amp;&amp; NOT(ISPICKVAL(Division__c, &#39;Marketing&#39;)) &amp;&amp; DATEVALUE(Date_Time_Taken__c)&gt;= DATE(2017,05,05)</errorConditionFormula>
+    <errorMessage>Please enter an estimate amount and a billing forecast for this job before marking this won. Both MUST be entered!</errorMessage>
+</ValidationRule>

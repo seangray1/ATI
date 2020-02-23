@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bill_To_Attention_Email__c</fullName>
+    <description>Bill to Attention formula field pulled from &#39;Bill to Attention&#39; contact lookup field to display on Waiver VF page.  This email address will be used to send the Waiver PDF email.</description>
+    <externalId>false</externalId>
+    <formula>Bill_To_Attention__r.Email</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Bill To Attention Email</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

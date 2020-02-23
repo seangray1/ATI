@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>Adjuster_Type__c</fullName>
+    <description>dependent field from Contact type - adjuster. Displays types of adjuster.</description>
+    <externalId>false</externalId>
+    <label>Adjuster Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Contact_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Field adjuster</fullName>
+                <default>false</default>
+                <label>Field adjuster</label>
+            </value>
+            <value>
+                <fullName>Inside Adjuster</fullName>
+                <default>false</default>
+                <label>Inside Adjuster</label>
+            </value>
+            <value>
+                <fullName>Independent Adjuster</fullName>
+                <default>false</default>
+                <label>Independent Adjuster</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Adjuster</controllingFieldValue>
+            <valueName>Field adjuster</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Adjuster</controllingFieldValue>
+            <valueName>Inside Adjuster</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Adjuster</controllingFieldValue>
+            <valueName>Independent Adjuster</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

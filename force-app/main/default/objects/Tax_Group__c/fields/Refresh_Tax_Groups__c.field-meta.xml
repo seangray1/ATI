@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Refresh_Tax_Groups__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When checked, apex will queue up a batch process to refresh all of the tax groups from Timberline.  This value should be updated via a button somewhere in the UI</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When checked, a request will be queued up to refresh ALL Tax Group data (not just for this record).  You will only need to check this box once to refresh all Tax Groups.</inlineHelpText>
+    <label>Refresh Tax Groups</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

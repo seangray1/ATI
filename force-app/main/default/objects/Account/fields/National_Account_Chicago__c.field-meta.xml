@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>National_Account_Chicago__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This checkbox is to be used by Chicago office to filter National Accounts run through their office.  National Account checkbox should also be checked.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This designates this account as a national account through Chicago.</inlineHelpText>
+    <label>National Account - Chicago</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

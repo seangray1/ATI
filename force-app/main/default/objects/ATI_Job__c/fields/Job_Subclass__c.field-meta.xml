@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Subclass__c</fullName>
+    <externalId>false</externalId>
+    <label>Job Subclass</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Job_Vertical__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Airports</fullName>
+                <default>false</default>
+                <label>Airports</label>
+            </value>
+            <value>
+                <fullName>Amusement Park</fullName>
+                <default>false</default>
+                <label>Amusement Park</label>
+            </value>
+            <value>
+                <fullName>Apartment/s</fullName>
+                <default>false</default>
+                <label>Apartment/s</label>
+            </value>
+            <value>
+                <fullName>Big Box Store</fullName>
+                <default>false</default>
+                <label>Big Box Store</label>
+            </value>
+            <value>
+                <fullName>Casino</fullName>
+                <default>false</default>
+                <label>Casino</label>
+            </value>
+            <value>
+                <fullName>City Hall</fullName>
+                <default>false</default>
+                <label>City Hall</label>
+            </value>
+            <value>
+                <fullName>Community College</fullName>
+                <default>false</default>
+                <label>Community College</label>
+            </value>
+            <value>
+                <fullName>Condo&#39;s</fullName>
+                <default>false</default>
+                <label>Condo&#39;s</label>
+            </value>
+            <value>
+                <fullName>Convention Center</fullName>
+                <default>false</default>
+                <label>Convention Center</label>
+            </value>
+            <value>
+                <fullName>Day-Care</fullName>
+                <default>false</default>
+                <label>Day-Care</label>
+            </value>
+            <value>
+                <fullName>Department Store</fullName>
+                <default>false</default>
+                <label>Department Store</label>
+            </value>
+            <value>
+                <fullName>Discount Store</fullName>
+                <default>false</default>
+                <label>Discount Store</label>
+            </value>
+            <value>
+                <fullName>Drug Store</fullName>
+                <default>false</default>
+                <label>Drug Store</label>
+            </value>
+            <value>
+                <fullName>FBI</fullName>
+                <default>false</default>
+                <label>FBI</label>
+            </value>
+            <value>
+                <fullName>Federal Departments</fullName>
+                <default>false</default>
+                <label>Federal Departments</label>
+            </value>
+            <value>
+                <fullName>Fire Departments</fullName>
+                <default>false</default>
+                <label>Fire Departments</label>
+            </value>
+            <value>
+                <fullName>GSA</fullName>
+                <default>false</default>
+                <label>GSA</label>
+            </value>
+            <value>
+                <fullName>Gym/Sports Club/Fitness Center</fullName>
+                <default>false</default>
+                <label>Gym/Sports Club/Fitness Center</label>
+            </value>
+            <value>
+                <fullName>Hospital</fullName>
+                <default>false</default>
+                <label>Hospital</label>
+            </value>
+            <value>
+                <fullName>Hotel, Motel, Lodge</fullName>
+                <default>false</default>
+                <label>Hotel, Motel, Lodge</label>
+            </value>
+            <value>
+                <fullName>Institutional</fullName>
+                <default>false</default>
+                <label>Institutional</label>
+            </value>
+            <value>
+                <fullName>K-12 Schools</fullName>
+                <default>false</default>
+                <label>K-12 Schools</label>
+            </value>
+            <value>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+                <label>Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Medical Building</fullName>
+                <default>false</default>
+                <label>Medical Building</label>
+            </value>
+            <value>
+                <fullName>Military</fullName>
+                <default>false</default>
+                <label>Military</label>
+            </value>
+            <value>
+                <fullName>Mobile Home Park</fullName>
+                <default>false</default>
+                <label>Mobile Home Park</label>
+            </value>
+            <value>
+                <fullName>National Park Service</fullName>
+                <default>false</default>
+                <label>National Park Service</label>
+            </value>
+            <value>
+                <fullName>Office Building</fullName>
+                <default>false</default>
+                <label>Office Building</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Police/Sheriff Departments</fullName>
+                <default>false</default>
+                <label>Police/Sheriff Departments</label>
+            </value>
+            <value>
+                <fullName>Rehabilitation Center</fullName>
+                <default>false</default>
+                <label>Rehabilitation Center</label>
+            </value>
+            <value>
+                <fullName>Religious</fullName>
+                <default>false</default>
+                <label>Religious</label>
+            </value>
+            <value>
+                <fullName>Research Facility</fullName>
+                <default>false</default>
+                <label>Research Facility</label>
+            </value>
+            <value>
+                <fullName>Restaurant</fullName>
+                <default>false</default>
+                <label>Restaurant</label>
+            </value>
+            <value>
+                <fullName>Single Family Residence</fullName>
+                <default>false</default>
+                <label>Single Family Residence</label>
+            </value>
+            <value>
+                <fullName>State Capitals</fullName>
+                <default>false</default>
+                <label>State Capitals</label>
+            </value>
+            <value>
+                <fullName>Student Housing</fullName>
+                <default>false</default>
+                <label>Student Housing</label>
+            </value>
+            <value>
+                <fullName>Townhouse/Flat/Duplex</fullName>
+                <default>false</default>
+                <label>Townhouse/Flat/Duplex</label>
+            </value>
+            <value>
+                <fullName>Trade School</fullName>
+                <default>false</default>
+                <label>Trade School</label>
+            </value>
+            <value>
+                <fullName>University</fullName>
+                <default>false</default>
+                <label>University</label>
+            </value>
+            <value>
+                <fullName>Urgent Care</fullName>
+                <default>false</default>
+                <label>Urgent Care</label>
+            </value>
+            <value>
+                <fullName>Vacation or VRBO</fullName>
+                <default>false</default>
+                <label>Vacation or VRBO</label>
+            </value>
+            <value>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <label>Warehouse</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Community College</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Day-Care</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>K-12 Schools</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <controllingFieldValue>Multi-Family</controllingFieldValue>
+            <controllingFieldValue>Residential</controllingFieldValue>
+            <controllingFieldValue>State &amp; Municipality</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Trade School</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>University</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>FBI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Federal Departments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>GSA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Military</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>National Park Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Medical Building</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Rehabilitation Center</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Research Facility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Urgent Care</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Amusement Park</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Casino</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Convention Center</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Hotel, Motel, Lodge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Restaurant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Institutional</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Manufacturing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Office Building</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Religious</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Warehouse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi-Family</controllingFieldValue>
+            <valueName>Apartment/s</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi-Family</controllingFieldValue>
+            <valueName>Condo&#39;s</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi-Family</controllingFieldValue>
+            <valueName>Mobile Home Park</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi-Family</controllingFieldValue>
+            <valueName>Student Housing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi-Family</controllingFieldValue>
+            <valueName>Vacation or VRBO</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Residential</controllingFieldValue>
+            <valueName>Single Family Residence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Residential</controllingFieldValue>
+            <valueName>Townhouse/Flat/Duplex</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State &amp; Municipality</controllingFieldValue>
+            <valueName>Airports</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State &amp; Municipality</controllingFieldValue>
+            <valueName>City Hall</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State &amp; Municipality</controllingFieldValue>
+            <valueName>Fire Departments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State &amp; Municipality</controllingFieldValue>
+            <valueName>Police/Sheriff Departments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State &amp; Municipality</controllingFieldValue>
+            <valueName>State Capitals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Big Box Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Department Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Discount Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Drug Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Gym/Sports Club/Fitness Center</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

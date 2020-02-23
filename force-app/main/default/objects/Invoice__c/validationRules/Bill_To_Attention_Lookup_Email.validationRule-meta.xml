@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bill_To_Attention_Lookup_Email</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISBLANK(Bill_To_Attention_Lookup__r.Email),
+ ISPICKVAL(Delivery_Method__c,&quot;Email&quot;))</errorConditionFormula>
+    <errorMessage>Please populate the email address on the Bill To Attention Lookup contact record in order to choose Delivery Method of &#39;Email.&#39;</errorMessage>
+</ValidationRule>

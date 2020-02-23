@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Material_Requisitions</fullName>
+    <columns>ATI_Job__c</columns>
+    <columns>NAME</columns>
+    <columns>Location_text__c</columns>
+    <columns>No_of_Entries__c</columns>
+    <columns>MR_Total_Cost__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Material Requisitions</label>
+</ListView>

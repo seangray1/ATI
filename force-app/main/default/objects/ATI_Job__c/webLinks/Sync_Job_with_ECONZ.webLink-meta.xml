@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sync_Job_with_ECONZ</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Sync Job with ECONZ</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)}  
+{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/apex.js&quot;)}  
+
+//alert(&#39;{!ATI_Job__c.Stage__c}&#39;);
+if(&quot;{!ATI_Job__c.Stage__c}&quot; != &quot;Won&quot; &amp;&amp; &quot;{!ATI_Job__c.Stage__c}&quot; != &quot;Complete&quot;){ 
+alert(&quot;Only Jons Won or Complete are Synced with EConz.&quot;); 
+} 
+else{ 
+var result = sforce.apex.execute(&quot;Econz_Integration_Callouts&quot;,&quot;invokeIntegration&quot;, {JobId:&quot;{!ATI_Job__c.Id}&quot;}); 
+if(result == &quot;Success&quot;) 
+alert(&quot;The Job has been synced with EConz.&quot;); 
+else 
+alert(&quot;There was an error while syncing. Pls retry again or contact your Administrator&quot;); 
+}</url>
+</WebLink>

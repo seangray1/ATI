@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Missing_Bill_To_Attention_Email</fullName>
+    <active>true</active>
+    <description>Rule to error when the Bill to Attention lookup field is missing an email and Delivery Method on the Waiver is set to Email.</description>
+    <errorConditionFormula>AND (Bill_To_Attention__r.Email=&quot;&quot;, 
+ISPICKVAL (Delivery_Method__c,&quot;Email&quot;), 
+RecordType.DeveloperName=&quot;Waiver&quot;)</errorConditionFormula>
+    <errorMessage>Contact in Bill To Attention is missing an email. Please change the Delivery Method to &#39;Mail&#39; or add an email address to the Bill To Attention contact record.</errorMessage>
+</ValidationRule>

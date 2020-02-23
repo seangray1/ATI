@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Budget_Goal__c</fullName>
+    <description>Revenue minus selected budget goal, minus selected allocations, minus selected program fees, plus 20% if using 10/10 allocations</description>
+    <externalId>false</externalId>
+    <formula>Revenue__c - 
+
+(Revenue__c*(VALUE(TEXT( Budget__r.GP_Goal__c))/100)) - 
+
+(Revenue__c*(VALUE(TEXT(Budget__r.Allocations__c))/100)) - 
+
+(Revenue__c*(VALUE(TEXT(Budget__r.X3_Program_Fees__c))/100)) + 
+
+
+
+(IF(X10_10_Allocation__c == true, 0.2*(Revenue__c - 
+
+(Revenue__c*(VALUE(TEXT( Budget__r.GP_Goal__c))/100)) - 
+
+(Revenue__c*(VALUE(TEXT(Budget__r.Allocations__c))/100)) - 
+
+(Revenue__c*(VALUE(TEXT(Budget__r.X3_Program_Fees__c))/100))), 
+
+0) 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Budget Goal</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

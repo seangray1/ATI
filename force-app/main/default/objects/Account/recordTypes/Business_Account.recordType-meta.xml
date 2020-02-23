@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Account</fullName>
+    <active>true</active>
+    <description>Company, Institute, etc.</description>
+    <label>Business Account</label>
+    <picklistValues>
+        <picklist>AccountSource</picklist>
+        <values>
+            <fullName>Advertising and Publications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building Consultant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulting Firm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Service - Alacrity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee - Friends or Family Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environmental Hygienist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities Management%2FBuilding Engineer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Contractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government or Municipality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Independent Adjusting Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Account %28ERA%2C Contract%2C Etc%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Alacrity Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - American Emergency Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Code Blue Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Cons%2E Services %28Xactanalysis%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Contractor Connection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - DKI - Diamond Loss Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - First Choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - IMACC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Innovation Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Lionsbridge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - NEXXUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Adjuster</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show or Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vendor%2FSubcontractor%2FPartner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Company_Type__c</picklist>
+        <values>
+            <fullName>Agent%2F Brokerage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulting Firm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environmental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Contractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Builder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hotel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Independent Adj%2E Co%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Law Firm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Municipality%2F Govt%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Adj%2E Co%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Religious</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>School%2F University</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sub-Contractor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Health_Risks__c</picklist>
+        <values>
+            <fullName>Billing Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor Job Performance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reduced Work</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Health__c</picklist>
+        <values>
+            <fullName>At-Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthy</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Industry</picklist>
+        <values>
+            <fullName>Environmental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Municipaility%2FGov%27t</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Religious</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Job_Type__c</picklist>
+        <values>
+            <fullName>Existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Ownership</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subsidiary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Program_Account__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating</picklist>
+        <values>
+            <fullName>Cold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tier__c</picklist>
+        <values>
+            <fullName>Tier 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Agent%2F Brokerage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Real Estate Owners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulting Firm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environmental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Farmers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Contractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HOA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Builder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospitality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hotel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Independent Adj%2E Co%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Law Firm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Municipality%2F Govt%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Client Group</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Mgmt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Adj%2E Co%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Religious</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>School%2F University</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Senior Living</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sub-Contractor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>smartystreets__BillingVerificationUsed__c</picklist>
+        <values>
+            <fullName>Google Maps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SmartyStreets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UPS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>smartystreets__ShippingVerificationUsed__c</picklist>
+        <values>
+            <fullName>Google Maps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SmartyStreets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UPS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>zisf__Zoom_Clean_Status__c</picklist>
+        <values>
+            <fullName>Clean</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Different</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Sync</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Compared</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Not Found</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

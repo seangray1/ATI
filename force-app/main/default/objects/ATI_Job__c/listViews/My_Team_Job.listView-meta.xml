@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Team_Job</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND (4 OR 5 OR 6 OR 7)</booleanFilter>
+    <columns>Job_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Branch_Manager__c</columns>
+    <columns>Business_Development_Manager__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Project_Manager_new__c</columns>
+    <columns>Estimate_Submitted_Date__c</columns>
+    <columns>Probability__c</columns>
+    <columns>Stage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Won</value>
+    </filters>
+    <filters>
+        <field>Division__c</field>
+        <operation>notEqual</operation>
+        <value>Marketing</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Is_RM_The_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Is_BDM_the_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Is_PD_the_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Is_PM_the_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Team Active Jobs</label>
+</ListView>

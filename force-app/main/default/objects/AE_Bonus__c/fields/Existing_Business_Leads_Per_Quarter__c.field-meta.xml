@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Existing_Business_Leads_Per_Quarter__c</fullName>
+    <description>Number of Existing Business Leads per Quarter</description>
+    <externalId>false</externalId>
+    <formula>Total_Leads_Per_Quarter__c - New_Business_Leads_this_Quarter__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Existing Business Leads Per Quarter</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

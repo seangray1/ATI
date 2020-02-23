@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_Correct_Email__c</fullName>
+    <description>This field allows users to add or change an email address on the related Contact record from the Opportunity record.  This field is referenced by &#39;EmailUpdateOnJob&#39; trigger.</description>
+    <externalId>false</externalId>
+    <label>Add/Correct Email</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

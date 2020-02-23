@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Office2__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to Office object to indicate what office the Job is taking place out of.</description>
+    <externalId>false</externalId>
+    <label>Office</label>
+    <referenceTo>Office__c</referenceTo>
+    <relationshipLabel>Opportunities</relationshipLabel>
+    <relationshipName>Opportunities</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

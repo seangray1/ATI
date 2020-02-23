@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SMS_Template__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is used for consolidated sending of SMS from Process Builder. Set this field to send SMS.</description>
+    <externalId>false</externalId>
+    <label>SMS Template</label>
+    <lookupFilter>
+        <active>false</active>
+        <filterItems>
+            <field>tdc_tsw__Message_Template__c.tdc_tsw__ObjectName__c</field>
+            <operation>equals</operation>
+            <value>ATI Job</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>tdc_tsw__Message_Template__c</referenceTo>
+    <relationshipLabel>ATI Jobs</relationshipLabel>
+    <relationshipName>ATI_Jobs</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

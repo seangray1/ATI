@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Custom_Clone</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Clone</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/{!Opportunity.Id}/e?RecordType=01270000000UPGG&amp;00N70000003WySR=&quot;&quot;&amp;00N70000003WyT1=&quot;&quot;&amp;00N70000003WyT0=&quot;&quot;&amp;00N70000003gTwU=&quot;&quot;&amp;00N70000003WyT2=&quot;H&quot;&amp;00N70000003WyU2=&quot;&quot;&amp;00N70000003gTwV=&quot;&quot;&amp;00N70000003WySM={!NOW()}&amp;opp9={!TODAY()}&amp;clone=1;retURL=%2F{!Opportunity.Id}</url>
+</WebLink>

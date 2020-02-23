@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Probability__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( Stage__c , &quot;Qualification&quot;, 0.25,&quot;Estimating/Review&quot;, 0.50,&quot;Won&quot;, 1.00,&quot;Work Complete&quot;, 1.00,&quot;Billing Complete&quot;,1.00,0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Probability (%)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

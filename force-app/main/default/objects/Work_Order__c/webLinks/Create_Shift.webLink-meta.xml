@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_Shift</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Create Shift</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>var startDay = {!DAY(DATEVALUE( Work_Order__c.Requested_Start_Date_Time__c ))};
+var startMonth = {!MONTH(DATEVALUE( Work_Order__c.Requested_Start_Date_Time__c ))};
+var startYear = {!YEAR(DATEVALUE( Work_Order__c.Requested_Start_Date_Time__c ))};
+console.log(startDay + &#39; &#39; + startMonth + &#39; &#39; + startYear); 
+
+
+document.location = &#39;/apex/CKSW_ATI_VF01_NewWOShift?WorkOrderId={! Work_Order__c.Id }&amp;UserId={!  Work_Order__c.Assigned_ToId__c }&amp;JobId={!Work_Order__c.ATI_JobId__c   }&amp;Start={!Work_Order__c.Requested_Start_Date_Time__c}&amp;Finish=dtFinish&#39;;</url>
+</WebLink>

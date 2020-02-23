@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Active_Jobs_PM2</fullName>
+    <columns>Job_Name__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>Actual_Start_Date__c</columns>
+    <columns>Estimated_Completion_Date__c</columns>
+    <columns>Percent_Complete__c</columns>
+    <columns>Actual_Job_Completion_Date__c</columns>
+    <columns>Job_to_Date_Costs__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <filterScope>Team</filterScope>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Won</value>
+    </filters>
+    <label>*My Active Jobs(PM)</label>
+</ListView>

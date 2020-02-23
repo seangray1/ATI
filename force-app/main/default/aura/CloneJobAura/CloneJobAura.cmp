@@ -1,0 +1,30 @@
+<!--
+  @File Name          : CloneJobAura.cmp
+  @Description        : 
+  @Author             : Sean Gray
+  @Group              : 
+  @Last Modified By   : sean.gray@atirestoration.com
+  @Last Modified On   : 2/10/2020, 9:06:38 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/21/2020   Sean Gray     Initial Version
+-->
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride">
+    <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
+    <aura:html tag="style">
+        .slds-modal__container{
+        height : auto;
+        width: 70%;
+        max-width: 70rem;
+        }
+        .modal-body{
+        height : 1000px !important;
+        max-height: 1000px !important;
+        }
+        
+        .customFooter{
+        display: inline !important;
+        }
+    </aura:html>
+    <c:cloneJobLWC recordId = "{!v.recordId}" oncloseform="{!c.closeForm}"/>
+</aura:component>

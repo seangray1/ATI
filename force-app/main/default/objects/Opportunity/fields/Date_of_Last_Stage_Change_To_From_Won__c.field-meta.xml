@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_of_Last_Stage_Change_To_From_Won__c</fullName>
+    <description>Field populate by &#39;Record Date/Time of Status Change&#39; to indicate the date/time Stage change to/from &#39;Won&#39;</description>
+    <externalId>false</externalId>
+    <label>Date of Last Stage Change (To/From Won)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

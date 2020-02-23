@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JobCopyPMToOwner__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Copes the value in the Project Manager field to the Owner record for Jobs</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Copes the value in the Project Manager field to the Owner record for Jobs</inlineHelpText>
+    <label>Job: Copy PM to Owner</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

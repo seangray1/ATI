@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Competitors__c</fullName>
+    <externalId>false</externalId>
+    <label>Competitors</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Belfor</fullName>
+                <default>false</default>
+                <label>Belfor</label>
+            </value>
+            <value>
+                <fullName>Blue Sky Restoration</fullName>
+                <default>false</default>
+                <label>Blue Sky Restoration</label>
+            </value>
+            <value>
+                <fullName>BMS Cat</fullName>
+                <default>false</default>
+                <label>BMS Cat</label>
+            </value>
+            <value>
+                <fullName>Coit</fullName>
+                <default>false</default>
+                <label>Coit</label>
+            </value>
+            <value>
+                <fullName>Cotton</fullName>
+                <default>false</default>
+                <label>Cotton</label>
+            </value>
+            <value>
+                <fullName>DKI</fullName>
+                <default>false</default>
+                <label>DKI</label>
+            </value>
+            <value>
+                <fullName>Northstar</fullName>
+                <default>false</default>
+                <label>Northstar</label>
+            </value>
+            <value>
+                <fullName>Polygon</fullName>
+                <default>false</default>
+                <label>Polygon</label>
+            </value>
+            <value>
+                <fullName>Harbro</fullName>
+                <default>false</default>
+                <label>Harbro</label>
+            </value>
+            <value>
+                <fullName>Interstate Restoration</fullName>
+                <default>false</default>
+                <label>Interstate Restoration</label>
+            </value>
+            <value>
+                <fullName>Miller</fullName>
+                <default>false</default>
+                <label>Miller</label>
+            </value>
+            <value>
+                <fullName>Serv-Pro</fullName>
+                <default>false</default>
+                <label>Serv-Pro</label>
+            </value>
+            <value>
+                <fullName>Service Master</fullName>
+                <default>false</default>
+                <label>Service Master</label>
+            </value>
+            <value>
+                <fullName>Paul Davis Systems</fullName>
+                <default>false</default>
+                <label>Paul Davis Systems</label>
+            </value>
+            <value>
+                <fullName>PW Stevens</fullName>
+                <default>false</default>
+                <label>PW Stevens</label>
+            </value>
+            <value>
+                <fullName>Puroclean</fullName>
+                <default>false</default>
+                <label>Puroclean</label>
+            </value>
+            <value>
+                <fullName>NCRI-National Catastrophe Restoration</fullName>
+                <default>false</default>
+                <label>NCRI-National Catastrophe Restoration</label>
+            </value>
+            <value>
+                <fullName>Rainbow International</fullName>
+                <default>false</default>
+                <label>Rainbow International</label>
+            </value>
+            <value>
+                <fullName>RMC Group, LLC</fullName>
+                <default>false</default>
+                <label>RMC Group, LLC</label>
+            </value>
+            <value>
+                <fullName>Steamatic</fullName>
+                <default>false</default>
+                <label>Steamatic</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,65 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "c/allocationsApp": [
+                "allocationsApp/allocationsApp.js"
+            ],
+            "c/bigTimeForceSync": [
+                "bigTimeForceSync/bigTimeForceSync.js"
+            ],
+            "c/budgetLWC": [
+                "budgetLWC/budgetLWC.js"
+            ],
+            "c/caseButton": [
+                "caseButton/caseButton.js"
+            ],
+            "c/cloneJobLWC": [
+                "cloneJobLWC/cloneJobLWC.js"
+            ],
+            "c/courtesyCallLWC": [
+                "courtesyCallLWC/courtesyCallLWC.js"
+            ],
+            "c/dailyTimeSheetSearch": [
+                "dailyTimeSheetSearch/dailyTimeSheetSearch.js"
+            ],
+            "c/dailyTimeSheetlistView": [
+                "dailyTimeSheetlistView/dailyTimeSheetlistView.js"
+            ],
+            "c/dailyTimeSheetlistViewJobpage": [
+                "dailyTimeSheetlistViewJobpage/dailyTimeSheetlistViewJobpage.js"
+            ],
+            "c/dailyTimesheet": [
+                "dailyTimesheet/dailyTimesheet.js"
+            ],
+            "c/logCall": [
+                "logCall/logCall.js"
+            ],
+            "c/micaLWC": [
+                "micaLWC/micaLWC.js"
+            ],
+            "c/newProjectSchedule": [
+                "newProjectSchedule/newProjectSchedule.js"
+            ],
+            "c/pMAssignment": [
+                "pMAssignment/pMAssignment.js"
+            ],
+            "c/projectNote": [
+                "projectNote/projectNote.js"
+            ],
+            "c/rejectbudget": [
+                "rejectbudget/rejectbudget.js"
+            ]
+        },
+        "experimentalDecorators": true
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PM_WIP_Trial_New_England</fullName>
+    <columns>Project_Manager_new__c</columns>
+    <columns>NAME</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Date_Taken__c</columns>
+    <columns>Job_Start_Date__c</columns>
+    <columns>Actual_Start_Date__c</columns>
+    <columns>Estimated_Completion_Date__c</columns>
+    <columns>Percent_Complete__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Budget__c</columns>
+    <columns>Estimated_Gross_Profit_RS__c</columns>
+    <columns>Job_to_Date_Costs_RS__c</columns>
+    <columns>Actual_Gross_Profit_JTD_NM_RS__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Office2__c</field>
+        <operation>equals</operation>
+        <value>New England</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Won</value>
+    </filters>
+    <filters>
+        <field>Division__c</field>
+        <operation>notEqual</operation>
+        <value>Marketing</value>
+    </filters>
+    <filters>
+        <field>Project_Manager__c</field>
+        <operation>notEqual</operation>
+        <value>Gregg Zembik</value>
+    </filters>
+    <label>PM WIP Trial - New England</label>
+    <sharedTo>
+        <role>Eastern_Region</role>
+        <role>National_Training_Consultant</role>
+        <roleAndSubordinates>New_England_Branch</roleAndSubordinates>
+    </sharedTo>
+</ListView>

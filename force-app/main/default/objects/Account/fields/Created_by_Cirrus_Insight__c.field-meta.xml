@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Created_by_Cirrus_Insight__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used to report on user usage of Cirrus Insight.</description>
+    <externalId>false</externalId>
+    <label>Created_by_Cirrus_Insight</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

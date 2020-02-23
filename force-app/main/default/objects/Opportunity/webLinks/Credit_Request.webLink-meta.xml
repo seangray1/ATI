@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Request</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Request AE Credit</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>if ((Modal.confirm &amp;&amp; Modal.confirm(&#39;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&#39;)) || (!Modal.confirm &amp;&amp; window.confirm(&#39;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&#39;))) navigateToUrl(&#39;/apex/SubmitForApproval?id={!Opportunity.Id}&amp;lock=0&#39;);</url>
+</WebLink>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Manager_New_Logic__c</fullName>
+    <description>This field checks whether the current user is listed as the Project Manager (formerly Superintendent or Ops Manager) on the job. It is used to filter views.</description>
+    <externalId>false</externalId>
+    <formula>IF($User.Id = Project_Manager_new__c, 1, 0)</formula>
+    <label>Project Manager Logic</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

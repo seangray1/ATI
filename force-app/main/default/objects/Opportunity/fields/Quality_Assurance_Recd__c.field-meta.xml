@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quality_Assurance_Recd__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag that the Quality Assurance Survey was received from the client related to this job.</description>
+    <externalId>false</externalId>
+    <label>Quality Assurance Recd</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

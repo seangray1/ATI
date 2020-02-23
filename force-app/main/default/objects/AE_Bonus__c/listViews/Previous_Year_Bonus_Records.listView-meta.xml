@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Previous_Year_Bonus_Records</fullName>
+    <columns>NAME</columns>
+    <columns>AE_Name__c</columns>
+    <columns>Total_Billed_Revenue_this_Quarter__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_YEAR</value>
+    </filters>
+    <filters>
+        <field>Manager_Logic__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Previous Year Bonus Records</label>
+</ListView>

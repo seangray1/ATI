@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sum_of_AE__c</fullName>
+    <externalId>false</externalId>
+    <label>Sum of AE %</label>
+    <summarizedField>ATI_Job_Split__c.Percentage__c</summarizedField>
+    <summaryFilterItems>
+        <field>ATI_Job_Split__c.Member_Role__c</field>
+        <operation>equals</operation>
+        <value>Account Executive</value>
+    </summaryFilterItems>
+    <summaryForeignKey>ATI_Job_Split__c.ATI_Job__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

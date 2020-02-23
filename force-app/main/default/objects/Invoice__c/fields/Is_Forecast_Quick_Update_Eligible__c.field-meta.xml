@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Forecast_Quick_Update_Eligible__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+OR( 
+ISBLANK(ATI_Job__r.Last_Successful_Timberline_Update__c), 
+((ATI_Job__r.Last_Successful_Timberline_Update__c+0.002) &lt; LastModifiedDate), 
+((ATI_Job__r.Last_Successful_Timberline_Update__c+0.002) &lt; ATI_Job__r.LastModifiedDate) ), 
+&quot;true&quot;, 
+&quot;false&quot; )</formula>
+    <label>Is Forecast Quick Update Eligible</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conditional_Waiver_created__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checkbox flagged by Process Builder flow when a conditional waiver has been created for this Invoice-- to be used in &#39;Invoices Requiring Waiver&#39; list view</description>
+    <externalId>false</externalId>
+    <label>Conditional Waiver created</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

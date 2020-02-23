@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Owner_s_Profile__c</fullName>
+    <description>This field is a work-around until Process Builder fixes issues with referencing an associated record owner&#39;s Profile Name in criteria. Please adjust &#39;AE_1_and_AE_2_population&#39; Process Builder flows once this issue is fixed and delete this field</description>
+    <externalId>false</externalId>
+    <formula>Contact__r.Owner.Profile.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Contact Owner&#39;s Profile</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

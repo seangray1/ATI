@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Number_No_Dashes__c</fullName>
+    <description>A hidden field used to allow for searching on the job number without dashes</description>
+    <externalId>true</externalId>
+    <inlineHelpText>SYSTEM USE ONLY - Please do not modify</inlineHelpText>
+    <label>Job Number (No Dashes)</label>
+    <length>16</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_After_Hours_Jobs</fullName>
+    <columns>Date_Time_Taken__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>Taken_By__c</columns>
+    <columns>Office2__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Contact__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Division__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:21</value>
+    </filters>
+    <filters>
+        <field>Approved_By__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>All After Hour Jobs</label>
+</ListView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Jobs_with_costs_Tripp_Fleshmann</fullName>
+    <columns>NAME</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Amount_not_billed__c</columns>
+    <columns>Job_to_Date_Costs_RS__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Date_Taken__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Division__c</field>
+        <operation>notEqual</operation>
+        <value>Marketing</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Job_to_Date_Costs_RS__c</field>
+        <operation>notEqual</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Project_Manager__c</field>
+        <operation>equals</operation>
+        <value>Tripp Fleshman</value>
+    </filters>
+    <filters>
+        <field>Amount_not_billed__c</field>
+        <operation>notEqual</operation>
+        <value>0</value>
+    </filters>
+    <label>Jobs with costs - Tripp Fleshmann</label>
+    <sharedTo>
+        <group>Sacramento</group>
+    </sharedTo>
+</ListView>

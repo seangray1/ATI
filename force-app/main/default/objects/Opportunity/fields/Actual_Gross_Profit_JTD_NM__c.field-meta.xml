@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actual_Gross_Profit_JTD_NM__c</fullName>
+    <description>Percentage gross profit- job-to-date next month</description>
+    <externalId>false</externalId>
+    <formula>IF (ABS(Job_to_Date_Work_Billed_Next_Month__c) &gt;0,((Job_to_Date_Work_Billed_Next_Month__c - Job_to_Date_Costs_Next_Month_Costs__c)  / ABS(Job_to_Date_Work_Billed_Next_Month__c)),0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Actual Gross Profit % (JTD-NM)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

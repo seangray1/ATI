@@ -1,0 +1,36 @@
+<!--
+  @File Name          : courtesyCallLWC.html
+  @Description        : 
+  @Author             : Sean Gray
+  @Group              : 
+  @Last Modified By   : sean.gray@atirestoration.com
+  @Last Modified On   : 2/7/2020, 1:18:08 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/30/2020   Sean Gray     Initial Version
+-->
+<template>
+    
+    <div class="slds-box slds-theme_shade">
+        <div class="slds-m-around_medium">
+            <h1 class="slds-text-heading_small" style="text-decoration: underline;">Courtesy Call</h1>
+        </div> 
+                
+                     
+                        <div class="slds-col slds-size_1-of-5">
+                            <lightning-combobox name="progress"
+                                label="Courtesy Call Outcome"
+                                value={CourtesyCallOutcome}
+                                placeholder="-Select-"
+                                options={CourtesyCallPicklistValues.data.values
+                                onchange={CourtesyCallChange} >
+                            </lightning-combobox>
+                        </div>
+                        <br>
+                        <div class="slds-col slds-size_1-of-5">
+                    <lightning-textarea label="Notes" value={Notes} onchange={NotesChange}></lightning-textarea>         
+                        </div>
+                     
+                
+             </div>
+</template>

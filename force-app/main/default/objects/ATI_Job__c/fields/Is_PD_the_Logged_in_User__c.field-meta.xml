@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_PD_the_Logged_in_User__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  Project_Manager__c  = $User.Id,True,False)</formula>
+    <label>Is PD the Logged in User</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

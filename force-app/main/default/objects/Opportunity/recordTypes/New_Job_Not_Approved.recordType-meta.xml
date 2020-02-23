@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Job_Not_Approved</fullName>
+    <active>true</active>
+    <businessProcess>New Job Sales Process</businessProcess>
+    <description>Opportunity record type used for initial intake of a new job, prior to admin manager approval</description>
+    <label>New Job (Not Approved)</label>
+    <picklistValues>
+        <picklist>City_of_LA__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Competitors__c</picklist>
+        <values>
+            <fullName>BMS Cat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Belfor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blue Sky Restoration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cotton</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DKI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Harbro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interstate Restoration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miller</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NCRI-National Catastrophe Restoration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Northstar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PW Stevens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paul Davis Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Polygon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Puroclean</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RMC Group%2C LLC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rainbow International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serv-Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Master</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Steamatic</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Competitor__c</picklist>
+        <values>
+            <fullName>Competitor A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor C</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Division__c</picklist>
+        <values>
+            <fullName>Asbestos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Biohazard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Catastrophes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Demolition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emergency Svces</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microbial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Svces</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ES_Job_Type__c</picklist>
+        <values>
+            <fullName>Board-Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Roof Tarp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water Mitigation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Env_Contents_Supervisor__c</picklist>
+        <values>
+            <fullName>Alejo Rodriguez%2C Armando</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Almada%2C Marco E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alva%2C Joel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ambriz%2C David</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ambriz%2C Gerardo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arangure%2C Rogelio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arellano%2C Valente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arias%2C Mauro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arreguin Nunez%2C Rigoberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avina%2C Francisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Barrera%2C Jose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Beltran%2C Maribel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Burton%2C Rhonda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bustamante%2C Simon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Calderon%2C Jr%2E%2C Miguel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Calderon%2C Miguel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Camargo%2C Eduardo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campos%2C Richard J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campos%2C Veronica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Caraveo%2C Hector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carrasco%2C Daniel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Castellanos%2C Ramon A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cellona%2C Juan D%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cervantes%2C Francisco Jr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chavez%2C Melesio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colon%2C Anthony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dalo%2C Anthony J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>De Infante%2C Anastacia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>De Santiago%2C Juan M%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Durazo%2C Christian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Durazo%2C Rafael Francisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elmore%2C Jason</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Esparza%2C Jose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Espinoza%2C Bernardino</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Espinoza%2C Cristian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Findley%2C Michael</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flores%2C Juany</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flores%2C Virginia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fucci%2C Christopher S%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fuentes Garcia%2C Eduardo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Galindo%2C Cesar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Galindo%2C Julio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gall%2C Roberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gandy%2C Brandon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garcia%2C Jose L%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garcia%2C Jose M%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garibay%2C Leopoldo A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gil%2C Francisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Granados%2C Rubicely</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gutierrez%2C Andres Jose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guzman%2C Joel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hernandez Villicana%2C Pedro Ls</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hernandez%2C Ana R%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hernandez%2C Maria J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Herrera%2C Nelson</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Houck%2C Jennifer A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jimenez%2C Gustavo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>La Bella%2C Richard M%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lasky%2C Timothy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leidholt%2C David</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lindo%2C Byron</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lopez%2C Jose R%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lopez%2C Peter L%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Louis%2C Lesco Saint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lucatero%2C Jose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lum%2C Andrew</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Luna%2C Gerardo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martinez%2C Elisa T%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martinez%2C Silvia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martinez-Ybarra%2C Ana M%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marvel%2C Don Alan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mayoral%2C Javier Moya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Melchor Jr%2E%2C Antonio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mendiola%2C Arturo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mitani%2C Nathan A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Molina%2C David</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moreno Jr%2E%2C Gerardo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moreno%2C Veronica J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morran%2C Charles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moya%2C Omar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Napoles%2C Jose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Natividad%2C Antonio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Natividad%2C Jr%2E%2C Antonio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Navarro%2C Daisy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Navarro%2C Francisco J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nguyen%2C Luan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nuno%2C Humberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nuno%2C Jesse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ochoa%2C Adam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ochoa%2C Cesar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ochoa-Estrada%2C Santos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Olivas%2C David C%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ortega%2C Miguel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Owen%2C Timothy M%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pacheco%2C Julian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Padilla%2C Marivel S%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patterson%2C Robert J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perez%2C Francisco J%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perez%2C Isidro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perez%2C Jorge Luis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plasencia%2C Alejandro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preciado%2C Eclicelia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quilimaco%2C Stephanie Lynn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quintana%2C Roberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rincon%2C Rigoberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rodriguez%2C Agustin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rodriguez%2C Juan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Romero%2C Javier U%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rosas%2C Marco A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Saenz%2C Juan A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salgado%2C Roger</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salto%2C Froylan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sanchez%2C Angel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sanchez%2C Fernando</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Santos%2C Cesar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sepulveda%2C Nanci</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sigala%2C Miguel A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Soto%2C Valentin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suarez%2C Joe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sullivan%2C Jason</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suro%2C Rene Fernando</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Swihart%2C Shane P%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tamaska%2C Paul M%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tavera%2C Manuel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tavera%2C Victoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terrones%2C Kevin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tirado%2C Luis A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tito%2C Ashlei N%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tolentino Arriola%2C Walter E%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Valles Celaya%2C Francisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vargas%2C Liliana</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Villaneda%2C John A%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wunder%2C Jeremy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yow%2C Christopher J%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Estimate_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estimating</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uploaded</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ForecastCategoryName</picklist>
+        <values>
+            <fullName>Best Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Omitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>House_Acct__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Job_Category__c</picklist>
+        <values>
+            <fullName>2018 - Northern CA fires</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2018 - Southern CA fires</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AZ 0914 Monsoon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Florence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Harvey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Irma</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Napa Earthquake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wine Country Fires</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Job_Class__c</picklist>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Educational</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GSA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health Science</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospitality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufacturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi-Family</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Municipality%2F Gov%27t</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Religious</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Job_Stage_For_Kanban__c</picklist>
+        <values>
+            <fullName>Billing Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estimating%2FReview</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qualification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Won</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Work Complete</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>Advertising and Publications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building Consultant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulting Firm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Service - Alacrity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee - Friends or Family Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environmental Hygienist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities Management%2FBuilding Engineer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Contractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government or Municipality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Independent Adjusting Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Account %28ERA%2C Contract%2C Etc%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program  - Alacrity - Resolve Consumer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Alacrity REO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Alacrity Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - American Emergency Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - BrightServ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Code Blue Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Cons%2E Services %28Xactanalysis%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Contractor Connection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - DKI - Diamond Loss Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Direct Assignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Direct Claims Management %28DCMG%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - First Choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - First Choice Consumer Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - IMACC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Innovation Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Lionsbridge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - NEXXUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Vericlaim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Vericlaim Consumer Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Adjuster</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show or Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vendor%2FSubcontractor%2FPartner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yelp</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lead_RRP_Apply__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lost_Job_Reason__c</picklist>
+        <values>
+            <fullName>Adjuster%27s Contractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Canceled by carrier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cashed Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined to Bid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deductible Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lack of Funding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preferred a Competitor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scheduling Conflict</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Primary_Account__c</picklist>
+        <values>
+            <fullName>Caller Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Site Contact</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Project_Type__c</picklist>
+        <values>
+            <fullName>Certified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Union</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repairs_Needed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Send_Prelim__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tier__c</picklist>
+        <values>
+            <fullName>Direct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sub</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Union_Class__c</picklist>
+        <values>
+            <fullName>%237</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ASB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lab1</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

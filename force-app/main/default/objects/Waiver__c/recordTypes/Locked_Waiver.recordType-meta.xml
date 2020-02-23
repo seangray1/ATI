@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Locked_Waiver</fullName>
+    <active>true</active>
+    <description>Record type to set all fields on the Waiver page layout to be not editable, once a waiver PDF has been generated.</description>
+    <label>Locked Waiver</label>
+    <picklistValues>
+        <picklist>Delivery_Method__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Waiver_Or_Letter_Type__c</picklist>
+        <values>
+            <fullName>10 Day Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 Day Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60 Day Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conditional Final Waiver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conditional Progress Waiver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconditional Final Waiver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconditional Progress Waiver</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Negative_Response_Not_Completed</fullName>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Office__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Overall_Score_10pt_Percent__c</columns>
+    <columns>Date_of_Follow_Up_Discussion_with_Client__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Overall_Score_10pt_Percent__c</field>
+        <operation>lessThan</operation>
+        <value>70</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>12/31/2016 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>Date_of_Follow_Up_Discussion_with_Client__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Negative Response Not Completed</label>
+</ListView>

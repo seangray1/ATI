@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lost_Job_Description__c</fullName>
+    <description>Description on why a opportunity/job was lost if &#39;Lost Reason&#39; of &quot;Other&quot; is chosen.</description>
+    <externalId>false</externalId>
+    <label>Lost Job Description</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

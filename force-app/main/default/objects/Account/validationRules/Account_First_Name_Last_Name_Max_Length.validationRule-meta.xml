@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_First_Name_Last_Name_Max_Length</fullName>
+    <active>true</active>
+    <errorConditionFormula>(LEN( FirstName )  +  LEN( LastName )) &gt; 33 &amp;&amp; $Setup.rh2__PS_Settings__c.rh2__Run_Validation_Rule__c</errorConditionFormula>
+    <errorDisplayField>FirstName</errorDisplayField>
+    <errorMessage>Account First Name and Last Name cannot exceed 33 characters combined</errorMessage>
+</ValidationRule>

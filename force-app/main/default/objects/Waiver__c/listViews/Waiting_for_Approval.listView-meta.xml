@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Waiting_for_Approval</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Waiver_Owner__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Waiver_Or_Letter_Type__c</columns>
+    <columns>Exception_Extras_Disputed_Amount__c</columns>
+    <columns>Exception_Unaffected__c</columns>
+    <columns>Through_Date__c</columns>
+    <columns>Invoice__c</columns>
+    <columns>Job__c</columns>
+    <columns>Job_Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Date_Time_Submitted_for_Approval__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Approved_By_Id__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Waiting for Approval</label>
+</ListView>

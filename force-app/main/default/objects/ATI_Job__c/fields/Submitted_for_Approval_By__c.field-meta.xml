@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submitted_for_Approval_By__c</fullName>
+    <description>Field to indicate which Admin submitted the new job for approval-- fed by Job Approval Process Initial Submission Actions field update.</description>
+    <externalId>false</externalId>
+    <label>Submitted for Approval By</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

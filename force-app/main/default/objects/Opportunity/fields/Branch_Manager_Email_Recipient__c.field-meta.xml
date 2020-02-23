@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Branch_Manager_Email_Recipient__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Email recipient populated via Process Builder from Office record to indicate additional email recipients of the PM assignment email</description>
+    <externalId>false</externalId>
+    <label>Branch Manager Email Recipient</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Opportunities</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

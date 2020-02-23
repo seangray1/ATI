@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SourceField__c</fullName>
+    <description>The name of the PM Lead field that should be mapped to the target Account.  If left blank, no value will be copied into the corresponding Account field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The name of the PM Lead field that should be mapped to the target Account.  If left blank, no value will be copied into the corresponding Account field.</inlineHelpText>
+    <label>Source Field</label>
+    <length>43</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

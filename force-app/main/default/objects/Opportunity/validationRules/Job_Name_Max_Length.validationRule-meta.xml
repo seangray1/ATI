@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Name_Max_Length</fullName>
+    <active>true</active>
+    <description>Job name cannot exceed 30 characters.</description>
+    <errorConditionFormula>LEN( Job_Name__c ) &gt; 30</errorConditionFormula>
+    <errorMessage>Job name cannot exceed 30 characters.</errorMessage>
+</ValidationRule>

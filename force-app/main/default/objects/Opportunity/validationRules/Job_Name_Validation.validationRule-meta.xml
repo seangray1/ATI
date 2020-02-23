@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Name_Validation</fullName>
+    <active>true</active>
+    <description>Verifies that job names don&#39;t contain \ / &quot; : &lt; &gt; | * ? + and that they don&#39;t end with a period or start/end with a space.</description>
+    <errorConditionFormula>OR(CONTAINS(Job_Name__c , &#39;\\&#39;),CONTAINS(Job_Name__c , &#39;/&#39;),CONTAINS(Job_Name__c , &#39;:&#39;),CONTAINS(Job_Name__c , &#39;&lt;&#39;),CONTAINS(Job_Name__c , &#39;&gt;&#39;),CONTAINS(Job_Name__c , &#39;|&#39;),CONTAINS(Job_Name__c , &#39;*&#39;),CONTAINS(Job_Name__c , &#39;?&#39;),CONTAINS(Job_Name__c , &#39;+&#39;),CONTAINS(Job_Name__c , &#39;&quot;&#39;), BEGINS(Job_Name__c, &#39; &#39;),(RIGHT(Job_Name__c, 1)=&#39; &#39;),(RIGHT(Job_Name__c, 1)=&#39;.&#39;))</errorConditionFormula>
+    <errorDisplayField>Job_Name__c</errorDisplayField>
+    <errorMessage>Job names cannot contain \ / &quot; : &lt; &gt; | * ? + and also cannot end with a period or start/end with a space.</errorMessage>
+</ValidationRule>

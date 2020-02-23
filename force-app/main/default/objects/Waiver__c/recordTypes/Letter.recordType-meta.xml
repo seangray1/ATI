@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Letter</fullName>
+    <active>true</active>
+    <description>30, 60, and 10 Day Letters</description>
+    <label>Letter</label>
+    <picklistValues>
+        <picklist>Customer_Type__c</picklist>
+        <values>
+            <fullName>Bill To</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Care of</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Delivery_Method__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Waiver_Or_Letter_Type__c</picklist>
+        <values>
+            <fullName>10 Day Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 Day Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60 Day Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conditional Final Waiver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conditional Progress Waiver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Demand NO Mechanic Liens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Demand WITH Mechanic Liens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconditional Final Waiver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconditional Progress Waiver</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

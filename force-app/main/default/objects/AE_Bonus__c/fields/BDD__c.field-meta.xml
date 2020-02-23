@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BDD__c</fullName>
+    <description>BDD = Business Development Director</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(
+Role__c = &quot;Marketing (Corporate)&quot;,
+Role__c = &quot;Marketing (Las Vegas)&quot;,
+Role__c = &quot;Marketing (Los Angeles)&quot;,
+Role__c = &quot;Marketing (Riverside)&quot;,
+Role__c = &quot;Marketing (San Diego)&quot;,
+Role__c = &quot;Director of Business Development (SoCal)&quot;), &quot;Brittany deBoer&quot;,
+
+
+IF(OR(
+Role__c = &quot;Marketing (Denver)&quot;,
+Role__c = &quot;Marketing (Sacramento)&quot;,
+Role__c = &quot;Marketing (San Francisco)&quot;,
+Role__c = &quot;Marketing (San Jose)&quot;,
+Role__c = &quot;Marketing (Seattle)&quot;, 
+Role__c = &quot;Director of Business Development (North West)&quot;),&quot;Linda Doi-Scheid&quot;,
+
+
+IF(OR(
+Role__c = &quot;Marketing (Corporate-Env)&quot;, 
+Role__c = &quot;Director of Business Development (Environmental)&quot;), &quot;Tom Sandoval&quot;,
+
+IF(OR(
+Role__c = &quot;Marketing (Dallas)&quot;,
+Role__c = &quot;Marketing (Houston)&quot;,
+Role__c = &quot;Marketing (Phoenix)&quot;,
+Role__c = &quot;Marketing (Tucson)&quot;, 
+Role__c = &quot;Director of Business Development (Central)&quot;),&quot;Kelley Amey&quot;,
+
+IF(Role__c = &quot;Marketing (Managed Repair Program)&quot;, &quot;Jean Greenberg&quot;,
+
+IF(OR(
+Role__c = &quot;Marketing (Chicago)&quot;,
+Role__c = &quot;Marketing (New England)&quot;,
+Role__c = &quot;Marketing (Philadelphia)&quot;,
+Role__c = &quot;Marketing (Tampa)&quot;,
+Role__c = &quot;Director of Business Development (Eastern)&quot;), &quot;Jamie Moore&quot;,
+
+&quot;&quot;))))))</formula>
+    <inlineHelpText>BDD = Business Development Director</inlineHelpText>
+    <label>BDD</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

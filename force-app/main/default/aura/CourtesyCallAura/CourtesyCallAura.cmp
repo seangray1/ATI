@@ -1,0 +1,15 @@
+<!--
+  @File Name          : CourtesyCallAura.cmp
+  @Description        : 
+  @Author             : Sean Gray
+  @Group              : 
+  @Last Modified By   : Sean Gray
+  @Last Modified On   : 1/30/2020, 2:03:42 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/30/2020   Sean Gray     Initial Version
+-->
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride">
+    <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
+    <c:courtesyCallLWC recordId = "{!v.recordId}"/>
+</aura:component>

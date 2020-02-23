@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allocation_Percentage__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(Allocation_Overhead__c,  &quot;5/5&quot;, 1.05, &quot;6/6&quot;, 1.06, &quot;7/7&quot;, 1.07, &quot;8/8&quot;, 1.08, &quot;9/9&quot;, 1.09, &quot;10/10&quot;, 1.1, &quot;10/5&quot;, 1.5, 1)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Allocation Percentage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

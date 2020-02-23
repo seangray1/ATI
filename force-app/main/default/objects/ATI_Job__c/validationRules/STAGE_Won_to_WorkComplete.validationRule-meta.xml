@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>STAGE_Won_to_WorkComplete</fullName>
+    <active>true</active>
+    <description>Job stage in Won stage can only be changed to Work Complete stage.</description>
+    <errorConditionFormula>AND( 
+ISCHANGED( Stage__c ), 
+ISPICKVAL( PRIORVALUE( Stage__c ) , &quot;Won&quot;),
+NOT(ISPICKVAL(Stage__c, &quot;Work Complete&quot;)),
+NOT(ISPICKVAL(Stage__c, &quot;Lost&quot;)),
+$Profile.Name &lt;&gt; &quot;System Administrator&quot; 
+)</errorConditionFormula>
+    <errorMessage>Won stage can only be changed to Work Complete. Please chatter @Nat Lee if you need assistance updating the stage.</errorMessage>
+</ValidationRule>

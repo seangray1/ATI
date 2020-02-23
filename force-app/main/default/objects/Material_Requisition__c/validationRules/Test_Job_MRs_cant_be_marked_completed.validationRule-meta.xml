@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Job_MRs_cant_be_marked_completed</fullName>
+    <active>true</active>
+    <errorConditionFormula>ATI_Job__r.Name = &#39;000-00-00002 | Test Job 1&#39; &amp;&amp;   ISPICKVAL(Status__c,&#39;Completed&#39;)</errorConditionFormula>
+    <errorMessage>Test ATI Job MRs can&#39;t be marked Completed</errorMessage>
+</ValidationRule>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Synced_Invoices_last_7_days</fullName>
+    <columns>Last_Successful_Timberline_Sync__c</columns>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Timberline_Customer_Number__c</columns>
+    <columns>Bill_to_Tax_Group__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Due_Date__c</columns>
+    <columns>Net_Due__c</columns>
+    <columns>Delivery_Method__c</columns>
+    <columns>Internal__c</columns>
+    <columns>Send_invoice_to_customer_insurance__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Last_Successful_Timberline_Sync__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:7</value>
+    </filters>
+    <filters>
+        <field>Is_Dummy_Invoice__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Finalized_By_is_current_user__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Final</value>
+    </filters>
+    <label>My Synced Invoices - last 7 days</label>
+</ListView>

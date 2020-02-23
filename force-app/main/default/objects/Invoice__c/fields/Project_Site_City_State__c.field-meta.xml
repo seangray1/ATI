@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Site_City_State__c</fullName>
+    <externalId>false</externalId>
+    <formula>ATI_Job__r.Project_Site_City__c &amp; &quot;, &quot; &amp; ATI_Job__r.Project_Site_State__c &amp; &quot; &quot; &amp; ATI_Job__r.Project_Site_Zipcode__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Project Site City/State</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

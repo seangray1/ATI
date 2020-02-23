@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Health_Risks__c</fullName>
+    <externalId>false</externalId>
+    <label>Health Risks</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Reduced Work</fullName>
+                <default>false</default>
+                <label>Reduced Work</label>
+            </value>
+            <value>
+                <fullName>Poor Job Performance</fullName>
+                <default>false</default>
+                <label>Poor Job Performance</label>
+            </value>
+            <value>
+                <fullName>Customer Service Complaint</fullName>
+                <default>false</default>
+                <label>Customer Service Complaint</label>
+            </value>
+            <value>
+                <fullName>Billing Dispute</fullName>
+                <default>false</default>
+                <label>Billing Dispute</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

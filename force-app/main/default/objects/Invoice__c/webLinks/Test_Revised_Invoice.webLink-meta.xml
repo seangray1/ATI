@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Revised_Invoice</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Test Revised Invoice</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://composer.congamerge.com
+?SessionId={!API.Session_ID}
+&amp;ServerUrl={!$Api.Partner_Server_URL_290}
+&amp;Id={!Invoice__c.Id}
+&amp;ReportId=[InvoiceLineItems]00O70000004V8yX
+&amp;ReportId=[CareOf]00O70000004VCpL
+&amp;ReportId=[BillToAttention]00O70000004VCpK
+&amp;DS7Preview=1
+&amp;_DS7=1
+&amp;DefaultPDF=1
+&amp;TemplateId=a2f70000000OgV8
+&amp;DS4=1
+&amp;AttachmentParentId={!Invoice__c.OpportunityId__c}
+&amp;OFN=Revised Invoice+_+{!Invoice__c.Name}+_FINAL_+{!YEAR(TODAY())}-{!MONTH(TODAY())}-{!DAY(TODAY())}
+&amp;QVAR0ID=a2X70000008b76X</url>
+</WebLink>

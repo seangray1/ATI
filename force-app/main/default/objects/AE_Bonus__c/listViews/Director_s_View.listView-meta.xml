@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Director_s_View</fullName>
+    <columns>NAME</columns>
+    <columns>ERA_s_this_Quarter__c</columns>
+    <columns>Leads_Outside_my_Territory__c</columns>
+    <columns>Lunch_and_Learns__c</columns>
+    <columns>Total_Base_Bonus__c</columns>
+    <columns>Total_Base_Bonus_Points__c</columns>
+    <columns>Total_Billed_Revenue_this_Year__c</columns>
+    <columns>Total_Billed_Revenue_this_Quarter__c</columns>
+    <columns>Total_Leads_Per_Quarter__c</columns>
+    <columns>New_Business_Billed_Revenue_this_Quarter__c</columns>
+    <columns>New_Business_Revenue_Percentage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Manager_Logic__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>THIS_YEAR</value>
+    </filters>
+    <label>Director&#39;s View</label>
+    <sharedTo>
+        <role>Director_of_Business_Development_Central</role>
+        <role>Director_of_Business_Development_Eastern</role>
+        <role>Director_of_Business_Development_North_West</role>
+        <role>Director_of_Business_Development_SoCal</role>
+        <role>Marketing_VP_Corporate</role>
+        <role>Marketing_VP_Eastern</role>
+    </sharedTo>
+</ListView>

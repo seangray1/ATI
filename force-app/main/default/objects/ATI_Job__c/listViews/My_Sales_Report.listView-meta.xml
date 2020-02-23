@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Sales_Report</fullName>
+    <columns>Date_Time_Taken__c</columns>
+    <columns>NAME</columns>
+    <columns>Project_Site_Address__c</columns>
+    <columns>Project_Site_Address_CityStZIP__c</columns>
+    <columns>Division__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Amount__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Qualification,Estimating/Review</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Date_Time_Taken__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>12/1/2012 12:00 AM</value>
+    </filters>
+    <label>*My Sales Report</label>
+</ListView>

@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Env_Contents_Supervisor__c</fullName>
+    <description>Field to note the supervisor of Environmental or Contents jobs.</description>
+    <externalId>false</externalId>
+    <label>Env/Contents Supervisor</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alejo Rodriguez, Armando</fullName>
+                <default>false</default>
+                <label>Alejo Rodriguez, Armando</label>
+            </value>
+            <value>
+                <fullName>Almada, Marco E</fullName>
+                <default>false</default>
+                <label>Almada, Marco E</label>
+            </value>
+            <value>
+                <fullName>Alva, Joel</fullName>
+                <default>false</default>
+                <label>Alva, Joel</label>
+            </value>
+            <value>
+                <fullName>Ambriz, David</fullName>
+                <default>false</default>
+                <label>Ambriz, David</label>
+            </value>
+            <value>
+                <fullName>Ambriz, Gerardo</fullName>
+                <default>false</default>
+                <label>Ambriz, Gerardo</label>
+            </value>
+            <value>
+                <fullName>Arangure, Rogelio</fullName>
+                <default>false</default>
+                <label>Arangure, Rogelio</label>
+            </value>
+            <value>
+                <fullName>Arellano, Valente</fullName>
+                <default>false</default>
+                <label>Arellano, Valente</label>
+            </value>
+            <value>
+                <fullName>Arias, Mauro</fullName>
+                <default>false</default>
+                <label>Arias, Mauro</label>
+            </value>
+            <value>
+                <fullName>Arreguin Nunez, Rigoberto</fullName>
+                <default>false</default>
+                <label>Arreguin Nunez, Rigoberto</label>
+            </value>
+            <value>
+                <fullName>Avina, Francisco</fullName>
+                <default>false</default>
+                <label>Avina, Francisco</label>
+            </value>
+            <value>
+                <fullName>Barrera, Jose</fullName>
+                <default>false</default>
+                <label>Barrera, Jose</label>
+            </value>
+            <value>
+                <fullName>Beltran, Maribel</fullName>
+                <default>false</default>
+                <label>Beltran, Maribel</label>
+            </value>
+            <value>
+                <fullName>Burton, Rhonda</fullName>
+                <default>false</default>
+                <label>Burton, Rhonda</label>
+            </value>
+            <value>
+                <fullName>Bustamante, Simon</fullName>
+                <default>false</default>
+                <label>Bustamante, Simon</label>
+            </value>
+            <value>
+                <fullName>Calderon, Jr., Miguel</fullName>
+                <default>false</default>
+                <label>Calderon, Jr., Miguel</label>
+            </value>
+            <value>
+                <fullName>Calderon, Miguel</fullName>
+                <default>false</default>
+                <label>Calderon, Miguel</label>
+            </value>
+            <value>
+                <fullName>Camargo, Eduardo</fullName>
+                <default>false</default>
+                <label>Camargo, Eduardo</label>
+            </value>
+            <value>
+                <fullName>Campos, Richard J.</fullName>
+                <default>false</default>
+                <label>Campos, Richard J.</label>
+            </value>
+            <value>
+                <fullName>Campos, Veronica</fullName>
+                <default>false</default>
+                <label>Campos, Veronica</label>
+            </value>
+            <value>
+                <fullName>Caraveo, Hector</fullName>
+                <default>false</default>
+                <label>Caraveo, Hector</label>
+            </value>
+            <value>
+                <fullName>Carrasco, Daniel</fullName>
+                <default>false</default>
+                <label>Carrasco, Daniel</label>
+            </value>
+            <value>
+                <fullName>Castellanos, Ramon A.</fullName>
+                <default>false</default>
+                <label>Castellanos, Ramon A.</label>
+            </value>
+            <value>
+                <fullName>Cellona, Juan D.</fullName>
+                <default>false</default>
+                <label>Cellona, Juan D.</label>
+            </value>
+            <value>
+                <fullName>Cervantes, Francisco Jr.</fullName>
+                <default>false</default>
+                <label>Cervantes, Francisco Jr.</label>
+            </value>
+            <value>
+                <fullName>Chavez, Melesio</fullName>
+                <default>false</default>
+                <label>Chavez, Melesio</label>
+            </value>
+            <value>
+                <fullName>Colon, Anthony</fullName>
+                <default>false</default>
+                <label>Colon, Anthony</label>
+            </value>
+            <value>
+                <fullName>Dalo, Anthony J.</fullName>
+                <default>false</default>
+                <label>Dalo, Anthony J.</label>
+            </value>
+            <value>
+                <fullName>De Infante, Anastacia</fullName>
+                <default>false</default>
+                <label>De Infante, Anastacia</label>
+            </value>
+            <value>
+                <fullName>De Santiago, Juan M.</fullName>
+                <default>false</default>
+                <label>De Santiago, Juan M.</label>
+            </value>
+            <value>
+                <fullName>Durazo, Christian</fullName>
+                <default>false</default>
+                <label>Durazo, Christian</label>
+            </value>
+            <value>
+                <fullName>Durazo, Rafael Francisco</fullName>
+                <default>false</default>
+                <label>Durazo, Rafael Francisco</label>
+            </value>
+            <value>
+                <fullName>Elmore, Jason</fullName>
+                <default>false</default>
+                <label>Elmore, Jason</label>
+            </value>
+            <value>
+                <fullName>Esparza, Jose</fullName>
+                <default>false</default>
+                <label>Esparza, Jose</label>
+            </value>
+            <value>
+                <fullName>Espinoza, Bernardino</fullName>
+                <default>false</default>
+                <label>Espinoza, Bernardino</label>
+            </value>
+            <value>
+                <fullName>Espinoza, Cristian</fullName>
+                <default>false</default>
+                <label>Espinoza, Cristian</label>
+            </value>
+            <value>
+                <fullName>Findley, Michael</fullName>
+                <default>false</default>
+                <label>Findley, Michael</label>
+            </value>
+            <value>
+                <fullName>Flores, Juany</fullName>
+                <default>false</default>
+                <label>Flores, Juany</label>
+            </value>
+            <value>
+                <fullName>Flores, Virginia</fullName>
+                <default>false</default>
+                <label>Flores, Virginia</label>
+            </value>
+            <value>
+                <fullName>Fucci, Christopher S.</fullName>
+                <default>false</default>
+                <label>Fucci, Christopher S.</label>
+            </value>
+            <value>
+                <fullName>Fuentes Garcia, Eduardo</fullName>
+                <default>false</default>
+                <label>Fuentes Garcia, Eduardo</label>
+            </value>
+            <value>
+                <fullName>Galindo, Cesar</fullName>
+                <default>false</default>
+                <label>Galindo, Cesar</label>
+            </value>
+            <value>
+                <fullName>Galindo, Julio</fullName>
+                <default>false</default>
+                <label>Galindo, Julio</label>
+            </value>
+            <value>
+                <fullName>Gall, Roberto</fullName>
+                <default>false</default>
+                <label>Gall, Roberto</label>
+            </value>
+            <value>
+                <fullName>Gandy, Brandon</fullName>
+                <default>false</default>
+                <label>Gandy, Brandon</label>
+            </value>
+            <value>
+                <fullName>Garcia, Jose L.</fullName>
+                <default>false</default>
+                <label>Garcia, Jose L.</label>
+            </value>
+            <value>
+                <fullName>Garcia, Jose M.</fullName>
+                <default>false</default>
+                <label>Garcia, Jose M.</label>
+            </value>
+            <value>
+                <fullName>Garibay, Leopoldo A.</fullName>
+                <default>false</default>
+                <label>Garibay, Leopoldo A.</label>
+            </value>
+            <value>
+                <fullName>Gil, Francisco</fullName>
+                <default>false</default>
+                <label>Gil, Francisco</label>
+            </value>
+            <value>
+                <fullName>Granados, Rubicely</fullName>
+                <default>false</default>
+                <label>Granados, Rubicely</label>
+            </value>
+            <value>
+                <fullName>Gutierrez, Andres Jose</fullName>
+                <default>false</default>
+                <label>Gutierrez, Andres Jose</label>
+            </value>
+            <value>
+                <fullName>Guzman, Joel</fullName>
+                <default>false</default>
+                <label>Guzman, Joel</label>
+            </value>
+            <value>
+                <fullName>Hernandez, Ana R.</fullName>
+                <default>false</default>
+                <label>Hernandez, Ana R.</label>
+            </value>
+            <value>
+                <fullName>Hernandez, Maria J.</fullName>
+                <default>false</default>
+                <label>Hernandez, Maria J.</label>
+            </value>
+            <value>
+                <fullName>Hernandez Villicana, Pedro Ls</fullName>
+                <default>false</default>
+                <label>Hernandez Villicana, Pedro Ls</label>
+            </value>
+            <value>
+                <fullName>Herrera, Nelson</fullName>
+                <default>false</default>
+                <label>Herrera, Nelson</label>
+            </value>
+            <value>
+                <fullName>Houck, Jennifer A.</fullName>
+                <default>false</default>
+                <label>Houck, Jennifer A.</label>
+            </value>
+            <value>
+                <fullName>Jimenez, Gustavo</fullName>
+                <default>false</default>
+                <label>Jimenez, Gustavo</label>
+            </value>
+            <value>
+                <fullName>La Bella, Richard M.</fullName>
+                <default>false</default>
+                <label>La Bella, Richard M.</label>
+            </value>
+            <value>
+                <fullName>Lasky, Timothy</fullName>
+                <default>false</default>
+                <label>Lasky, Timothy</label>
+            </value>
+            <value>
+                <fullName>Leidholt, David</fullName>
+                <default>false</default>
+                <label>Leidholt, David</label>
+            </value>
+            <value>
+                <fullName>Lindo, Byron</fullName>
+                <default>false</default>
+                <label>Lindo, Byron</label>
+            </value>
+            <value>
+                <fullName>Lopez, Jose R.</fullName>
+                <default>false</default>
+                <label>Lopez, Jose R.</label>
+            </value>
+            <value>
+                <fullName>Lopez, Peter L.</fullName>
+                <default>false</default>
+                <label>Lopez, Peter L.</label>
+            </value>
+            <value>
+                <fullName>Louis, Lesco Saint</fullName>
+                <default>false</default>
+                <label>Louis, Lesco Saint</label>
+            </value>
+            <value>
+                <fullName>Lucatero, Jose</fullName>
+                <default>false</default>
+                <label>Lucatero, Jose</label>
+            </value>
+            <value>
+                <fullName>Lum, Andrew</fullName>
+                <default>false</default>
+                <label>Lum, Andrew</label>
+            </value>
+            <value>
+                <fullName>Luna, Gerardo</fullName>
+                <default>false</default>
+                <label>Luna, Gerardo</label>
+            </value>
+            <value>
+                <fullName>Martinez, Elisa T.</fullName>
+                <default>false</default>
+                <label>Martinez, Elisa T.</label>
+            </value>
+            <value>
+                <fullName>Martinez, Silvia</fullName>
+                <default>false</default>
+                <label>Martinez, Silvia</label>
+            </value>
+            <value>
+                <fullName>Martinez-Ybarra, Ana M.</fullName>
+                <default>false</default>
+                <label>Martinez-Ybarra, Ana M.</label>
+            </value>
+            <value>
+                <fullName>Marvel, Don Alan</fullName>
+                <default>false</default>
+                <label>Marvel, Don Alan</label>
+            </value>
+            <value>
+                <fullName>Mayoral, Javier Moya</fullName>
+                <default>false</default>
+                <label>Mayoral, Javier Moya</label>
+            </value>
+            <value>
+                <fullName>Melchor Jr., Antonio</fullName>
+                <default>false</default>
+                <label>Melchor Jr., Antonio</label>
+            </value>
+            <value>
+                <fullName>Mendiola, Arturo</fullName>
+                <default>false</default>
+                <label>Mendiola, Arturo</label>
+            </value>
+            <value>
+                <fullName>Mitani, Nathan A.</fullName>
+                <default>false</default>
+                <label>Mitani, Nathan A.</label>
+            </value>
+            <value>
+                <fullName>Molina, David</fullName>
+                <default>false</default>
+                <label>Molina, David</label>
+            </value>
+            <value>
+                <fullName>Moreno, Veronica J.</fullName>
+                <default>false</default>
+                <label>Moreno, Veronica J.</label>
+            </value>
+            <value>
+                <fullName>Moreno Jr., Gerardo</fullName>
+                <default>false</default>
+                <label>Moreno Jr., Gerardo</label>
+            </value>
+            <value>
+                <fullName>Morran, Charles</fullName>
+                <default>false</default>
+                <label>Morran, Charles</label>
+            </value>
+            <value>
+                <fullName>Moya, Omar</fullName>
+                <default>false</default>
+                <label>Moya, Omar</label>
+            </value>
+            <value>
+                <fullName>Napoles, Jose</fullName>
+                <default>false</default>
+                <label>Napoles, Jose</label>
+            </value>
+            <value>
+                <fullName>Natividad, Antonio</fullName>
+                <default>false</default>
+                <label>Natividad, Antonio</label>
+            </value>
+            <value>
+                <fullName>Natividad, Jr., Antonio</fullName>
+                <default>false</default>
+                <label>Natividad, Jr., Antonio</label>
+            </value>
+            <value>
+                <fullName>Navarro, Daisy</fullName>
+                <default>false</default>
+                <label>Navarro, Daisy</label>
+            </value>
+            <value>
+                <fullName>Navarro, Francisco J.</fullName>
+                <default>false</default>
+                <label>Navarro, Francisco J.</label>
+            </value>
+            <value>
+                <fullName>Nguyen, Luan</fullName>
+                <default>false</default>
+                <label>Nguyen, Luan</label>
+            </value>
+            <value>
+                <fullName>Nuno, Humberto</fullName>
+                <default>false</default>
+                <label>Nuno, Humberto</label>
+            </value>
+            <value>
+                <fullName>Nuno, Jesse</fullName>
+                <default>false</default>
+                <label>Nuno, Jesse</label>
+            </value>
+            <value>
+                <fullName>Ochoa, Adam</fullName>
+                <default>false</default>
+                <label>Ochoa, Adam</label>
+            </value>
+            <value>
+                <fullName>Ochoa, Cesar</fullName>
+                <default>false</default>
+                <label>Ochoa, Cesar</label>
+            </value>
+            <value>
+                <fullName>Ochoa-Estrada, Santos</fullName>
+                <default>false</default>
+                <label>Ochoa-Estrada, Santos</label>
+            </value>
+            <value>
+                <fullName>Olivas, David C.</fullName>
+                <default>false</default>
+                <label>Olivas, David C.</label>
+            </value>
+            <value>
+                <fullName>Ortega, Miguel</fullName>
+                <default>false</default>
+                <label>Ortega, Miguel</label>
+            </value>
+            <value>
+                <fullName>Owen, Timothy M.</fullName>
+                <default>false</default>
+                <label>Owen, Timothy M.</label>
+            </value>
+            <value>
+                <fullName>Pacheco, Julian</fullName>
+                <default>false</default>
+                <label>Pacheco, Julian</label>
+            </value>
+            <value>
+                <fullName>Padilla, Marivel S.</fullName>
+                <default>false</default>
+                <label>Padilla, Marivel S.</label>
+            </value>
+            <value>
+                <fullName>Patterson, Robert J.</fullName>
+                <default>false</default>
+                <label>Patterson, Robert J.</label>
+            </value>
+            <value>
+                <fullName>Perez, Francisco J.</fullName>
+                <default>false</default>
+                <label>Perez, Francisco J.</label>
+            </value>
+            <value>
+                <fullName>Perez, Isidro</fullName>
+                <default>false</default>
+                <label>Perez, Isidro</label>
+            </value>
+            <value>
+                <fullName>Perez, Jorge Luis</fullName>
+                <default>false</default>
+                <label>Perez, Jorge Luis</label>
+            </value>
+            <value>
+                <fullName>Plasencia, Alejandro</fullName>
+                <default>false</default>
+                <label>Plasencia, Alejandro</label>
+            </value>
+            <value>
+                <fullName>Preciado, Eclicelia</fullName>
+                <default>false</default>
+                <label>Preciado, Eclicelia</label>
+            </value>
+            <value>
+                <fullName>Quilimaco, Stephanie Lynn</fullName>
+                <default>false</default>
+                <label>Quilimaco, Stephanie Lynn</label>
+            </value>
+            <value>
+                <fullName>Quintana, Roberto</fullName>
+                <default>false</default>
+                <label>Quintana, Roberto</label>
+            </value>
+            <value>
+                <fullName>Rincon, Rigoberto</fullName>
+                <default>false</default>
+                <label>Rincon, Rigoberto</label>
+            </value>
+            <value>
+                <fullName>Rodriguez, Agustin</fullName>
+                <default>false</default>
+                <label>Rodriguez, Agustin</label>
+            </value>
+            <value>
+                <fullName>Rodriguez, Juan</fullName>
+                <default>false</default>
+                <label>Rodriguez, Juan</label>
+            </value>
+            <value>
+                <fullName>Romero, Javier U.</fullName>
+                <default>false</default>
+                <label>Romero, Javier U.</label>
+            </value>
+            <value>
+                <fullName>Rosas, Marco A.</fullName>
+                <default>false</default>
+                <label>Rosas, Marco A.</label>
+            </value>
+            <value>
+                <fullName>Saenz, Juan A.</fullName>
+                <default>false</default>
+                <label>Saenz, Juan A.</label>
+            </value>
+            <value>
+                <fullName>Salgado, Roger</fullName>
+                <default>false</default>
+                <label>Salgado, Roger</label>
+            </value>
+            <value>
+                <fullName>Salto, Froylan</fullName>
+                <default>false</default>
+                <label>Salto, Froylan</label>
+            </value>
+            <value>
+                <fullName>Sanchez, Angel</fullName>
+                <default>false</default>
+                <label>Sanchez, Angel</label>
+            </value>
+            <value>
+                <fullName>Sanchez, Fernando</fullName>
+                <default>false</default>
+                <label>Sanchez, Fernando</label>
+            </value>
+            <value>
+                <fullName>Santos, Cesar</fullName>
+                <default>false</default>
+                <label>Santos, Cesar</label>
+            </value>
+            <value>
+                <fullName>Sepulveda, Nanci</fullName>
+                <default>false</default>
+                <label>Sepulveda, Nanci</label>
+            </value>
+            <value>
+                <fullName>Sigala, Miguel A.</fullName>
+                <default>false</default>
+                <label>Sigala, Miguel A.</label>
+            </value>
+            <value>
+                <fullName>Soto, Valentin</fullName>
+                <default>false</default>
+                <label>Soto, Valentin</label>
+            </value>
+            <value>
+                <fullName>Suarez, Joe</fullName>
+                <default>false</default>
+                <label>Suarez, Joe</label>
+            </value>
+            <value>
+                <fullName>Sullivan, Jason</fullName>
+                <default>false</default>
+                <label>Sullivan, Jason</label>
+            </value>
+            <value>
+                <fullName>Suro, Rene Fernando</fullName>
+                <default>false</default>
+                <label>Suro, Rene Fernando</label>
+            </value>
+            <value>
+                <fullName>Swihart, Shane P.</fullName>
+                <default>false</default>
+                <label>Swihart, Shane P.</label>
+            </value>
+            <value>
+                <fullName>Tamaska, Paul M.</fullName>
+                <default>false</default>
+                <label>Tamaska, Paul M.</label>
+            </value>
+            <value>
+                <fullName>Tavera, Manuel</fullName>
+                <default>false</default>
+                <label>Tavera, Manuel</label>
+            </value>
+            <value>
+                <fullName>Tavera, Victoria</fullName>
+                <default>false</default>
+                <label>Tavera, Victoria</label>
+            </value>
+            <value>
+                <fullName>Terrones, Kevin</fullName>
+                <default>false</default>
+                <label>Terrones, Kevin</label>
+            </value>
+            <value>
+                <fullName>Tirado, Luis A.</fullName>
+                <default>false</default>
+                <label>Tirado, Luis A.</label>
+            </value>
+            <value>
+                <fullName>Tito, Ashlei N.</fullName>
+                <default>false</default>
+                <label>Tito, Ashlei N.</label>
+            </value>
+            <value>
+                <fullName>Tolentino Arriola, Walter E.</fullName>
+                <default>false</default>
+                <label>Tolentino Arriola, Walter E.</label>
+            </value>
+            <value>
+                <fullName>Valles Celaya, Francisco</fullName>
+                <default>false</default>
+                <label>Valles Celaya, Francisco</label>
+            </value>
+            <value>
+                <fullName>Vargas, Liliana</fullName>
+                <default>false</default>
+                <label>Vargas, Liliana</label>
+            </value>
+            <value>
+                <fullName>Villaneda, John A.</fullName>
+                <default>false</default>
+                <label>Villaneda, John A.</label>
+            </value>
+            <value>
+                <fullName>Wunder, Jeremy</fullName>
+                <default>false</default>
+                <label>Wunder, Jeremy</label>
+            </value>
+            <value>
+                <fullName>Yow, Christopher J.</fullName>
+                <default>false</default>
+                <label>Yow, Christopher J.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

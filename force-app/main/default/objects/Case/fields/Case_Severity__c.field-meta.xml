@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Severity__c</fullName>
+    <externalId>false</externalId>
+    <label>Severity Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 - Accident/Injury</fullName>
+                <default>false</default>
+                <label>1 - Accident/Injury</label>
+            </value>
+            <value>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+                <label>2 - Warranty Claim</label>
+            </value>
+            <value>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+                <label>3 - Customer Concern</label>
+            </value>
+            <value>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+                <label>4 - Informational</label>
+            </value>
+            <value>
+                <fullName>2 - AR Follow Up</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>2 - AR Follow Up</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

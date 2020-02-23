@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reference_and_Waiver__c</fullName>
+    <description>Survey Question 10. Reference and Waiver - American Technologies, Inc. may use me as a reference and I authorize them to use the contents of this survey in advertising, promotional materials, and references.  I further authorize ATI to use and publish my name, company (if applicable), city, and state in connection with this survey.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ATI may use me as a reference and I authorize them to use the contents of this survey in advertising, promotional materials, and references.  I further authorize ATI to use and publish my name, company (if applicable), city, and state in connection with</inlineHelpText>
+    <label>Reference and Waiver</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

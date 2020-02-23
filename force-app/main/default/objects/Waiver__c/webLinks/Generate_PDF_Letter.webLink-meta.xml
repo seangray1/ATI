@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generate_PDF_Letter</fullName>
+    <availability>online</availability>
+    <description>Button for generating a Letter PDF in Lightning</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Generate PDF</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>/apex/APXTConga4__Conga_Composer?&amp;Id={!Waiver__c.Id}
+&amp;ReportID=00O70000005Opul
+&amp;TemplateId={!CASE( Waiver__c.Waiver_Or_Letter_Type__c , &quot;10 Day Letter&quot;, &quot;a2f70000000TSzR&quot;, &quot;30 Day Letter&quot;, &quot;a2f70000000TSzM&quot;, &quot;60 Day Letter&quot;, &quot;a2f70000000TSzH&quot;, &quot;&quot;)}
+&amp;DS7Preview=1
+&amp;FP0=1
+&amp;DS4=1
+&amp;DS3=1
+&amp;DS7=1
+&amp;PS3=0
+&amp;UF0=1
+&amp;MFTS0=Final__c
+&amp;MFTSValue0=True
+&amp;AttachmentParentId={!Waiver__c.ATI_JobId__c }
+&amp;OFN={Template.Label}{!&#39;_&#39; +  Waiver__c.Invoice__c  + &#39;_&#39; +  TEXT(YEAR(TODAY())) + &#39;-&#39; + TEXT(MONTH(TODAY())) + &#39;-&#39; + TEXT(DAY(TODAY())) }</url>
+</WebLink>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bonus_Time_Period__c</fullName>
+    <description>Quarter and Year that the Bonus Time Period is calculated against</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Quarter_Billed__c) &amp; &quot; &quot; &amp;  Year_Billed__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Bonus Time Period</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

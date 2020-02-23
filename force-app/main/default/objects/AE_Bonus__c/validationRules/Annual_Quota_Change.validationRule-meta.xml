@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Quota_Change</fullName>
+    <active>true</active>
+    <description>Business Directors are not allowed to change their own quota.</description>
+    <errorConditionFormula>AND( 
+NOT(ISNEW()), 
+$User.Id = OwnerId, 
+ISCHANGED( Annual_Quota__c ) 
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to modify your own quota. Please contact your manager for any changes.</errorMessage>
+</ValidationRule>

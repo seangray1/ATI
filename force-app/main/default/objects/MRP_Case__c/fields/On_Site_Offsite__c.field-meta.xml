@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>On_Site_Offsite__c</fullName>
+    <externalId>false</externalId>
+    <label>On Site/Offsite</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>On Site</fullName>
+                <default>false</default>
+                <label>On Site</label>
+            </value>
+            <value>
+                <fullName>Offsite</fullName>
+                <default>false</default>
+                <label>Offsite</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
