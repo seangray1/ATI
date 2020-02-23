@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Site_Contact_Name__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Project Site Contact Name</description>
+    <externalId>false</externalId>
+    <label>Project Site Contact Name</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Job (Project Site Contact Name)</relationshipLabel>
+    <relationshipName>ProjectSiteContactName</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

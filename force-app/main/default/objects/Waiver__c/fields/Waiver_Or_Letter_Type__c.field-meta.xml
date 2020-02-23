@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Waiver_Or_Letter_Type__c</fullName>
+    <description>Waiver or Letter type used to customize the letter and waiver create and edit VisualForce forms</description>
+    <externalId>false</externalId>
+    <label>Waiver or Letter Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Conditional Progress Waiver</fullName>
+                <default>false</default>
+                <label>Conditional Progress Waiver</label>
+            </value>
+            <value>
+                <fullName>Conditional Final Waiver</fullName>
+                <default>false</default>
+                <label>Conditional Final Waiver</label>
+            </value>
+            <value>
+                <fullName>Unconditional Progress Waiver</fullName>
+                <default>false</default>
+                <label>Unconditional Progress Waiver</label>
+            </value>
+            <value>
+                <fullName>Unconditional Final Waiver</fullName>
+                <default>false</default>
+                <label>Unconditional Final Waiver</label>
+            </value>
+            <value>
+                <fullName>30 Day Letter</fullName>
+                <default>false</default>
+                <label>30 Day Letter</label>
+            </value>
+            <value>
+                <fullName>60 Day Letter</fullName>
+                <default>false</default>
+                <label>60 Day Letter</label>
+            </value>
+            <value>
+                <fullName>10 Day Letter</fullName>
+                <default>false</default>
+                <label>10 Day Letter</label>
+            </value>
+            <value>
+                <fullName>Final Demand NO Mechanic Liens</fullName>
+                <default>false</default>
+                <label>Final Demand NO Mechanic Liens</label>
+            </value>
+            <value>
+                <fullName>Final Demand WITH Mechanic Liens</fullName>
+                <default>false</default>
+                <label>Final Demand WITH Mechanic Liens</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

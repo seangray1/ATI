@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Executive_1__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Field populated by trigger from the Opportunity&#39;s associated Contact record&#39;s Owner lookup field to indicate the Account Executive involved in the Opportunity. The purpose of this field is to allow for this value to be sent to Timberline easily without having to integrate with &#39;Opportunity Team&#39; separate object.</description>
+    <externalId>false</externalId>
+    <label>Account Executive 1</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>OpportunitiesAE1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

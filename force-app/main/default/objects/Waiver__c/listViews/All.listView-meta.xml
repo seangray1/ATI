@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Waiver_Or_Letter_Type__c</columns>
+    <columns>Customer__c</columns>
+    <columns>Check_Amount__c</columns>
+    <columns>Balance_Owing_Amt__c</columns>
+    <columns>Billing_Address__c</columns>
+    <columns>Payment_Due_Date__c</columns>
+    <columns>Received_Progress_Pymt_Amt__c</columns>
+    <columns>Through_Date__c</columns>
+    <columns>Waiver_Owner__c</columns>
+    <columns>Job__c</columns>
+    <columns>Invoice__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Super_Ops__c</fullName>
+    <description>Changed from Opportunity: Super_Ops to Project_Manager_New_Full_Name__c</description>
+    <externalId>false</externalId>
+    <formula>ATI_Job__r.Project_Manager_Full_Name__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Super_Ops</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

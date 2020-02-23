@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bill_To_Attention__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Bill to Attention Contact lookup field set via code from the related Invoice record. Used in Waiver VF page to display the contact with the option to change it. Also used in Conga Composer button code and email templates to send the waiver to this contact via email.</description>
+    <externalId>false</externalId>
+    <label>Bill To Attention</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Waivers</relationshipLabel>
+    <relationshipName>Waivers</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

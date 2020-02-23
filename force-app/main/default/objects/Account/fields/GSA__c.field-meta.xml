@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GSA__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>General Services Administration Account</description>
+    <externalId>false</externalId>
+    <inlineHelpText>General Services Administration Accounts</inlineHelpText>
+    <label>GSA</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

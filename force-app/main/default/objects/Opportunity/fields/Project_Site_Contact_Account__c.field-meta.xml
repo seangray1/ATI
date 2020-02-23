@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Site_Contact_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field was created to contain information for Project Site Contacts that are Person Account (NOT Contact) records.</description>
+    <externalId>false</externalId>
+    <label>Project Site Contact Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Opportunities</relationshipLabel>
+    <relationshipName>Opportunities</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

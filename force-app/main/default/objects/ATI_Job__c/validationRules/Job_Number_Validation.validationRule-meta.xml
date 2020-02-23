@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Number_Validation</fullName>
+    <active>true</active>
+    <description>Allowed admins to change non-synced job numbers on 2/8/2018</description>
+    <errorConditionFormula>AND( 
+ISCHANGED(Job_Number__c), 
+NOT(ISNULL( Last_Successful_Timberline_Update__c )), 
+NOT($User.Alias == &#39;cneuhaus&#39;), 
+NOT($User.Alias == &#39;rdevo&#39;),
+NOT($User.Alias == &#39;vwund&#39;),
+NOT($User.Alias == &#39;kdavis&#39;),
+NOT($User.Alias == &#39;Nlee&#39;),
+NOT($User.Alias == &#39;sftest&#39;),
+NOT($User.Alias == &#39;JMourani&#39;),
+NOT($User.Alias == &#39;sgray&#39;)
+)</errorConditionFormula>
+    <errorMessage>Changing this job number is not allowed because the job has already been synced to Timberline. 
+
+*** NOTE:  Please contact Charlotte Neuhaus in Accounting to make this change.  IT is not responsible for making changes on synced jobs***</errorMessage>
+</ValidationRule>

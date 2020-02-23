@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PD_WIP_Trial_Tampa</fullName>
+    <columns>Project_Manager__c</columns>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Project_Manager_new__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Total_Billing_Forecast_Amount__c</columns>
+    <columns>Deductible__c</columns>
+    <columns>Job_to_Date_Work_Billed_RS__c</columns>
+    <columns>Future_Billing__c</columns>
+    <columns>Amount_not_billed__c</columns>
+    <columns>Receivable_Balance_RS__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Office2__c</field>
+        <operation>equals</operation>
+        <value>Tampa</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Won</value>
+    </filters>
+    <filters>
+        <field>Division__c</field>
+        <operation>notEqual</operation>
+        <value>Marketing</value>
+    </filters>
+    <filters>
+        <field>Project_Manager__c</field>
+        <operation>notEqual</operation>
+        <value>Gregg Zembik</value>
+    </filters>
+    <label>PD WIP Trial - Tampa</label>
+    <sharedTo>
+        <role>Eastern_Region</role>
+        <role>National_Training_Consultant</role>
+        <roleAndSubordinates>Tampa_Branch</roleAndSubordinates>
+    </sharedTo>
+</ListView>

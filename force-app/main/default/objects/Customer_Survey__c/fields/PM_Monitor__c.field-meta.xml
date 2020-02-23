@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PM_Monitor__c</fullName>
+    <description>Question 6: Did [Project Manager] effectively monitor your job for workmanship &amp; cleanliness during your [Division] project?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Did [Project Manager] effectively monitor your job for workmanship &amp; cleanliness during your [Division] project?</inlineHelpText>
+    <label>PM Monitor</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

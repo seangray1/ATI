@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Type_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( Type ,&quot;Marketing Note&quot;) &amp;&amp;  (ISPICKVAL(Marketing_Type__c,&quot;&quot;))  &amp;&amp;  (ISNEW() || DATEVALUE( CreatedDate )  &gt;  DATEVALUE(&quot;2016-11-8&quot;))  &amp;&amp; NOT($User.Username = &quot;csadmin@ameri-tech.com&quot;)</errorConditionFormula>
+    <errorDisplayField>Marketing_Type__c</errorDisplayField>
+    <errorMessage>You must select Marketing Type when Type equals Marketing Note.</errorMessage>
+</ValidationRule>

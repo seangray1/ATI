@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GP_Adj__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(round(abs(Job_to_Date_Work_Billed_Next_Month__c * ( 1 - Gross_Profit__c  ) - Job_to_Date_Costs_Next_Month_Costs__c),-2)&lt;5000,0,(round(Job_to_Date_Work_Billed_Next_Month__c * (1-Gross_Profit__c )- Job_to_Date_Costs_Next_Month_Costs__c,-2)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>GP_Adj</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

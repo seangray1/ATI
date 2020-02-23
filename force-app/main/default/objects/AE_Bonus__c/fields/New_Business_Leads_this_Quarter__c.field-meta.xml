@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Business_Leads_this_Quarter__c</fullName>
+    <description>Field to calculate the number of new leads (Jobs) that have a Type of New Business, which is determined by Jobs created on Accounts that have not had a Job created against it in 18 months.  After the first Job is created against it, it is then considered New Business for 18 months.  This field is populated via code from Job records.</description>
+    <externalId>false</externalId>
+    <label>New Business Leads this Quarter</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

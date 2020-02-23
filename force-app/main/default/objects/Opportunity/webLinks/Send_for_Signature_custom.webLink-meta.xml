@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_for_Signature_custom</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Send for Signature</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>//  ======================================================================
+    //  NAME : EchoSign for Salesforce Big Button
+  	//  AUTHOR : Chris Merrill (cmerrill@adobe.com)
+  	//  UPDATES : Latest version available at http://j.mp/1vPHwS8
+    //  ======================================================================
+    //  This button will query for all agreement templates and
+    //  present a list for the user to choose an agreement template from.
+    //  If there is only 1 template, no options are given and that agreement template is used.
+    //  If there are no agreement templates, an alert is displayed.
+    //  ======================================================================
+    
+  	// Id of MasterObjectType. Taken from URL
+  		var MasterObjectId 	= document.URL.split(&quot;/&quot;)[3].split(&quot;?&quot;)[0];
+
+  	// Try to determine ObjectType by Id Prefix
+  	// Master Object to be used with the agreement template
+  	// Prefix to standard object mapping definitions: http://j.mp/1BY2cYY
+	  	var MasterObjectType; 
+	  	switch ( MasterObjectId.substring(0, 3) ) {
+		  	case &#39;001&#39;:	MasterObjectType = &#39;Account&#39;; break;
+		  	case &#39;003&#39;:	MasterObjectType = &#39;Contact&#39;; break;
+		  	case &#39;005&#39;: MasterObjectType = &#39;User&#39;; break;
+		  	case &#39;006&#39;: MasterObjectType = &#39;Opportunity&#39;; break;
+		  	case &#39;800&#39;: MasterObjectType = &#39;Contract&#39;; break;
+		  	case &#39;500&#39;: MasterObjectType = &#39;Case&#39;; break;
+		  	case &#39;00Q&#39;: MasterObjectType = &#39;Lead&#39;; break;
+	     
+	    	// If you are using a custom object, or one not listed above, 
+	    	// Change the default below  
+	  		default: 	MasterObjectType = &quot;Opportunity&quot;;
+	  	}	//&lt;/switch
+  
+  	// Salesforce.com Javascript libraries
+  		{!REQUIRESCRIPT( &quot;/soap/ajax/31.0/connection.js&quot; )}
+      {!REQUIRESCRIPT( &quot;/soap/ajax/31.0/apex.js&quot; )}
+
+  	// Find Agreement templates related to MasterObjectType
+  	// Change the query as needed to add additional filters for the agreement templates
+  		var agreements = sforce.connection.query( &quot;SELECT Id, Name FROM echosign_dev1__Agreement_Template__c WHERE echosign_dev1__Master_Object_Type__c = &#39;&quot; + MasterObjectType + &quot;&#39; AND  (State__c like &#39;%{!Opportunity.Project_Site_State__c}%&#39; OR State__c = &#39;&#39;) Order by Name asc&quot;);
+
+  	// Get array of related Agreement Templates
+  		records = agreements.getArray( &quot;records&quot; );
+  	
+  	// If there are zero templates, alert user and do nothing  
+  		if( records.length == 0) {
+    
+			alert(&#39;There are no agreement templates to choose from.&#39;);
+
+  		// If there is ONE template, there is no need to choose one. Navigate user forward
+  		} else if(records.length == 1) {
+
+    		location.href = &#39;/apex/echosign_dev1__AgreementTemplateProcess?masterId=&#39; + MasterObjectId + &#39;&amp;TemplateId=&#39; + records[0].Id;
+  
+  		// If there are more than one, Let the user choose which template to user
+  		} else {
+
+    		// Declare HTML string for popup
+    		var agreementListHtml = &#39;&lt;br /&gt;&#39;;
+
+    		// Build HTML to show in modal.
+    		for (var i=0; i&lt; records.length; i++) {
+
+	        	agreementListHtml += &#39;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;h3&gt;&lt;a href=&quot;/apex/echosign_dev1__AgreementTemplateProcess?masterId=&#39; + MasterObjectId + &#39;&amp;TemplateId=&#39; + records[i].Id + &#39;&quot; title=&quot;&#39; + records[i].Id + &#39;&quot; target=&quot;_blank&quot;&gt;&#39; + records[i].Name + &#39;&lt;/a&gt;&lt;/h3&gt;&#39;;  
+
+	        	if( i&lt; records.length ) {
+
+	        		agreementListHtml += &#39;&lt;br /&gt;&lt;br /&gt;&#39;;
+
+	        	}	// &lt;/if
+
+    		}	// &lt;/for
+
+    	// HTML for close button that is included at the bottom of the modal
+      		var closeButtonHtml = &quot;&lt;p style=&#39;text-align:right;&#39;&gt;&lt;button class=&#39;btn&#39; onclick=&#39;window.parent.sd.hide(); return false;&#39;&gt;&amp;nbsp;Close&amp;nbsp;&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/p&gt;&quot;;
+
+    	// Use salesforce.com native SimpleDialog() to show modal
+	    	var	sd = new SimpleDialog( &quot;Agreement Template Chooser&quot; + Math.random(), false );    
+	       		sd.setTitle( &quot;Choose an Agreement Template&quot; );   
+	       		sd.createDialog();   
+	       		window.parent.sd = sd;   
+	       		sd.setContentInnerHTML( agreementListHtml + closeButtonHtml );    
+	       		sd.show();  
+  		} // &lt;/else</url>
+</WebLink>

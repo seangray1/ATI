@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "c/bigTimeForceSync": [
+                "bigTimeForceSync/bigTimeForceSync.js"
+            ],
+            "c/caseButton": [
+                "caseButton/caseButton.js"
+            ],
+            "c/cloneJobLWC": [
+                "cloneJobLWC/cloneJobLWC.js"
+            ],
+            "c/dailyTimeSheetSearch": [
+                "dailyTimeSheetSearch/dailyTimeSheetSearch.js"
+            ],
+            "c/dailyTimeSheetlistView": [
+                "dailyTimeSheetlistView/dailyTimeSheetlistView.js"
+            ],
+            "c/dailyTimesheet": [
+                "dailyTimesheet/dailyTimesheet.js"
+            ],
+            "c/logCall": [
+                "logCall/logCall.js"
+            ],
+            "c/micaLWC": [
+                "micaLWC/micaLWC.js"
+            ],
+            "c/pMAssignment": [
+                "pMAssignment/pMAssignment.js"
+            ],
+            "c/projectNote": [
+                "projectNote/projectNote.js"
+            ],
+            "c/rejectbudget": [
+                "rejectbudget/rejectbudget.js"
+            ]
+        },
+        "experimentalDecorators": true
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

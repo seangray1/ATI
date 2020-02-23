@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_Max_Length</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( BillingCountry=&#39;United States&#39; , (OR (LEN(Alt_Cell__c) &gt; 14,  LEN(PersonAssistantPhone) &gt; 14, LEN(Fax) &gt; 14, LEN(PersonMobilePhone) &gt; 14, LEN(Mobile__c) &gt; 14, LEN(PersonOtherPhone) &gt; 14, LEN(Phone) &gt; 14)), (OR (LEN(Alt_Cell__c) &gt; 22,  LEN(PersonAssistantPhone) &gt; 22, LEN(Fax) &gt; 22, LEN(PersonMobilePhone) &gt; 22, LEN(Mobile__c) &gt; 22, LEN(PersonOtherPhone) &gt; 22, LEN(Phone) &gt; 22))) &amp;&amp; $Setup.rh2__PS_Settings__c.rh2__Run_Validation_Rule__c</errorConditionFormula>
+    <errorMessage>Phone numbers cannot exceed 10 numbers. Extension numbers must be entered separately in the &quot;Phone Ext.&quot; field.</errorMessage>
+</ValidationRule>

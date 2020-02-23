@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Update_Forecasts_Global__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This will refresh forecast data GLOBALLY across Salesforce. You can review the status of a global refresh by checking Setup &gt; Monitoring &gt; Apex Jobs</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This will refresh forecast data GLOBALLY across Salesforce. You can review the status of a global refresh by checking Setup &gt; Monitoring &gt; Apex Jobs</inlineHelpText>
+    <label>Update Forecasts (Global)</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

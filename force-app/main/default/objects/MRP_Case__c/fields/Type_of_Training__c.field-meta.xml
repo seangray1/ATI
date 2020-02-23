@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_Training__c</fullName>
+    <externalId>false</externalId>
+    <label>Type of Training</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alacrity</fullName>
+                <default>false</default>
+                <label>Alacrity</label>
+            </value>
+            <value>
+                <fullName>Contractor Connection</fullName>
+                <default>false</default>
+                <label>Contractor Connection</label>
+            </value>
+            <value>
+                <fullName>IPN</fullName>
+                <default>false</default>
+                <label>IPN</label>
+            </value>
+            <value>
+                <fullName>Nexxus</fullName>
+                <default>false</default>
+                <label>Nexxus</label>
+            </value>
+            <value>
+                <fullName>Lionsbridge</fullName>
+                <default>false</default>
+                <label>Lionsbridge</label>
+            </value>
+            <value>
+                <fullName>Sedgwick</fullName>
+                <default>false</default>
+                <label>Sedgwick</label>
+            </value>
+            <value>
+                <fullName>AES</fullName>
+                <default>false</default>
+                <label>AES</label>
+            </value>
+            <value>
+                <fullName>BrightServ</fullName>
+                <default>false</default>
+                <label>BrightServ</label>
+            </value>
+            <value>
+                <fullName>Restoration Manager</fullName>
+                <default>false</default>
+                <label>Restoration Manager</label>
+            </value>
+            <value>
+                <fullName>Drying Applications</fullName>
+                <default>false</default>
+                <label>Drying Applications</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

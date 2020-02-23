@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OpportunityJobSync__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>When an Opportunity is updated, takes Opportunity data and synchronizes it to a Job record, creating a new one if one does not exist.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When an Opportunity is updated, takes Opportunity data and synchronizes it to a Job record, creating a new one if one does not exist.</inlineHelpText>
+    <label>Opportunity: Job Sync</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

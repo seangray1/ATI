@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_After_Hours_Jobs</fullName>
+    <columns>Date_Time_Taken__c</columns>
+    <columns>NAME</columns>
+    <columns>Taken_By__c</columns>
+    <columns>Office2__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Project_Site_Contact_Email__c</columns>
+    <columns>Division__c</columns>
+    <columns>Stage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:21</value>
+    </filters>
+    <filters>
+        <field>Approved_By__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Date_Taken__c</field>
+        <operation>greaterThan</operation>
+        <value>3/1/2019</value>
+    </filters>
+    <label>All After Hour Jobs</label>
+</ListView>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Must_have_PM_to_check_PM_approval_only</fullName>
+    <active>true</active>
+    <errorConditionFormula>PM_Approval_Only__c  = True &amp;&amp; ISBLANK(Project_Manager_new__c)</errorConditionFormula>
+    <errorDisplayField>Project_Manager_new__c</errorDisplayField>
+    <errorMessage>You must select a Project Manager to approve time before checking the PM Approval Only checkbox.</errorMessage>
+</ValidationRule>

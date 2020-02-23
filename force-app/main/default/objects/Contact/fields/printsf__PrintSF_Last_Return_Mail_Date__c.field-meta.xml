@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>printsf__PrintSF_Last_Return_Mail_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The last date a Mailer History related to this Contact had a delivery status updated as Returned</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The last date a Mailer History related to this Contact had a delivery status updated as Returned</inlineHelpText>
+    <label>PrintSF Last Return Mail Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Time_Submitted_for_Approval__c</fullName>
+    <description>Field to indicate the date and time that an admin submits a job to an admin manager for approval.  Field populated by the &#39;Job Approval Process&#39; Initial Submission Actions Field Update.</description>
+    <externalId>false</externalId>
+    <label>Date/Time Submitted for Approval</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

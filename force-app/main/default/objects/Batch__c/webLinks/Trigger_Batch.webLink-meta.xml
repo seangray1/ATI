@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trigger_Batch</fullName>
+    <availability>online</availability>
+    <description>Triggers the batch class</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Trigger Batch</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+
+var result = sforce.apex.execute(&quot;MRExecuteBatchClass&quot;, &quot;executeBatchClass&quot;,{}); 
+
+var pathArray = location.href.split( &#39;/&#39; ); 
+var protocol = pathArray[0]; 
+var host = pathArray[2]; 
+var url = protocol + &#39;//&#39; + host + &#39;/a4T&#39;; 
+window.location.href = url;</url>
+</WebLink>

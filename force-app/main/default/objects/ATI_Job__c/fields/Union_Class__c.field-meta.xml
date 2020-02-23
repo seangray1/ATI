@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Union_Class__c</fullName>
+    <externalId>false</externalId>
+    <label>Union Class</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>#7</fullName>
+                <default>false</default>
+                <label>#7</label>
+            </value>
+            <value>
+                <fullName>ASB</fullName>
+                <default>false</default>
+                <label>ASB</label>
+            </value>
+            <value>
+                <fullName>Lab1</fullName>
+                <default>false</default>
+                <label>Lab1</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

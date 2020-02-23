@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_to_Date_Costs_minus_Next_Month_Costs__c</fullName>
+    <description>Field populated via Timberline integration to indicate Job-to-Date Costs minus Next Month&#39;s Cost</description>
+    <externalId>false</externalId>
+    <label>*Job-to-Date Costs - Next Month Costs</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

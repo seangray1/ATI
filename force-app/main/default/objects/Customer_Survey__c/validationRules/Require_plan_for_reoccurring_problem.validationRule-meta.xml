@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_plan_for_reoccurring_problem</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( Reoccurring_concern_for_this_ATI_person__c  = TRUE, ISBLANK( Plan_of_action_for_reoccurring_concern__c ) )</errorConditionFormula>
+    <errorDisplayField>Plan_of_action_for_reoccurring_concern__c</errorDisplayField>
+    <errorMessage>You must enter a plan of action for any reoccurring concerns.</errorMessage>
+</ValidationRule>

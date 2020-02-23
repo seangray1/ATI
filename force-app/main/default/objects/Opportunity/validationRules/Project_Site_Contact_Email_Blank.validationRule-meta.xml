@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Site_Contact_Email_Blank</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (OR(ISPICKVAL ( StageName , &quot;Work Complete&quot;), ISPICKVAL(StageName,&quot;Billing Complete&quot;)),
+NOT(ISBLANK(Project_Site_Contact_Name__c)), 
+ISBLANK( Project_Site_Contact_Name__r.Email), NOT(No_Email_Available__c ),DATEVALUE(Date_Time_Taken__c)&gt;=  DATE(2015,10,23))</errorConditionFormula>
+    <errorMessage>Please input the Project Site Contact&#39;s email address on their contact record before setting the Job to Complete. If you do not have an email address, please contact Kristen Butler through Chatter or call ext 1633.</errorMessage>
+</ValidationRule>

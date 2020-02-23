@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lunch_and_Learns__c</fullName>
+    <description>Count of number of task records with the Type of &#39;Lunch and Learn&#39; created against a contact each quarter, to be used in bonus calculation.  Populated via code.</description>
+    <externalId>false</externalId>
+    <label># Lunch and Learns</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

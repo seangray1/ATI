@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Office_Manager__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Office Manager field populated via Process Builder from the associated Office record</description>
+    <externalId>false</externalId>
+    <label>Office Manager</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Customer_Surveys9</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

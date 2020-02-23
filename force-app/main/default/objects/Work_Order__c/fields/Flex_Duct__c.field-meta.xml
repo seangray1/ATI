@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Flex_Duct__c</fullName>
+    <externalId>false</externalId>
+    <label>Flex Duct</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Flex Duct</fullName>
+                <default>false</default>
+                <label>Flex Duct</label>
+            </value>
+            <value>
+                <fullName>Lay Flat</fullName>
+                <default>false</default>
+                <label>Lay Flat</label>
+            </value>
+            <value>
+                <fullName>ATI Duct</fullName>
+                <default>false</default>
+                <label>ATI Duct</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

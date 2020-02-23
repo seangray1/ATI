@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Biohazard_jobs</fullName>
+    <columns>Date_Time_Taken__c</columns>
+    <columns>Office2__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>OPPORTUNITY.RECORDTYPE</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Division__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>Job_to_Date_Costs__c</columns>
+    <columns>Taken_By__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Division__c</field>
+        <operation>equals</operation>
+        <value>Biohazard</value>
+    </filters>
+    <label>Biohazard jobs</label>
+    <sharedTo>
+        <group>Consulting</group>
+        <role>Chicago_Branch</role>
+        <role>Dallas_Branch</role>
+        <role>Denver_Branch</role>
+        <role>Flagstaff_Regional_Manager</role>
+        <role>Houston_Regional_Manager</role>
+        <role>Las_Vegas_Branch</role>
+        <role>Los_Angeles_Branch</role>
+        <role>New_England_Branch</role>
+        <role>Philadelphia</role>
+        <role>Phoenix_Branch</role>
+        <role>Riverside_Branch</role>
+        <role>Sacramento_Branch</role>
+        <role>San_Diego_Branch</role>
+        <role>San_Francisco_Branch</role>
+        <role>San_Jose_Branch</role>
+        <role>Seattle_Branch</role>
+        <role>Sr_VP_Health_Env_Svc</role>
+        <role>Tampa_Branch</role>
+        <role>Tucson_Regional_Manager</role>
+    </sharedTo>
+</ListView>

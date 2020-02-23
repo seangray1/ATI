@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>printsf__PrintSF_Last_Mailer_Status_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Date of the last status update to the most recent Mailer History related to this Contact</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Date of the last status update to the most recent Mailer History related to this Contact</inlineHelpText>
+    <label>PrintSF Last Mailer Status Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

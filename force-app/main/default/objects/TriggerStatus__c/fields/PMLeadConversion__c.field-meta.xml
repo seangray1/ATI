@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PMLeadConversion__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>When the &quot;Is Converted&quot; checkbox is checked, runs the PM Lead through the conversion process.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When the &quot;Is Converted&quot; checkbox is checked, runs the PM Lead through the conversion process.</inlineHelpText>
+    <label>PM Lead: Conversion</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

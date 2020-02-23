@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_SMS_Messages</fullName>
+    <columns>NAME</columns>
+    <columns>Job__c</columns>
+    <columns>Contact__c</columns>
+    <columns>MobileNumber__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>IsSent__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsSent__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Pending SMS Messages</label>
+    <sharedTo>
+        <group>Customer_Service</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoices_only_editable_while_In_Process</fullName>
+    <active>true</active>
+    <description>Prevents users (except sys-admin/accounting profiles) from editing invoices that are marked Ready for Billing, Final, or Pending. Also prevents Collections from revising invoices unless they have been synced to Timberline.</description>
+    <errorConditionFormula>AND( 
+
+NOT(ISCHANGED(AE_1_Bonus__c)),
+NOT(ISCHANGED(AE_2_Bonus__c)),
+
+OR(
+NOT(ISPICKVAL(PRIORVALUE(Status__c), &#39;In Process&#39;)), NOT(ISPICKVAL(Status__c, &#39;In Process&#39;)) 
+),
+
+NOT(AND(ISPICKVAL(PRIORVALUE(Status__c), &#39;In Process&#39;),ISPICKVAL(Status__c, &#39;Ready for Billing&#39;))),
+
+NOT($Profile.Name = &quot;System Administrator&quot;), 
+NOT($Profile.Name = &quot;Accounting&quot;)
+
+)</errorConditionFormula>
+    <errorMessage>Invoices can only be edited while they are &#39;In Process&#39;. Please contact accounting with any questions.</errorMessage>
+</ValidationRule>

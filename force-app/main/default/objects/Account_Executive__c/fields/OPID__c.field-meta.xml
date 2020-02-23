@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OPID__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( UserRole__c = &quot;Marketing (Corporate-Env)&quot;, &quot;00570000001bzaI&quot;, 
+IF ( UserRole__c = &quot;Marketing (Denver)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (Sacramento)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (San Francisco)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (Seattle)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (Dallas)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Houston)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Phoenix)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Tucson)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Chicago)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (New England)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (Philadelphia)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (Tampa)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (Las Vegas)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Los Angeles)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Riverside)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (San Diego)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Corporate)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Managed Repair Program)&quot;, &quot;00570000005Qilh&quot;, 
+&quot;&quot; )))))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Owner Parent Id</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

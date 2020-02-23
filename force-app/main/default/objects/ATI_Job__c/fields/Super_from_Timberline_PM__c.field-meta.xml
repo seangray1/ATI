@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Super_from_Timberline_PM__c</fullName>
+    <description>Field fed by Timberline integration to indicate the Superintendent assigned to the job captured in Timberline</description>
+    <externalId>false</externalId>
+    <label>Super from Timberline (PM)</label>
+    <length>50</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

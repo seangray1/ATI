@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccountSyncToTimberline__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Synchronizes account data with Timberline</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Synchronizes account data with Timberline</inlineHelpText>
+    <label>Account: Sync to Timberline</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

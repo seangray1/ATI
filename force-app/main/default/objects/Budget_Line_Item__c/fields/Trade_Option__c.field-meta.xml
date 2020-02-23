@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trade_Option__c</fullName>
+    <externalId>false</externalId>
+    <label>Trade Option</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ACT Acoustical Treatments</fullName>
+                <default>false</default>
+                <label>ACT Acoustical Treatments</label>
+            </value>
+            <value>
+                <fullName>APP Appliances</fullName>
+                <default>false</default>
+                <label>APP Appliances</label>
+            </value>
+            <value>
+                <fullName>AWN Awnings &amp; Patio Covers</fullName>
+                <default>false</default>
+                <label>AWN Awnings &amp; Patio Covers</label>
+            </value>
+            <value>
+                <fullName>CAB Cabinetry</fullName>
+                <default>false</default>
+                <label>CAB Cabinetry</label>
+            </value>
+            <value>
+                <fullName>CLN Cleaning</fullName>
+                <default>false</default>
+                <label>CLN Cleaning</label>
+            </value>
+            <value>
+                <fullName>CNC/MAS Concrete/Masonary</fullName>
+                <default>false</default>
+                <label>CNC/MAS Concrete/Masonary</label>
+            </value>
+            <value>
+                <fullName>CON Contents</fullName>
+                <default>false</default>
+                <label>CON Contents</label>
+            </value>
+            <value>
+                <fullName>CPS Contents: Packaging, Handling, and Storage</fullName>
+                <default>false</default>
+                <label>CPS Contents: Packaging, Handling, and Storage</label>
+            </value>
+            <value>
+                <fullName>CRD Credit</fullName>
+                <default>false</default>
+                <label>CRD Credit</label>
+            </value>
+            <value>
+                <fullName>DMO General Demolition</fullName>
+                <default>false</default>
+                <label>DMO General Demolition</label>
+            </value>
+            <value>
+                <fullName>DOR Doors</fullName>
+                <default>false</default>
+                <label>DOR Doors</label>
+            </value>
+            <value>
+                <fullName>DRY Drywall</fullName>
+                <default>false</default>
+                <label>DRY Drywall</label>
+            </value>
+            <value>
+                <fullName>ELE Electrical</fullName>
+                <default>false</default>
+                <label>ELE Electrical</label>
+            </value>
+            <value>
+                <fullName>ELS Electrical Special Systems</fullName>
+                <default>false</default>
+                <label>ELS Electrical Special Systems</label>
+            </value>
+            <value>
+                <fullName>EQU Heavy Equipment</fullName>
+                <default>false</default>
+                <label>EQU Heavy Equipment</label>
+            </value>
+            <value>
+                <fullName>EXC Excavation</fullName>
+                <default>false</default>
+                <label>EXC Excavation</label>
+            </value>
+            <value>
+                <fullName>FCC Floor Covering Carpet</fullName>
+                <default>false</default>
+                <label>FCC Floor Covering Carpet</label>
+            </value>
+            <value>
+                <fullName>FCR Floor Covering Resilient</fullName>
+                <default>false</default>
+                <label>FCR Floor Covering Resilient</label>
+            </value>
+            <value>
+                <fullName>FCS Floor Covering Stone</fullName>
+                <default>false</default>
+                <label>FCS Floor Covering Stone</label>
+            </value>
+            <value>
+                <fullName>FCT Floor Covering Ceramic Tile</fullName>
+                <default>false</default>
+                <label>FCT Floor Covering Ceramic Tile</label>
+            </value>
+            <value>
+                <fullName>FCV Floor Covering Vinyl</fullName>
+                <default>false</default>
+                <label>FCV Floor Covering Vinyl</label>
+            </value>
+            <value>
+                <fullName>FCW Floor Covering Wood</fullName>
+                <default>false</default>
+                <label>FCW Floor Covering Wood</label>
+            </value>
+            <value>
+                <fullName>FEE Permits and Fees</fullName>
+                <default>false</default>
+                <label>FEE Permits and Fees</label>
+            </value>
+            <value>
+                <fullName>FEN Fencing</fullName>
+                <default>false</default>
+                <label>FEN Fencing</label>
+            </value>
+            <value>
+                <fullName>FNC Finish Carpentry</fullName>
+                <default>false</default>
+                <label>FNC Finish Carpentry</label>
+            </value>
+            <value>
+                <fullName>FNH Finish Hardware</fullName>
+                <default>false</default>
+                <label>FNH Finish Hardware</label>
+            </value>
+            <value>
+                <fullName>FPL Fireplaces</fullName>
+                <default>false</default>
+                <label>FPL Fireplaces</label>
+            </value>
+            <value>
+                <fullName>FPS Fire Protection Systems</fullName>
+                <default>false</default>
+                <label>FPS Fire Protection Systems</label>
+            </value>
+            <value>
+                <fullName>FRM Framing &amp; Rough Carpentry</fullName>
+                <default>false</default>
+                <label>FRM Framing &amp; Rough Carpentry</label>
+            </value>
+            <value>
+                <fullName>GLS Glass, Glazing, &amp; Storefronts</fullName>
+                <default>false</default>
+                <label>GLS Glass, Glazing, &amp; Storefronts</label>
+            </value>
+            <value>
+                <fullName>HMR Hazardous Material Remediation</fullName>
+                <default>false</default>
+                <label>HMR Hazardous Material Remediation</label>
+            </value>
+            <value>
+                <fullName>HVC Heat, Vent, &amp; Air Conditioning</fullName>
+                <default>false</default>
+                <label>HVC Heat, Vent, &amp; Air Conditioning</label>
+            </value>
+            <value>
+                <fullName>INM Mechanical Insulation</fullName>
+                <default>false</default>
+                <label>INM Mechanical Insulation</label>
+            </value>
+            <value>
+                <fullName>INS Insulation</fullName>
+                <default>false</default>
+                <label>INS Insulation</label>
+            </value>
+            <value>
+                <fullName>LAB Labor Only</fullName>
+                <default>false</default>
+                <label>LAB Labor Only</label>
+            </value>
+            <value>
+                <fullName>LIT Lighting</fullName>
+                <default>false</default>
+                <label>LIT Lighting</label>
+            </value>
+            <value>
+                <fullName>LND Landscaping</fullName>
+                <default>false</default>
+                <label>LND Landscaping</label>
+            </value>
+            <value>
+                <fullName>MAS Masonry</fullName>
+                <default>false</default>
+                <label>MAS Masonry</label>
+            </value>
+            <value>
+                <fullName>MBL Marble, Cultured or Natural</fullName>
+                <default>false</default>
+                <label>MBL Marble, Cultured or Natural</label>
+            </value>
+            <value>
+                <fullName>MPR Moisture Protection</fullName>
+                <default>false</default>
+                <label>MPR Moisture Protection</label>
+            </value>
+            <value>
+                <fullName>MSD Mirror and Shower Doors</fullName>
+                <default>false</default>
+                <label>MSD Mirror and Shower Doors</label>
+            </value>
+            <value>
+                <fullName>MSD Mirrors &amp; Shower Doors</fullName>
+                <default>false</default>
+                <label>MSD Mirrors &amp; Shower Doors</label>
+            </value>
+            <value>
+                <fullName>MTL Metal Structures</fullName>
+                <default>false</default>
+                <label>MTL Metal Structures</label>
+            </value>
+            <value>
+                <fullName>ORI Ornamental Iron</fullName>
+                <default>false</default>
+                <label>ORI Ornamental Iron</label>
+            </value>
+            <value>
+                <fullName>PLA Interior Lath &amp; Plaster</fullName>
+                <default>false</default>
+                <label>PLA Interior Lath &amp; Plaster</label>
+            </value>
+            <value>
+                <fullName>PLM Plumbing</fullName>
+                <default>false</default>
+                <label>PLM Plumbing</label>
+            </value>
+            <value>
+                <fullName>PNL Paneling &amp; Wood Wall Finishes</fullName>
+                <default>false</default>
+                <label>PNL Paneling &amp; Wood Wall Finishes</label>
+            </value>
+            <value>
+                <fullName>PNT Painting</fullName>
+                <default>false</default>
+                <label>PNT Painting</label>
+            </value>
+            <value>
+                <fullName>RFG Roofing</fullName>
+                <default>false</default>
+                <label>RFG Roofing</label>
+            </value>
+            <value>
+                <fullName>SCF Scaffolding</fullName>
+                <default>false</default>
+                <label>SCF Scaffolding</label>
+            </value>
+            <value>
+                <fullName>SDG Siding</fullName>
+                <default>false</default>
+                <label>SDG Siding</label>
+            </value>
+            <value>
+                <fullName>SFG Soffit, Fascia, &amp; Gutter</fullName>
+                <default>false</default>
+                <label>SFG Soffit, Fascia, &amp; Gutter</label>
+            </value>
+            <value>
+                <fullName>STJ Steel Joist Components</fullName>
+                <default>false</default>
+                <label>STJ Steel Joist Components</label>
+            </value>
+            <value>
+                <fullName>STL Steel Components</fullName>
+                <default>false</default>
+                <label>STL Steel Components</label>
+            </value>
+            <value>
+                <fullName>STR Stairs</fullName>
+                <default>false</default>
+                <label>STR Stairs</label>
+            </value>
+            <value>
+                <fullName>STU Stucco</fullName>
+                <default>false</default>
+                <label>STU Stucco</label>
+            </value>
+            <value>
+                <fullName>TBA Toilet &amp; Bath Accessories</fullName>
+                <default>false</default>
+                <label>TBA Toilet &amp; Bath Accessories</label>
+            </value>
+            <value>
+                <fullName>TCR Trauma / Crime Scene Remediation</fullName>
+                <default>false</default>
+                <label>TCR Trauma / Crime Scene Remediation</label>
+            </value>
+            <value>
+                <fullName>TIL Tile (Countertops and Walls)</fullName>
+                <default>false</default>
+                <label>TIL Tile (Countertops and Walls)</label>
+            </value>
+            <value>
+                <fullName>TMB Timber Framing</fullName>
+                <default>false</default>
+                <label>TMB Timber Framing</label>
+            </value>
+            <value>
+                <fullName>TMP Temporary</fullName>
+                <default>false</default>
+                <label>TMP Temporary</label>
+            </value>
+            <value>
+                <fullName>WDA/V/W Windows Aluminum/Vinyl/Wood</fullName>
+                <default>false</default>
+                <label>WDA/V/W Windows Aluminum/Vinyl/Wood</label>
+            </value>
+            <value>
+                <fullName>WDP Windows - Sliding Patio Doors</fullName>
+                <default>false</default>
+                <label>WDP Windows - Sliding Patio Doors</label>
+            </value>
+            <value>
+                <fullName>WDR Window Reglazing &amp; Repair</fullName>
+                <default>false</default>
+                <label>WDR Window Reglazing &amp; Repair</label>
+            </value>
+            <value>
+                <fullName>WDS Windows - Skylights</fullName>
+                <default>false</default>
+                <label>WDS Windows - Skylights</label>
+            </value>
+            <value>
+                <fullName>WDT Window Treatments</fullName>
+                <default>false</default>
+                <label>WDT Window Treatments</label>
+            </value>
+            <value>
+                <fullName>WDV Window Vinyl</fullName>
+                <default>false</default>
+                <label>WDV Window Vinyl</label>
+            </value>
+            <value>
+                <fullName>WDW Window Wood</fullName>
+                <default>false</default>
+                <label>WDW Window Wood</label>
+            </value>
+            <value>
+                <fullName>WPR Wallpaper</fullName>
+                <default>false</default>
+                <label>WPR Wallpaper</label>
+            </value>
+            <value>
+                <fullName>WTR Water Extraction &amp; Remediation</fullName>
+                <default>false</default>
+                <label>WTR Water Extraction &amp; Remediation</label>
+            </value>
+            <value>
+                <fullName>XST Exterior Structures</fullName>
+                <default>false</default>
+                <label>XST Exterior Structures</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

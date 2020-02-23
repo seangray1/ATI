@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ready_and_Pending_Invoices_Miguel</fullName>
+    <columns>NAME</columns>
+    <columns>ATI_Job__c</columns>
+    <columns>Office__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Status__c</columns>
+    <columns>Due_Date__c</columns>
+    <columns>Net_Due__c</columns>
+    <columns>Bill_To__c</columns>
+    <columns>Timberline_Customer_Number__c</columns>
+    <columns>Bill_to_Tax_Group__c</columns>
+    <columns>Send_To_Timberline__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Last_Successful_Timberline_Sync__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Is_Dummy_Invoice__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Office__c</field>
+        <operation>equals</operation>
+        <value>San Diego,Denver,Seattle,Riverside</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>In Process,Final</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Invoice__c.Final_Invoice</value>
+    </filters>
+    <label>Ready and Pending Invoices - Miguel</label>
+    <sharedTo>
+        <group>Billing</group>
+    </sharedTo>
+</ListView>

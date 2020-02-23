@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Collectors_Prelim</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>Job_Class__c</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>Project_Site_State__c</columns>
+    <columns>Job_to_Date_Work_Billed__c</columns>
+    <columns>Receivable_Balance__c</columns>
+    <columns>JTD_Profit__c</columns>
+    <columns>Send_Prelim__c</columns>
+    <filterScope>Team</filterScope>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Send_Prelim__c</field>
+        <operation>notEqual</operation>
+        <value>Yes,No</value>
+    </filters>
+    <filters>
+        <field>JTD_Profit__c</field>
+        <operation>notEqual</operation>
+        <value>0</value>
+    </filters>
+    <label>Collectors Prelim</label>
+</ListView>

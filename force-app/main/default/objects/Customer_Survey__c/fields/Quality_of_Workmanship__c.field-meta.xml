@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quality_of_Workmanship__c</fullName>
+    <description>Survey Question 6. Quality of Workmanship - I am satisfied with the quality of materials used and workmanship displayed on my/our project.</description>
+    <externalId>false</externalId>
+    <label>Quality of Workmanship</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

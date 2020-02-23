@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CC_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>CC_Account__r.BillingStreet &amp; BR() &amp; CC_Account__r.BillingCity &amp;  IF(OR(ISBLANK(CC_Account__r.BillingCity), ISBLANK(CC_Account__r.BillingState)), &#39; &#39;, &#39;, &#39;)  &amp; CC_Account__r.BillingState &amp;&quot; &quot;&amp; CC_Account__r.BillingPostalCode</formula>
+    <label>CC Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

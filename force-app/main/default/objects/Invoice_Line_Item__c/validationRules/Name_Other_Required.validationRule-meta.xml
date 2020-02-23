@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Name_Other_Required</fullName>
+    <active>true</active>
+    <description>Make sure that other is entered when needed.</description>
+    <errorConditionFormula>AND(ISPICKVAL(PickListName__c  , &#39;Other&#39;),  ISBLANK(Other__c  ))</errorConditionFormula>
+    <errorDisplayField>Other__c</errorDisplayField>
+    <errorMessage>You need to enter a value, when the &quot;Other&quot; option is selected on the name field.</errorMessage>
+</ValidationRule>

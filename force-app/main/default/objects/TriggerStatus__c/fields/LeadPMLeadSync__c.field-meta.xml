@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadPMLeadSync__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>When a Lead is updated, synchronizes Lead data with a PM Lead record, creating a new one if necessary.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When a Lead is updated, synchronizes Lead data with a PM Lead record, creating a new one if necessary.</inlineHelpText>
+    <label>Lead: PM Lead Sync</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

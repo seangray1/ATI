@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Leads_Outside_my_Territory_Points__c</fullName>
+    <description>Count of Opportunities outside the AE&#39;s territory (meaning outside their state), translated into Base Bonus point system</description>
+    <externalId>false</externalId>
+    <formula>IF(Leads_Outside_my_Territory__c&gt;=2,4,
+IF(Leads_Outside_my_Territory__c=1,1,0))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Leads Outside my Territory Points</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

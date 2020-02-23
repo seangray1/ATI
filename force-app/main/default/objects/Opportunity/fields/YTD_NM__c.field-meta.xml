@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>YTD_NM__c</fullName>
+    <externalId>false</externalId>
+    <formula>if (ABS(Year_to_Date_Work_Billed_Minus_Next_Mont__c)&gt;0,( Year_to_Date_Work_Billed_Minus_Next_Mont__c - Year_to_Date_Costs_Minus_Next_Month_Cost__c )/  ABS(Year_to_Date_Work_Billed_Minus_Next_Mont__c),0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>YTD NM %</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

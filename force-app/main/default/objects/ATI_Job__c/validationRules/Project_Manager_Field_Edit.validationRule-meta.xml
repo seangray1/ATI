@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Manager_Field_Edit</fullName>
+    <active>false</active>
+    <description>This will replace permission sets to allow only few user to edit the field. *******(CAPs on letter for Alias matters)***********</description>
+    <errorConditionFormula>AND(NOT(ISPICKVAL(Division__c,&quot;Construction&quot;)), NOT(ISPICKVAL(Division__c,&quot;Consulting&quot;)), NOT(ISPICKVAL(Division__c,&quot;Marketing&quot;)), 
+NOT(ISBLANK(PRIORVALUE(Project_Manager_new__c))), ISCHANGED(Project_Manager_new__c), NOT($Profile.Name  == &#39;System Administrator&#39;), NOT($User.Alias == &#39;cneuhaus&#39;), NOT(RecordTypeId == &#39;01270000000UPGG&#39;))</errorConditionFormula>
+    <errorMessage>You do not have edit permission on the Project Manager field. Please contact your administrator.</errorMessage>
+</ValidationRule>

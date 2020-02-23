@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Work_Order</fullName>
+    <active>true</active>
+    <label>Marketing Work Order</label>
+    <picklistValues>
+        <picklist>Access__c</picklist>
+        <values>
+            <fullName>Badge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Assist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Pad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Anteroom__c</picklist>
+        <values>
+            <fullName>Double</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Barrier_Framing__c</picklist>
+        <values>
+            <fullName>Steel Stud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Steel Track</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zip Poles</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Barrier_Type__c</picklist>
+        <values>
+            <fullName>ATI Panel System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drywall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FR Coroplast</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FR Plywood</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FR Poly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Barrier_Walls__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Covering__c</picklist>
+        <values>
+            <fullName>Ceiling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Critical Barriers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Floor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Furniture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Med%2E Equip</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wind%2E Cov%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Electrical_Supply__c</picklist>
+        <values>
+            <fullName>GFCI Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spider Box</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Exhaust__c</picklist>
+        <values>
+            <fullName>100%25 Outside</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Adjacent Area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exhaust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recirculate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fire_Systems_Seal__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Smoke Alarm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Flex_Duct__c</picklist>
+        <values>
+            <fullName>ATI Duct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flex Duct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lay Flat</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HVAC_Registers_Redirect__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HVAC_Registers_Seal__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PPE__c</picklist>
+        <values>
+            <fullName>Coveralls</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ear Protection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facemasks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gloves</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hard Hat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Glasses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Vests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shoe Covers</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pack_Out__c</picklist>
+        <values>
+            <fullName>Dishwasher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Washer%2FDryer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pressure_Differential__c</picklist>
+        <values>
+            <fullName>-0%2E01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>-0%2E02</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Removal__c</picklist>
+        <values>
+            <fullName>Contents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Furniture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Med%2E Equip</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Work_Order_Type__c</picklist>
+        <values>
+            <fullName>Asbestos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emergency Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HVAC Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infection Control</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reconstruction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Time %26 Materials</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

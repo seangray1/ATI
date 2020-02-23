@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Staff_Accessibility__c</fullName>
+    <description>Survey Question 2. Staff Accessibility - ATI staff was accessible and responsive to my request. I was contacted within 24 hours of my inquiry.</description>
+    <externalId>false</externalId>
+    <label>Staff Accessibility</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

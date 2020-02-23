@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Active_Leads_PD</fullName>
+    <columns>Job_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Date_Time_Taken__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Estimate_Submitted_Date__c</columns>
+    <columns>Stage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Qualification,Estimating/Review</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <filters>
+        <field>Division__c</field>
+        <operation>notEqual</operation>
+        <value>Marketing</value>
+    </filters>
+    <filters>
+        <field>Is_PD_the_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>*My Active Leads (PD)</label>
+</ListView>

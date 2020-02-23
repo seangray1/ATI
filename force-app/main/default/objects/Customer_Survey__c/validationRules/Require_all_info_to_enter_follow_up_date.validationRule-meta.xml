@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_all_info_to_enter_follow_up_date</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( NOT( ISBLANK( Date_of_Follow_Up_Discussion_with_Client__c )), OR( ISBLANK( Summary_of_Discussion_with_Client__c ),  AND( All_deficiencies_addressed__c = FALSE, ISBLANK( Explanation_of_unresolved_deficiencies__c ) ), AND( ISBLANK( Main_Complaints__c ), ISBLANK( Other_Complaints__c ) ) ) )</errorConditionFormula>
+    <errorMessage>Check All: You must select or enter at least one complaint, explain any unresolved deficiencies, and enter a summary of the discussion with the client in order to enter a client follow-up discussion date.</errorMessage>
+</ValidationRule>

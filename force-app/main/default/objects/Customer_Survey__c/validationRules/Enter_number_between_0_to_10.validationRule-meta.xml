@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enter_number_between_0_to_10</fullName>
+    <active>true</active>
+    <description>Enter number only between 0 to 10</description>
+    <errorConditionFormula>OR( NPS__c &lt; 0,NPS__c &gt;10)</errorConditionFormula>
+    <errorDisplayField>NPS__c</errorDisplayField>
+    <errorMessage>Enter number between 0 to 10</errorMessage>
+</ValidationRule>

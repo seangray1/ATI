@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Region__c</columns>
+    <columns>State__c</columns>
+    <columns>EVP_1__c</columns>
+    <columns>EVP_2__c</columns>
+    <columns>Branch_Manager__c</columns>
+    <columns>Asbestos_Operations_Manager__c</columns>
+    <columns>Lead_Operations_Manager__c</columns>
+    <columns>Demolition_Operations_Manager__c</columns>
+    <columns>Health_Science_Operations_Manager__c</columns>
+    <columns>Emergency_Services_Operations_Manager__c</columns>
+    <columns>Contents_Operations_Manager__c</columns>
+    <columns>Microbial_Operations_Manager__c</columns>
+    <columns>Biohazard_Operations_Manager__c</columns>
+    <columns>Catastrophes_Operations_Manager__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_es_jobs_in_qual_stages_w_job_costs</fullName>
+    <columns>Date_Time_Taken__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Office2__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>Job_to_Date_Costs__c</columns>
+    <columns>YTD_Billing_Forecast__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Job_to_Date_Costs__c</field>
+        <operation>greaterThan</operation>
+        <value>150</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Qualification,Estimating/Review</value>
+    </filters>
+    <filters>
+        <field>Division__c</field>
+        <operation>notEqual</operation>
+        <value>Emergency Svces,Marketing</value>
+    </filters>
+    <filters>
+        <field>Date_Time_Taken__c</field>
+        <operation>greaterThan</operation>
+        <value>1/1/2017 12:00 AM</value>
+    </filters>
+    <label>Non es jobs in qual stages w/job costs</label>
+</ListView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Date_cant_be_prior_to_today</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+	Due_Date__c &lt; TODAY(), 
+
+        NOT( ISCHANGED( AE_1_Bonus__c ) ), 
+        NOT( ISCHANGED( AE_2_Bonus__c ) ), 
+
+	NOT($Profile.Name = &quot;System Administrator&quot;), 
+        NOT($Profile.Name = &quot;Accounting&quot;),
+        NOT($Profile.Name = &quot;Collections&quot;)
+)</errorConditionFormula>
+    <errorMessage>Invoices can only be created/edited if the Invoice Date is today or in the future. Please contact accounting with any questions.</errorMessage>
+</ValidationRule>

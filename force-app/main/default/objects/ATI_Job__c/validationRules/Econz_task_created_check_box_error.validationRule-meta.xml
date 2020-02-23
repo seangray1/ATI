@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Econz_task_created_check_box_error</fullName>
+    <active>true</active>
+    <description>Once the check box ticked true , we should not change back to false.</description>
+    <errorConditionFormula>AND(ISCHANGED(ECONZ_Task_Created__c),ECONZ_Task_Created__c == false)</errorConditionFormula>
+    <errorMessage>This Job  record  exist in ECONZ already, If you uncheck the ECONZ Task Created? check box  duplicate job will be created in ECONZ.</errorMessage>
+</ValidationRule>

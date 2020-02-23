@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Account__c</fullName>
+    <description>Primary Account of Job-- referenced in New Job VF page</description>
+    <externalId>false</externalId>
+    <label>Primary Account</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Caller Account</fullName>
+                <default>false</default>
+                <label>Caller Account</label>
+            </value>
+            <value>
+                <fullName>Project Site Contact</fullName>
+                <default>false</default>
+                <label>Project Site Contact</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+                <label>Insurance</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

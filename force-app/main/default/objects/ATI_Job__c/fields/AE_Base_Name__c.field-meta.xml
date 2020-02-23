@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AE_Base_Name__c</fullName>
+    <description>This formula field is to list all AE 1 Name</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(Account_Executive_1__c != &#39;&#39;, Account_Executive_2__c = &#39;&#39;),Account_Executive_1__r.FirstName &amp; &#39; &#39; &amp; Account_Executive_1__r.LastName,IF(AND(Account_Executive_1__c != &#39;&#39;, Account_Executive_2__c != &#39;&#39;),Account_Executive_1__r.FirstName &amp; &#39; &#39; &amp; Account_Executive_1__r.LastName, Account_Executive_2__r.FirstName &amp; &#39; &#39; &amp; Account_Executive_2__r.LastName))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AE Base Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Job_Date__c</fullName>
+    <description>Field to capture the date that the last Job was created against this Account.  Populated via code to be used in bonus calculations to determine New Business, which are Jobs created against an Account that have not had any Jobs created against them in the last 18 months.  Accounts will then remain as &#39;New Business&#39; for 18 months after that first Job.</description>
+    <externalId>false</externalId>
+    <label>Last Job Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

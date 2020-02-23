@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MapMasterAccountBackCareOf__c</fullName>
+    <description>deployment, map Care Of account back to invoice, master.</description>
+    <externalId>false</externalId>
+    <formula>Care_Of__r.Master_Account__c +  Care_Of__r.Account_Address__c</formula>
+    <label>MapMasterAccountBackCareOf</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

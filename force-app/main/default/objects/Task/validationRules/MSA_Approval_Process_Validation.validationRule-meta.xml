@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MSA_Approval_Process_Validation</fullName>
+    <active>true</active>
+    <description>Comments need to be filled for MSA/ERA Type</description>
+    <errorConditionFormula>AND( ISPICKVAL(Type,&#39;MSA/ERA&#39;),Description == &#39;&#39;)</errorConditionFormula>
+    <errorMessage>Comments need to be filled for MSA/ERA Type</errorMessage>
+</ValidationRule>

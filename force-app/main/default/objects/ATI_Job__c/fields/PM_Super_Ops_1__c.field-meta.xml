@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PM_Super_Ops_1__c</fullName>
+    <description>Formula field used to populate the Survey email template, in the case that the Superintendent or the Ops Manager is the same as the Project Manager.</description>
+    <externalId>false</externalId>
+    <formula>IF (Project_Manager_new__c = Project_Manager__c, 
+Project_Manager_FirstName__c &amp; &quot; &quot; &amp; Project_Manager_LastName__c &amp; &quot; your Project Director&quot;, 
+
+Project_Manager_FirstName__c &amp; &quot; &quot; &amp; Project_Manager_LastName__c &amp; &quot; your Project Director&quot; &amp; &quot; and &quot; &amp; Project_Manager_new__r.FirstName &amp; &quot; &quot; &amp; Project_Manager_new__r.LastName &amp; &quot; your Project Manager&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>PM Super Ops - 1</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

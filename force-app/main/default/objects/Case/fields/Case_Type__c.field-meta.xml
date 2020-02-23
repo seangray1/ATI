@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Case Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Business_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+                <label>Invoice Questions</label>
+            </value>
+            <value>
+                <fullName>Payments</fullName>
+                <default>false</default>
+                <label>Payments</label>
+            </value>
+            <value>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+                <label>Confirmations</label>
+            </value>
+            <value>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+                <label>Other Questions</label>
+            </value>
+            <value>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+                <label>Payment Inquiries</label>
+            </value>
+            <value>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+                <label>Purchase Authorizations</label>
+            </value>
+            <value>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+                <label>Benefits Questions</label>
+            </value>
+            <value>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+                <label>Other Employee Services</label>
+            </value>
+            <value>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+                <label>Employment Verification</label>
+            </value>
+            <value>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+                <label>Applicant Questions</label>
+            </value>
+            <value>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+                <label>Information or Update Request</label>
+            </value>
+            <value>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+                <label>Problems or Service Complaints</label>
+            </value>
+            <value>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+                <label>Scheduling</label>
+            </value>
+            <value>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+                <label>Warranty Question or Request</label>
+            </value>
+            <value>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+                <label>Accident or Injury Report</label>
+            </value>
+            <value>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+                <label>Job Site Deliveries</label>
+            </value>
+            <value>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+                <label>Office Deliveries</label>
+            </value>
+            <value>
+                <fullName>Media Inquiries/Public Relations</fullName>
+                <default>false</default>
+                <label>Media Inquiries/Public Relations</label>
+            </value>
+            <value>
+                <fullName>Vendor Sales/Marketing</fullName>
+                <default>false</default>
+                <label>Vendor Sales/Marketing</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+            <valueName>Invoice Questions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+            <valueName>Payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+            <valueName>Confirmations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+            <valueName>Other Questions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <valueName>Payment Inquiries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <valueName>Purchase Authorizations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <valueName>Benefits Questions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <valueName>Other Employee Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <valueName>Employment Verification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Recruiting</controllingFieldValue>
+            <valueName>Applicant Questions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Operations</controllingFieldValue>
+            <valueName>Information or Update Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Operations</controllingFieldValue>
+            <valueName>Problems or Service Complaints</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Operations</controllingFieldValue>
+            <valueName>Scheduling</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Operations</controllingFieldValue>
+            <valueName>Warranty Question or Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Operations</controllingFieldValue>
+            <valueName>Accident or Injury Report</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Operations</controllingFieldValue>
+            <valueName>Job Site Deliveries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Departments</controllingFieldValue>
+            <valueName>Office Deliveries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Departments</controllingFieldValue>
+            <valueName>Media Inquiries/Public Relations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Departments</controllingFieldValue>
+            <valueName>Vendor Sales/Marketing</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

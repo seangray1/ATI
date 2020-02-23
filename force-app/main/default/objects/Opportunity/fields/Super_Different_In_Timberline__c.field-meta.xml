@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Super_Different_In_Timberline__c</fullName>
+    <description>Checkbox to note if there is a discrepancy between SFDC and Timberline regarding the Superintendent</description>
+    <externalId>false</externalId>
+    <formula>IF(Superintendent__c &lt;&gt; Super_from_Timberline_PM__c,TRUE,FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Super Different In Timberline</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

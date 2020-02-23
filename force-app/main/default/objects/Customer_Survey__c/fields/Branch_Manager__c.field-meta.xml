@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Branch_Manager__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Branch Manager lookup field populated via Process Builder flow &#39;Branch Manager Population onto Survey&#39; from associated Job record, in order to send them an email alert when there is a poor survey score related to a job originating in their office.</description>
+    <externalId>false</externalId>
+    <label>Regional Manager</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Customer_Surveys6</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

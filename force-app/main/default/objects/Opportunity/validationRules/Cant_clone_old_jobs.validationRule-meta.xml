@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cant_clone_old_jobs</fullName>
+    <active>true</active>
+    <description>Will not allow a cloned job to be saved if the original job was from a year prior to the year set in Custom Settings&gt;Trigger Status&gt;Job Number Sequence Group (default org value or user/profile specific, whichever applies)</description>
+    <errorConditionFormula>ISNEW() &amp;&amp; VALUE(LEFT(Job_Number_Sequence_Group__c, 4))  &lt; VALUE(LEFT(TEXT($Setup.TriggerStatus__c.Job_Number_Sequence_Group__c), 4))</errorConditionFormula>
+    <errorMessage>You cannot clone jobs from previous years.</errorMessage>
+</ValidationRule>

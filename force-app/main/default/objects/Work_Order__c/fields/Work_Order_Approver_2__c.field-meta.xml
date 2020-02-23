@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Work_Order_Approver_2__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Additional approvers of work order besides Ops Manager-- fed by Office record via Process Builder Flow &#39;Work Order Approver 2&#39;</description>
+    <externalId>false</externalId>
+    <label>Work Order Approver 2</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Work_Orders3</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

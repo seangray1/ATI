@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>Ownership_Request_Submitter_Email__c</fullName>
+    <description>Email address of AE who submitted the Ownership request.  Used in approval/rejection email alerts in the approval process</description>
+    <externalId>false</externalId>
+    <label>Ownership Request Submitter Email</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

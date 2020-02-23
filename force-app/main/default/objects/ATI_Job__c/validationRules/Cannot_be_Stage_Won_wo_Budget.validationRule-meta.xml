@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_be_Stage_Won_wo_Budget</fullName>
+    <active>true</active>
+    <description>Can&#39;t set a stage to Won if a budget does not exist, only on construction jobs.</description>
+    <errorConditionFormula>(Work_Authorization__c = FALSE || (ISPICKVAL(Budget__c, &#39;Not Created&#39;)&amp;&amp; NOT(ISPICKVAL(Estimate_Type__c, &#39;T&amp;M&#39;)))) &amp;&amp;
+Estimate_Only__c = FALSE &amp;&amp; ISPICKVAL(Stage__c, &#39;Won&#39;) &amp;&amp;
+ISPICKVAL(Division__c, &#39;Construction&#39;) &amp;&amp; DATEVALUE(CreatedDate) &gt;= DATE(2019,06,25)</errorConditionFormula>
+    <errorMessage>Budget must exist and the &quot;Work Auth Signed&quot; box checked by the RM before setting stage to Won.</errorMessage>
+</ValidationRule>

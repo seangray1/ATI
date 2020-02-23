@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Manager_Timber__c</fullName>
+    <description>Project Director&#39;s name in appropriate format to send to Timberline</description>
+    <externalId>false</externalId>
+    <formula>if(!ISBLANK( Project_Manager__r.LastName ), Project_Manager__r.LastName &amp; if(!ISBLANK(Project_Manager__r.FirstName ), &quot;, &quot; &amp; Project_Manager__r.FirstName,&quot;&quot; ) ,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Project Director Timber</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

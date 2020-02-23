@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>YTD_Billing_Forecast__c</fullName>
+    <description>Roll-up summary to add the Forecast Amounts of all children Billing Forecast records since the start of the current year.  we need to find a solution to update this field with respect to billing forecast</description>
+    <externalId>false</externalId>
+    <label>YTD Billing Forecast</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

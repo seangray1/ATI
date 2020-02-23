@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Modify_Synchronized_Invoice</fullName>
+    <active>false</active>
+    <description>Prevents users from editing invoices which have been sent to Timberline successfully.  This validation rule can be bypassed by users with appropriately configured &quot;Invoice Settings&quot; custom settings.</description>
+    <errorConditionFormula>AND(
+    NOT($Setup.InvoiceSettings__c.Can_Modify_Final_Invoices__c),
+    NOT(ISNEW()),
+	OR(
+		AND(
+			PRIORVALUE(Send_To_Timberline__c) == True,
+			NOT(ISCHANGED(Send_To_Timberline__c)),
+			NOT(ISCHANGED(Last_Successful_Timberline_Sync__c)) ),
+		NOT(ISBLANK(PRIORVALUE(Last_Successful_Timberline_Sync__c))) ))</errorConditionFormula>
+    <errorMessage>This invoice is synchronized with Timberline and cannot be further edited.</errorMessage>
+</ValidationRule>

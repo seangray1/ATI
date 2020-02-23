@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unapproved_or_Reject_Account_Restriction</fullName>
+    <active>true</active>
+    <description>Restriction from changing an Opportunity to Closed Won or Complete if the related Account Status is set to Unapproved or Rejected.</description>
+    <errorConditionFormula>AND(OR(ISPICKVAL (Account__r.Status__c,&quot;Unapproved&quot;),
+       ISPICKVAL (Account__r.Status__c,&quot;Reject&quot;)),
+     OR(ISPICKVAL (Stage__c, &quot;Won&quot;),
+        ISPICKVAL (Stage__c, &quot;Work Complete&quot;),
+        ISPICKVAL (Stage__c, &quot;Billing Complete&quot;)))</errorConditionFormula>
+    <errorMessage>The Account Status related to this Job is Unapproved or Rejected.  This Job cannot be set to Closed or Completed until the Account is approved or changed to another existing Account.</errorMessage>
+</ValidationRule>

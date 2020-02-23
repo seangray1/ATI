@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Suspension</fullName>
+    <active>true</active>
+    <label>Suspension</label>
+    <picklistValues>
+        <picklist>Activity__c</picklist>
+        <values>
+            <fullName>Job Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Hold Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Performance meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scores - Alacrity CIP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scores - CC Poms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scores - Moisture Mapper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspension</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Training Sessions</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Divisions__c</picklist>
+        <values>
+            <fullName>All</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water Mitigation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Employee_Status__c</picklist>
+        <values>
+            <fullName>Existing Employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Employee</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MRP_Rep__c</picklist>
+        <values>
+            <fullName>Aaron Beck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jean_Greenberg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kathryn_Campbell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renee Baumler</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Month__c</picklist>
+        <values>
+            <fullName>April</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>August</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>December</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>February</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>January</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>July</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>June</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>March</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>May</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>November</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>October</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>September</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>On_Site_Offsite__c</picklist>
+        <values>
+            <fullName>Offsite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Site</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason__c</picklist>
+        <values>
+            <fullName>CAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Capacity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Staffing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TPA__c</picklist>
+        <values>
+            <fullName>Program - Alacrity - Resolve Consumer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Alacrity REO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Alacrity Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - American Emergency Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - BrightServ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Code Blue Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Cons%2E Services %28Xactanalysis%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Contractor Connection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - DKI - Diamond Loss Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Direct Assignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Direct Claims Management %28DCMG%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - First Choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - First Choice Consumer Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - IMACC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Innovation Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Lionsbridge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - NEXXUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Vericlaim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program - Vericlaim Consumer Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Suspension__c</picklist>
+        <values>
+            <fullName>File Updates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workmanship</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Training__c</picklist>
+        <values>
+            <fullName>AES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alacrity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BrightServ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contractor Connection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drying Applications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IPN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lionsbridge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nexxus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restoration Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sedgwick</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_issue__c</picklist>
+        <values>
+            <fullName>Communication</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professionalism</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Timeliness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warranty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workmanship</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

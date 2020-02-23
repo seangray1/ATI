@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Tasks_Record_Type</fullName>
+    <active>true</active>
+    <description>Record Type for Project Task</description>
+    <label>Project Tasks Record Type</label>
+    <picklistValues>
+        <picklist>Activity_Type__c</picklist>
+        <values>
+            <fullName>Accounting Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Angry Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collection Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Email</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CKSW_BASE__Event_Type__c</picklist>
+        <values>
+            <fullName>Absence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shift</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CRMG_EmailAtt__Attachment_Type__c</picklist>
+        <values>
+            <fullName>Addendum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invoice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sequence Diagram</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Marketing_Type__c</picklist>
+        <values>
+            <fullName>Association</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Breakfast</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Verticals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coffee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dinner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ERA Executed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Golf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In-Person Meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lunch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lunch %26 Learn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office Visit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sporting Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spouse Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tradeshow</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Payment_Call_Type__c</picklist>
+        <values>
+            <fullName>Disputed Invoice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Left Message</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Copy of Invoice</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Class__c</picklist>
+        <values>
+            <fullName>Database Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Job Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request for Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request for Info</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Survey</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deferred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UnApproved</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subject</picklist>
+        <values>
+            <fullName>Accounting note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call in</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dinner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Golf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individual golf outing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Industry association golf tournament</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Industry association meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead Converted to Job</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lunch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QA note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Estimate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Walked the loss</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>call out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>inside meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>monthly marketing note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>outside meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>rec%E2%80%99d email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>rec%E2%80%99d fax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>rec%E2%80%99d file</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>rec%E2%80%99d mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>sales call retry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>sent email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>sent fax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>sent mail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Call</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Code Fix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Create Automation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Create Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Field</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Object</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSA%2FERA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Email</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>shoretel_call_type__c</picklist>
+        <values>
+            <fullName>Accounting Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Note</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

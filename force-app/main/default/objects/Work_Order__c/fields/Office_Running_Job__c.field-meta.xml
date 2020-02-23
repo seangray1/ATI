@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Office_Running_Job__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the office whose operations team will be running this job. The work order will be sent to the appropriate person at this office for approval.</inlineHelpText>
+    <label>Office Running Job</label>
+    <referenceTo>Office__c</referenceTo>
+    <relationshipLabel>Work Orders (Office Running Job)</relationshipLabel>
+    <relationshipName>Work_Orders1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

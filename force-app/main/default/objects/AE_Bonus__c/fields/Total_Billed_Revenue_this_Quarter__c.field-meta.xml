@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Billed_Revenue_this_Quarter__c</fullName>
+    <description>Field to capture the total revenue $ of invoices that are created this quarter related to a Job which AEs are Job Team/Opportunity Split members on.  Populated via code. Is calculating the 50% as well.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Calculating Total Billing Forecast</inlineHelpText>
+    <label>Total Billed Revenue this Quarter</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

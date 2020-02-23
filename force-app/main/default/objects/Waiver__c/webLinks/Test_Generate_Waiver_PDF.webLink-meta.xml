@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Generate_Waiver_PDF</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Test - Generate Waiver PDF</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>if((&#39;{!Waiver__c.Waiver_Or_Letter_Type__c}&#39;==&#39;Unconditional Final Waiver&#39; || 
+&#39;{!Waiver__c.Waiver_Or_Letter_Type__c}&#39;==&#39;Unconditional Progress Waiver&#39;) &amp;&amp; &#39;{!Waiver__c.Approved_By_Id__c}&#39;==&#39;&#39;){ 
+alert(&#39;You must submit unconditional waivers for approval before sending.&#39;); 
+} else {
+window.open(&#39;https://composer.congamerge.com?SessionId={!API.Session_ID}&amp;ServerUrl={!$Api.Partner_Server_URL_290}&amp;Id={!Waiver__c.Id}&amp;TemplateId={!CASE( Waiver__c.Waiver_Or_Letter_Type__c , &quot;10 Day Letter&quot;, &quot;a2Xe0000000N8af&quot;, &quot;30 Day Letter&quot;, &quot;a2Xe0000000N8ak&quot;, &quot;60 Day Letter&quot;, &quot;a2Xe0000000N8ap&quot;, &quot;Conditional Final Waiver&quot;, &quot;a2Xe00000005I1n&quot;, &quot;Conditional Progress Waiver&quot;, &quot;a2Xe00000005I1d&quot;, &quot;Unconditional Final Waiver&quot;, &quot;a2Xe00000006mUd&quot;, &quot;Unconditional Progress Waiver&quot;, &quot;a2Xe00000006mUY&quot;, &quot;&quot;)},{QVAR1}&amp;FP0=1&amp;DS4=1&amp;DS3=1&amp;EmailToId={!Waiver__c.CustomerId__c}&amp;EmailReplyToId={!Waiver__c.CreatedBy}&amp;EmailTemplateId=00Xe0000000ET2q&amp;PS3=0&amp;UF0=1&amp;MFTS0=Final__c&amp;MFTSValue0=True&amp;{!IF(ISPICKVAL(Waiver__c.Delivery_Method__c,&quot;Email&quot;),&quot;2&quot;,&quot;1&quot;)}&amp;AC0=1&amp;SC0=1&amp;LGParentId={!Opportunity.Id}&amp;AC1={!IF(ISPICKVAL(Waiver__c.Delivery_Method__c,&quot;Email&quot;),&quot;Email+:+Lien+Release &quot;,&quot;Mail+:+Lien+Release&quot;)}&amp;AttachmentParentId={!Waiver__c.JobId__c}&amp;OFN={Template.Label}{!&quot;_&quot; + Waiver__c.Invoice__c + &quot;_FINAL_&quot; + TEXT(YEAR(TODAY())) + &quot;-&quot; + TEXT(MONTH(TODAY())) + &quot;-&quot; + TEXT(DAY(TODAY())) }&amp;QVAR0ID=a2We0000002DJUk&amp;QVAR1ID=a2We0000002DJbg?pv0={QVAR0}~pv1={!Waiver__c.Invoice__c}&#39;,&#39;_blank&#39;,&#39;height=200,width=500&#39;);}</url>
+</WebLink>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>City_of_LA_Timber__c</fullName>
+    <description>Code to indicate Yes/No of referenced &#39;City of LA&#39; picklist, used in Jitterbit mapping to send on to Timberline.</description>
+    <externalId>false</externalId>
+    <formula>if( ISPICKVAL(City_of_LA__c , &#39;Yes&#39;) ,1,0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>City of LA Timber</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

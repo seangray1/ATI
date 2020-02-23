@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Name__c</fullName>
+    <description>Job Name field (short description without Job Number) pulled from Job/Opportunity record in order for Salesforce1 users to have access, since they are unable to view the Job/Opportunity lookup field due to license restrictions.</description>
+    <externalId>false</externalId>
+    <formula>ATI_Job__r.Job_Name__c</formula>
+    <label>Job Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

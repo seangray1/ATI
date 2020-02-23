@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lost_Job_Reason__c</fullName>
+    <description>Reasons for losing a job</description>
+    <externalId>false</externalId>
+    <label>Lost Job Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Cashed Out</fullName>
+                <default>false</default>
+                <label>Cashed Out</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Declined to Bid</fullName>
+                <default>false</default>
+                <label>Declined to Bid</label>
+            </value>
+            <value>
+                <fullName>Lack of Funding</fullName>
+                <default>false</default>
+                <label>Lack of Funding</label>
+            </value>
+            <value>
+                <fullName>Deductible Issues</fullName>
+                <default>false</default>
+                <label>Deductible Issues</label>
+            </value>
+            <value>
+                <fullName>Adjuster&#39;s Contractor</fullName>
+                <default>false</default>
+                <label>Adjuster&#39;s Contractor</label>
+            </value>
+            <value>
+                <fullName>Scheduling Conflict</fullName>
+                <default>false</default>
+                <label>Scheduling Conflict</label>
+            </value>
+            <value>
+                <fullName>Preferred a Competitor</fullName>
+                <default>false</default>
+                <label>Preferred a Competitor</label>
+            </value>
+            <value>
+                <fullName>Canceled by carrier</fullName>
+                <default>false</default>
+                <label>Canceled by carrier</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

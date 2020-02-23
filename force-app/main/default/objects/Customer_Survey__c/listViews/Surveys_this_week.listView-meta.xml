@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Surveys_this_week</fullName>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Project_Site_Contact__c</columns>
+    <columns>Office__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Operations_Manager__c</columns>
+    <columns>Superintendent__c</columns>
+    <columns>Overall_Score_10pt_Percent__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>THIS_WEEK</value>
+    </filters>
+    <label>Surveys this week</label>
+</ListView>

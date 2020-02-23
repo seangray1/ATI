@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_City_Max_Length</fullName>
+    <active>true</active>
+    <errorConditionFormula>LEN( BillingCity )  &gt; 15 &amp;&amp; $Setup.rh2__PS_Settings__c.rh2__Run_Validation_Rule__c</errorConditionFormula>
+    <errorDisplayField>BillingCity</errorDisplayField>
+    <errorMessage>Account Billing City cannot exceed 15 characters</errorMessage>
+</ValidationRule>
