@@ -49,6 +49,9 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
+            ],
+            "c/newJobLWC": [
+                "newJobLWC/newJobLWC.js"
             ]
         },
         "experimentalDecorators": true

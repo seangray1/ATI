@@ -1,0 +1,1183 @@
+<!--
+  @File Name          : newJobLWC.html
+  @Description        : 
+  @Author             : Sean Gray
+  @Group              : 
+  @Last Modified By   : sean.gray@atirestoration.com
+  @Last Modified On   : 2/21/2020, 8:15:45 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/23/2020   Sean Gray     Initial Version
+-->
+<template>
+    
+    <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
+        <div class="slds-box slds-theme_shade">
+            <lightning-accordion allow-multiple-sections-open
+                         onsectiontoggle={handleSectionToggle}
+                         active-section-name={activeSections}>
+            <!-- <div class="slds-m-around_medium">
+                <h1 class="slds-text-heading_small" style="text-decoration: underline;">Customer Information</h1>
+            </div> -->
+            
+            <!-- Start of New Search -->
+            <!-- <div class="slds-m-around_medium"> -->
+               
+               
+                        
+        <!-- <div class="slds-box slds-theme_shade"> -->
+            <lightning-accordion-section name="Property Information" label="Property Information">
+            <!-- <div class="slds-m-around_medium">
+                <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property Search</h1>
+            </div> -->
+            <template if:true={jobLoading}>
+                <div class="exampleHolder">
+                    <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                </div>
+            </template>
+        <template if:true={NotNewProperty}>
+            <div class="slds-m-around_medium">
+               
+                    <div class="slds-col slds-size_1-of-5">
+                        
+                <lightning-input label="Property Search" onkeyup={PropertyChanged}
+                    placeholder='Search for Properties.. ' value={PropertyValue} type="search" autocomplete={AutoComplete} onchange={ClearProperty}></lightning-input>
+                    
+                    
+                    </div>
+                <template if:true={Properties}>
+                    <table
+                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                        <thead>
+                            <tr class="slds-text-heading_label">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Property">Properties</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={Properties} for:item="Property">
+                                <tr key={Property.Id}>
+                                    <th scope="row">
+                                        <b>
+                                            <lightning-button variant="base" label={Property.Address_Line_1__c} value={Property}
+                                                title="Base action" onclick={populatePropertyField}
+                                                class="slds-m-left_x-small jobButton"></lightning-button>
+                                        </b>
+
+                                        <lightning-formatted-address street={Property.Address_Line_1__c}
+                                            city={Property.City__c} country='US' province={Property.State__c}
+                                            postal-code={Property.Zip__c} disabled>
+                                        </lightning-formatted-address>
+                                        <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
+                                    </th>
+
+                                </tr>
+
+                            </template>
+                        </tbody>
+                    </table>
+                </template>
+
+            </div>
+            <lightning-button label="New Property" variant="brand" class="pushRight" onclick={ToggleNewProperty}></lightning-button>
+            <!-- <lightning-button label="Edit Property" variant="brand" class="pushRight" onclick={ToggleNewProperty}></lightning-button> -->
+        </template>
+        <template if:false={NotNewProperty}>
+            <lightning-button-group>
+                <lightning-button variant="brand" label="Edit Property" onclick={ToggleNewProperty}></lightning-button>
+                <lightning-button label="Clear Property" onclick={ResetPropertyForm}></lightning-button>
+            </lightning-button-group>
+            
+            <div class="pushDown">
+                
+                <lightning-formatted-address street={Street}
+                                            city={City} country='US' province={State}
+                                            postal-code={Zip} disabled>
+                                        </lightning-formatted-address>
+                                    </div>
+        </template>
+          
+            </lightning-accordion-section>
+        <!-- </div> -->
+        <br>
+        <lightning-accordion-section name="Account Roles" label="Account Roles">
+       <template if:true={ARReady}>
+           
+        <!-- <div class="slds-box slds-theme_shade">  -->
+            <!-- <div class="slds-m-around_medium">
+                <h1 class="slds-text-heading_small" style="text-decoration: underline;">Account Roles</h1>
+            </div> -->
+            <div class="row">
+                <div class="col-rp-12">
+                    
+                        <table class="outer">
+                            <tbody>
+                                <tr>
+                                    <td class="left-col">
+
+                                        <table class="table ActRoles everything">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th> Name</th> -->
+                                                   
+                                                    
+
+                                                    <th> Contact</th>
+                                                    
+                                                    <th> Account</th>
+                                                    <th> Roles</th>
+                                                    
+                                                    <th class="AddActRoles"></th>
+                                                    <!-- <th class="DeleteClmn"></th> -->
+                                                   
+
+
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                
+                                                <template for:each={AccountRoles} for:item="AccountRole">
+                                                    <tr key={AccountRole.Contact_ID__c}>
+                                                        <!-- <td>
+                                                                        <lightning-input value={AccountRole.Name} class="form-control ARName">   
+                                                                        </lightning-input>
+                                                                   
+                                                        </td> -->
+                                                        
+                                                       
+
+                                                        <td class="slds-col slds-size_1-of-5">
+                                                            <div class="rowPadding">
+                                                                    <lightning-record-edit-form
+                                                                        object-api-name="Account_Roles__c">
+                                                                        <lightning-input-field
+                                                                            value={AccountRole.Contact_ID__c}
+                                                                            field-name="Contact_ID__c"
+                                                                            class="form-control ARContact everything"
+                                                                            variant="label-hidden"
+                                                                            >
+                                                                        </lightning-input-field>
+                                                                       <!-- onchange={ARContactChangeNew} -->
+                                                                    </lightning-record-edit-form>
+                                                                   </div>
+                                                             
+                                                        </td>
+                                                       
+                                                        <td class="slds-col slds-size_1-of-5">
+                                                          <div class="rowPadding">
+                                                                    <lightning-record-edit-form
+                                                                        object-api-name="Account_Roles__c">
+                                                                        <lightning-input-field
+                                                                            value={AccountRole.Account_ID__c}
+                                                                            field-name="Account_ID__c"
+                                                                            class="form-control ARAccount everything"
+                                                                            variant="label-hidden"
+                                                                            >
+                                                                        </lightning-input-field>
+                                                                    </lightning-record-edit-form>
+                                                                    </div>
+                                                        </td>
+                                                        <td class="slds-col slds-size_1-of-5">
+                                                            <div class="rowPadding">
+                                                            <lightning-record-edit-form
+                                                                        object-api-name="Account_Roles__c">
+                                                                        <lightning-input-field
+                                                                            value={AccountRole.Text__c}
+                                                                            field-name="Text__c"
+                                                                            class="form-control ARRoles everything"
+                                                                            variant="label-hidden"
+                                                                            disabled>
+                                                                        </lightning-input-field>
+                                                                    </lightning-record-edit-form>
+                                                                    </div>
+                                                        </td>
+                                                        <!-- <td class="slds-col slds-size_1-of-5">
+                                                           
+                                                            <lightning-record-edit-form
+                                                                object-api-name="Account_Roles__c">
+                                                                <lightning-input-field
+                                                                    value={AccountRole.Roles__c}
+                                                                    field-name="Roles__c"
+                                                                    class="form-control ARRoles"
+                                                                    variant="label-hidden">
+                                                                </lightning-input-field>
+                                                            </lightning-record-edit-form>
+                                                  
+                                                </td> -->
+
+                                                <!-- <td class="slds-col slds-size_1-of-5">
+                                                               
+                                                    <lightning-record-edit-form
+                                                        object-api-name="Account_Roles__c">
+                                                        <lightning-input-field
+                                                            value={AccountRole.Roles__c}
+                                                            field-name="Multiple_Roles__c"
+                                                            class="form-control ARRoles"
+                                                            variant="label-hidden"
+                                                            onchange={AccountMultipleRoles}>
+                                                        </lightning-input-field>
+                                                    </lightning-record-edit-form>
+                                          
+                                        </td> -->
+                                      
+                                        <!-- <td class="slds-col slds-size_1-of-5 DeleteClmn"> -->
+                                                      <!-- <lightning-button-group> -->
+                                            <!-- class="DeleteClmn right-col" -->
+                                               <!-- Don't INCLUDE DIV GRID IT MESS IT UP! -->
+                                               <!-- <div class="grid">  -->
+                                                   
+                                                <td class="AddActRoles">
+                                                    <lightning-button-group>
+                                               <lightning-button label="Select Account Roles" class="AddAR selectRole"
+                                                   title="Add Account Role" variant="brand"
+                                                   onclick={NewAccountRoleSelected}>
+                                               </lightning-button>
+                                               <lightning-button label='' class="delete-icon DeleteAR"
+                                               title="Delete" variant="destructive"
+                                               onclick={DeleteARRow} icon-name="action:delete">
+                                           </lightning-button>
+                                            </lightning-button-group>
+                                            </td>
+                                               <!-- </div>  -->
+                                                        <!-- <td class="pushLeft"> -->
+                                                        <!-- class="DeleteClmn right-col" -->
+                                                           <!-- Don't INCLUDE DIV GRID IT MESS IT UP! -->
+                                                           <!-- <div class="grid">  -->
+                                                            <!-- <td class="DeleteClmn">
+                                                          
+                                                        </td> -->
+                                                           <!-- </div>  -->
+                                                       <!-- </lightning-button-group> -->
+                                                       <!-- </td> -->
+                                                       
+                                                      
+
+                                                        
+
+
+
+
+
+                                                    </tr>
+                                                </template>
+                                            
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            
+            <br>
+            <lightning-button-group>
+            <lightning-button label="Add Row"  onclick={AddNewRow}></lightning-button>
+                
+                
+            
+            <lightning-button label="New Contact" title="addContact" class="slds-m-left_x-small" variant="brand" onclick={addContact} ></lightning-button>
+      
+            
+            <lightning-button label="New Account"  title="addAccount" variant="brand" class="slds-m-left_x-small" onclick={addAccountQuestion} >    </lightning-button>
+        </lightning-button-group>
+    
+
+        <!-- </div> -->
+    </template>
+</lightning-accordion-section>
+        <!-- </template> -->
+
+        <br>
+        
+        <lightning-accordion-section name="Additional Information"  label="Additional Information">
+            <template if:true={ARDivision}>
+        
+        <!-- <div class="slds-box slds-theme_shade"> -->
+            <!-- <div class="slds-m-around_medium">
+                <h1 class="slds-text-heading_small" style="text-decoration: underline;">Additional Fields</h1>
+            </div> -->
+            
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-4">
+                        <label class="Labels required1" for="textarea-id-01"> Job Name</label>
+                                     
+                                        <lightning-input  onchange={JobNameChange} class="jobFormControl"  value={JobName}></lightning-input>
+                        <label class="Labels required1" for="textarea-id-01"> Description</label>
+                                     
+                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl textbox"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                         
+                                        
+                                     
+                        <!-- <lightning-textarea
+                        <lightning-input label="Description" value={Description} onchange={DescriptionChange}></lightning-input> -->
+                        <!-- <lightning-combobox name="progress"
+                        label="Division"
+                        value={Division}
+                        placeholder="-Select-"
+                        options={AtiJobDivisionValues.data.values}
+                        onchange={DivisionChange} >
+                    </lightning-combobox> -->
+                       
+                        
+                       
+                            
+                        
+                        <!-- <lightning-combobox name="progress"
+                        label="Job Class"
+                        value={JobClass}
+                        placeholder="-Select-"
+                        options={AtiJobJobClassValues.data.values}
+                        onchange={JobClassChange} >
+                    </lightning-combobox> -->
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <!-- <lightning-combobox name="progress"
+                        label="Estimate Type"
+                        value={EstimateType}
+                        placeholder="-Select-"
+                        options={AtiJobEstimateTypeValues.data.values}
+                        onchange={EstimateTypeChange} >
+                        </lightning-combobox> -->
+                        <label class="Labels spacing required1"> Claim #</label>
+                        <lightning-input  value={Claim}  onchange={ClaimChange} class="spacing jobFormControl" ></lightning-input>
+                        <label class="Labels spacing required1" > Deductible</label>
+                        <lightning-input type="number" formatter="currency" value={Deductible} onchange={DeductibleChange} class="spacing jobFormControl" ></lightning-input>
+                        <label class="Labels spacing pushDown" for="textarea-id-01"> Division</label>
+                        <lightning-combobox name="progress"
+                        
+                        value={Division}
+                        placeholder="-Select-"
+                        options={options}
+                        onchange={DivisionChange}
+                        class="spacing jobFormControl" 
+                        >
+                        </lightning-combobox>
+                        <template if:true={DivisionEs}>
+                        <label class="Labels spacing required1"> ES Job Type</label>
+                        <lightning-combobox name="progress"
+                           
+                           value={EsJobType}
+                           placeholder="-Select-"
+                           options={EsJobTypePicklistValues}
+                           onchange={EsJobTypeChange}
+                           class="spacing"
+                           disabled={EMS} >
+                           </lightning-combobox>
+                        </template>
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <label class="Labels spacing" > Job Class</label>
+                        <lightning-combobox name="progress"
+                        
+                        value={JobClass}
+                        placeholder="-Select-"
+                        options={JobClassPicklistValues}
+                        onchange={JobClassChange} 
+                        class="spacing">
+                    </lightning-combobox>
+                    <label class="Labels spacing"> Lead Source</label>
+                     <lightning-combobox name="progress"
+                        
+                        value={LeadSource}
+                        placeholder="-Select-"
+                        options={LeadSourcePicklistValues}
+                        onchange={LeadSourceChange}
+                        class="spacing" >
+                        </lightning-combobox>
+                        <label class="Labels spacing pushDown" for="textarea-id-01"> Office</label>
+                            <lightning-input onkeyup={OfficeChange}
+                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing"></lightning-input>
+                              
+                                <template if:true={Offices}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        <thead>
+                                            <tr class="slds-text-heading_label">
+                                                <th scope="col">
+                                                    <div title="Customers">Offices</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={Offices} for:item="Office">
+                                                <tr key={Office.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-button variant="base" label={Office.Name}
+                                                                value={Office} title="Base action"
+                                                                onclick={populateOfficeField}
+                                                                class="slds-m-left_x-small jobButton"></lightning-button>
+                                                        </b>
+                                                        <br>
+                                                        <!-- <lightning-formatted-text value={ContactAccount.Name} label={ContactAccount.Name}>
+                                                                                
+                                                                            </lightning-formatted-text>
+                                     -->
+                                                        <!-- <lightning-formatted-address street={Property.Address_Line_1__c}
+                                                                                city={Property.City__c} country='US' province={Property.State__c}
+                                                                                postal-code={Property.Zip__c} disabled={inputDisabled}>
+                                                                            </lightning-formatted-address> -->
+                                                        <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>
+
+                    </div> 
+                   
+                    <div class="slds-col slds-size_1-of-6">
+                            <label class="MultLabels " for="textarea-id-01"> Other Interested Services</label>
+                            
+                            <lightning-record-edit-form object-api-name="Master_Job__c">
+                                    <div class="spacing">
+                                <lightning-input-field field-name="Multiple_Divisions__c" variant="label-hidden"   value={MultipleDivision} onchange={MultipleDivisionChange}>
+                                    </lightning-input-field>
+                                </div>
+                            </lightning-record-edit-form>
+                        
+                       </div>
+                       
+            </div>
+                
+            </template>
+        </lightning-accordion-section>
+        <!-- </div> -->
+            </lightning-accordion>
+        <br>
+
+        <!-- <div class="slds-box slds-theme_shade"> -->
+            
+        <!-- </div> -->
+    </div>
+    <div class="slds-p-around_medium lgc-bg-inverse element">
+        <lightning-button-group>
+    <lightning-button label='Submit' onclick={CreateNewJob} variant="brand"></lightning-button>
+    <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
+    </lightning-button-group>
+    </div>
+</div>
+
+    <template if:true={bShowModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate biggerText">Master Jobs
+                    </h2>
+                </header>
+                <!-- modal body start -->
+
+
+                <div class="slds-box slds-theme_shade">
+
+                    <div class="slds-m-around_medium">
+                        <template if:true={MasterJobs}>
+                            <table
+                                class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                <thead>
+                                    <tr class="slds-text-heading_label">
+                                        <th scope="col">
+                                            <div class="slds-truncate biggerText" title="Property">Select a Master Job
+                                                or New Master Job</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={MasterJobs} for:item="MasterJob">
+                                        <tr key={MasterJob.Id}>
+                                            <th scope="row">
+                                                <br>
+                                                <b>
+                                                    <lightning-button variant="base" label={MasterJob.Name}
+                                                        value={MasterJob} title="Base action"
+                                                        onclick={populateMasterJobField}
+                                                        class="slds-m-left_x-small jobButton"></lightning-button>
+                                                    </b>
+                                                        <br>
+
+                                                        <label>Date of Loss: </label>{MasterJob.Date_of_Loss__c}<br>
+                                                        <label>Claim #: </label> {MasterJob.Claim__c}
+                                                
+                                                <!-- <lightning-input value={MasterJob.Date_of_Loss__c} disabled></lightning-input>
+                                                <lightning-formatted-number value={MasterJob.Claim__c} disabled></lightning-formatted-number>
+                                               
+                                                <br> -->
+
+                                                <!-- <lightning-formatted-text disabled={inputDisabled} label={MasterJob.Stage__c}></lightning-formatted-text> -->
+
+                                            </th>
+
+                                        </tr>
+
+                                    </template>
+
+                                </tbody>
+                            </table>
+
+                        </template>
+                        <br>
+                        <lightning-button variant="brand" label='New Master Job' title="New Master Job"
+                            onclick={closeModal} class="slds-m-left_x-small jobButton"></lightning-button>
+
+                    </div>
+                </div>
+
+                <!-- end of prop code -->
+                <!-- modal footer start-->
+                <!-- <footer class="slds-modal__footer">
+             <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+          </footer> -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+
+
+
+   
+<!-- </div> -->
+
+
+
+<!-- <div class="slds-m-around_medium">
+    <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property</h1>
+</div>
+<div class="slds-col slds-size_1-of-5">
+    <lightning-record-edit-form object-api-name="Master_Job__c">
+    <lightning-input-field field-name="Property_ID__c" value={PropertyID} onchange={PropertyChange}></lightning-input-field>
+     </lightning-record-edit-form>
+</div> -->
+
+
+
+
+
+<template if:true={CreateContact}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+        aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- modal header start -->
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close" onclick={closeContact}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                        size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate biggerText">Contact
+                </h2>
+            </header>
+            <!-- modal body start -->
+            <div class="slds-box slds-theme_shade">
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                
+                        
+                        
+                        <lightning-input label="First Name" value={FirstName} class="contactFormControl" required autocomplete={AutoComplete} onchange={FirstNameChange}>
+                        </lightning-input>
+                        <lightning-input label="Last Name" value={LastName} class="contactFormControl" required autocomplete={AutoComplete} onchange={LastNameChange}></lightning-input>
+                        <!-- <lightning-combobox name="progress"
+                        label="Contact (Role)"
+                        value={ContactRole}
+                        placeholder="-Select-"
+                        options={AccountRolesValues.data.values}
+                        onchange={ContactRoleChanged} >
+                    </lightning-combobox> -->
+                    <lightning-combobox name="progress"
+                    label="Contact Type"
+                    value={ContactType}
+                    placeholder="-Select-"
+                    options={ContactTypeValues.data.values}
+                    onchange={ContactTypeChange}
+                    class="contactFormControl" required  >
+                    </lightning-combobox>
+                
+                        
+                
+                    </div>
+                
+                
+                        <div class="slds-col slds-size_1-of-2">
+                
+                            <lightning-input label="Phone" value={Phone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="contactFormControl" required onchange={PhoneChange}>
+                            </lightning-input>
+                            <lightning-input label="Email" type="email" autocomplete="off" class="contactFormControl" required value={Email} onchange={EmailChange}>
+                            </lightning-input>
+                            <lightning-input label="Phone Ext."  class="contactFormControl" required value={PhoneExt}
+                    onchange={PhoneExtChange}></lightning-input>
+          
+                </div>
+                
+                    </div>
+                   <br>
+                   <div class="slds-size_1-of-2">
+                    <lightning-record-edit-form object-api-name="Account_Roles__c">
+                        <lightning-input-field field-name="Account_ID__c" value={ContactAccountValue}  required onchange={AccountSelectionChange}></lightning-input-field>
+                    </lightning-record-edit-form>
+                </div>
+                <template if:true={ContactAccountSelected}>
+                    <lightning-record-edit-form
+                    object-api-name="Account_Roles__c">
+                    <lightning-input-field
+                        value={CompanyAccountRoles}
+                        field-name="Multiple_Roles__c"
+                        
+                        
+                        onchange={CompanyAccountRolesChange}
+                        required>
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+
+                </template>
+                    
+               
+                    <!-- <div class="slds-m-around_medium">
+                        <lightning-input label="Account" onkeyup={ContactAccountChanged}
+                            placeholder='Search for Account.. ' type="search" onchange={ClearAccount} value={ContactAccountValue}></lightning-input>
+                    </div>
+                    <template if:true={ContactAccounts}>
+                        <table
+                            class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                            <thead>
+                                <tr class="slds-text-heading_label">
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Customers">Accounts</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={ContactAccounts} for:item="ContactAccount">
+                                    
+                                    <tr key={ContactAccount.Id}>
+                                        <th scope="row">
+                                            <b>
+                                                <lightning-button variant="base" label={ContactAccount.Name}
+                                                    value={ContactAccount} title="Base action"
+                                                    onclick={populateContactAccountField}
+                                                    class="slds-m-left_x-small jobButton"></lightning-button>
+                                            </b>
+                                            <br>
+                          
+                                        </th>
+
+                                    </tr>
+
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+                    <template if:true={ContactAccountSelected}>
+                        <lightning-combobox name="progress"
+                        label="Account (Role)"
+                        value={ContactAccountRole}
+                        placeholder="-Select-"
+                        options={AccountRolesValues.data.values}
+                        onchange={ContactAccountRoleChanged} >
+                    </lightning-combobox> 
+                    </template> -->
+
+                    <br>
+<lightning-button label="New Account" variant="brand" onclick={ToggleNewAccount}>
+</lightning-button>
+                    <lightning-input-address
+                                    data-id="ContactAddressLookup"
+                                    address-label="Search Address"
+                                    street-label="Mailing Street"
+                                    city-label="Mailing City"
+                                    country-label="Mailing Country"
+                                    province-label="Mailing State"
+                                    postal-code-label="Mailing Postal Code"
+                                    street=""
+                                    city=""
+                                    country="US"
+                                    province=""
+                                    postal-code=""
+                                    show-address-lookup
+                                    class="contactFormControl" required 
+                                     ></lightning-input-address>
+                                     
+                <br>
+                <br>
+                <lightning-button-group>
+                    <lightning-helptext content="Must Have an Account Before Saving"></lightning-helptext>
+                    <lightning-button label="Save" icon-name="utility:save" onclick={SaveContact} variant="brand" ></lightning-button>
+                    
+                    <lightning-button label="Cancel" onclick={closeContact}></lightning-button>
+
+                </lightning-button-group>
+                </div>
+                
+                
+
+           
+           
+            </div>
+            </div>
+            <template if:true={loadingContact}>
+                <div class="exampleHolder">
+                    <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                </div>
+            </template>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+<template if:true={NewAccount}>
+<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+        aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- modal header start -->
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close" onclick={closeAccountModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                        size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate biggerText">Account
+                </h2>
+            </header>
+            <!-- modal body start -->
+            <div class="slds-box slds-theme_shade">
+
+
+    
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+    
+            <lightning-input label="Name" value={AccountName} class="companyAccountFormControl" required onchange={AccountNameChange}>
+            </lightning-input>
+            <lightning-combobox name="progress"
+            label="Type"
+            value={Type}
+            class="companyAccountFormControl" required 
+            placeholder="-Select-"
+            options={AccountTypeValues.data.values}
+            onchange={TypeChange} >
+        </lightning-combobox>
+        
+     
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+      
+            <lightning-input label="Phone" value={AccountPhone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="companyAccountFormControl" required onchange={AccountPhoneChange}>
+            </lightning-input>
+            <lightning-input label="Phone Ext." value={AccountPhoneExt} class="companyAccountFormControl" required onchange={AccountPhoneExtChange}>
+            </lightning-input>
+  
+            <!-- <lightning-combobox name="progress"
+                label="Account (Role)"
+                value={ContactAccountRole}
+                placeholder="-Select-"
+                options={AccountRolesValues.data.values}
+                onchange={ContactAccountRoleChanged} >
+            </lightning-combobox>  -->
+            
+        </div>
+ 
+        </div>
+        <lightning-record-edit-form
+            object-api-name="Account_Roles__c">
+            <lightning-input-field
+                value={CompanyAccountRoles}
+                field-name="Multiple_Roles__c"
+                
+                required
+                onchange={CompanyAccountRolesChange}>
+            </lightning-input-field>
+        </lightning-record-edit-form>
+        <lightning-input-address
+                        data-id="AccountAddressLookup"
+                        address-label="Address"
+                        street-label="Billing Street"
+                        city-label="Billing City"
+                        country-label="Billing Country"
+                        province-label="Billing State"
+                        postal-code-label="Billing Postal Code"
+                        street=""
+                        city=""
+                        country="United States"
+                        province=""
+                        postal-code=""
+                        show-address-lookup
+                        class="companyAccountFormControl"
+                        required
+                         ></lightning-input-address>
+                         <br>
+                         <br>
+                         <lightning-button-group>
+                             <lightning-button label="Save" variant="brand" icon-name="utility:save" onclick={saveAccount}></lightning-button>
+                             <lightning-button label="Cancel" class="Buttonspacing" onclick={closeAccountModal}></lightning-button>
+                         </lightning-button-group>
+    </div>
+    
+</div>
+<template if:true={loading}>
+    <div class="exampleHolder">
+        <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+    </div>
+</template>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+
+<template if:true={AccountQuestion}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- modal header start -->
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close" onclick={closeAccountQuestion}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                        size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+               
+            </header>
+            <div class="slds-box slds-theme_shade">
+                
+              <div class="slds-m-around_medium">
+                <p style="width:100%; font-size:20px; text-align:center;margin: 45px 0 20px 0;"> Is this a Company or Person?</p><br/>
+                <div style="width:100%; text-align:center;"><button style="padding: 3px 40px;" class="slds-button slds-button_brand" onclick={BusinessAccountClicked} >Company</button>
+                    <button style="padding: 3px 40px;margin-right: 20px;" class="slds-button slds-button_neutral" onclick={PersonAccountClicked}>Person</button>
+                </div>
+                  <br>
+                  
+              </div>
+
+
+
+        </div>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <template if:true={PersonAccountModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate biggerText">Person Account
+                    </h2>
+                </header>
+                <div class="slds-box slds-theme_shade">
+                    
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-2">
+                    
+                            <lightning-input label="First Name" value={AccountFirstName} class="personAccountFormControl" required onchange={AccountFirstNameChange}>
+                            </lightning-input>
+                            <lightning-input label="Last Name" value={AccountLastName} class="personAccountFormControl" required onchange={AccountLastNameChange}>
+                            </lightning-input>
+                            <lightning-combobox name="progress"
+                            label="Type"
+                            value={Type}
+                            placeholder="-Select-"
+                            class="personAccountFormControl" 
+                            required
+                            options={AccountTypeValues.data.values}
+                            onchange={TypeChange} >
+                        </lightning-combobox>
+                       
+                     
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                      
+                            <lightning-input label="Phone" value={AccountPhone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="personAccountFormControl" required onchange={AccountPhoneChange} >
+                            </lightning-input>
+                            <lightning-input label="Phone Ext." class="personAccountFormControl" required value={AccountPhoneExt} onchange={AccountPhoneExtChange}>
+                            </lightning-input>
+<!--                    
+                            <lightning-combobox name="progress"
+                                label="Account (Role)"
+                                value={ContactAccountRole}
+                                placeholder="-Select-"
+                                options={AccountRolesValues.data.values}
+                                onchange={ContactAccountRoleChanged} >
+                            </lightning-combobox>  -->
+                            
+                        </div>
+                 
+                        </div>
+                        <lightning-record-edit-form
+                            object-api-name="Account_Roles__c">
+                            <lightning-input-field
+                                value={PersonAccountRoles}
+                                field-name="Multiple_Roles__c"
+                                
+                                required
+                                onchange={PersonAccountRolesChange}
+                                >
+                            </lightning-input-field>
+                        </lightning-record-edit-form>
+                        <lightning-input-address
+                                        data-id="PersonAccountAddressLookup"
+                                        address-label="Address Search"
+                                        street-label="Billing Street"
+                                        city-label="Billing City"
+                                        country-label="Billing Country"
+                                        province-label="Billing State"
+                                        postal-code-label="Billing Postal Code"
+                                        street=""
+                                        city=""
+                                        country="United States"
+                                        province=""
+                                        postal=""
+                                        show-address-lookup
+                                        required
+                                        class="personAccountFormControl"
+                                        
+                                         ></lightning-input-address>
+                                         <br>
+                                         <br>
+                                         <lightning-button-group>
+                                             <lightning-button label="Save" variant="brand" icon-name="utility:save" onclick={savePersonAccount}></lightning-button>
+                                             <lightning-button label="Cancel" class="Buttonspacing" onclick={closePersonAccountModal}></lightning-button>
+                                         </lightning-button-group>
+    
+    
+    
+            </div>
+        </div>
+        <template if:true={loadingPersonAccount}>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    
+        
+
+
+        <template if:true={newAccountRoles}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={CloseAccountRole}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                       
+                    </header>
+                    <div class="slds-box slds-theme_shade">
+                        
+                        <lightning-record-edit-form
+                        object-api-name="Account_Roles__c">
+                        <lightning-input-field
+                            value={MultipleRoles}
+                            field-name="Multiple_Roles__c"
+                            class="form-control ARRoles"
+                            variant="label-hidden"
+                            onchange={AccountMultipleRoles}>
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                    <br>
+                    <lightning-button-group>
+                        <lightning-button label="Save" variant="brand" icon-name="utility:save" onclick={saveMultipleRoles}></lightning-button>
+                        <lightning-button label="Cancel" class="Buttonspacing" onclick={CloseAccountRole}></lightning-button>
+                    </lightning-button-group>
+        
+        
+                </div>
+            </div>
+            
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+
+
+            <template if:true={NewProperty}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                        aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <!-- modal header start -->
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close" onclick={closePropertyModal}>
+                                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                        size="small"></lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate biggerText">Property
+                                </h2>
+                            </header>
+                            <!-- modal body start -->
+                            <div class="slds-box slds-theme_shade">
+                
+                
+                    
+                                <lightning-input-address
+                                required
+                                class="propertyFormControl"
+                                data-id="AddressLookup"
+                                address-label="Address Search"
+                                street-label="Street"
+                                city-label="City"
+                                country-label="Country"
+                                province-label="State"
+                                postal-code-label="Zip"
+                                street={Street}
+                                city={City}
+                                country="United States"
+                                province={State}
+                                postal-code={Zip}
+                                show-address-lookup
+                                
+                    
+                    ></lightning-input-address>
+                                         <div class="slds-col slds-size_1-of-2">
+                                        <lightning-combobox name="progress"
+                                            label="Property Type"
+                                            value={PropertyType}
+                                            placeholder="-Select-"
+                                            options={PropertyTypeValues.data.values}
+                                            onchange={PropertyTypeChange}
+                                            class="propertyFormControl"
+                                            required>
+                                        </lightning-combobox>
+                                        <!-- <lightning-input label="Zip" value={Zip} onchange={ZipChange}></lightning-input>
+                
+                                    </div>
+                                </div> -->
+                
+                            </div>
+                            
+                                         <br>
+                                         <lightning-button-group>
+                                             <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={closeProperty}></lightning-button>
+                                             <lightning-button label="Cancel" class="Buttonspacing" onclick={closePropertyModal}></lightning-button>
+                                         </lightning-button-group>
+                
+                            </div>
+                                         
+                    </div>
+                    
+               
+                
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+            
+</template>
+
+
+
+
+ <!-- <div if:true={PropertySelected}>
+            <div class="slds-box slds-theme_shade">
+                <div class="slds-m-around_medium">
+            <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property</h1>
+        </div>
+        <br> 
+                <div class="PropName bold_special">{PropertySelectedField.Name}</div>
+                <br>
+                <lightning-formatted-address street={PropertySelectedField.Address_Line_1__c}
+                    city={PropertySelectedField.City__c} country='US' province={PropertySelectedField.State__c}
+                    postal-code={PropertySelectedField.Zip__c} disabled={inputDisabled} class="BiggerFont">
+                </lightning-formatted-address>
+            </div>
+        </div> -->
+
+        <!-- <lightning-input label="Property Test" value={testingProperty}></lightning-input> -->
+        <!-- <div class="slds-box slds-theme_shade">
+    <lightning-button label="New Property" variant="brand" onclick={ToggleNewProperty}></lightning-button>
+                <div if:true={NewProperty}>
+                <lightning-record-edit-form object-api-name="Property__c">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-5">
+                    
+                    <lightning-input-field field-name="Name"></lightning-input-field>
+                    <lightning-input-field field-name="Address_Line_1__c"></lightning-input-field>
+                    <lightning-input-field field-name="Address_Line_2__c"></lightning-input-field>
+                    <lightning-input-field field-name="City__c"></lightning-input-field>
+                    <lightning-input-field field-name="Country__c"></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-5">
+                    <lightning-input-field field-name="Location__c"></lightning-input-field>
+                    <lightning-input-field field-name="Property_Type__c"></lightning-input-field>
+                    <lightning-input-field field-name="State__c"></lightning-input-field>
+                    <lightning-input-field field-name="Zip__c"></lightning-input-field>
+                </div>
+                    </div>
+            </lightning-record-edit-form>
+                </div>
+                
+    </div> -->
+
+
+        <!-- <div class="slds-m-around_medium">
+        <lightning-input type="search" class="slds-m-bottom_small" label="Search" onkeyup={SearchJobs} onchange={ChangeSearchKey}></lightning-input>
+        <lightning-button label="Search" onclick={SearchJobs}></lightning-button>
+        <template if:true={Jobs}>
+                <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                        <thead>
+                                <tr class="slds-text-heading_label">
+                                  <th scope="col"><div class="slds-truncate" title="Job">Job</div></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                    <template for:each={Jobs} for:item="Job">
+                            <tr key={Job.Id}>
+                                    <th scope="row">                                                           
+                                            <b><lightning-button variant="base" label={Job.Name} value={Job.Id} title="Base action" onclick={navigateToDailyTimesheetListView} class="slds-m-left_x-small jobButton"></lightning-button>
+                                            </b>
+                                            <lightning-formatted-address
+                                                street={Job.Project_Site_Address__c}
+                                                city={Job.Project_Site_City__c}
+                                                country='US'
+                                                province={Job.Project_Site_State__c}
+                                                postal-code={Job.Project_Site_Zipcode__c}>
+                                        </lightning-formatted-address>
+
+                                </th>
+                                    
+                            </tr>
+
+                    </template>
+                </tbody>
+                </table>
+            </template>
+            <template if:true={error}>
+                    <b class="tabletop">{error}</b>
+                </template>
+        </div> -->
+
+
+        <!-- <template if:true={AccountRolesSelected}> -->

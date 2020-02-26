@@ -1,0 +1,15 @@
+<!--
+  @File Name          : newJobAura.cmp
+  @Description        : 
+  @Author             : Sean Gray
+  @Group              : 
+  @Last Modified By   : Sean Gray
+  @Last Modified On   : 1/23/2020, 2:35:49 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/23/2020   Sean Gray     Initial Version
+-->
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride">
+    <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
+    <c:newJobLWC recordId = "{!v.recordId}"/>
+</aura:component>
