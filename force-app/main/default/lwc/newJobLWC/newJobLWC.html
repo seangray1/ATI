@@ -4,7 +4,7 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 2/21/2020, 8:15:45 AM
+  @Last Modified On   : 2/26/2020, 10:53:46 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    1/23/2020   Sean Gray     Initial Version
@@ -89,13 +89,13 @@
                 <lightning-button label="Clear Property" onclick={ResetPropertyForm}></lightning-button>
             </lightning-button-group>
             
-            <div class="pushDown">
+            <!-- <div class="pushDown"> -->
                 
                 <lightning-formatted-address street={Street}
                                             city={City} country='US' province={State}
                                             postal-code={Zip} disabled>
                                         </lightning-formatted-address>
-                                    </div>
+                                    <!-- </div> -->
         </template>
           
             </lightning-accordion-section>
@@ -1051,10 +1051,12 @@
                                 street-label="Street"
                                 city-label="City"
                                 country-label="Country"
+                                county-label="County"
                                 province-label="State"
                                 postal-code-label="Zip"
                                 street={Street}
                                 city={City}
+                                county=""
                                 country="United States"
                                 province={State}
                                 postal-code={Zip}

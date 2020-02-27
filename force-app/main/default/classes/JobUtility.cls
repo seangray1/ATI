@@ -4,7 +4,7 @@
  * @Author             : sean.gray@atirestoration.com
  * @Group              : 
  * @Last Modified By   : sean.gray@atirestoration.com
- * @Last Modified On   : 1/10/2020, 10:59:12 AM
+ * @Last Modified On   : 2/24/2020, 11:14:04 AM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
@@ -142,18 +142,18 @@ public class JobUtility {
     
     public static void ManagerToOwnerCopy( Map<Id, ATI_Job__c> oldJobsMap, list<ATI_Job__c> lstNewJobs){
         //logic to copies the Jobs Project Manager into the Owner field     
-        if (! TriggerConfig.raw.JobCopyPMToOwner__c) {
-            return;
-        }        
+        // if (! TriggerConfig.raw.JobCopyPMToOwner__c) {
+        //     return;
+        // }        
                
-        //loop through all of the jobs
-        for (ATI_Job__c j : lstNewJobs){
-            //if project manager isn't empty
-            if(j.Project_Manager__c != null){
-                //copy the manager ID to the owner
-                j.OwnerId = j.Project_Manager__c;
-            }
-        }   
+        // //loop through all of the jobs
+        // for (ATI_Job__c j : lstNewJobs){
+        //     //if project manager isn't empty
+        //     if(j.Project_Manager__c != null){
+        //         //copy the manager ID to the owner
+        //         j.OwnerId = j.Project_Manager__c;
+        //     }
+        // }   
     }
     @AuraEnabled
     public static Date projectNoteDate(String recordId){
@@ -480,67 +480,67 @@ public class JobUtility {
     
     public static void removeJobOwnerfromTeam(Map<Id, ATI_Job__c> oldJobMap, list<ATI_Job__c> lstNewJob){
         
-        set<Id> JobIds = new set<Id>();
-        map<Id,ATI_Job__c> mapJob = new map<Id,ATI_Job__c>();
-        list<ATI_Job_Team__c> lstDeleteJobTeam = new list<ATI_Job_Team__c>();
-        for(ATI_Job__c Job:lstNewJob){
-            ATI_Job__c oldJob = oldJobMap != null ? oldJobMap.get( Job.Id ) : null ;
-            if( oldJob == null || oldJob.OwnerId != Job.OwnerId ){
-                JobIds.add( Job.Id);
-                mapJob.put(Job.Id, Job);
-            }
-        }
+        // set<Id> JobIds = new set<Id>();
+        // map<Id,ATI_Job__c> mapJob = new map<Id,ATI_Job__c>();
+        // list<ATI_Job_Team__c> lstDeleteJobTeam = new list<ATI_Job_Team__c>();
+        // for(ATI_Job__c Job:lstNewJob){
+        //     ATI_Job__c oldJob = oldJobMap != null ? oldJobMap.get( Job.Id ) : null ;
+        //     if( oldJob == null || oldJob.OwnerId != Job.OwnerId ){
+        //         JobIds.add( Job.Id);
+        //         mapJob.put(Job.Id, Job);
+        //     }
+        // }
         
-        //Adding the split
-        if( oldJobMap != null && !JobIds.isEmpty() ){
-            List<ATI_Job_Split__c> JobSplitsToDelete = new List<ATI_Job_Split__c>();
+        // //Adding the split
+        // if( oldJobMap != null && !JobIds.isEmpty() ){
+        //     List<ATI_Job_Split__c> JobSplitsToDelete = new List<ATI_Job_Split__c>();
             
-            for( ATI_Job_Split__c os : [ SELECT Id, Team_Member__c, ATI_Job__c,
-                                        ATI_Job__r.OwnerId 
-                                         FROM ATI_Job_Split__c 
-                                         WHERE ATI_Job__c IN : JobIds ] ){  
+        //     for( ATI_Job_Split__c os : [ SELECT Id, Team_Member__c, ATI_Job__c,
+        //                                 ATI_Job__r.OwnerId 
+        //                                  FROM ATI_Job_Split__c 
+        //                                  WHERE ATI_Job__c IN : JobIds ] ){  
                
-                ATI_Job__c owner = oldJobMap.get( os.ATI_Job__c );
+        //         ATI_Job__c owner = oldJobMap.get( os.ATI_Job__c );
                             
-                if(owner != null && os.Team_Member__c == owner.ownerID){
-                    JobSplitsToDelete.add( os );
-                }  
-            }
+        //         if(owner != null && os.Team_Member__c == owner.ownerID){
+        //             JobSplitsToDelete.add( os );
+        //         }  
+        //     }
             
-            if( !JobSplitsToDelete.isEmpty() ){
-             //   delete JobSplitsToDelete;
-            }
-        }
-        if( !JobIds.isEmpty() ){
-            //Query for Owner
-            list<ATI_Job_Team__c> lstJobTeam = [SELECT User__c, Team_Member_Role__c, ATI_Job__c, Id from  ATI_Job_Team__c 
-                                                        WHERE ATI_Job__c IN :JobIds 
-                                                        AND  Team_Member_Role__c = :JOB_OWNER_ROLE];
-            system.debug('lstJobTeam===>'+lstJobTeam);
-            for(ATI_Job_Team__c JobMem :lstJobTeam ){
-                system.debug('lstJobTeam For===>'+lstJobTeam);
-                ATI_Job__c Job = mapJob.get(JobMem.ATI_Job__c);
-                if(Job !=null && (Job.OwnerId != JobMem.User__c )){
-                    //do not delete the current Owner
-                    lstDeleteJobTeam.add(JobMem);
-                }
-            }
+        //     if( !JobSplitsToDelete.isEmpty() ){
+        //      //   delete JobSplitsToDelete;
+        //     }
+        // }
+        // if( !JobIds.isEmpty() ){
+        //     //Query for Owner
+        //     list<ATI_Job_Team__c> lstJobTeam = [SELECT User__c, Team_Member_Role__c, ATI_Job__c, Id from  ATI_Job_Team__c 
+        //                                                 WHERE ATI_Job__c IN :JobIds 
+        //                                                 AND  Team_Member_Role__c = :JOB_OWNER_ROLE];
+        //     system.debug('lstJobTeam===>'+lstJobTeam);
+        //     for(ATI_Job_Team__c JobMem :lstJobTeam ){
+        //         system.debug('lstJobTeam For===>'+lstJobTeam);
+        //         ATI_Job__c Job = mapJob.get(JobMem.ATI_Job__c);
+        //         if(Job !=null && (Job.OwnerId != JobMem.User__c )){
+        //             //do not delete the current Owner
+        //             lstDeleteJobTeam.add(JobMem);
+        //         }
+        //     }
             
-            if( !lstDeleteJobTeam.isEmpty() ){
-                try{
-                    system.debug('lstDeleteJobTeam===>'+lstDeleteJobTeam);
-                  //  delete lstDeleteJobTeam;
-                }catch(DmlException dmlex){
-                    for(Integer iFailedRow=0; iFailedRow<dmlex.getNumDml();iFailedRow++){
-                        Integer Orginalindex = dmlex.getDmlIndex(iFailedRow);
-                        ATI_Job_Team__c JobTeamMem = lstDeleteJobTeam[Orginalindex];
-                            ATI_Job__c Job = mapJob.get(JobTeamMem.ATI_Job__c);
-                        Job.addError('Failed to remove the Job Owner from team -'+ dmlex.getDmlMessage(iFailedRow) +
-                                       ' - Stacktrace::'+dmlex.getStackTraceString());
-                    }
-                }
-            }
-        }
+        //     if( !lstDeleteJobTeam.isEmpty() ){
+        //         try{
+        //             system.debug('lstDeleteJobTeam===>'+lstDeleteJobTeam);
+        //           //  delete lstDeleteJobTeam;
+        //         }catch(DmlException dmlex){
+        //             for(Integer iFailedRow=0; iFailedRow<dmlex.getNumDml();iFailedRow++){
+        //                 Integer Orginalindex = dmlex.getDmlIndex(iFailedRow);
+        //                 ATI_Job_Team__c JobTeamMem = lstDeleteJobTeam[Orginalindex];
+        //                     ATI_Job__c Job = mapJob.get(JobTeamMem.ATI_Job__c);
+        //                 Job.addError('Failed to remove the Job Owner from team -'+ dmlex.getDmlMessage(iFailedRow) +
+        //                                ' - Stacktrace::'+dmlex.getStackTraceString());
+        //             }
+        //         }
+        //     }
+        // }
     }
     
 

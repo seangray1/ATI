@@ -10,14 +10,14 @@
         <processMetadataValues>
             <name>flowSelection</name>
             <value>
-                <stringValue>Update Master Jobs</stringValue>
+                <stringValue>Update Master Job Stage</stringValue>
             </value>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>Update Master Jobs Status</label>
+        <label>Update Job Stage</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
-        <actionName>Update_Master_Jobs</actionName>
+        <actionName>UpdateMasterJobStage</actionName>
         <actionType>flow</actionType>
         <inputParameters>
             <processMetadataValues>
@@ -96,7 +96,7 @@
         <dataType>Boolean</dataType>
         <expression>true</expression>
     </formulas>
-    <interviewLabel>Update_Master_Jobs_Job_Status-3_InterviewLabel</interviewLabel>
+    <interviewLabel>Update_Master_Jobs_Job_Status-4_InterviewLabel</interviewLabel>
     <label>Update Master Jobs Job Status</label>
     <processMetadataValues>
         <name>ObjectType</name>

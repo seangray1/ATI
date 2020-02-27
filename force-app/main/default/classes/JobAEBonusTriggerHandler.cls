@@ -1,3 +1,14 @@
+/**
+ * @File Name          : JobAEBonusTriggerHandler.cls
+ * @Description        : 
+ * @Author             : sean.gray@atirestoration.com
+ * @Group              : 
+ * @Last Modified By   : sean.gray@atirestoration.com
+ * @Last Modified On   : 2/24/2020, 11:05:55 AM
+ * @Modification Log   : 
+ * Ver       Date            Author      		    Modification
+ * 1.0    2/24/2020   sean.gray@atirestoration.com     Initial Version
+**/
 public without sharing class JobAEBonusTriggerHandler {
 
     public static final string Job_CREDIT_REQ_STATUS = 'Approved';
@@ -207,7 +218,11 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
         List<ATI_Job_Split__c> jobSplitsToUpsert = new List<ATI_Job_Split__c>();
         List<ATI_Job_Team__c> otmToDelete = new List<ATI_Job_Team__c>();
         List<ATI_Job_Split__c> jobSplitsDelete = new List<ATI_Job_Split__c>();
-        
+        Set<Id> mJobSet = new Set<Id>();
+        for(ATI_Job__c j : jobs){
+            mJobSet.add(j.Master_Job__c);
+        }
+        Map<Id,Master_Job__c> mJobMap = new Map<ID, Master_Job__c>([Select Id, OwnerId FROM Master_Job__c Where Id =: mJobSet]);
         if (!jobs.isEmpty()) {
             // Get existing Job splits
             Map<Id, List<ATI_Job_Split__c>> existingJobSplitsMap = new Map<Id, List<ATI_Job_Split__c>>();
@@ -223,7 +238,7 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                                         }
             Set<Id> jobIds = (new Map<Id, ATI_Job__c>(jobs)).keySet();
             Map<Id, List<ATI_Job_Team__c>> existingOTMMap = new Map<Id, List<ATI_Job_Team__c>>();
-            for (ATI_Job_Team__c otm : [SELECT Id, ATI_Job__c, User__c, Team_Member_Role__c  
+            for (ATI_Job_Team__c otm : [SELECT Id, ATI_Job__c, User__c, Team_Member_Role__c, ownerId  
                                               FROM ATI_Job_Team__c
                                               WHERE ATI_Job__c IN :jobIds]) {
                                                   System.debug('OTMId: ' + otm.Team_Member_Role__c);
@@ -236,14 +251,14 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
             
             for (ATI_Job__c job : jobs) {
                 // Construct list of job team members to be inserted
-                if( job.Account_Executive_1__c != null && job.OwnerId != job.Account_Executive_1__c ){
+                if( job.Account_Executive_1__c != null && mJobMap.get(job.Master_Job__c).OwnerId != job.Account_Executive_1__c ){
                     otmToInsert.add(new ATI_Job_Team__c(User__c=job.Account_Executive_1__c, 
                                                               ATI_Job__c = job.Id, 
                                                               Team_Member_Role__c='Account Executive 1'));
                 }
                 
                 if( job.Account_Executive_2__c != null && 
-                   job.OwnerId != job.Account_Executive_2__c && 
+                mJobMap.get(job.Master_Job__c).OwnerId != job.Account_Executive_2__c && 
                    job.Account_Executive_1__c != job.Account_Executive_2__c){
                        otmToInsert.add(new ATI_Job_Team__c(User__c=job.Account_Executive_2__c, 
                                                                  ATI_Job__c = job.Id, 
@@ -255,7 +270,7 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                     if( existingOTMMap.containsKey(job.Id)){
                         for( ATI_Job_Team__c otm : existingOTMMap.get(job.Id) ){
                             system.debug( otm );                            
-                            if( otm != null && otm.User__c != job.OwnerId ){                        
+                            if( otm != null && otm.User__c != mJobMap.get(job.Master_Job__c).OwnerId ){                        
                                 if( otm.Team_Member_Role__c == 'Account Executive 2' || otm.Team_Member_Role__c == 'Account Executive 1'){
                                     otmToDelete.add( otm ); 
                                 }
@@ -279,8 +294,8 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                    }
                 system.debug('RK ---- ae1' +  job.Account_Executive_1__c );
                 system.debug('RK ---- ae2' +  job.Account_Executive_2__c );
-                system.debug('RK ---- ownerid' +  job.OwnerId );
-                if( job.Account_Executive_1__c != null && job.OwnerId != job.Account_Executive_1__c ){
+                system.debug('RK ---- ownerid' +  mJobMap.get(job.Master_Job__c).OwnerId );
+                if( job.Account_Executive_1__c != null && mJobMap.get(job.Master_Job__c).OwnerId != job.Account_Executive_1__c ){
                     system.debug('ae1');
                     ATI_Job_Split__c os = new ATI_Job_Split__c( ATI_Job__c = job.Id, 
                                                                Team_Member__c = job.Account_Executive_1__c, 
@@ -288,7 +303,7 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                     jobSplitsToUpsert.add( os );                
                 }
                 
-                if( job.Account_Executive_2__c != null && job.OwnerId != job.Account_Executive_2__c && 
+                if( job.Account_Executive_2__c != null && mJobMap.get(job.Master_Job__c).OwnerId != job.Account_Executive_2__c && 
                    job.Account_Executive_1__c != job.Account_Executive_2__c){
                        system.debug('ae2');
                        ATI_Job_Split__c os = new ATI_Job_Split__c( ATI_Job__c = job.Id, Team_Member__c = job.Account_Executive_2__c, Percentage__c = splitPercent );
@@ -297,31 +312,31 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                 if(existingJobSplitsMap.containskey(job.Id))
                 for( ATI_Job_Split__c os1 : existingJobSplitsMap.get(job.Id) ){
                     system.debug('existingJobsplitsmap');
-                    if( os1.Team_Member__c == job.OwnerId ){
+                    if( os1.Team_Member__c == mJobMap.get(job.Master_Job__c).OwnerId ){
                         system.debug('matched ownerid');
                         splitPercent = 0;
                         if (job.Account_Executive_1__c == null && job.Account_Executive_2__c == null) {
                             // only owner no AEs split percent = 100
                             splitPercent = 100;
                             system.debug('Split Percent1' + splitPercent);
-                        } else if (job.Account_Executive_1__c == job.OwnerId && job.Account_Executive_2__c == null ) {
+                        } else if (job.Account_Executive_1__c == mJobMap.get(job.Master_Job__c).OwnerId && job.Account_Executive_2__c == null ) {
                             // AE1 is owner no AE2 split percent = 100
                             splitPercent = 100;
                             system.debug('Split Percent2' + splitPercent);
-                        } else if (job.Account_Executive_2__c == job.OwnerId && job.Account_Executive_1__c == null) {
+                        } else if (job.Account_Executive_2__c == mJobMap.get(job.Master_Job__c).OwnerId && job.Account_Executive_1__c == null) {
                             // AE2 is owner no AE1 split percent = 100
                                            
                             splitPercent = 100;
                             system.debug('Split Percent3' + splitPercent);
-                        } else if (job.Account_Executive_1__c == job.OwnerId && job.Account_Executive_1__c == job.Account_Executive_2__c) {
+                        } else if (job.Account_Executive_1__c == mJobMap.get(job.Master_Job__c).OwnerId && job.Account_Executive_1__c == job.Account_Executive_2__c) {
                             // AE1 and AE2 both are owner - split percent = 100
                             splitPercent = 100;
                             system.debug('Split Percent4' + splitPercent);
-                        } else if (job.Account_Executive_1__c == job.OwnerId && job.Account_Executive_2__c != job.OwnerId) {
+                        } else if (job.Account_Executive_1__c == mJobMap.get(job.Master_Job__c).OwnerId && job.Account_Executive_2__c != mJobMap.get(job.Master_Job__c).OwnerId) {
                             // AE 1 exists and ae1 is owner and AE2 exists but not owner - split percent = 50
                             splitPercent = 50;
                             system.debug('Split Percent5' + splitPercent);
-                        } else if (job.Account_Executive_1__c != job.OwnerId && job.Account_Executive_2__c == job.OwnerId) {
+                        } else if (job.Account_Executive_1__c != mJobMap.get(job.Master_Job__c).OwnerId && job.Account_Executive_2__c == mJobMap.get(job.Master_Job__c).OwnerId) {
                             // AE1 exists but no owner and AE2 exists and is owner - split percent = 50
                             splitPercent = 50;
                             system.debug('Split Percent6' + splitPercent);

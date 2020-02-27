@@ -546,6 +546,7 @@ savePersonAccount(){
                         this.BillingState = "";
                         this.BillingPostalCode = "";
                         this.ContactAccountRole = "";
+                        this.PersonAccountRoles = "";
                     }
                 })
              }}
@@ -615,6 +616,7 @@ saveAccount(){
                         this.BillingState = "";
                         this.BillingPostalCode = "";
                         this.ContactAccountRole = "";
+                        this.CompanyAccountRoles = "";
                         this.loading = false;
                         this.NewAccount = false;
                         
@@ -665,8 +667,11 @@ ReplaceEmptyAccountRoleRows(){
     }
 }
     if(!Inserted){
-    
-        AccountRoles.push({Text__c : this.ContactAccountRole,  Contact_ID__c: this.ContactId, Account_ID__c: this.ContactAccountValue});
+        if(!this.CreateNewContact){
+        AccountRoles.push({Text__c : this.ContactAccountRole,  Contact_ID__c: "", Account_ID__c: this.ContactAccountValue});
+        }else{
+            AccountRoles.push({Text__c : this.ContactAccountRole,  Contact_ID__c: this.ContactId, Account_ID__c: this.ContactAccountValue});   
+        }
     }
    
 
