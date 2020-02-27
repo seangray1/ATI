@@ -325,6 +325,7 @@ public with sharing class JobButtons {
         // Submit the record to specific process and skip the criteria evaluation
         req1.setProcessDefinitionNameOrId('X2PercentAllocation1');
         req1.setSkipEntryCriteria(true);
+        
         // Submit the approval request for the account
         Approval.ProcessResult result = Approval.process(req1);
         FeedItem post = new FeedItem();
@@ -364,6 +365,7 @@ public with sharing class JobButtons {
             system.debug('Exception is '+ e);
             return string.valueOf(e);
         }
+
         
     }
     

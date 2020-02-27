@@ -4,7 +4,7 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 2/26/2020, 10:53:46 AM
+  @Last Modified On   : 2/27/2020, 11:09:04 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    1/23/2020   Sean Gray     Initial Version
@@ -42,8 +42,14 @@
                         
                 <lightning-input label="Property Search" onkeyup={PropertyChanged}
                     placeholder='Search for Properties.. ' value={PropertyValue} type="search" autocomplete={AutoComplete} onchange={ClearProperty}></lightning-input>
-                    
-                    
+                    </div>
+                    <div if:true={PropertySelected}>
+                        <div class="slds-col slds-size_1-of-5">
+                            <lightning-formatted-address street={Street}
+                                            city={City} country='US' province={State}
+                                            postal-code={Zip} disabled>
+                                        </lightning-formatted-address>
+                        </div>
                     </div>
                 <template if:true={Properties}>
                     <table
@@ -306,12 +312,25 @@
                         <label class="Labels required1" for="textarea-id-01"> Job Name</label>
                                      
                                         <lightning-input  onchange={JobNameChange} class="jobFormControl"  value={JobName}></lightning-input>
-                        <label class="Labels required1" for="textarea-id-01"> Description</label>
+                        <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
                                      
                                         <lightning-textarea placeholder="Type Description Here" class="jobFormControl textbox"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+
+                                        <lightning-record-edit-form object-api-name="ATI_Job__c">
+                                            <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label> -->
+                                            <lightning-input-field field-name="Project_Manager__c" class="jobFormControl"  onchange={ProjectDirectorChange} value={ProjectDirector}>
+                                            
+                                            </lightning-input-field>
+                                        </lightning-record-edit-form>
+                                                     
+                                        <lightning-record-edit-form object-api-name="ATI_Job__c">
+                                            <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Taken By</label>   -->
+                                            <lightning-input-field field-name="Taken_By__c" class="jobFormControl"  onchange={TakenByChange} value={TakenBy}>
+                                            
+                                            </lightning-input-field>
+                                        </lightning-record-edit-form>
                          
                                         
-                                     
                         <!-- <lightning-textarea
                         <lightning-input label="Description" value={Description} onchange={DescriptionChange}></lightning-input> -->
                         <!-- <lightning-combobox name="progress"
@@ -342,11 +361,13 @@
                         options={AtiJobEstimateTypeValues.data.values}
                         onchange={EstimateTypeChange} >
                         </lightning-combobox> -->
-                        <label class="Labels spacing required1"> Claim #</label>
-                        <lightning-input  value={Claim}  onchange={ClaimChange} class="spacing jobFormControl" ></lightning-input>
-                        <label class="Labels spacing required1" > Deductible</label>
-                        <lightning-input type="number" formatter="currency" value={Deductible} onchange={DeductibleChange} class="spacing jobFormControl" ></lightning-input>
-                        <label class="Labels spacing pushDown" for="textarea-id-01"> Division</label>
+                        <label class="Labels spacing"> Claim #</label>
+                        <lightning-input  value={Claim}  onchange={ClaimChange} class="spacing" ></lightning-input>
+                        <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
+                        <lightning-input value={Deductible} onchange={DeductibleChange} class="spacing" ></lightning-input>
+                        <label class="Labels spacing" > Date of Loss</label>
+                        <lightning-input value={DateOfLoss} type="Date" onchange={DateOfLossChange} class="spacing" ></lightning-input>
+                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
                         <lightning-combobox name="progress"
                         
                         value={Division}
@@ -371,27 +392,27 @@
                        
                     </div>
                     <div class="slds-col slds-size_1-of-6">
-                        <label class="Labels spacing" > Job Class</label>
+                        <label class="Labels spacing required1" > Job Class</label>
                         <lightning-combobox name="progress"
                         
                         value={JobClass}
                         placeholder="-Select-"
                         options={JobClassPicklistValues}
                         onchange={JobClassChange} 
-                        class="spacing">
+                        class="spacing  jobFormControl">
                     </lightning-combobox>
-                    <label class="Labels spacing"> Lead Source</label>
+                    <label class="Labels spacing required1"> Lead Source</label>
                      <lightning-combobox name="progress"
                         
                         value={LeadSource}
                         placeholder="-Select-"
                         options={LeadSourcePicklistValues}
                         onchange={LeadSourceChange}
-                        class="spacing" >
+                        class="spacing  jobFormControl" >
                         </lightning-combobox>
-                        <label class="Labels spacing pushDown" for="textarea-id-01"> Office</label>
+                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
                             <lightning-input onkeyup={OfficeChange}
-                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing"></lightning-input>
+                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing  jobFormControl"></lightning-input>
                               
                                 <template if:true={Offices}>
                                     <table
@@ -431,7 +452,12 @@
                                         </tbody>
                                     </table>
                                 </template>
+                                <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label>
+                                <lightning-record-edit-form object-api-name="ATI_Job__c">
+                                    <lightning-input-field field-name="Project_Manager__c" variant="label-hidden" onchange={ProjectDirectorChange} value={ProjectDirector}>
 
+                                    </lightning-input-field>
+                                </lightning-record-edit-form> -->
                     </div> 
                    
                     <div class="slds-col slds-size_1-of-6">
@@ -445,7 +471,21 @@
                             </lightning-record-edit-form>
                         
                        </div>
-                       
+                       <div class="slds-col slds-size_1-of-6">
+                       <lightning-record-edit-form object-api-name="ATI_Job__c">
+                        <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label> -->
+                        <lightning-input-field field-name="Project_Manager__c" class="spacing  jobFormControl"  onchange={ProjectDirectorChange} value={ProjectDirector}>
+                        
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                                 
+                    <lightning-record-edit-form object-api-name="ATI_Job__c">
+                        <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Taken By</label>   -->
+                        <lightning-input-field field-name="Taken_By__c" class="spacing  jobFormControl" variant="label-hidden" onchange={TakenByChange} value={TakenBy}>
+                        
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                </div>   
             </div>
                 
             </template>
@@ -620,9 +660,9 @@
                 
                             <lightning-input label="Phone" value={Phone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="contactFormControl" required onchange={PhoneChange}>
                             </lightning-input>
-                            <lightning-input label="Email" type="email" autocomplete="off" class="contactFormControl" required value={Email} onchange={EmailChange}>
+                            <lightning-input label="Email" type="email" autocomplete="off" class="contactFormControl"  value={Email} onchange={EmailChange}>
                             </lightning-input>
-                            <lightning-input label="Phone Ext."  class="contactFormControl" required value={PhoneExt}
+                            <lightning-input label="Phone Ext."  class="contactFormControl"  value={PhoneExt}
                     onchange={PhoneExtChange}></lightning-input>
           
                 </div>
@@ -712,7 +752,7 @@
                                     province=""
                                     postal-code=""
                                     show-address-lookup
-                                    class="contactFormControl" required 
+                                    class="contactFormControl" 
                                      ></lightning-input-address>
                                      
                 <br>
@@ -780,7 +820,7 @@
       
             <lightning-input label="Phone" value={AccountPhone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="companyAccountFormControl" required onchange={AccountPhoneChange}>
             </lightning-input>
-            <lightning-input label="Phone Ext." value={AccountPhoneExt} class="companyAccountFormControl" required onchange={AccountPhoneExtChange}>
+            <lightning-input label="Phone Ext." value={AccountPhoneExt} class="companyAccountFormControl" onchange={AccountPhoneExtChange}>
             </lightning-input>
   
             <!-- <lightning-combobox name="progress"
@@ -915,7 +955,7 @@
                       
                             <lightning-input label="Phone" value={AccountPhone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="personAccountFormControl" required onchange={AccountPhoneChange} >
                             </lightning-input>
-                            <lightning-input label="Phone Ext." class="personAccountFormControl" required value={AccountPhoneExt} onchange={AccountPhoneExtChange}>
+                            <lightning-input label="Phone Ext." class="personAccountFormControl" value={AccountPhoneExt} onchange={AccountPhoneExtChange}>
                             </lightning-input>
 <!--                    
                             <lightning-combobox name="progress"

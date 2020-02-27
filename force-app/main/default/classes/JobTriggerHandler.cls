@@ -19,6 +19,8 @@ public without sharing class JobTriggerHandler {
             ATIJobControl.preventDuplicateJobNumbers(Trigger.new);
         }
      //   JobAEBonusTriggerHandler.populateAEs( null, Trigger.new );  
+              
+
     }
     
     public static void handleAfterInsertOnly(){                        
@@ -101,7 +103,6 @@ public without sharing class JobTriggerHandler {
         
         
     }
-
     
     /* handles both before insert and updates */
     public static void handleBeforeInsertUpdate(){

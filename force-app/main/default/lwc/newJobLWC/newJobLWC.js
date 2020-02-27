@@ -397,7 +397,7 @@ SaveContact(){
     if(!input){
         alert('Fill in all required fields before saving');
     }else{
-        if(this.AccountId === null || this.AccountId === ""){
+        if(this.ContactAccountValue === null || this.ContactAccountValue === ""){
             alert('Select or Create an Account before saving');
         }else{
             if(this.CompanyAccountRoles === null || this.CompanyAccountRoles === ""){
@@ -432,7 +432,7 @@ SaveContact(){
                         this.loadingContact = false;
                         alert(Message);
                     }else{
-                    
+                        
                        this.ContactId = result;
                        this.TypeOfInsert = 'BusinessAccount';
                            this.AccountRoles = this.ReplaceEmptyAccountRoleRows();
@@ -467,6 +467,7 @@ SaveContact(){
                             this.ContactAccountValue = "";
                             this.PersonAccountRoles = "";
                             this.CompanyAccountRoles = "";
+                            this.ContactAccountSelected = false;
                 }
                         //    this.AccountLastName = null;
                         //    this.AccountFirstName = null;
@@ -593,6 +594,7 @@ saveAccount(){
                     });
                     this.dispatchEvent(event);
                     if(this.CreateNewContact){
+                        this.loading = false;
                         this.ContactAccountValue = this.AccountId;
                         this.NewAccount = false;
                         this.CreateContact = true;
@@ -687,7 +689,7 @@ handleSectionToggle(event) {
 }
 addContact(){
     this.CreateContact = true;
-    // this.CreateNewContact = true;
+    this.CreateNewContact = true;
 }
 addAccount(){
 
@@ -774,6 +776,10 @@ ClearOffice(event){
     }
 ClearSearch(){
     this.Properties = "";
+    this.Street = "";
+    this.Zip = "";
+    this.City = "";
+    this.State = "";
 }
 ContactIdChangeNew(){
 this.CustomerSelected = true;
@@ -1124,12 +1130,22 @@ populatePropertyField(event){
    // console.log('Property Id first is + ' + this.Property.Id);
     //console.log('Property Id first is + ' + this.testingProperty);
     //this.PropertyID = event.detail.value;
+    
     this.Properties = '';
     this.PropertySelected = true;
     this.testingProperty = event.target.value;
     this.PropertySelectedField = event.target.value;
     this.PropertyValue = this.PropertySelectedField.Name;
+    console.log('Property ' + this.PropertySelectedField);
+    console.log('Street ' + this.PropertySelectedField.Street__c);
+    console.log('City ' + this.PropertySelectedField.City__c);
+    console.log('State ' + this.PropertySelectedField.State__c);
     this.PropertyID = this.PropertySelectedField.Id;
+    this.Street = this.PropertySelectedField.Street__c;
+    this.Zip = this.PropertySelectedField.Zip__c;
+    this.City = this.PropertySelectedField.City__c;
+    this.State = this.PropertySelectedField.State__c;
+    
   
 
     checkId({propId:this.testingProperty.Id}).then(result => {
