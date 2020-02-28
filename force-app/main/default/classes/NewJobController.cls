@@ -14,22 +14,22 @@ public with sharing class NewJobController {
     public static string InsertContact(String FirstName, String LastName, String Email, String Phone, String Type, String PhoneExt,
                                          String MailingStreet, String MailingCity, String MailingState,
                                         String MailingPostalCode, String MailingCountry, String AccountId, Boolean AccountList){
-                                            system.debug(FirstName +'     ' +LastName+ '      '+  Phone + '     ' +Type + '     ' +PhoneExt + '     ' +MailingStreet + '     ' +MailingCity+ '     ' +MailingState +'     ' + MailingPostalCode + '     ' +MailingCountry);
+                                            system.debug(FirstName +'     ' +LastName+ '      '+  Phone + '     ' +Type + '     ' +PhoneExt + '     ' +MailingStreet + '     ' +MailingCity+ '     ' +MailingState +'     ' + MailingPostalCode + '     ' +MailingCountry + '   ' + AccountId);
          //AccountList false if accountlist..
-         Id conId;
-         if(!AccountList){
-        AccountWrapper accountWrap = (AccountWrapper)JSON.deserialize(AccountId, AccountWrapper.class);
+    //      Id conId;
+    //      if(!AccountList){
+    //     AccountWrapper accountWrap = (AccountWrapper)JSON.deserialize(AccountId, AccountWrapper.class);
        
-        system.debug('Account Id ' + accountWrap.AccountId);
-        for(Id ca : accountWrap.AccountId){
-            conId = ca;
-        }
-    }   
-        if(AccountList){
-            AccountId acctId = (AccountId)JSON.deserialize(AccountId, AccountId.class);
-            conId = acctId.AccountId;
-        }
-        Contact cont = new Contact(AccountId = conId, Email = Email, FirstName = FirstName, LastName = LastName, Phone = Phone, Contact_Type__c =Type, Phone_Ext__c = PhoneExt,  MailingStreet = MailingStreet,
+    //     system.debug('Account Id ' + accountWrap.AccountId);
+    //     for(Id ca : accountWrap.AccountId){
+    //         conId = ca;
+    //     }
+    // }   
+    //     if(AccountList){
+    //         AccountId acctId = (AccountId)JSON.deserialize(AccountId, AccountId.class);
+    //         conId = acctId.AccountId;
+    //     }
+        Contact cont = new Contact(AccountId = AccountId, Email = Email, FirstName = FirstName, LastName = LastName, Phone = Phone, Contact_Type__c =Type, Phone_Ext__c = PhoneExt,  MailingStreet = MailingStreet,
                                     MailingState = MailingState, MailingPostalCode = MailingPostalCode, MailingCity = MailingCity, MailingCountry = MailingCountry);
          
                                     //IsPersonType = PersonAccount,
@@ -44,7 +44,7 @@ public with sharing class NewJobController {
         
     }
     @AuraEnabled
-    public static string InsertAccount(String Name, String Phone, String Type, String PhoneExt,
+    public static Account InsertAccount(String Name, String Phone, String Type, String PhoneExt,
                                          String BillingStreet, String BillingCity, String BillingState,
                                         String BillingPostalCode, String BillingCountry){
                                             system.debug(Name +'     ' + Phone + '     ' +Type + '     ' +PhoneExt + '     ' +BillingStreet + '     ' +BillingCity+ '     ' +BillingState +'     ' + BillingPostalCode + '     ' +BillingCountry);
@@ -54,9 +54,10 @@ public with sharing class NewJobController {
         
         try {
             insert acct;
-        return acct.id;
+        return acct;
         } catch (Exception e) {
-            return string.valueOf(e);
+            acct.name = string.valueOf(e);
+            return acct;
         }
         
     }
@@ -100,7 +101,7 @@ public with sharing class NewJobController {
         //JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
         // for(Id ca : PropertyIDs.PropertyID){
         // PropertyIDFinal = ca; }
-        String searchLikeKey = '%' + searchKey + '%';
+        String searchLikeKey = searchKey + '%';
         List<Property__c> props = [Select Id, Name, State__c, City__c, Address_Line_1__c, Zip__c FROM Property__c Where Address_Line_1__c Like : searchLikeKey LIMIT 5];
         system.debug('Properties are ' + props);
         return props;
@@ -131,8 +132,8 @@ public with sharing class NewJobController {
         //JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
         // for(Id ca : PropertyIDs.PropertyID){
         // PropertyIDFinal = ca; }
-        String searchLikeKey = '%' + searchKey + '%';
-        List<Account> accts = [Select Id,Name FROM Account Where Name Like : searchLikeKey Limit 10];
+        String searchLikeKey = searchKey + '%';
+        List<Account> accts = [Select Id,Name FROM Account Where Name Like : searchLikeKey Limit 6];
         system.debug('Contacts are ' + accts);
         return accts;
     }
@@ -157,6 +158,19 @@ public with sharing class NewJobController {
 
         
     }
+    @AuraEnabled(cacheable = true)
+    public static List<User> GetUsers(String searchKey) {
+        system.debug('Customer Key is ' + searchKey);
+        String searchLikeKey = searchKey + '%';
+        List<User> users = [Select Id,Name FROM User Where Name Like : searchLikeKey Limit 5];
+       
+        return users;
+    }
+    @AuraEnabled  
+    public static string GetUserName(){  
+            String Name = UserInfo.getName();
+                return Name;
+            }
     @AuraEnabled  
     public static List<String> getPickListValuesIntoList(){  
                List<String> pickListValuesList= new List<String>(); 
@@ -223,19 +237,51 @@ public with sharing class NewJobController {
             }    
     @AuraEnabled 
     public static Id CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId){
+        system.debug('AccountRole Info ' + AccountRoleInfo);
+        system.debug('Master Job Id ' + MasterJobId);
+        system.debug('Property Info ' + PropertyInfo);
+        system.debug('Job Info ' + JobInfo);
         Master_Job__c masterJob = new Master_Job__c();
         Boolean NewProperty = false;
         List<Account_Roles__c> ARList = new List<Account_Roles__c>();
         List<Account_Roles__c> ARPropertyList = new List<Account_Roles__c>();
         Property__c prop = new Property__c();
+        Id ProjectSiteContactAccount;
+        Id ProjectSiteContactContact;
+        Id InsuranceCompany;
+        Id InsuranceAdjuster;
+        
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
         try {
+
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
         JobWrapper jobWrap = (JobWrapper)JSON.deserialize(jobInfo, JobWrapper.class);
         system.debug('JobWrap is ' + jobWrap);
         system.debug('PropertyWrap is ' + Property);
         system.debug('AccountWrap is ' + AR);
+        for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
+            if(accountRoles.Text.contains('Project Site Contact')){
+                if(!String.isBlank(accountRoles.Account)){
+                ProjectSiteContactAccount = accountRoles.Account;
+                }
+                if(!String.isBlank(accountRoles.Contact)){
+                    ProjectSiteContactContact = accountRoles.Contact;
+                }
+            }
+            if(accountRoles.Text.contains('Insurance Company')){
+                if(!String.isBlank(accountRoles.Account)){
+                InsuranceCompany = accountRoles.Account;
+                }
+               
+            }
+            if(accountRoles.Text.contains('Insurance Adjuster')){
+                if(!String.isBlank(accountRoles.Contact)){
+                    InsuranceAdjuster = accountRoles.Contact;
+                }
+            }
+
+        }
         //system.debug('Master Job Id  is  ' + MasterJobId);
         if(String.isEmpty(Property.PropertyId)){
             prop.Property_Type__c = Property.PropertyType;
@@ -244,9 +290,13 @@ public with sharing class NewJobController {
             prop.Zip__c = Property.Zip;
             prop.Country__c = Property.Country;
             prop.State__c = Property.State;
+            prop.Address_Line_2__c = Property.AddressLine2;
+            prop.Address_Line_1__c = Property.Street + ' , ' + Property.State + ' , ' + Property.City + ' ' + Property.Zip;
             NewProperty= true;
             insert prop;  
             
+        }else{
+            prop = [Select Street__c, City__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
         }
         Id mJobId;
         //if Master Job is empty, create one. 
@@ -256,7 +306,10 @@ public with sharing class NewJobController {
            masterJob.Description_of_Loss__c = jobWrap.Description;
            masterJob.Stage__c = 'Pre-work';
            //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
+           masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
+           masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
            masterJob.Lead_Source__c = jobWrap.LeadSource;
+           masterJob.Taken_By__c = jobWrap.TakenBy;
            masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
            masterJob.office2__c = jobWrap.Office;
            if(NewProperty){
@@ -279,8 +332,12 @@ public with sharing class NewJobController {
         }
        system.debug('Hitting before job insert, and MJobId is ' + mJobId );
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
-        Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, deductible__c = Decimal.valueOf(jobWrap.Deductible), Master_Job__c = mJobId, division__c = jobWrap.division,
-        Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType);
+        Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Master_Job__c = mJobId, division__c = jobWrap.division,
+        Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
+        Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
+        Account__c = InsuranceCompany, Contact__c = InsuranceAdjuster, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
+        Project_Site_Contact_Name__c = ProjectSiteContactContact, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
+        Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c);
         insert job;
         system.debug('Hitting after job insert' );
         MasterJobUpdateJob(mJobId, job.Id);
@@ -358,6 +415,10 @@ public with sharing class NewJobController {
         public String Text {get;set;}
         public Id Account {get;set;}
         public Id Contact {get;set;}
+        // public List<AccountIds> Account {get;set;}
+    }
+    public class AccountIds{
+        public Id Account {get;set;}
     }
     public class PropertyWrapper{
         public Id PropertyId {get;set;}
@@ -367,6 +428,7 @@ public with sharing class NewJobController {
         public String Country {get;set;}
         public String Zip {get;set;}
         public String PropertyType {get;set;}
+        public String AddressLine2 {get;set;}
     }
 
    
@@ -381,7 +443,11 @@ public with sharing class NewJobController {
         public String MultipleDivisions {get;set;}
         public String LeadSource {get;set;}
         public String JobName {get;set;}  
+        public String ClientJob {get;set;}  
         public String EsJobType {get;set;}  
+        public Id TakenBy {get;set;}  
+        public Id ProjectDirector {get;set;}  
+        public Date DateOfLoss {get;set;}  
     }
     public class AccountWrapper{
         //public List<Id> PropertyId {get;set;}

@@ -308,28 +308,15 @@
             </div> -->
             
                 <div class="slds-grid">
-                    <div class="slds-col slds-size_1-of-4">
+                    <div class="slds-col slds-size_1-of-6">
                         <label class="Labels required1" for="textarea-id-01"> Job Name</label>
                                      
                                         <lightning-input  onchange={JobNameChange} class="jobFormControl"  value={JobName}></lightning-input>
                         <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
                                      
-                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl textbox"  onchange={DescriptionChange} value={Description}></lightning-textarea>
-
-                                        <lightning-record-edit-form object-api-name="ATI_Job__c">
-                                            <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label> -->
-                                            <lightning-input-field field-name="Project_Manager__c" class="jobFormControl"  onchange={ProjectDirectorChange} value={ProjectDirector}>
-                                            
-                                            </lightning-input-field>
-                                        </lightning-record-edit-form>
-                                                     
-                                        <lightning-record-edit-form object-api-name="ATI_Job__c">
-                                            <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Taken By</label>   -->
-                                            <lightning-input-field field-name="Taken_By__c" class="jobFormControl"  onchange={TakenByChange} value={TakenBy}>
-                                            
-                                            </lightning-input-field>
-                                        </lightning-record-edit-form>
-                         
+                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                        
+                        
                                         
                         <!-- <lightning-textarea
                         <lightning-input label="Description" value={Description} onchange={DescriptionChange}></lightning-input> -->
@@ -364,9 +351,8 @@
                         <label class="Labels spacing"> Claim #</label>
                         <lightning-input  value={Claim}  onchange={ClaimChange} class="spacing" ></lightning-input>
                         <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
-                        <lightning-input value={Deductible} onchange={DeductibleChange} class="spacing" ></lightning-input>
-                        <label class="Labels spacing" > Date of Loss</label>
-                        <lightning-input value={DateOfLoss} type="Date" onchange={DateOfLossChange} class="spacing" ></lightning-input>
+                        <lightning-input value={ClientJob} onchange={ClientJobChange} class="spacing" ></lightning-input>
+                        
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
                         <lightning-combobox name="progress"
                         
@@ -460,32 +446,88 @@
                                 </lightning-record-edit-form> -->
                     </div> 
                    
+                    
                     <div class="slds-col slds-size_1-of-6">
-                            <label class="MultLabels " for="textarea-id-01"> Other Interested Services</label>
-                            
-                            <lightning-record-edit-form object-api-name="Master_Job__c">
-                                    <div class="spacing">
-                                <lightning-input-field field-name="Multiple_Divisions__c" variant="label-hidden"   value={MultipleDivision} onchange={MultipleDivisionChange}>
-                                    </lightning-input-field>
-                                </div>
-                            </lightning-record-edit-form>
+                        <label class="Labels spacing" for="textarea-id-01"> Project Director</label>
                         
-                       </div>
-                       <div class="slds-col slds-size_1-of-6">
-                       <lightning-record-edit-form object-api-name="ATI_Job__c">
-                        <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label> -->
-                        <lightning-input-field field-name="Project_Manager__c" class="spacing  jobFormControl"  onchange={ProjectDirectorChange} value={ProjectDirector}>
+                             
+                           
+                        <lightning-input onkeyup={ProjectDirectorChange}
                         
-                        </lightning-input-field>
-                    </lightning-record-edit-form>
-                                 
-                    <lightning-record-edit-form object-api-name="ATI_Job__c">
-                        <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Taken By</label>   -->
-                        <lightning-input-field field-name="Taken_By__c" class="spacing  jobFormControl" variant="label-hidden" onchange={TakenByChange} value={TakenBy}>
+                                        placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="jobFormControl spacing"></lightning-input>
+                                    
+                                <template if:true={ProjectDirectors}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        
+                                        <tbody>
+                                            <template for:each={ProjectDirectors} for:item="ProjectDirector">
+                                                <tr key={ProjectDirector.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
+                                                            <lightning-button variant="base" label={ProjectDirector.Name}
+                                                                value={ProjectDirector} title="Project Director"
+                                                                onclick={populateProjectDirectorField}
+                                                                class="slds-m-left_x-small jobButton">
+                                                                <lightning-icon class="icon1" icon-name="standard:account" size="small"></lightning-icon></lightning-button>
+                                                        </b>
+                                                        <br>
+                                             
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>   
                         
-                        </lightning-input-field>
-                    </lightning-record-edit-form>
-                </div>   
+                        <label class="Labels spacing required1" for="textarea-id-01"> Taken By</label>
+                        <lightning-input onkeyup={TakenByChange}
+                                         onchange={ClearTakenBy} placeholder='Search..' value={TakenByValue} type="search" class="jobFormControl spacing"></lightning-input>
+                              
+                                <template if:true={TakenByUsers}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        
+                                        <tbody>
+                                            <template for:each={TakenByUsers} for:item="TakenBy">
+                                                <tr key={TakenBy.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
+                                                            <lightning-button variant="base" label={TakenBy.Name}
+                                                                value={TakenBy} title="User"
+                                                                onclick={populateTakenByField}
+                                                                class="slds-m-left_x-small jobButton">
+                                                                </lightning-button>
+                                                        </b>
+                                                        <br>
+                                                    
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>    
+                                <label class="Labels spacing" > Date of Loss</label>
+                        <lightning-input value={DateOfLoss} type="Date" class="spacing" onchange={DateOfLossChange}  ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <label class="MultLabels " for="textarea-id-01"> Other Interested Services</label>
+                        
+                        <lightning-record-edit-form object-api-name="Master_Job__c">
+                                <div class="spacing">
+                            <lightning-input-field field-name="Multiple_Divisions__c" variant="label-hidden"   value={MultipleDivision} onchange={MultipleDivisionChange}>
+                                </lightning-input-field>
+                            </div>
+                        </lightning-record-edit-form>
+                    
+                   </div>
+                       
             </div>
                 
             </template>
@@ -669,31 +711,18 @@
                 
                     </div>
                    <br>
-                   <div class="slds-size_1-of-2">
-                    <lightning-record-edit-form object-api-name="Account_Roles__c">
+                   
+                    <!-- <lightning-record-edit-form object-api-name="Account_Roles__c">
                         <lightning-input-field field-name="Account_ID__c" value={ContactAccountValue}  required onchange={AccountSelectionChange}></lightning-input-field>
-                    </lightning-record-edit-form>
-                </div>
-                <template if:true={ContactAccountSelected}>
-                    <lightning-record-edit-form
-                    object-api-name="Account_Roles__c">
-                    <lightning-input-field
-                        value={CompanyAccountRoles}
-                        field-name="Multiple_Roles__c"
-                        
-                        
-                        onchange={CompanyAccountRolesChange}
-                        required>
-                        </lightning-input-field>
-                    </lightning-record-edit-form>
-
-                </template>
+                    </lightning-record-edit-form> -->
+               
+               
                     
                
-                    <!-- <div class="slds-m-around_medium">
+                    
                         <lightning-input label="Account" onkeyup={ContactAccountChanged}
-                            placeholder='Search for Account.. ' type="search" onchange={ClearAccount} value={ContactAccountValue}></lightning-input>
-                    </div>
+                            placeholder='Search for Account.. ' type="search" onchange={ClearAccount} required class="contactFormControl" value={ContactAccountName}></lightning-input>
+                 
                     <template if:true={ContactAccounts}>
                         <table
                             class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
@@ -710,6 +739,7 @@
                                     <tr key={ContactAccount.Id}>
                                         <th scope="row">
                                             <b>
+                                                <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:account" size="small"></lightning-icon>
                                                 <lightning-button variant="base" label={ContactAccount.Name}
                                                     value={ContactAccount} title="Base action"
                                                     onclick={populateContactAccountField}
@@ -726,14 +756,20 @@
                         </table>
                     </template>
                     <template if:true={ContactAccountSelected}>
-                        <lightning-combobox name="progress"
-                        label="Account (Role)"
-                        value={ContactAccountRole}
-                        placeholder="-Select-"
-                        options={AccountRolesValues.data.values}
-                        onchange={ContactAccountRoleChanged} >
-                    </lightning-combobox> 
-                    </template> -->
+                        <lightning-record-edit-form
+                        object-api-name="Account_Roles__c">
+                        <lightning-input-field
+                            value={CompanyAccountRoles}
+                            field-name="Multiple_Roles__c"
+                            
+                            
+                            onchange={CompanyAccountRolesChange}
+                            required>
+                            </lightning-input-field>
+                        </lightning-record-edit-form>
+    
+                    </template>
+                
 
                     <br>
 <lightning-button label="New Account" variant="brand" onclick={ToggleNewAccount}>
@@ -1104,6 +1140,7 @@
                                 
                     
                     ></lightning-input-address>
+                    <div class="slds-grid">
                                          <div class="slds-col slds-size_1-of-2">
                                         <lightning-combobox name="progress"
                                             label="Property Type"
@@ -1115,10 +1152,13 @@
                                             required>
                                         </lightning-combobox>
                                         <!-- <lightning-input label="Zip" value={Zip} onchange={ZipChange}></lightning-input>
-                
+                                        
                                     </div>
                                 </div> -->
-                
+                                         </div>
+                                         <div class="slds-col slds-size_1-of-2">
+                                <lightning-input label="Address Line 2" value={AddressLine2} onchange={AddressLine2Change}></lightning-input>
+                            </div>
                             </div>
                             
                                          <br>
