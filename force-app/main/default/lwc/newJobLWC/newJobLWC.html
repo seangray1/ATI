@@ -314,7 +314,7 @@
                                         <lightning-input  onchange={JobNameChange} class="jobFormControl"  value={JobName}></lightning-input>
                         <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
                                      
-                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                        <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
                                         
                         
                                         
@@ -349,9 +349,9 @@
                         onchange={EstimateTypeChange} >
                         </lightning-combobox> -->
                         <label class="Labels spacing"> Claim #</label>
-                        <lightning-input  value={Claim}  onchange={ClaimChange} class="spacing" ></lightning-input>
+                        <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
                         <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
-                        <lightning-input value={ClientJob} onchange={ClientJobChange} class="spacing" ></lightning-input>
+                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input>
                         
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
                         <lightning-combobox name="progress"
@@ -389,7 +389,7 @@
                     </lightning-combobox>
                     <label class="Labels spacing required1"> Lead Source</label>
                      <lightning-combobox name="progress"
-                        
+                        disabled={LeadSourceDisabled}
                         value={LeadSource}
                         placeholder="-Select-"
                         options={LeadSourcePicklistValues}
@@ -514,7 +514,7 @@
                                     </table>
                                 </template>    
                                 <label class="Labels spacing" > Date of Loss</label>
-                        <lightning-input value={DateOfLoss} type="Date" class="spacing" onchange={DateOfLossChange}  ></lightning-input>
+                        <lightning-input value={DateOfLoss} type="Date" disabled={DateOfLossDisabled} class="spacing" onchange={DateOfLossChange}  ></lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-6">
                         <label class="MultLabels " for="textarea-id-01"> Other Interested Services</label>
@@ -1146,7 +1146,7 @@
                                             label="Property Type"
                                             value={PropertyType}
                                             placeholder="-Select-"
-                                            options={PropertyTypeValues.data.values}
+                                            options={PropertyTypeValuesContainer}
                                             onchange={PropertyTypeChange}
                                             class="propertyFormControl"
                                             required>

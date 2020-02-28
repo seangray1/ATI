@@ -102,7 +102,7 @@ public with sharing class NewJobController {
         // for(Id ca : PropertyIDs.PropertyID){
         // PropertyIDFinal = ca; }
         String searchLikeKey = searchKey + '%';
-        List<Property__c> props = [Select Id, Name, State__c, City__c, Address_Line_1__c, Zip__c FROM Property__c Where Address_Line_1__c Like : searchLikeKey LIMIT 5];
+        List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Address_Line_1__c Like : searchLikeKey LIMIT 5];
         system.debug('Properties are ' + props);
         return props;
     }
@@ -151,7 +151,7 @@ public with sharing class NewJobController {
     }
     @AuraEnabled 
     public static list<Master_Job__c> GetMasterJobs(string propId){
-        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Claim__c, Date_of_Loss__c, Deductible__c, Description_of_Loss__c FROM Master_Job__c Where Property__c =: propId AND Active__c = true];
+        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c,  Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Active__c = true];
         system.debug('Prop Id + ' + propId);
         
         return mj;
@@ -181,7 +181,17 @@ public with sharing class NewJobController {
                 }       
                 return pickListValuesList;
             }
-    
+            
+    @AuraEnabled  
+    public static List<String> GetPropertyTypePicklist(){  
+               List<String> pickListValuesList= new List<String>(); 
+                Schema.DescribeFieldResult fieldResult = Property__c.Property_Type__c.getDescribe();   
+                List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();   
+                for( Schema.PicklistEntry pickListVal : ple){  
+                  pickListValuesList.add(pickListVal.getLabel());  
+                }       
+                return pickListValuesList;
+            }
     @AuraEnabled  
     public static List<String> GetDivisionPicklist(){  
         List<String> pickListValuesList= new List<String>(); 

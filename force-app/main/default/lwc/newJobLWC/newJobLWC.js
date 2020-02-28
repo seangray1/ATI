@@ -23,6 +23,7 @@ import InsertAccount from '@salesforce/apex/NewJobController.InsertAccount';
 import InsertPersonAccount from '@salesforce/apex/NewJobController.InsertPersonAccount';
 import SearchProperties from '@salesforce/apex/NewJobController.GetProperties';
 import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
+import GetPropertyTypePicklist from '@salesforce/apex/NewJobController.GetPropertyTypePicklist';
 import GetAccountRolesPicklist from '@salesforce/apex/NewJobController.getPickListValuesIntoList';
 import GetDivisionPicklist from '@salesforce/apex/NewJobController.GetDivisionPicklist';
 import GetJobClassPicklist from '@salesforce/apex/NewJobController.GetJobClassPicklist';
@@ -146,6 +147,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
 @track EsJobTypePicklistValues =[{}];
 @track LeadSourcePicklistValues =[{}];
 @track MultipleDivisionPicklistValues =[{}];
+@track PropertyTypeValuesContainer =[{}];
 @track ARReady = false;
 @track AccountRoles = [{}];
 @track CreateContact = false;
@@ -185,6 +187,13 @@ projectSiteContactCount = 0;
 ProjectDirectorSelected = false;
 DateOfLoss;
 ClientJob;
+ARRoleBlank = false;
+ClientJobDisabled = false;
+ClaimDisabled = false;
+LeadSourceDisabled = false;
+DateOfLossDisabled = false;
+DescriptionDisabled = false;
+OfficeDisabled = false;
 NewAccountCreated = false;
 UserId = StrUserId;
 @track name;
@@ -347,6 +356,17 @@ connectedCallback(){
         this.ARReady = true;
         this.AccountRoles.push({Contact_ID__c : '', Account_ID__c :'', Text__c : ''});
         this.AccountRoles.shift();
+    })
+    GetPropertyTypePicklist({}).then(result =>{
+        var PropertyTypePicklist = result;
+        for(var i = 0; i<PropertyTypePicklist.length;i++){
+        
+            this.PropertyTypeValuesContainer.push({label : PropertyTypePicklist[i], value : PropertyTypePicklist[i], });
+        }   
+        this.PropertyTypeValuesContainer.shift();
+        
+        
+   
     })
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
@@ -1352,9 +1372,26 @@ getAllAccountRoleObjects() {
 populateMasterJobField(event){
     this.MasterJobDetails = event.target.value;
     this.MasterJobId = this.MasterJobDetails.Id;
+    
+    if(this.MasterJobDetails.Claim__c !== "" && this.MasterJobDetails.Claim__c !== undefined){
     this.Claim = this.MasterJobDetails.Claim__c;
+    this.ClaimDisabled = true;}
+    if(this.MasterJobDetails.Description_of_Loss__c !== "" && this.MasterJobDetails.Description_of_Loss__c !== undefined){
     this.Description = this.MasterJobDetails.Description_of_Loss__c;
-    this.Deductible = this.MasterJobDetails.Deductible__c;
+    this.DescriptionDisabled = true;}
+    if(this.MasterJobDetails.Lead_Source__c !== "" && this.MasterJobDetails.Lead_Source__c !== undefined){
+    this.LeadSource = this.MasterJobDetails.Lead_Source__c;
+    this.LeadSourceDisabled = true;}
+    if(this.MasterJobDetails.Date_of_Loss__c !== "" && this.MasterJobDetails.Date_of_Loss__c !== undefined){
+    this.DateOfLoss = this.MasterJobDetails.Date_of_Loss__c;
+    this.DateOfLossDisabled = true;}
+    if(this.MasterJobDetails.Cont_P_O_Client_Job__c !== "" && this.MasterJobDetails.Cont_P_O_Client_Job__c !== undefined){
+    this.ClientJob = this.MasterJobDetails.Cont_P_O_Client_Job__c;
+    this.ClientJobDisabled = true;}
+    if(this.MasterJobDetails.Multiple_Divisions__c !== "" && this.MasterJobDetails.Multiple_Divisions__c !== undefined){
+    this.MultipleDivision = this.MasterJobDetails.Multiple_Divisions__c;
+    }
+    
     this.bShowModal = false;
 }
 DeleteARRow(e){
@@ -1371,6 +1408,12 @@ CreateNewJob(){
             // this.loading = true;
             let AccountRoleInfo = this.GenerateAccountRoleJSON();
             console.log('Property Id is ' + this.PropertyID + '   PropertyType is ' + this.PropertyType);
+            if(this.ARRoleBlank){
+                this.ARRoleBlank= false;
+                this.billToCount = 0;
+                this.projectSiteContactCount = 0;
+                alert('Roles cannot be left blank');
+            }else{
             if(this.billToCount > 1 || this.projectSiteContactCount > 1){
                 alert('Only One Bill To and One Project Site Contact can be selected as a Role');
                 this.billToCount = 0;
@@ -1426,7 +1469,7 @@ CreateNewJob(){
                             }
                             })
                         }
-                    }}
+                    }}}
                     }
     }
 
@@ -1468,8 +1511,7 @@ GetAccountRolesObjects() {
                 console.log('Removing row' );
             }else{
                 if(ARRoles === "" || ARRoles === null){
-                    alert('A Role MUST be selected for each row');
-                    break;
+                    this.ARRoleBlank = true;
                 }else{
             AccountRoles.push({
                     //name: ARName,
