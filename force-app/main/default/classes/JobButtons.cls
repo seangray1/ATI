@@ -3,8 +3,8 @@
  * @Description        : 
  * @Author             : Sean Gray
  * @Group              : 
- * @Last Modified By   : Sean Gray
- * @Last Modified On   : 2/2/2020, 3:03:59 PM
+ * @Last Modified By   : sean.gray@atirestoration.com
+ * @Last Modified On   : 3/2/2020, 2:27:10 PM
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    2/1/2020   Sean Gray     Initial Version
@@ -325,7 +325,6 @@ public with sharing class JobButtons {
         // Submit the record to specific process and skip the criteria evaluation
         req1.setProcessDefinitionNameOrId('X2PercentAllocation1');
         req1.setSkipEntryCriteria(true);
-        
         // Submit the approval request for the account
         Approval.ProcessResult result = Approval.process(req1);
         FeedItem post = new FeedItem();
@@ -365,8 +364,26 @@ public with sharing class JobButtons {
             system.debug('Exception is '+ e);
             return string.valueOf(e);
         }
-
         
     }
+    @AuraEnabled
+    public static string LargeLossApprovalSubmission(string recordId) {
+try {
+    approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest(); 
+    req1.setComments('Submitting request for approval');
+    req1.setObjectId(recordId);
+    req1.setSubmitterId(UserInfo.getUserId());
+    req1.setProcessDefinitionNameOrId('Complex_Loss');
+    req1.setSkipEntryCriteria(true);
+    // Submit the approval request for the account
+    Approval.ProcessResult result = Approval.process(req1);
+    Approval.UnlockResult unlockedResults = Approval.unlock(recordId, false);
+    return 'success';
+} catch (Exception e) {
+    return e.getMessage();
+}
+        
+    }
+
     
 }

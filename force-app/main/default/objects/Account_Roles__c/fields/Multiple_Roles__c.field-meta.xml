@@ -11,14 +11,39 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Primary/Bill-to</fullName>
+                <default>false</default>
+                <label>Primary/Bill-to</label>
+            </value>
+            <value>
+                <fullName>Caller</fullName>
+                <default>false</default>
+                <label>Caller</label>
+            </value>
+            <value>
+                <fullName>Referred By</fullName>
+                <default>false</default>
+                <label>Referred By</label>
+            </value>
+            <value>
+                <fullName>Project Site Contact</fullName>
+                <default>false</default>
+                <label>Project Site Contact</label>
+            </value>
+            <value>
                 <fullName>Property Owner</fullName>
                 <default>false</default>
                 <label>Property Owner</label>
             </value>
             <value>
-                <fullName>Bill To</fullName>
+                <fullName>Insurance Company</fullName>
                 <default>false</default>
-                <label>Bill To</label>
+                <label>Insurance Company</label>
+            </value>
+            <value>
+                <fullName>Insurance Adjuster</fullName>
+                <default>false</default>
+                <label>Insurance Adjuster</label>
             </value>
             <value>
                 <fullName>Property/Facility Manager</fullName>
@@ -34,16 +59,6 @@
                 <fullName>Tenant</fullName>
                 <default>false</default>
                 <label>Tenant</label>
-            </value>
-            <value>
-                <fullName>Insurance Company</fullName>
-                <default>false</default>
-                <label>Insurance Company</label>
-            </value>
-            <value>
-                <fullName>Insurance Adjuster</fullName>
-                <default>false</default>
-                <label>Insurance Adjuster</label>
             </value>
             <value>
                 <fullName>Insurance Agent/Broker</fullName>
@@ -64,16 +79,6 @@
                 <fullName>Contractor/Consultant</fullName>
                 <default>false</default>
                 <label>Contractor/Consultant</label>
-            </value>
-            <value>
-                <fullName>Project Site Contact</fullName>
-                <default>false</default>
-                <label>Project Site Contact</label>
-            </value>
-            <value>
-                <fullName>Referred By</fullName>
-                <default>false</default>
-                <label>Referred By</label>
             </value>
             <value>
                 <fullName>Stakeholder</fullName>

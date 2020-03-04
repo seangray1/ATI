@@ -369,6 +369,8 @@
         <lookupPhoneDialogsAdditionalFields xsi:nil="true"/>
         <lookupPhoneDialogsAdditionalFields xsi:nil="true"/>
         <lookupPhoneDialogsAdditionalFields xsi:nil="true"/>
+        <lookupPhoneDialogsAdditionalFields xsi:nil="true"/>
+        <lookupPhoneDialogsAdditionalFields xsi:nil="true"/>
         <searchFilterFields>ACCOUNT.NAME</searchFilterFields>
         <searchFilterFields>CONTACT.ADDRESS2_STREET</searchFilterFields>
         <searchFilterFields>CONTACT.ADDRESS2_CITY</searchFilterFields>

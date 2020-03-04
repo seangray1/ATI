@@ -343,9 +343,9 @@
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <criteriaItems>
-            <field>ATI_Job__c.Complex_Loss__c</field>
+            <field>ATI_Job__c.CAT_Project_Manager__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>laksj</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>

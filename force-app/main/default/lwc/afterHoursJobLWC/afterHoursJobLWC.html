@@ -1,0 +1,121 @@
+<!--
+  @File Name          : afterHoursJobLWC.html
+  @Description        : 
+  @Author             : sean.gray@atirestoration.com
+  @Group              : 
+  @Last Modified By   : sean.gray@atirestoration.com
+  @Last Modified On   : 3/3/2020, 11:54:20 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/3/2020   sean.gray@atirestoration.com     Initial Version
+-->
+<template>
+    <div class="slds-box slds-theme_shade">
+    <h2>After Hours Job Entry</h2>
+    <br>
+    <div class="slds-col slds-size-1-of-6">
+        <template if:true={PageStateReady}>
+    <lightning-input label="Job Name" value={JobName} class="jobFormControl" required onchange={JobNameChange}></lightning-input>
+    <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label> -->
+    <lightning-input onkeyup={OfficeChange}
+                placeholder='Search for Office.. ' label="Office"  onchange={ClearOffice} required value={OfficeValue} type="search" class="spacing jobFormControl"></lightning-input>
+      
+        <template if:true={Offices}>
+            <table
+                class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                <thead>
+                    <tr class="slds-text-heading_label">
+                        <th scope="col">
+                            <div title="Customers">Offices</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={Offices} for:item="Office">
+                        <tr key={Office.Id}>
+                            <th scope="row">
+                                <b>
+                                    <lightning-button variant="base" label={Office.Name}
+                                        value={Office} title="Base action"
+                                        onclick={populateOfficeField}
+                                        class="slds-m-left_x-small jobButton"></lightning-button>
+                                </b>
+                                <br>
+                                <!-- <lightning-formatted-text value={ContactAccount.Name} label={ContactAccount.Name}>
+                                                        
+                                                    </lightning-formatted-text>
+             -->
+                                <!-- <lightning-formatted-address street={Property.Address_Line_1__c}
+                                                        city={Property.City__c} country='US' province={Property.State__c}
+                                                        postal-code={Property.Zip__c} disabled={inputDisabled}>
+                                                    </lightning-formatted-address> -->
+                                <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
+                            </th>
+
+                        </tr>
+
+                    </template>
+                </tbody>
+            </table>
+        </template>
+       
+                        <lightning-combobox name="progress"
+                        label="Division"
+                        value={Division}
+                        placeholder="-Select-"
+                        options={DivisionPicklistValues}
+                        onchange={DivisionChange}
+                        class="spacing jobFormControl"
+                        dropdown-alignment=auto 
+                        required
+                        >
+                        </lightning-combobox>
+                        <template if:true={DivisionEs}>
+                        <label class="Labels spacing required1"> ES Job Type</label>
+                        <lightning-combobox name="progress"
+                           label="Es Job Type"
+                           value={EsJobType}
+                           placeholder="-Select-"
+                           options={EsJobTypePicklistValues}
+                           onchange={EsJobTypeChange}
+                           class="spacing jobFormControl"
+                           disabled={EMS}
+                           required={DivisionEs}
+                            >
+        </lightning-combobox>
+        </template>
+
+        <lightning-input-address
+                                    data-id="AddressLookup"
+                                    address-label="Search Address"
+                                    street-label="Project Site Street"
+                                    city-label="Project Site City"
+                                    country-label="Project Site Country"
+                                    province-label="Project Site State"
+                                    postal-code-label="Project Site Zipcode"
+                                    street=""
+                                    city=""
+                                    country="US"
+                                    province=""
+                                    postal-code=""
+                                    show-address-lookup
+                                    class="jobFormControl"
+                                    required 
+                                     >
+        </lightning-input-address>
+        <lightning-input label="Address Line 2" value={AddressLine2} onchange={AddressLine2Change}></lightning-input>
+        <lightning-input label="Comments" value={Comments} onchange={CommentsChange}></lightning-input>
+        <lightning-textarea label="Description" value={Description} onchange={DescriptionChange}></lightning-textarea>
+        <br>
+    </template>
+    </div>
+
+</div>
+        
+        <div class="slds-p-around_medium lgc-bg-inverse element">
+        <lightning-button-group class="slds-align_absolute-center">
+        <lightning-button label="Save" variant="brand" onclick={Save}></lightning-button>
+        <lightning-button label="Cancel" onclick={Cancel}></lightning-button>
+        </lightning-button-group>
+    </div>
+</template>

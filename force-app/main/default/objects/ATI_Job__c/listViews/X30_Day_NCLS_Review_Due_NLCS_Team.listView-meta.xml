@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X30_Day_NCLS_Review_Due_NLCS_Team</fullName>
+    <columns>Project_Manager__c</columns>
+    <columns>Project_Manager_new__c</columns>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Total_Billing_Forecast_Amount__c</columns>
+    <columns>Job_to_Date_Work_Billed_RS__c</columns>
+    <columns>Future_Billing__c</columns>
+    <columns>Amount_not_billed__c</columns>
+    <columns>Receivable_Balance_RS__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NCLS_Days_Past_Review__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>25</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Won</value>
+    </filters>
+    <label>30-Day NCLS Review Due (NCLS Team)</label>
+    <sharedTo>
+        <roleAndSubordinates>Professional_Services_VP_HQ</roleAndSubordinates>
+    </sharedTo>
+</ListView>

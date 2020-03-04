@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JOB_Lock_Complex_Loss</fullName>
+    <active>true</active>
+    <description>Complex Loss cannot be unchecked once it has been checked.</description>
+    <errorConditionFormula>AND( 
+$Profile.Name &lt;&gt; &#39;System Administrator&#39;, 
+Complex_Loss__c = FALSE,
+ISCHANGED ( Complex_Loss__c )
+)</errorConditionFormula>
+    <errorDisplayField>Complex_Loss__c</errorDisplayField>
+    <errorMessage>Complex Loss cannot be unchecked. Please Chatter @Nat Lee for assistance.</errorMessage>
+</ValidationRule>

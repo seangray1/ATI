@@ -4,7 +4,7 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 2/27/2020, 11:09:04 AM
+  @Last Modified On   : 3/3/2020, 8:05:38 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    1/23/2020   Sean Gray     Initial Version
@@ -191,7 +191,7 @@
                                                             <lightning-record-edit-form
                                                                         object-api-name="Account_Roles__c">
                                                                         <lightning-input-field
-                                                                            value={AccountRole.Text__c}
+                                                                            value={AccountRole.Multiple_Roles__c}
                                                                             field-name="Text__c"
                                                                             class="form-control ARRoles everything"
                                                                             variant="label-hidden"
@@ -308,13 +308,9 @@
             </div> -->
             
                 <div class="slds-grid">
-                    <div class="slds-col slds-size_1-of-6">
-                        <label class="Labels required1" for="textarea-id-01"> Job Name</label>
-                                     
-                                        <lightning-input  onchange={JobNameChange} class="jobFormControl"  value={JobName}></lightning-input>
-                        <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
-                                     
-                                        <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                    <!-- <div class="slds-col slds-size_1-of-6"> -->
+                       
+                        
                                         
                         
                                         
@@ -339,8 +335,8 @@
                         options={AtiJobJobClassValues.data.values}
                         onchange={JobClassChange} >
                     </lightning-combobox> -->
-                    </div>
-                    <div class="slds-col slds-size_1-of-6">
+                    <!-- </div> -->
+                    <div class="slds-col slds-size_1-of-7">
                         <!-- <lightning-combobox name="progress"
                         label="Estimate Type"
                         value={EstimateType}
@@ -348,10 +344,10 @@
                         options={AtiJobEstimateTypeValues.data.values}
                         onchange={EstimateTypeChange} >
                         </lightning-combobox> -->
-                        <label class="Labels spacing"> Claim #</label>
-                        <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
-                        <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
-                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input>
+                        <label class="Labels required1 spacing" for="textarea-id-01"> Job Name</label>
+                                     
+                        <lightning-input  onchange={JobNameChange} class="jobFormControl spacing"  value={JobName}></lightning-input>
+                        
                         
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
                         <lightning-combobox name="progress"
@@ -360,7 +356,8 @@
                         placeholder="-Select-"
                         options={options}
                         onchange={DivisionChange}
-                        class="spacing jobFormControl" 
+                        class="spacing jobFormControl"
+                        dropdown-alignment=auto 
                         >
                         </lightning-combobox>
                         <template if:true={DivisionEs}>
@@ -372,12 +369,13 @@
                            options={EsJobTypePicklistValues}
                            onchange={EsJobTypeChange}
                            class="spacing"
-                           disabled={EMS} >
+                           disabled={EMS}
+                            >
                            </lightning-combobox>
                         </template>
                        
                     </div>
-                    <div class="slds-col slds-size_1-of-6">
+                    <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing required1" > Job Class</label>
                         <lightning-combobox name="progress"
                         
@@ -385,7 +383,8 @@
                         placeholder="-Select-"
                         options={JobClassPicklistValues}
                         onchange={JobClassChange} 
-                        class="spacing  jobFormControl">
+                        class="spacing  jobFormControl"
+                        dropdown-alignment=auto>
                     </lightning-combobox>
                     <label class="Labels spacing required1"> Lead Source</label>
                      <lightning-combobox name="progress"
@@ -394,50 +393,10 @@
                         placeholder="-Select-"
                         options={LeadSourcePicklistValues}
                         onchange={LeadSourceChange}
-                        class="spacing  jobFormControl" >
+                        class="spacing  jobFormControl"
+                        dropdown-alignment=auto >
                         </lightning-combobox>
-                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
-                            <lightning-input onkeyup={OfficeChange}
-                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing  jobFormControl"></lightning-input>
-                              
-                                <template if:true={Offices}>
-                                    <table
-                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
-                                        <thead>
-                                            <tr class="slds-text-heading_label">
-                                                <th scope="col">
-                                                    <div title="Customers">Offices</div>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <template for:each={Offices} for:item="Office">
-                                                <tr key={Office.Id}>
-                                                    <th scope="row">
-                                                        <b>
-                                                            <lightning-button variant="base" label={Office.Name}
-                                                                value={Office} title="Base action"
-                                                                onclick={populateOfficeField}
-                                                                class="slds-m-left_x-small jobButton"></lightning-button>
-                                                        </b>
-                                                        <br>
-                                                        <!-- <lightning-formatted-text value={ContactAccount.Name} label={ContactAccount.Name}>
-                                                                                
-                                                                            </lightning-formatted-text>
-                                     -->
-                                                        <!-- <lightning-formatted-address street={Property.Address_Line_1__c}
-                                                                                city={Property.City__c} country='US' province={Property.State__c}
-                                                                                postal-code={Property.Zip__c} disabled={inputDisabled}>
-                                                                            </lightning-formatted-address> -->
-                                                        <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
-                                                    </th>
-        
-                                                </tr>
-        
-                                            </template>
-                                        </tbody>
-                                    </table>
-                                </template>
+                        
                                 <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label>
                                 <lightning-record-edit-form object-api-name="ATI_Job__c">
                                     <lightning-input-field field-name="Project_Manager__c" variant="label-hidden" onchange={ProjectDirectorChange} value={ProjectDirector}>
@@ -447,7 +406,7 @@
                     </div> 
                    
                     
-                    <div class="slds-col slds-size_1-of-6">
+                    <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing" for="textarea-id-01"> Project Director</label>
                         
                              
@@ -513,10 +472,63 @@
                                         </tbody>
                                     </table>
                                 </template>    
-                                <label class="Labels spacing" > Date of Loss</label>
-                        <lightning-input value={DateOfLoss} type="Date" disabled={DateOfLossDisabled} class="spacing" onchange={DateOfLossChange}  ></lightning-input>
+                                
                     </div>
-                    <div class="slds-col slds-size_1-of-6">
+                    <div class="slds-col slds-size_1-of-7">
+                        <label class="Labels spacing"> Claim #</label>
+                        <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
+                        <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
+                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input>     
+                    </div>
+                    <div class="slds-col slds-size_1-of-7">
+                        <label class="Labels spacing" > Date of Loss</label>
+                        <lightning-input value={DateOfLoss} type="Date" disabled={DateOfLossDisabled} class="spacing" onchange={DateOfLossChange}  ></lightning-input>
+                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
+                            <lightning-input onkeyup={OfficeChange}
+                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing  jobFormControl"></lightning-input>
+                              
+                                <template if:true={Offices}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        <thead>
+                                            <tr class="slds-text-heading_label">
+                                                <th scope="col">
+                                                    <div title="Customers">Offices</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={Offices} for:item="Office">
+                                                <tr key={Office.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-button variant="base" label={Office.Name}
+                                                                value={Office} title="Base action"
+                                                                onclick={populateOfficeField}
+                                                                class="slds-m-left_x-small jobButton"></lightning-button>
+                                                        </b>
+                                                        <br>
+                                                        <!-- <lightning-formatted-text value={ContactAccount.Name} label={ContactAccount.Name}>
+                                                                                
+                                                                            </lightning-formatted-text>
+                                     -->
+                                                        <!-- <lightning-formatted-address street={Property.Address_Line_1__c}
+                                                                                city={Property.City__c} country='US' province={Property.State__c}
+                                                                                postal-code={Property.Zip__c} disabled={inputDisabled}>
+                                                                            </lightning-formatted-address> -->
+                                                        <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>
+
+
+                    </div>
+                    <div class="slds-col slds-size_1-of-5">
                         <label class="MultLabels " for="textarea-id-01"> Other Interested Services</label>
                         
                         <lightning-record-edit-form object-api-name="Master_Job__c">
@@ -529,7 +541,12 @@
                    </div>
                        
             </div>
-                
+            <br>
+            <div class="slds-col slds-size-1-of-2">
+            <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
+                                     
+                                        <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                    </div>
             </template>
         </lightning-accordion-section>
         <!-- </div> -->
@@ -1149,6 +1166,7 @@
                                             options={PropertyTypeValuesContainer}
                                             onchange={PropertyTypeChange}
                                             class="propertyFormControl"
+                                            dropdown-alignment=auto
                                             required>
                                         </lightning-combobox>
                                         <!-- <lightning-input label="Zip" value={Zip} onchange={ZipChange}></lightning-input>

@@ -12,7 +12,7 @@
  * Ver       Date            Author      		    Modification
  * 1.0    1/23/2020   Sean Gray     Initial Version
 **/
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, track, wire, api } from 'lwc';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import StrUserId from '@salesforce/user/Id';
 
@@ -54,6 +54,7 @@ import ESTIMATETYPE_FIELD from '@salesforce/schema/ATI_Job__c.Estimate_Type__c';
 import PROPERTYTYPE_FIELD from '@salesforce/schema/Property__c.Property_Type__c';
 import CONTACTTYPE_FIELD from '@salesforce/schema/Contact.Contact_Type__c';
 import TYPE_FIELD from '@salesforce/schema/Account.Type';
+
 var ContactJSON;
 var AccountJSON;
 var PropertyJSON;
@@ -195,8 +196,12 @@ DateOfLossDisabled = false;
 DescriptionDisabled = false;
 OfficeDisabled = false;
 NewAccountCreated = false;
+callerCount = 0;
+caller = false;
 UserId = StrUserId;
 @track name;
+@api recordId;
+@api test;
 
 
 // @wire(getRecord, {
@@ -333,7 +338,7 @@ NewAccountRoleSelected(event){
     var rowInd = event.target.parentNode.parentNode.parentNode.rowIndex;
     rowInd = rowInd - 1;
     this.MultRoleInd = rowInd;
-    this.MultipleRoles = this.AccountRoles[this.MultRoleInd].Text__c;
+    this.MultipleRoles = this.AccountRoles[this.MultRoleInd].Multiple_Roles__c;
     this.newAccountRoles = true;
 }
 CloseAccountRole(){
@@ -342,6 +347,7 @@ CloseAccountRole(){
     this.MultipleRoles = '';
 }
 connectedCallback(){
+    console.log('Testing api.. Test is :  ' + this.test);
     GetUserName({}).then(result =>{
         this.TakenByValue = result;
         this.TakenById = this.UserId;
@@ -354,7 +360,7 @@ connectedCallback(){
         }   
         this.AccountRolePicklistValuesContainer.shift();
         this.ARReady = true;
-        this.AccountRoles.push({Contact_ID__c : '', Account_ID__c :'', Text__c : ''});
+        this.AccountRoles.push({Contact_ID__c : '', Account_ID__c :'', Multiple_Roles__c : ''});
         this.AccountRoles.shift();
     })
     GetPropertyTypePicklist({}).then(result =>{
@@ -422,7 +428,7 @@ closeAccountQuestion(){
     this.AccountQuestion = false;
 }
 saveMultipleRoles(){
-    this.AccountRoles[this.MultRoleInd].Text__c = this.MultipleRoles;
+    this.AccountRoles[this.MultRoleInd].Multiple_Roles__c = this.MultipleRoles;
     this.newAccountRoles = false;
     this.MultRoleInd = '';
     this.MultipleRoles = '';
@@ -735,23 +741,23 @@ ReplaceEmptyAccountRoleRows(){
       
         if((ARContact !== "" && ARContact !== null) || (ARAccount !== "" && ARAccount !== null)){
         AccountRoles.push({
-            Text__c: ARRoles,  Contact_ID__c: ARContact, Account_ID__c: ARAccount
+            Multiple_Roles__c: ARRoles,  Contact_ID__c: ARContact, Account_ID__c: ARAccount
         });
         
     }else if((ARContact === "" || ARContact === null) && (ARRoles === "" || ARRoles === null) && (ARAccount === "" || ARAccount === null)){
        
         AccountRoles.push({
             
-            Text__c: this.ContactAccountRole,  Contact_ID__c: this.ContactId, Account_ID__c: this.ContactAccountValue
+            Multiple_Roles__c: this.ContactAccountRole,  Contact_ID__c: this.ContactId, Account_ID__c: this.ContactAccountValue
        });
        Inserted = true;
     }
 }
     if(!Inserted){
         if(!this.CreateNewContact){
-        AccountRoles.push({Text__c : this.ContactAccountRole,  Contact_ID__c: "", Account_ID__c: this.ContactAccountValue});
+        AccountRoles.push({Multiple_Roles__c : this.ContactAccountRole,  Contact_ID__c: "", Account_ID__c: this.ContactAccountValue});
         }else{
-            AccountRoles.push({Text__c : this.ContactAccountRole,  Contact_ID__c: this.ContactId, Account_ID__c: this.ContactAccountValue});   
+            AccountRoles.push({Multiple_Roles__c : this.ContactAccountRole,  Contact_ID__c: this.ContactId, Account_ID__c: this.ContactAccountValue});   
         }
     }
    
@@ -1306,12 +1312,14 @@ populatePropertyField(event){
 
     checkId({propId:this.testingProperty.Id}).then(result => {
         this.AccountRoles = result;
+        console.log('ARs' + JSON.stringify(this.AccountRoles));
         this.AccountRolesSelected = true;
     
     })
     GetMasterJobs({propId:this.testingProperty.Id}).then(result => {
         this.MasterJobs = result;
-        if(this.MasterJobs !== null){
+        if(JSON.stringify(this.MasterJobs) !== '[]'){
+            console.log('Master Jobs result ' + JSON.stringify(this.MasterJobs));
             this.bShowModal = true;
         }
     })
@@ -1361,7 +1369,7 @@ getAllAccountRoleObjects() {
         let ARAccount = TblRow[k].querySelector('.ARAccount').value;
         let ARRoles = TblRow[k].querySelector('.ARRoles').value;
         AccountRoles.push({
-             Contact_ID__c: ARContact, Account_ID__c: ARAccount, Text__c: ARRoles
+             Contact_ID__c: ARContact, Account_ID__c: ARAccount, Multiple_Roles__c: ARRoles
         });
  
 
@@ -1412,16 +1420,19 @@ CreateNewJob(){
                 this.ARRoleBlank= false;
                 this.billToCount = 0;
                 this.projectSiteContactCount = 0;
+                this.callerCount = 0;
                 alert('Roles cannot be left blank');
             }else{
-            if(this.billToCount > 1 || this.projectSiteContactCount > 1){
+            if(this.billToCount > 1 || this.callerCount > 1){
                 alert('Only One Bill To and One Project Site Contact can be selected as a Role');
                 this.billToCount = 0;
                 this.projectSiteContactCount = 0;
+                this.callerCount = 0;
             }else{
-                if(this.billToCount < 1 || this.projectSiteContactCount < 1){
+                if(this.billToCount < 1 || this.projectSiteContactCount < 1 || this.callerCount < 1){
                     this.billToCount = 0;
                     this.projectSiteContactCount = 0;
+                    this.callerCount = 0;
                     alert('A Bill To and Project Site Contact Role MUST be selected');
                    
                 }else{
@@ -1429,6 +1440,7 @@ CreateNewJob(){
                     console.log('Property Id is ' + this.PropertyID + '   PropertyType is ' + this.PropertyType);
                     this.billToCount = 0;
                 this.projectSiteContactCount = 0;
+                this.callerCount = 0;
                     alert('Either Select a Property or Create a New Property');
                 }else{
                     console.log('Description ' + this.Description);
@@ -1436,6 +1448,7 @@ CreateNewJob(){
                     || this.LeadSource === "" || this.LeadSource === undefined || this.OfficeValue === undefined || this.OfficeValue === "" || this.TakenByValue === undefined || this.TakenByValue === ""){
                         this.billToCount = 0;
                 this.projectSiteContactCount = 0;
+                this.callerCount = 0;
                         alert('Fill in all required Job Fields');
                     }else{
                 
@@ -1485,8 +1498,9 @@ GenerateAccountRoleJSON(){
 }
 
 GetAccountRolesObjects() {
-        var projectSiteContact = false;
-        var billTo = false;
+        let projectSiteContact = false;
+        let billTo = false;
+        let caller = false;
         var AccountRoles = [];
         let ActTblRow =  Array.from(this.template.querySelectorAll('table.ActRoles tbody tr'));
         console.log('Get Account Roles has been called ' );
@@ -1503,9 +1517,14 @@ GetAccountRolesObjects() {
                 this.projectSiteContactCount += 1;
             }
             console.log('contains AR');
-            if(ARRoles.includes('Bill To')){
+            if(ARRoles.includes('Primary/Bill-to')){
                 billTo = true;
                 this.billToCount += 1;
+            }
+            if(ARRoles.includes('Caller')){
+                console.log('Caller has been called');
+                caller = true;
+                this.callerCount += 1;
             }
             if((ARContact === "" || ARContact === null) && (ARRoles === "" || ARRoles === null) && (ARAccount === "" || ARAccount === null)){
                 console.log('Removing row' );
@@ -1522,7 +1541,7 @@ GetAccountRolesObjects() {
             }
         }
         }
-            if(projectSiteContact === false || billTo === false){
+            if(projectSiteContact === false || billTo === false || caller === false){
                 AccountRolesPassed = false;
             }else{
                 AccountRolesPassed = true;

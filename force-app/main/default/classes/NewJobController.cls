@@ -4,7 +4,7 @@
  * @Author             : sean.gray@atirestoration.com
  * @Group              : 
  * @Last Modified By   : sean.gray@atirestoration.com
- * @Last Modified On   : 2/24/2020, 11:14:45 AM
+ * @Last Modified On   : 3/3/2020, 11:37:29 AM
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    1/28/2020   sean.gray@atirestoration.com     Initial Version
@@ -140,7 +140,7 @@ public with sharing class NewJobController {
     
     @AuraEnabled 
     public static list<Account_Roles__c> CheckId(string propId){
-        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Property_ID__c =: propId];
+        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Property_ID__c =: propId];
         for(Account_Roles__c ar : a){
             ar.Text__c = ar.Roles__c;
         }
@@ -244,7 +244,31 @@ public with sharing class NewJobController {
                     pickListValuesList.add(pickListVal.getLabel());  
                 }       
                 return pickListValuesList;
-            }    
+            }  
+    @AuraEnabled
+    public static Id AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
+    String AddressLine2, String Comments, String Description){
+        //Create Master Job
+        //a. Office goes on Master, State City Zip goes on job. Description goes on Master
+        //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
+        // also set job record type to approved..
+        system.debug('Before Master Job creation');
+        Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
+        insert mj;
+        system.debug('After Master Job creation');
+        Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
+        Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
+            
+
+        string address = Street + ' , ' + State + ' , ' + City + ' ' + ZipCode;
+        system.debug('Before Job creation');
+        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Stage__c = 'Qualification',  
+        Office2__c = Office, recordtypeId = recordtypeid, Description__c = Description, Project_Site_Address__c = address, Project_Site_Address_2__c = AddressLine2,
+        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode, Comments__c = Comments);
+        insert job;
+        system.debug('After Job creation');
+        return job.id;
+    }                
     @AuraEnabled 
     public static Id CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId){
         system.debug('AccountRole Info ' + AccountRoleInfo);
@@ -258,7 +282,9 @@ public with sharing class NewJobController {
         Property__c prop = new Property__c();
         Id ProjectSiteContactAccount;
         Id ProjectSiteContactContact;
-        Id InsuranceCompany;
+        Id PrimaryAccount;
+        Id PrimaryContact;
+        Id Referred;
         Id InsuranceAdjuster;
         
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
@@ -279,15 +305,17 @@ public with sharing class NewJobController {
                     ProjectSiteContactContact = accountRoles.Contact;
                 }
             }
-            if(accountRoles.Text.contains('Insurance Company')){
+            if(accountRoles.Text.contains('Primary/Bill-to')){
                 if(!String.isBlank(accountRoles.Account)){
-                InsuranceCompany = accountRoles.Account;
+                    PrimaryAccount = accountRoles.Account;
                 }
-               
-            }
-            if(accountRoles.Text.contains('Insurance Adjuster')){
                 if(!String.isBlank(accountRoles.Contact)){
-                    InsuranceAdjuster = accountRoles.Contact;
+                    PrimaryContact = accountRoles.Contact;
+                }
+            }
+            if(accountRoles.Text.contains('Referred By')|| accountRoles.Text.contains('Caller') ){
+                if(!String.isBlank(accountRoles.Contact)){
+                    Referred = accountRoles.Contact;
                 }
             }
 
@@ -345,7 +373,7 @@ public with sharing class NewJobController {
         Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Master_Job__c = mJobId, division__c = jobWrap.division,
         Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
-        Account__c = InsuranceCompany, Contact__c = InsuranceAdjuster, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
+        Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
         Project_Site_Contact_Name__c = ProjectSiteContactContact, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
         Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c);
         insert job;

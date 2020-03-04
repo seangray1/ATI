@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NLCS_Review_Date_Coming_Up</fullName>
+    <columns>Project_Manager_new__c</columns>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Total_Billing_Forecast_Amount__c</columns>
+    <columns>Job_to_Date_Work_Billed_RS__c</columns>
+    <columns>Future_Billing__c</columns>
+    <columns>Amount_not_billed__c</columns>
+    <columns>Receivable_Balance_RS__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NCLS_Days_Past_Review__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>20</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Won</value>
+    </filters>
+    <filters>
+        <field>Is_PD_the_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My 30-Day NCLS Review Coming Up (PD)</label>
+</ListView>

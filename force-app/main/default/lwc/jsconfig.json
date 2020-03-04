@@ -52,6 +52,12 @@
             ],
             "c/newJobLWC": [
                 "newJobLWC/newJobLWC.js"
+            ],
+            "c/largeLossLWC": [
+                "largeLossLWC/largeLossLWC.js"
+            ],
+            "c/afterHoursJobLWC": [
+                "afterHoursJobLWC/afterHoursJobLWC.js"
             ]
         },
         "experimentalDecorators": true
