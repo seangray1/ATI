@@ -11,14 +11,21 @@
 -->
 <template>
     <div class="slds-box slds-theme_shade">
-    <h2>After Hours Job Entry</h2>
+            <template if:true={loading}>
+                    <div class="exampleHolder">
+                        <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                    </div>
+                </template>
     <br>
-    <div class="slds-col slds-size-1-of-6">
+    
         <template if:true={PageStateReady}>
-    <lightning-input label="Job Name" value={JobName} class="jobFormControl" required onchange={JobNameChange}></lightning-input>
+                <div class="slds-col slds-size_1-of-4">
+                    
+    <lightning-input label="Job Name" value={JobName} class="jobFormControl pushRight center" required onchange={JobNameChange}></lightning-input>
+
     <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label> -->
     <lightning-input onkeyup={OfficeChange}
-                placeholder='Search for Office.. ' label="Office"  onchange={ClearOffice} required value={OfficeValue} type="search" class="spacing jobFormControl"></lightning-input>
+                placeholder='Search for Office.. ' label="Office"  onchange={ClearOffice} required value={OfficeValue} type="search" class="spacing pushRight center jobFormControl  slds-align_absolute-center"></lightning-input>
       
         <template if:true={Offices}>
             <table
@@ -65,20 +72,20 @@
                         placeholder="-Select-"
                         options={DivisionPicklistValues}
                         onchange={DivisionChange}
-                        class="spacing jobFormControl"
+                        class="spacing jobFormControl center"
                         dropdown-alignment=auto 
                         required
                         >
                         </lightning-combobox>
                         <template if:true={DivisionEs}>
-                        <label class="Labels spacing required1"> ES Job Type</label>
+                       
                         <lightning-combobox name="progress"
-                           label="Es Job Type"
+                           label="ES Job Type"
                            value={EsJobType}
                            placeholder="-Select-"
                            options={EsJobTypePicklistValues}
                            onchange={EsJobTypeChange}
-                           class="spacing jobFormControl"
+                           class="spacing jobFormControl center"
                            disabled={EMS}
                            required={DivisionEs}
                             >
@@ -99,16 +106,17 @@
                                     province=""
                                     postal-code=""
                                     show-address-lookup
-                                    class="jobFormControl"
+                                    class="jobFormControl center"
                                     required 
                                      >
         </lightning-input-address>
-        <lightning-input label="Address Line 2" value={AddressLine2} onchange={AddressLine2Change}></lightning-input>
-        <lightning-input label="Comments" value={Comments} onchange={CommentsChange}></lightning-input>
-        <lightning-textarea label="Description" value={Description} onchange={DescriptionChange}></lightning-textarea>
+        <lightning-input label="Address Line 2" value={AddressLine2}  class="center" onchange={AddressLine2Change}></lightning-input>
+        <lightning-input label="Comments" value={Comments} class="center" onchange={CommentsChange}></lightning-input>
+        <lightning-textarea label="Description" value={Description} class="center" onchange={DescriptionChange}></lightning-textarea>
         <br>
-    </template>
     </div>
+    </template>
+   
 
 </div>
         

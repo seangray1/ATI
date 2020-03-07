@@ -253,21 +253,27 @@ public with sharing class NewJobController {
         //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
         // also set job record type to approved..
         system.debug('Before Master Job creation');
+        try {
         Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
         insert mj;
         system.debug('After Master Job creation');
+        Id userId = userinfo.getUserId();
         Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
         Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
             
-
+       
         string address = Street + ' , ' + State + ' , ' + City + ' ' + ZipCode;
         system.debug('Before Job creation');
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Stage__c = 'Qualification',  
-        Office2__c = Office, recordtypeId = recordtypeid, Description__c = Description, Project_Site_Address__c = address, Project_Site_Address_2__c = AddressLine2,
+        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
+        Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Description__c = Description, Project_Site_Address__c = address, Project_Site_Address_2__c = AddressLine2,
         Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode, Comments__c = Comments);
         insert job;
         system.debug('After Job creation');
         return job.id;
+        }
+        catch (Exception e) {
+            return e.getMessage();
+        }
     }                
     @AuraEnabled 
     public static Id CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId){

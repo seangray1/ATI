@@ -58,6 +58,9 @@
             ],
             "c/afterHoursJobLWC": [
                 "afterHoursJobLWC/afterHoursJobLWC.js"
+            ],
+            "c/propertySelectLWC": [
+                "propertySelectLWC/propertySelectLWC.js"
             ]
         },
         "experimentalDecorators": true
