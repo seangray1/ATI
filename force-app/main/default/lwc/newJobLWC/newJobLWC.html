@@ -4,7 +4,7 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 3/3/2020, 8:05:38 AM
+  @Last Modified On   : 3/6/2020, 10:27:02 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    1/23/2020   Sean Gray     Initial Version
@@ -27,6 +27,10 @@
                         
         <!-- <div class="slds-box slds-theme_shade"> -->
             <lightning-accordion-section name="Property Information" label="Property Information">
+                <!-- <div class="StaticPropertyBox" style="width:600px; margin-left:10%;" >
+                    -->
+                <!-- <div class="slds-region_narrow StaticPropertyText $color-text-icon-default-hint" style="width:750px">Enter the street address of the property below and select from the list, if found.  If no matching property is listed, click [New Property].  Then enter the address in the Address Search bar, select the best match, and enter the remaining information.</div> -->
+                <!-- </div> -->
             <!-- <div class="slds-m-around_medium">
                 <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property Search</h1>
             </div> -->
@@ -39,7 +43,9 @@
             <div class="slds-m-around_medium">
                
                     <div class="slds-col slds-size_1-of-5">
-                        
+                <lightning-helptext content='Enter the street address of the property below and select from the list, if found.  If no matching property is listed, click [New Property].  Then enter the address in the Address Search bar, select the best match, and enter the remaining information.'>
+                    
+                </lightning-helptext>    
                 <lightning-input label="Property Search" onkeyup={PropertyChanged}
                     placeholder='Search for Properties.. ' value={PropertyValue} type="search" autocomplete={AutoComplete} onchange={ClearProperty}></lightning-input>
                     </div>
@@ -108,6 +114,11 @@
         <!-- </div> -->
         <br>
         <lightning-accordion-section name="Account Roles" label="Account Roles">
+            <lightning-helptext content='To assign a new Account or Contact to this Job, click [Add Row], then search for either the Contact or Account, then Select Account Roles and add all that apply.  To create a new Contact or Account click New Contact or New Account, enter the required information, and then Select Account Roles. 
+            Required Roles:  Primary/Bill-to, Caller, Referred By, and Project Site Contact.  If there was no third party referral, set the Caller as the Referred By role also.  Add additional roles, if applicable, especially Insurance.'>
+                    
+            </lightning-helptext>    
+           
        <template if:true={ARReady}>
            
         <!-- <div class="slds-box slds-theme_shade">  -->
@@ -478,7 +489,9 @@
                         <label class="Labels spacing"> Claim #</label>
                         <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
                         <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
-                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input>     
+                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input> 
+                        <label class="Labels spacing" > Year Structure Built</label>
+                        <lightning-input value={YearBuilt} onchange={YearBuiltChange} class="spacing" ></lightning-input>     
                     </div>
                     <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing" > Date of Loss</label>
@@ -547,6 +560,7 @@
                                      
                                         <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
                                     </div>
+                                    <lightning-button label="Fill Out Description" onclick={newDescriptionClick}></lightning-button>
             </template>
         </lightning-accordion-section>
         <!-- </div> -->
@@ -1194,7 +1208,46 @@
                 </section>
                 <div class="slds-backdrop slds-backdrop_open"></div>
                 </template>
-            
+                <template if:true={newDescription}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!-- modal header start -->
+                                <header class="slds-modal__header">
+                                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                        title="Close" onclick={closePropertyModal}>
+                                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                            size="small"></lightning-icon>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                    <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate biggerText">Description of Loss
+                                    </h2>
+                                </header>
+                                <!-- modal body start -->
+                                <div class="slds-box slds-theme_shade">
+                                    <div class="inputLabel"><label class=""> Lead Source</label>
+                                        <input class="marginLeft" value={test}></input>
+                        
+                                    </div>
+                                </div>
+                                
+                                             <br>
+                                             <lightning-button-group>
+                                                 <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={closeProperty}></lightning-button>
+                                                 <lightning-button label="Cancel" class="Buttonspacing" onclick={closeDescriptionModal}></lightning-button>
+                                             </lightning-button-group>
+                    
+                                </div>
+                                             
+                        
+                        
+                   
+                    
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+
+
 </template>
 
 

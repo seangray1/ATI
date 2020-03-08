@@ -23,7 +23,8 @@
     avt.setParams({
     componentDef:"c:newJobAura",
         componentAttributes: {
-                recordId : component.get("v.recordId")
+                recordId : component.get("v.recordId"),
+                TypeOfJobEntry:"NewJobEntry"
                 
             }
     });

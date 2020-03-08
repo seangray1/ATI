@@ -4,7 +4,7 @@
   @Author             : sean.gray@atirestoration.com
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 3/3/2020, 11:54:20 AM
+  @Last Modified On   : 3/4/2020, 9:04:10 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    3/3/2020   sean.gray@atirestoration.com     Initial Version
@@ -19,7 +19,7 @@
     <br>
     
         <template if:true={PageStateReady}>
-                <div class="slds-col slds-size_1-of-4">
+                <!-- <div class="slds-col slds-size_1-of-4"> -->
                     
     <lightning-input label="Job Name" value={JobName} class="jobFormControl pushRight center" required onchange={JobNameChange}></lightning-input>
 
@@ -114,7 +114,7 @@
         <lightning-input label="Comments" value={Comments} class="center" onchange={CommentsChange}></lightning-input>
         <lightning-textarea label="Description" value={Description} class="center" onchange={DescriptionChange}></lightning-textarea>
         <br>
-    </div>
+    <!-- </div> -->
     </template>
    
 

@@ -89,3 +89,23 @@ margin-left: 18px;
     padding-bottom: 0.3%;
    padding-top: 0.3%;
 }
+.StaticPropertyBox{
+    margin-left: 25%;
+    background-color: rgb(216, 237, 255);
+}
+.StaticPropertyText{
+  
+    background-color: 	
+    white;
+    font-weight: bold;
+    /* color: rgb(236, 235, 234); */
+    
+}
+.inputDescription .inputLabel{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0;
+  }
+  .marginLeft{
+      margin-left: 20px;
+  }

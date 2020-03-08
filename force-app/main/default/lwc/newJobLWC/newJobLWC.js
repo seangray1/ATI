@@ -34,6 +34,7 @@ import SearchCustomers from '@salesforce/apex/NewJobController.GetCustomers';
 import SearchContactAccounts from '@salesforce/apex/NewJobController.GetContactAccounts';
 import SearchOffices from '@salesforce/apex/NewJobController.GetOffices';
 import GetMasterJobs from '@salesforce/apex/NewJobController.GetMasterJobs';
+import GetJobInfo from '@salesforce/apex/NewJobController.GetJobInfo';
 import checkId from '@salesforce/apex/NewJobController.CheckId';
 import CreateNewJob from '@salesforce/apex/NewJobController.CreateNewJob';
 import { NavigationMixin } from 'lightning/navigation';
@@ -127,7 +128,13 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
 @track AddressLine1;
 @track PropertyType = "";
 @track Zip;
-@track Description = "";
+@track Description = "Type of Loss:"+  '\n' + "Cause of Loss:" + '\n' + 'Customer Type:' + '\n' + 'Property Description:'+
+'\n' + 'Areas Affected:' + '\n' + 'Damaged Materials:' + '\n' + 'Flooring Type:' + '\n' + 'Is power shut-off in the building? (Y/N)' +
+'\n' + 'Is there a gate code?' + '\n' + 'Is there standing water? (Y/N)' + '\n' + 'Is the standing water clean, gray or black water?(Clean,Gray,Black)' + '\n' +
+'Have you called a plumber?(Y/N)' + '\n' + 'Has the water been shut off? (Y/N)' + '\n' + 'Has the leak been fixed? (Y/N)' + '\n' + 
+'What type of fire damage is there? (Smoke, soot, ashes)' + '\n' + 'Were emergency responders on the scene? (Police, Fire)' + '\n' +
+'Have emergency responders given clearance to access the building?' + '\n' + 'Are we dealing with blood or body fluids?' + '\n' +
+'How long was the body on site?' + '\n' + 'Is there an odor we need to address?' + '\n' + 'Are we packing the belongings for the next of kin?';
 @track Division;
 @track Office;
 @track JobClass;
@@ -188,6 +195,7 @@ projectSiteContactCount = 0;
 ProjectDirectorSelected = false;
 DateOfLoss;
 ClientJob;
+YearBuilt;
 ARRoleBlank = false;
 ClientJobDisabled = false;
 ClaimDisabled = false;
@@ -198,10 +206,11 @@ OfficeDisabled = false;
 NewAccountCreated = false;
 callerCount = 0;
 caller = false;
+newDescription = false;
 UserId = StrUserId;
 @track name;
-@api recordId;
-@api test;
+@api jobrecordId;
+@api TypeOfJobEntry;
 
 
 // @wire(getRecord, {
@@ -255,9 +264,115 @@ MultipleDivisionPicklistValues;
 //     return [{ 
 //         AccountRolesValues.data.values}];
 // }
+
+connectedCallback(){
+    console.log('Testing api.. Test is :  ' + this.TypeOfJobEntry + ' record id is ' + this.jobrecordId);
+    if(this.TypeOfJobEntry === 'AfterHoursJobEntry'){
+        GetJobInfo({recordId:this.jobrecordId}).then(result =>{
+            let jobresults = result;
+            console.log('Job results are ' + jobresults + '   jobresults city ' + jobresults.Project_Site_City__c);
+            this.Description = jobresults.Description__c;
+            this.OfficeId = jobresults.Office2__c;
+            this.OfficeValue = jobresults.Office2__r.Name
+            this.Street = jobresults.Project_Site_Street__c;
+            this.City = jobresults.Project_Site_City__c;
+            this.State = jobresults.Project_Site_State__c;
+            this.Zip = jobresults.Project_Site_Zipcode__c;
+            this.AddressLine2 = jobresults.Project_Site_Address_2__c;
+            // this.PropertyValue = jobresults.Project_Site_Address__c;
+            this.DateOfLoss = jobresults.Date_of_Loss__c;
+            this.JobName = jobresults.Job_Name__c;
+            this.Division = jobresults.Division__c;
+            this.MasterJobId = jobresults.Master_Job__c;
+            // this.NewProperty = true;
+        })
+    }
+    GetUserName({}).then(result =>{
+        this.TakenByValue = result;
+        this.TakenById = this.UserId;
+    })
+    GetAccountRolesPicklist({}).then(result =>{
+        var AccountRolePicklistValues = result;
+        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+        
+            this.AccountRolePicklistValuesContainer.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+        }   
+        this.AccountRolePicklistValuesContainer.shift();
+        this.ARReady = true;
+        this.AccountRoles.push({Contact_ID__c : '', Account_ID__c :'', Multiple_Roles__c : ''});
+        this.AccountRoles.shift();
+    })
+    GetPropertyTypePicklist({}).then(result =>{
+        var PropertyTypePicklist = result;
+        for(var i = 0; i<PropertyTypePicklist.length;i++){
+        
+            this.PropertyTypeValuesContainer.push({label : PropertyTypePicklist[i], value : PropertyTypePicklist[i], });
+        }   
+        this.PropertyTypeValuesContainer.shift();
+        
+        
+   
+    })
+    GetDivisionPicklist({}).then(result =>{
+        var AccountRolePicklistValues = result;
+        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+            
+            this.DivisionPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+        }
+        
+        this.DivisionPicklistValues.shift();
+        this.ARDivision = true;
+       
+       
+    })
+    GetJobClassPicklist({}).then(result =>{
+        var AccountRolePicklistValues = result;
+        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+            
+            this.JobClassPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+        }
+        
+        this.JobClassPicklistValues.shift();
+    })
+    GetEsJobTypePicklist({}).then(result =>{
+        var AccountRolePicklistValues = result;
+        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+            
+            this.EsJobTypePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+        }
+        
+        this.EsJobTypePicklistValues.shift();
+    })
+    GetLeadSourcePicklist({}).then(result =>{
+        var AccountRolePicklistValues = result;
+        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+            
+            this.LeadSourcePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+        }
+        
+        this.LeadSourcePicklistValues.shift();
+    })
+    
+    // GetMultipleDivisionPicklist({}).then(result =>{
+    //     var AccountRolePicklistValues = result;
+    //     for(var i = 0; i<AccountRolePicklistValues.length;i++){
+    //         console.log('Lenght is '+ AccountRolePicklistValues.length + '    values are ' + AccountRolePicklistValues[i] );
+    //         this.MultipleDivisionPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+    //     }
+        
+    //     this.MultipleDivisionPicklistValues.shift();
+    // })
+    
+}
 get options() {
     
     return this.DivisionPicklistValues;
+}
+newDescriptionClick(){
+    this.newDescription = true;
+}
+closeDescriptionModal(){
+    this.newDescription = false;
 }
 searchAgain(){
     this.ProjectDirectorSelected = false;
@@ -269,6 +384,9 @@ AddressLine2Change(e){
 }
 DateOfLossChange(e){
     this.DateOfLoss = e.detail.value;
+}
+YearBuiltChange(e){
+    this.YearBuilt = e.detail.value;
 }
 ClientJobChange(e){
     this.ClientJob = e.detail.value;
@@ -346,84 +464,7 @@ CloseAccountRole(){
     this.MultRoleInd = '';
     this.MultipleRoles = '';
 }
-connectedCallback(){
-    console.log('Testing api.. Test is :  ' + this.test);
-    GetUserName({}).then(result =>{
-        this.TakenByValue = result;
-        this.TakenById = this.UserId;
-    })
-    GetAccountRolesPicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
-        
-            this.AccountRolePicklistValuesContainer.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }   
-        this.AccountRolePicklistValuesContainer.shift();
-        this.ARReady = true;
-        this.AccountRoles.push({Contact_ID__c : '', Account_ID__c :'', Multiple_Roles__c : ''});
-        this.AccountRoles.shift();
-    })
-    GetPropertyTypePicklist({}).then(result =>{
-        var PropertyTypePicklist = result;
-        for(var i = 0; i<PropertyTypePicklist.length;i++){
-        
-            this.PropertyTypeValuesContainer.push({label : PropertyTypePicklist[i], value : PropertyTypePicklist[i], });
-        }   
-        this.PropertyTypeValuesContainer.shift();
-        
-        
-   
-    })
-    GetDivisionPicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
-            
-            this.DivisionPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }
-        
-        this.DivisionPicklistValues.shift();
-        this.ARDivision = true;
-       
-       
-    })
-    GetJobClassPicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
-            
-            this.JobClassPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }
-        
-        this.JobClassPicklistValues.shift();
-    })
-    GetEsJobTypePicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
-            
-            this.EsJobTypePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }
-        
-        this.EsJobTypePicklistValues.shift();
-    })
-    GetLeadSourcePicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
-            
-            this.LeadSourcePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }
-        
-        this.LeadSourcePicklistValues.shift();
-    })
-    
-    // GetMultipleDivisionPicklist({}).then(result =>{
-    //     var AccountRolePicklistValues = result;
-    //     for(var i = 0; i<AccountRolePicklistValues.length;i++){
-    //         console.log('Lenght is '+ AccountRolePicklistValues.length + '    values are ' + AccountRolePicklistValues[i] );
-    //         this.MultipleDivisionPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-    //     }
-        
-    //     this.MultipleDivisionPicklistValues.shift();
-    // })
-}
+
 closeAccountQuestion(){
     this.AccountQuestion = false;
 }
@@ -984,6 +1025,7 @@ DescriptionChange(e){
 }
 DivisionChange(e){
     this.Division = e.detail.value;
+    this.Description = this.Description.replace("Division:", "Division: " + this.Division);
     if(this.Division === 'Emergency Svces'){
         this.DivisionEs = true;
     }else{
@@ -1460,11 +1502,11 @@ CreateNewJob(){
             //Job Fields
             JobJSON = JSON.stringify({'Description': this.Description, 'Division': this.Division, 'Office': this.OfficeId, JobClass: this.JobClass,
             'ProjectDirector': this.ProjectDirectorId,  'TakenBy': this.TakenById, 'Claim': this.Claim, JobName : this.JobName, LeadSource: this.LeadSource,
-            MultipleDivisions: this.MultipleDivision, EsJobType:this.EsJobType, 'DateOfLoss':this.DateOfLoss, 'ClientJob':this.ClientJob });
+            MultipleDivisions: this.MultipleDivision, EsJobType:this.EsJobType, 'DateOfLoss':this.DateOfLoss, 'ClientJob':this.ClientJob, YearBuilt:this.YearBuilt });
             //Master Job is just MasterJobId, if null then need to create a new one.
             this.jobLoading = true;
             CreateNewJob({AccountRoleInfo : AccountRoleInfo, PropertyInfo : PropertyJSON,
-                JobInfo : JobJSON, MasterJobId:this.MasterJobId})
+                JobInfo : JobJSON, MasterJobId:this.MasterJobId, JobEntryType:this.TypeOfJobEntry, jobrecordId:this.jobrecordId})
                 .then(result => {
                                 var data = result;
                                 if(data.length > 18){

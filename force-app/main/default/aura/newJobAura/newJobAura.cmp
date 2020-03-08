@@ -4,12 +4,13 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 3/3/2020, 8:30:18 AM
+  @Last Modified On   : 3/5/2020, 8:06:32 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    1/23/2020   Sean Gray     Initial Version
 -->
 <aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride">
-    <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
-    <c:newJobLWC recordId = "{!v.recordId}" test="test"/>
+    <aura:attribute name="jobrecordId" type="Id" description="This attribute is for getting record id"/>
+    <aura:attribute name="TypeOfJobEntry" type="String"/>
+    <c:newJobLWC jobrecordId = "{!v.jobrecordId}" TypeOfJobEntry="{!v.TypeOfJobEntry}"/>
 </aura:component>

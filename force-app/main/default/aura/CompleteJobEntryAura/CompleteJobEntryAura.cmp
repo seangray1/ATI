@@ -1,0 +1,16 @@
+<!--
+  @File Name          : CompleteJobEntryAura.cmp
+  @Description        : 
+  @Author             : sean.gray@atirestoration.com
+  @Group              : 
+  @Last Modified By   : sean.gray@atirestoration.com
+  @Last Modified On   : 3/5/2020, 8:09:18 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/4/2020   sean.gray@atirestoration.com     Initial Version
+-->
+<aura:component implements="force:appHostable,lightning:actionOverride,force:hasRecordId,flexipage:availableForAllPageTypes,force:hasSObjectName,force:lightningQuickActionWithoutHeader" access="global">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+</aura:component>

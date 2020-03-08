@@ -4,7 +4,7 @@
  * @Author             : sean.gray@atirestoration.com
  * @Group              : 
  * @Last Modified By   : sean.gray@atirestoration.com
- * @Last Modified On   : 3/3/2020, 11:37:29 AM
+ * @Last Modified On   : 3/5/2020, 10:38:09 AM
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    1/28/2020   sean.gray@atirestoration.com     Initial Version
@@ -151,13 +151,23 @@ public with sharing class NewJobController {
     }
     @AuraEnabled 
     public static list<Master_Job__c> GetMasterJobs(string propId){
-        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c,  Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Active__c = true];
+        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c,  Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Job_Status__c = 'Active'];
         system.debug('Prop Id + ' + propId);
         
         return mj;
 
         
     }
+    @AuraEnabled 
+    public static ATI_Job__c GetJobInfo(string recordId){
+        ATI_Job__c job = [Select Id, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c,
+        Project_Site_Address_2__c, Project_Site_Street__c, Job_Name__c, Stage__c, Master_Job__c, Division__c,  Date_of_Loss__c, Description__c, 
+        Office2__c, Office2__r.Name FROM ATI_Job__c Where Id =: recordId];
+       
+        
+        return job;
+    }
+    
     @AuraEnabled(cacheable = true)
     public static List<User> GetUsers(String searchKey) {
         system.debug('Customer Key is ' + searchKey);
@@ -260,13 +270,20 @@ public with sharing class NewJobController {
         Id userId = userinfo.getUserId();
         Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
         Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
-            
-       
-        string address = Street + ' , ' + State + ' , ' + City + ' ' + ZipCode;
+        
+        List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
+        
+        string address = Street + ', ' + State + ', ' + City + ' ' + ZipCode;
         system.debug('Before Job creation');
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
-        Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Description__c = Description, Project_Site_Address__c = address, Project_Site_Address_2__c = AddressLine2,
-        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode, Comments__c = Comments);
+        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1', date_time_approved__c = datetime.now(), Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
+        Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = address, Project_Site_Address_2__c = AddressLine2,
+        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode, Project_Site_Street__c = Street, Comments__c = Comments, CloseDate__c = date.today().adddays(5),
+        Date_Time_Taken__c = datetime.now());
+        if(!account.isempty()){
+            job.Account__c = account[0].id;
+            job.Project_site_Contact_Name__c = account[0].PersonContactId;
+            job.Project_site_Contact_Account__c = account[0].id;
+        } 
         insert job;
         system.debug('After Job creation');
         return job.id;
@@ -276,11 +293,13 @@ public with sharing class NewJobController {
         }
     }                
     @AuraEnabled 
-    public static Id CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId){
+    public static Id CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId, string JobEntryType, Id jobrecordId){
         system.debug('AccountRole Info ' + AccountRoleInfo);
         system.debug('Master Job Id ' + MasterJobId);
         system.debug('Property Info ' + PropertyInfo);
         system.debug('Job Info ' + JobInfo);
+        system.debug('Job Entry Type ' + JobEntryType);
+        system.debug('Job record Id ' + jobrecordId);
         Master_Job__c masterJob = new Master_Job__c();
         Boolean NewProperty = false;
         List<Account_Roles__c> ARList = new List<Account_Roles__c>();
@@ -335,7 +354,7 @@ public with sharing class NewJobController {
             prop.Country__c = Property.Country;
             prop.State__c = Property.State;
             prop.Address_Line_2__c = Property.AddressLine2;
-            prop.Address_Line_1__c = Property.Street + ' , ' + Property.State + ' , ' + Property.City + ' ' + Property.Zip;
+            prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
             NewProperty= true;
             insert prop;  
             
@@ -364,7 +383,27 @@ public with sharing class NewJobController {
            insert masterJob;
            mJobId = masterJob.id;
         
-        }else{
+        }else if(JobEntryType == 'NewJobEntry'){
+            mJobId = MasterJobId;
+        }else if(JobEntryType == 'AfterHoursJobEntry'){
+            masterJob.Id = masterJobId;
+            masterJob.Claim__c = jobWrap.Claim;
+            masterJob.Description_of_Loss__c = jobWrap.Description;
+            masterJob.Stage__c = 'Pre-work';
+            //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
+            masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
+            masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
+            masterJob.Lead_Source__c = jobWrap.LeadSource;
+            masterJob.Taken_By__c = jobWrap.TakenBy;
+            masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
+            masterJob.office2__c = jobWrap.Office;
+            if(NewProperty){
+                masterJob.Property__c = prop.Id;
+            }else{
+                masterJob.Property__c = Property.PropertyId;
+            }
+           
+            update masterJob;
             mJobId = MasterJobId;
         }
         //insert job, and relate to Master Job
@@ -374,17 +413,24 @@ public with sharing class NewJobController {
         }else{
             propId = Property.PropertyId;
         }
-       system.debug('Hitting before job insert, and MJobId is ' + mJobId );
+        system.debug('Hitting before job insert, and MJobId is ' + mJobId );
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
         Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Master_Job__c = mJobId, division__c = jobWrap.division,
         Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
         Project_Site_Contact_Name__c = ProjectSiteContactContact, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
-        Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c);
+        Project_Site_City__c = prop.City__c, Project_Site_Street__c = prop.Street__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = Double.valueOf(jobWrap.YearBuilt));
+        if(JobEntryType == 'NewJobEntry'){
         insert job;
-        system.debug('Hitting after job insert' );
+        }
+        if(JobEntryType =='AfterHoursJobEntry'){
+        job.Id = jobrecordId;
+        update job;
+        }
+        if(JobEntryType == 'NewJobEntry'){
         MasterJobUpdateJob(mJobId, job.Id);
+        }
         //insert AR's and relate to job
         Set<Id> ContactIdsSet = new Set<Id>();
         Map<Id,Contact> ContactMap = new Map<Id,Contact>();
@@ -431,7 +477,14 @@ public with sharing class NewJobController {
                 insert ARPropertyList;
             }
         }
-        return job.id;
+        system.debug('Job Id ' + job.id);
+        
+        if(JobEntryType == 'AfterHoursJobEntry'){
+            return jobrecordId;
+        }else{
+            return job.id;
+        }
+        
     } catch (Exception e) {
             return string.valueOf(e);
     }
@@ -489,6 +542,7 @@ public with sharing class NewJobController {
         public String JobName {get;set;}  
         public String ClientJob {get;set;}  
         public String EsJobType {get;set;}  
+        public String YearBuilt {get;set;}  
         public Id TakenBy {get;set;}  
         public Id ProjectDirector {get;set;}  
         public Date DateOfLoss {get;set;}  

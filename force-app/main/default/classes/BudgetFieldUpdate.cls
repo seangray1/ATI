@@ -77,7 +77,7 @@ public without sharing class BudgetFieldUpdate {
         }
         Map<Id, ATI_Job__c> ATIJobMap = new Map<Id, ATI_Job__c>();
         if(!ATI_JobIds.isEmpty()){
-            ATIJobMap = new Map<Id, ATI_Job__c>([SELECT id, Name, Budget__c, Job_Number__c, ownerID, Office2__c, Project_Manager__c, Project_Manager_new__c, Project_Manager__r.ManagerId, 
+            ATIJobMap = new Map<Id, ATI_Job__c>([SELECT id, Name, Budget__c, Job_Number__c, Office2__c, Project_Manager__c, Project_Manager_new__c, Project_Manager__r.ManagerId, 
                                                       Structure_Superintendent__c, Operations_Manager__c, Branch_Manager__c 
                                                FROM ATI_Job__c 
                                                WHERE id IN:ATI_JobIds]);
@@ -277,7 +277,7 @@ public without sharing class BudgetFieldUpdate {
         }
         Map<Id, ATI_Job__c> ATIJobMap = new Map<Id, ATI_Job__c>();
         if(!ATI_JobIds.isEmpty()){
-            ATIJobMap = new Map<Id, ATI_Job__c>([SELECT id, Name, Job_Number__c, ownerID, Office2__c, Project_Manager__c, Project_Manager_new__c, Project_Manager__r.ManagerId, 
+            ATIJobMap = new Map<Id, ATI_Job__c>([SELECT id, Name, Job_Number__c,  Office2__c, Project_Manager__c, Project_Manager_new__c, Project_Manager__r.ManagerId, 
                                                       Structure_Superintendent__c, Operations_Manager__c, Branch_Manager__c, Budget__c 
                                                FROM ATI_Job__c 
                                                WHERE id IN:ATI_JobIds]);
