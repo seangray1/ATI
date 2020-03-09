@@ -66,7 +66,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
 activeSections = ['Customer Search', 'Additional Information', 'Account Roles', 'Property Information'];
 PersonAccount = false;jobLoading = false;testingProperty;ARContacts;Properties;Offices;OfficeId;OfficeValue;ContactAccountRole; Customers;CustomerValue;CustomerPicked = false;CustomerId; 
 CustomerSelectedField;ContactAccounts;ContactAccountValue;ContactAccountPicked = false;ContactAccountSelected= false;ContactAccountId;ContactAccountName;searchKey;NewCaller = false;NewAccount = false;
-NewProperty = false;PropertyID = "";PropertyPicked = false;AccountRoles = [{}];AccountRolesSelected = false;AccountRolesRecieved ='';inputDisabled = true;PropertySelected = false;PropertySelectedField;PropertyValue;bShowModal = false;
+NewProperty = false;PropertyID = "";PropertyPicked = false;AccountRolesSelected = false;AccountRolesRecieved ='';inputDisabled = true;PropertySelected = false;PropertySelectedField;PropertyValue;bShowModal = false;
 MasterJobDetails;MasterJobId;ContactId;ContactType;FirstName;LastName;MailingStreet;MailingCity;MailingState;MailingCounty;AccountId = "";MailingPostalCode;Phone;Email;PhoneExt;AccountName;BillingStreet;BillingCity;BillingState;BillingPostalCode;
 Type;BillingCountry;AccountPhone;AccountPhoneExt;City;Country;State;AddressLine1;PropertyType = "";Zip;
 Description = "Type of Loss:"+  '\n' + "Cause of Loss:" + '\n' + 'Customer Type:' + '\n' + 'Property Description:'+
@@ -86,7 +86,7 @@ Plumber = ""; WaterShutOff = ""; LeakFixed = ""; FireDamage = ""; EmergencyRespo
 BloodOrFluids = ""; Body = ""; Odor = ""; Belongings = "";
 @api jobrecordId;
 @api TypeOfJobEntry;
-
+@track AccountRoles = [{}];
 
 // @wire(getRecord, {
 //     recordId: UserId,

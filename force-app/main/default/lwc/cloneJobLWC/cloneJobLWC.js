@@ -12,6 +12,7 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getRecord } from 'lightning/uiRecordApi';
+import CloneJobRecord from '@salesforce/apex/CloneATIJob.CloneJobRecord';
 import JOB_OBJECT from '@salesforce/schema/ATI_Job__c';
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
@@ -43,10 +44,14 @@ const fields = [
     'ATI_Job__c.Send_Prelim__c',
     //'ATI_Job__c.Parent_Job__c',
 ];
-export default class CloneJobLWC extends LightningElement {
+export default class CloneJobLWC extends NavigationMixin(LightningElement) {
     connectedCallback(){
         console.log('Record id is ' + this.recordId);
     }
+@track loading;
+@track ErrorMessage;
+@track Error;
+@track JobResults;
 @api objectApiName;
 @track objectInfo;
 @track ParentJob;
@@ -138,8 +143,8 @@ get recordTypeId() {
             this.ReferredBy = data.fields.Referred_by__c.value;
             this.County = data.fields.County__c.value;
             this.CloseDate = data.fields.CloseDate__c.value;
-            this.ProjectDirector = data.fields.Project_Manager__c.value;
-            //this.BranchManager = data.fields.Branch_Manager__c.value;
+            //this.ProjectDirector = data.fields.Project_Manager__c.value;
+            this.BranchManager = data.fields.Branch_Manager__c.value;
 
            
             this.CityOfLA = data.fields.City_of_LA__c.value;
@@ -198,5 +203,66 @@ get recordTypeId() {
         this.loading = true;
         this.dispatchEvent(new CustomEvent('closeform'));
         
+    }
+    CloneJobRecordRelated(){
+        var related = true;
+        this.loading = true;
+        CloneJobRecord({recordId:this.recordId, related: related}).then(result =>{
+            this.JobResults = result;
+            if(this.JobResults.length > 18){
+                this.loading = false;
+                this.ErrorMessage = this.JobResults;
+                this.Error = true;
+                console.log('Error ' + this.JobResults);
+            }else{
+                console.log('Success ' + this.JobResults);
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.JobResults,
+                        objectApiName: 'ATI_Job__c',
+                        actionName: 'view',
+                    },
+                });
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.JobResults,
+                        objectApiName: 'ATI_Job__c',
+                        actionName: 'edit',
+                    },
+                });
+            }
+        })
+    }
+    CloneJobRecordNotRelated(){
+        var related = false;
+        this.loading = true;
+        CloneJobRecord({recordId: this.recordId, related: related}).then(result =>{
+            this.JobResults = result;
+            console.log('Job Results is ' + this.JobResults);
+            if(this.JobResults.length > 18){
+                this.loading = false;
+                this.ErrorMessage = this.JobResults;
+                this.Error = true;
+            }else{
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.JobResults,
+                        objectApiName: 'ATI_Job__c',
+                        actionName: 'view',
+                    },
+                });
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.JobResults,
+                        objectApiName: 'ATI_Job__c',
+                        actionName: 'edit',
+                    },
+                });
+            }
+        })
     }
 }
