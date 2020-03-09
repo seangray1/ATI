@@ -63,152 +63,27 @@ var JobJSON;
 var AccountRolesPassed = false;
 const DELAY = 600;
 export default class NewJobLWC extends NavigationMixin(LightningElement) {
-    @track activeSections = ['Customer Search', 'Additional Information', 'Account Roles', 'Property Information'];
-@track PersonAccount = false;
-@track jobLoading = false;
-@track testingProperty;
-@track ARContacts;
-@track Properties;
-@track Offices;
-@track OfficeId;
-@track OfficeValue;
-@track ContactAccountRole; 
-@track Customers;
-@track CustomerValue;
-@track CustomerPicked = false;
-@track CustomerId; 
-@track CustomerSelectedField;
-@track ContactAccounts;
-@track ContactAccountValue;
-@track ContactAccountPicked = false;
-@track ContactAccountSelected= false;
-@track ContactAccountId;
-@track ContactAccountName;
-@track searchKey;
-@track NewCaller = false;
-@track NewAccount = false;
-@track NewProperty = false;
-@track PropertyID = "";
-@track PropertyPicked = false;
-@track AccountRoles = [{}];
-@track AccountRolesSelected = false;
-@track AccountRolesRecieved ='';
-@track inputDisabled = true;
-@track PropertySelected = false;
-@track PropertySelectedField;
-@track PropertyValue;
-@track bShowModal = false;
-@track MasterJobDetails;
-@track MasterJobId;
-@track ContactId;
-@track ContactType;
-@track FirstName;
-@track LastName;
-@track MailingStreet;
-@track MailingCity;
-@track MailingState;
-@track MailingCounty;
-@track AccountId = "";
-@track MailingPostalCode;
-@track Phone;
-@track Email;
-@track PhoneExt;
-@track AccountName;
-@track BillingStreet;
-@track BillingCity;
-@track BillingState;
-@track BillingPostalCode;
-@track Type;
-@track BillingCountry;
-@track AccountPhone;
-@track AccountPhoneExt;
-@track City;
-@track Country;
-@track State;
-@track AddressLine1;
-@track PropertyType = "";
-@track Zip;
-@track Description = "Type of Loss:"+  '\n' + "Cause of Loss:" + '\n' + 'Customer Type:' + '\n' + 'Property Description:'+
+activeSections = ['Customer Search', 'Additional Information', 'Account Roles', 'Property Information'];
+PersonAccount = false;jobLoading = false;testingProperty;ARContacts;Properties;Offices;OfficeId;OfficeValue;ContactAccountRole; Customers;CustomerValue;CustomerPicked = false;CustomerId; 
+CustomerSelectedField;ContactAccounts;ContactAccountValue;ContactAccountPicked = false;ContactAccountSelected= false;ContactAccountId;ContactAccountName;searchKey;NewCaller = false;NewAccount = false;
+NewProperty = false;PropertyID = "";PropertyPicked = false;AccountRoles = [{}];AccountRolesSelected = false;AccountRolesRecieved ='';inputDisabled = true;PropertySelected = false;PropertySelectedField;PropertyValue;bShowModal = false;
+MasterJobDetails;MasterJobId;ContactId;ContactType;FirstName;LastName;MailingStreet;MailingCity;MailingState;MailingCounty;AccountId = "";MailingPostalCode;Phone;Email;PhoneExt;AccountName;BillingStreet;BillingCity;BillingState;BillingPostalCode;
+Type;BillingCountry;AccountPhone;AccountPhoneExt;City;Country;State;AddressLine1;PropertyType = "";Zip;
+Description = "Type of Loss:"+  '\n' + "Cause of Loss:" + '\n' + 'Customer Type:' + '\n' + 'Property Description:'+
 '\n' + 'Areas Affected:' + '\n' + 'Damaged Materials:' + '\n' + 'Flooring Type:' + '\n' + 'Is power shut-off in the building? (Y/N)' +
 '\n' + 'Is there a gate code?' + '\n' + 'Is there standing water? (Y/N)' + '\n' + 'Is the standing water clean, gray or black water?(Clean,Gray,Black)' + '\n' +
 'Have you called a plumber?(Y/N)' + '\n' + 'Has the water been shut off? (Y/N)' + '\n' + 'Has the leak been fixed? (Y/N)' + '\n' + 
 'What type of fire damage is there? (Smoke, soot, ashes)' + '\n' + 'Were emergency responders on the scene? (Police, Fire)' + '\n' +
 'Have emergency responders given clearance to access the building?' + '\n' + 'Are we dealing with blood or body fluids?' + '\n' +
-'How long was the body on site?' + '\n' + 'Is there an odor we need to address?' + '\n' + 'Are we packing the belongings for the next of kin?';
-@track Division;
-@track Office;
-@track JobClass;
-@track EstimateType;
-@track Claim = "";
-@track Deductible = "";
-@track AccountRoleLineItems = [{}];
-@track loading = false;
-@track data;
-@track ContactSelected = false;
-@track AccountRole;
-@track ContactRole;
-@track CustomerAccountId;
-@track CustomerAccountName;
-@track AccountRolePicklistValuesContainer =[{}];
-@track DivisionPicklistValues =[{}];
-@track JobClassPicklistValues =[{}];
-@track EsJobTypePicklistValues =[{}];
-@track LeadSourcePicklistValues =[{}];
-@track MultipleDivisionPicklistValues =[{}];
-@track PropertyTypeValuesContainer =[{}];
-@track ARReady = false;
-@track AccountRoles = [{}];
-@track CreateContact = false;
-@track AccountEmpty = true;
-@track CreateNewContact = false;
-@track PersonAccountModal = false;
-@track AccountQuestion = false;
-@track AccountLastName;
-@track AccountFirstName;
-@track newAccountRoles = false;
-@track loadingContact = false;
-@track loadingPersonAccount = false;
-@track MultipleRoles;
-@track MultRoleInd;
-@track CompanyAccountRoles = "";
-@track PersonAccountRoles = "";
-@track TypeOfInsert = '';
-@track JobName;
-@track Division;
-@track ARDivision = false;
-@track EsJobType;
-@track JobClass;
-@track LeadSource;
-@track DivisionEs = false;
-@track MultipleDivision;
-@track NotNewProperty = true;
-@track AutoComplete = false;
-@track ProjectDirectorValue = "";
-@track ProjectDirectors;
-ProjectDirectorId;
-TakenByUsers;
-TakenByValue;
-TakenById;
-billToCount = 0;
-AddressLine2;
-projectSiteContactCount = 0;
-ProjectDirectorSelected = false;
-DateOfLoss;
-ClientJob;
-YearBuilt;
-ARRoleBlank = false;
-ClientJobDisabled = false;
-ClaimDisabled = false;
-LeadSourceDisabled = false;
-DateOfLossDisabled = false;
-DescriptionDisabled = false;
-OfficeDisabled = false;
-NewAccountCreated = false;
-callerCount = 0;
-caller = false;
-newDescription = false;
-UserId = StrUserId;
-@track name;
+'How long was the body on site?' + '\n' + 'Is there an odor we need to address?' + '\n' + 'Are we packing the belongings for the next of kin?';Division;Office;JobClass;EstimateType;Claim = "";Deductible = "";AccountRoleLineItems = [{}];loading = false;data;ContactSelected = false;AccountRole;ContactRole;CustomerAccountId;CustomerAccountName;AccountRolePicklistValuesContainer =[{}];DivisionPicklistValues =[{}];JobClassPicklistValues =[{}];EsJobTypePicklistValues =[{}];LeadSourcePicklistValues =[{}];MultipleDivisionPicklistValues =[{}];PropertyTypeValuesContainer =[{}];ARReady = false;AccountRoles = [{}];CreateContact = false;AccountEmpty = true;CreateNewContact = false;PersonAccountModal = false;AccountQuestion = false;AccountLastName;AccountFirstName;newAccountRoles = false;loadingContact = false;loadingPersonAccount = false;MultipleRoles;MultRoleInd;CompanyAccountRoles = "";PersonAccountRoles = "";TypeOfInsert = '';JobName;Division;ARDivision = false;EsJobType;JobClass;LeadSource;DivisionEs = false;MultipleDivision;NotNewProperty = true;AutoComplete = false;ProjectDirectorValue = "";ProjectDirectors;
+ProjectDirectorId;TakenByUsers;TakenByValue;TakenById;billToCount = 0;AddressLine2;projectSiteContactCount = 0;ProjectDirectorSelected = false;DateOfLoss;ClientJob;YearBuilt;ARRoleBlank = false;ClientJobDisabled = false;
+ClaimDisabled = false;LeadSourceDisabled = false;DateOfLossDisabled = false;DescriptionDisabled = false;OfficeDisabled = false;NewAccountCreated = false;callerCount = 0;caller = false;
+newDescription = false;fireLoss=false;waterLoss=false;bioLoss=false;
+UserId = StrUserId;name;
+TypeOfLoss = "";CauseOfLoss = ""; CustomerType = ""; PropertyDescription = ""; AreasAffected = "";
+DamagedMaterials = ""; FlooringType = ""; PowerShutOff = ""; GateCode = ""; StandingWater = ""; CleanWater = "";
+Plumber = ""; WaterShutOff = ""; LeakFixed = ""; FireDamage = ""; EmergencyResponders = ""; Clearance = "";
+BloodOrFluids = ""; Body = ""; Odor = ""; Belongings = "";
 @api jobrecordId;
 @api TypeOfJobEntry;
 
@@ -284,6 +159,9 @@ connectedCallback(){
             this.JobName = jobresults.Job_Name__c;
             this.Division = jobresults.Division__c;
             this.MasterJobId = jobresults.Master_Job__c;
+
+            //Property goes to edit form
+            // this.NotNewProperty = false;
             // this.NewProperty = true;
         })
     }
@@ -309,9 +187,9 @@ connectedCallback(){
             this.PropertyTypeValuesContainer.push({label : PropertyTypePicklist[i], value : PropertyTypePicklist[i], });
         }   
         this.PropertyTypeValuesContainer.shift();
-        
-        
-   
+        if(this.TypeOfJobEntry === 'AfterHoursJobEntry'){
+            this.NewProperty = true;
+        }
     })
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
@@ -368,8 +246,62 @@ get options() {
     
     return this.DivisionPicklistValues;
 }
+get optionsYesNo() {
+    return [{label:"Yes", value:"Yes"}, {label:"No", value:"No"}];
+}
+get grayBlackWater() {
+    return [{label:"Clean", value:"Clean"}, {label:"Gray", value:"Gray"}, {label:"Black", value:"Black"}];
+}
+
+
+TypeOfLossChange(e){this.TypeOfLoss = e.detail.value;}
+CauseOfLossChange(e){this.CauseOfLoss = e.detail.value;}
+CustomerTypeChange(e){this.CustomerType = e.detail.value;}
+PropertyDescriptionChange(e){this.PropertyDescription = e.detail.value;}
+AreasAffectedChange(e){this.AreasAffected = e.detail.value;}
+DamagedMaterialsChange(e){this.DamagedMaterials = e.detail.value;}
+FlooringTypeChange(e){this.FlooringType = e.detail.value;}
+PowerShutOffChange(e){this.PowerShutOff = e.detail.value;}
+GateCodeChange(e){this.GateCode = e.detail.value;}
+StandingWaterChange(e){this.StandingWater = e.detail.value;}
+CleanWaterChange(e){this.CleanWater = e.detail.value;}
+PlumberChange(e){this.Plumber = e.detail.value;} 
+WaterShutOffChange(e){this.WaterShutOff = e.detail.value;} 
+LeakFixedChange(e){this.LeakFixed = e.detail.value;} 
+FireDamageChange(e){this.FireDamage = e.detail.value;} 
+EmergencyRespondersChange(e){this.EmergencyResponders = e.detail.value;} 
+ClearanceChange(e){this.Clearance = e.detail.value;} 
+BloodOrFluidsChange(e){this.BloodOrFluids = e.detail.value;} 
+BodyChange(e){this.Body = e.detail.value;} 
+OdorChange(e){this.Odor = e.detail.value;} 
+BelongingsChange(e){this.Belongings = e.detail.value;} 
+
 newDescriptionClick(){
     this.newDescription = true;
+}
+SaveDescription(){
+    this.Description = "Type of Loss: "+ this.TypeOfLoss+ '\n' + "Cause of Loss: " + this.CauseOfLoss + '\n' + 'Customer Type: ' + this.CustomerType + '\n' + 'Property Description: '+ this.PropertyDescription +  '\n' + 'Areas Affected: ' + this.AreasAffected + '\n' + 'Damaged Materials: ' + this.DamagedMaterials + '\n' + 'Flooring Type: ' + this.FlooringType + '\n' + 'Is power shut-off in the building? (Y/N) ' +
+    this.PowerShutOff + '\n' + 'Is there a gate code? ' + this.GateCode;
+    this.newDescription = false;
+    console.log(this.Division);
+    console.log('waterLoss ' + this.waterLoss + '       fireLoss ' + this.fireLoss);
+    if(this.Division === 'Emergency Svces'){
+        console.log('Emg called');
+    if(this.waterLoss === true){
+        console.log('waterLoss called ' + this.waterLoss);
+        this.Description = this.Description + '\n' + 'Is there standing water? (Y/N) ' + this.StandingWater +  '\n' + 'Is the standing water clean, gray or black water?(Clean,Gray,Black) ' + this.CleanWater + '\n' +
+        'Have you called a plumber?(Y/N) ' + this.Plumber + '\n' + 'Has the water been shut off? (Y/N) ' + this.WaterShutOff + '\n' + 'Has the leak been fixed? (Y/N) ';
+    }
+    if(this.fireLoss === true){
+        this.Description = this.Description + '\n' + 'What type of fire damage is there? (Smoke, soot, ashes) ' + this.FireDamage + '\n' + 'Were emergency responders on the scene? (Police, Fire) ' + this.EmergencyResponders + '\n' +
+        'Have emergency responders given clearance to access the building? ' + this.Clearance;
+    }
+    if(this.bioLoss === true){
+        this.Description = this.Description + '\n' + 'Are we dealing with blood or body fluids? ' + this.BloodOrFluids + '\n' +
+        'How long was the body on site? ' + this.Body + '\n' + 'Is there an odor we need to address? ' + this.Odor + '\n' + 'Are we packing the belongings for the next of kin? ' + this.Belongings;
+    }
+    }
+    
 }
 closeDescriptionModal(){
     this.newDescription = false;
@@ -379,12 +311,8 @@ searchAgain(){
     this.ProjectDirectorValue = "";
     this.ProjectDirectorId = "";
 }
-AddressLine2Change(e){
-    this.AddressLine2 = e.detail.value;
-}
-DateOfLossChange(e){
-    this.DateOfLoss = e.detail.value;
-}
+AddressLine2Change(e){this.AddressLine2 = e.detail.value;}
+DateOfLossChange(e){this.DateOfLoss = e.detail.value;}
 YearBuiltChange(e){
     this.YearBuilt = e.detail.value;
 }
@@ -807,21 +735,10 @@ ReplaceEmptyAccountRoleRows(){
     return AccountRoles;
 }
 
-CompanyAccountRolesChange(e){
-    this.CompanyAccountRoles = e.detail.value;
-}
-handleSectionToggle(event) {
-    const openSections = event.detail.openSections;
-}
-addContact(){
-    this.CreateContact = true;
-    this.CreateNewContact = true;
-}
-addAccount(){
-
-    this.NewAccount = true;
-    this.CreateContact = false; 
-}
+CompanyAccountRolesChange(e){this.CompanyAccountRoles = e.detail.value;}
+handleSectionToggle(event) {const openSections = event.detail.openSections;}
+addContact(){this.CreateContact = true;this.CreateNewContact = true;}
+addAccount(){this.NewAccount = true;this.CreateContact = false; }
 closeAccountModal(){
     this.NewAccount = false;
     this.AccountId = "";
@@ -935,94 +852,35 @@ ContactIdChange(e){
         this.AccountRole = '';
     }
 }
-ContactRoleChanged(e){
-    this.ContactRole = e.detail.value;
-}
-ContactAccountRoleChanged(e){
-    this.ContactAccountRole = e.detail.value;
-}
-ContactTypeChange(e){
-    this.ContactType = e.detail.value;
-}
-FirstNameChange(e){
-    this.FirstName = e.detail.value;
-}
-LastNameChange(e){
-    this.LastName = e.detail.value;
-}
-MailingStreetChange(e){
-    this.MailingStreet = e.detail.value;
-}
-MailingCityChange(e){
-    this.MailingCity = e.detail.value;
-}
-MailingStateChange(e){
-    this.MailingState = e.detail.value;
-}
-MailingCountyChange(e){
-    this.MailingCounty = e.detail.value;
-}
-AccountIdChange(e){
-    this.AccountId = e.detail.value;
-}
-MailingPostalCodeChange(e){
-    this.MailingPostalCode = e.detail.value;
-}
-PhoneChange(e){
-    this.Phone = e.detail.value;
-}
-EmailChange(e){
-    this.Email = e.detail.value;
-}
-PhoneExtChange(e){
-    this.PhoneExt = e.detail.value;
-}
-AccountNameChange(e){
-    this.AccountName = e.detail.value;
-}
-BillingStreetChange(e){
-    this.BillingStreet = e.detail.value;
-}
-BillingCityChange(e){
-    this.BillingCity = e.detail.value;
-}
-BillingStateChange(e){
-    this.BillingState = e.detail.value;
-}
-BillingPostalCodeChange(e){
-    this.BillingPostalCode = e.detail.value;
-}
-TypeChange(e){
-    this.Type = e.detail.value;
-}
-BillingCountryChange(e){
-    this.BillingCountry = e.detail.value;
-}
-
-PropertyNameChange(e){
-    this.PropertyName = e.detail.value;
-}
-CityChange(e){
-    this.City = e.detail.value;
-}
-CountryChange(e){
-    this.Country = e.detail.value;
-}
-StateChange(e){
-    this.State = e.detail.value;
-}
-AddressLine1Change(e){
-    this.AddressLine1 = e.detail.value;
-}
-PropertyTypeChange(e){
-    this.PropertyType = e.detail.value;
-}
-ZipChange(e){
-    this.Zip = e.detail.value;
-}
-DescriptionChange(e){
-    this.Description = e.detail.value;
-}
+ContactRoleChanged(e){this.ContactRole = e.detail.value;}
+ContactAccountRoleChanged(e){this.ContactAccountRole = e.detail.value;}
+ContactTypeChange(e){this.ContactType = e.detail.value;}
+FirstNameChange(e){this.FirstName = e.detail.value;}
+LastNameChange(e){this.LastName = e.detail.value;}
+MailingStreetChange(e){this.MailingStreet = e.detail.value;}
+MailingCityChange(e){this.MailingCity = e.detail.value;}
+MailingStateChange(e){this.MailingState = e.detail.value;}
+MailingCountyChange(e){this.MailingCounty = e.detail.value;}
+AccountIdChange(e){this.AccountId = e.detail.value;}
+MailingPostalCodeChange(e){this.MailingPostalCode = e.detail.value;}
+PhoneChange(e){this.Phone = e.detail.value;}
+EmailChange(e){this.Email = e.detail.value;}
+PhoneExtChange(e){this.PhoneExt = e.detail.value;}
+AccountNameChange(e){this.AccountName = e.detail.value;}
+BillingStreetChange(e){this.BillingStreet = e.detail.value;}
+BillingCityChange(e){this.BillingCity = e.detail.value;}
+BillingStateChange(e){this.BillingState = e.detail.value;}
+BillingPostalCodeChange(e){this.BillingPostalCode = e.detail.value;}
+TypeChange(e){this.Type = e.detail.value;}
+BillingCountryChange(e){this.BillingCountry = e.detail.value;}
+PropertyNameChange(e){this.PropertyName = e.detail.value;}
+CityChange(e){this.City = e.detail.value;}
+CountryChange(e){this.Country = e.detail.value;}
+StateChange(e){this.State = e.detail.value;}
+AddressLine1Change(e){this.AddressLine1 = e.detail.value;}
+PropertyTypeChange(e){this.PropertyType = e.detail.value;}
+ZipChange(e){this.Zip = e.detail.value;}
+DescriptionChange(e){this.Description = e.detail.value;}
 DivisionChange(e){
     this.Division = e.detail.value;
     this.Description = this.Description.replace("Division:", "Division: " + this.Division);
@@ -1032,21 +890,31 @@ DivisionChange(e){
         this.DivisionEs = false;
     }
 }
-LeadSourceChange(e){
-    this.LeadSource = e.detail.value;
-}
-JobClassChange(e){
-    this.JobClass = e.detail.value;
-}
+LeadSourceChange(e){this.LeadSource = e.detail.value;}
+JobClassChange(e){this.JobClass = e.detail.value;}
 EsJobTypeChange(e){
     this.EsJobType = e.detail.value;
+    this.bioLoss = false;
+    this.fireLoss = false;
+    this.waterLoss = false;
+    if(this.EsJobType === 'Water Mitigation'){
+        this.waterLoss = true;
+        this.bioLoss = false;
+        this.fireLoss = false;
+    }
+    if(this.EsJobType === 'Smoke Cleaning'){
+        this.fireLoss = true;
+        this.waterLoss = false;
+        this.bioLoss = false;
+    }
+    if(this.EsJobType === 'Other'){
+        this.bioLoss = true;
+        this.waterLoss = false;
+        this.fireLoss = false;
+    }
 }
-ClaimChange(e){
-    this.Claim = e.detail.value;
-}
-DeductibleChange(e){
-    this.Deductible = e.detail.value;
-}
+ClaimChange(e){this.Claim = e.detail.value;}
+DeductibleChange(e){this.Deductible = e.detail.value;}
  //connectedCallback(){
 //     this.AccountRoles.push({Name : '',})
  //}

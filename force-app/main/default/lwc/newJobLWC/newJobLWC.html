@@ -114,7 +114,7 @@
         <!-- </div> -->
         <br>
         <lightning-accordion-section name="Account Roles" label="Account Roles">
-            <lightning-helptext content='To assign a new Account or Contact to this Job, click [Add Row], then search for either the Contact or Account, then Select Account Roles and add all that apply.  To create a new Contact or Account click New Contact or New Account, enter the required information, and then Select Account Roles. 
+            <lightning-helptext style="width: 500px;" content='To assign a new Account or Contact to this Job, click [Add Row], then search for either the Contact or Account, then Select Account Roles and add all that apply.  To create a new Contact or Account click New Contact or New Account, enter the required information, and then Select Account Roles. 
             Required Roles:  Primary/Bill-to, Caller, Referred By, and Project Site Contact.  If there was no third party referral, set the Caller as the Referred By role also.  Add additional roles, if applicable, especially Insurance.'>
                     
             </lightning-helptext>    
@@ -555,9 +555,9 @@
                        
             </div>
             <br>
-            <div class="slds-col slds-size-1-of-2">
+            <div class="slds-col slds-size_1-of-3">
             <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
-                                     
+            
                                         <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
                                     </div>
                                     <lightning-button label="Fill Out Description" onclick={newDescriptionClick}></lightning-button>
@@ -1225,18 +1225,86 @@
                                 </header>
                                 <!-- modal body start -->
                                 <div class="slds-box slds-theme_shade">
-                                    <div class="inputLabel"><label class=""> Lead Source</label>
-                                        <input class="marginLeft" value={test}></input>
-                        
-                                    </div>
-                                </div>
+                                    <!-- <div class="slds-grid"> -->
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-input label="Type of Loss: (e.g. Water, Fire, Wind, Lead/Asbestos/Bio Contamination)" value={TypeOfLoss} onchange={TypeOfLossChange} ></lightning-input>
+                                    <lightning-input label="Cause of Loss: (e.g. Pipe Leak, Weather, Disaster)" onchange={CauseOfLossChange} value={CauseOfLoss}></lightning-input>
+                                    <lightning-input label="Customer Type: (e.g. Residential, Commercial, Municipal)" onchange={CustomerTypeChange} value={CustomerType}></lightning-input>
+                                    <lightning-input label="Property Description: (e.g. Building Type, # of Stories)" onchange={PropertyDescriptionChange} value={PropertyDescription}></lightning-input>
+                                    <lightning-input label="Areas Affected: (e.g. Rooms or Units)" onchange={AreasAffectedChange} value={AreasAffected} ></lightning-input>
+                                    
+                                    
+                                <!-- </div> -->
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-input label="Damaged Materials: (e.g. Flooring, Drywall, Exterior, Ceiling, Roof, Possessions/Contents)" value={DamagedMaterials} onchange={DamagedMaterialsChange}></lightning-input>
+                                    <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} value={FlooringType}></lightning-input>
+                                    <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
+                                    <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} value={GateCode}></lightning-combobox>
+                                    
+                                    
+                                   
+                                <!-- </div> -->
                                 
-                                             <br>
+                                <!-- </div> -->
+                                <!-- <div class="slds-grid"> -->
+                                <template if:true={waterLoss}>
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-combobox label="Is there standing water? (Y/N)" onchange={StandingWaterChange} options={optionsYesNo} value={StandingWater}></lightning-combobox>
+                                    <lightning-combobox label="Is the standing water clean, gray or black water?(Clean,Gray,Black)" options={grayBlackWater} value={CleanWater} onchange={CleanWaterChange}></lightning-combobox>
+                                    <lightning-combobox label="Have you called a plumber?(Y/N)" onchange={PlumberChange}  options={optionsYesNo} value={Plumber}></lightning-combobox>
+                                    <lightning-combobox label="Has the water been shut off? (Y/N)" onchange={WaterShutOffChange} options={optionsYesNo} value={WaterShutOff}></lightning-combobox>
+                                    <lightning-combobox label="Has the leak been fixed? (Y/N)" onchange={LeakFixedChange}  options={optionsYesNo} value={LeakFixed}></lightning-combobox>
+                                <!-- </div> -->
+                                <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                  
+                                <!-- </div> -->
+                                </template>
+                                <template if:true={fireLoss}>
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-combobox label="What type of fire damage is there? (Smoke, soot, ashes)" onchange={FireDamageChange} value={FireDamage} options={grayBlackWater} ></lightning-combobox>
+                                    <lightning-input label="Were emergency responders on the scene? (Police, Fire)"  value={EmergencyResponders} onchange={EmergencyRespondersChange} ></lightning-input>
+                                    <!-- </div> -->
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-input label="Have emergency responders given clearance to access the building?" value={Clearance} onchange={ClearanceChange}></lightning-input>
+                                    <!-- </div> -->
+                                  
+                                </template>
+                                <template if:true={bioLoss}>
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-input label="Are we dealing with blood or body fluids?" onchange={BloodOrFluidsChange} value={BloodOrFluids}></lightning-input>
+                                    <lightning-input label="How long was the body on site?" onchange={BodyChange} value={Body}></lightning-input>
+                                    <!-- </div> -->
+                                    <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                    <lightning-input label="Is there an odor we need to address?" onchange={OdorChange} value={Odor}></lightning-input>
+                                    <lightning-input label="Are we packing the belongings for the next of kin?" onchange={BelongingsChange} value={Belongings}></lightning-input>
+                                    <!-- </div> -->
+                               
+                                </template>
+                            <!-- </div> -->
+                                    <!-- <div class="inputLabel"><label class=""> Type of Loss:</label>
+                                        <input class="marginLeft" ></input>
+                                        <label class="marginLeft"> Cause of Loss:</label>
+                                        <input class="marginLeft" ></input>
+                                    </div>
+                                    <div class="inputLabel spaceTop"><label class=""> Customer Type:</label>
+                                        <input class="marginLeft" ></input>
+                                        <label class="marginLeft"> Property Description:</label>
+                                        <input class="marginLeft" ></input>
+                                    </div>
+                                    <div class="inputLabel spaceTop"><label class=""> Areas Affected:</label>
+                                        <input class="marginLeft" ></input>
+                                        <label class="marginLeft"> Damaged Materials:</label>
+                                        <input class="marginLeft" ></input>
+                                    </div> -->
+                                    <br>
                                              <lightning-button-group>
-                                                 <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={closeProperty}></lightning-button>
+                                                 <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={SaveDescription}></lightning-button>
                                                  <lightning-button label="Cancel" class="Buttonspacing" onclick={closeDescriptionModal}></lightning-button>
                                              </lightning-button-group>
                     
+                                </div>
+                                
+                                             
                                 </div>
                                              
                         

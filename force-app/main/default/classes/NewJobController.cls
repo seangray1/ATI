@@ -356,6 +356,8 @@ public with sharing class NewJobController {
             prop.Address_Line_2__c = Property.AddressLine2;
             prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
             NewProperty= true;
+            prop.Year_Structure_Built__c = Decimal.valueOf(jobWrap.YearBuilt);
+            prop.Job_Class__c = jobWrap.JobClass;
             insert prop;  
             
         }else{
