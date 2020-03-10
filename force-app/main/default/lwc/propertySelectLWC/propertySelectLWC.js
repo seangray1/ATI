@@ -27,11 +27,8 @@ import GetPropertyTypePicklist from '@salesforce/apex/NewJobController.GetProper
 import GetAccountRolesPicklist from '@salesforce/apex/NewJobController.getPickListValuesIntoList';
 import SearchCustomers from '@salesforce/apex/NewJobController.GetCustomers';
 import SearchContactAccounts from '@salesforce/apex/NewJobController.GetContactAccounts';
-import SearchOffices from '@salesforce/apex/NewJobController.GetOffices';
-import GetMasterJobs from '@salesforce/apex/NewJobController.GetMasterJobs';
-import GetJobInfo from '@salesforce/apex/NewJobController.GetJobInfo';
-import checkId from '@salesforce/apex/NewJobController.CheckId';
-import CreateNewJob from '@salesforce/apex/NewJobController.CreateNewJob';
+import CreateNewProp from '@salesforce/apex/NewJobController.CreateNewProp';
+
 import { NavigationMixin } from 'lightning/navigation';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
@@ -1017,40 +1014,15 @@ DeleteARRow(e){
     this.AccountRoles.splice(DeleteRowIndex-1,1);
 }
 
-CreateNewJob(){
-            // if(((!this.ContactId ) && (!this.LastName)) || ((!this.ContactId) && (!this.AccountId && (!this.AccountName || !this.AccountPhone)))){
-            //     this.error = true;
-            // }else{
-            // this.loading = true;
-            let AccountRoleInfo = this.GenerateAccountRoleJSON();
-            console.log('Property Id is ' + this.PropertyID + '   PropertyType is ' + this.PropertyType);
-            if(this.ARRoleBlank){
-                this.ARRoleBlank= false;
-                this.billToCount = 0;
-                this.projectSiteContactCount = 0;
-                this.callerCount = 0;
-                alert('Roles cannot be left blank');
-            }else{
-            if(this.billToCount > 1 || this.callerCount > 1){
-                alert('Only One Bill To and One Project Site Contact can be selected as a Role');
-                this.billToCount = 0;
-                this.projectSiteContactCount = 0;
-                this.callerCount = 0;
-            }else{
-                if(this.billToCount < 1 || this.projectSiteContactCount < 1 || this.callerCount < 1){
-                    this.billToCount = 0;
-                    this.projectSiteContactCount = 0;
-                    this.callerCount = 0;
-                    alert('A Bill To and Project Site Contact Role MUST be selected');
-                   
-                }else{
+CreateNewProperty(){
+           
+            
+    let AccountRoleInfo = this.GenerateAccountRoleJSON();
+           
                 if(this.PropertyID === "" && this.PropertyType === ""){
                     console.log('Property Id is ' + this.PropertyID + '   PropertyType is ' + this.PropertyType);
-                    this.billToCount = 0;
-                this.projectSiteContactCount = 0;
-                this.callerCount = 0;
                     alert('Either Select a Property or Create a New Property');
-                }else{
+                 }else{
                 
             //Account Roles is good to go.
             
@@ -1058,31 +1030,28 @@ CreateNewJob(){
             PropertyJSON = JSON.stringify({'PropertyId': this.PropertyID, 'City': this.City, 'Country': this.Country, 'State': this.State,
             'Street': this.Street,'PropertyType': this.PropertyType, 'Zip': this.Zip, 'AddressLine2':this.AddressLine2});
             //Job Fields
-            JobJSON = JSON.stringify({'Test':'Test'});
+           
             //Master Job is just MasterJobId, if null then need to create a new one.
             this.jobLoading = true;
-            // CreateNewJob({AccountRoleInfo : AccountRoleInfo, PropertyInfo : PropertyJSON,
-            //     JobInfo : JobJSON, MasterJobId:this.MasterJobId, JobEntryType:this.TypeOfJobEntry, jobrecordId:this.jobrecordId})
-            //     .then(result => {
-            //                     var data = result;
-            //                     if(data.length > 18){
-            //                         this.jobLoading = false;
-            //                         alert(data);
-            //                     }else{
-            //                     this[NavigationMixin.Navigate]({
-            //                         type: 'standard__recordPage',
-            //                         attributes: {
-            //                             recordId: data,
-            //                             objectApiName: 'ATI_Job__c',
-            //                             actionName: 'view',
-            //                         },
-            //                     });
-            //                 }
-            //                 })
-                        
-                    }}}
-                    }
+            CreateNewProp({AccountRoleInfo : AccountRoleInfo, PropertyInfo : PropertyJSON})
+                .then(result => {
+                                var data = result;
+                                if(data.length > 18){
+                                    this.jobLoading = false;
+                                    alert(data);
+                                }else{
+                                this[NavigationMixin.Navigate]({
+                                    type: 'standard__recordPage',
+                                    attributes: {
+                                        recordId: data,
+                                        objectApiName: 'Property__c',
+                                        actionName: 'view',
+                                    },
+                                });
+                            }
+                            })
     }
+}
 
    
 Cancel(event){
@@ -1090,8 +1059,7 @@ Cancel(event){
         event.action= this.location;
 }
 GenerateAccountRoleJSON(){
-    var AccountRoleObject = {AccountRoleLineItems : this.GetAccountRolesObjects()
-    };
+    var AccountRoleObject = {AccountRoleLineItems : this.GetAccountRolesObjects()};
         return JSON.stringify(AccountRoleObject);
 }
 

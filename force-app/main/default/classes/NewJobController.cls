@@ -29,6 +29,7 @@ public with sharing class NewJobController {
     //         AccountId acctId = (AccountId)JSON.deserialize(AccountId, AccountId.class);
     //         conId = acctId.AccountId;
     //     }
+    
         Contact cont = new Contact(AccountId = AccountId, Email = Email, FirstName = FirstName, LastName = LastName, Phone = Phone, Contact_Type__c =Type, Phone_Ext__c = PhoneExt,  MailingStreet = MailingStreet,
                                     MailingState = MailingState, MailingPostalCode = MailingPostalCode, MailingCity = MailingCity, MailingCountry = MailingCountry);
          
@@ -254,7 +255,88 @@ public with sharing class NewJobController {
                     pickListValuesList.add(pickListVal.getLabel());  
                 }       
                 return pickListValuesList;
-            }  
+            }
+    @AuraEnabled
+    public static string CreateNewProp(string AccountRoleInfo,string PropertyInfo){
+        try {
+                
+        system.debug('AR ' + AccountRoleInfo + 'Property  ' + PropertyInfo);
+        AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
+        PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
+            Http h = new Http();
+            HttpRequest req = new HttpRequest();
+             String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
+             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+             req.setMethod('GET');
+             req.setTimeout(60000);
+            HttpResponse res = h.send(req);
+            system.debug('Response is ' + res.getBody());
+            results result = (results)JSON.deserialize(res.getBody(), results.class);
+            system.debug('results are ' + result);
+        Boolean NewProperty;
+        Property__c prop = new Property__c();
+        List<Account_Roles__c> ARPropertyList = new List<Account_Roles__c>();
+        if(String.isEmpty(Property.PropertyId)){
+            prop.Property_Type__c = Property.PropertyType;
+            prop.Street__c = Property.Street;
+            prop.City__c = Property.City;
+            prop.Zip__c = Property.Zip;
+            prop.Country__c = Property.Country;
+            prop.State__c = Property.State;
+            prop.Address_Line_2__c = Property.AddressLine2;
+            prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
+            NewProperty= true;
+            // prop.Year_Structure_Built__c = Decimal.valueOf(jobWrap.YearBuilt);
+            // prop.Job_Class__c = jobWrap.JobClass;
+            property__c pr = [Select Id FROM Property__c Where Name = 'Test Properasdfa'];
+            id t = pr.id;
+            insert prop;  
+            
+        }else{
+            prop = [Select Street__c, City__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
+        }
+        Id propId;
+        if(NewProperty){
+            propId = prop.Id;
+        }else{
+            propId = Property.PropertyId;
+        }
+        Set<Id> ContactIdsSet = new Set<Id>();
+        Map<Id,Contact> ContactMap = new Map<Id,Contact>();
+        for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
+            if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account)){
+                ContactIdsSet.add(accountRoles.Contact);
+            }
+        }
+        if(!ContactIdsSet.isEmpty()){
+            for(Contact c : [Select Id, AccountId FROM Contact Where Id =: ContactIdsSet]){
+                ContactMap.put(c.Id, c);
+            }
+        }
+        for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
+            
+            if(NewProperty){
+                if(String.isNotEmpty(accountRoles.Account)){
+                    Account_Roles__c PropARRole = new Account_Roles__c(Account_ID__c = accountRoles.Account, Contact_ID__c = accountRoles.Contact, Property_ID__c = prop.Id,
+                    Multiple_Roles__c = accountRoles.Text);
+                    ARPropertyList.add(PropARRole);
+                }
+                if(String.isEmpty(accountRoles.Account) && String.isNotEmpty(accountRoles.Contact)){
+                    Account_Roles__c PropARRole = new Account_Roles__c(Account_ID__c = ContactMap.get(accountRoles.Contact).AccountId, Contact_ID__c = accountRoles.Contact, Property_ID__c = prop.Id,
+                    Multiple_Roles__c = accountRoles.Text);
+                    ARPropertyList.add(PropARRole);
+            } 
+            }
+        }
+            if(NewProperty && !ARPropertyList.isEmpty()){
+                insert ARPropertyList;
+            }
+            return propId;
+        } catch (Exception e) {
+           return e.getMessage(); 
+        }
+    }  
     @AuraEnabled
     public static Id AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
     String AddressLine2, String Comments, String Description){
@@ -529,7 +611,15 @@ public with sharing class NewJobController {
         public String PropertyType {get;set;}
         public String AddressLine2 {get;set;}
     }
-
+    
+    public class results{
+        public list<address_components> address_components {get;set;}
+    }
+    public class address_components{
+        public String long_name {get;set;}
+        public String short_name {get;set;}
+        public String types {get;set;}
+    }
    
 
     public class JobWrapper{
