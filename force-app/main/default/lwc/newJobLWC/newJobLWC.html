@@ -4,7 +4,7 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 3/6/2020, 10:27:02 AM
+  @Last Modified On   : 3/10/2020, 10:07:02 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    1/23/2020   Sean Gray     Initial Version
@@ -12,6 +12,11 @@
 <template>
     
     <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
+        <template if:true={jobLoading}>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
         <div class="slds-box slds-theme_shade">
             <lightning-accordion allow-multiple-sections-open
                          onsectiontoggle={handleSectionToggle}
@@ -34,11 +39,7 @@
             <!-- <div class="slds-m-around_medium">
                 <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property Search</h1>
             </div> -->
-            <template if:true={jobLoading}>
-                <div class="exampleHolder">
-                    <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
-                </div>
-            </template>
+           
         <template if:true={NotNewProperty}>
             <div class="slds-m-around_medium">
                
@@ -494,7 +495,7 @@
                         <lightning-input value={YearBuilt} onchange={YearBuiltChange} class="spacing" ></lightning-input>     
                     </div>
                     <div class="slds-col slds-size_1-of-7">
-                        <label class="Labels spacing" > Date of Loss</label>
+                        <label class="Labels spacing required1" > Date of Loss</label>
                         <lightning-input value={DateOfLoss} type="Date" disabled={DateOfLossDisabled} class="spacing" onchange={DateOfLossChange}  ></lightning-input>
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
                             <lightning-input onkeyup={OfficeChange}
@@ -555,9 +556,11 @@
                        
             </div>
             <br>
-            <div class="slds-col slds-size_1-of-3">
+            <div class="slds-col slds-size_1-of-2">
             <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
             
+            <!-- <textarea style="height: 250px; width:500px;" disabled={DescriptionDisabled} class="jobFormControl" onchange={DescriptionChange}>{Description}</textarea> -->
+                            
                                         <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
                                     </div>
                                     <lightning-button label="Fill Out Description" onclick={newDescriptionClick}></lightning-button>

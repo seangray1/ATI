@@ -264,5 +264,5 @@
         <object>ATI_Job__c</object>
         <triggerType>RecordBeforeSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>

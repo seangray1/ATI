@@ -28,6 +28,8 @@ import GetAccountRolesPicklist from '@salesforce/apex/NewJobController.getPickLi
 import SearchCustomers from '@salesforce/apex/NewJobController.GetCustomers';
 import SearchContactAccounts from '@salesforce/apex/NewJobController.GetContactAccounts';
 import CreateNewProp from '@salesforce/apex/NewJobController.CreateNewProp';
+import SearchAddresses from '@salesforce/apex/GoogleMapsAutoCompleteAPI.getSuggestions';
+
 
 import { NavigationMixin } from 'lightning/navigation';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
@@ -65,6 +67,7 @@ ClaimDisabled = false;LeadSourceDisabled = false;DateOfLossDisabled = false;Desc
 newDescription = false;fireLoss=false;waterLoss=false;bioLoss=false;
 UserId = StrUserId;name;
 @track AccountRoles = [{}]; @track PropertySelected = false; @track PropertySelectedField;
+@track Predictions;
 @api jobrecordId;
 @api TypeOfJobEntry;
 
@@ -1013,7 +1016,13 @@ DeleteARRow(e){
     this.AccountRoles = this.getAllAccountRoleObjects();
     this.AccountRoles.splice(DeleteRowIndex-1,1);
 }
-
+searchAddress(e){
+    let searchKey = e.detail.value;
+    SearchAddresses({input:searchKey}).then(result =>{
+        this.Predictions = result;
+        console.log(this.Predictions);
+    })
+}
 CreateNewProperty(){
            
             

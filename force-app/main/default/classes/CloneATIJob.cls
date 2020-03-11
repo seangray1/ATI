@@ -39,7 +39,7 @@ public class CloneATIJob {
             
         }
         Id unapprovedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
-        ATI_Job__c newJob = new ATI_Job__c ( Name = job.name, recordTypeId = unapprovedRecordTypeId, Job_Name__c = job.Job_Name__c, Job_Number__c= job.Job_Number__c, Account__c = job.Account__c, Contact__c = job.Contact__c,
+        ATI_Job__c newJob = new ATI_Job__c (Master_Job__c = 'a8G0R0000009d7rUAA', Name = job.name, recordTypeId = unapprovedRecordTypeId, Job_Name__c = job.Job_Name__c, Job_Number__c= job.Job_Number__c, Account__c = job.Account__c, Contact__c = job.Contact__c,
         Customer__c = job.Customer__c, Lead_Source__c =job.Lead_Source__c, Description__c = Description, Job_Class__c = job.Job_Class__c, Project_Site_Contact_Name__c = job.Project_Site_Contact_Name__c,  
         Branch_Manager__c = job.Branch_Manager__c, Project_Site_Contact_Account__c = job.Project_Site_Contact_Account__c, Office2__c = Office, Stage__c = 'Qualification', Taken_By__c = job.Taken_By__c, Project_type__c = job.Project_type__c,
         Referred_by__c = job.Referred_by__c, CloseDate__c = closedate, County__c = job.County__c, City_of_LA__c = job.City_of_LA__c, Project_Site_Address_2__c = job.Project_Site_Address_2__c, 

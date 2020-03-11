@@ -149,7 +149,7 @@ connectedCallback(){
             this.Description = jobresults.Description__c;
             this.OfficeId = jobresults.Office2__c;
             this.OfficeValue = jobresults.Office2__r.Name
-            this.Street = jobresults.Project_Site_Street__c;
+            this.Street = jobresults.Project_Site_Address__c;
             this.City = jobresults.Project_Site_City__c;
             this.State = jobresults.Project_Site_State__c;
             this.Zip = jobresults.Project_Site_Zipcode__c;
@@ -1209,11 +1209,11 @@ populatePropertyField(event){
     this.PropertySelectedField = event.target.value;
     this.PropertyValue = this.PropertySelectedField.Name;
     console.log('Property ' + this.PropertySelectedField);
-    console.log('Street ' + this.PropertySelectedField.Street__c);
+    console.log('Street ' + this.PropertySelectedField.Address_Line_1__c);
     console.log('City ' + this.PropertySelectedField.City__c);
     console.log('State ' + this.PropertySelectedField.State__c);
     this.PropertyID = this.PropertySelectedField.Id;
-    this.Street = this.PropertySelectedField.Street__c;
+    this.Street = this.PropertySelectedField.Address_Line_1__c;
     this.Zip = this.PropertySelectedField.Zip__c;
     this.City = this.PropertySelectedField.City__c;
     this.State = this.PropertySelectedField.State__c;
@@ -1221,7 +1221,11 @@ populatePropertyField(event){
   
 
     checkId({propId:this.testingProperty.Id}).then(result => {
+        let data = result;
+        // if(data != undefined && data != null && data.length != null){
+            if(JSON.stringify(data) !== '[]'){
         this.AccountRoles = result;
+        }
         console.log('ARs' + JSON.stringify(this.AccountRoles));
         this.AccountRolesSelected = true;
     
@@ -1354,7 +1358,7 @@ CreateNewJob(){
                     alert('Either Select a Property or Create a New Property');
                 }else{
                     console.log('Description ' + this.Description);
-                    if(this.Description === "" || this.Description === undefined || this.JobName === "" || this.JobName === undefined || this.Division === "" || this.Division === undefined || this.JobClass === "" || this.JobClass === undefined
+                    if(this.Description === "" || this.Description === undefined || this.DateOfLoss === "" || this.DateOfLoss === undefined ||this.JobName === "" || this.JobName === undefined || this.Division === "" || this.Division === undefined || this.JobClass === "" || this.JobClass === undefined
                     || this.LeadSource === "" || this.LeadSource === undefined || this.OfficeValue === undefined || this.OfficeValue === "" || this.TakenByValue === undefined || this.TakenByValue === ""){
                         this.billToCount = 0;
                 this.projectSiteContactCount = 0;
@@ -1376,7 +1380,12 @@ CreateNewJob(){
             CreateNewJob({AccountRoleInfo : AccountRoleInfo, PropertyInfo : PropertyJSON,
                 JobInfo : JobJSON, MasterJobId:this.MasterJobId, JobEntryType:this.TypeOfJobEntry, jobrecordId:this.jobrecordId})
                 .then(result => {
-                                var data = result;
+                    console.log('Response is ' + result);
+                                this.jobLoading = false;
+                                this.billToCount = 0;
+                                this.projectSiteContactCount = 0;
+                                this.callerCount = 0;
+                                let data = result;
                                 if(data.length > 18){
                                     this.jobLoading = false;
                                     alert(data);
@@ -1439,7 +1448,7 @@ GetAccountRolesObjects() {
             if((ARContact === "" || ARContact === null) && (ARRoles === "" || ARRoles === null) && (ARAccount === "" || ARAccount === null)){
                 console.log('Removing row' );
             }else{
-                if(ARRoles === "" || ARRoles === null){
+                if(ARRoles === "" || ARRoles === null || ARRoles === undefined){
                     this.ARRoleBlank = true;
                 }else{
             AccountRoles.push({

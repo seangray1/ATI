@@ -820,8 +820,35 @@
                             <div class="slds-box slds-theme_shade">
                 
                 
-                    
-                                <lightning-input-address
+                                <lightning-input label="Address" value={Street} onchange={searchAddress}></lightning-input>
+                                <template if:true={Predictions}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        
+                                        <tbody>
+                                            <template for:each={Predictions} for:item="Prediction">
+                                                <tr key={Prediction.place_id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:address" size="small"></lightning-icon>
+                                                            <lightning-button variant="base" label={Prediction.description}
+                                                               
+                                                                onclick={populateTakenByField}
+                                                                class="slds-m-left_x-small jobButton">
+                                                                </lightning-button>
+                                                        </b>
+                                                        <br>
+                                                    
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>    
+                                
+                                <!-- <lightning-input-address
                                 required
                                 class="propertyFormControl"
                                 data-id="AddressLookup"
@@ -839,9 +866,7 @@
                                 province={State}
                                 postal-code={Zip}
                                 show-address-lookup
-                                
-                    
-                    ></lightning-input-address>
+                                ></lightning-input-address> -->
                     <div class="slds-grid">
                                          <div class="slds-col slds-size_1-of-2">
                                         <lightning-combobox name="progress"
@@ -882,6 +907,3 @@
 
 </template>
 </template>
-
-
-

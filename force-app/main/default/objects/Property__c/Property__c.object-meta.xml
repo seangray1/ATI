@@ -159,7 +159,10 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Properties</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <listViewButtons>New_Property_Account</listViewButtons>
+        <searchResultsCustomButtons>New_Property_Account</searchResultsCustomButtons>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
