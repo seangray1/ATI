@@ -27,7 +27,7 @@ public without sharing class JobTriggerHandler {
         //JobAEBonusTriggerHandler.createJobPrimaryContactRoles( null, Trigger.new );        
         JobAEBonusTriggerHandler.updateLastPreviousJobDateOnAccount( Trigger.new );
         //JobAccountAndJobContact.InsertJobAccountandJobContact(Trigger.new);
-               
+        Create_Opportunity_Handler.createOpportunity(Trigger.new);      
         //synch After Hour Leads with Econz
         Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;

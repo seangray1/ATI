@@ -26,7 +26,7 @@ public class Create_Opportunity_Handler
 			Opportunity newOpportunity = new Opportunity ();
           for(ATI_Job__c eachjob: lstJobs)
           {
-             
+              newOpportunity.RecordTypeId = '0120R000001cFvG';
               newOpportunity.StageName = 'Prospecting';
               newOpportunity.Property__c = Fetch_BillTo_AccountRoles[0].Property_ID__c;
               newOpportunity.Contact__c = eachjob.Contact__c;

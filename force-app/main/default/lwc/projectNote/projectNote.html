@@ -4,7 +4,7 @@
   @Author             : sean.gray@atirestoration.com
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 1/20/2020, 7:37:56 AM
+  @Last Modified On   : 2/14/2020, 10:09:54 AM
   @Modification Log   : 
   ==============================================================================
   Ver         Date                     Author      		      Modification
@@ -12,7 +12,7 @@
   1.0    9/4/2019, 8:16:46 AM   sean.gray@atirestoration.com     Initial Version
 -->
 <template>
-  <div class="slds-scrollable_y" style="height:60rem;width:50rem">
+  <div class="slds-scrollable_y" style="height:40rem;width:100%">
   <div class="slds-box slds-theme_shade">
       <!-- <header class="slds-modal__header">
           <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
@@ -33,7 +33,7 @@
                             <div class="slds-form-element">
                               <label class="Labels"  for="input-01">Percent of Job Complete: %</label>
                               <div class="slds-form-element__control">
-                                              <lightning-input  type="number" required="" onchange={percentChange} formatter="percent-fixed" value={jobComplete}></lightning-input>
+                                              <lightning-input  type="number"  onchange={percentChange} formatter="percent-fixed" value={jobComplete}></lightning-input>
                               </div>
                             </div>
                           </div>
@@ -41,7 +41,7 @@
                             <div class="slds-form-element">
                               <label class="Labels"  for="input-01">Estimated Completion Date Per PM:</label>
                               <div class="slds-form-element__control">
-                                      <lightning-input required="" type="date" value={estimateCompleted} onchange={estimateChange} ></lightning-input>
+                                      <lightning-input  type="date" value={estimateCompleted} onchange={estimateChange} ></lightning-input>
                               </div>
                             </div>
                           </div>
@@ -49,7 +49,7 @@
                             <div class="slds-form-element">
                               <label class="Labels" for="input-02">Work/trades started/completed since last week:</label>
                               <div class="slds-form-element__control">
-                                              <lightning-input placeholder="Enter a Number" type="text" required="" onchange={workChange} value={workCompleted}></lightning-input>
+                                              <lightning-input placeholder="Enter a Number" type="text"  onchange={workChange} value={workCompleted}></lightning-input>
                               </div>
                             </div>
                           </div>
@@ -57,7 +57,7 @@
                                       <div class="slds-form-element">
                                         <label class="Labels" for="input-03">Work to be started this week:</label>
                                         <div class="slds-form-element__control">
-                                              <lightning-input placeholder="Enter a Number" required="" type="text" onchange={workStartedChange} value={workStarted}></lightning-input>
+                                              <lightning-input placeholder="Enter a Number"  type="text" onchange={workStartedChange} value={workStarted}></lightning-input>
                                         </div>
                                       </div>
                                     </div> -->
@@ -79,7 +79,7 @@
                                                       placeholder="--Select--"
                                                       options={options}
                                                       onchange={handleChangeInsured}
-                                                      required="" >
+                                                       >
                                               </lightning-combobox>
                                       </div>
                                     </div>
@@ -94,7 +94,7 @@
                                                               placeholder="--Select--"
                                                               options={options}
                                                               onchange={handleChangeSupplement}
-                                                              required="" >
+                                                               >
                                                       </lightning-combobox>
                                                 </div>
                                               </div>
@@ -106,25 +106,22 @@
                             <div class="slds-form-element">
                               <label class="Labels" for="textarea-id-01"> Work/trades started/completed since last week:</label>
                               <div class="slds-form-element__control">
-                                <lightning-textarea required="" class="slds-textarea" placeholder="Type Comments Here" onchange={workChange} value={workCompleted}></lightning-textarea>
+                                <lightning-textarea  placeholder="Type Comments Here" onchange={workChange} value={workCompleted}></lightning-textarea>
                               </div>
                             </div>
                             <div class="slds-form-element">
                               <label class="Labels" for="textarea-id-01"> Work to be started this week:</label>
                               <div class="slds-form-element__control">
-                                <lightning-textarea required="" class="slds-textarea" placeholder="Type Comments Here" onchange={workStartedChange} value={workStarted}></lightning-textarea>
+                                <lightning-textarea   placeholder="Type Comments Here" onchange={workStartedChange} value={workStarted}></lightning-textarea>
                               </div>
                             </div>
                             <div class="slds-form-element">
                                       <label class="Labels" for="textarea-id-01"> Repair Comments:</label>
                                       <div class="slds-form-element__control">
-                                        <lightning-textarea required="" class="slds-textarea" placeholder="Type Comments Here" onchange={repairCommentsChange} value={repairComments}></lightning-textarea>
+                                        <lightning-textarea   placeholder="Type Comments Here" onchange={repairCommentsChange} value={repairComments}></lightning-textarea>
                                       </div>
                                     </div>
-                      <div class="form">
-                              <lightning-button label="Create Project Note"  onclick={CreateProject} variant="success"> </lightning-button> 
-                              <lightning-button label="Cancel" onclick={Cancel} variant="destructive"></lightning-button>
-                      </div>
+                     
                       <template if:true={loading}>
                              <div class="Spinner">
                                  <lightning-spinner size="medium" alternative-text="Loading" variant="brand"></lightning-spinner>
@@ -134,6 +131,13 @@
      <div class="errormessage">Fill out all required fields</div>
 </template>
 
+ 
+</div>
+<div class="slds-p-around_medium lgc-bg-inverse element">
+<lightning-button-group>
+  <lightning-button label="Create Project Note"  onclick={CreateProject} variant="brand"> </lightning-button> 
+  <lightning-button label="Cancel" onclick={Cancel} ></lightning-button>
+</lightning-button-group>
 </div>
 </div>
                 <!-- </section> -->
