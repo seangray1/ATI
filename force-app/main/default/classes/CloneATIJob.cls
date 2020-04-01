@@ -25,6 +25,7 @@ public class CloneATIJob {
         String Description;
         Date dateofloss;
         date closedate;
+        string claim;
 
         if(related){
             recId = recordId;
@@ -32,6 +33,7 @@ public class CloneATIJob {
             Description = job.Description__c;
             dateofloss = job.Date_Of_Loss__c;
             closedate = job.CloseDate__c;
+            claim = job.Claim__c;
             
         }
         else{
@@ -44,7 +46,7 @@ public class CloneATIJob {
         Branch_Manager__c = job.Branch_Manager__c, Project_Site_Contact_Account__c = job.Project_Site_Contact_Account__c, Office2__c = Office, Stage__c = 'Qualification', Taken_By__c = job.Taken_By__c, Project_type__c = job.Project_type__c,
         Referred_by__c = job.Referred_by__c, CloseDate__c = closedate, County__c = job.County__c, City_of_LA__c = job.City_of_LA__c, Project_Site_Address_2__c = job.Project_Site_Address_2__c, 
         Project_site_address__c = job.Project_site_address__c, Project_site_city__c = job.Project_site_city__c, Project_site_state__c = job.Project_site_state__c, Project_site_zipcode__c = job.Project_site_zipcode__c, Year_Structure_built__c = job.Year_Structure_built__c,
-        Date_of_loss__c = dateofloss, no_Email_Available__c = job.no_Email_Available__c, Policy__c = job.Policy__c, Deductible__c = job.Deductible__c, Claim__c = null, 
+        Date_of_loss__c = dateofloss, no_Email_Available__c = job.no_Email_Available__c, Policy__c = job.Policy__c, Deductible__c = job.Deductible__c, Claim__c = claim, 
         Cont_P_O_Client_Job__c = null, PO__c = null, Send_prelim__c = null, Parent_Job__c = recId );
        try {
         insert newJob;

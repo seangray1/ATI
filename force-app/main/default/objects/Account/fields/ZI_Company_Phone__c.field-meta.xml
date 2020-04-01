@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ZI_Company_Phone__c</fullName>
     <externalId>false</externalId>
-    <label>ZI Company Phone</label>
+    <label>ZI Company Phone-N</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

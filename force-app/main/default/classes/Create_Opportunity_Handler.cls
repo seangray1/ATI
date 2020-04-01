@@ -1,7 +1,19 @@
+/**
+ * @File Name          : Create_Opportunity_Handler.cls
+ * @Description        : 
+ * @Author             : sean.gray@atirestoration.com
+ * @Group              : 
+ * @Last Modified By   : sean.gray@atirestoration.com
+ * @Last Modified On   : 3/18/2020, 7:35:16 AM
+ * @Modification Log   : 
+ * Ver       Date            Author      		    Modification
+ * 1.0    3/18/2020   sean.gray@atirestoration.com     Initial Version
+**/
 public class Create_Opportunity_Handler 
 {
    public static void createOpportunity(ATI_Job__c[] lstJobs)
     {
+        Id recordTypeId = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Job Opportunity').getRecordTypeId();
 		set<id> setAccountIds = new Set<id>();
       
             for(ATI_Job__c newJob: lstJobs)
@@ -18,7 +30,7 @@ public class Create_Opportunity_Handler
         if(!setAccountIds.isEmpty())
         {
           system.debug('Set AccountIds is not empty ');
-          Fetch_BillTo_AccountRoles = [select id,name, Roles__c, Property_ID__c from Account_Roles__c where Property_ID__c IN: setAccountIds AND Roles__c='Bill To' LIMIT 1];  
+          Fetch_BillTo_AccountRoles = [select id,name, Roles__c, Property_ID__c from Account_Roles__c where Property_ID__c IN: setAccountIds AND Multiple_Roles__c includes('Primary/Bill-to') LIMIT 1];  
         }
 		system.debug('accounroles' +Fetch_BillTo_AccountRoles);
         if(!Fetch_BillTo_AccountRoles.isEmpty())
@@ -26,7 +38,8 @@ public class Create_Opportunity_Handler
 			Opportunity newOpportunity = new Opportunity ();
           for(ATI_Job__c eachjob: lstJobs)
           {
-              newOpportunity.RecordTypeId = '0120R000001cFvG';
+              newOpportunity.Job__c = eachjob.id;
+              newOpportunity.RecordTypeId = recordTypeId;
               newOpportunity.StageName = 'Prospecting';
               newOpportunity.Property__c = Fetch_BillTo_AccountRoles[0].Property_ID__c;
               newOpportunity.Contact__c = eachjob.Contact__c;

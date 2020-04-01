@@ -1,14 +1,15 @@
 import { LightningElement, track } from 'lwc';
 import SearchOffices from '@salesforce/apex/NewJobController.GetOffices';
 import AfterHoursJobCreation from '@salesforce/apex/NewJobController.AfterHoursJobCreation';
+import GetEsJobTypePicklist from '@salesforce/apex/NewJobController.GetEsJobTypePicklist';
 import GetDivisionPicklist from '@salesforce/apex/NewJobController.GetDivisionPicklist';
 import { NavigationMixin } from 'lightning/navigation';
 const DELAY = 600;
 var Street, City, State, ZipCode, Country;
 export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) {
 
-JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;DivisionPicklistValues =[{}];
-DivisionEs = false; EsJobType; PageStateReady = false;
+JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;DivisionPicklistValues =[{}];EsJobTypePicklistValues=[{}];
+DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;
 connectedCallback(){
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
@@ -19,6 +20,15 @@ connectedCallback(){
         
         this.DivisionPicklistValues.shift();   
         this.PageStateReady = true;    
+    })
+    GetEsJobTypePicklist({}).then(result =>{
+        var AccountRolePicklistValues = result;
+        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+            
+            this.EsJobTypePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+        }
+        
+        this.EsJobTypePicklistValues.shift();
     })
 }
 OfficeChange(event){
@@ -53,6 +63,9 @@ populateOfficeField(event){
 }
 CommentsChange(e){
     this.Comments = e.detail.value;
+}
+ContactInfoChange(e){
+    this.ContactInfo = e.detail.value;
 }
 DescriptionChange(e){
     this.Description = e.detail.value;
@@ -100,7 +113,7 @@ Save(){
                 Country = address.country;
                 this.loading = true;
                 AfterHoursJobCreation({JobName:this.JobName, Division:this.Division, EsJobType:this.EsJobType, Office:this.OfficeId, Street:Street, State:State, City:City, 
-                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, Comments:this.Comments, Description:this.Description}).then(result => {
+                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description}).then(result => {
                 let data = result;
                 this.loading = false;
         if(data.length > 18){

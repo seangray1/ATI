@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Date__c</fullName>
+    <description>Approximate end date for the event, if any.  Note that jobs may continue to be created after the End Date of the event itself.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Approximate end date for the event, if any.  Note that jobs may continue to be created after the End Date of the event itself.</inlineHelpText>
+    <label>End Date</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

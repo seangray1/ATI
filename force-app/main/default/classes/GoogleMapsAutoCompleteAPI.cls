@@ -38,9 +38,8 @@ public class GoogleMapsAutoCompleteAPI {
 	public static string getSuggestions(String input) {
 	    String url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?'
 	            + 'input=' + EncodingUtil.urlEncode(input, 'UTF-8')
-	            + '&types=address' + getKey();
-        String response = getResponse(url);
-        system.debug('response is ' + response);
+	            + '&types=(cities)' + getKey();
+	    String response = getResponse(url);
 	    return response;
 	}
 @AuraEnabled

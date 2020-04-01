@@ -180,7 +180,7 @@
             <targetReference>getMasterJobs</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>ActiveJobCount</name>
         <dataType>Number</dataType>

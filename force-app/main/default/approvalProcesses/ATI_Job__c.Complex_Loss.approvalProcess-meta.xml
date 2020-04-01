@@ -259,11 +259,11 @@
                 <type>queue</type>
             </approver>
             <approver>
-                <name>Branch_Manager__c</name>
+                <name>Regional_Director__c</name>
                 <type>relatedUserField</type>
             </approver>
             <approver>
-                <name>Regional_Director__c</name>
+                <name>Branch_Manager__c</name>
                 <type>relatedUserField</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

@@ -23,6 +23,9 @@
             "c/courtesyCallLWC": [
                 "courtesyCallLWC/courtesyCallLWC.js"
             ],
+            "c/creditRequestLWC": [
+                "creditRequestLWC/creditRequestLWC.js"
+            ],
             "c/dailyTimeSheetSearch": [
                 "dailyTimeSheetSearch/dailyTimeSheetSearch.js"
             ],

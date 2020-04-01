@@ -359,35 +359,6 @@
                         <label class="Labels required1 spacing" for="textarea-id-01"> Job Name</label>
                                      
                         <lightning-input  onchange={JobNameChange} class="jobFormControl spacing"  value={JobName}></lightning-input>
-                        
-                        
-                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
-                        <lightning-combobox name="progress"
-                        
-                        value={Division}
-                        placeholder="-Select-"
-                        options={options}
-                        onchange={DivisionChange}
-                        class="spacing jobFormControl"
-                        dropdown-alignment=auto 
-                        >
-                        </lightning-combobox>
-                        <template if:true={DivisionEs}>
-                        <label class="Labels spacing required1"> ES Job Type</label>
-                        <lightning-combobox name="progress"
-                           
-                           value={EsJobType}
-                           placeholder="-Select-"
-                           options={EsJobTypePicklistValues}
-                           onchange={EsJobTypeChange}
-                           class="spacing"
-                           disabled={EMS}
-                            >
-                           </lightning-combobox>
-                        </template>
-                       
-                    </div>
-                    <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing required1" > Job Class</label>
                         <lightning-combobox name="progress"
                         
@@ -409,94 +380,9 @@
                         dropdown-alignment=auto >
                         </lightning-combobox>
                         
-                                <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label>
-                                <lightning-record-edit-form object-api-name="ATI_Job__c">
-                                    <lightning-input-field field-name="Project_Manager__c" variant="label-hidden" onchange={ProjectDirectorChange} value={ProjectDirector}>
-
-                                    </lightning-input-field>
-                                </lightning-record-edit-form> -->
-                    </div> 
-                   
-                    
-                    <div class="slds-col slds-size_1-of-7">
-                        <label class="Labels spacing" for="textarea-id-01"> Project Director</label>
-                        
-                             
-                           
-                        <lightning-input onkeyup={ProjectDirectorChange}
-                        
-                                        placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="jobFormControl spacing"></lightning-input>
-                                    
-                                <template if:true={ProjectDirectors}>
-                                    <table
-                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
-                                        
-                                        <tbody>
-                                            <template for:each={ProjectDirectors} for:item="ProjectDirector">
-                                                <tr key={ProjectDirector.Id}>
-                                                    <th scope="row">
-                                                        <b>
-                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
-                                                            <lightning-button variant="base" label={ProjectDirector.Name}
-                                                                value={ProjectDirector} title="Project Director"
-                                                                onclick={populateProjectDirectorField}
-                                                                class="slds-m-left_x-small jobButton">
-                                                                <lightning-icon class="icon1" icon-name="standard:account" size="small"></lightning-icon></lightning-button>
-                                                        </b>
-                                                        <br>
-                                             
-                                                    </th>
-        
-                                                </tr>
-        
-                                            </template>
-                                        </tbody>
-                                    </table>
-                                </template>   
-                        
-                        <label class="Labels spacing required1" for="textarea-id-01"> Taken By</label>
-                        <lightning-input onkeyup={TakenByChange}
-                                         onchange={ClearTakenBy} placeholder='Search..' value={TakenByValue} type="search" class="jobFormControl spacing"></lightning-input>
-                              
-                                <template if:true={TakenByUsers}>
-                                    <table
-                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
-                                        
-                                        <tbody>
-                                            <template for:each={TakenByUsers} for:item="TakenBy">
-                                                <tr key={TakenBy.Id}>
-                                                    <th scope="row">
-                                                        <b>
-                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
-                                                            <lightning-button variant="base" label={TakenBy.Name}
-                                                                value={TakenBy} title="User"
-                                                                onclick={populateTakenByField}
-                                                                class="slds-m-left_x-small jobButton">
-                                                                </lightning-button>
-                                                        </b>
-                                                        <br>
-                                                    
-                                                    </th>
-        
-                                                </tr>
-        
-                                            </template>
-                                        </tbody>
-                                    </table>
-                                </template>    
-                                
+                       
                     </div>
                     <div class="slds-col slds-size_1-of-7">
-                        <label class="Labels spacing"> Claim #</label>
-                        <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
-                        <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
-                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input> 
-                        <label class="Labels spacing" > Year Structure Built</label>
-                        <lightning-input value={YearBuilt} onchange={YearBuiltChange} class="spacing" ></lightning-input>     
-                    </div>
-                    <div class="slds-col slds-size_1-of-7">
-                        <label class="Labels spacing required1" > Date of Loss</label>
-                        <lightning-input value={DateOfLoss} type="Date" disabled={DateOfLossDisabled} class="spacing" onchange={DateOfLossChange}  ></lightning-input>
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
                             <lightning-input onkeyup={OfficeChange}
                                         placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing  jobFormControl"></lightning-input>
@@ -539,6 +425,155 @@
                                         </tbody>
                                     </table>
                                 </template>
+                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
+                        <lightning-combobox name="progress"
+                        
+                        value={Division}
+                        placeholder="-Select-"
+                        options={options}
+                        onchange={DivisionChange}
+                        class="spacing jobFormControl"
+                        dropdown-alignment=auto 
+                        >
+                        </lightning-combobox>
+                        <template if:true={DivisionEs}>
+                        <label class="Labels spacing required1"> ES Job Type</label>
+                        <lightning-combobox name="progress"
+                           
+                           value={EsJobType}
+                           placeholder="-Select-"
+                           options={EsJobTypePicklistValues}
+                           onchange={EsJobTypeChange}
+                           class="spacing"
+                           disabled={EMS}
+                            >
+                           </lightning-combobox>
+                        </template>
+                       
+                        
+                                <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label>
+                                <lightning-record-edit-form object-api-name="ATI_Job__c">
+                                    <lightning-input-field field-name="Project_Manager__c" variant="label-hidden" onchange={ProjectDirectorChange} value={ProjectDirector}>
+
+                                    </lightning-input-field>
+                                </lightning-record-edit-form> -->
+                    </div> 
+                   
+                    
+                    <div class="slds-col slds-size_1-of-7">
+                        <label class="Labels spacing required1" > Date of Loss</label>
+                        <lightning-input value={DateOfLoss} type="Date" disabled={DateOfLossDisabled} class="spacing" onchange={DateOfLossChange}  ></lightning-input>
+                        <label class="Labels spacing required1" for="textarea-id-01"> Taken By</label>
+                        <lightning-input onkeyup={TakenByChange}
+                                         onchange={ClearTakenBy} placeholder='Search..' value={TakenByValue} type="search" class="jobFormControl spacing"></lightning-input>
+                              
+                                <template if:true={TakenByUsers}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        
+                                        <tbody>
+                                            <template for:each={TakenByUsers} for:item="TakenBy">
+                                                <tr key={TakenBy.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
+                                                            <lightning-button variant="base" label={TakenBy.Name}
+                                                                value={TakenBy} title="User"
+                                                                onclick={populateTakenByField}
+                                                                class="slds-m-left_x-small jobButton">
+                                                                </lightning-button>
+                                                        </b>
+                                                        <br>
+                                                    
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>    
+
+
+                       
+                       
+                                
+                    </div>
+                    <div class="slds-col slds-size_1-of-7">
+                        <label class="Labels spacing" for="textarea-id-01"> Project Director</label>
+   
+                        <lightning-input onkeyup={ProjectDirectorChange}
+                        
+                                        placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="jobFormControl spacing"></lightning-input>
+                                    
+                                <template if:true={ProjectDirectors}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        
+                                        <tbody>
+                                            <template for:each={ProjectDirectors} for:item="ProjectDirector">
+                                                <tr key={ProjectDirector.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
+                                                            <lightning-button variant="base" label={ProjectDirector.Name}
+                                                                value={ProjectDirector} title="Project Director"
+                                                                onclick={populateProjectDirectorField}
+                                                                class="slds-m-left_x-small jobButton">
+                                                                <lightning-icon class="icon1" icon-name="standard:account" size="small"></lightning-icon></lightning-button>
+                                                        </b>
+                                                        <br>
+                                             
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>   
+                        
+                        <label class="Labels spacing"> Claim #</label>
+                        <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
+                            
+                    </div>
+                    <div class="slds-col slds-size_1-of-7">
+                        <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
+                        <lightning-input value={ClientJob} onchange={ClientJobChange} disabled={ClientJobDisabled} class="spacing" ></lightning-input> 
+                        <label class="Labels spacing" > Year Structure Built</label>
+                        <lightning-input value={YearBuilt} onchange={YearBuiltChange} class="spacing" ></lightning-input> 
+                        <label class="Labels spacing" for="textarea-id-01"> Major Event</label>
+   
+                        <lightning-input onkeyup={MajorEventChange}
+                        
+                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} type="search" class="jobFormControl spacing"></lightning-input>
+                                    
+                                <template if:true={MajorEvents}>
+                                    <table
+                                        class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                                        
+                                        <tbody>
+                                            <template for:each={MajorEvents} for:item="MajorEvent">
+                                                <tr key={MajorEvent.Id}>
+                                                    <th scope="row">
+                                                        <b>
+                                                            <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:priority" size="small"></lightning-icon>
+                                                            <lightning-button variant="base" label={MajorEvent.Name}
+                                                                value={MajorEvent} title="Major Event"
+                                                                onclick={populateMajorEventField}
+                                                                class="slds-m-left_x-small jobButton">
+                                                                <lightning-icon class="icon1" icon-name="standard:priority" size="small"></lightning-icon></lightning-button>
+                                                        </b>
+                                                        <br>
+                                             
+                                                    </th>
+        
+                                                </tr>
+        
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>   
 
 
                     </div>
@@ -556,6 +591,7 @@
                        
             </div>
             <br>
+            <lightning-button label="Fill Out Description" onclick={newDescriptionClick}></lightning-button>
             <div class="slds-col slds-size_1-of-2">
             <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
             
@@ -563,7 +599,7 @@
                             
                                         <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
                                     </div>
-                                    <lightning-button label="Fill Out Description" onclick={newDescriptionClick}></lightning-button>
+                                    
             </template>
         </lightning-accordion-section>
         <!-- </div> -->
@@ -1212,13 +1248,16 @@
                 <div class="slds-backdrop slds-backdrop_open"></div>
                 </template>
                 <template if:true={newDescription}>
+                   
                     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
                             aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                            
                             <div class="slds-modal__container">
+                                <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
                                 <!-- modal header start -->
                                 <header class="slds-modal__header">
                                     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-                                        title="Close" onclick={closePropertyModal}>
+                                        title="Close" onclick={closeDescriptionModal}>
                                         <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
                                             size="small"></lightning-icon>
                                         <span class="slds-assistive-text">Close</span>
@@ -1243,6 +1282,8 @@
                                     <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} value={FlooringType}></lightning-input>
                                     <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
                                     <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} value={GateCode}></lightning-combobox>
+                                    <lightning-combobox label="Is this related to the Coronavirus? (Y/N)" options={optionsYesNo} onchange={CoronavirusChange} value={Coronavirus}></lightning-combobox>
+                                    <lightning-combobox label="Are you requiring same-day dispatch? (Y/N)" options={optionsYesNo} onchange={SameDayDispatchChange} value={SameDayDispatch}></lightning-combobox>
                                     
                                     
                                    
@@ -1313,8 +1354,9 @@
                         
                         
                    
-                    
+                            </div>
                     </section>
+                
                     <div class="slds-backdrop slds-backdrop_open"></div>
                     </template>
 

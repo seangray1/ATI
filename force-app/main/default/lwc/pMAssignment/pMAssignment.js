@@ -4,7 +4,7 @@
  * @Author             : Sean Gray
  * @Group              : 
  * @Last Modified By   : Sean Gray
- * @Last Modified On   : 10/8/2019, 11:13:03 AM
+ * @Last Modified On   : 2/1/2020, 6:07:03 PM
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    10/4/2019   Sean Gray     Initial Version
@@ -12,8 +12,8 @@
 import { LightningElement, track, api } from 'lwc';
 import Id from '@salesforce/user/Id';
 import { NavigationMixin } from 'lightning/navigation';
-import PMAssignmentChatter from '@salesforce/apex/JobUtility.PMAssignmentChatter';
-import PMAssignmentQuery from '@salesforce/apex/JobUtility.PMAssignmentQuery';
+import PMAssignmentChatter from '@salesforce/apex/JobButtons.PMAssignmentChatter';
+import PMAssignmentQuery from '@salesforce/apex/JobButtons.PMAssignmentQuery';
 var ContactJSON;
 var PackagedString;
 var PDQueryResult;
@@ -27,15 +27,15 @@ export default class PMAssignment extends NavigationMixin(LightningElement) {
         PMAssignmentQuery({recordId : this.recordId})
         .then(result => {
             this.PDQueryResults = result;
-            console.log(this.PDQueryResults+ 'PM results');
+           
             PDQueryResult = JSON.parse(this.PDQueryResults);
-            console.log(this.PMQueryResult+ 'PM result');
-            console.log('Insurance     Before  '+ this.Insurance);
+            
+            
             this.Insurance = PDQueryResult.Insurance;
             if(this.Insurance === 'null'){
                 this.Insurance = 'None';
             }
-            console.log('Insurance   ' + this.Insurance);
+           
             this.Fees= PDQueryResult.Fees;
             this.Allocation= PDQueryResult.Allocation;
             this.Price= PDQueryResult.Price;
@@ -45,7 +45,7 @@ export default class PMAssignment extends NavigationMixin(LightningElement) {
             this.Budget= PDQueryResult.Budget;
             this.Forecast= PDQueryResult.Forecast;
               
-            console.log(' Budget' + this.Budget);
+            
            // this.classValue = ClassCategory.class;
            
             //this.categoryValue = ClassCategory.category;
@@ -102,17 +102,18 @@ projectManagerChange(event){
 }
 
 createPMAssignment(){
-    if((!this.notes)||(!this.startDate)||(!this.completionDate)||(!this.briefScope)||(!this.contactInfo1)){
+    if((!this.notes)||(!this.startDate)||(!this.completionDate)||(!this.briefScope)||(!this.contactInfo1)||(!this.projectManager1)){
         this.error = true;
     }else{
         ContactJSON = {'ContactString': this.contactInfo1, 'ProjectManagerString': this.projectManager1};
-        console.log('ContactJSON is   ' + ContactJSON);
+        
         PackagedString = JSON.stringify(ContactJSON);
-        console.log('Packaged String is ' + PackagedString);
+        
     this.loading = true;
         
     PMAssignmentChatter({startDate:this.startDate, recordId:this.recordId,ownerId:Id, completionDate:this.completionDate,notes:this.notes,briefScope:this.briefScope,PackagedJSON:PackagedString})
     .then(result => {
+        this.loading = false;
         this.ExtraData = result;
         if(this.ExtraData === 'Success'){
             this.dispatchEvent(new CustomEvent('recordChange'));  
@@ -124,6 +125,8 @@ createPMAssignment(){
                     actionName: 'view',       
             },
         });   
+        } else{
+            alert(this.ExtraData);
         }
     });
 }

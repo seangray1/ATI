@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ZI_NAICS_Codes__c</fullName>
     <externalId>false</externalId>
-    <label>ZI NAICS Codes</label>
+    <label>ZI NAICS Codes-N</label>
     <length>255</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

@@ -4,7 +4,7 @@
  * @Author             : sean.gray@atirestoration.com
  * @Group              : 
  * @Last Modified By   : sean.gray@atirestoration.com
- * @Last Modified On   : 3/10/2020, 9:02:10 AM
+ * @Last Modified On   : 3/18/2020, 8:13:36 AM
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    1/28/2020   sean.gray@atirestoration.com     Initial Version
@@ -102,7 +102,7 @@ public with sharing class NewJobController {
         // for(Id ca : PropertyIDs.PropertyID){
         // PropertyIDFinal = ca; }
         String searchLikeKey = searchKey + '%';
-        List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Address_Line_1__c Like : searchLikeKey LIMIT 5];
+        List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 5];
         system.debug('Properties are ' + props);
         return props;
     }
@@ -175,6 +175,14 @@ public with sharing class NewJobController {
         List<User> users = [Select Id,Name FROM User Where Name Like : searchLikeKey Limit 5];
        
         return users;
+    }
+    @AuraEnabled(cacheable = true)
+    public static List<Major_Event__c> GetMajorEvents(String searchKey) {
+        system.debug('Customer Key is ' + searchKey);
+        String searchLikeKey = searchKey + '%';
+        List<Major_Event__c> majorevent = [Select Id,Name FROM Major_Event__c Where Name Like : searchLikeKey Limit 5];
+       
+        return majorevent;
     }
     @AuraEnabled  
     public static string GetUserName(){  
@@ -279,7 +287,7 @@ public with sharing class NewJobController {
                 for(address_components ad : a.address_components){
                     system.debug('ad ' + ad.types[0]);
                     if(ad.types[0] == 'administrative_area_level_2'){
-                        county = ad.long_name;
+                        county = ad.long_name.replace('County', '');
                     }
 
                 }  
@@ -348,14 +356,36 @@ public with sharing class NewJobController {
         // }
     }  
     @AuraEnabled
-    public static Id AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
-    String AddressLine2, String Comments, String Description){
+    public static String AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
+    String AddressLine2, String ContactInfo, String Description){
         //Create Master Job
         //a. Office goes on Master, State City Zip goes on job. Description goes on Master
         //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
         // also set job record type to approved..
         system.debug('Before Master Job creation');
         try {
+            Http h = new Http();
+            HttpRequest req = new HttpRequest();
+             String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
+             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+             req.setMethod('GET');
+             req.setTimeout(60000);
+            HttpResponse res = h.send(req);
+            system.debug('Response is ' + res.getBody());
+            resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+            system.debug('results are ' + result);
+            string county;
+            for(results a: result.results){
+                system.debug('a ' + a);
+                for(address_components ad : a.address_components){
+                    system.debug('ad ' + ad.types[0]);
+                    if(ad.types[0] == 'administrative_area_level_2'){
+                        county = ad.long_name.replace('County', '');
+                    }
+
+                }  
+            }
         Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
         insert mj;
         system.debug('After Master Job creation');
@@ -365,14 +395,20 @@ public with sharing class NewJobController {
         
         List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
         
-        string address = Street + ', ' + State + ', ' + City + ' ' + ZipCode;
+        
         system.debug('Before Job creation');
             //County Search
         
-
+            //Add contactinfo when the field is created.
+            if(City.length() > 15){
+                City = City.substring(0, 15);
+            }
+            if(county.length() > 15){
+                county = county.substring(0, 15);
+            }
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1', date_time_approved__c = datetime.now(), Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
-        Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = address, Project_Site_Address_2__c = AddressLine2,
-        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode, Project_Site_Street__c = Street, Comments__c = Comments, CloseDate__c = date.today().adddays(5),
+        Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
+        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode,  County__c = county, CloseDate__c = date.today().adddays(5),
         Date_Time_Taken__c = datetime.now());
         if(!account.isempty()){
             job.Account__c = account[0].id;
@@ -418,6 +454,28 @@ public with sharing class NewJobController {
         system.debug('AccountWrap is ' + AR);
         Set<Id> ContactIdsSet = new Set<Id>();
         Map<Id,Contact> ContactMap = new Map<Id,Contact>();
+        Http h = new Http();
+            HttpRequest req = new HttpRequest();
+             String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
+             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+             req.setMethod('GET');
+             req.setTimeout(60000);
+            HttpResponse res = h.send(req);
+            system.debug('Response is ' + res.getBody());
+            resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+            system.debug('results are ' + result);
+            string county;
+            for(results a: result.results){
+                system.debug('a ' + a);
+                for(address_components ad : a.address_components){
+                    system.debug('ad ' + ad.types[0]);
+                    if(ad.types[0] == 'administrative_area_level_2'){
+                        county = ad.long_name.replace('County', '');
+                    }
+
+                }  
+            }
         for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
             if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account)){
                 ContactIdsSet.add(accountRoles.Contact);
@@ -458,6 +516,10 @@ public with sharing class NewJobController {
             }
 
         }
+        double YearBuilt;
+        if(!String.isBlank(jobWrap.YearBuilt)){
+            YearBuilt = double.valueOf(jobWrap.YearBuilt);
+        }
         //system.debug('Master Job Id  is  ' + MasterJobId);
         if(String.isEmpty(Property.PropertyId)){
             prop.Property_Type__c = Property.PropertyType;
@@ -470,12 +532,13 @@ public with sharing class NewJobController {
             // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
             prop.Address_Line_1__c = Property.Street;
             NewProperty= true;
-            prop.Year_Structure_Built__c = Decimal.valueOf(jobWrap.YearBuilt);
+            prop.Year_Structure_Built__c = YearBuilt;
             prop.Job_Class__c = jobWrap.JobClass;
+            prop.County__c = county;
             insert prop;  
             
         }else{
-            prop = [Select Street__c, City__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
+            prop = [Select Street__c, City__c, County__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
         }
         Id mJobId;
         //if Master Job is empty, create one. 
@@ -533,17 +596,20 @@ public with sharing class NewJobController {
         }
         system.debug('NewJobEntry?? ' + JobEntryType);
         system.debug('Hitting before job insert, and MJobId is ' + mJobId );
-        double YearBuilt;
-        if(!String.isBlank(jobWrap.YearBuilt)){
-            YearBuilt = double.valueOf(jobWrap.YearBuilt);
+        if(prop.City__c.length() > 15){
+            prop.City__c = prop.City__c.substring(0, 15);
         }
+        if(prop.County__c.length() > 15){
+            prop.County__c = prop.County__c.substring(0, 15);
+        }
+        
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
         Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Master_Job__c = mJobId, division__c = jobWrap.division,
         Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
-        Project_Site_Contact_Name__c = ProjectSiteContactContact, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
-        Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt);
+        Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
+        Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
         if(JobEntryType == 'NewJobEntry'){
         insert job;
         }
@@ -670,6 +736,7 @@ public with sharing class NewJobController {
         public Id TakenBy {get;set;}  
         public Id ProjectDirector {get;set;}  
         public Date DateOfLoss {get;set;}  
+        public Id MajorEvent {get;set;}  
     }
     public class AccountWrapper{
         //public List<Id> PropertyId {get;set;}

@@ -23,6 +23,7 @@ import InsertAccount from '@salesforce/apex/NewJobController.InsertAccount';
 import InsertPersonAccount from '@salesforce/apex/NewJobController.InsertPersonAccount';
 import SearchProperties from '@salesforce/apex/NewJobController.GetProperties';
 import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
+import GetMajorEvents from '@salesforce/apex/NewJobController.GetMajorEvents';
 import GetPropertyTypePicklist from '@salesforce/apex/NewJobController.GetPropertyTypePicklist';
 import GetAccountRolesPicklist from '@salesforce/apex/NewJobController.getPickListValuesIntoList';
 import GetDivisionPicklist from '@salesforce/apex/NewJobController.GetDivisionPicklist';
@@ -86,7 +87,7 @@ Plumber = ""; WaterShutOff = ""; LeakFixed = ""; FireDamage = ""; EmergencyRespo
 BloodOrFluids = ""; Body = ""; Odor = ""; Belongings = "";
 @api jobrecordId;
 @api TypeOfJobEntry;
-@track AccountRoles = [{}];
+@track AccountRoles = [{}];@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;@track Coronavirus = "";@track SameDayDispatch = "";@track focusClicked = false;
 
 // @wire(getRecord, {
 //     recordId: UserId,
@@ -263,6 +264,8 @@ DamagedMaterialsChange(e){this.DamagedMaterials = e.detail.value;}
 FlooringTypeChange(e){this.FlooringType = e.detail.value;}
 PowerShutOffChange(e){this.PowerShutOff = e.detail.value;}
 GateCodeChange(e){this.GateCode = e.detail.value;}
+CoronavirusChange(e){this.Coronavirus = e.detail.value;}
+SameDayDispatchChange(e){this.SameDayDispatch = e.detail.value;}
 StandingWaterChange(e){this.StandingWater = e.detail.value;}
 CleanWaterChange(e){this.CleanWater = e.detail.value;}
 PlumberChange(e){this.Plumber = e.detail.value;} 
@@ -279,9 +282,15 @@ BelongingsChange(e){this.Belongings = e.detail.value;}
 newDescriptionClick(){
     this.newDescription = true;
 }
+focusText(){
+    if(this.focusClicked = false){
+        this.focusClicked = true;
+        this.newDescription = true;
+    }
+}
 SaveDescription(){
     this.Description = "Type of Loss: "+ this.TypeOfLoss+ '\n' + "Cause of Loss: " + this.CauseOfLoss + '\n' + 'Customer Type: ' + this.CustomerType + '\n' + 'Property Description: '+ this.PropertyDescription +  '\n' + 'Areas Affected: ' + this.AreasAffected + '\n' + 'Damaged Materials: ' + this.DamagedMaterials + '\n' + 'Flooring Type: ' + this.FlooringType + '\n' + 'Is power shut-off in the building? (Y/N) ' +
-    this.PowerShutOff + '\n' + 'Is there a gate code? ' + this.GateCode;
+    this.PowerShutOff + '\n' + 'Is there a gate code? ' + this.GateCode + '\n' + 'Is this related to the Coronavirus?' + this.Coronavirus + '\n' + 'Are you requiring same-day dispatch?' + this.SameDayDispatch;
     this.newDescription = false;
     console.log(this.Division);
     console.log('waterLoss ' + this.waterLoss + '       fireLoss ' + this.fireLoss);
@@ -534,6 +543,8 @@ SaveContact(){
                    })
             }}}
         }
+
+        
 
 savePersonAccount(){
     console.log('Starting Person Account ' );
@@ -823,6 +834,12 @@ ClearProjectDirector(event){
         this.ProjectDirectors = "";
         }
         }
+ClearMajorEvent(event){
+        let searchKey = event.detail.value;
+        if(searchKey.length === 0){
+        this.MajorEvents = "";
+        }
+        }       
 ClearTakenBy(event){
         let searchKey = event.detail.value;
         if(searchKey.length === 0){
@@ -1073,6 +1090,28 @@ ProjectDirectorChange(event){
             }, DELAY);
         }
 }
+MajorEventChange(event){
+    window.clearTimeout(this.delayTimeout);
+       var searchKey = event.target.value;
+       if(searchKey.length === 0){this.MajorEvents = null;}
+       if(searchKey.length >= 1){
+           
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        //this.delayTimeout = setTimeout(() => {
+            // eslint-disable-next-line @lwc/lwc/no-async-operation
+            this.delayTimeout = setTimeout(() => {
+                GetMajorEvents({searchKey : searchKey})
+                .then(result => {
+                    this.MajorEvents = result;
+                   
+                })
+                
+                .catch(error => {
+                    this.error = error;
+                });
+            }, DELAY);
+        }
+}
 TakenByChange(event){
     window.clearTimeout(this.delayTimeout);
        var searchKey = event.target.value;
@@ -1163,6 +1202,15 @@ populateProjectDirectorField(event){
     this.ProjectDirectorSelected = true;
     
 }
+populateMajorEventField(event){
+    
+    this.MajorEvents = '';
+    let MajorEvent = event.target.value;
+    this.MajorEventValue = MajorEvent.Name;
+    this.MajorEventId = MajorEvent.Id;
+    this.MajorEventSelected = true;
+    
+}
 populateTakenByField(event){
     
     this.TakenByUsers = '';
@@ -1232,6 +1280,7 @@ populatePropertyField(event){
     })
     GetMasterJobs({propId:this.testingProperty.Id}).then(result => {
         this.MasterJobs = result;
+        console.log('Master Jobs ' + this.MasterJobs);
         if(JSON.stringify(this.MasterJobs) !== '[]'){
             console.log('Master Jobs result ' + JSON.stringify(this.MasterJobs));
             this.bShowModal = true;
@@ -1374,7 +1423,7 @@ CreateNewJob(){
             //Job Fields
             JobJSON = JSON.stringify({'Description': this.Description, 'Division': this.Division, 'Office': this.OfficeId, JobClass: this.JobClass,
             'ProjectDirector': this.ProjectDirectorId,  'TakenBy': this.TakenById, 'Claim': this.Claim, JobName : this.JobName, LeadSource: this.LeadSource,
-            MultipleDivisions: this.MultipleDivision, EsJobType:this.EsJobType, 'DateOfLoss':this.DateOfLoss, 'ClientJob':this.ClientJob, YearBuilt:this.YearBuilt });
+            MultipleDivisions: this.MultipleDivision, EsJobType:this.EsJobType, 'DateOfLoss':this.DateOfLoss, 'ClientJob':this.ClientJob, YearBuilt:this.YearBuilt, MajorEvent:this.MajorEventId });
             //Master Job is just MasterJobId, if null then need to create a new one.
             this.jobLoading = true;
             CreateNewJob({AccountRoleInfo : AccountRoleInfo, PropertyInfo : PropertyJSON,

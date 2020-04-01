@@ -10,7 +10,7 @@
   1.0    9/6/2019   sean.gray@atirestoration.com     Initial Version
 -->
 <template>
-  <div class="slds-scrollable_y" style="height:60rem;width:50rem">
+  <div class="slds-scrollable_y" style="height:auto">
     <div class="slds-box slds-theme_shade">
         <!-- <header class="slds-modal__header">
             <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
@@ -28,7 +28,7 @@
               <div class="slds-form-element__row">
                 <div class="slds-size_1-of-3">
                   <div class="slds-form-element">
-                    <label class="Labels"  for="input-01">Insurance Carrier/TPA:</label>
+                    <label class="Labels"  for="input-01"> Insurance Carrier/TPA:</label>
                     <div class="slds-form-element__control">
                                     <lightning-input type="text"  disabled value={Insurance}></lightning-input>
                     </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="slds-size_1-of-3">
                   <div class="slds-form-element">
-                    <label class="Labels" for="input-02">Fees:</label>
+                    <label class="Labels" for="input-02"> Fees:</label>
                     <div class="slds-form-element__control">
                                     <lightning-input type="number"  disabled value={Fees}></lightning-input>
                     </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="slds-size_1-of-3">
                             <div class="slds-form-element">
-                              <label class="Labels" for="input-03">Allocation:</label>
+                              <label class="Labels" for="input-03"> Allocation:</label>
                               <div class="slds-form-element__control">
                                     <lightning-input type="number"  disabled value={Allocation}></lightning-input>
                               </div>
@@ -60,7 +60,7 @@
                 <div class="slds-form-element__row">
                   <div class="slds-size_1-of-3">
                     <div class="slds-form-element">
-                      <label class="Labels"  for="input-01">Budget:</label>
+                      <label class="Labels"  for="input-01"> Budget:</label>
                       <div class="slds-form-element__control">
                                       <lightning-input type="number"  disabled value={Budget}></lightning-input>
                       </div>
@@ -68,7 +68,7 @@
                   </div>
                   <div class="slds-size_1-of-3">
                     <div class="slds-form-element">
-                      <label class="Labels" for="input-02">Forecast:</label>
+                      <label class="Labels" for="input-02"> Forecast:</label>
                       <div class="slds-form-element__control">
                                       <lightning-input type="number"  disabled value={Forecast}></lightning-input>
                       </div>
@@ -76,7 +76,7 @@
                   </div>
                   <div class="slds-size_1-of-3">
                               <div class="slds-form-element">
-                                <label class="Labels" for="input-03">Price:</label>
+                                <label class="Labels" for="input-03"> Price:</label>
                                 <div class="slds-form-element__control">
                                       <lightning-input type="number"  disabled value={Price}></lightning-input>
                                 </div>
@@ -94,26 +94,26 @@
                           <div class="slds-form-element__row">
                             <div class="slds-size_1-of-4">
                               <div class="slds-form-element">
-                                <label class="Labels"  for="input-01">Contract Start Date:</label>
+                                <label class="Labels required1"  for="input-01"> Contract Start Date:</label>
                                 <div class="slds-form-element__control">
-                                                <lightning-input placeholder="Enter a Date" type="date" required="" onchange={startDateChange} value={startDate}></lightning-input>
+                                                <lightning-input placeholder="Enter a Date" type="date" onchange={startDateChange} value={startDate}></lightning-input>
                                 </div>
                               </div>
                             </div>
                             <div class="slds-size_1-of-4">
                               <div class="slds-form-element">
-                                <label class="Labels" for="input-02">Contract Completion Date:</label>
+                                <label class="Labels required1" for="input-02"> Contract Completion Date:</label>
                                 <div class="slds-form-element__control">
-                                                <lightning-input placeholder="Enter a Date" type="date" required="" onchange={completionDateChange} value={completionDate}></lightning-input>
+                                                <lightning-input placeholder="Enter a Date" type="date" onchange={completionDateChange} value={completionDate}></lightning-input>
                                 </div>
                               </div>
                             </div>
                             <div class="slds-size_1-of-4">
                                         <div class="slds-form-element">
-                                          <label class="Labels" for="input-03">Contact Info:</label>
+                                          <label class="Labels" for="input-03"> Contact Info:</label>
                                           <div class="slds-form-element__control">
                                             <lightning-record-edit-form object-api-name="ATI_Job__c">
-                                                <lightning-input-field field-name="Contact__c" variant="label-hidden" placeholder="Enter Contact Info" required=""  onchange={contactInfoChange} value={contactInfo}></lightning-input-field>
+                                                <lightning-input-field field-name="Contact__c" variant="label-hidden" placeholder="Enter Contact Info"  onchange={contactInfoChange} value={contactInfo}></lightning-input-field>
                                               </lightning-record-edit-form>
                                               </div>
                                         </div>
@@ -122,7 +122,7 @@
                         
                         <div class="slds-size_1-of-4">
                                 <div class="slds-form-element">
-                                  <label class="Labels" for="input-04">Suggested PM:</label>
+                                  <label class="Labels required1" for="input-04"> Suggested PM:</label>
                                   <div class="slds-form-element__control">
                                     <lightning-record-edit-form object-api-name="ATI_Job__c">
                                         <lightning-input-field placeholder="Enter Project Manager" variant="label-hidden" field-name="Project_Manager_new__c" onchange={projectManagerChange} value={projectManager}></lightning-input-field>
@@ -138,30 +138,35 @@
         
                      
                               <div class="slds-form-element">
-                                        <label class="Labels" for="textarea-id-01"> Brief Scope:</label>
+                                        <label class="Labels required1" for="textarea-id-01"> Brief Scope:</label>
                                         <div class="slds-form-element__control">
-                                          <lightning-textarea required="" class="slds-textarea" placeholder="Type a Brief Scope Here" onchange={briefScopeChange} value={briefScope}></lightning-textarea>
+                                          <lightning-textarea placeholder="Type a Brief Scope Here" onchange={briefScopeChange} value={briefScope}></lightning-textarea>
                                         </div>
                                       </div>
                                       <div class="slds-form-element">
-                                            <label class="Labels" for="textarea-id-01"> Notes:</label>
+                                            <label class="Labels required1" for="textarea-id-01"> Notes:</label>
                                             <div class="slds-form-element__control">
-                                              <lightning-textarea required="" class="slds-textarea" placeholder="Type Notes Here" onchange={notesChange} value={notes}></lightning-textarea>
+                                              <lightning-textarea  placeholder="Type Notes Here" onchange={notesChange} value={notes}></lightning-textarea>
                                             </div>
                                         </div>
-                        <div class="form">
-                                <lightning-button label="Create PM Assignment"  onclick={createPMAssignment} variant="success"> </lightning-button> 
-                                <lightning-button label="Cancel" onclick={Cancel} variant="destructive"></lightning-button>
-                        </div>
-                        <template if:true={loading}>
-                               <div class="Spinner">
-                                   <lightning-spinner size="medium" alternative-text="Loading" variant="brand"></lightning-spinner>
-                               </div>
-                        </template>
-<template if:true={error}>
-       <div class="errormessage">Fill out all required fields</div>
-</template>
+                        
+                        
+                       
   </div>
+  <div class="slds-p-around_medium lgc-bg-inverse element">
+    <lightning-button-group>
+      <lightning-button label="Submit"  onclick={createPMAssignment} variant="brand"> </lightning-button> 
+          <lightning-button label="Cancel" onclick={Cancel} ></lightning-button>
+    </lightning-button-group>
+    </div>
+    <template if:true={loading}>
+      <div class="Spinner">
+          <lightning-spinner size="medium" alternative-text="Loading" variant="brand"></lightning-spinner>
+      </div>
+</template>
+<template if:true={error}>
+<div class="errormessage">Fill out all required fields</div>
+</template>
         </div>
 </template>
 

@@ -16,7 +16,7 @@ public without sharing class CustomerSurveyFieldUpdate {
         }
         Map<Id, ATI_Job__c> jobsMap = new Map<Id, ATI_Job__c>();
         if(!jobIds.isEmpty()){
-            jobsMap = new Map<Id, ATI_Job__c>([SELECT id, Name, ownerID, Office2__c, Project_Site_Contact_Name__c, 
+            jobsMap = new Map<Id, ATI_Job__c>([SELECT id, Name, Office2__c, Project_Site_Contact_Name__c, 
                                                       Project_Manager_new__c, Project_Manager__r.ManagerId, 
                                                       Structure_Superintendent__c, Operations_Manager__c, Branch_Manager__c 
                                                FROM ATI_Job__c 

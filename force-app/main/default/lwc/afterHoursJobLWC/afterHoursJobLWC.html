@@ -111,7 +111,10 @@
                                      >
         </lightning-input-address>
         <lightning-input label="Address Line 2" value={AddressLine2}  class="center" onchange={AddressLine2Change}></lightning-input>
-        <lightning-input label="Comments" value={Comments} class="center" onchange={CommentsChange}></lightning-input>
+        <lightning-helptext content="Provide the name, company (if any), email address, and phone number for the customer and the project site contact, if different."></lightning-helptext>
+        <lightning-textarea label="Customer and Contact Info"  value={ContactInfo} class="center" onchange={ContactInfoChange}></lightning-textarea>
+      
+        <lightning-helptext content="Provide a description of the loss and job and any additional information such as Insurance (provider, policy #, claim # ), Lead Source, existing contract or PO #, etc."></lightning-helptext>
         <lightning-textarea label="Description" value={Description} class="center" onchange={DescriptionChange}></lightning-textarea>
         <br>
     <!-- </div> -->
@@ -126,4 +129,59 @@
         <lightning-button label="Cancel" onclick={Cancel}></lightning-button>
         </lightning-button-group>
     </div>
+
+    <template if:true={newDescription}>
+                   
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                
+                <div class="slds-modal__container">
+                    
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeDescriptionModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate biggerText">Description of Loss
+                        </h2>
+                    </header>
+                    <!-- modal body start -->
+                    <div class="slds-box slds-theme_shade">
+                        <!-- <div class="slds-grid"> -->
+                        <!-- <div class="slds-col slds-size_1-of-2"> -->
+                        <lightning-input label="Type of Loss: (e.g. Water, Fire, Wind, Lead/Asbestos/Bio Contamination)" value={TypeOfLoss} onchange={TypeOfLossChange} ></lightning-input>
+                        <lightning-input label="Cause of Loss: (e.g. Pipe Leak, Weather, Disaster)" onchange={CauseOfLossChange} value={CauseOfLoss}></lightning-input>
+                        <lightning-input label="Customer Type: (e.g. Residential, Commercial, Municipal)" onchange={CustomerTypeChange} value={CustomerType}></lightning-input>
+                        <lightning-input label="Property Description: (e.g. Building Type, # of Stories)" onchange={PropertyDescriptionChange} value={PropertyDescription}></lightning-input>
+                        <lightning-input label="Areas Affected: (e.g. Rooms or Units)" onchange={AreasAffectedChange} value={AreasAffected} ></lightning-input>
+                        
+                        
+                    <!-- </div> -->
+                        <!-- <div class="slds-col slds-size_1-of-2"> -->
+                        <lightning-input label="Damaged Materials: (e.g. Flooring, Drywall, Exterior, Ceiling, Roof, Possessions/Contents)" value={DamagedMaterials} onchange={DamagedMaterialsChange}></lightning-input>
+                        <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} value={FlooringType}></lightning-input>
+                        <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
+                        <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} value={GateCode}></lightning-combobox>
+                        <lightning-combobox label="Is this related to the Coronavirus? (Y/N)" options={optionsYesNo} onchange={CoronavirusChange} value={Coronavirus}></lightning-combobox>
+                        <lightning-combobox label="Are you requiring same-day dispatch? (Y/N)" options={optionsYesNo} onchange={SameDayDispatchChange} value={SameDayDispatch}></lightning-combobox>
+
+                   
+                        <br>
+                                 <lightning-button-group>
+                                     <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={SaveDescription}></lightning-button>
+                                     <lightning-button label="Cancel" class="Buttonspacing" onclick={closeDescriptionModal}></lightning-button>
+                                 </lightning-button-group>
+        
+                    </div>
+                    
+                                 
+                    </div>
+        </section>
+    
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
 </template>

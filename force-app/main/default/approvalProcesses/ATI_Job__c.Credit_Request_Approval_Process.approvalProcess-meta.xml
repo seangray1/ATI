@@ -3,6 +3,10 @@
     <active>true</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
+        <submitter>Hybrid_PD</submitter>
+        <type>group</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>Director_of_Business_Development_Central</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -134,6 +138,14 @@
         <submitter>National_Account_Manager_Retail_and_Hospitality</submitter>
         <type>role</type>
     </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>nicholas.sekol@atirestoration.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>vito.abbinante@atirestoration.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
         <field>Submitted_for_Approval_By__c</field>
@@ -166,7 +178,7 @@
         <criteriaItems>
             <field>User.Profile</field>
             <operation>equals</operation>
-            <value>Marketing Representative,Teresa Delatorre - Custom</value>
+            <value>Marketing Representative,Teresa Delatorre - Custom,Project Director,System Administrator</value>
         </criteriaItems>
         <criteriaItems>
             <field>User.Profile</field>

@@ -129,6 +129,7 @@ public with sharing class JobButtons {
     }
     @AuraEnabled
     public static string PMAssignmentChatter(Date startDate, String recordId, String ownerId, Date completionDate,  String notes, String briefScope,String PackagedJSON){
+        try {
         system.debug('StartDate ' + startDate + ' Record Id ' + recordId);
         JSONWrapper ContactID;
         Id conId;
@@ -208,8 +209,11 @@ public with sharing class JobButtons {
         req1.setSkipEntryCriteria(true);
         // Submit the approval request for the account
         Approval.ProcessResult result = Approval.process(req1);
-
+        Approval.unlock(recordId);
         return 'Success';
+    } catch (Exception e) {
+        return e.getMessage();    
+    }
     }
     @future
     public static void UpdateCompletionDatePerPM(Id JobID, Date completionDatePerPD, Id ProjectManagerId){

@@ -268,12 +268,12 @@
         <lookupPhoneDialogsAdditionalFields>Mobile__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Phone_Ext__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Phone_Ext__pc</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ZI_Company_Fax__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ZI_Company_Fax__pc</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ZI_Company_Fax_A__c</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ZI_Company_Phone__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ZI_Company_Fax__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ZI_Company_Phone__pc</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ZI_Company_Phone_A__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ZI_Company_Phone__c</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ZI_Direct_Phone__pc</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Timberline_Customer_Number__c</searchResultsAdditionalFields>

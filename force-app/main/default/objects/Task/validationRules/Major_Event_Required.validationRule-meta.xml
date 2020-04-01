@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Major_Event_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+ISPICKVAL(  Type ,&quot;Major Event Inquiry&quot;), 
+ISBLANK(  Major_Event__c  )
+)</errorConditionFormula>
+    <errorDisplayField>Major_Event__c</errorDisplayField>
+    <errorMessage>You must populate Major Event when Type equals Major Event Inquiry</errorMessage>
+</ValidationRule>

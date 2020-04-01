@@ -23,6 +23,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Major Event Inquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Marketing Note</fullName>
             <default>false</default>
         </values>
@@ -426,6 +430,10 @@
         </values>
         <values>
             <fullName>MSA%2FERA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Major Event Inquiry</fullName>
             <default>false</default>
         </values>
         <values>

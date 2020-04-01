@@ -867,6 +867,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Intake_Status__c</picklist>
+        <values>
+            <fullName>Business Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reviewed%2FCompleted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Job_Category__c</picklist>
         <values>
             <fullName>2019 Saddle Ridge%2FLA Fire</fullName>
