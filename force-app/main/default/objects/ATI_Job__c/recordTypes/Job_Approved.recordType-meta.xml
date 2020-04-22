@@ -893,6 +893,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Corona Virus %231</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corona Virus %232</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corona Virus %233</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Hurricane Florence</fullName>
             <default>false</default>
         </values>

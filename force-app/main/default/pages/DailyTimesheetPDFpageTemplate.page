@@ -486,9 +486,10 @@
             <label class="WrapTitle">Total Crew PW DBL</label>
             <label class="WrapTxt">{!DailyTimeSheet.TotCWPWDBL}</label>
         </div>
+      
     </div>
  
+
      </div>           
-        
-  
+    
 </apex:page>

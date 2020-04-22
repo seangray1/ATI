@@ -57,6 +57,21 @@
                 <default>false</default>
                 <label>Wildfires</label>
             </value>
+            <value>
+                <fullName>Corona Virus #1</fullName>
+                <default>false</default>
+                <label>Corona Virus #1</label>
+            </value>
+            <value>
+                <fullName>Corona Virus #2</fullName>
+                <default>false</default>
+                <label>Corona Virus #2</label>
+            </value>
+            <value>
+                <fullName>Corona Virus #3</fullName>
+                <default>false</default>
+                <label>Corona Virus #3</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

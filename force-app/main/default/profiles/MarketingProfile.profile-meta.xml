@@ -13058,11 +13058,27 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>InvoicePDFNew</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>InvoicePDFTemplate</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>InvoicePDFTemplateNew</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>InvoicePDFTemplateNew1</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>InvoicePreview</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>InvoicePreviewNew</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -13652,6 +13668,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>SelectFilesFromSalesforce</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>SendExternalEmailAvailable</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

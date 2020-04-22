@@ -14,6 +14,7 @@
 @isTest
 public with sharing class JobUtility_Test {
    
+  
     static testMethod void ManagerToOwnerCopy(){
         list<ATI_job__c> Jobs;
         Id approvedId;
@@ -78,17 +79,14 @@ public with sharing class JobUtility_Test {
             insert lstContact;
             
             Jobs = TestDataUtil.createJob(3, true, new Map<String, String>{'Account__c' => lstAccounts[0].Id, 'Add_Correct_Email__c' => ''});
-           
             map<id, ATI_job__c> oldmap = new map<id, ATI_job__c>();
             oldmap.put(Jobs[0].id, Jobs[0]);
-            
-            update Jobs; 
+            //update Jobs; 
             
             Test.startTest();
             JobUtility.ManagerToOwnerCopy(oldmap, Jobs);
             JobUtility.removeJobOwnerfromTeam(oldmap, Jobs);
-            Test.stopTest();
-            
+            Test.stopTest();            
         }
     }
 
@@ -115,7 +113,7 @@ public with sharing class JobUtility_Test {
             insert lstContact;
             
             Jobs = TestDataUtil.createJob(3, true, new Map<String, String>{'Account__c' => lstAccounts[0].Id, 'Add_Correct_Email__c' => 'test@demand.com', 'Project_site_contact_name__c' => lstContact[0].id});
-            
+          
             map<id, ATI_job__c> oldmap = new map<id, ATI_job__c>();
             oldmap.put(Jobs[0].id, Jobs[0]);
             Jobs[0].Add_Correct_Email__c = 'abc@gmail.com';
@@ -236,8 +234,10 @@ public with sharing class JobUtility_Test {
             
             list<contact> lstContact = TestDataUtil.createContacts(2, false, new map<String,Object>(), lstAccounts[0].Id);
             insert lstContact;
+            
             office__c o = new office__c(Name = 'HQ');
             insert o;
+
             Jobs = TestDataUtil.createJob(3, false, new map<String,Object>(), lstAccounts[0].Id);
     
             Jobs[0].contact__c = lstContact[0].id;
@@ -253,8 +253,7 @@ public with sharing class JobUtility_Test {
             Jobs[0].Project_Site_Record_Id__c = '12345';
             Jobs[0].RecordTypeId = notApprovedId;
             Jobs[0].Job_Name__c ='test';
-            jobs[0].office2__c = o.id;
-            
+            jobs[0].office2__c = o.id;            
     		Jobs[0].Last_Successful_Timberline_Update__c = system.today();
             
             Jobs[1].contact__c = lstContact[0].id;
@@ -284,8 +283,10 @@ public with sharing class JobUtility_Test {
             Jobs[2].Job_Name__c ='test2';
             Jobs[2].Last_Successful_Timberline_Update__c = system.today();
             insert Jobs;   
+            
             Forecast__c forecast = new Forecast__c(Revenue_Amount__c = 100, Invoice_date__c = system.today(), Ati_job__c = jobs[0].id);
         	insert forecast;
+            
             Jobs[0].RecordTypeId = approvedId;
             Jobs[0].work_authorization__c = true;
           //  Jobs[0].stage__c = 'Qualified';
@@ -293,6 +294,8 @@ public with sharing class JobUtility_Test {
             jobs[0].amount__c = 110;
             Jobs[0].stage__c= 'Won';
             update Jobs;
+            
+            
             // Jobs[0].stage__c = 'Won';
             // update Jobs;
             
@@ -316,27 +319,23 @@ public with sharing class JobUtility_Test {
             LocaleSidKey = 'en_US', 
             LanguageLocaleKey = 'en_US',
             IsActive = true);
-        insert U2; 
+        	insert U2; 
             //jobutility.offerLetterToPDF(jobs, jobs);
            
         }
-        	
-        	
-        
+
         System.runAs( new User(Id = userInfo.getUserId())){
             for(ATI_job__c Job : Jobs){
                 Job.Project_Site_City__c = 'Fremont';
             }
-            
-
         }
 
         Test.startTest();
             String outPutJson = '{"location": { "lat": 37.09024, "lng": -95.712891}}';
             Test.setMock(HttpCalloutMock.class, new MockHttpFotoIn(200, 'success', outPutJson, null));
             JobCall.syncFotoIn(Jobs[0].id);
-        	Test.stopTest();    
-        delete Jobs;
+        	Test.stopTest();
+        	delete Jobs;
     }
     /* static testMethod void updateBranchManager(){
         list<ATI_job__c> Jobs;

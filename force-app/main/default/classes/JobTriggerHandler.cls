@@ -14,6 +14,7 @@ public without sharing class JobTriggerHandler {
     public static void handleBeforeInsertOnly(){
         // PREVENT DUPLICATE JOB NUMBERS ON CLONE
         system.debug('Hitting before clone' );
+        system.debug('cfg.JobSetJobNumber__c'+cfg.JobSetJobNumber__c);
         if (cfg.JobSetJobNumber__c && Trigger.isBefore && Trigger.isInsert) {
             System.debug(Logginglevel.INFO, 'JobTrigger: Running ATIJobControl.preventDuplicateJobNumbers...');
             ATIJobControl.preventDuplicateJobNumbers(Trigger.new);
@@ -27,7 +28,8 @@ public without sharing class JobTriggerHandler {
         //JobAEBonusTriggerHandler.createJobPrimaryContactRoles( null, Trigger.new );        
         JobAEBonusTriggerHandler.updateLastPreviousJobDateOnAccount( Trigger.new );
         //JobAccountAndJobContact.InsertJobAccountandJobContact(Trigger.new);
-        Create_Opportunity_Handler.createOpportunity(Trigger.new);      
+        Create_Opportunity_Handler.createOpportunity(Trigger.new); // Added by  DemandBlue
+        
         //synch After Hour Leads with Econz
         Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
@@ -55,6 +57,9 @@ public without sharing class JobTriggerHandler {
     public static void handleAfterUpdatesOnly(){
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
+        
+        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap); // Added by  DemandBlue
+        
         JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
         JobUtility.UnlockRecord(Trigger.new, oldJobMap);
         JobUtility.offerLetterToPDF(trigger.new, oldJobMap);

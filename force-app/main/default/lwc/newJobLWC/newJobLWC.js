@@ -1387,7 +1387,7 @@ CreateNewJob(){
                 alert('Roles cannot be left blank');
             }else{
             if(this.billToCount > 1 || this.callerCount > 1){
-                alert('Only One Bill To and One Project Site Contact can be selected as a Role');
+                alert('Only One Primary/Bill-to and One Project Site Contact can be selected as a Role');
                 this.billToCount = 0;
                 this.projectSiteContactCount = 0;
                 this.callerCount = 0;
@@ -1396,7 +1396,7 @@ CreateNewJob(){
                     this.billToCount = 0;
                     this.projectSiteContactCount = 0;
                     this.callerCount = 0;
-                    alert('A Bill To and Project Site Contact Role MUST be selected');
+                    alert('A Primary/Bill-to, Caller and Project Site Contact Role MUST be selected');
                    
                 }else{
                 if(this.PropertyID === "" && this.PropertyType === ""){

@@ -357,7 +357,7 @@ public with sharing class NewJobController {
     }  
     @AuraEnabled
     public static String AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
-    String AddressLine2, String ContactInfo, String Description){
+    String AddressLine2, String ContactInfo, String Description, String MajorEvent, String ProjectDirector){
         //Create Master Job
         //a. Office goes on Master, State City Zip goes on job. Description goes on Master
         //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
@@ -406,9 +406,10 @@ public with sharing class NewJobController {
             if(county.length() > 15){
                 county = county.substring(0, 15);
             }
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1', date_time_approved__c = datetime.now(), Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
+            //date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
+        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
         Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
-        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode,  County__c = county, CloseDate__c = date.today().adddays(5),
+        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode,  County__c = county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
         Date_Time_Taken__c = datetime.now());
         if(!account.isempty()){
             job.Account__c = account[0].id;
@@ -416,6 +417,7 @@ public with sharing class NewJobController {
             job.Project_site_Contact_Account__c = account[0].id;
         } 
         insert job;
+        
         system.debug('After Job creation');
         return job.id;
         }

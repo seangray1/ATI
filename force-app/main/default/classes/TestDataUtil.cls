@@ -199,6 +199,7 @@ public class TestDataUtil {
             Jobs.add(j);
         }
         
+                
         return createRecords( Jobs, doInsert, nameValueMap );
     }
     
@@ -307,6 +308,7 @@ public class TestDataUtil {
         }
         return propList;
     }
+    
     public static List<Master_job__c> CreateMasterJob(Integer numToInsert, Boolean doInsert, List<Property__c> props){
         list<Master_job__c> mjList = new List<Master_job__c>();
         for(Integer i=0; i<numToInsert; i++){
@@ -318,6 +320,7 @@ public class TestDataUtil {
         }
         return mjList;
     }
+   
     public static List<Account_Roles__c> CreateAccountRoles(Integer numToInsert, Boolean doInsert, List<Property__c> props){
         list<Account_Roles__c> ars = new List<Account_Roles__c>();
         for(Integer i=0; i<numToInsert; i++){
@@ -360,12 +363,14 @@ public class TestDataUtil {
             }
         }
         
+       
         if (doInsert) {
             // insert records;
             Database.DMLOptions dml = new Database.DMLOptions();
             dml.DuplicateRuleHeader.AllowSave = true; 
             Account duplicateAccount = new Account(Name='dupe'); 
             List<Database.SaveResult> results = Database.insert(records, dml); 
+            //System.Debug('Database.SaveResult-------------------------->:' +results);
         }
         return records;
     }

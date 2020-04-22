@@ -40,6 +40,19 @@
         </assignmentItems>
     </assignments>
     <assignments>
+        <name>Coronavirus_GP</name>
+        <label>Coronavirus GP</label>
+        <locationX>658</locationX>
+        <locationY>502</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>40.0</numberValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
         <name>Default_GP</name>
         <label>Default GP</label>
         <locationX>837</locationX>
@@ -81,12 +94,12 @@
     <decisions>
         <name>Check_Estimated_GP</name>
         <label>Check Estimated GP</label>
-        <locationX>652</locationX>
-        <locationY>67</locationY>
+        <locationX>627</locationX>
+        <locationY>62</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Est_GP_NULL</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>(1 OR 4) AND 2 AND 3</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Gross_Profit__c</leftValueReference>
                 <operator>IsNull</operator>
@@ -108,17 +121,75 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Gross_Profit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Division_Selection</targetReference>
+                <targetReference>Coronavirus_Jobs</targetReference>
             </connector>
             <label>Est GP NULL</label>
         </rules>
     </decisions>
     <decisions>
+        <name>Coronavirus_Jobs</name>
+        <label>Coronavirus Jobs</label>
+        <locationX>888</locationX>
+        <locationY>63</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Coronavirus_Job_GP</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Corona</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Coronavirus_GP</targetReference>
+            </connector>
+            <label>Coronavirus Job GP</label>
+        </rules>
+        <rules>
+            <name>Not_Coronavirus_Jobs</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Corona Virus #1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Corona Virus #2</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Corona Virus #3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Division_Selection</targetReference>
+            </connector>
+            <label>Not Coronavirus Jobs</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Division_Selection</name>
         <label>Division Selection</label>
-        <locationX>847</locationX>
-        <locationY>64</locationY>
+        <locationX>1056</locationX>
+        <locationY>62</locationY>
         <defaultConnector>
             <targetReference>Default_GP</targetReference>
         </defaultConnector>
@@ -276,7 +347,7 @@
     </recordLookups>
     <start>
         <locationX>50</locationX>
-        <locationY>64</locationY>
+        <locationY>63</locationY>
         <connector>
             <targetReference>Get_Job</targetReference>
         </connector>
