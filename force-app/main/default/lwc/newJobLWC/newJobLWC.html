@@ -53,7 +53,7 @@
                     <div if:true={PropertySelected}>
                         <div class="slds-col slds-size_1-of-5">
                             <lightning-formatted-address street={Street}
-                                            city={City} country='US' province={State}
+                                            city={City}  province={State}
                                             postal-code={Zip} disabled>
                                         </lightning-formatted-address>
                         </div>
@@ -93,7 +93,10 @@
                 </template>
 
             </div>
-            <lightning-button label="New Property" variant="brand" class="pushRight" onclick={ToggleNewProperty}></lightning-button>
+            <template if:true={PropertyIsNotSelected}>
+                <lightning-button label="New Property" variant="brand" class="pushRight" onclick={ToggleNewProperty}></lightning-button>
+            </template>
+           
             <!-- <lightning-button label="Edit Property" variant="brand" class="pushRight" onclick={ToggleNewProperty}></lightning-button> -->
         </template>
         <template if:false={NotNewProperty}>
@@ -115,6 +118,23 @@
         <!-- </div> -->
         <br>
         <lightning-accordion-section name="Account Roles" label="Account Roles">
+            <div if:true={ARDivision}>
+            
+
+                <div if:true={Afterhoursform}>
+    <textarea disabled style="width:400px;
+    height:180px;
+    background:#16325C;
+    color:#FFF;
+    padding:5px 2px;
+    text-align:left;
+    top:0;
+    position:absolute; 
+    right:0;">{ContactInfoAndDescription}</textarea>
+    
+
+</div>
+</div>
             <lightning-helptext style="width: 500px;" content='To assign a new Account or Contact to this Job, click [Add Row], then search for either the Contact or Account, then Select Account Roles and add all that apply.  To create a new Contact or Account click New Contact or New Account, enter the required information, and then Select Account Roles. 
             Required Roles:  Primary/Bill-to, Caller, Referred By, and Project Site Contact.  If there was no third party referral, set the Caller as the Referred By role also.  Add additional roles, if applicable, especially Insurance.'>
                     
@@ -591,13 +611,20 @@
                        
             </div>
             <br>
-            <lightning-button label="Fill Out Description" onclick={newDescriptionClick}></lightning-button>
+            <lightning-button label="Fill Out Description" variant="brand" onclick={newDescriptionClick}></lightning-button>
+            <div class="slds-grid">
             <div class="slds-col slds-size_1-of-2">
             <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
             
             <!-- <textarea style="height: 250px; width:500px;" disabled={DescriptionDisabled} class="jobFormControl" onchange={DescriptionChange}>{Description}</textarea> -->
                             
                                         <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                       
+                                    </div>
+                                    <!-- <div class="slds-col slds-size_1-of-2">
+                                        <label class="Labels" for="textarea-id-01"> Contact Info and Description</label>
+                                        <textarea>{ContactInfoAndDescription}</textarea>
+                                    </div> -->
                                     </div>
                                     
             </template>

@@ -85,9 +85,9 @@ TypeOfLoss = "";CauseOfLoss = ""; CustomerType = ""; PropertyDescription = ""; A
 DamagedMaterials = ""; FlooringType = ""; PowerShutOff = ""; GateCode = ""; StandingWater = ""; CleanWater = "";
 Plumber = ""; WaterShutOff = ""; LeakFixed = ""; FireDamage = ""; EmergencyResponders = ""; Clearance = "";
 BloodOrFluids = ""; Body = ""; Odor = ""; Belongings = "";
-@api jobrecordId;
-@api TypeOfJobEntry;
-@track AccountRoles = [{}];@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;@track Coronavirus = "";@track SameDayDispatch = "";@track focusClicked = false;
+@api jobrecordId;@track Afterhoursform = false;
+@api TypeOfJobEntry; @track PropertyIsNotSelected = true;
+@track AccountRoles = [{}];@track ContactInfoAndDescription;@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;@track Coronavirus = "";@track SameDayDispatch = "";@track focusClicked = false;
 
 // @wire(getRecord, {
 //     recordId: UserId,
@@ -147,6 +147,19 @@ connectedCallback(){
         GetJobInfo({recordId:this.jobrecordId}).then(result =>{
             let jobresults = result;
             console.log('Job results are ' + jobresults + '   jobresults city ' + jobresults.Project_Site_City__c);
+            if(jobresults.Project_Manager__c !== null && jobresults.Project_Manager__c !== undefined && obresults.Project_Manager__c !== ""){
+           
+                console.log('Project Director is ' + jobresults.Project_Manager__r.Name);
+                
+            this.ProjectDirectorId = jobresults.Project_Manager__c;
+            this.ProjectDirectorValue = jobresults.Project_Manager__r.Name;
+            }
+            if(jobresults.Major_Event__c !== undefined){
+                console.log('Major Event is ' + jobresults.Major_Event__c);
+                console.log('Major Event is ' + jobresults.Major_Event__r.Name);
+            this.MajorEventValue = jobresults.Major_Event__r.Name;
+            this.MajorEventId = jobresults.Major_Event__c;
+            }
             this.Description = jobresults.Description__c;
             this.OfficeId = jobresults.Office2__c;
             this.OfficeValue = jobresults.Office2__r.Name
@@ -160,6 +173,12 @@ connectedCallback(){
             this.JobName = jobresults.Job_Name__c;
             this.Division = jobresults.Division__c;
             this.MasterJobId = jobresults.Master_Job__c;
+            this.Afterhoursform = true;
+            
+            this.ContactInfoAndDescription = jobresults.Contact_Info__c + '\n' + '\n' + jobresults.Description__c;
+            console.log(jobresults.Contact_Info__c);
+            console.log(this.ContactInfoAndDescription);
+           
 
             //Property goes to edit form
             // this.NotNewProperty = false;
@@ -852,6 +871,8 @@ ClearSearch(){
     this.Zip = "";
     this.City = "";
     this.State = "";
+    
+    this.PropertyIsNotSelected = true;
 }
 ContactIdChangeNew(){
 this.CustomerSelected = true;
@@ -1253,6 +1274,7 @@ populatePropertyField(event){
     
     this.Properties = '';
     this.PropertySelected = true;
+    this.PropertyIsNotSelected = false;
     this.testingProperty = event.target.value;
     this.PropertySelectedField = event.target.value;
     this.PropertyValue = this.PropertySelectedField.Name;

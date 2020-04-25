@@ -160,9 +160,9 @@ public with sharing class NewJobController {
     }
     @AuraEnabled 
     public static ATI_Job__c GetJobInfo(string recordId){
-        ATI_Job__c job = [Select Id, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c,
+        ATI_Job__c job = [Select Id, Project_Site_Address__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
         Project_Site_Address_2__c, Project_Site_Street__c, Job_Name__c, Stage__c, Master_Job__c, Division__c,  Date_of_Loss__c, Description__c, 
-        Office2__c, Office2__r.Name FROM ATI_Job__c Where Id =: recordId];
+        Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name FROM ATI_Job__c Where Id =: recordId];
        
         
         return job;
@@ -363,8 +363,7 @@ public with sharing class NewJobController {
         //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
         // also set job record type to approved..
         system.debug('Before Master Job creation');
-        try {
-            Http h = new Http();
+        Http h = new Http();
             HttpRequest req = new HttpRequest();
              String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
              req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
@@ -386,6 +385,10 @@ public with sharing class NewJobController {
 
                 }  
             }
+            Savepoint sp = Database.setSavepoint();
+        try {
+            
+            
         Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
         insert mj;
         system.debug('After Master Job creation');
@@ -394,23 +397,26 @@ public with sharing class NewJobController {
         Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
         
         List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
-        
+        system.debug('Account list ' +  account);
         
         system.debug('Before Job creation');
             //County Search
         
             //Add contactinfo when the field is created.
+            system.debug('City is  ' + City);
             if(City.length() > 15){
                 City = City.substring(0, 15);
             }
-            if(county.length() > 15){
+            system.debug('County is  ' + county);
+            if(county != null && county.length() > 15){
                 county = county.substring(0, 15);
             }
             //date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Stage__c = 'Qualification', Taken_By__c = userId,
         Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
-        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode,  County__c = county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
+        Project_Site_City__c = City, Project_Site_State__c = State, Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
         Date_Time_Taken__c = datetime.now());
+        system.debug('Job info is ' + job);
         if(!account.isempty()){
             job.Account__c = account[0].id;
             job.Project_site_Contact_Name__c = account[0].PersonContactId;
@@ -422,6 +428,7 @@ public with sharing class NewJobController {
         return job.id;
         }
         catch (Exception e) {
+            Database.rollback(sp);
             return e.getMessage();
         }
     }                
@@ -444,18 +451,9 @@ public with sharing class NewJobController {
         Id PrimaryContact;
         Id Referred;
         Id InsuranceAdjuster;
-        
-        //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
-        try {
-
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
         JobWrapper jobWrap = (JobWrapper)JSON.deserialize(jobInfo, JobWrapper.class);
-        system.debug('JobWrap is ' + jobWrap);
-        system.debug('PropertyWrap is ' + Property);
-        system.debug('AccountWrap is ' + AR);
-        Set<Id> ContactIdsSet = new Set<Id>();
-        Map<Id,Contact> ContactMap = new Map<Id,Contact>();
         Http h = new Http();
             HttpRequest req = new HttpRequest();
              String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
@@ -478,6 +476,17 @@ public with sharing class NewJobController {
 
                 }  
             }
+        Savepoint sp = Database.setSavepoint();
+        //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
+        try {
+
+        
+        system.debug('JobWrap is ' + jobWrap);
+        system.debug('PropertyWrap is ' + Property);
+        system.debug('AccountWrap is ' + AR);
+        Set<Id> ContactIdsSet = new Set<Id>();
+        Map<Id,Contact> ContactMap = new Map<Id,Contact>();
+        
         for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
             if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account)){
                 ContactIdsSet.add(accountRoles.Contact);
@@ -601,7 +610,7 @@ public with sharing class NewJobController {
         if(prop.City__c.length() > 15){
             prop.City__c = prop.City__c.substring(0, 15);
         }
-        if(prop.County__c.length() > 15){
+        if(prop.county__c != null && prop.County__c.length() > 15){
             prop.County__c = prop.County__c.substring(0, 15);
         }
         
@@ -612,12 +621,19 @@ public with sharing class NewJobController {
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
         Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
         Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
+        // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
+        // jobsas[0].name = 'test';
         if(JobEntryType == 'NewJobEntry'){
         insert job;
         }
         if(JobEntryType =='AfterHoursJobEntry'){
         job.Id = jobrecordId;
+        job.Intake_Status__c = 'Reviewed/Completed';
+        job.Date_Time_Completed__c = system.now();
         update job;
+        List<ATI_Job__c> jobs = new List<ATI_Job__c>();
+        jobs.add(job);
+        Create_Opportunity_Handler.createOpportunity(jobs);
         }
         if(JobEntryType == 'NewJobEntry'){
         MasterJobUpdateJob(mJobId, job.Id);
@@ -667,6 +683,7 @@ public with sharing class NewJobController {
         
     } catch (Exception e) {
         system.debug('Exception is ' + e + '         Whats being return with string is ' + string.valueof(e));
+            Database.rollback(sp);
             return string.valueOf(e);
     }
         

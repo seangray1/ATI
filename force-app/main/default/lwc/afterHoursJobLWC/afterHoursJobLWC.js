@@ -9,11 +9,67 @@ import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
 const DELAY = 600;
 var Street, City, State, ZipCode, Country;
 export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) {
-
-JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description="Description of Loss:"+  '\n' + "Insurance Provider:" + '\n' + 'Claim #:' + '\n' + 'Policy #:'+
-'\n' + 'Lead Source:' + '\n' + 'Additional Information:';OfficeValue;OfficeId;DivisionPicklistValues =[{}];EsJobTypePicklistValues=[{}];
-DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo = "Name:"+  '\n' + "Company:" + '\n' + 'Email:' + '\n' + 'Phone Number:' + '\n' + 'Additional Information:';@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;
+ //   = "Name:"+  '\n' + "Company:" + '\n' + 'Email:' + '\n' + 'Phone Number:' + '\n' + 'Additional Information:';Description of Loss:"+  '\n' + "Insurance Provider:" + '\n' + 'Claim #:' + '\n' + 'Policy #:'+
+//'\n' + 'Lead Source:' + '\n' + 'Additional Information:'
+JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;DivisionPicklistValues =[{}];EsJobTypePicklistValues=[{}];
+DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
+ContactName;Email;PhoneNumber;Company;AdditionalInformation;@track newDescription = false;
+DescriptionOfLoss;InsuranceProvider;Claim;Policy;LeadSource;AdditionalInformationTwo;@track newDescriptionTwo = false;
+DescriptionOfLossChange(e){
+    this.DescriptionOfLoss = e.detail.value;
+}
+InsuranceProviderChange(e){
+    this.InsuranceProvider = e.detail.value;
+}
+ClaimChange(e){
+    this.Claim = e.detail.value;
+}
+PolicyChange(e){
+    this.Policy = e.detail.value;
+}
+LeadSourceChange(e){
+    this.LeadSource = e.detail.value;
+}
+AdditionalInformationTwoChange(e){
+    this.AdditionalInformationTwo = e.detail.value;
+}
+ContactNameChange(e){
+    this.ContactName = e.detail.value;
+}
+EmailChange(e){
+    this.Email = e.detail.value;
+}
+PhoneNumberChange(e){
+    this.PhoneNumber = e.detail.value;
+}
+CompanyChange(e){
+    this.Company = e.detail.value;
+}
+AdditionalInformationChange(e){
+    this.AdditionalInformation = e.detail.value;
+}
+closeDescriptionModal(){
+    this.newDescription = false;
+}
+closeDescriptionModalTwo(){
+    this.newDescriptionTwo = false;
+}
+SaveDescription(){
+    this.ContactInfo = "Name: "+ this.ContactName +  '\n' + "Company: "+ this.Company + '\n' + 'Email: '+ this.Email + '\n' + 'Phone Number: ' + this.PhoneNumber + '\n' + 'Additional Information: '+ this.AdditionalInformation;
+    this.newDescription= false;
+}
+SaveDescriptionTwo(){
+    this.Description = "Description of Loss: "+ this.DescriptionOfLoss +  '\n' + "Insurance Provider: "+ this.InsuranceProvider + '\n' + 'Claim #: '+ this.Claim + '\n' + 'Policy #: ' + this.Policy + '\n' + 'Lead Source: ' + this.LeadSource + '\n' + 'Additional Information: '+ this.AdditionalInformationTwo;
+    this.newDescriptionTwo= false;
+}
+openDescriptionModal(){
+    this.newDescriptionTwo = true;
+}
+openContactInfoModal(){
+    this.newDescription = true;
+}
+
 connectedCallback(){
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
