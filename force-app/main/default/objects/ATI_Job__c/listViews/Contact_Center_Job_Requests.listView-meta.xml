@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Center_Job_Requests</fullName>
+    <columns>Date_Taken__c</columns>
+    <columns>NAME</columns>
+    <columns>Assigned_to_Complete__c</columns>
+    <columns>Office2__c</columns>
+    <columns>Division__c</columns>
+    <columns>Account__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Intake_Status__c</field>
+        <operation>equals</operation>
+        <value>Business Requested</value>
+    </filters>
+    <label>Contact Center - Job Requests</label>
+    <sharedTo>
+        <role>Call_Center</role>
+    </sharedTo>
+</ListView>

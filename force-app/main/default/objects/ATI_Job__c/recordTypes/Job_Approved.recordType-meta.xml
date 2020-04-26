@@ -1435,6 +1435,31 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Market_Class__c</picklist>
+        <values>
+            <fullName>Non-Residential</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_Segment_Sub_Class__c</picklist>
+        <values>
+            <fullName>K-12</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_Segment__c</picklist>
+        <values>
+            <fullName>Program %28MRP%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>PM_Assignment_Status__c</picklist>
         <values>
             <fullName>Approved</fullName>

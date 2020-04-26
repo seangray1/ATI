@@ -123,7 +123,7 @@
 
                 <div if:true={Afterhoursform}>
     <textarea disabled style="width:400px;
-    height:180px;
+    height:280px;
     background:#16325C;
     color:#FFF;
     padding:5px 2px;
@@ -691,7 +691,8 @@
                                                         <br>
 
                                                         <label>Date of Loss: </label>{MasterJob.Date_of_Loss__c}<br>
-                                                        <label>Claim #: </label> {MasterJob.Claim__c}
+                                                        <label>Claim #: </label> {MasterJob.Claim__c}<br>
+                                                        <!-- <label>Description #: </label> {MasterJob.Claim__c} -->
                                                 
                                                 <!-- <lightning-input value={MasterJob.Date_of_Loss__c} disabled></lightning-input>
                                                 <lightning-formatted-number value={MasterJob.Claim__c} disabled></lightning-formatted-number>
@@ -752,6 +753,7 @@
     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
         aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
+            <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
             <!-- modal header start -->
             <header class="slds-modal__header">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
@@ -904,12 +906,14 @@
            
            
             </div>
+        </div>
             </div>
             <template if:true={loadingContact}>
                 <div class="exampleHolder">
                     <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
                 </div>
             </template>
+        
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
 </template>
@@ -917,6 +921,7 @@
 <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
         aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
+            <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
             <!-- modal header start -->
             <header class="slds-modal__header">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
@@ -1001,7 +1006,7 @@
                              <lightning-button label="Cancel" class="Buttonspacing" onclick={closeAccountModal}></lightning-button>
                          </lightning-button-group>
     </div>
-    
+    </div>
 </div>
 <template if:true={loading}>
     <div class="exampleHolder">
@@ -1238,7 +1243,7 @@
                     
                     ></lightning-input-address>
                     <div class="slds-grid">
-                                         <div class="slds-col slds-size_1-of-2">
+                                         <!-- <div class="slds-col slds-size_1-of-2">
                                         <lightning-combobox name="progress"
                                             label="Property Type"
                                             value={PropertyType}
@@ -1249,11 +1254,8 @@
                                             dropdown-alignment=auto
                                             required>
                                         </lightning-combobox>
-                                        <!-- <lightning-input label="Zip" value={Zip} onchange={ZipChange}></lightning-input>
-                                        
-                                    </div>
-                                </div> -->
-                                         </div>
+                                       
+                                         </div> -->
                                          <div class="slds-col slds-size_1-of-2">
                                 <lightning-input label="Address Line 2" value={AddressLine2} onchange={AddressLine2Change}></lightning-input>
                             </div>
@@ -1274,6 +1276,54 @@
                 </section>
                 <div class="slds-backdrop slds-backdrop_open"></div>
                 </template>
+
+
+
+
+                <template if:true={PropertyPrompt}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!-- modal header start -->
+                                <header class="slds-modal__header">
+                                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                        title="Close" onclick={closePropertyPromptModal}>
+                                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                            size="small"></lightning-icon>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                    
+                                </header>
+                                <!-- modal body start -->
+                                <div class="slds-box slds-theme_shade">
+                    <div style="position: center;">
+                                    <div>A Property already exists for the Address: </div>
+                        
+                                    <lightning-formatted-address street={Street}
+                                    city={City} country='US' province={State}
+                                    postal-code={Zip} disabled>
+                                </lightning-formatted-address>
+                             <br>    
+                        <div> Would you like to use the existing Property?</div>
+                        <br>
+                        <lightning-button-group>
+                            <lightning-button label="Yes" onclick={PropertyPromptSelected} variant="brand"></lightning-button>
+                            <lightning-button label="No" onclick={closePropertyPromptModal}></lightning-button>
+                        </lightning-button-group>
+                        
+                    </div>
+                                </div>
+                                             
+                        </div>
+                        
+                   
+                    
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+
+
+
                 <template if:true={newDescription}>
                    
                     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"

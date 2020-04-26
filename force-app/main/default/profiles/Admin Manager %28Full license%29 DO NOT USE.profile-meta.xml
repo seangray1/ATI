@@ -1553,6 +1553,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Cause_of_Loss__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Cell_Phone__c</field>
         <readable>true</readable>
@@ -1648,6 +1653,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Contact_Info__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Contact_Information__c</field>
         <readable>true</readable>
@@ -1720,6 +1730,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ATI_Job__c.Date_24_HR_Report_Uploaded__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Date_Assigned__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2574,6 +2589,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ATI_Job__c.Market_Class__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ATI_Job__c.Market_Segment_Sub_Class__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ATI_Job__c.Market_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ATI_Job__c.Modified_Allocations__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2676,6 +2706,11 @@
         <editable>false</editable>
         <field>ATI_Job__c.Operations_Manager__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Original_XASP_Transaction_ID__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -3309,6 +3344,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ATI_Job__c.Trade__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Type_of_Loss_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Type_of_Loss__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ATI_Job__c.Union_Class__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3386,6 +3436,16 @@
         <editable>false</editable>
         <field>ATI_Job__c.X1sub__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ATI_Job__c.XACT_Emergency__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.XASP_Transaction_ID__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4604,6 +4664,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Budget_Line_Item__c.Item_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Budget_Line_Item__c.Materials__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4629,6 +4694,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Budget_Line_Item__c.Quantity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Budget_Line_Item__c.Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4649,7 +4719,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Budget_Line_Item__c.Tax_Exempt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Budget_Line_Item__c.Trade_Option__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Budget_Line_Item__c.Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

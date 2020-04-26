@@ -101,7 +101,8 @@ public with sharing class NewJobController {
         //JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
         // for(Id ca : PropertyIDs.PropertyID){
         // PropertyIDFinal = ca; }
-        String searchLikeKey = searchKey + '%';
+        String searchLikeKey1 = searchKey + '%';
+        String searchLikeKey = searchLikeKey1.normalizeSpace();
         List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 5];
         system.debug('Properties are ' + props);
         return props;
@@ -157,6 +158,24 @@ public with sharing class NewJobController {
         return mj;
 
         
+    }
+    @AuraEnabled 
+    public static String GetPropertyInfo(String City, String Address, String State, String Zipcode){
+        String searchLikeKey1 = Address + City +  + State +Zipcode;
+        String searchLikeKey = searchLikeKey1.normalizeSpace();
+        system.debug('SearchLikeKey is ' + searchLikeKey);
+        try {
+        List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 1];
+        system.debug('Properties are ' + props);
+        if(!props.isEmpty()){
+            return props[0].Id;
+        }else{
+            return 'False';
+        }  
+    }
+        catch (Exception e) {
+            return string.valueof(e);
+        }  
     }
     @AuraEnabled 
     public static ATI_Job__c GetJobInfo(string recordId){
@@ -533,7 +552,7 @@ public with sharing class NewJobController {
         }
         //system.debug('Master Job Id  is  ' + MasterJobId);
         if(String.isEmpty(Property.PropertyId)){
-            prop.Property_Type__c = Property.PropertyType;
+           // prop.Property_Type__c = Property.PropertyType;
             // prop.Street__c = Property.Street;
             prop.City__c = Property.City;
             prop.Zip__c = Property.Zip;
@@ -545,6 +564,7 @@ public with sharing class NewJobController {
             NewProperty= true;
             prop.Year_Structure_Built__c = YearBuilt;
             prop.Job_Class__c = jobWrap.JobClass;
+            
             prop.County__c = county;
             insert prop;  
             
@@ -598,6 +618,7 @@ public with sharing class NewJobController {
             update masterJob;
             mJobId = MasterJobId;
         }
+        mJobId = MasterJobId;
         //insert job, and relate to Master Job
         Id propId;
         if(NewProperty){
@@ -614,7 +635,7 @@ public with sharing class NewJobController {
             prop.County__c = prop.County__c.substring(0, 15);
         }
         
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
+        ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
         Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Master_Job__c = mJobId, division__c = jobWrap.division,
         Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
@@ -624,6 +645,7 @@ public with sharing class NewJobController {
         // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
         // jobsas[0].name = 'test';
         if(JobEntryType == 'NewJobEntry'){
+            job.Name = jobWrap.JobName;
         insert job;
         }
         if(JobEntryType =='AfterHoursJobEntry'){

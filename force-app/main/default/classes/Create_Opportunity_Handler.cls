@@ -33,7 +33,7 @@ public without sharing class Create_Opportunity_Handler
             }
         }
         
-        // if(!jobIds.isEmpty()) {
+        if(!jobIds.isEmpty()) {
         //     system.debug('Jobids ' + jobIds);
         //     fetchBillToAccountRoles = [select id,name, Multiple_Roles__c, Property_ID__c from Account_Roles__c where Master_Job_ID__c =: jobIds AND Multiple_Roles__c includes('Primary/Bill-to') LIMIT 1];  
         //     system.debug('Account Roles are ' + fetchBillToAccountRoles);
@@ -53,6 +53,7 @@ public without sharing class Create_Opportunity_Handler
                 newOpportunity.Project_Site_Contact_Account__c = eachjob.Project_Site_Contact_Account__c;
                 newOpportunity.Owner__c = eachjob.Owner__c;
                 newOpportunity.Insurance_Adjuster_Broker__c = eachjob.Insurance_Adjuster_Broker__c;
+                system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Name = eachjob.Name;
                 newOpportunity.Job_Name__c= eachjob.Job_Name__c;
                 newOpportunity.Project_Site_State__c= eachjob.Project_Site_State__c;
@@ -68,8 +69,10 @@ public without sharing class Create_Opportunity_Handler
                     newOpportunity.Contact__c=eachjob.Contact__c; 
                 }
             }
+        
             listInsertOpportunity.add(newOpportunity);
-        // }
+        }
+       
         if(!listInsertOpportunity.isEmpty()){
             insert listInsertOpportunity;
         }

@@ -5,5 +5,10 @@
     <columns>NAME</columns>
     <columns>Unit_of_Measurement__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>sentinel</value>
+    </filters>
     <label>All Materials</label>
 </ListView>
