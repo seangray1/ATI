@@ -53,8 +53,11 @@ public without sharing class Create_Opportunity_Handler
                 newOpportunity.Project_Site_Contact_Account__c = eachjob.Project_Site_Contact_Account__c;
                 newOpportunity.Owner__c = eachjob.Owner__c;
                 newOpportunity.Insurance_Adjuster_Broker__c = eachjob.Insurance_Adjuster_Broker__c;
+                newOpportunity.Office2__c = eachjob.Office2__c;
                 system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Name = eachjob.Name;
+                newOpportunity.Division__c = eachjob.Division__c;
+                newOpportunity.Major_Event__c = eachjob.Major_Event__c;
                 newOpportunity.Job_Name__c= eachjob.Job_Name__c;
                 newOpportunity.Project_Site_State__c= eachjob.Project_Site_State__c;
                 newOpportunity.Project_Site_Address__c= eachjob.Project_Site_Address__c;
@@ -91,7 +94,7 @@ public without sharing class Create_Opportunity_Handler
         }
         if(!setJobIds.isEmpty()){
             system.debug('Number of job ids' + setJobIds);
-            List<Opportunity> Opp = [Select Id from Opportunity where Job__c =:setJobIds limit 1];
+            List<Opportunity> Opp = [Select Id from Opportunity where Job__c =:setJobIds];
         // ID OpportunityID = (ID) [Select ID from Opportunity where Job__c =:setJobIds Limit 1].ID;
         system.debug('Number of Opps ' + Opp);
         if(!opp.isEmpty()){
@@ -99,8 +102,13 @@ public without sharing class Create_Opportunity_Handler
             Opportunity updateOpportunity = new Opportunity(); 
             if(oldJobsList.containsKey(newJob.Id)){
                 ATI_Job__c jobRecord = oldJobsList.get(newJob.id);
-                if(jobRecord.Referred_by__c <> newJob.Referred_by__c){
+                if(jobRecord.Referred_by__c <> newJob.Referred_by__c || jobRecord.Name != newJob.Name || jobRecord.Division__c != newJob.Division__c
+                || jobRecord.Amount__c != newJob.Amount__c || jobRecord.Office2__c != newJob.Office2__c){
                     updateOpportunity.Id=opp[0].Id;
+                    updateOpportunity.Division__c = newJob.Division__c;
+                    updateOpportunity.Office2__c = newJob.Office2__c;
+                    updateOpportunity.Amount = newJob.Amount__c;
+                    updateOpportunity.Name = newJob.Name;
                     if(newJob.Referred_by__c <> null){
                         updateOpportunity.Contact__c=newJob.Referred_by__c;
                     } else {

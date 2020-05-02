@@ -92,6 +92,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                  ContactAccountId;
                  ContactAccountName;
                  searchKey;
+                 Policy;
                  NewCaller = false;
                  NewAccount = false;
                  NewProperty = false;
@@ -111,11 +112,13 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                  FirstName;
                  LastName;
                  MailingStreet;
+                 @track JobRealName = '';
                  MailingCity;
                  MailingState;
                  MailingCounty;
                  AccountId = "";
                  MailingPostalCode;
+                 AlternateName= '';
                  Phone;
                  Email;
                  PhoneExt;
@@ -388,9 +391,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                            Zipcode: jobresults.Project_Site_Zipcode__c
                          }).then((result) => {
                            let Prop = result;
-                           if (Prop.length > 17) {
+                           console.log('Prop is ' + Prop);
+                           if (Prop.County__c === 'Same Property') {
                              this.PropertyPrompt = true;
                              this.PropertyTempId = Prop;
+                             
                            } else {
                              this.NewProperty = true;
                            }
@@ -431,6 +436,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                              jobresults.Major_Event__r.Name;
                            this.MajorEventId = jobresults.Major_Event__c;
                          }
+                         this.JobRealName = jobresults.Name;
                          this.Description = jobresults.Description__c;
                          this.OfficeId = jobresults.Office2__c;
                          this.OfficeValue = jobresults.Office2__r.Name;
@@ -439,7 +445,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                          this.State = jobresults.Project_Site_State__c;
                          this.Zip = jobresults.Project_Site_Zipcode__c;
                          this.AddressLine2 =
-                           jobresults.Project_Site_Address_2__c;
+                            jobresults.Project_Site_Address_2__c;
                          // this.PropertyValue = jobresults.Project_Site_Address__c;
                          this.DateOfLoss = jobresults.Date_of_Loss__c;
                          this.JobName = jobresults.Job_Name__c;
@@ -589,6 +595,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                  TypeOfLossChange(e) {
                    this.TypeOfLoss = e.detail.value;
                  }
+                 AlternateNameChange(e){
+                     this.AlternateName = e.detail.value;
+                 }
                  CauseOfLossChange(e) {
                    this.CauseOfLoss = e.detail.value;
                  }
@@ -633,6 +642,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                  }
                  LeakFixedChange(e) {
                    this.LeakFixed = e.detail.value;
+                 }
+                 PolicyChange(e){
+                     this.Policy = e.detail.value;
                  }
                  FireDamageChange(e) {
                    this.FireDamage = e.detail.value;
@@ -766,11 +778,13 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                    this.PropertyPrompt = false;
                  }
                  PropertyPromptSelected() {
-                   this.PropertyID = this.PropertyTempId;
+                   this.PropertyID = this.PropertyTempId.Id;
                    this.Address = this.JobTemp.Address_Line_1__c;
                    this.City = this.JobTemp.Project_Site_City__c;
                    this.State = this.JobTemp.Project_Site_State__c;
                    this.Zip = this.JobTemp.Project_Site_Zipcode__c;
+                   this.JobClass = this.PropertyTempId.Job_Class__c;
+                    this.YearBuilt = this.PropertyTempId.Year_Structure_Built__c;
                    this.PropertyPrompt = false;
                    this.NotNewProperty = false;
                    checkId({ propId: this.PropertyID }).then((result) => {
@@ -2104,17 +2118,20 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                                State: this.State,
                                Street: this.Street,
                                Zip: this.Zip,
-                               AddressLine2: this.AddressLine2
+                               AddressLine2: this.AddressLine2,
+                               AlternateName: this.AlternateName
                              });
                              //Job Fields
                              JobJSON = JSON.stringify({
                                Description: this.Description,
+                               JobRealName: this.JobRealName,
                                Division: this.Division,
                                Office: this.OfficeId,
                                JobClass: this.JobClass,
                                ProjectDirector: this.ProjectDirectorId,
                                TakenBy: this.TakenById,
                                Claim: this.Claim,
+                               Policy:this.Policy,
                                JobName: this.JobName,
                                LeadSource: this.LeadSource,
                                MultipleDivisions: this.MultipleDivision,

@@ -79,21 +79,21 @@ public with sharing class NewJobController {
         
         
     }
-    @AuraEnabled
-    public static List<Account_Roles__c> GetAccountRoless(String PropertyId) {
-        Id PropertyIDFinal;
-        system.debug('Property is ' + PropertyID);
-        JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
-        // for(Id ca : PropertyIDs.PropertyID){
-        // PropertyIDFinal = ca; }
-        system.debug('PropertyID is ' + PropertyID);
-        List<Account_Roles__c> a = [Select Name FROM Account_Roles__c Where Property_ID__c =: PropertyIDs.PropertyID];
-        system.debug('Account roles are ' + a);
-        return a;
-    }
-    public class JSONWrapper{
-        public List<Id> PropertyId {get;set;}
-    }
+    // @AuraEnabled
+    // public static List<Account_Roles__c> GetAccountRoless(String PropertyId) {
+    //     Id PropertyIDFinal;
+    //     system.debug('Property is ' + PropertyID);
+    //     JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
+    //     // for(Id ca : PropertyIDs.PropertyID){
+    //     // PropertyIDFinal = ca; }
+    //     system.debug('PropertyID is ' + PropertyID);
+    //     List<Account_Roles__c> a = [Select Name FROM Account_Roles__c Where Property_ID__c =: PropertyIDs.PropertyID];
+    //     system.debug('Account roles are ' + a);
+    //     return a;
+    // }
+    // public class JSONWrapper{
+    //     public List<Id> PropertyId {get;set;}
+    // }
     @AuraEnabled(cacheable = true)
     public static List<Property__c> GetProperties(String searchKey) {
         
@@ -160,26 +160,29 @@ public with sharing class NewJobController {
         
     }
     @AuraEnabled 
-    public static String GetPropertyInfo(String City, String Address, String State, String Zipcode){
+    public static Property__c GetPropertyInfo(String City, String Address, String State, String Zipcode){
         String searchLikeKey1 = Address + City +  + State +Zipcode;
         String searchLikeKey = searchLikeKey1.normalizeSpace();
         system.debug('SearchLikeKey is ' + searchLikeKey);
-        try {
-        List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 1];
+        // try {
+        List<Property__c> props = [Select Id, Year_Structure_Built__c, County__c, Job_Class__c, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 1];
         system.debug('Properties are ' + props);
         if(!props.isEmpty()){
-            return props[0].Id;
+        Property__c prop1 = props[0];
+        prop1.County__c = 'Same Property';
+        return prop1;
         }else{
-            return 'False';
+            Property__c prop = new Property__c(County__c = 'Not Same Property');
+            return prop;
         }  
-    }
-        catch (Exception e) {
-            return string.valueof(e);
-        }  
+    // }
+        // catch (Exception e) {
+        //     return string.valueof(e);
+        // }  
     }
     @AuraEnabled 
     public static ATI_Job__c GetJobInfo(string recordId){
-        ATI_Job__c job = [Select Id, Project_Site_Address__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
+        ATI_Job__c job = [Select Id, Name, Project_Site_Address__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
         Project_Site_Address_2__c, Project_Site_Street__c, Job_Name__c, Stage__c, Master_Job__c, Division__c,  Date_of_Loss__c, Description__c, 
         Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name FROM ATI_Job__c Where Id =: recordId];
        
@@ -389,11 +392,13 @@ public with sharing class NewJobController {
              EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
              req.setMethod('GET');
              req.setTimeout(60000);
+             string county;
+            if(!Test.isRunningTest()){
             HttpResponse res = h.send(req);
             system.debug('Response is ' + res.getBody());
             resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
             system.debug('results are ' + result);
-            string county;
+            
             for(results a: result.results){
                 system.debug('a ' + a);
                 for(address_components ad : a.address_components){
@@ -404,11 +409,15 @@ public with sharing class NewJobController {
 
                 }  
             }
+        }
             Savepoint sp = Database.setSavepoint();
         try {
             
             
         Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
+        mj.City__c = City;
+        mj.State__c = State;
+        mj.Address_Line_1__c = Street;
         insert mj;
         system.debug('After Master Job creation');
         Id userId = userinfo.getUserId();
@@ -470,6 +479,7 @@ public with sharing class NewJobController {
         Id PrimaryContact;
         Id Referred;
         Id InsuranceAdjuster;
+        string county;
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
         JobWrapper jobWrap = (JobWrapper)JSON.deserialize(jobInfo, JobWrapper.class);
@@ -480,11 +490,12 @@ public with sharing class NewJobController {
              EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
              req.setMethod('GET');
              req.setTimeout(60000);
+             if(!Test.isRunningTest()){
             HttpResponse res = h.send(req);
             system.debug('Response is ' + res.getBody());
             resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
             system.debug('results are ' + result);
-            string county;
+            
             for(results a: result.results){
                 system.debug('a ' + a);
                 for(address_components ad : a.address_components){
@@ -495,6 +506,7 @@ public with sharing class NewJobController {
 
                 }  
             }
+        }
         Savepoint sp = Database.setSavepoint();
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
         try {
@@ -504,16 +516,32 @@ public with sharing class NewJobController {
         system.debug('PropertyWrap is ' + Property);
         system.debug('AccountWrap is ' + AR);
         Set<Id> ContactIdsSet = new Set<Id>();
+        Set<Id> PersonAccountIdSet = new Set<Id>();
         Map<Id,Contact> ContactMap = new Map<Id,Contact>();
+        Map<Id,Account> PersonAccountMap = new Map<Id,Account>();
         
         for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
+            system.debug('Account Roles are : ' + accountRoles);
             if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account)){
                 ContactIdsSet.add(accountRoles.Contact);
+                system.debug('1');
             }
+            if(String.isEmpty(accountRoles.Contact)){
+                PersonAccountIdSet.add(accountRoles.Account);
+            }
+        }
+        if(!PersonAccountIdSet.isEmpty()){
+            for(Account a : [Select Id, PersonContactId FROM Account Where Id =: PersonAccountIdSet]){
+                if(String.isNotEmpty(a.PersonContactId)){
+                PersonAccountMap.put(a.Id, a);
+                system.debug('2');
+            }
+        }
         }
         if(!ContactIdsSet.isEmpty()){
             for(Contact c : [Select Id, AccountId FROM Contact Where Id =: ContactIdsSet]){
                 ContactMap.put(c.Id, c);
+                system.debug('2');
             }
         }
     
@@ -521,28 +549,49 @@ public with sharing class NewJobController {
     
             if(String.isEmpty(accountRoles.Account)){
                 accountRoles.Account = ContactMap.get(accountRoles.Contact).AccountId;
+                system.debug('3');
             }
 
             if(accountRoles.Text.contains('Project Site Contact')){
                 if(!String.isBlank(accountRoles.Account)){
                 ProjectSiteContactAccount = accountRoles.Account;
+                system.debug('4 ' + ProjectSiteContactAccount);
+                if(PersonAccountMap.containsKey(accountRoles.Account)){
+                    ProjectSiteContactContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                }
                 }
                 if(!String.isBlank(accountRoles.Contact)){
                     ProjectSiteContactContact = accountRoles.Contact;
+                    system.debug('5');
                 }
             }
             if(accountRoles.Text.contains('Primary/Bill-to')){
                 if(!String.isBlank(accountRoles.Account)){
                     PrimaryAccount = accountRoles.Account;
+                    if(PersonAccountMap.containsKey(accountRoles.Account)){
+                        PrimaryContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                    }
+                    
+                    
                 }
                 if(!String.isBlank(accountRoles.Contact)){
                     PrimaryContact = accountRoles.Contact;
+                    system.debug('7');
                 }
             }
             if(accountRoles.Text.contains('Referred By')|| accountRoles.Text.contains('Caller') ){
+                if(!String.isBlank(accountRoles.Account)){
+                    Referred = accountRoles.Contact;
+                    system.debug('9');
+                    if(PersonAccountMap.containsKey(accountRoles.Account)){
+                        Referred = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                    }
+                }
                 if(!String.isBlank(accountRoles.Contact)){
                     Referred = accountRoles.Contact;
+                    system.debug('8');
                 }
+                
             }
 
         }
@@ -559,11 +608,13 @@ public with sharing class NewJobController {
             prop.Country__c = Property.Country;
             prop.State__c = Property.State;
             prop.Address_Line_2__c = Property.AddressLine2;
+            prop.Name = 'Test';
             // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
             prop.Address_Line_1__c = Property.Street;
             NewProperty= true;
             prop.Year_Structure_Built__c = YearBuilt;
             prop.Job_Class__c = jobWrap.JobClass;
+            prop.Alternate_Name__c = Property.AlternateName;
             
             prop.County__c = county;
             insert prop;  
@@ -585,6 +636,9 @@ public with sharing class NewJobController {
            masterJob.Taken_By__c = jobWrap.TakenBy;
            masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
            masterJob.office2__c = jobWrap.Office;
+           masterJob.City__c = Property.City;
+            masterJob.State__c = Property.State;
+            masterJob.Address_Line_1__c = Property.Street;
            if(NewProperty){
                masterJob.Property__c = prop.Id;
            }else{
@@ -618,7 +672,7 @@ public with sharing class NewJobController {
             update masterJob;
             mJobId = MasterJobId;
         }
-        mJobId = MasterJobId;
+        
         //insert job, and relate to Master Job
         Id propId;
         if(NewProperty){
@@ -636,7 +690,7 @@ public with sharing class NewJobController {
         }
         
         ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
-        Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Master_Job__c = mJobId, division__c = jobWrap.division,
+        Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
         Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
@@ -649,6 +703,7 @@ public with sharing class NewJobController {
         insert job;
         }
         if(JobEntryType =='AfterHoursJobEntry'){
+        job.Name = jobWrap.JobRealName;
         job.Id = jobrecordId;
         job.Intake_Status__c = 'Reviewed/Completed';
         job.Date_Time_Completed__c = system.now();
@@ -746,6 +801,7 @@ public with sharing class NewJobController {
         public String Zip {get;set;}
         public String PropertyType {get;set;}
         public String AddressLine2 {get;set;}
+        public String AlternateName {get;set;}
     }
     
     public class resultswrapper{
@@ -766,6 +822,7 @@ public with sharing class NewJobController {
         public String Description {get;set;}
         public String Division {get;set;}
         public String JobClass {get;set;}
+        public String Policy {get;set;}
         public String Claim {get;set;}
         public String Deductible {get;set;}
         public String MultipleDivisions {get;set;}
@@ -777,7 +834,8 @@ public with sharing class NewJobController {
         public Id TakenBy {get;set;}  
         public Id ProjectDirector {get;set;}  
         public Date DateOfLoss {get;set;}  
-        public Id MajorEvent {get;set;}  
+        public Id MajorEvent {get;set;}
+        public String JobRealName {get;set;}  
     }
     public class AccountWrapper{
         //public List<Id> PropertyId {get;set;}

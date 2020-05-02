@@ -104,7 +104,7 @@ public without sharing class JobTriggerHandler {
             
             }
         }
-        
+        JobUtility.UpdateApprovedPM(trigger.new, oldJobMap);
         
         
     }

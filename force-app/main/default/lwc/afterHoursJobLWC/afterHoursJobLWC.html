@@ -10,7 +10,7 @@
   1.0    3/3/2020   sean.gray@atirestoration.com     Initial Version
 -->
 <template>
-    <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
+    <!-- <div class="slds-scrollable_y" style="height:120rem;width: 100%;"> -->
         <template if:true={loading}>
             <div class="exampleHolder">
                 <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
@@ -69,16 +69,22 @@
         </template>
         <!-- class="spacing jobFormControl center"
         dropdown-alignment=auto  -->
-                        <lightning-combobox name="progress"
+       
+                        <!-- <lightning-combobox name="progress"
                         label="Division"
                         value={Division}
                         placeholder="-Select-"
                         options={DivisionPicklistValues}
                         onchange={DivisionChange}
+                        class={comboboxes}
                         
+                       
                         required
-                        >
-                        </lightning-combobox>
+                        > -->
+                        <!-- </lightning-combobox> -->
+                    <lightning-record-edit-form object-api-name="ATI_Job__c">
+                        <lightning-input-field field-name="Division__c" value={Division} onchange={DivisionChange}  required></lightning-input-field>
+                    </lightning-record-edit-form>
                         <!-- <select class="slds-select" name = "optionSelect" onchange={changeHandler} >
                             <option value="OPTION A">OPTION A</option>
                             <option value="OPTION B">OPTION B</option>
@@ -86,12 +92,13 @@
                         <template if:true={DivisionEs}>
                        
                         <lightning-combobox name="progress"
+                        
                            label="ES Job Type"
                            value={EsJobType}
                            placeholder="-Select-"
                            options={EsJobTypePicklistValues}
                            onchange={EsJobTypeChange}
-                           class="spacing jobFormControl center"
+                         
                            disabled={EMS}
                            required={DivisionEs}
                             >
@@ -100,7 +107,7 @@
         
     <lightning-input onkeyup={MajorEventChange}
     
-    label="Major Event" placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} type="search" class="jobFormControl spacing"></lightning-input>
+    label="Major Event" placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} type="search" class="spacing"></lightning-input>
  
 <template if:true={MajorEvents}>
  <table
@@ -131,7 +138,7 @@
 
         <lightning-input onkeyup={ProjectDirectorChange}
             
-        label="Project Director"   placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="jobFormControl spacing"></lightning-input>
+        label="Project Director"   placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="spacing"></lightning-input>
        
    <template if:true={ProjectDirectors}>
        <table
@@ -180,11 +187,11 @@
         <lightning-input label="Address Line 2" value={AddressLine2}  class="center" onchange={AddressLine2Change}></lightning-input>
         <br>
         <lightning-button label="Fill Out Contact Info" variant="brand" onclick={openContactInfoModal}></lightning-button>
-        <lightning-textarea label="Customer and Contact Info"  value={ContactInfo} class="center" onchange={ContactInfoChange}></lightning-textarea>
+        <lightning-textarea label="Customer and Contact Info"  value={ContactInfo} class="center jobFormControl" required onchange={ContactInfoChange}></lightning-textarea>
 
       <br>
         <lightning-button label="Fill Out Description" variant="brand" onclick={openDescriptionModal}></lightning-button>
-        <lightning-textarea label="Description" value={Description} class="center" onchange={DescriptionChange}></lightning-textarea>
+        <lightning-textarea label="Description" value={Description} class="center jobFormControl" required onchange={DescriptionChange}></lightning-textarea>
         <br>
     <!-- </div> -->
     </template>
@@ -201,7 +208,7 @@
         <lightning-button label="Save" variant="brand" onclick={Save}></lightning-button>
         <lightning-button label="Cancel" onclick={Cancel}></lightning-button>
         </lightning-button-group>
-    </div>
+    
 </div>
 
     <template if:true={newDescription}>
@@ -252,9 +259,9 @@
                                  </lightning-button-group>
         
                     </div>
-                    
+                 </div>   
                                  
-                    </div>
+                     
         </section>
     
         <div class="slds-backdrop slds-backdrop_open"></div>

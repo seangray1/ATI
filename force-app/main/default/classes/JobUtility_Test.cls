@@ -200,7 +200,7 @@ public with sharing class JobUtility_Test {
             for(ATI_job__c Job : Jobs){
                 Job.Project_Site_City__c = 'Fremont';
             }
-            Jobs[0].RecordTypeId = approvedId;
+            // Jobs[0].RecordTypeId = approvedId;
             update Jobs;            
         }
 

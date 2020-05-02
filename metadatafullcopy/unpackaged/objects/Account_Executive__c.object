@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>ALL Account Executives with references to the Jobs.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AE1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Name = ( ATIJob__r.Account_Executive_1__r.FirstName  &amp; &quot; &quot; &amp; ATIJob__r.Account_Executive_1__r.LastName), true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>AE1</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AE2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Name = (ATIJob__r.Account_Executive_2__r.FirstName &amp; &quot; &quot; &amp; ATIJob__r.Account_Executive_2__r.LastName), true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>AE2</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ATIJob__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ATI Job</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>ATI_Job__c.Account_Executive_1__c</field>
+                <operation>notEqual</operation>
+                <value></value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>ATI_Job__c</referenceTo>
+        <relationshipLabel>Account Executives</relationshipLabel>
+        <relationshipName>Account_Executives</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Formula_Text_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(  OwnerId = $User.Id , TRUE,FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Formula Text 1</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Formula_Text_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(OR($User.Id = OPID__c, $User.Id = OwnerId),TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Formula Text 2</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Job_Created_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATIJob__r.CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Job Created Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>OPID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( UserRole__c = &quot;Marketing (Corporate-Env)&quot;, &quot;00570000001bzaI&quot;, 
+IF ( UserRole__c = &quot;Marketing (Denver)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (Sacramento)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (San Francisco)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (Seattle)&quot;, &quot;00570000001bzao&quot;, 
+IF ( UserRole__c = &quot;Marketing (Dallas)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Houston)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Phoenix)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Tucson)&quot;, &quot;00570000002RZF0&quot;, 
+IF ( UserRole__c = &quot;Marketing (Chicago)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (New England)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (Philadelphia)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (Tampa)&quot;, &quot;00570000004RKzJ&quot;, 
+IF ( UserRole__c = &quot;Marketing (Las Vegas)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Los Angeles)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Riverside)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (San Diego)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Corporate)&quot;, &quot;00570000002P8Yt&quot;, 
+IF ( UserRole__c = &quot;Marketing (Managed Repair Program)&quot;, &quot;00570000005Qilh&quot;, 
+&quot;&quot; )))))))))))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Owner Parent Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UserRole__c</fullName>
+        <description>Check User Role</description>
+        <externalId>false</externalId>
+        <formula>Owner:User.UserRole.Name</formula>
+        <label>UserRole</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Account Executive</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>AE1__c</columns>
+        <columns>AE2__c</columns>
+        <columns>Job_Created_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Account Executive Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Account Executives</pluralLabel>
+    <searchLayouts>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>OBJECT_ID</searchFilterFields>
+        <searchFilterFields>AE1__c</searchFilterFields>
+        <searchFilterFields>AE2__c</searchFilterFields>
+        <searchFilterFields>UserRole__c</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

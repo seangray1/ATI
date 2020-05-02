@@ -1,0 +1,2769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>ATIInvoicePage</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>ATIInvoicePage</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AE_1_Bonus__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AE 1 Bonus</label>
+        <referenceTo>AE_Bonus__c</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AE_2_Bonus__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>AE 2 Bonus</label>
+        <referenceTo>AE_Bonus__c</referenceTo>
+        <relationshipLabel>Invoices (AE 2 Bonus)</relationshipLabel>
+        <relationshipName>Invoices1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ATI_Email__c</fullName>
+        <description>When an invoice is finalized and the job has a national account listed, this will copy the email from the account.</description>
+        <externalId>false</externalId>
+        <label>ATI Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ATI_Job__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ATI Job</label>
+        <referenceTo>ATI_Job__c</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_CC__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CC to</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Invoices (CC to)</relationshipLabel>
+        <relationshipName>InvoicesCC</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Age_of_Job_Completion_to_Invoice__c</fullName>
+        <externalId>false</externalId>
+        <formula>Due_Date__c - Job_Completion_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age of Job Completion to Invoice</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approved_By__c</fullName>
+        <description>Field populated by Invoice Approval Process field update to indicate the user that approved the record</description>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BigTimeSID__c</fullName>
+        <externalId>true</externalId>
+        <label>BigTimeSID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address1__c</fullName>
+        <externalId>false</externalId>
+        <label>Bill To Address</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address3__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Bill To Address</label>
+        <referenceTo>Billing_Address__c</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address_Formula__c</fullName>
+        <description>Formula field to populate Bill To Address onto the Invoice from Billing Address object.</description>
+        <externalId>false</externalId>
+        <formula>Bill_To_Address3__r.Billing_Street__c &amp; IF(ISBLANK( Bill_To_Address3__r.Billing_City__c ), &apos;&apos;, BR()) &amp;  
+Bill_To_Address3__r.Billing_City__c &amp; IF(ISBLANK( Bill_To_Address3__r.Billing_City__c ), &apos;&apos;, &apos;, &apos;)  &amp;  Bill_To_Address3__r.Billing_State__c &amp; &apos; &apos; &amp;  Bill_To_Address3__r.Billing_Zipcode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bill To Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.BillingStreet &amp;  BR() &amp;  Bill_To__r.BillingCity  &amp; &apos;, &apos; &amp;  Bill_To__r.BillingState &amp; &apos; &apos; &amp;  Bill_To__r.BillingPostalCode</formula>
+        <label>Bill To Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Attention_Line_2__c</fullName>
+        <description>Bill To Attention Line 2-- to allow for wrapping of text on PDF document for long Bill to Attention</description>
+        <externalId>false</externalId>
+        <label>Bill To Attention Line 2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Attention_Lookup__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup field to indicate the Bill to Attention on the Invoice record.  This field is mapped to the Waiver/Letter VF page and Waiver/Letter Conga templates.</description>
+        <externalId>false</externalId>
+        <label>Bill To Attention Lookup</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Invoices (Bill To Attention Lookup)</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Attention__c</fullName>
+        <externalId>false</externalId>
+        <label>Bill To Attention Line 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Email__c</fullName>
+        <description>When an invoice is finalized and the job has a national account listed, this will copy the email from the account.</description>
+        <externalId>false</externalId>
+        <label>Bill To Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Bill To</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Bill_To_for_Conga_Template__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(OR(Bill_To__r.IsPersonAccount=TRUE, Omit_Bill_To__c=TRUE),&quot;&quot;, Bill_To__r.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bill To for Conga Template</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_to_City__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.BillingCity</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bill to City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_to_State__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.BillingState</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bill to State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_to_Tax_Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing Tax Group</inlineHelpText>
+        <label>Bill to Tax Group</label>
+        <referenceTo>Tax_Group__c</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Bill_to_Zip__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.BillingPostalCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bill to Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Requirement__c</fullName>
+        <description>Billing note from Account will populate upon saved.</description>
+        <externalId>false</externalId>
+        <label>Billing Requirement</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CC_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CC</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Invoices (CC)</relationshipLabel>
+        <relationshipName>Invoices1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CC_Address_Care_of_Formula__c</fullName>
+        <description>Formula field on Invoice to display CC Address (Care of) from Billing Address object</description>
+        <externalId>false</externalId>
+        <formula>CC_Address_Care_of_lookup__r.Billing_Street__c  &amp;  BR()&amp;
+CC_Address_Care_of_lookup__r.Billing_City__c &amp; 
+IF(ISBLANK(CC_Address_Care_of_lookup__r.Billing_Street__c), &apos; &apos;, &apos;, &apos;) &amp; 
+CC_Address_Care_of_lookup__r.Billing_State__c &amp;&quot; &quot;&amp;  
+CC_Address_Care_of_lookup__r.Billing_Zipcode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC Address (Care of)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Address_Care_of_lookup__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to Billing Address object for CC Address (Care of)</description>
+        <externalId>false</externalId>
+        <label>CC Address (Care of)</label>
+        <referenceTo>Billing_Address__c</referenceTo>
+        <relationshipLabel>Invoices (CC Address (Care of))</relationshipLabel>
+        <relationshipName>Invoices3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CC_Address_Formula__c</fullName>
+        <description>Formula field for CC Address from Billing Address object to display on Invoice</description>
+        <externalId>false</externalId>
+        <formula>CC_Address_Lookup__r.Billing_Street__c &amp; BR() &amp;  
+CC_Address_Lookup__r.Billing_City__c  &amp; 
+IF(ISBLANK( CC_Address_Lookup__r.Billing_City__c ), &apos; &apos;, &apos;, &apos;) &amp; 
+CC_Address_Lookup__r.Billing_State__c  &amp;&quot; &quot;&amp;  
+CC_Address_Lookup__r.Billing_Zipcode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Address_Lookup__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to Billing Address object for CC Address</description>
+        <externalId>false</externalId>
+        <label>CC Address</label>
+        <referenceTo>Billing_Address__c</referenceTo>
+        <relationshipLabel>Invoices (CC Address)</relationshipLabel>
+        <relationshipName>Invoices2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CC_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.BillingStreet &amp; BR() &amp; CC_Account__r.BillingCity &amp;  IF(OR(ISBLANK(CC_Account__r.BillingCity), ISBLANK(CC_Account__r.BillingState)), &apos; &apos;, &apos;, &apos;)  &amp; CC_Account__r.BillingState &amp;&quot; &quot;&amp; CC_Account__r.BillingPostalCode</formula>
+        <label>CC Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Address_careOf__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_CareOf__r.BillingStreet &amp; IF(OR(ISBLANK(CC_CareOf__r.BillingStreet), ISBLANK(CC_CareOf__r.BillingCity)), &apos; &apos;, &apos;, &apos;) &amp; CC_CareOf__r.BillingCity &amp;  IF(OR(ISBLANK(CC_CareOf__r.BillingCity), ISBLANK(CC_CareOf__r.BillingState)), &apos; &apos;, &apos;, &apos;)  &amp; CC_CareOf__r.BillingState &amp;&quot; &quot;&amp; CC_CareOf__r.BillingPostalCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Attention_CareOf__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Attention</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Attention_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Attention Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Attention__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Attention</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_CareOf__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CC</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Invoices (CC)</relationshipLabel>
+        <relationshipName>Invoices4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CC_City_State_Zip__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Address_Lookup__r.Billing_City__c  &amp; IF( CC_Address_Lookup__r.Billing_City__c =&quot;&quot;,&quot;&quot;,&quot;, &quot;)&amp;  CC_Address_Lookup__r.Billing_State__c  &amp; &quot; &quot; &amp;  CC_Address_Lookup__r.Billing_Zipcode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC City, State, Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_City__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.BillingCity</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Company__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC Company</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_State__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.BillingState</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Address_Lookup__r.Billing_Street__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC Street Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Zip__c</fullName>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.BillingPostalCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CC Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CC</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Care_Of_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Care_Of__r.BillingStreet &amp; BR() &amp; Care_Of__r.BillingCity &amp; &apos;, &apos; &amp; Care_Of__r.BillingState &amp; &apos; &apos; &amp; Care_Of__r.BillingPostalCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Care Of Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Care_Of_Attention__c</fullName>
+        <externalId>false</externalId>
+        <label>Care Of Attention</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Care_Of_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Care Of Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Care_Of__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Care Of</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Invoices (Care Of)</relationshipLabel>
+        <relationshipName>Invoices3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Care_of_Address1__c</fullName>
+        <externalId>false</externalId>
+        <label>Care of Address1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Care_of_Address_Formula__c</fullName>
+        <description>Formula field to populate Care of Address onto the Invoice from Billing Address object.</description>
+        <externalId>false</externalId>
+        <formula>Care_of_Address_lookup__r.Billing_Street__c  &amp; BR() &amp;  
+Care_of_Address_lookup__r.Billing_City__c  &amp;
+IF(ISBLANK( Care_of_Address_lookup__r.Billing_City__c ), &apos; &apos;, &apos;, &apos;) &amp;  
+Care_of_Address_lookup__r.Billing_State__c  &amp; &apos; &apos; &amp;  
+Care_of_Address_lookup__r.Billing_Zipcode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Care of Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Care_of_Address_lookup__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to Billing Address object for the Care of Address</description>
+        <externalId>false</externalId>
+        <label>Care of Address</label>
+        <referenceTo>Billing_Address__c</referenceTo>
+        <relationshipLabel>Invoices (Care of Address)</relationshipLabel>
+        <relationshipName>Invoices1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Conditional_Waiver_created__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox flagged by Process Builder flow when a conditional waiver has been created for this Invoice-- to be used in &apos;Invoices Requiring Waiver&apos; list view</description>
+        <externalId>false</externalId>
+        <label>Conditional Waiver created</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Current_PDF_Version__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Current PDF Version</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CustomerTaxGroup__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.Tax_Group__c</formula>
+        <label>CustomerTaxGroup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_satisfaction_obtained__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Customer satisfaction obtained</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Customer_satisfaction_sent_delivered__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Customer satisfaction sent/delivered</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Delivery_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Delivery Method</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Mail</fullName>
+                    <default>false</default>
+                    <label>Mail</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Due_Date_New__c</fullName>
+        <externalId>false</externalId>
+        <formula>Due_Date__c + 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Federal_ID__c</fullName>
+        <defaultValue>&apos;33-0352215&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Federal ID</label>
+        <length>16</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finalized_By_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Finalized By Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finalized_By__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the User who checked Final</inlineHelpText>
+        <label>Finalized By</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finalized_By_is_current_user__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Finalized_By__c  = $User.Id, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Finalized By is current user</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if this invoice will be synchronized with Timberline but not sent to customer.</inlineHelpText>
+        <label>Internal</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Invoice_Approved_Date_Time__c</fullName>
+        <description>Field to stamp the date/time that an invoice is approved</description>
+        <externalId>false</externalId>
+        <label>Invoice Approved Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Invoice_City_State_Zip__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Care_of_Address_lookup__c),  Bill_To_Address3__r.Billing_City__c &amp; &quot;, &quot; &amp;  Bill_To_Address3__r.Billing_State__c &amp; &quot; &quot; &amp;  Bill_To_Address3__r.Billing_Zipcode__c,  Care_of_Address_lookup__r.Billing_City__c &amp; &quot;, &quot; &amp;  Care_of_Address_lookup__r.Billing_State__c &amp; &quot; &quot; &amp;  Care_of_Address_lookup__r.Billing_Zipcode__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Invoice City, State, Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invoice_Number_Incremental__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice Number Incremental</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invoice_PD_on_job_is_current_user__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((Project_Manager__c  = $User.FirstName+ &apos; &apos; + $User.LastName),1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Invoice PD on job is current user</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invoice_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK( Care_of_Address_lookup__c), Bill_To_Address3__r.Billing_Street__c , Care_of_Address_lookup__r.Billing_Street__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Invoice Street Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invoice_Submitted_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice Submitted Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Invoice_creator_is_current_user__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((CreatedBy.FirstName + &apos; &apos; + CreatedBy.LastName = $User.FirstName+ &apos; &apos; + $User.LastName),1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Invoice creator is current user</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Dummy_Invoice__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if this invoice will not be synchronized with Timberline (dummy invoice).</inlineHelpText>
+        <label>Pro forma</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Final__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If this is checked, the &quot;draft&quot; watermark is removed, and the invoice can no longer be modified. Invoice must be marked &quot;Final&quot; before it can be synchronized with Timberline.</inlineHelpText>
+        <label>Final</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Forecast_Quick_Update_Eligible__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+OR( 
+ISBLANK(ATI_Job__r.Last_Successful_Timberline_Update__c), 
+((ATI_Job__r.Last_Successful_Timberline_Update__c+0.002) &lt; LastModifiedDate), 
+((ATI_Job__r.Last_Successful_Timberline_Update__c+0.002) &lt; ATI_Job__r.LastModifiedDate) ), 
+&quot;true&quot;, 
+&quot;false&quot; )</formula>
+        <label>Is Forecast Quick Update Eligible</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Completion_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Completion_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Job Completion Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Job_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Job_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Job Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Successful_Timberline_Sync__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Successful Timberline Sync</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>MTD_Work_Billed__c</fullName>
+        <externalId>false</externalId>
+        <formula>0</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MTD Work Billed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>MapAccountBackBillToCC__c</fullName>
+        <description>Deployment, map Bill to CC account to invoice, no master</description>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.Account_Name_and_Address__c</formula>
+        <label>MapAccountBackBillToCC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapAccountBackCareOfCC__c</fullName>
+        <description>deployment, map back Care Of CC account to invoice, no master</description>
+        <externalId>false</externalId>
+        <formula>CC_CareOf__r.Account_Name_and_Address__c</formula>
+        <label>MapAccountBackCareOfCC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapAccountBackCareOf__c</fullName>
+        <description>deployment, map care of account back to invoice, no master account.</description>
+        <externalId>false</externalId>
+        <formula>Care_Of__r.Account_Name_and_Address__c</formula>
+        <label>MapAccountBackCareOf</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapAccountBack__c</fullName>
+        <description>This is for deployment so we can map the account back to invoice when there is no master account.</description>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.Name +  Bill_To__r.Account_Address__c</formula>
+        <label>MapAccountBack</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapMasterAccountBackBillToCC__c</fullName>
+        <description>deployment, bill to cc account map back to invoice, master account.</description>
+        <externalId>false</externalId>
+        <formula>CC_Account__r.Master_Account__c +  CC_Account__r.Account_Address__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MapMasterAccountBackBillToCC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapMasterAccountBackCareOfCC__c</fullName>
+        <description>deployment, map Care Of CC account back to invoice, master.</description>
+        <externalId>false</externalId>
+        <formula>CC_CareOf__r.Master_Account__c +  CC_CareOf__r.Account_Address__c</formula>
+        <label>MapMasterAccountBackCareOfCC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapMasterAccountBackCareOf__c</fullName>
+        <description>deployment, map Care Of account back to invoice, master.</description>
+        <externalId>false</externalId>
+        <formula>Care_Of__r.Master_Account__c +  Care_Of__r.Account_Address__c</formula>
+        <label>MapMasterAccountBackCareOf</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MapMasterAccountBack__c</fullName>
+        <description>This is for deployment to map account back to invoice when there is a master account.</description>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.Master_Account__c +  Bill_To__r.Account_Address__c</formula>
+        <label>MapMasterAccountBack</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Memo__c</fullName>
+        <externalId>false</externalId>
+        <label>Memo</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Net_Due__c</fullName>
+        <externalId>false</externalId>
+        <formula>((Total_Costs_Per_Contract__c  +  Total_Tax__c) - retainage_amount__c)- Total_Credits__c -  Payment_Adjustment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Total Costs on Contract + Tax less Retainage - Amounts Received - Payments/ Adjustments</inlineHelpText>
+        <label>Net Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Next_Version__c</fullName>
+        <externalId>false</externalId>
+        <formula>Version__c + 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Next Version #</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Office__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Office2__r.Name</formula>
+        <label>Office</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Omit_Bill_To__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate that the user does not want the Bill To Account Name to show up on the Invoice PDF</description>
+        <externalId>false</externalId>
+        <label>Overwrite Bill To</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup field to Opportunity object</description>
+        <externalId>false</externalId>
+        <label>Job</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PDF_Bill_To_Attention__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Bill_To_Attention__c),
+Bill_To_Attention_Lookup__r.FirstName &amp; &quot; &quot; &amp;  Bill_To_Attention_Lookup__r.LastName ,
+Bill_To_Attention__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PDF Bill To Attention</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Adjustment__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment / Adjustment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payments_Credits__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Credits__c +  Payment_Adjustment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payments + Credits</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Project_Manager__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Project_Manager_FirstName__c + &quot; &quot; + ATI_Job__r.Project_Manager_LastName__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Director</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Manager_obsolete__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project Manager (Obsolete)</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Invoices1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Site_City_State__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Project_Site_City__c &amp; &quot;, &quot; &amp; ATI_Job__r.Project_Site_State__c &amp; &quot; &quot; &amp; ATI_Job__r.Project_Site_Zipcode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Site City/State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Site_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Project_Site_Address__c &amp; &quot; &quot; &amp; ATI_Job__r.Project_Site_Address_2__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Site Street Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reference_Number_New__c</fullName>
+        <description>This will be on the edit page and re-writable field for accounting to list the reference number.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>List the reference number if it is separate from the job.</inlineHelpText>
+        <label>Reference Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reference_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+NOT(ISBLANK(Reference_Number_New__c)), 
+Reference_Number_New__c, 
+IF( 
+NOT(ISBLANK(ATI_Job__r.Claim__c)), 
+ATI_Job__r.Claim__c, 
+IF( 
+NOT(ISBLANK(ATI_Job__r.Policy__c)), 
+ATI_Job__r.Policy__c, 
+IF( 
+NOT(ISBLANK(ATI_Job__r.Cont_P_O_Client_Job__c)), 
+ATI_Job__r.Cont_P_O_Client_Job__c, 
+&quot;&quot; ))))</formula>
+        <label>Reference Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requires_Waiver__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check to indicate a waiver should be created by the collector.</description>
+        <externalId>false</externalId>
+        <label>Requires Waiver</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Retainage_Held__c</fullName>
+        <externalId>false</externalId>
+        <label>Retainage Held ($)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Retainage_Held_percent__c</fullName>
+        <externalId>false</externalId>
+        <label>Retainage Held</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Scope_sent_approved_by_adjuster__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Scope sent/approved by adjuster</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_To_Timberline__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Send to Timberline</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_authorization_with_invoice__c</fullName>
+        <description>PD needs to indicate whether to send out scope with the invoice. Missing value will indicates to review the information.</description>
+        <externalId>false</externalId>
+        <label>Send authorization with invoice</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Send_invoice_to_customer_insurance__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Send invoice to customer/insurance</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_scope_contract_with_invoice__c</fullName>
+        <description>PD needs to indicate whether to send out scope with the invoice. Missing value will indicates to review the information.</description>
+        <externalId>false</externalId>
+        <label>Send scope/contract with invoice</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Split_Percent__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( AND( (AE_1_Bonus__c != &apos;&apos;),(AE_2_Bonus__c != &apos;&apos;)), 
+	50, 
+	IF( 
+		OR(
+			AND((AE_1_Bonus__c == &apos;&apos; ), (AE_2_Bonus__c != &apos;&apos;)), 
+			AND((AE_1_Bonus__c != &apos;&apos;), (AE_2_Bonus__c == &apos;&apos;))), 
+	100, 
+	0)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Split Percent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>In Process</fullName>
+                    <default>true</default>
+                    <label>In Process</label>
+                </value>
+                <value>
+                    <fullName>Ready for Billing</fullName>
+                    <default>false</default>
+                    <label>Ready for Billing</label>
+                </value>
+                <value>
+                    <fullName>Final</fullName>
+                    <default>false</default>
+                    <label>Final</label>
+                </value>
+                <value>
+                    <fullName>Pending</fullName>
+                    <default>false</default>
+                    <label>Pending</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Submitted_for_Approval_By__c</fullName>
+        <description>Field to capture the user that submitted a job for approval, populated by Invoice Approval Process field update</description>
+        <externalId>false</externalId>
+        <label>Submitted for Approval By</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Superintedent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Superintendent</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Tax1Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 1 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax2Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 2 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax3Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 3 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax4Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 4 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax5Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 5 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax6Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 6 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax7Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 7 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax8Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 8 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax9Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax 9 Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>TaxGroup1__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup2__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup3__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup4__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 4</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup5__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 5</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup6__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 6</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup7__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 7</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup8__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 8</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxGroup9__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group 9</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tax_Group_Rate__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_to_Tax_Group__r.Tax_Rate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tax Group Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Tax_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Group</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tax_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Taxable_amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Taxable Costs</label>
+        <summarizedField>Invoice_Line_Item__c.Amount__c</summarizedField>
+        <summaryFilterItems>
+            <field>Invoice_Line_Item__c.Taxable__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Invoice_Line_Item__c.IsCredit__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Invoice_Line_Item__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Test_lookup__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Test lookup</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Invoices (Test lookup)</relationshipLabel>
+        <relationshipName>Invoices2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Timberline_Customer_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Bill_To__r.Timberline_Customer_Number__c</formula>
+        <inlineHelpText>Bill to Account Customer Number</inlineHelpText>
+        <label>Timberline Customer Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Costs_Per_Contract__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Costs Per Contract</label>
+        <summarizedField>Invoice_Line_Item__c.Amount__c</summarizedField>
+        <summaryFilterItems>
+            <field>Invoice_Line_Item__c.IsCredit__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Invoice_Line_Item__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Credits__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Credits</label>
+        <summarizedField>Invoice_Line_Item__c.Amount__c</summarizedField>
+        <summaryFilterItems>
+            <field>Invoice_Line_Item__c.IsCredit__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Invoice_Line_Item__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Tax__c</fullName>
+        <externalId>false</externalId>
+        <formula>Taxable_amount__c   *  Tax_Group_Rate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Tax</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Version #</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Work_authorization_sent_to_adjuster__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Work authorization sent to adjuster</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>X18_digit_record_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID( Id )</formula>
+        <label>18-digit record ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>retainage_amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Retainage_Held_percent__c *  Total_Costs_Per_Contract__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>retainage amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Invoice</label>
+    <listViews>
+        <fullName>All_Finalized_Invoices_ready_for_Sync</fullName>
+        <columns>NAME</columns>
+        <columns>ATI_Job__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Finalized_By_Name__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Final</value>
+        </filters>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Due_Date__c</field>
+            <operation>equals</operation>
+            <value>LAST_90_DAYS</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>All Finalized Invoices ready for Sync</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Open_Invoices</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>All Open Invoices (All Statuses)</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Pending_Invoices</fullName>
+        <columns>NAME</columns>
+        <columns>ATI_Job__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Total_Costs_Per_Contract__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>In Process</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>All Pending Invoices (Not In Process)</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Pro_Forma_Invoices</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Last_Successful_Timberline_Sync__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>All Pro Forma Invoices</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Finalized_Invoices_ready_for_Sync</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Total_Costs_Per_Contract__c</columns>
+        <columns>Last_Successful_Timberline_Sync__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>MTD_Work_Billed__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Is_Final__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>Finalized Invoices ready for Sync</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Invoices_awaiting_approval</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Submitted_for_Approval_By__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Approved_By__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>01270000000UPGE</value>
+        </filters>
+        <label>Invoices awaiting approval</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_Finalized_Invoices_ready_for_Sync</fullName>
+        <columns>NAME</columns>
+        <columns>ATI_Job__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Final</value>
+        </filters>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Finalized_By_is_current_user__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>My Finalized Invoices ready for Sync</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_In_Process_Invoices</fullName>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Total_Costs_Per_Contract__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Invoice_creator_is_current_user__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Invoice_PD_on_job_is_current_user__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Process</value>
+        </filters>
+        <label>My In Process Invoices</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Invoices_Last_90_Days</fullName>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Total_Costs_Per_Contract__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Invoice_creator_is_current_user__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Invoice_PD_on_job_is_current_user__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Due_Date__c</field>
+            <operation>equals</operation>
+            <value>LAST_90_DAYS</value>
+        </filters>
+        <label>My Invoices - Last 90 Days (PDs/Admins)</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Synced_Invoices_last_7_days</fullName>
+        <columns>Last_Successful_Timberline_Sync__c</columns>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Delivery_Method__c</columns>
+        <columns>Internal__c</columns>
+        <columns>Send_invoice_to_customer_insurance__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+            <value>LAST_N_DAYS:7</value>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Finalized_By_is_current_user__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Final</value>
+        </filters>
+        <label>My Synced Invoices - last 7 days</label>
+    </listViews>
+    <listViews>
+        <fullName>Ready_and_Pending_Invoices_Cyndi</fullName>
+        <columns>NAME</columns>
+        <columns>ATI_Job__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Office__c</field>
+            <operation>equals</operation>
+            <value>San Francisco,Sacramento,San Jose,Dallas,Houston,Chicago,Florida</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>In Process,Final</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>Ready and Pending Invoices - Cyndi</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Ready_and_Pending_Invoices_Doreen</fullName>
+        <booleanFilter>1 AND 2 AND (3 OR 4) AND 5 AND 6</booleanFilter>
+        <columns>NAME</columns>
+        <columns>ATI_Job__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Office__c</field>
+            <operation>equals</operation>
+            <value>Corporate,Orange,Los Angeles,Las Vegas,Phoenix,Tucson,Flagstaff</value>
+        </filters>
+        <filters>
+            <field>Office__c</field>
+            <operation>equals</operation>
+            <value>New England,Philadelphia</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>In Process,Final</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>Ready and Pending Invoices - Doreen</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Ready_and_Pending_Invoices_Miguel</fullName>
+        <columns>NAME</columns>
+        <columns>ATI_Job__c</columns>
+        <columns>Office__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Status__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Net_Due__c</columns>
+        <columns>Bill_To__c</columns>
+        <columns>Timberline_Customer_Number__c</columns>
+        <columns>Bill_to_Tax_Group__c</columns>
+        <columns>Send_To_Timberline__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Last_Successful_Timberline_Sync__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Is_Dummy_Invoice__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Office__c</field>
+            <operation>equals</operation>
+            <value>San Diego,Denver,Seattle,Riverside</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>In Process,Final</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Invoice__c.Final_Invoice</value>
+        </filters>
+        <label>Ready and Pending Invoices - Miguel</label>
+        <sharedTo>
+            <group>Billing</group>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <label>Invoice Number</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Invoices</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Final_Invoice</fullName>
+        <active>true</active>
+        <label>Approved Invoice</label>
+        <picklistValues>
+            <picklist>Delivery_Method__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_authorization_with_invoice__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_scope_contract_with_invoice__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Final</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Process</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ready for Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Is_Final__c</customTabListAdditionalFields>
+        <listViewButtons>Mass_Edit</listViewButtons>
+        <searchResultsAdditionalFields>Is_Dummy_Invoice__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Bill_To_Attention_Lookup_Email</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISBLANK(Bill_To_Attention_Lookup__r.Email),
+ ISPICKVAL(Delivery_Method__c,&quot;Email&quot;))</errorConditionFormula>
+        <errorMessage>Please populate the email address on the Bill To Attention Lookup contact record in order to choose Delivery Method of &apos;Email.&apos;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_Modify_Final_Invoice</fullName>
+        <active>false</active>
+        <description>Prevents users from editing invoices marked as &quot;Final.&quot;  This validation rule can be bypassed by users with appropriately configured &quot;Invoice Settings&quot; custom settings.</description>
+        <errorConditionFormula>AND(
+    NOT($Setup.InvoiceSettings__c.Can_Modify_Final_Invoices__c),
+    NOT(ISNEW()),
+    PRIORVALUE(Is_Final__c) == True )</errorConditionFormula>
+        <errorMessage>This invoice has been marked as &apos;Final&apos; and cannot be modified</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_Modify_Final_Invoice1</fullName>
+        <active>false</active>
+        <description>Prevents users from editing invoices marked as &quot;Final.&quot;  This validation rule can be bypassed by users with appropriately configured &quot;Invoice Settings&quot; custom settings.</description>
+        <errorConditionFormula>AND( Is_Final__c = True, PRIORVALUE(Is_Final__c)  =  True )</errorConditionFormula>
+        <errorMessage>This invoice has been marked as FINAL and cannot be modified</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_Modify_Synchronized_Invoice</fullName>
+        <active>false</active>
+        <description>Prevents users from editing invoices which have been sent to Timberline successfully.  This validation rule can be bypassed by users with appropriately configured &quot;Invoice Settings&quot; custom settings.</description>
+        <errorConditionFormula>AND(
+    NOT($Setup.InvoiceSettings__c.Can_Modify_Final_Invoices__c),
+    NOT(ISNEW()),
+	OR(
+		AND(
+			PRIORVALUE(Send_To_Timberline__c) == True,
+			NOT(ISCHANGED(Send_To_Timberline__c)),
+			NOT(ISCHANGED(Last_Successful_Timberline_Sync__c)) ),
+		NOT(ISBLANK(PRIORVALUE(Last_Successful_Timberline_Sync__c))) ))</errorConditionFormula>
+        <errorMessage>This invoice is synchronized with Timberline and cannot be further edited.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cannot_Syncrhonize_Dummy_Invoices</fullName>
+        <active>true</active>
+        <description>Prevents a record from synchronizing with Timberline if it is flagged as a Dummy Invoice</description>
+        <errorConditionFormula>Is_Dummy_Invoice__c &amp;&amp; Send_To_Timberline__c</errorConditionFormula>
+        <errorMessage>Dummy Invoices cannot be sent to Timberline</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Invoice_Date_cant_be_prior_to_today</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+	Due_Date__c &lt; TODAY(), 
+
+        NOT( ISCHANGED( AE_1_Bonus__c ) ), 
+        NOT( ISCHANGED( AE_2_Bonus__c ) ), 
+
+	NOT($Profile.Name = &quot;System Administrator&quot;), 
+        NOT($Profile.Name = &quot;Accounting&quot;),
+        NOT($Profile.Name = &quot;Collections&quot;)
+)</errorConditionFormula>
+        <errorMessage>Invoices can only be created/edited if the Invoice Date is today or in the future. Please contact accounting with any questions.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Invoices_only_editable_while_In_Process</fullName>
+        <active>true</active>
+        <description>Prevents users (except sys-admin/accounting profiles) from editing invoices that are marked Ready for Billing, Final, or Pending. Also prevents Collections from revising invoices unless they have been synced to Timberline.</description>
+        <errorConditionFormula>AND( 
+
+NOT(ISCHANGED(AE_1_Bonus__c)),
+NOT(ISCHANGED(AE_2_Bonus__c)),
+
+OR(
+NOT(ISPICKVAL(PRIORVALUE(Status__c), &apos;In Process&apos;)), NOT(ISPICKVAL(Status__c, &apos;In Process&apos;)) 
+),
+
+NOT(AND(ISPICKVAL(PRIORVALUE(Status__c), &apos;In Process&apos;),ISPICKVAL(Status__c, &apos;Ready for Billing&apos;))),
+
+NOT($Profile.Name = &quot;System Administrator&quot;), 
+NOT($Profile.Name = &quot;Accounting&quot;)
+
+)</errorConditionFormula>
+        <errorMessage>Invoices can only be edited while they are &apos;In Process&apos;. Please contact accounting with any questions.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Only_Accounting_can_make_status_Final</fullName>
+        <active>true</active>
+        <description>Only accounting and system admins can mark invoices as final or pending</description>
+        <errorConditionFormula>(isnew() || ISCHANGED(Status__c)) &amp;&amp; (ISPICKVAL(Status__c, &quot;Final&quot;) || ISPICKVAL(Status__c,&quot;Pending&quot;)) &amp;&amp; ($Profile.Name &lt;&gt; &quot;Accounting&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;System Administrator&quot;)</errorConditionFormula>
+        <errorDisplayField>Status__c</errorDisplayField>
+        <errorMessage>Only accounting can change invoice status to Final.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Retainage_Held_percent_Is_Required</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND( 
+Send_To_Timberline__c = True, 
+OR(
+Retainage_Held_percent__c = null,
+Job__c = null,
+00N70000002o9ru.00N70000002oGRV  = null
+)
+)</errorConditionFormula>
+        <errorMessage>The Retainage Held Percent cannot be empty.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Email_Invoice</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Email Invoice</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/EmailInvoice?id={! Invoice__c.ATI_JobId__c }</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GeneratePDF</fullName>
+        <availability>online</availability>
+        <description>Previews then generates and attaches PDF versions of the invoice</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Generate PDF</masterLabel>
+        <openType>sidebar</openType>
+        <page>InvoicePreview</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Generate_PDF_New</fullName>
+        <availability>online</availability>
+        <description>Testing Previews then generates and attaches PDF versions of the invoice</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Generate PDF New</masterLabel>
+        <openType>sidebar</openType>
+        <page>InvoicePreviewNew</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Send to Timberline</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassEditInvoice</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateInvoice</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Waiver</fullName>
+        <availability>online</availability>
+        <description>Button that allows the user to create a new waiver record.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>New Waiver</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/ATICreateWaiver
+?retURL={!Invoice__c.Id}
+&amp;RecordType=01270000000UQ0Y</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Revised_Invoice</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Revised Invoice</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer
+?sessionId={!API.Session_ID}
+&amp;serverUrl={!API.Partner_Server_URL_290}
+&amp;id={!Invoice__c.Id}
+&amp;MFTS0=Version__c
+&amp;MFTSValue0={!Invoice__c.Next_Version__c}
+&amp;LG4=2
+&amp;QueryID=[InvoiceLineItems]a2X0g00000FN4eR
+&amp;QueryID=[BillToAttention]a2X0g00000FN4eM
+&amp;DS7Preview=1
+&amp;DS7=1
+&amp;DefaultPDF=1
+&amp;TemplateId=a2f70000000OgV8
+&amp;DS4=1
+&amp;AttachmentParentId={!Invoice__c.ATI_JobId__c}
+&amp;OFN=Revised Invoice+_+{!Invoice__c.Name}+-R+{!Invoice__c.Version__c}+_FINAL_+{!YEAR(TODAY())}-{!MONTH(TODAY())}-{!DAY(TODAY())}
+&amp;QVAR0ID=a2X70000008b76X</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Test_Revised_Invoice</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Test Revised Invoice</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?SessionId={!API.Session_ID}
+&amp;ServerUrl={!$Api.Partner_Server_URL_290}
+&amp;Id={!Invoice__c.Id}
+&amp;ReportId=[InvoiceLineItems]00O70000004V8yX
+&amp;ReportId=[CareOf]00O70000004VCpL
+&amp;ReportId=[BillToAttention]00O70000004VCpK
+&amp;DS7Preview=1
+&amp;_DS7=1
+&amp;DefaultPDF=1
+&amp;TemplateId=a2f70000000OgV8
+&amp;DS4=1
+&amp;AttachmentParentId={!Invoice__c.OpportunityId__c}
+&amp;OFN=Revised Invoice+_+{!Invoice__c.Name}+_FINAL_+{!YEAR(TODAY())}-{!MONTH(TODAY())}-{!DAY(TODAY())}
+&amp;QVAR0ID=a2X70000008b76X</url>
+    </webLinks>
+</CustomObject>

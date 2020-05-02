@@ -845,6 +845,40 @@
         <template>ATI_Job_Templates/ATI_La_Quinta_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>JOB_PM_Assignment_Approval</fullName>
+        <description>JOB PM Assignment Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Suggested_PM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_PM_Assignment_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_PM_Assignment_Rejection</fullName>
+        <description>JOB PM Assignment Rejection</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_PM_Assignment_Rejection</template>
+    </alerts>
+    <alerts>
         <fullName>JOB_Santander_New_Loss_Info_Request_to_PD</fullName>
         <ccEmails>nat.lee@atirestoration.com</ccEmails>
         <description>JOB - Santander New Loss Info Request to PD</description>
@@ -1543,6 +1577,15 @@
         <name>Update Last Timberline Update field</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_PM_Assignment_Status</fullName>
+        <field>PM_Assignment_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update PM Assignment Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>

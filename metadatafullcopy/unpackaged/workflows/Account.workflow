@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Account_Creation_Approval_Submission</fullName>
+        <description>Account Creation Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Account_Email_Templates/Account_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Account_Rejected</fullName>
+        <description>Account Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Account_Email_Templates/Account_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>MSA_Approval_Email</fullName>
+        <description>MSA Approval Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>MSA_Submitter_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Account_Email_Templates/Account_MSA_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>MSA_Rejection_Email</fullName>
+        <description>MSA Rejection Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>MSA_Submitter_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Account_Email_Templates/Account_MSA_Rejected</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Account_Status_to_Active</fullName>
+        <field>Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>Account Status to Active</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Account_Status_to_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Account Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Account_Status_to_Unapproved</fullName>
+        <field>Status__c</field>
+        <literalValue>Unapproved</literalValue>
+        <name>Account Status to Unapproved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Billing_City_Mailing_City</fullName>
+        <description>Person Mailing City field update when Billing City field is populated. (used in New Job Inquiry Flow)</description>
+        <field>PersonMailingCity</field>
+        <formula>BillingCity</formula>
+        <name>Billing City = Mailing City</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Billing_State_Mailing_State</fullName>
+        <description>Person Mailing City field update when Billing City field is populated. (used in New Job Inquiry Flow)</description>
+        <field>PersonMailingState</field>
+        <formula>BillingState</formula>
+        <name>Billing State = Mailing State</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Billing_Steet_Mailing_Street</fullName>
+        <description>Person Mailing Street field update when Billing Street field is populated. (used in New Job Inquiry Flow)</description>
+        <field>PersonMailingStreet</field>
+        <formula>BillingStreet</formula>
+        <name>Billing Steet = Mailing Street</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Billing_Zip_Mailing_Zip</fullName>
+        <description>Person Mailing Zip field update when Billing Zip field is populated. (used in New Job Inquiry Flow)</description>
+        <field>PersonMailingPostalCode</field>
+        <formula>BillingPostalCode</formula>
+        <name>Billing Zip = Mailing Zip</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Existing_Business_Type_Population</fullName>
+        <description>If Last Job Date &lt;= 18 months, change Type field to &apos;Existing Business&apos;</description>
+        <field>Job_Type__c</field>
+        <literalValue>Existing Business</literalValue>
+        <name>Existing Business Type Population</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>MSA_Activity_Field_Update</fullName>
+        <field>MSA_Activity_ID__c</field>
+        <name>MSA Activity Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>MSA_Dup_Activity_Field_Update</fullName>
+        <field>MSA_Dup_Activity_ID__c</field>
+        <formula>MSA_Activity_ID__c</formula>
+        <name>MSA Dup Activity Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>New_Business_Type_Date</fullName>
+        <description>Populate New Business Type Date to today when this workflow fires, in order to automatically set to &apos;Existing Business&apos; via another workflow after 18 months</description>
+        <field>New_Business_Type_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>New Business Type Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>New_Business_Type_Population</fullName>
+        <field>Job_Type__c</field>
+        <literalValue>New Business</literalValue>
+        <name>New Business Type Population</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>New_Business_Type_Update</fullName>
+        <field>Job_Type__c</field>
+        <literalValue>New Business</literalValue>
+        <name>New Business Type Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Person_Account_Type</fullName>
+        <field>Type</field>
+        <literalValue>Property Owner</literalValue>
+        <name>Person Account Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Remove_New_Business_Date</fullName>
+        <field>New_Business_Type_Date__c</field>
+        <name>Remove New Business Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Timberline_Customer_Number</fullName>
+        <field>Timberline_Customer_Number_Sequence_New__c</field>
+        <formula>Timberline_Customer_Number_Sequence__c</formula>
+        <name>Timberline_Customer_Number</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Account_Phone</fullName>
+        <description>trims +1 from data.com account phone</description>
+        <field>Account_Phone_from_Data_com__c</field>
+        <formula>&quot;(&quot;&amp;MID( Account_Phone_from_Data_com__c, 4, 3)&amp;&quot;) &quot;&amp;MID( Account_Phone_from_Data_com__c,8,3)&amp;&quot;-&quot;&amp;right( Account_Phone_from_Data_com__c ,4)</formula>
+        <name>Update Account Phone</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Last_Timberline_Update_field</fullName>
+        <field>Last_Timberland_Update__c</field>
+        <formula>NOW()</formula>
+        <name>Update Last Timberline Update field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>Jitterbit_Account_OBM</fullName>
+        <apiVersion>29.0</apiVersion>
+        <endpointUrl>https://ATI69420.jitterbit.net/PROD/AccountAPICall</endpointUrl>
+        <fields>BillingCity</fields>
+        <fields>BillingPostalCode</fields>
+        <fields>BillingState</fields>
+        <fields>Id</fields>
+        <fields>LastModifiedDate</fields>
+        <fields>Name</fields>
+        <fields>Phone</fields>
+        <fields>SystemModstamp</fields>
+        <fields>Tax_Group_Timber__c</fields>
+        <fields>Timberline_BillingStreet1__c</fields>
+        <fields>Timberline_BillingStreet2__c</fields>
+        <fields>Timberline_Customer_Name__c</fields>
+        <fields>Timberline_Customer_Number__c</fields>
+        <fields>Type</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>jitterbit@atirestoration.com</integrationUser>
+        <name>Jitterbit Account OBM</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>Account - Update Last Timberline Update field</fullName>
+        <actions>
+            <name>Update_Last_Timberline_Update_field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Send_to_Timberline__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Copy Billing City to Person Mailing City</fullName>
+        <actions>
+            <name>Billing_City_Mailing_City</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.BillingCity</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>On Person Account only - Person Mailing City field update when Billing City field is populated. (used in New Job Inquiry Flow)</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Copy Billing State to Person Mailing State</fullName>
+        <actions>
+            <name>Billing_State_Mailing_State</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.BillingState</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>On Person Account only - Person Mailing State field update when Billing State field is populated. (used in New Job Inquiry Flow)</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Copy Billing Street to Person Mailing Street</fullName>
+        <actions>
+            <name>Billing_Steet_Mailing_Street</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.BillingStreet</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>On Person Account only - Person Mailing Street field update when Billing Street field is populated. (used in New Job Inquiry Flow)</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Copy Billing Zip to Person Mailing Zip</fullName>
+        <actions>
+            <name>Billing_Zip_Mailing_Zip</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.BillingPostalCode</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>On Person Account only - Person Mailing Zip field update when Billing Zip field is populated. (used in New Job Inquiry Flow)</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Existing Business Type Population</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.New_Business_Type_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>If Last Job Date = 18 months, change Type field to &apos;Existing Business&apos;</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Existing_Business_Type_Population</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Remove_New_Business_Date</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.New_Business_Type_Date__c</offsetFromField>
+            <timeLength>545</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Jitterbit Account OBM</fullName>
+        <actions>
+            <name>Jitterbit_Account_OBM</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Send_to_Timberline__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Used in real time sync from Timberline to SFDC.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Jitterbit Account OBM - IsPerson%3DFalse</fullName>
+        <actions>
+            <name>Jitterbit_Account_OBM</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Send_to_Timberline__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>Used in real time sync from Timberline to SFDC.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Business Type Initial Population</fullName>
+        <actions>
+            <name>New_Business_Type_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>New_Business_Type_Population</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.OwnerId</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Business Type Update</fullName>
+        <actions>
+            <name>New_Business_Type_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>New_Business_Type_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(Last_Job_Date__c=TODAY(),  Previous_Job_Date__c  &lt;= TODAY()-545)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Person Account Type</fullName>
+        <actions>
+            <name>Person_Account_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Type</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>When Person Account is edited or created, automatically set Type to Property Owner</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Timberline_Customer_Number_Update</fullName>
+        <actions>
+            <name>Timberline_Customer_Number</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>OR(ISCHANGED( Timberline_Customer_Number__c ), ISNEW() )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

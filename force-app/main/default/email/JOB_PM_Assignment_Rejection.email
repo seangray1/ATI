@@ -1,0 +1,1 @@
+{!ATI_Job__c.Suggested_PM__c} has been rejected as PM for job {!ATI_Job__c.Name} by {!ApprovalRequest.Process_Approver}.

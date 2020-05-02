@@ -1,0 +1,3716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloneAsChild</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloneAsChild</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloneAsChild</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloseCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloseCase</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloseCase</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MassClose</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MassClose</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MassClose</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewCase</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewCase</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <businessProcesses>
+        <fullName>Collection Cases Support Process</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>AR%2FCollections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invoiced</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Payment Processing</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>Contact Center Support Process</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending ATI Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Customer Response</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>IT Support Process</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Monitoring Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Hardware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Vendor Fix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Vendor Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Dispatch Called</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>ATI_Job__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ATI Job</label>
+        <referenceTo>ATI_Job__c</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ATI_Main_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the person at ATI primarily responsible for helping to resolve the case.</inlineHelpText>
+        <label>ATI Main Contact</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AccountId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AssetId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BusinessHoursId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Business_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Category</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Accounts Receivable</fullName>
+                    <default>false</default>
+                    <label>Accounts Receivable</label>
+                </value>
+                <value>
+                    <fullName>Accounts Payable</fullName>
+                    <default>false</default>
+                    <label>Accounts Payable</label>
+                </value>
+                <value>
+                    <fullName>Human Resources</fullName>
+                    <default>false</default>
+                    <label>Human Resources</label>
+                </value>
+                <value>
+                    <fullName>Recruiting</fullName>
+                    <default>false</default>
+                    <label>Recruiting</label>
+                </value>
+                <value>
+                    <fullName>Job Operations</fullName>
+                    <default>false</default>
+                    <label>Job Operations</label>
+                </value>
+                <value>
+                    <fullName>Other Departments</fullName>
+                    <default>false</default>
+                    <label>Other Departments</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CKSW_BASE__EngineeringReqNumber__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Engineering Req Number</label>
+        <length>12</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CKSW_BASE__PotentialLiability__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Potential Liability</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CKSW_BASE__Product__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>GC1040</fullName>
+                    <default>false</default>
+                    <label>GC1040</label>
+                </value>
+                <value>
+                    <fullName>GC1060</fullName>
+                    <default>false</default>
+                    <label>GC1060</label>
+                </value>
+                <value>
+                    <fullName>GC3020</fullName>
+                    <default>false</default>
+                    <label>GC3020</label>
+                </value>
+                <value>
+                    <fullName>GC3040</fullName>
+                    <default>false</default>
+                    <label>GC3040</label>
+                </value>
+                <value>
+                    <fullName>GC3060</fullName>
+                    <default>false</default>
+                    <label>GC3060</label>
+                </value>
+                <value>
+                    <fullName>GC5020</fullName>
+                    <default>false</default>
+                    <label>GC5020</label>
+                </value>
+                <value>
+                    <fullName>GC5040</fullName>
+                    <default>false</default>
+                    <label>GC5040</label>
+                </value>
+                <value>
+                    <fullName>GC5060</fullName>
+                    <default>false</default>
+                    <label>GC5060</label>
+                </value>
+                <value>
+                    <fullName>GC1020</fullName>
+                    <default>false</default>
+                    <label>GC1020</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CKSW_BASE__SLAViolation__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>SLA Violation</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CRMG_EmailAtt__ContactFirstName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Contact.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMG_EmailAtt__Thread_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>&apos;ref:&apos;&amp;LEFT($Organization.Id,4)&amp;LEFT(RIGHT($Organization.Id,7),4)&amp;&apos;.&apos;&amp;LEFT(Id,4)&amp;LEFT(RIGHT(Id,8),5)&amp;&apos;:ref&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Thread ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Call_Counter__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Call Counter</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Severity__c</fullName>
+        <externalId>false</externalId>
+        <label>Severity Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1 - Accident/Injury</fullName>
+                    <default>false</default>
+                    <label>1 - Accident/Injury</label>
+                </value>
+                <value>
+                    <fullName>2 - Warranty Claim</fullName>
+                    <default>false</default>
+                    <label>2 - Warranty Claim</label>
+                </value>
+                <value>
+                    <fullName>3 - Customer Concern</fullName>
+                    <default>false</default>
+                    <label>3 - Customer Concern</label>
+                </value>
+                <value>
+                    <fullName>4 - Informational</fullName>
+                    <default>false</default>
+                    <label>4 - Informational</label>
+                </value>
+                <value>
+                    <fullName>2 - AR Follow Up</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2 - AR Follow Up</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Case_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Business_Category__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Invoice Questions</fullName>
+                    <default>false</default>
+                    <label>Invoice Questions</label>
+                </value>
+                <value>
+                    <fullName>Payments</fullName>
+                    <default>false</default>
+                    <label>Payments</label>
+                </value>
+                <value>
+                    <fullName>Confirmations</fullName>
+                    <default>false</default>
+                    <label>Confirmations</label>
+                </value>
+                <value>
+                    <fullName>Other Questions</fullName>
+                    <default>false</default>
+                    <label>Other Questions</label>
+                </value>
+                <value>
+                    <fullName>Payment Inquiries</fullName>
+                    <default>false</default>
+                    <label>Payment Inquiries</label>
+                </value>
+                <value>
+                    <fullName>Purchase Authorizations</fullName>
+                    <default>false</default>
+                    <label>Purchase Authorizations</label>
+                </value>
+                <value>
+                    <fullName>Benefits Questions</fullName>
+                    <default>false</default>
+                    <label>Benefits Questions</label>
+                </value>
+                <value>
+                    <fullName>Other Employee Services</fullName>
+                    <default>false</default>
+                    <label>Other Employee Services</label>
+                </value>
+                <value>
+                    <fullName>Employment Verification</fullName>
+                    <default>false</default>
+                    <label>Employment Verification</label>
+                </value>
+                <value>
+                    <fullName>Applicant Questions</fullName>
+                    <default>false</default>
+                    <label>Applicant Questions</label>
+                </value>
+                <value>
+                    <fullName>Information or Update Request</fullName>
+                    <default>false</default>
+                    <label>Information or Update Request</label>
+                </value>
+                <value>
+                    <fullName>Problems or Service Complaints</fullName>
+                    <default>false</default>
+                    <label>Problems or Service Complaints</label>
+                </value>
+                <value>
+                    <fullName>Scheduling</fullName>
+                    <default>false</default>
+                    <label>Scheduling</label>
+                </value>
+                <value>
+                    <fullName>Warranty Question or Request</fullName>
+                    <default>false</default>
+                    <label>Warranty Question or Request</label>
+                </value>
+                <value>
+                    <fullName>Accident or Injury Report</fullName>
+                    <default>false</default>
+                    <label>Accident or Injury Report</label>
+                </value>
+                <value>
+                    <fullName>Job Site Deliveries</fullName>
+                    <default>false</default>
+                    <label>Job Site Deliveries</label>
+                </value>
+                <value>
+                    <fullName>Office Deliveries</fullName>
+                    <default>false</default>
+                    <label>Office Deliveries</label>
+                </value>
+                <value>
+                    <fullName>Media Inquiries/Public Relations</fullName>
+                    <default>false</default>
+                    <label>Media Inquiries/Public Relations</label>
+                </value>
+                <value>
+                    <fullName>Vendor Sales/Marketing</fullName>
+                    <default>false</default>
+                    <label>Vendor Sales/Marketing</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+                <valueName>Invoice Questions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+                <valueName>Payments</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+                <valueName>Confirmations</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+                <valueName>Other Questions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Accounts Payable</controllingFieldValue>
+                <valueName>Payment Inquiries</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Accounts Payable</controllingFieldValue>
+                <valueName>Purchase Authorizations</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Human Resources</controllingFieldValue>
+                <valueName>Benefits Questions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Human Resources</controllingFieldValue>
+                <valueName>Other Employee Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Human Resources</controllingFieldValue>
+                <valueName>Employment Verification</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Recruiting</controllingFieldValue>
+                <valueName>Applicant Questions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Job Operations</controllingFieldValue>
+                <valueName>Information or Update Request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Job Operations</controllingFieldValue>
+                <valueName>Problems or Service Complaints</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Job Operations</controllingFieldValue>
+                <valueName>Scheduling</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Job Operations</controllingFieldValue>
+                <valueName>Warranty Question or Request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Job Operations</controllingFieldValue>
+                <valueName>Accident or Injury Report</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Job Operations</controllingFieldValue>
+                <valueName>Job Site Deliveries</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Departments</controllingFieldValue>
+                <valueName>Office Deliveries</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Departments</controllingFieldValue>
+                <valueName>Media Inquiries/Public Relations</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Departments</controllingFieldValue>
+                <valueName>Vendor Sales/Marketing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Departments</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ClosedDate</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Collector__c</fullName>
+        <externalId>false</externalId>
+        <formula>ATI_Job__r.Collector__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collector</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comments</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactFax</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactMobile</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Courtesy_Call_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Courtesy Call Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Courtesy_Call_Outcome__c</fullName>
+        <externalId>false</externalId>
+        <label>Courtesy Call Outcome</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Disputed Invoice</fullName>
+                    <default>false</default>
+                    <label>Disputed Invoice</label>
+                </value>
+                <value>
+                    <fullName>Left Message</fullName>
+                    <default>false</default>
+                    <label>Left Message</label>
+                </value>
+                <value>
+                    <fullName>Paid</fullName>
+                    <default>false</default>
+                    <label>Paid</label>
+                </value>
+                <value>
+                    <fullName>Sent Copy of Invoice</fullName>
+                    <default>false</default>
+                    <label>Sent Copy of Invoice</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Daily_Update_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>Daily Update Due</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>EntitlementId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IsClosedOnCreate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsEscalated</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsStopped</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Job__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to Opportunity</description>
+        <externalId>false</externalId>
+        <label>Job</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Last_Courtesy_Call__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Courtesy Call</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Last_Daily_Update__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Daily Update</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Last_Violation_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Violation Date &amp; Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>MilestoneStatus</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>MilestoneStatusIcon</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Next_Action_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Action Date/Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Next_Courtesy_Call_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Courtesy Call Due</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Origin</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Priority</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ProductId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reason</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Related_Invoice__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Related Invoice</label>
+        <referenceTo>Invoice__c</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Resolution_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Resolution Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Resolved by Contact Center / Customer Service</fullName>
+                    <default>false</default>
+                    <label>Resolved by Contact Center / Customer Service</label>
+                </value>
+                <value>
+                    <fullName>Discretionary Gift Card</fullName>
+                    <default>false</default>
+                    <label>Discretionary Gift Card</label>
+                </value>
+                <value>
+                    <fullName>Resolved by ATI Department</fullName>
+                    <default>false</default>
+                    <label>Resolved by ATI Department</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SlaExitDate</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SlaStartDate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SourceId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>StopStartDate</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedCompany</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedName</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>agf__ADM_Work__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>A connection to the Agile Accelerator Work object used to track Bugs, Investigations and User Stories</description>
+        <externalId>false</externalId>
+        <label>Work</label>
+        <referenceTo>agf__ADM_Work__c</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>AgileAcceleratorCases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>talkdesk__Auto_Pop_up_Case__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Auto Pop-up Case</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>talkdesk__Pop_Up_Destination__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Pop Up Destination</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Cases</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>tdc_tsw__Last_Sender_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Used for Sticky sender to store the last sender number.</description>
+        <externalId>false</externalId>
+        <label>Last Sender Number</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>tdc_tsw__SMS_Opt_out__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>SMS Opt out</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <listViews>
+        <fullName>AllOpenCases</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>All Open Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Cases</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>CASES.SOURCE</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Cases_Next_Action_Due_Today</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Next_Action_Date_Time__c</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>All Cases - Next Action Due Today</label>
+    </listViews>
+    <listViews>
+        <fullName>CASE_Due_Today</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Next_Action_Date_Time__c</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>My Cases - Next Action Due Today</label>
+    </listViews>
+    <listViews>
+        <fullName>Cases_Last_30_Days</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.CREATED_DATE</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>LAST_N_DAYS:30</value>
+        </filters>
+        <label>Cases Last 30 Days</label>
+    </listViews>
+    <listViews>
+        <fullName>Collection_Cases_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Collection Cases</label>
+        <queue>Collection_Cases</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Contact_Center_Collections_Cases_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Contact Center - Collections Case Queue</label>
+        <queue>Contact_Center_Collections_Case_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Customer_Service_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Customer Service</label>
+        <queue>Customer_Service</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Customer_Service_Queue</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CASES.RECORDTYPE</columns>
+        <columns>CASES.SOURCE</columns>
+        <columns>CREATEDBY_USER.ALIAS</columns>
+        <filterScope>Queue</filterScope>
+        <label>Customer Service Queue</label>
+        <queue>Customer_Service</queue>
+    </listViews>
+    <listViews>
+        <fullName>Daily_Update_Due_Today_or_Overdue</fullName>
+        <columns>Daily_Update_Due__c</columns>
+        <columns>Last_Daily_Update__c</columns>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Daily_Update_Due__c</field>
+            <operation>lessThan</operation>
+            <value>TOMORROW</value>
+        </filters>
+        <label>Daily Update Due Today or Overdue</label>
+    </listViews>
+    <listViews>
+        <fullName>MyCases</fullName>
+        <filterScope>Mine</filterScope>
+        <label>My Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>MyOpenCases</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>My Open Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Cases_Daily_Update_Due_Today</fullName>
+        <columns>Daily_Update_Due__c</columns>
+        <columns>Last_Daily_Update__c</columns>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Daily_Update_Due__c</field>
+            <operation>lessThan</operation>
+            <value>TOMORROW</value>
+        </filters>
+        <label>My Cases - Daily Update Due Today</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Cases_Next_Action_Due_Today</fullName>
+        <columns>Next_Action_Date_Time__c</columns>
+        <columns>Last_Daily_Update__c</columns>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Next_Action_Date_Time__c</field>
+            <operation>lessThan</operation>
+            <value>TOMORROW</value>
+        </filters>
+        <label>My Cases Next Action Due Today</label>
+    </listViews>
+    <listViews>
+        <fullName>National_Accounts_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>National Accounts</label>
+        <queue>National_Accounts</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Next_Action_Due_Today_or_Overdue</fullName>
+        <columns>Next_Action_Date_Time__c</columns>
+        <columns>Last_Daily_Update__c</columns>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Next_Action_Date_Time__c</field>
+            <operation>lessThan</operation>
+            <value>TOMORROW</value>
+        </filters>
+        <label>Next Action Due Today or Overdue</label>
+    </listViews>
+    <listViews>
+        <fullName>Program_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Program</label>
+        <queue>Program</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Collection_Case</fullName>
+        <active>true</active>
+        <businessProcess>Contact Center Support Process</businessProcess>
+        <label>Collection Case</label>
+        <picklistValues>
+            <picklist>Business_Category__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Departments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recruiting</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__Product__c</picklist>
+            <values>
+                <fullName>GC1020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5060</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Severity__c</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Type__c</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courtesy_Call_Outcome__c</picklist>
+            <values>
+                <fullName>Disputed Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent Copy of Invoice</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Escalated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resolution_Type__c</picklist>
+            <values>
+                <fullName>Discretionary Gift Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by ATI Department</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by Contact Center %2F Customer Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Collection_Cases</fullName>
+        <active>false</active>
+        <businessProcess>Collection Cases Support Process</businessProcess>
+        <label>Collection Cases (Inactive)</label>
+        <picklistValues>
+            <picklist>Business_Category__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Departments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recruiting</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__Product__c</picklist>
+            <values>
+                <fullName>GC1020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5060</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Severity__c</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Type__c</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courtesy_Call_Outcome__c</picklist>
+            <values>
+                <fullName>Disputed Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent Copy of Invoice</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Escalated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resolution_Type__c</picklist>
+            <values>
+                <fullName>Discretionary Gift Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by ATI Department</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by Contact Center %2F Customer Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Contact_Center_Case</fullName>
+        <active>true</active>
+        <businessProcess>Contact Center Support Process</businessProcess>
+        <label>Service Cases</label>
+        <picklistValues>
+            <picklist>Business_Category__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Departments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recruiting</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__Product__c</picklist>
+            <values>
+                <fullName>GC1020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5060</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Severity__c</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Type__c</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courtesy_Call_Outcome__c</picklist>
+            <values>
+                <fullName>Disputed Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent Copy of Invoice</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resolution_Type__c</picklist>
+            <values>
+                <fullName>Discretionary Gift Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by ATI Department</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by Contact Center %2F Customer Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>IT_Helpdesk_Case</fullName>
+        <active>true</active>
+        <businessProcess>IT Support Process</businessProcess>
+        <label>IT Helpdesk Case</label>
+        <picklistValues>
+            <picklist>Business_Category__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Departments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recruiting</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__Product__c</picklist>
+            <values>
+                <fullName>GC1020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5060</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Severity__c</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Type__c</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courtesy_Call_Outcome__c</picklist>
+            <values>
+                <fullName>Disputed Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent Copy of Invoice</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resolution_Type__c</picklist>
+            <values>
+                <fullName>Discretionary Gift Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by ATI Department</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by Contact Center %2F Customer Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Adobe Sign</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alarm</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assured Software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BAS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cell Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conf%2E Room%2FPresentation Setup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Copy Machine</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cyblock</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Econz Timecard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Egnyte</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email Signature</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>File%2FFolder Permissions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FotoIN</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HRMS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kronos</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leave of Absence%2FSuspension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Maintenance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Microsoft Windows %28OS%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mimecast</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MobiControl</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monitors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network Drive Access</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network%2FInternet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire%2FRe-hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Okta</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PC Software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Password Reset</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personnel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remote Apps</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesforce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scanner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SentinelOne</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shoretel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>T%26M Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tablet%2FiPad</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telecommunication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termination%2FResignation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Timberline</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virus%2FMalware%2FSpyware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website Blocked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Xactimate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zoom</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>myATI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pVault</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Service_Case</fullName>
+        <active>true</active>
+        <businessProcess>Contact Center Support Process</businessProcess>
+        <label>Service Case</label>
+        <picklistValues>
+            <picklist>Business_Category__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Departments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recruiting</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__Product__c</picklist>
+            <values>
+                <fullName>GC1020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC1060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC3060</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5020</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5040</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GC5060</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CKSW_BASE__SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Severity__c</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Type__c</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courtesy_Call_Outcome__c</picklist>
+            <values>
+                <fullName>Disputed Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Left Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent Copy of Invoice</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>1 - Accident%2FInjury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2 - Warranty Claim</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3 - Customer Concern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4 - Informational</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User didn%27t attend training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resolution_Type__c</picklist>
+            <values>
+                <fullName>Discretionary Gift Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by ATI Department</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resolved by Contact Center %2F Customer Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Accident or Injury Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Applicant Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information or Update Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Site Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media Inquiries%2FPublic Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office Deliveries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Employee Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Questions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Inquiries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problems or Service Complaints</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Authorizations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vendor Sales%2FMarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty Question or Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>CASES.CASE_NUMBER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.SUBJECT</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.PRIORITY</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.CASE_NUMBER</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.SUBJECT</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.STATUS</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.CASE_NUMBER</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.SUBJECT</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.STATUS</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>tdc_tsw__Last_Sender_Number__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.CASE_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.CREATED_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWriteTransfer</sharingModel>
+    <validationRules>
+        <fullName>Resolution_Type_Required_when_Closed</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( 
+ISPICKVAL(  Status  ,&quot;Closed&quot;), 
+ISBLANK(TEXT(   Resolution_Type__c   )) 
+)</errorConditionFormula>
+        <errorDisplayField>Resolution_Type__c</errorDisplayField>
+        <errorMessage>Resolution Type must be populated when Status is Closed</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Composer_OAuth</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT *** 
+
+OAuth buttons require additional setup. Please see the Composer Installation Guide for more details.
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Composer Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer (OAuth)</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Case.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Mail_Merge</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT *** 
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Conga Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Case.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>HTPPV__Printable_View</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Printable View</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/HTPPV__PrintableView?id={!Case.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Edit</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassEditCase</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Mass_Update</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Mass Update</masterLabel>
+        <openType>sidebar</openType>
+        <page>MassUpdateCase</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Case_Opportunity</fullName>
+        <availability>online</availability>
+        <description>Creates a new Case from the Opportunity object</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Case</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!URLFOR( $Action.Case.NewCase ,  Case.Id , [CF00N700000043WzI_lkid= Opportunity.Id, CF00N700000043WzI= Opportunity.Name ], true)}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>dsfs__Send_with_DocuSign</fullName>
+        <availability>online</availability>
+        <description>This button will initiate a DocuSign Envelope that is linked to the Case</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send with DocuSign</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/apex/dsfs__DocuSign_JavaScript&quot;)}
+DocuSign_CreateEnvelope();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>talkdesk__Smart_Dialer</fullName>
+        <availability>online</availability>
+        <description>Allows the agent to prepare a list of case related contacts and dial through them</description>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Dialer</masterLabel>
+        <openType>sidebar</openType>
+        <page>talkdesk__Dialer_CasePage</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>talkdesk__Smart_SMS</fullName>
+        <availability>online</availability>
+        <description>Allows the agent to send an sms to the contact of the selected cases</description>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Smart SMS</masterLabel>
+        <openType>sidebar</openType>
+        <page>talkdesk__SmsDownAListCases</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>tdc_tsw__Send_SMSCase</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send SMS</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&apos;/js/functions.js&apos;)}
+{!REQUIRESCRIPT(&apos;resource/tdc_tsw__jQueryForPopup/jQuery/jquery-1.8.2.min.js&apos;)}
+{!REQUIRESCRIPT(&apos;resource/tdc_tsw__jQueryForPopup/jQuery/ui/jquery-ui-1.9.1.custom.min.js&apos;)}
+{!REQUIRESCRIPT(&apos;resource/tdc_tsw__jQueryForPopup/jQuery/postmessage/jquery.ba-postmessage.js&apos;)}
+{!REQUIRESCRIPT(&apos;resource/tdc_tsw__jQueryForPopup/jQuery/bbq/jquery.ba-bbq.min.js&apos;)}
+requireCssFile(&apos;resource/tdc_tsw__jQueryForPopup/jQuery/ui/css/ui-lightness/jquery-ui-1.9.1.custom.min.css&apos;);
+
+
+function requireCssFile(filename)
+{
+var fileref = document.createElement(&apos;link&apos;);
+fileref.setAttribute(&apos;rel&apos;, &apos;stylesheet&apos;);
+fileref.setAttribute(&apos;type&apos;, &apos;text/css&apos;);
+fileref.setAttribute(&apos;href&apos;, filename);
+document.getElementsByTagName(&apos;head&apos;)[0].appendChild(fileref);
+}
+
+var j$ = jQuery.noConflict();
+var caseid=&quot;{!Case.Id}&quot;;
+//alert(leadid);
+var iframe_url = &apos;{!URLFOR(&quot;apex/tdc_tsw__SendSMS?id=&quot;)}&apos;+caseid+&apos;&amp;retURL=&apos;+window.location.href;
+//alert(iframe_url);
+var child_domain = iframe_url.substring(0, iframe_url.indexOf(&apos;/&apos;, 9));
+var parent_domain = window.location.protocol + &apos;//&apos; + window.location.host;
+var j$modalDialog = j$(&apos;&lt;div id=&quot;opppopup&quot;&gt;&lt;/div&gt;&apos;)
+.html(&apos;&lt;iframe id=&quot;iframeContentId&quot; src=&quot;&apos; + iframe_url + &apos;&quot; frameborder=&quot;0&quot; height=&quot;100%&quot; width=&quot;100%&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; /&gt;&apos;)
+.dialog({
+autoOpen: false,
+resizable: false,
+width: 800,
+height: 500,
+autoResize: true,
+modal: true,
+draggable: true,
+margin:0,
+padding:0
+});
+
+j$modalDialog.dialog(&apos;open&apos;);</url>
+    </webLinks>
+</CustomObject>

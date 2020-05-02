@@ -1,0 +1,114 @@
+.BiggerFont{
+    size: 60%;
+    font-size: 160%;
+    font-style: oblique;
+}
+.PropName{
+    
+    font-size: 160%;
+    font-weight: bold;
+    
+}
+.grid {
+    color: gray;
+
+    margin-top: 1%;  
+}
+.pushRight{
+margin-left: 18px;
+}
+.biggerText{
+    size: 60%;
+    font-size: 120%;
+    
+}
+.ClearContact{
+    size: 40%;
+}
+.increaseSize{
+    size:110%;
+}
+.spacing{
+    
+    padding-left: 10%;
+}
+.inlineButtons{
+    display: inline;
+}
+.pushDown{
+    padding-top: 6%;
+}
+.Buttonspacing{
+    padding-left: 1%;
+}
+.pushDownProperty{
+    padding-top: 5px;
+}
+.element {
+    
+    text-align: left;
+  }
+  .lgc-bg-inverse {
+    background-color: rgb(22, 50, 92);
+}
+.Labels{
+    position: relative;
+    bottom: -20px;
+}
+.MultLabels{
+    position: relative;
+    bottom: 10px;
+    margin-left: 60px;
+
+}
+.required1:after {
+    content:" *";
+    
+    color: red;
+  }
+  .textbox{
+    height:250px;
+    
+  }
+.selectRole{
+    padding-bottom: 0.3%;
+    padding-top: 0.3%;
+    right: -2px;
+    position: relative;
+}
+.DeleteAR {
+    padding-bottom: 0.3%;
+   padding-top: 0.3%;
+   position: relative;
+   right: -4px;
+   /* margin-right: 390px; */
+   
+   
+}
+.rowPadding {
+    padding-bottom: 0.3%;
+   padding-top: 0.3%;
+}
+.StaticPropertyBox{
+    margin-left: 25%;
+    background-color: rgb(216, 237, 255);
+}
+.StaticPropertyText{
+  
+    background-color: 	
+    white;
+    font-weight: bold;
+    /* color: rgb(236, 235, 234); */
+    
+}
+.inputDescription .inputLabel{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0;
+  }
+  .marginLeft{
+      margin-left: 20px;
+  }
+  .spaceTop{
+      margin-bottom: 15px;
+  }

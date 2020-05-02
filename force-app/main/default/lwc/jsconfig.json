@@ -64,6 +64,9 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
+            ],
+            "c/afterHoursJobLWCDesktop": [
+                "afterHoursJobLWCDesktop/afterHoursJobLWCDesktop.js"
             ]
         },
         "experimentalDecorators": true

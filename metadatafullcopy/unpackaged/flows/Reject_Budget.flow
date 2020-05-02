@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <constants>
+        <name>recordID1</name>
+        <dataType>String</dataType>
+    </constants>
+    <formulas>
+        <name>UserEmail</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Email}</expression>
+    </formulas>
+    <interviewLabel>Reject Budget {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Reject Budget</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordUpdates>
+        <name>Update_Budget</name>
+        <label>Update Budget</label>
+        <locationX>351</locationX>
+        <locationY>140</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Reject_Budget__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rejected_Reason__c</field>
+            <value>
+                <elementReference>Comments</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Budget__c</object>
+    </recordUpdates>
+    <screens>
+        <description>Describe why the budget was rejected.</description>
+        <name>Reject_Budget_Comments</name>
+        <label>Reject Budget Comments</label>
+        <locationX>208</locationX>
+        <locationY>81</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Budget</targetReference>
+        </connector>
+        <fields>
+            <name>Comments</name>
+            <dataType>String</dataType>
+            <fieldText>Comments</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <startElementReference>Reject_Budget_Comments</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

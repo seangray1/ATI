@@ -95,6 +95,19 @@ public class TestDataUtil {
         triggerStatus.TaxGroupRefreshFromTimberline__c =true;
         triggerStatus.TaxGroupSetName__c =true;
         insert triggerStatus;
+        EconzIntegration__c csTest = new EconzIntegration__c();
+        csTest.Name = 'Test';
+        csTest.EndPointURL__c = 'Test';
+        csTest.UserId__c = 'Test';
+        csTest.Password__c = 'Test';
+        insert csTest;
+        
+        EconzIntegration__c csProd = new EconzIntegration__c();
+        csProd.Name = 'Prod';
+        csProd.EndPointURL__c = 'Prod';
+        csProd.UserId__c = 'Prod';
+        csProd.Password__c = 'Prod';
+        insert csProd;
     }
     
     //create Accounts 
