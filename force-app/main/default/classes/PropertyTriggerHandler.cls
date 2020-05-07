@@ -3,10 +3,10 @@ public with sharing class PropertyTriggerHandler {
         
         for(property__c prop : props){
             if(prop.Address_Line_1__c != null && prop.City__c != null && prop.State__c != null){
-                prop.Name = prop.Address_Line_1__c + ' ' + prop.City__c + ' ' + prop.State__c + ' ||'; 
+                prop.Name = prop.Address_Line_1__c + ' ' + prop.City__c + ' ' + prop.State__c; 
             }
             if(prop.Alternate_Name__c != null){
-                prop.Name = prop.Name + ' ' + prop.Alternate_Name__c;
+                prop.Name = prop.Name + ' | ' + prop.Alternate_Name__c;
             }
         }
 
@@ -14,7 +14,7 @@ public with sharing class PropertyTriggerHandler {
     public static void PropertyNameUpdate(List<Property__c> newProps, map<Id,Property__c> oldProps){
         for(Property__c prop : newProps){
             if(prop.Alternate_Name__c != oldProps.get(prop.Id).Alternate_Name__c && prop.Alternate_Name__c != null){
-                prop.Name = prop.Address_Line_1__c + ' ' + prop.City__c + ' ' + prop.State__c + ' || ' + prop.Alternate_Name__c;
+                prop.Name = prop.Address_Line_1__c + ' ' + prop.City__c + ' ' + prop.State__c + ' | ' + prop.Alternate_Name__c;
             }
         }
     }

@@ -4,7 +4,7 @@
     <description>Job Name field is used on New Job VF page, used to pass along to Timberline, and used to update Opportunity Name field via &#39;Opportunity Naming Convention&#39; workflow.</description>
     <externalId>false</externalId>
     <label>Job Name</label>
-    <length>30</length>
+    <length>100</length>
     <required>true</required>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>

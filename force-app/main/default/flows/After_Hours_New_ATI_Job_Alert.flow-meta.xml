@@ -735,36 +735,13 @@
         <processMetadataValues>
             <name>emailAlertSelection</name>
             <value>
-                <stringValue>Call_Center_New_ATI_Job_Notification_Orange</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>myRule_7_A1</name>
-        <label>Call_Center_New_ATI_Job_Notification_Orange</label>
-        <locationX>700</locationX>
-        <locationY>200</locationY>
-        <actionName>ATI_Job__c.Call_Center_New_ATI_Job_Notification_Orange</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>myRule_7_A2</targetReference>
-        </connector>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <processMetadataValues>
-            <name>emailAlertSelection</name>
-            <value>
                 <stringValue>After_Hour_Lead_entry_Email_Alert_ATI</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_7_A2</name>
+        <name>myRule_7_A1</name>
         <label>After Hour Lead Entry Alert</label>
         <locationX>700</locationX>
-        <locationY>300</locationY>
+        <locationY>200</locationY>
         <actionName>ATI_Job__c.After_Hour_Lead_entry_Email_Alert_ATI</actionName>
         <actionType>emailAlert</actionType>
         <inputParameters>
@@ -1644,12 +1621,12 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>(CONTAINS([ATI_Job__c].Office2__c ,&quot;a1O70000000X5cd&quot;) ) &amp;&amp; ($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</stringValue>
+                <stringValue>(CONTAINS([ATI_Job__c].Office2__c ,&quot;a1O70000000X5cdEAC&quot;)) &amp;&amp; ($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_7</name>
         <dataType>Boolean</dataType>
-        <expression>(CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5cd&quot;) ) &amp;&amp; ({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)</expression>
+        <expression>(CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5cdEAC&quot;)) &amp;&amp; ({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -1662,7 +1639,7 @@
         <dataType>Boolean</dataType>
         <expression>(CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5dv&quot;)) &amp;&amp; ({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)</expression>
     </formulas>
-    <interviewLabel>After_Hours_New_ATI_Job_Alert-5_InterviewLabel</interviewLabel>
+    <interviewLabel>After_Hours_New_ATI_Job_Alert-13_InterviewLabel</interviewLabel>
     <label>After Hours New ATI Job Alert</label>
     <processMetadataValues>
         <name>ObjectType</name>

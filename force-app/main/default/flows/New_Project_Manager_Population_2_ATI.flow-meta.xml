@@ -3119,7 +3119,7 @@ ISPICKVAL({!myVariable_old.Division__c}, &quot;Emergency Svces&quot;),
         <object>ATI_Job__c</object>
     </recordUpdates>
     <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

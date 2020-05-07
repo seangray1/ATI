@@ -339,6 +339,7 @@
         </rules>
     </decisions>
     <interviewLabel>Update Master Job Stage {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Update Master Job Stage</label>
     <loops>
         <name>loopJobs</name>

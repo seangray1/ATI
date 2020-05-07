@@ -389,6 +389,36 @@
                         class="spacing  jobFormControl"
                         dropdown-alignment=auto>
                     </lightning-combobox>
+                    <label class="Labels spacing required1" > Market Class</label>
+                    <lightning-combobox name="progress"
+                    
+                    value={JobClass}
+                    placeholder="-Select-"
+                    options={JobClassPicklistValues}
+                    onchange={JobClassChange} 
+                    class="spacing  jobFormControl"
+                    dropdown-alignment=auto>
+                </lightning-combobox>
+                <label class="Labels spacing required1" > Market Segment</label>
+                <lightning-combobox name="progress"
+                
+                value={JobClass}
+                placeholder="-Select-"
+                options={JobClassPicklistValues}
+                onchange={JobClassChange} 
+                class="spacing  jobFormControl"
+                dropdown-alignment=auto>
+            </lightning-combobox>
+            <label class="Labels spacing required1" > Market Segment Sub Class</label>
+            <lightning-combobox name="progress"
+            
+            value={JobClass}
+            placeholder="-Select-"
+            options={JobClassPicklistValues}
+            onchange={JobClassChange} 
+            class="spacing  jobFormControl"
+            dropdown-alignment=auto>
+        </lightning-combobox>
                     <label class="Labels spacing required1"> Lead Source</label>
                      <lightning-combobox name="progress"
                         disabled={LeadSourceDisabled}
@@ -890,6 +920,7 @@
                                     postal-code=""
                                     show-address-lookup
                                     class="contactFormControl" 
+                                    read-only
                                      ></lightning-input-address>
                                      
                 <br>
@@ -999,6 +1030,7 @@
                         postal-code=""
                         show-address-lookup
                         class="companyAccountFormControl"
+                        read-only
                         required
                          ></lightning-input-address>
                          <br>
@@ -1135,6 +1167,7 @@
                                         postal=""
                                         show-address-lookup
                                         required
+                                        read-only
                                         class="personAccountFormControl"
                                         
                                          ></lightning-input-address>
@@ -1225,6 +1258,7 @@
                     
                                 <lightning-input-address
                                 required
+                                read-only
                                 class="propertyFormControl"
                                 data-id="AddressLookup"
                                 address-label="Address Search"
@@ -1234,6 +1268,7 @@
                                 county-label="County"
                                 province-label="State"
                                 postal-code-label="Zip"
+                                
                                 street={Street}
                                 city={City}
                                 county=""

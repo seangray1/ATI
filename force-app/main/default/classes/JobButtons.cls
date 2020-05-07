@@ -9,7 +9,7 @@
  * Ver       Date            Author      		    Modification
  * 1.0    2/1/2020   Sean Gray     Initial Version
 **/
-public with sharing class JobButtons {
+public without sharing class JobButtons {
     @AuraEnabled
     public static Date projectNoteDate(String recordId){
          if(recordId != null){
@@ -128,22 +128,14 @@ public with sharing class JobButtons {
         public List<Id> ProjectManagerString {get;set;}
     }
     @AuraEnabled
-    public static string PMAssignmentChatter(Date startDate, String recordId, String ownerId, Date completionDate,  String notes, String briefScope,String PackagedJSON){
+    public static string PMAssignmentChatter(Date startDate, String recordId, String ownerId, Date completionDate,  String notes, String briefScope,String ContactId, String ProjectManagerId){
         try {
         system.debug('StartDate ' + startDate + ' Record Id ' + recordId);
-        JSONWrapper ContactID;
-        Id conId;
-        Id projectManagerId;
-        system.debug('JSON is ' + PackagedJSON);
-        ContactID = (JSONWrapper)JSON.deserialize(PackagedJSON, JSONWrapper.class);
-        for(Id ca : ContactID.ContactString){
-        conId = ca;
-        }
-        for(Id ca1 : ContactID.ProjectManagerString){
-        projectManagerId = ca1;
-        }
+        
          Contact contactName = new Contact();
-         contactName = [Select Name, mobilephone FROM Contact Where Id =: conId];
+         if(ContactId != null){
+         contactName = [Select Name, mobilephone FROM Contact Where Id =: ContactId];
+         }
         User pm = [Select Name FROM User WHere Id =: projectManagerId];
          
         ATI_Job__c job = [Select Id, amount__c,total_billing_forecast_amount__c,Account__r.Name, Lead_Source__c, contact__c,office2__c, Project_Manager__c, Project_manager_new__c, Name, Percent_Complete__c, Estimated_Completion_Date_Per_PD__c, completion_date__c FROM ATI_Job__c WHERE Id =: recordId];
@@ -158,10 +150,10 @@ public with sharing class JobButtons {
         for(budget__c b : bud){
             bu = b;
         }
-        String contactUrl = URL.getSalesforceBaseUrl().toExternalForm() + '/' + conId;
+        String contactUrl = URL.getSalesforceBaseUrl().toExternalForm() + '/' + ContactId;
         //if(!bud.isempty()){
         //string comments = '\n' + 'PM Assignment: ' + job.name +'\n' + '\n' + '\n' + 'Insurance Carrier/TPA: ' + ins.name +'\n' + 'Fees: ' + bu.Total_Program_Fees_New__c + '\n' + 'Allocation: '+ bu.Total_Allocations__c + '\n'  +'Price: '+ job.amount__c + '\n'  +'Budget: ' + bu.Total_Budget_Goal__c + '\n' + 'Contract Start Date: '+ startDate + '\n' + 'Contract Completion Date: ' + completionDate + '\n' + 'Forecast: '+ job.total_billing_forecast_Amount__c +'\n' + 'Brief Scope: '+briefScope+'\n' + 'Notes: '+notes +'\n' + 'ContactInfo: '+contactInfo+'\n' + 'Suggested PM: ' + projectManager; 
-        string comments = '\n' + 'PM Assignment: ' + job.name +'\n' + '\n' + '\n' + 'Insurance Carrier/TPA: ' + job.Account__r + ' ' + job.lead_source__c  +'\n' + 'Fees: ' + bu.Total_Program_Fees_New__c + '\n' + 'Allocation: '+ bu.Total_Allocations__c + '\n'  +'Price: '+ job.amount__c + '\n'  +'Budget: ' + bu.Total_Budget_Goal__c + '\n' + 'Contract Start Date: '+ startDate + '\n' + 'Contract Completion Date: ' + completionDate + '\n' + 'Forecast: '+ job.total_billing_forecast_Amount__c +'\n' + 'Brief Scope: '+briefScope+'\n' + 'Notes: '+notes +'\n' + 'ContactInfo: '+ contactName.Name +  '\n' + 'Suggested PM: ' + pm.Name;
+        string comments = '\n' + 'PM Assignment: ' + job.name +'\n' + '\n' + '\n' + 'Insurance Carrier/TPA: ' + job.Account__r.Name + ' ' + job.lead_source__c  +'\n' + 'Fees: ' + bu.Total_Program_Fees_New__c + '\n' + 'Allocation: '+ bu.Total_Allocations__c + '\n'  +'Price: '+ job.amount__c + '\n'  +'Budget: ' + bu.Total_Budget_Goal__c + '\n' + 'Contract Start Date: '+ startDate + '\n' + 'Contract Completion Date: ' + completionDate + '\n' + 'Forecast: '+ job.total_billing_forecast_Amount__c +'\n' + 'Brief Scope: '+briefScope+'\n' + 'Notes: '+notes +'\n' + 'ContactInfo: '+ contactName.Name +  '\n' + 'Suggested PM: ' + pm.Name;
         
         //Task t = new Task( Type = 'Project Note', ActivityDate = system.today(), Description = comments, OwnerId = ownerId, Priority = 'Low', Status='Completed', Subject = 'Project Note', WhatId = recordId);
         //insert t;
@@ -209,7 +201,7 @@ public with sharing class JobButtons {
         req1.setSkipEntryCriteria(true);
         // Submit the approval request for the account
         Approval.ProcessResult result = Approval.process(req1);
-        Approval.unlock(recordId);
+        // Approval.unlock(recordId);
         return 'Success';
     } catch (Exception e) {
         return e.getMessage();    
@@ -217,8 +209,11 @@ public with sharing class JobButtons {
     }
     @future
     public static void UpdateCompletionDatePerPM(Id JobID, Date completionDatePerPD, Id ProjectManagerId){
+        system.debug('Suggested Pm is ' + ProjectManagerId);
+        Approval.UnlockResult unlockedResults = Approval.unlock(JobID, false);
         ATI_Job__c job = new ATI_Job__c(ID = JobID, Estimated_Completion_Date__c = completionDatePerPD, Suggested_PM__c = ProjectManagerId, PM_Assignment_Status__c = 'Sent for Approval');
         update job;
+        
     }
 
 
@@ -331,38 +326,39 @@ public with sharing class JobButtons {
         req1.setSkipEntryCriteria(true);
         // Submit the approval request for the account
         Approval.ProcessResult result = Approval.process(req1);
-        FeedItem post = new FeedItem();
-        post.ParentId = recordId;
-        ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
-        ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
-        ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
-        ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
-        messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
-        ConnectApi.MentionSegmentInput mentionSegmentInput1 = new ConnectApi.MentionSegmentInput();
-        ConnectApi.MentionSegmentInput mentionSegmentInput2 = new ConnectApi.MentionSegmentInput();
+        // FeedItem post = new FeedItem();
+        // post.ParentId = recordId;
+        // ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
+        // ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
+        // ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
+        // ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
+        // messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
+        // ConnectApi.MentionSegmentInput mentionSegmentInput1 = new ConnectApi.MentionSegmentInput();
+        // ConnectApi.MentionSegmentInput mentionSegmentInput2 = new ConnectApi.MentionSegmentInput();
         
-        mentionSegmentInput.id = u1.Id;
-        messageBodyInput.messageSegments.add(mentionSegmentInput);
-        mentionSegmentInput2.id = u2.Id;
-        messageBodyInput.messageSegments.add(mentionSegmentInput2);
-        if(job.Branch_Manager__c != null){
-            mentionSegmentInput1.id = job.Branch_Manager__c;
-            messageBodyInput.messageSegments.add(mentionSegmentInput1);
-        }
-        String comments = ' Approval Request for Job : ' + OppName +'\n' + '\n' + 'Amount : ' + Amount + '\n' + 'Will ATI need to assign a PM for the Project? : ' + FirstQ
-        + '\n' + 'Is this a one subcontractor project? : ' + SecondQ + '\n' + 'Is this a one trade project? : ' + ThirdQ + '\n' + 'Subcontractor : ' + Subcontractor + '\n' + 
-        'Project Description : ' + Description;
-        textSegmentInput.text = comments;
-        messageBodyInput.messageSegments.add(textSegmentInput);
-        feedItemInput.body = messageBodyInput;
-        feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
-        feedItemInput.subjectId = recordId;
-        if(Test.isRunningTest()){}
-        else{
-        ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
-        //Approval.unlock(recordId);
-        }
+        // mentionSegmentInput.id = u1.Id;
+        // messageBodyInput.messageSegments.add(mentionSegmentInput);
+        // mentionSegmentInput2.id = u2.Id;
+        // messageBodyInput.messageSegments.add(mentionSegmentInput2);
+        // if(job.Branch_Manager__c != null){
+        //     mentionSegmentInput1.id = job.Branch_Manager__c;
+        //     messageBodyInput.messageSegments.add(mentionSegmentInput1);
+        // }
+        // String comments = ' Approval Request for Job : ' + OppName +'\n' + '\n' + 'Amount : ' + Amount + '\n' + 'Will ATI need to assign a PM for the Project? : ' + FirstQ
+        // + '\n' + 'Is this a one subcontractor project? : ' + SecondQ + '\n' + 'Is this a one trade project? : ' + ThirdQ + '\n' + 'Subcontractor : ' + Subcontractor + '\n' + 
+        // 'Project Description : ' + Description;
+        // textSegmentInput.text = comments;
+        // messageBodyInput.messageSegments.add(textSegmentInput);
+        // feedItemInput.body = messageBodyInput;
+        // feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
+        // feedItemInput.subjectId = recordId;
+        // if(Test.isRunningTest()){}
+        // else{
+        // ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
+       
+        // }
         system.debug('result ' + result);
+        Approval.unlock(recordId);
         return 'success';
         } catch (Exception e) {
             system.debug('Exception is '+ e);

@@ -1,0 +1,5 @@
+<aura:component implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
+    <aura:attribute name="jobrecordId" type="Id" description="This attribute is for getting record id"/>
+    <aura:attribute name="TypeOfJobEntry" type="String"/>
+    <c:afterHoursJobLWC/>
+</aura:component>

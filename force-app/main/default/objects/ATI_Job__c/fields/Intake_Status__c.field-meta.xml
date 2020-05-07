@@ -19,7 +19,7 @@
             </value>
             <value>
                 <fullName>Reviewed/Completed</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Reviewed/Completed</label>
             </value>
         </valueSetDefinition>

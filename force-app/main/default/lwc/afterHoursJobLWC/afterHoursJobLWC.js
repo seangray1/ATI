@@ -4,6 +4,7 @@ import AfterHoursJobCreation from '@salesforce/apex/NewJobController.AfterHoursJ
 import GetEsJobTypePicklist from '@salesforce/apex/NewJobController.GetEsJobTypePicklist';
 import GetDivisionPicklist from '@salesforce/apex/NewJobController.GetDivisionPicklist';
 import GetMajorEvents from '@salesforce/apex/NewJobController.GetMajorEvents';
+import FORM_FACTOR from '@salesforce/client/formFactor';
 import { NavigationMixin } from 'lightning/navigation';
 import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
 const DELAY = 600;
@@ -14,8 +15,9 @@ export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) 
 JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;DivisionPicklistValues =[{}];EsJobTypePicklistValues=[{}];
 DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
-ContactName;Email;PhoneNumber;Company;AdditionalInformation;@track newDescription = false;
-DescriptionOfLoss;InsuranceProvider;Claim;Policy;LeadSource;AdditionalInformationTwo;@track newDescriptionTwo = false;
+ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
+DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
+@track Desktop = false; @track Mobile = false;
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
 }
@@ -70,7 +72,60 @@ openContactInfoModal(){
     this.newDescription = true;
 }
 
+
+closeDescriptionModal1(){
+    this.newDescription = false;
+    this.ModalScreen = true;
+}
+closeDescriptionModalTwo1(){
+    this.newDescriptionTwo = false;
+    this.ModalScreen = true;
+}
+SaveDescription1(){
+    this.ContactInfo = "Name: "+ this.ContactName +  '\n' + "Company: "+ this.Company + '\n' + 'Email: '+ this.Email + '\n' + 'Phone Number: ' + this.PhoneNumber + '\n' + 'Additional Information: '+ this.AdditionalInformation;
+    this.newDescription= false;
+    this.ModalScreen = true;
+}
+SaveDescriptionTwo1(){
+    this.Description = "Description of Loss: "+ this.DescriptionOfLoss +  '\n' + "Insurance Provider: "+ this.InsuranceProvider + '\n' + 'Claim #: '+ this.Claim + '\n' + 'Policy #: ' + this.Policy + '\n' + 'Lead Source: ' + this.LeadSource + '\n' + 'Additional Information: '+ this.AdditionalInformationTwo;
+    this.newDescriptionTwo= false;
+    this.ModalScreen = true;
+}
+openDescriptionModal1(){
+    const address = this.template.querySelector('[data-id="AddressLookup"]');
+            const isValid = address.checkValidity();
+             if(isValid) {
+                this.Street = address.street;
+                this.City = address.city;
+                this.State = address.province;
+                this.Zipcode = address.postalCode;
+                this.Country = address.country;
+             }
+    this.ModalScreen = false;
+    this.newDescriptionTwo = true;
+}
+openContactInfoModal1(){
+    const address = this.template.querySelector('[data-id="AddressLookup"]');
+            const isValid = address.checkValidity();
+             if(isValid) {
+                this.Street = address.street;
+                this.City = address.city;
+                this.State = address.province;
+                this.Zipcode = address.postalCode;
+                this.Country = address.country;
+             }
+    this.ModalScreen = false;
+    this.newDescription = true;
+}
+
 connectedCallback(){
+    console.log('Browser is ' + FORM_FACTOR);
+    if(FORM_FACTOR === 'Large'){
+        this.Desktop = true;
+    }
+    if(FORM_FACTOR === 'Medium' || FORM_FACTOR === 'Small'){
+        this.Mobile = true;
+    }
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
         for(var i = 0; i<AccountRolePicklistValues.length;i++){
@@ -261,6 +316,14 @@ Save(){
             alert(data);
         }else{
             //ClearForm();
+            this.Division = '--None--';this.JobName = ''; this.EsJobType = ''; this.Office = ''; this.Street = ''; this.State = ''; this.City = ''; this.ZipCode = '';
+            this.Country = '';this.AddressLine2 = '';this.ContactInfo = '';this.Description = '';this.MajorEventId = ''; this.ProjectDirectorId = '';
+            this.ProjectDirectorValue = '';this.loading = false; this.OfficeValue = '';this.OfficeId = ''; this.DivisionEs = false;
+            this.EsJobType = '';this.PageStateReady = false;this.MajorEventValue = '';this.MajorEventSelected = false;this.ProjectDirectorSelected = false;
+            this.ContactName = '';this.Email = '';this.PhoneNumber = '';this.Company= '';this.AdditionalInformation = '';this.newDescription = false;
+            this.DescriptionOfLoss = '';this.InsuranceProvider = '';this.Claim = '';this.Policy = '';this.LeadSource = '';this.AdditionalInformationTwo = '';
+            
+            this.newDescriptionTwo = false;
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
@@ -274,6 +337,13 @@ Save(){
 }
     }
 }
+Cancel(event) {
+    location.href =
+      "https://" +
+      window.location.hostname +
+      "/lightning/o/ATI_Job__c/list?filterName=Recent";
+    event.action = this.location;
+  }
 ClearForm(){
     this.Division = '';this.JobName = ''; this.EsJobType = ''; this.Office = ''; this.Street = ''; this.State = ''; this.City = ''; this.ZipCode = '';
     this.Country = '';this.AddressLine2 = '';this.ContactInfo = '';this.Description = '';this.MajorEventId = ''; this.ProjectDirectorId = '';

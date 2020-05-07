@@ -5,6 +5,9 @@
             "c/afterHoursJobLWC": [
                 "afterHoursJobLWC/afterHoursJobLWC.js"
             ],
+            "c/afterHoursJobLWCDesktop": [
+                "afterHoursJobLWCDesktop/afterHoursJobLWCDesktop.js"
+            ],
             "c/allocationsApp": [
                 "allocationsApp/allocationsApp.js"
             ],
@@ -64,9 +67,6 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
-            ],
-            "c/afterHoursJobLWCDesktop": [
-                "afterHoursJobLWCDesktop/afterHoursJobLWCDesktop.js"
             ]
         },
         "experimentalDecorators": true
