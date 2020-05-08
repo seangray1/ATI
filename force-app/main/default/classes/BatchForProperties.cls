@@ -20,13 +20,13 @@ global class BatchForProperties implements Database.Batchable<sObject> {
            
              if(s.Date_Of_Loss__c != null){
             s.Name = s.Job_Address_Line_1__c + ' ' + s.Project_Site_City__c + ' ' + s.Project_Site_State__c + ' | ' + s.Date_Of_Loss__c;
-            s.Name.replace('00:00:00', '');
+            s.Name = s.Name.replace('00:00:00', '');
             if(s.name.length() > 79){
                 s.name = s.name.substring(0, 79);
             }
              }else{
                 s.Name = s.Job_Address_Line_1__c + ' ' + s.Project_Site_City__c + ' ' + s.Project_Site_State__c;
-                s.Name.replace('00:00:00', '');
+                s.Name = s.Name.replace('00:00:00', '');
                 if(s.name.length() > 79){
                     s.name = s.name.substring(0, 79);
                 }
@@ -41,4 +41,3 @@ global class BatchForProperties implements Database.Batchable<sObject> {
        global void finish(Database.BatchableContext BC){
        }
     }
-    

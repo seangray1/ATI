@@ -379,7 +379,7 @@
                         <label class="Labels required1 spacing" for="textarea-id-01"> Job Name</label>
                                      
                         <lightning-input  onchange={JobNameChange} class="jobFormControl spacing"  value={JobName}></lightning-input>
-                        <label class="Labels spacing required1" > Job Class</label>
+                        <!-- <label class="Labels spacing required1" > Job Class</label>
                         <lightning-combobox name="progress"
                         
                         value={JobClass}
@@ -389,49 +389,23 @@
                         class="spacing  jobFormControl"
                         dropdown-alignment=auto>
                     </lightning-combobox>
-                    <label class="Labels spacing required1" > Market Class</label>
-                    <lightning-combobox name="progress"
-                    
-                    value={JobClass}
-                    placeholder="-Select-"
-                    options={JobClassPicklistValues}
-                    onchange={JobClassChange} 
-                    class="spacing  jobFormControl"
-                    dropdown-alignment=auto>
-                </lightning-combobox>
-                <label class="Labels spacing required1" > Market Segment</label>
-                <lightning-combobox name="progress"
-                
-                value={JobClass}
-                placeholder="-Select-"
-                options={JobClassPicklistValues}
-                onchange={JobClassChange} 
-                class="spacing  jobFormControl"
-                dropdown-alignment=auto>
-            </lightning-combobox>
-            <label class="Labels spacing required1" > Market Segment Sub Class</label>
-            <lightning-combobox name="progress"
-            
-            value={JobClass}
-            placeholder="-Select-"
-            options={JobClassPicklistValues}
-            onchange={JobClassChange} 
-            class="spacing  jobFormControl"
-            dropdown-alignment=auto>
-        </lightning-combobox>
-                    <label class="Labels spacing required1"> Lead Source</label>
-                     <lightning-combobox name="progress"
-                        disabled={LeadSourceDisabled}
-                        value={LeadSource}
-                        placeholder="-Select-"
-                        options={LeadSourcePicklistValues}
-                        onchange={LeadSourceChange}
-                        class="spacing  jobFormControl"
-                        dropdown-alignment=auto >
-                        </lightning-combobox>
+                     -->
+                        <lightning-record-edit-form object-api-name="ATI_Job__c">
+                            
+                            <label class="Labels spacing required1" > Market Class</label>
+                            <lightning-input-field field-name="Market_Class__c" variant="label-hidden" class="Labels jobFormControl"></lightning-input-field>
+                            <label class="Labels spacing required1" > Market Segment</label>
+                         <lightning-input-field field-name="Market_Segment__c" variant="label-hidden" class="Labels jobFormControl"></lightning-input-field>
+                            <label class="Labels spacing required1" > Market Segment Sub Class</label>
                         
-                       
-                    </div>
+                        <lightning-input-field field-name="Market_Segment_Sub_Class__c" variant="label-hidden" class="Labels jobFormControl"></lightning-input-field>
+                        
+
+
+
+                    </lightning-record-edit-form>
+                </div>
+                   
                     <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
                             <lightning-input onkeyup={OfficeChange}
@@ -499,6 +473,19 @@
                             >
                            </lightning-combobox>
                         </template>
+                         <label class="Labels spacing required1"> Lead Source</label>
+                     <lightning-combobox name="progress"
+                        disabled={LeadSourceDisabled}
+                        value={LeadSource}
+                        placeholder="-Select-"
+                        options={LeadSourcePicklistValues}
+                        onchange={LeadSourceChange}
+                        class="spacing  jobFormControl"
+                        dropdown-alignment=auto >
+                        </lightning-combobox>
+                        
+                       
+                    </div>
                        
                         
                                 <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Project Director</label>
@@ -507,7 +494,7 @@
 
                                     </lightning-input-field>
                                 </lightning-record-edit-form> -->
-                    </div> 
+                  
                    
                     
                     <div class="slds-col slds-size_1-of-7">
