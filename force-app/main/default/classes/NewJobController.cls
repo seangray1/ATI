@@ -627,7 +627,10 @@ public with sharing class NewJobController {
             prop.Address_Line_1__c = Property.Street;
             NewProperty= true;
             prop.Year_Structure_Built__c = YearBuilt;
-            prop.Job_Class__c = jobWrap.JobClass;
+            // prop.Job_Class__c = jobWrap.JobClass;
+            prop.Market_Class__c = jobWrap.MarketClass;
+            prop.Market_Segment__c = jobWrap.MarketSegment;
+            prop.Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass;
             prop.Alternate_Name__c = Property.AlternateName;
             
             prop.County__c = county;
@@ -702,10 +705,10 @@ public with sharing class NewJobController {
         if(prop.county__c != null && prop.County__c.length() > 15){
             prop.County__c = prop.County__c.substring(0, 15);
         }
-        
-        ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification',  
-        Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
-        Job_Class__c = jobWrap.JobClass, Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
+        //Job_Class__c = jobWrap.JobClass,
+        ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Stage__c = 'Qualification', Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
+        Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass, Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
+         Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
         Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
@@ -849,7 +852,11 @@ public with sharing class NewJobController {
         public Id ProjectDirector {get;set;}  
         public Date DateOfLoss {get;set;}  
         public Id MajorEvent {get;set;}
-        public String JobRealName {get;set;}  
+        public String JobRealName {get;set;}
+        public String MarketClass {get;set;}
+        public String MarketSegment {get;set;}
+        public String MarketSegmentSubClass {get;set;}
+
     }
     // public class AccountWrapper{
     //     //public List<Id> PropertyId {get;set;}

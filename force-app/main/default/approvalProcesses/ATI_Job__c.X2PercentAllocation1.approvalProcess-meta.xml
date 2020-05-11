@@ -416,12 +416,8 @@
         <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>Branch_Manager__c</name>
+                <name>Regional_Director__c</name>
                 <type>relatedUserField</type>
-            </approver>
-            <approver>
-                <name>kurt.fairless@atirestoration.com</name>
-                <type>user</type>
             </approver>
             <approver>
                 <name>scott.moore@atirestoration.com</name>
@@ -438,6 +434,20 @@
     </approvalStep>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Email_Charlotte_for_2_Allocations_Project</name>
+                <type>Alert</type>
+            </action>
+            <action>
+                <name>Update_1_sub_and_Timberline_boxes</name>
+                <type>FieldUpdate</type>
+            </action>
+            <action>
+                <name>Update_Timberline_box</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
         <assignedApprover>
             <approver>
                 <name>charlotte.neuhaus@atirestoration.com</name>

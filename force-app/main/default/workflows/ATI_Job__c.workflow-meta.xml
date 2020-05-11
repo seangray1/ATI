@@ -323,6 +323,10 @@
         <description>Call Center New ATI Job Notification - Anaheim</description>
         <protected>false</protected>
         <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>natalie.yrineo@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -631,6 +635,22 @@
         <template>ATI_Job_Templates/ATI_Job_E_S_Job_Notification</template>
     </alerts>
     <alerts>
+        <fullName>Email_Charlotte_for_2_Allocations_Project</fullName>
+        <description>Email Charlotte for 2% Allocations Project</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>scott.moore@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/X2PercentAllocationApprovedEmail</template>
+    </alerts>
+    <alerts>
         <fullName>Email_alert_for_new_Los_Angeles_E_S_jobs_in_ATI_jobs</fullName>
         <description>Email alert for new Los Angeles E/S jobs in ATI jobs</description>
         <protected>false</protected>
@@ -751,6 +771,17 @@
         <template>ATI_Job_Templates/ATI_Job_E_S_Job_Notification</template>
     </alerts>
     <alerts>
+        <fullName>Email_to_notify_PD_and</fullName>
+        <description>Email to notify PD and Office Admin when File Reopened in Job from Xact</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/Xact_Job_Reopened</template>
+    </alerts>
+    <alerts>
         <fullName>Error_City_of_LA</fullName>
         <description>Error - City of LA</description>
         <protected>false</protected>
@@ -819,6 +850,21 @@
         <template>ATI_Job_Templates/ATI_Facility_Source_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>JOB_From_Contact_Center</fullName>
+        <description>JOB - From Contact Center</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/New_Job_From_Contact_Center</template>
+    </alerts>
+    <alerts>
         <fullName>JOB_GLP_New_Loss_Info_Request_to_PD</fullName>
         <ccEmails>nat.lee@atirestoration.com</ccEmails>
         <description>JOB - GLP New Loss Info Request to PD</description>
@@ -832,6 +878,42 @@
         <template>ATI_Job_Templates/ATI_GLP_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>JOB_Job_Request_Form_Completed</fullName>
+        <description>JOB - Job Request Form Completed</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_Job_Request_Completed</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_Job_Request_Form_Submitted</fullName>
+        <description>JOB - Job Request Form Submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_Job_Request_Submitted</template>
+    </alerts>
+    <alerts>
         <fullName>JOB_La_Quinta_New_Loss_Info_Request_to_PD</fullName>
         <ccEmails>nat.lee@atirestoration.com</ccEmails>
         <description>JOB - La Quinta New Loss Info Request to PD</description>
@@ -843,6 +925,21 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_La_Quinta_New_Loss_Info_Request_to_PD</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_PD_Assignment</fullName>
+        <description>JOB - PD Assignment</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/ATI_Job_New_Job_requires_BM_to_assign_PD</template>
     </alerts>
     <alerts>
         <fullName>JOB_PM_Assignment_Approval</fullName>
@@ -877,6 +974,24 @@
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>ATI_Job_Templates/JOB_PM_Assignment_Rejection</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_Request_Completed_Email_Alert_ATI</fullName>
+        <description>JOB Request Completed Email Alert ATI</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>sean.gray@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_Job_Request_Completed</template>
     </alerts>
     <alerts>
         <fullName>JOB_Santander_New_Loss_Info_Request_to_PD</fullName>
@@ -1543,6 +1658,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_1_sub_and_Timberline_boxes</fullName>
+        <field>X1sub__c</field>
+        <literalValue>1</literalValue>
+        <name>Update 1 sub</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Close_Date_when_Won_or_Lost</fullName>
         <field>CloseDate__c</field>
         <formula>TODAY()</formula>
@@ -1593,6 +1717,15 @@
         <field>Stage__c</field>
         <literalValue>Won</literalValue>
         <name>Update Stage to Won</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Timberline_box</fullName>
+        <field>Sync_to_Timberline__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Timberline box</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -2082,6 +2215,17 @@
         <includeSessionId>true</includeSessionId>
         <integrationUser>jitterbit@atirestoration.com</integrationUser>
         <name>Jitterbit Job OBM</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>Send_Job_Record_To_Jitterbit</fullName>
+        <apiVersion>48.0</apiVersion>
+        <endpointUrl>https://ATI69420.jitterbit.net/DEV/jobAtiCall</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>false</includeSessionId>
+        <integrationUser>sf.test@atirestoration.com</integrationUser>
+        <name>Send Job Record To Jitterbit</name>
         <protected>false</protected>
         <useDeadLetterQueue>false</useDeadLetterQueue>
     </outboundMessages>
@@ -2869,9 +3013,7 @@ Channyn Rowe</description>
         </actions>
         <active>false</active>
         <description>Outbound message to send Opportunity fields to Timberline via Jitterbit</description>
-        <formula>AND(OR(AND(ISCHANGED(Stage__c),ISPICKVAL(Stage__c, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, ISCHANGED(PM_Approval_Only__c), AND(OR(ISCHANGED(Project_Manager_new__c), ISCHANGED(Project_Manager__c),ISCHANGED(Account_Executive_1_Timber__c),ISCHANGED(Account_Executive_2_Timber__c),ISCHANGED(Job_Name__c)),NOT(ISBLANK( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE)), 
-
-$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(OR(AND(ISCHANGED(Stage__c),ISPICKVAL(Stage__c, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, ISCHANGED(PM_Approval_Only__c), AND(OR(ISCHANGED(Project_Manager_new__c), ISCHANGED(Project_Manager__c),ISCHANGED(Account_Executive_1_Timber__c),ISCHANGED(Account_Executive_2_Timber__c),ISCHANGED(Job_Name__c)),NOT(ISBLANK( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE)),   $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -3043,6 +3185,21 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Send Job Record To Jitterbit</fullName>
+        <actions>
+            <name>Send_Job_Record_To_Jitterbit</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <formula>OR(
+ISCHANGED( Customer_Contacted__c ),
+ISCHANGED( Estimate_Rejection_Date__c ),
+ISCHANGED( Approved_Date__c ),
+ISCHANGED( Inspected__c )
+)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
         <fullName>Send Prelim Last Modified</fullName>
         <actions>
             <name>Job_Send_Prelim_Last_Modified_By</name>
@@ -3190,11 +3347,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>false</active>
         <description>Workflow rule to update &#39;Send Prelim&#39; field to &#39;No&#39; for most program Jobs, all national accounts (lead source), all contents, marketing, and consulting jobs, certain accounts, and all jobs in certain states.</description>
-        <formula>AND(ISPICKVAL(Send_Prelim__c, &quot;&quot;) &amp;&amp; 
-
-	((BEGINS(TEXT(Lead_Source__c), &quot;Program&quot;) &amp;&amp; NOT(ISPICKVAL(Lead_Source__c, &quot;Program - Contractor Connection&quot;))) || 
-
-	BEGINS(TEXT(Lead_Source__c),&quot;National Account__r&quot;) || ISPICKVAL(Division__c,&quot;Contents&quot;) || ISPICKVAL(Division__c,&quot;Marketing&quot;) || ISPICKVAL(Division__c,&quot;Consulting&quot;) || ISPICKVAL(Job_Class__c,&quot;Educational&quot;) || ISPICKVAL(Job_Class__c,&quot;Municipality/ Gov&#39;t&quot;) || BEGINS(Account__r.Name, &quot;Allstate&quot;) || BEGINS(Account__r.Name, &quot;Alacrity&quot;) || BEGINS(Account__r.Name, &quot;Encompass&quot;) || BEGINS(Account__r.Name, &quot;CSAA&quot;) || BEGINS(Account__r.Name, &quot;Farmers&quot;) || BEGINS(Account__r.Name, &quot;Watterson&quot;) || BEGINS(Account__r.Name, &quot;JC Penney&quot;) || BEGINS(Account__r.Name, &quot;JP Morgan Chase&quot;) || BEGINS(Account__r.Name, &quot;Wyndham Worldwide&quot;) || BEGINS(Account__r.Name, &quot;National Community Renaissance&quot;) || BEGINS(Account__r.Name, &quot;Burlington Northern&quot;) || BEGINS(Account__r.Name, &quot;Facility Source&quot;) || BEGINS(Account__r.Name, &quot;Jones Lang LaSalle Americas&quot;) || BEGINS(Account__r.Name, &quot;2B Adjusting&quot;) || BEGINS(Account__r.Name, &quot;Essex Property Trust&quot;) || BEGINS(Account__r.Name, &quot;Wal-Mart&quot;) || BEGINS(Account__r.Name, &quot;City of Phoenix&quot;) || BEGINS(Account__r.Name, &quot;Aimco Property Management&quot;) || BEGINS(Account__r.Name, &quot;Cushman &amp; Wakefield&quot;) || BEGINS(Account__r.Name, &quot;St. Joseph&#39;s Hosp.&quot;) || BEGINS(Account__r.Name, &quot;Walgreens&quot;) || BEGINS(Account__r.Name, &quot;Watterson Environmental Group&quot;) || BEGINS(Account__r.Name, &quot;Prometheus Real Estate Group&quot;) || BEGINS(Account__r.Name, &quot;Irvine Company&quot;) || Project_Site_State__c = &quot;CO&quot; || Project_Site_State__c = &quot;CT&quot; || Project_Site_State__c = &quot;DE&quot; || (Project_Site_State__c = &quot;FL&quot; &amp;&amp; ISPICKVAL(Job_Class__c,&quot;Residential&quot;)) || Project_Site_State__c = &quot;HI&quot; || Project_Site_State__c = &quot;ID&quot; || Project_Site_State__c = &quot;IL&quot; || Project_Site_State__c = &quot;KY&quot; || Project_Site_State__c = &quot;MD&quot; || Project_Site_State__c = &quot;NE&quot; || Project_Site_State__c = &quot;NJ&quot; || Project_Site_State__c = &quot;NY&quot; || Project_Site_State__c = &quot;ND&quot; || Project_Site_State__c = &quot;PA&quot; || Project_Site_State__c = &quot;VT&quot;),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(ISPICKVAL(Send_Prelim__c, &quot;&quot;) &amp;&amp;   	((BEGINS(TEXT(Lead_Source__c), &quot;Program&quot;) &amp;&amp; NOT(ISPICKVAL(Lead_Source__c, &quot;Program - Contractor Connection&quot;))) ||   	BEGINS(TEXT(Lead_Source__c),&quot;National Account__r&quot;) || ISPICKVAL(Division__c,&quot;Contents&quot;) || ISPICKVAL(Division__c,&quot;Marketing&quot;) || ISPICKVAL(Division__c,&quot;Consulting&quot;) || ISPICKVAL(Job_Class__c,&quot;Educational&quot;) || ISPICKVAL(Job_Class__c,&quot;Municipality/ Gov&#39;t&quot;) || BEGINS(Account__r.Name, &quot;Allstate&quot;) || BEGINS(Account__r.Name, &quot;Alacrity&quot;) || BEGINS(Account__r.Name, &quot;Encompass&quot;) || BEGINS(Account__r.Name, &quot;CSAA&quot;) || BEGINS(Account__r.Name, &quot;Farmers&quot;) || BEGINS(Account__r.Name, &quot;Watterson&quot;) || BEGINS(Account__r.Name, &quot;JC Penney&quot;) || BEGINS(Account__r.Name, &quot;JP Morgan Chase&quot;) || BEGINS(Account__r.Name, &quot;Wyndham Worldwide&quot;) || BEGINS(Account__r.Name, &quot;National Community Renaissance&quot;) || BEGINS(Account__r.Name, &quot;Burlington Northern&quot;) || BEGINS(Account__r.Name, &quot;Facility Source&quot;) || BEGINS(Account__r.Name, &quot;Jones Lang LaSalle Americas&quot;) || BEGINS(Account__r.Name, &quot;2B Adjusting&quot;) || BEGINS(Account__r.Name, &quot;Essex Property Trust&quot;) || BEGINS(Account__r.Name, &quot;Wal-Mart&quot;) || BEGINS(Account__r.Name, &quot;City of Phoenix&quot;) || BEGINS(Account__r.Name, &quot;Aimco Property Management&quot;) || BEGINS(Account__r.Name, &quot;Cushman &amp; Wakefield&quot;) || BEGINS(Account__r.Name, &quot;St. Joseph&#39;s Hosp.&quot;) || BEGINS(Account__r.Name, &quot;Walgreens&quot;) || BEGINS(Account__r.Name, &quot;Watterson Environmental Group&quot;) || BEGINS(Account__r.Name, &quot;Prometheus Real Estate Group&quot;) || BEGINS(Account__r.Name, &quot;Irvine Company&quot;) || Project_Site_State__c = &quot;CO&quot; || Project_Site_State__c = &quot;CT&quot; || Project_Site_State__c = &quot;DE&quot; || (Project_Site_State__c = &quot;FL&quot; &amp;&amp; ISPICKVAL(Job_Class__c,&quot;Residential&quot;)) || Project_Site_State__c = &quot;HI&quot; || Project_Site_State__c = &quot;ID&quot; || Project_Site_State__c = &quot;IL&quot; || Project_Site_State__c = &quot;KY&quot; || Project_Site_State__c = &quot;MD&quot; || Project_Site_State__c = &quot;NE&quot; || Project_Site_State__c = &quot;NJ&quot; || Project_Site_State__c = &quot;NY&quot; || Project_Site_State__c = &quot;ND&quot; || Project_Site_State__c = &quot;PA&quot; || Project_Site_State__c = &quot;VT&quot;),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -3268,9 +3421,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>false</active>
         <description>Updates Last Timberline Update field with current date time when a record is saved.</description>
-        <formula>AND(OR(AND(ISCHANGED(Stage__c),ISPICKVAL(Stage__c, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, ISCHANGED(PM_Approval_Only__c), AND(OR(ISCHANGED(Project_Manager_new__c), ISCHANGED(Project_Manager__c),ISCHANGED(Account_Executive_1_Timber__c),ISCHANGED(Account_Executive_2_Timber__c),ISCHANGED(Job_Name__c)),NOT(ISNULL( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE)), 
-
-$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(OR(AND(ISCHANGED(Stage__c),ISPICKVAL(Stage__c, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, ISCHANGED(PM_Approval_Only__c), AND(OR(ISCHANGED(Project_Manager_new__c), ISCHANGED(Project_Manager__c),ISCHANGED(Account_Executive_1_Timber__c),ISCHANGED(Account_Executive_2_Timber__c),ISCHANGED(Job_Name__c)),NOT(ISNULL( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE)),   $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

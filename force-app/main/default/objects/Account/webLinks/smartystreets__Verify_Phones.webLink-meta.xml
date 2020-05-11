@@ -5,7 +5,7 @@
     <displayType>massActionButton</displayType>
     <height>600</height>
     <linkType>page</linkType>
-    <masterLabel>Verify Phones</masterLabel>
+    <masterLabel>Verify Selected Phones</masterLabel>
     <openType>noSidebar</openType>
     <page>smartystreets__VerifyPhonesAccount</page>
     <protected>false</protected>

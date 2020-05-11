@@ -38,6 +38,10 @@
             <fullName>Sent Email</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>XASP Program Notes</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>CKSW_BASE__Event_Type__c</picklist>

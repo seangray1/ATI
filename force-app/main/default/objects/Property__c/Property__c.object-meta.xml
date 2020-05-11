@@ -154,9 +154,8 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Property</label>
     <nameField>
-        <displayFormat>PN-{0000}</displayFormat>
         <label>Property Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Properties</pluralLabel>
     <searchLayouts>

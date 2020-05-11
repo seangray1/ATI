@@ -390,20 +390,23 @@
                         dropdown-alignment=auto>
                     </lightning-combobox>
                      -->
-                        <lightning-record-edit-form object-api-name="ATI_Job__c">
-                            
-                            <label class="Labels spacing required1" > Market Class</label>
-                            <lightning-input-field field-name="Market_Class__c" variant="label-hidden" class="Labels jobFormControl"></lightning-input-field>
-                            <label class="Labels spacing required1" > Market Segment</label>
-                         <lightning-input-field field-name="Market_Segment__c" variant="label-hidden" class="Labels jobFormControl"></lightning-input-field>
-                            <label class="Labels spacing required1" > Market Segment Sub Class</label>
-                        
-                        <lightning-input-field field-name="Market_Segment_Sub_Class__c" variant="label-hidden" class="Labels jobFormControl"></lightning-input-field>
-                        
-
-
-
-                    </lightning-record-edit-form>
+                     
+                     <label class="Labels spacing required1" > Market Class</label>
+                            <lightning-combobox  
+                             options={MarketClassValues} value={MarketClass} onchange={MarketClassChange} 
+                            class=" spacing jobFormControl"></lightning-combobox>
+                    <label class="Labels spacing required1" > Market Segment</label>
+                            <lightning-combobox  
+                             options={MarketSegmentOptions} value={MarketSegment} onchange={MarketSegmentChange} 
+                            class=" spacing jobFormControl"></lightning-combobox>
+                     <template if:true={NonResidential}>
+                    <label class="Labels spacing required1" > Market Segment Sub Class</label>
+                            <lightning-combobox  
+                             options={MarketSegmentSubClassOptions} value={MarketSegmentSubClass} onchange={MarketSegmentSubClassChange} 
+                            class=" spacing jobFormControl"></lightning-combobox>        
+                        </template>
+                       
+                           
                 </div>
                    
                     <div class="slds-col slds-size_1-of-7">
@@ -630,6 +633,7 @@
                        
             </div>
             <br>
+            <br>
             <lightning-button label="Fill Out Description" variant="brand" onclick={newDescriptionClick}></lightning-button>
             <div class="slds-grid">
             <div class="slds-col slds-size_1-of-2">
@@ -810,7 +814,7 @@
                     onchange={ContactTypeChange}
                     class="contactFormControl" required  >
                     </lightning-combobox>
-                
+                    
                         
                 
                     </div>

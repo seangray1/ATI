@@ -36,14 +36,9 @@
                 <label>Property Owner</label>
             </value>
             <value>
-                <fullName>Insurance Company</fullName>
+                <fullName>Insurance Adjuster/Company</fullName>
                 <default>false</default>
-                <label>Insurance Company</label>
-            </value>
-            <value>
-                <fullName>Insurance Adjuster</fullName>
-                <default>false</default>
-                <label>Insurance Adjuster</label>
+                <label>Insurance Adjuster/Company</label>
             </value>
             <value>
                 <fullName>Property/Facility Manager</fullName>
@@ -81,14 +76,9 @@
                 <label>Contractor/Consultant</label>
             </value>
             <value>
-                <fullName>Stakeholder</fullName>
+                <fullName>Stakeholder/Influencer</fullName>
                 <default>false</default>
-                <label>Stakeholder</label>
-            </value>
-            <value>
-                <fullName>Influencer</fullName>
-                <default>false</default>
-                <label>Influencer</label>
+                <label>Stakeholder/Influencer</label>
             </value>
             <value>
                 <fullName>Legacy</fullName>
@@ -112,6 +102,18 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Independent Claims Adjuster</label>
+            </value>
+            <value>
+                <fullName>Influencer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Influencer</label>
+            </value>
+            <value>
+                <fullName>Insurance Adjuster</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Insurance Adjuster</label>
             </value>
             <value>
                 <fullName>Insurance Broker</fullName>

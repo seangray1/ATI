@@ -29,6 +29,10 @@
             <fullName>Sent Email</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>XASP Program Notes</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>CRMG_EmailAtt__Attachment_Type__c</picklist>

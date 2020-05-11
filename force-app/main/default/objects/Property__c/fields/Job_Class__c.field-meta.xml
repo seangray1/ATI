@@ -70,6 +70,16 @@
                 <default>false</default>
                 <label>Retail</label>
             </value>
+            <value>
+                <fullName>Educational</fullName>
+                <default>false</default>
+                <label>Educational</label>
+            </value>
+            <value>
+                <fullName>Health Science</fullName>
+                <default>false</default>
+                <label>Health Science</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

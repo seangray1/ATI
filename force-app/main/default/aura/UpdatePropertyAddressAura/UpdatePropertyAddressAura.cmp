@@ -27,4 +27,4 @@
     <lightning:button onclick="{!c.Cancel}" label="Cancel"></lightning:button>
 </lightning:buttonGroup>
 </div> 
-</aura:component>	
+</aura:component>

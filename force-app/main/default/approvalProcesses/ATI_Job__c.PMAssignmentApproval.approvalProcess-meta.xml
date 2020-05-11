@@ -100,7 +100,6 @@
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
-        
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
@@ -108,10 +107,6 @@
             <approver>
                 <name>Branch_Manager__c</name>
                 <type>relatedUserField</type>
-            </approver>
-            <approver>
-                <name>kurt.fairless@atirestoration.com</name>
-                <type>user</type>
             </approver>
             <approver>
                 <name>scott.moore@atirestoration.com</name>
@@ -133,6 +128,11 @@
             <operation>equals</operation>
             <value>Construction</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.X18_digit_record_ID__c</field>
+            <operation>equals</operation>
+            <value>13</value>
+        </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>
         <action>
@@ -152,12 +152,6 @@
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
-    <initialSubmissionActions>
-        <action>
-            <name>Wine_Country_Fire_Email_Alert</name>
-            <type>Alert</type>
-        </action>
-    </initialSubmissionActions>
     <label>PMAssignmentApproval</label>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>

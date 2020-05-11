@@ -1865,7 +1865,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Opportunity_Naming_Convention</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Name</field>
             <operation>greaterOrEqual</operation>

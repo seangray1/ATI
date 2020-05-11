@@ -5,7 +5,7 @@
     <displayType>button</displayType>
     <height>600</height>
     <linkType>page</linkType>
-    <masterLabel>Verify Phone</masterLabel>
+    <masterLabel>Verify Phones</masterLabel>
     <openType>sidebar</openType>
     <page>smartystreets__VerifyPhoneAccount</page>
     <protected>false</protected>

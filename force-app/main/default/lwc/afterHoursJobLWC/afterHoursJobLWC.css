@@ -12,11 +12,10 @@
 .slds-combobox__form-element{
     overflow: initial;
     max-height: calc(((0.8125rem * 1.5) + 1rem) * 3) !important;
-}  
+}
 /* .center{
     text-align: center;
 }
 .pushRight{
     margin-left: 18px;
     } */
-   

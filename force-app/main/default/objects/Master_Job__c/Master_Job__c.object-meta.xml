@@ -154,10 +154,9 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Master Job</label>
     <nameField>
-        <displayFormat>MJ{0000}</displayFormat>
         <label>Master Job Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Master Jobs</pluralLabel>
     <searchLayouts/>
