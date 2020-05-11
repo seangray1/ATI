@@ -18,6 +18,17 @@
         <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
+    <outboundMessages>
+        <fullName>Send_Task_Record_To_Jitterbit</fullName>
+        <apiVersion>48.0</apiVersion>
+        <endpointUrl>https://ATI69420.jitterbit.net/DEV/jobAtiCall</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>false</includeSessionId>
+        <integrationUser>sf.test@atirestoration.com</integrationUser>
+        <name>Send Task Record To Jitterbit</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>false</useDeadLetterQueue>
+    </outboundMessages>
     <rules>
         <fullName>Activity Type</fullName>
         <actions>

@@ -280,6 +280,10 @@
             <fullName>Sent Email</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>XASP Program Note</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>shoretel_call_type__c</picklist>

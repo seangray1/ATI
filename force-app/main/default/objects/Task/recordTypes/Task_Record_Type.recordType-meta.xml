@@ -464,6 +464,10 @@
             <fullName>Work not completed%2Fcredit needed</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>XASP Program Note</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>shoretel_call_type__c</picklist>

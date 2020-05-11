@@ -73,7 +73,7 @@
                                 <tr key={Property.Id}>
                                     <th scope="row">
                                         <b>
-                                            <lightning-button variant="base" label={Property.Address_Line_1__c} value={Property}
+                                            <lightning-button variant="base" label={Property.Name} value={Property}
                                                 title="Base action" onclick={populatePropertyField}
                                                 class="slds-m-left_x-small jobButton"></lightning-button>
                                         </b>
@@ -452,7 +452,7 @@
                                         </tbody>
                                     </table>
                                 </template>
-                        <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
+                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Division</label>
                         <lightning-combobox name="progress"
                         
                         value={Division}

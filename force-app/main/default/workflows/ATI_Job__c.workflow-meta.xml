@@ -3192,10 +3192,18 @@ Channyn Rowe</description>
         </actions>
         <active>true</active>
         <formula>OR(
+AND(
 ISCHANGED( Customer_Contacted__c ),
-ISCHANGED( Estimate_Rejection_Date__c ),
-ISCHANGED( Approved_Date__c ),
-ISCHANGED( Inspected__c )
+NOT(ISBLANK(Customer_Contacted__c ))
+),
+AND(
+ISCHANGED( Inspected__c ),
+NOT(ISBLANK(Inspected__c ))
+),
+AND(
+ISCHANGED( XASP_Recent_Activity__c ),
+NOT(ISBLANK(XASP_Recent_Activity__c ))
+)
 )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>

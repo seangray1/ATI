@@ -3494,6 +3494,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ATI_Job__c.XASP_Recent_Activity__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ATI_Job__c.XASP_Transaction_ID__c</field>
         <readable>false</readable>
     </fieldPermissions>

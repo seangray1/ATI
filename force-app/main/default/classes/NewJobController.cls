@@ -112,7 +112,8 @@ public with sharing class NewJobController {
         //JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
         // for(Id ca : PropertyIDs.PropertyID){
         // PropertyIDFinal = ca; }
-        String searchLikeKey1 = searchKey + '%';
+
+        String searchLikeKey1 =  '%' + searchKey + '%';
         String searchLikeKey = searchLikeKey1.normalizeSpace();
         List<Property__c> props = [Select Id, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 5];
         system.debug('Properties are ' + props);
@@ -120,7 +121,7 @@ public with sharing class NewJobController {
     }
     @AuraEnabled(cacheable = true)
     public static List<Office__c> GetOffices(String searchKey) {
-        String searchLikeKey = '%' + searchKey + '%';
+        String searchLikeKey = searchKey + '%';
         List<Office__c> off = [Select Id, Name FROM Office__c Where Name Like : searchLikeKey LIMIT 5];
         
         return off;
@@ -163,8 +164,9 @@ public with sharing class NewJobController {
     }
     @AuraEnabled 
     public static list<Master_Job__c> GetMasterJobs(string propId){
-        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c,  Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Job_Status__c = 'Active'];
+        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c,  Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Job_Status__c = 'Active' LIMIT 5];
         system.debug('Prop Id + ' + propId);
+        system.debug(mj.size());
         
         return mj;
 
@@ -172,7 +174,7 @@ public with sharing class NewJobController {
     }
     @AuraEnabled 
     public static Property__c GetPropertyInfo(String City, String Address, String State, String Zipcode){
-        String searchLikeKey1 = Address + City +  + State +Zipcode;
+        String searchLikeKey1 = Address + City +  State +Zipcode;
         String searchLikeKey = searchLikeKey1.normalizeSpace();
         system.debug('SearchLikeKey is ' + searchLikeKey);
         // try {
@@ -181,9 +183,11 @@ public with sharing class NewJobController {
         if(!props.isEmpty()){
         Property__c prop1 = props[0];
         prop1.County__c = 'Same Property';
+        system.debug('Properties1 are ' + props);
         return prop1;
         }else{
             Property__c prop = new Property__c(County__c = 'Not Same Property');
+            system.debug('Properties2 are ' + props);
             return prop;
         }  
     // }
@@ -311,6 +315,8 @@ public with sharing class NewJobController {
              req.setMethod('GET');
              req.setTimeout(60000);
              string county;
+             string streetnumber;
+             string street;
              if(!Test.isRunningTest()){
             HttpResponse res = h.send(req);
             system.debug('Response is ' + res.getBody());
@@ -324,9 +330,31 @@ public with sharing class NewJobController {
                     if(ad.types[0] == 'administrative_area_level_2'){
                         county = ad.long_name.replace('County', '');
                     }
+                    
+                    if(ad.types[0] == 'locality'){
+                        Property.city = ad.short_name;
+                       // system.debug('state is  ' + state);
+                    }
+                    if(ad.types[0] == 'administrative_area_level_1'){
+                        Property.state = ad.short_name;
+                     //   system.debug('city is  ' + city);
+                    }
+                    if(ad.types[0] == 'street_number'){
+                        streetnumber = ad.short_name;
+                        //system.debug('street # is  ' + streetnumber);
+                    }
+                    if(ad.types[0] == 'route'){
+                        street = ad.short_name;
+                      //  system.debug('Street is  ' + street);
+                    }
+                    if(ad.types[0] == 'postal_code'){
+                        Property.Zip = ad.short_name;
+                      //  system.debug('Postal # is  ' + postalcode);
+                    }
 
                 }  
             }
+            property.street = streetnumber +' ' + street;
         }
             system.debug('county ' + county);
         Boolean NewProperty;
@@ -407,6 +435,8 @@ public with sharing class NewJobController {
              req.setMethod('GET');
              req.setTimeout(60000);
              string county;
+             string street1;
+             string streetnumber;
             if(!Test.isRunningTest()){
             HttpResponse res = h.send(req);
             system.debug('Response is ' + res.getBody());
@@ -420,9 +450,29 @@ public with sharing class NewJobController {
                     if(ad.types[0] == 'administrative_area_level_2'){
                         county = ad.long_name.replace('County', '');
                     }
+                    if(ad.types[0] == 'route'){
+                        street1 = ad.short_name;
+                      //  system.debug('Street is  ' + street);
+                    }
+                    if(ad.types[0] == 'locality'){
+                        city = ad.short_name;
+                       // system.debug('state is  ' + state);
+                    }
+                    if(ad.types[0] == 'administrative_area_level_1'){
+                        state = ad.short_name;
+                     //   system.debug('city is  ' + city);
+                    }
+                    if(ad.types[0] == 'street_number'){
+                        streetnumber = ad.short_name;
+                        //system.debug('street # is  ' + streetnumber);
+                    }
+                    if(ad.types[0] == 'postal_code'){
+                        ZipCode = ad.short_name;
+                      //  system.debug('Postal # is  ' + postalcode);
+                    }
 
                 }  
-            }
+            }street = streetnumber +' '+ street1;
         }
             Savepoint sp = Database.setSavepoint();
         try {
@@ -493,6 +543,8 @@ public with sharing class NewJobController {
         Id PrimaryContact;
         Id Referred;
         Id InsuranceAdjuster;
+        string streetnumber;
+        string street;
         string county;
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
@@ -517,9 +569,30 @@ public with sharing class NewJobController {
                     if(ad.types[0] == 'administrative_area_level_2'){
                         county = ad.long_name.replace('County', '');
                     }
+                    if(ad.types[0] == 'route'){
+                        street = ad.short_name;
+                      //  system.debug('Street is  ' + street);
+                    }
+                    if(ad.types[0] == 'locality'){
+                        property.city = ad.short_name;
+                       // system.debug('state is  ' + state);
+                    }
+                    if(ad.types[0] == 'administrative_area_level_1'){
+                        property.state = ad.short_name;
+                     //   system.debug('city is  ' + city);
+                    }
+                    if(ad.types[0] == 'street_number'){
+                        streetnumber = ad.short_name;
+                        //system.debug('street # is  ' + streetnumber);
+                    }
+                    if(ad.types[0] == 'postal_code'){
+                        property.Zip = ad.short_name;
+                      //  system.debug('Postal # is  ' + postalcode);
+                    }
 
                 }  
             }
+            property.street = streetnumber +' '+ street;
         }
         Savepoint sp = Database.setSavepoint();
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
