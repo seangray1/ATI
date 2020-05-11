@@ -1,3 +1,0 @@
-<apex:page standardController="Work_Order__c">
-<efs:egnyteload recordId="{!Work_Order__c.Opportunity_Name__r.id}" pageHeight="600px" permission="Full"/>
-</apex:page>

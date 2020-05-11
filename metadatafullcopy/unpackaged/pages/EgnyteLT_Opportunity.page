@@ -1,3 +1,0 @@
-<apex:page standardController="Opportunity">
-<efs:egnyteload recordId="{!Id}" pageHeight="950px"/>
-</apex:page>

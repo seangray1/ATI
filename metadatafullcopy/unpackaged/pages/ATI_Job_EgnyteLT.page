@@ -1,3 +1,0 @@
-<apex:page standardController="ATI_Job__c">
-<efs:egnyteload recordId="{!Id}" pageHeight="950px"/>
-</apex:page>
