@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fullName>Service_Needed_Location__c</fullName>
     <externalId>false</externalId>
-    <label>Service Needed (Location)</label>
+    <label>Service Needed</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
@@ -12,49 +12,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Fire and Smoke Damage</fullName>
-                <default>false</default>
-                <label>Fire and Smoke Damage</label>
-            </value>
-            <value>
-                <fullName>Water Damage</fullName>
-                <default>false</default>
-                <label>Water Damage</label>
-            </value>
-            <value>
-                <fullName>Mold Remediation</fullName>
-                <default>false</default>
-                <label>Mold Remediation</label>
-            </value>
-            <value>
                 <fullName>Asbestos Abatement</fullName>
                 <default>false</default>
                 <label>Asbestos Abatement</label>
-            </value>
-            <value>
-                <fullName>Emergency Response</fullName>
-                <default>false</default>
-                <label>Emergency Response</label>
-            </value>
-            <value>
-                <fullName>Reconstruction Services</fullName>
-                <default>false</default>
-                <label>Reconstruction Services</label>
-            </value>
-            <value>
-                <fullName>Catastrophe Response</fullName>
-                <default>false</default>
-                <label>Catastrophe Response</label>
-            </value>
-            <value>
-                <fullName>Restoration and Cleaning</fullName>
-                <default>false</default>
-                <label>Restoration and Cleaning</label>
-            </value>
-            <value>
-                <fullName>Contents Cleaning</fullName>
-                <default>false</default>
-                <label>Contents Cleaning</label>
             </value>
             <value>
                 <fullName>Biohazard Decontamination</fullName>
@@ -62,14 +22,69 @@
                 <label>Biohazard Decontamination</label>
             </value>
             <value>
-                <fullName>Demolitions Services</fullName>
+                <fullName>Core Services</fullName>
                 <default>false</default>
-                <label>Demolitions Services</label>
+                <label>Core Services</label>
             </value>
             <value>
                 <fullName>Consulting Services</fullName>
                 <default>false</default>
                 <label>Consulting Services</label>
+            </value>
+            <value>
+                <fullName>Contents Cleaning</fullName>
+                <default>false</default>
+                <label>Contents Cleaning</label>
+            </value>
+            <value>
+                <fullName>Demolitions Services</fullName>
+                <default>false</default>
+                <label>Demolitions Services</label>
+            </value>
+            <value>
+                <fullName>Emergency Response</fullName>
+                <default>false</default>
+                <label>Emergency Response</label>
+            </value>
+            <value>
+                <fullName>Fire and Smoke Damage</fullName>
+                <default>false</default>
+                <label>Fire and Smoke Damage</label>
+            </value>
+            <value>
+                <fullName>Managed Repair Program (MRP)</fullName>
+                <default>false</default>
+                <label>Managed Repair Program (MRP)</label>
+            </value>
+            <value>
+                <fullName>Mold Remediation</fullName>
+                <default>false</default>
+                <label>Mold Remediation</label>
+            </value>
+            <value>
+                <fullName>Professional Services</fullName>
+                <default>false</default>
+                <label>Professional Services</label>
+            </value>
+            <value>
+                <fullName>Reconstruction Services</fullName>
+                <default>false</default>
+                <label>Reconstruction Services</label>
+            </value>
+            <value>
+                <fullName>Nationwide Response</fullName>
+                <default>false</default>
+                <label>Nationwide Response</label>
+            </value>
+            <value>
+                <fullName>Restoration and Cleaning</fullName>
+                <default>false</default>
+                <label>Restoration and Cleaning</label>
+            </value>
+            <value>
+                <fullName>Water Damage</fullName>
+                <default>false</default>
+                <label>Water Damage</label>
             </value>
             <value>
                 <fullName>Other</fullName>

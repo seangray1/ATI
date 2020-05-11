@@ -343,7 +343,7 @@
                 <leftValueReference>myVariable_current.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_2_myRule_1_1276576541</elementReference>
+                    <elementReference>formula_2_myRule_1_1528358574</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -581,7 +581,38 @@
                 <leftValueReference>myVariable_current.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_14_myRule_13_8638632680</elementReference>
+                    <elementReference>formula_14_myRule_13_4311160324</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Project_Site_Contact_Name__r.HasOptedOutOfEmail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -853,7 +884,7 @@
                 <leftValueReference>myVariable_current.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_6_myRule_5_6639760376</elementReference>
+                    <elementReference>formula_6_myRule_5_0966851301</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1094,7 +1125,7 @@
                 <leftValueReference>myVariable_current.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_10_myRule_9_5295746880</elementReference>
+                    <elementReference>formula_10_myRule_9_8716925621</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1344,7 +1375,38 @@
                 <leftValueReference>myVariable_old.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_15_myRule_13_pmetrule_1918857471</elementReference>
+                    <elementReference>formula_15_myRule_13_pmetrule_3768597860</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_old.Project_Site_Contact_Name__r.HasOptedOutOfEmail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <label>Previously Met - Prev</label>
@@ -1622,7 +1684,7 @@
                 <leftValueReference>myVariable_old.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_3_myRule_1_pmetrule_8529656012</elementReference>
+                    <elementReference>formula_3_myRule_1_pmetrule_6753198551</elementReference>
                 </rightValue>
             </conditions>
             <label>Previously Met - Prev</label>
@@ -1900,7 +1962,7 @@
                 <leftValueReference>myVariable_old.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_7_myRule_5_pmetrule_5790288107</elementReference>
+                    <elementReference>formula_7_myRule_5_pmetrule_2419112599</elementReference>
                 </rightValue>
             </conditions>
             <label>Previously Met - Prev</label>
@@ -2147,7 +2209,7 @@
                 <leftValueReference>myVariable_old.Survey_Completed_Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>formula_11_myRule_9_pmetrule_4114873200</elementReference>
+                    <elementReference>formula_11_myRule_9_pmetrule_8242579735</elementReference>
                 </rightValue>
             </conditions>
             <label>Previously Met - Prev</label>
@@ -2160,7 +2222,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_10_myRule_9_5295746880</name>
+        <name>formula_10_myRule_9_8716925621</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2171,7 +2233,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_9_pmetrule_4114873200</name>
+        <name>formula_11_myRule_9_pmetrule_8242579735</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2182,7 +2244,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_14_myRule_13_8638632680</name>
+        <name>formula_14_myRule_13_4311160324</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2193,7 +2255,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myRule_13_pmetrule_1918857471</name>
+        <name>formula_15_myRule_13_pmetrule_3768597860</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2204,7 +2266,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_1276576541</name>
+        <name>formula_2_myRule_1_1528358574</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2215,7 +2277,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_pmetrule_8529656012</name>
+        <name>formula_3_myRule_1_pmetrule_6753198551</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2226,7 +2288,7 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_6_myRule_5_6639760376</name>
+        <name>formula_6_myRule_5_0966851301</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2237,11 +2299,11 @@
                 <stringValue>TODAY() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_7_myRule_5_pmetrule_5790288107</name>
+        <name>formula_7_myRule_5_pmetrule_2419112599</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
-    <interviewLabel>Survey_Thank_You_Email_ATI-14_InterviewLabel</interviewLabel>
+    <interviewLabel>Survey_Thank_You_Email_ATI-15_InterviewLabel</interviewLabel>
     <label>Survey Thank You Email ATI</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -2269,7 +2331,7 @@
     </processMetadataValues>
     <processType>Workflow</processType>
     <startElementReference>myDecision</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

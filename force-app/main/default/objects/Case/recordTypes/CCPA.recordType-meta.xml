@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CCPA</fullName>
     <active>true</active>
-    <businessProcess>Contact Center Collection Process</businessProcess>
+    <businessProcess>CCPA</businessProcess>
     <label>CCPA</label>
     <picklistValues>
         <picklist>Address_Type__c</picklist>

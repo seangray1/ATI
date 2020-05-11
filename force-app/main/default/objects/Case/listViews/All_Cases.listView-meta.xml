@@ -13,5 +13,10 @@
     <columns>CREATEDBY_USER.ALIAS</columns>
     <columns>ENTITLEMENT.NAME</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.CCPA</value>
+    </filters>
     <label>All Cases</label>
 </ListView>

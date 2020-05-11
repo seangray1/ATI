@@ -927,18 +927,6 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Survey_Templates/Survey_Participation</template>
     </alerts>
-    <alerts>
-        <fullName>Wine_Country_Fire_Email_Alert</fullName>
-        <description>Wine Country Fire Email Alert</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>kelli.smith@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <senderAddress>donotreply@atirestoration.com</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Opportunity_Email_Templates/Opportunity_Wine_Country_Fire_Job_Notification</template>
-    </alerts>
     <fieldUpdates>
         <fullName>Blank_Operations_Manager</fullName>
         <description>Job Assignment must be blanked out when cloning a new job.</description>
@@ -2172,10 +2160,6 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
     </rules>
     <rules>
         <fullName>Wine Country Fire Notification</fullName>
-        <actions>
-            <name>Wine_Country_Fire_Email_Alert</name>
-            <type>Alert</type>
-        </actions>
         <active>false</active>
         <criteriaItems>
             <field>Opportunity.Job_Category__c</field>

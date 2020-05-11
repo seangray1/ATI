@@ -3,10 +3,10 @@
     <assignments>
         <name>Asb_Lead_Bio_GP</name>
         <label>Asb Lead Bio GP</label>
-        <locationX>1206</locationX>
+        <locationX>1371</locationX>
         <locationY>48</locationY>
         <assignmentItems>
-            <assignToReference>Get_Job_Financials.Gross_Profit__c</assignToReference>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Job_Office.GP_Asbestos_Lead_Bio__c</elementReference>
@@ -16,94 +16,180 @@
     <assignments>
         <name>Construction_GP</name>
         <label>Construction GP</label>
-        <locationX>781</locationX>
+        <locationX>946</locationX>
         <locationY>488</locationY>
         <assignmentItems>
-            <assignToReference>Get_Job_Financials.Gross_Profit__c</assignToReference>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Job_Office.GP_Construction__c</elementReference>
+            </value>
         </assignmentItems>
     </assignments>
     <assignments>
         <name>Contents_GP</name>
         <label>Contents_GP</label>
-        <locationX>931</locationX>
-        <locationY>208</locationY>
+        <locationX>1096</locationX>
+        <locationY>207</locationY>
         <assignmentItems>
-            <assignToReference>Get_Job_Financials.Gross_Profit__c</assignToReference>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Job_Office.GP_Contents__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Coronavirus_GP</name>
+        <label>Coronavirus GP</label>
+        <locationX>658</locationX>
+        <locationY>502</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>40.0</numberValue>
+            </value>
         </assignmentItems>
     </assignments>
     <assignments>
         <name>Default_GP</name>
         <label>Default GP</label>
-        <locationX>675</locationX>
-        <locationY>568</locationY>
+        <locationX>837</locationX>
+        <locationY>629</locationY>
         <assignmentItems>
-            <assignToReference>Get_Job_Financials.Gross_Profit__c</assignToReference>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <numberValue>0.3</numberValue>
+            </value>
         </assignmentItems>
     </assignments>
     <assignments>
         <name>ES_GP</name>
         <label>ES GP</label>
-        <locationX>1056</locationX>
-        <locationY>140</locationY>
+        <locationX>1221</locationX>
+        <locationY>139</locationY>
         <assignmentItems>
-            <assignToReference>Get_Job_Financials.Gross_Profit__c</assignToReference>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Job_Office.GP_Emergency_Services__c</elementReference>
+            </value>
         </assignmentItems>
     </assignments>
     <assignments>
         <name>Micro_GP</name>
         <label>Micro GP</label>
-        <locationX>853</locationX>
+        <locationX>1018</locationX>
         <locationY>378</locationY>
         <assignmentItems>
-            <assignToReference>Get_Job_Financials.Gross_Profit__c</assignToReference>
+            <assignToReference>$Record.Gross_Profit__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Job_Office.GP_Microbial__c</elementReference>
+            </value>
         </assignmentItems>
     </assignments>
     <decisions>
         <name>Check_Estimated_GP</name>
         <label>Check Estimated GP</label>
-        <locationX>487</locationX>
-        <locationY>67</locationY>
+        <locationX>627</locationX>
+        <locationY>62</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Est_GP_NULL</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>(1 OR 4) AND 2 AND 3</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Job_Financials.Gross_Profit__c</leftValueReference>
+                <leftValueReference>$Record.Gross_Profit__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record.Office2__c</leftValueReference>
+                <leftValueReference>Get_Job.Office2__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Gross_Profit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Division_Selection</targetReference>
+                <targetReference>Coronavirus_Jobs</targetReference>
             </connector>
             <label>Est GP NULL</label>
         </rules>
     </decisions>
     <decisions>
+        <name>Coronavirus_Jobs</name>
+        <label>Coronavirus Jobs</label>
+        <locationX>888</locationX>
+        <locationY>63</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Coronavirus_Job_GP</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Corona</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Coronavirus_GP</targetReference>
+            </connector>
+            <label>Coronavirus Job GP</label>
+        </rules>
+        <rules>
+            <name>Not_Coronavirus_Jobs</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Corona Virus #1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Corona Virus #2</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Job.Job_Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Corona Virus #3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Division_Selection</targetReference>
+            </connector>
+            <label>Not Coronavirus Jobs</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Division_Selection</name>
         <label>Division Selection</label>
-        <locationX>682</locationX>
-        <locationY>64</locationY>
+        <locationX>1056</locationX>
+        <locationY>62</locationY>
         <defaultConnector>
             <targetReference>Default_GP</targetReference>
         </defaultConnector>
@@ -112,21 +198,21 @@
             <name>Asb_Lead_Bio</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Asbestos</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Biohazard</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lead</stringValue>
@@ -141,7 +227,7 @@
             <name>Emergency_Services</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Emergency Svces</stringValue>
@@ -156,7 +242,7 @@
             <name>Contents</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contents</stringValue>
@@ -171,7 +257,7 @@
             <name>Microbial</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Microbial</stringValue>
@@ -186,7 +272,7 @@
             <name>Construction</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Division__c</leftValueReference>
+                <leftValueReference>Get_Job.Division__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Construction</stringValue>
@@ -215,54 +301,58 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
-        <name>Get_Job_Financials</name>
-        <label>Get Job Financials</label>
-        <locationX>343</locationX>
+        <name>Get_Job</name>
+        <label>Get Job</label>
+        <locationX>229</locationX>
         <locationY>65</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_Estimated_GP</targetReference>
+            <targetReference>Get_Job_Office</targetReference>
         </connector>
         <filters>
-            <field>ATI_Job__c</field>
+            <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>$Record.ATI_Job__c</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Financial__c</object>
+        <object>ATI_Job__c</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <description>Retrieve the Office record for the specified Office on the Job.</description>
         <name>Get_Job_Office</name>
         <label>Get Job Office</label>
-        <locationX>211</locationX>
-        <locationY>66</locationY>
+        <locationX>376</locationX>
+        <locationY>65</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Job_Financials</targetReference>
+            <targetReference>Check_Estimated_GP</targetReference>
         </connector>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Office2__c</elementReference>
+                <elementReference>Get_Job.Office2__c</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Office__c</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
         <locationX>50</locationX>
-        <locationY>65</locationY>
+        <locationY>63</locationY>
         <connector>
-            <targetReference>Get_Job_Office</targetReference>
+            <targetReference>Get_Job</targetReference>
         </connector>
-        <object>ATI_Job__c</object>
+        <object>Financial__c</object>
         <triggerType>RecordBeforeSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>

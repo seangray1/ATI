@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>false</allowRecall>
     <allowedSubmitters>
         <type>owner</type>
@@ -102,6 +102,10 @@
         <assignedApprover>
             <approver>
                 <name>cathy.barfield@atirestoration.com</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>evelyn.salguero@atirestoration.com</name>
                 <type>user</type>
             </approver>
             <approver>

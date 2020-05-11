@@ -1151,8 +1151,6 @@ CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5cY&quot;),
 
 CONTAINS([ATI_Job__c].Office2__c ,&quot;a1O70000000X5dg&quot;),
 
-$Profile.Name = &quot;Contact Center Rep&quot;,
-
 ($Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)
 
 )</stringValue>
@@ -1164,8 +1162,6 @@ $Profile.Name = &quot;Contact Center Rep&quot;,
 (NOT(ISNEW()) &amp;&amp; ISCHANGED({!myVariable_current.Office2__c} )),
 
 CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5dg&quot;),
-
-{!$Profile.Name} = &quot;Contact Center Rep&quot;,
 
 ({!$Profile.Name} &lt;&gt; &quot;Restricted Process Execution&quot;)
 
@@ -1492,8 +1488,6 @@ CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5dW&quot;),
 
 CONTAINS([ATI_Job__c].Office2__c ,&quot;a1O70000000X5cd&quot;),
 
-$Profile.Name =&quot;Contact Center Rep&quot;,
-
 ($Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)
 
 )</stringValue>
@@ -1505,8 +1499,6 @@ $Profile.Name =&quot;Contact Center Rep&quot;,
 (NOT(ISNEW()) &amp;&amp; ISCHANGED({!myVariable_current.Office2__c} )),
 
 CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5cd&quot;),
-
-{!$Profile.Name} =&quot;Contact Center Rep&quot;,
 
 ({!$Profile.Name} &lt;&gt; &quot;Restricted Process Execution&quot;)
 
@@ -1521,8 +1513,6 @@ CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5cd&quot;),
 
 CONTAINS([ATI_Job__c].Office2__c ,&quot;a1O70000000X5dv&quot;),
 
-$Profile.Name =&quot;Contact Center Rep&quot;,
-
 ($Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)
 
 )</stringValue>
@@ -1535,13 +1525,11 @@ $Profile.Name =&quot;Contact Center Rep&quot;,
 
 CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5dv&quot;),
 
-{!$Profile.Name} =&quot;Contact Center Rep&quot;,
-
 ({!$Profile.Name} &lt;&gt; &quot;Restricted Process Execution&quot;)
 
 )</expression>
     </formulas>
-    <interviewLabel>Call_Center_New_Job_alert_ATI_Job-4_InterviewLabel</interviewLabel>
+    <interviewLabel>Call_Center_New_Job_alert_ATI_Job-6_InterviewLabel</interviewLabel>
     <label>Call Center New Job alert ATI Job</label>
     <processMetadataValues>
         <name>ObjectType</name>

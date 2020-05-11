@@ -3,7 +3,7 @@
     <fullName>Project_Admin_two__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Project Admin 2</label>
+    <label>Program Admin 2</label>
     <referenceTo>User</referenceTo>
     <relationshipName>OfficesE1CT</relationshipName>
     <required>false</required>

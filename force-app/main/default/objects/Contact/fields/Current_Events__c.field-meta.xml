@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>Current_Events__c</fullName>
+    <externalId>false</externalId>
+    <label>Current Events</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>COVID-19</fullName>
+                <default>false</default>
+                <label>COVID-19</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

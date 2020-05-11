@@ -40,6 +40,7 @@
             <apex:inputField value="{!job.Job_Name__c}"/>
             <apex:inputField value="{!job.Office2__c}" required="true"/>
             <apex:inputField value="{!job.Division__c}" required="true"/>
+            <apex:inputField value="{!job.Project_Manager__c}"/>
             <apex:inputField id="vf_PS_street" value="{!job.Project_Site_Address__c}" required="true"/>
             <apex:inputField value="{!job.Project_Site_Address_2__c}"/>
             <apex:inputField id="vf_PS_city" value="{!job.Project_Site_City__c}" required="true"/>

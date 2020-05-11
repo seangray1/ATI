@@ -12,6 +12,7 @@
     <columns>Future_Billing__c</columns>
     <columns>Amount_not_billed__c</columns>
     <columns>Receivable_Balance_RS__c</columns>
+    <columns>Budget__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
@@ -42,7 +43,6 @@
     <sharedTo>
         <role>National_Training_Consultant</role>
         <role>Regional_Director_Northwest</role>
-        <role>San_Jose_Branch</role>
         <roleAndSubordinates>San_Francisco_Branch</roleAndSubordinates>
     </sharedTo>
 </ListView>

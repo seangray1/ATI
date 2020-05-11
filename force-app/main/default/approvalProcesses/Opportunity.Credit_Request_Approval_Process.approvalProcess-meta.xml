@@ -99,11 +99,11 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
-        <submitter>Marketing_VP_Corporate</submitter>
+        <submitter>Marketing_VP_Eastern</submitter>
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
-        <submitter>Marketing_VP_Eastern</submitter>
+        <submitter>National_Accounts_VP_HQ</submitter>
         <type>role</type>
     </allowedSubmitters>
     <approvalPageFields>

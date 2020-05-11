@@ -200,8 +200,9 @@ public with sharing class MRController {
                 FullMatList = PRLDE_DataUtility.fetchAllMaterials();
     
                 for (Material__c fullMap: FullMatList) 
-                {
-                    FullMatListMap.put(fullMap.Description__c, fullMap);
+                {   
+                    String compareStr = fullMap.Description__c + ' - ' + fullMap.Unit_of_Measurement__c;
+                    FullMatListMap.put(compareStr, fullMap);
                     FullMatListMap_With_UOM.put(fullmap.Description__c + ' - ' + fullMap.Unit_Of_Measurement__c, fullMap);
                 }
     
@@ -335,6 +336,7 @@ public with sharing class MRController {
                 MaterialListBackup = new List < Material__c > ();
                 MatLineItemLeftTableBackup = new List < Material_Requisition_line_item__c > ();
                 MatLineItemRightTableBackup = new List < Material_Requisition_line_item__c > ();
+           
                 MaterialListBackup.addAll(MaterialList);
                 MatLineItemLeftTableBackup.addAll(MatLineItemLeftTable);
                 MatLineItemRightTableBackup.addAll(MatLineItemRightTable);
@@ -348,9 +350,12 @@ public with sharing class MRController {
             
             SearchText = SearchText.trim();
             //Searches the search text in the Left backup table 
+            
             for (Material_Requisition_line_item__c item: MatLineItemLeftTableBackup) {
                 if (item.Name.containsIgnoreCase(SearchText)) {
+                   
                     Material_Requisition_line_item__c itemToAddLft = new Material_Requisition_line_item__c(Name = item.Name, IsPicklist__c = item.IsPicklist__c, Unit_Cost__c = item.Unit_Cost__c, Shipped__c = item.Shipped__c, Returned__c = item.Returned__c);
+                   
                     MatLineItemsplit.add(itemToAddLft);
                     MaterialListMap.put(itemToAddLft.Name, itemToAddLft);
                 }
@@ -370,11 +375,15 @@ public with sharing class MRController {
             //Searches the search text in the Materials table where IsShow is set to false
             for (Material__c fullLst: FullMatListMap.values()) {
                 String compareStr = fullLst.Description__c + ' - ' + fullLst.Unit_of_Measurement__c;
-    
+               
+               
+                
                 if (MaterialListMap.get(compareStr) == null && compareStr.containsIgnoreCase(SearchText)) {
+                    
                     MatLineItemsplit.add(new Material_Requisition_line_item__c(Name = compareStr, IsPicklist__c = fullLst.IsPicklist__c, Unit_Cost__c = fullLst.Unit_Cost__c));
+                    
                     MaterialListMap.put(compareStr, new Material_Requisition_line_item__c(Name = compareStr, IsPicklist__c = fullLst.IsPicklist__c, Unit_Cost__c = fullLst.Unit_Cost__c));
-    
+                    
                 }    
             }
             

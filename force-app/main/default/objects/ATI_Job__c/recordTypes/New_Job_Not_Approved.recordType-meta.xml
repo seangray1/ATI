@@ -171,6 +171,36 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Deposit_Terms__c</picklist>
+        <values>
+            <fullName>Net Terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deposit_Type__c</picklist>
+        <values>
+            <fullName>ACH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Check</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wire</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Division__c</picklist>
         <values>
             <fullName>Asbestos</fullName>
@@ -881,6 +911,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Corona Virus %231</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corona Virus %232</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corona Virus %233</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Hurricane Florence</fullName>
             <default>false</default>
         </values>
@@ -1456,6 +1498,33 @@
         </values>
         <values>
             <fullName>Union</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_for_No_Deposit__c</picklist>
+        <values>
+            <fullName>Education - Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government Contractors</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare - Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Military Housing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regional Director Approval</fullName>
             <default>false</default>
         </values>
     </picklistValues>

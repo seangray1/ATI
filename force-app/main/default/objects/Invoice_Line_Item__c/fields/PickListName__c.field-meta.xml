@@ -26,6 +26,11 @@
                 <label>Consulting</label>
             </value>
             <value>
+                <fullName>COVID-19 Treatment</fullName>
+                <default>false</default>
+                <label>COVID-19 Treatment</label>
+            </value>
+            <value>
                 <fullName>Demolition Services</fullName>
                 <default>false</default>
                 <label>Demolition Services</label>
@@ -94,6 +99,21 @@
                 <fullName>* Consulting Services per Attached Breakdown</fullName>
                 <default>false</default>
                 <label>* Consulting Services per Attached Breakdown</label>
+            </value>
+            <value>
+                <fullName>* COVID-19 Level 1 Treatment</fullName>
+                <default>false</default>
+                <label>* COVID-19 Level 1 Treatment</label>
+            </value>
+            <value>
+                <fullName>* COVID-19 Level 2 Treatment</fullName>
+                <default>false</default>
+                <label>* COVID-19 Level 2 Treatment</label>
+            </value>
+            <value>
+                <fullName>* COVID-19 Level 3 Treatment</fullName>
+                <default>false</default>
+                <label>* COVID-19 Level 3 Treatment</label>
             </value>
             <value>
                 <fullName>*  Emergency Board Up</fullName>

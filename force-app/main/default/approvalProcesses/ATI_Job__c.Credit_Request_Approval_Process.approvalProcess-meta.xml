@@ -23,11 +23,19 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>Director_of_Government_Facilities_Support_Services_HQ</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>Director_of_Government_Svcs_Marketing</submitter>
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
-        <submitter>Director_of_National_Accounts_Marketing</submitter>
+        <submitter>Director_of_National_Accounts_Operations</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Government_Services_VP_HQ</submitter>
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
@@ -111,10 +119,6 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
-        <submitter>Marketing_VP_Corporate</submitter>
-        <type>role</type>
-    </allowedSubmitters>
-    <allowedSubmitters>
         <submitter>Marketing_VP_Eastern</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -133,6 +137,14 @@
     <allowedSubmitters>
         <submitter>National_Account_Manager_Retail_and_Hospitality</submitter>
         <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>National_Accounts_VP_HQ</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>nicholas.sekol@atirestoration.com</submitter>
+        <type>user</type>
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>

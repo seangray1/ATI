@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Jobs_without_States</fullName>
+    <columns>NAME</columns>
+    <columns>Project_Site_City__c</columns>
+    <columns>Project_Site_State__c</columns>
+    <columns>Project_Site_Zipcode__c</columns>
+    <columns>Office2__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project_Site_State__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>1/1/2019 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
+    </filters>
+    <label>Jobs without States</label>
+    <sharedTo>
+        <role>Call_Center</role>
+    </sharedTo>
+</ListView>

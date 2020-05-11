@@ -74,6 +74,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_CCPA_Subject</fullName>
+        <field>Subject</field>
+        <formula>&quot;CCPA request - &quot; &amp;  Email__c</formula>
+        <name>Update CCPA Subject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Record_Type</fullName>
         <field>RecordTypeId</field>
         <lookupValue>Service_Case</lookupValue>
@@ -92,6 +101,20 @@
         <operation>Formula</operation>
         <protected>false</protected>
     </fieldUpdates>
+    <rules>
+        <fullName>CCPA Subject Update</fullName>
+        <actions>
+            <name>Update_CCPA_Subject</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CCPA</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
     <rules>
         <fullName>Contact Center Case</fullName>
         <actions>

@@ -403,6 +403,10 @@
             <recipient>Admins_San_Diego</recipient>
             <type>role</type>
         </recipients>
+        <recipients>
+            <recipient>jeff.essa@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_Job_New_Job_requires_BM_to_assign_PD</template>
@@ -739,10 +743,6 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>jenny.pace@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <recipient>rick.labella@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -806,6 +806,18 @@
         <template>ATI_Job_Templates/ATI_Blackstone_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>JOB_COVID_19_Alert_to_PD</fullName>
+        <description>JOB - COVID-19 Alert to PD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/ATI_COVID_19_Job_Process</template>
+    </alerts>
+    <alerts>
         <fullName>JOB_Facility_Source_New_Loss_Info_Request_to_PD</fullName>
         <ccEmails>nat.lee@atirestoration.com</ccEmails>
         <description>JOB - Facility Source New Loss Info Request to PD</description>
@@ -843,6 +855,30 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_La_Quinta_New_Loss_Info_Request_to_PD</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_Regional_Office_Campaign_April_2020</fullName>
+        <description>JOB - Regional Office Campaign - April 2020</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>marc.webb@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>maria.lucas@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/Regional_Office_Campaign</template>
     </alerts>
     <alerts>
         <fullName>JOB_Santander_New_Loss_Info_Request_to_PD</fullName>
@@ -923,6 +959,24 @@
         <template>ATI_Job_Templates/ATI_Welltower_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>Job_Lead_Not_Submitted_Reminder</fullName>
+        <description>Job Lead Not Submitted Reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <recipient>arlene.uribe@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/ATI_Job_Submit_Reminder</template>
+    </alerts>
+    <alerts>
         <fullName>Job_Lost_Alert</fullName>
         <description>Job Lost Alert</description>
         <protected>false</protected>
@@ -961,6 +1015,30 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_Job_Job_Number_Change_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_Regional_Office_Campaign_April_2020</fullName>
+        <description>LEAD - Regional Office Campaign - April 2020</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>marc.webb@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>maria.lucas@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mark.owens@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/Regional_Office_Campaign_Lead</template>
     </alerts>
     <alerts>
         <fullName>Large_Loss_Notification_for_Bucky_Buchanan_ATI_Job</fullName>
@@ -2209,6 +2287,11 @@
             <operation>notEqual</operation>
             <value>Restricted Process Execution</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Branch_Manager__c</field>
+            <operation>notEqual</operation>
+            <value>Nancy Kirk</value>
+        </criteriaItems>
         <description>Email Alert to Branch Managers to assign a Project Director to a Job.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -2848,6 +2931,38 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <description>When Job name has changed, email Vonda Barela that Job name has changed.</description>
         <formula>AND(ISCHANGED(Job_Name__c),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Job Not Submitted Reminder</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>ATI_Job__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>New Job (Not Approved)</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Submitted_for_Approval_By__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Stage__c</field>
+            <operation>equals</operation>
+            <value>Qualification</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Date_Time_Submitted_for_Approval__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>Send reminder email to Job creator when Job is not submitted for approval after 1 hour</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Job_Lead_Not_Submitted_Reminder</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
     </rules>
     <rules>
         <fullName>Job Number Change Alert</fullName>

@@ -22,7 +22,7 @@
     <fieldUpdates>
         <fullName>Update_Job_GP</fullName>
         <field>Gross_Profit__c</field>
-        <formula>ATI_Job__r.Project_Manager__r.Default_Gross_Profit__c</formula>
+        <formula>IF (CONTAINS(TEXT(ATI_Job__r.Job_Category__c), &quot;Corona Virus&quot;), 40,  ATI_Job__r.Project_Manager__r.Default_Gross_Profit__c)</formula>
         <name>Update Job GP%</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>

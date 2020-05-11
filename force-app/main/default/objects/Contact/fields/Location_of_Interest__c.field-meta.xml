@@ -12,6 +12,11 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Anaheim</fullName>
+                <default>false</default>
+                <label>Anaheim</label>
+            </value>
+            <value>
                 <fullName>Boston</fullName>
                 <default>false</default>
                 <label>Boston</label>
@@ -32,19 +37,9 @@
                 <label>Denver</label>
             </value>
             <value>
-                <fullName>Flagstaff</fullName>
-                <default>false</default>
-                <label>Flagstaff</label>
-            </value>
-            <value>
                 <fullName>Houston</fullName>
                 <default>false</default>
                 <label>Houston</label>
-            </value>
-            <value>
-                <fullName>LA</fullName>
-                <default>false</default>
-                <label>LA</label>
             </value>
             <value>
                 <fullName>Las Vegas</fullName>
@@ -52,9 +47,14 @@
                 <label>Las Vegas</label>
             </value>
             <value>
-                <fullName>OC</fullName>
+                <fullName>Los Angeles</fullName>
                 <default>false</default>
-                <label>OC</label>
+                <label>Los Angeles</label>
+            </value>
+            <value>
+                <fullName>Orlando</fullName>
+                <default>false</default>
+                <label>Orlando</label>
             </value>
             <value>
                 <fullName>Philadelphia</fullName>
@@ -82,6 +82,11 @@
                 <label>San Diego</label>
             </value>
             <value>
+                <fullName>San Francisco</fullName>
+                <default>false</default>
+                <label>San Francisco</label>
+            </value>
+            <value>
                 <fullName>San Jose</fullName>
                 <default>false</default>
                 <label>San Jose</label>
@@ -90,11 +95,6 @@
                 <fullName>Seattle</fullName>
                 <default>false</default>
                 <label>Seattle</label>
-            </value>
-            <value>
-                <fullName>SF</fullName>
-                <default>false</default>
-                <label>SF</label>
             </value>
             <value>
                 <fullName>Sonoma</fullName>
@@ -110,6 +110,12 @@
                 <fullName>Tucson</fullName>
                 <default>false</default>
                 <label>Tucson</label>
+            </value>
+            <value>
+                <fullName>Flagstaff</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Flagstaff</label>
             </value>
         </valueSetDefinition>
     </valueSet>
