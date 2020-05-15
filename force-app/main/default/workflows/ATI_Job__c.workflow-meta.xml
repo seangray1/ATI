@@ -854,10 +854,6 @@
         <description>JOB - From Contact Center</description>
         <protected>false</protected>
         <recipients>
-            <field>Office_New_Loss_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
             <recipient>nat.lee@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -885,10 +881,6 @@
             <type>creator</type>
         </recipients>
         <recipients>
-            <field>Office_New_Loss_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
             <recipient>nat.lee@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -901,10 +893,6 @@
         <protected>false</protected>
         <recipients>
             <type>creator</type>
-        </recipients>
-        <recipients>
-            <field>Office_New_Loss_Email__c</field>
-            <type>email</type>
         </recipients>
         <recipients>
             <recipient>nat.lee@atirestoration.com</recipient>
@@ -1653,6 +1641,15 @@
         <field>Unlock_Record__c</field>
         <literalValue>1</literalValue>
         <name>Unlock Record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_1_sub</fullName>
+        <field>X1sub__c</field>
+        <literalValue>1</literalValue>
+        <name>Update 1 sub</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>

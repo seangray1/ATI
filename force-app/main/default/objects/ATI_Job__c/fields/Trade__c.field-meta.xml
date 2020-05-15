@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Trade__c</fullName>
+    <description>Created by DemandBlue as part of Xact Integration</description>
     <externalId>false</externalId>
     <label>Trade</label>
     <length>100</length>

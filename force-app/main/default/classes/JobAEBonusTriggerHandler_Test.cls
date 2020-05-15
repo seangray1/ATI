@@ -26,7 +26,10 @@ public class JobAEBonusTriggerHandler_Test {
                 'BillingState' => 'CA' } );
             List<Contact> con = TestDataUtil.createContacts(1, true, new Map<String, String>{'accountId' => accounts[0].Id});   
             ATI_Job__c j = new ATI_Job__c();
+            Master_Job__c mj1 = new Master_Job__c(Name = 'Test', Address_Line_1__c = '123', State__c = 'CA', City__c = 'Whit', Stage__c = 'Pre-work');
+            insert mj1;
             j.Name = 'testJob';
+            j.Master_Job__c = mj1.Id;
             j.Project_Site_Address__c = 'testSite';
             j.Project_Site_State__c = 'Az';
             j.Project_Site_Zipcode__c = '000000';

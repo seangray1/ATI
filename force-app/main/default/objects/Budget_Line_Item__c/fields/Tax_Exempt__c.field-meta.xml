@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Tax_Exempt__c</fullName>
     <defaultValue>false</defaultValue>
-    <description>Is the item tax exempt?</description>
+    <description>Is the item tax exempt? Created by DemandBlue as part of Xact Integration</description>
     <externalId>false</externalId>
     <label>Tax Exempt?</label>
     <trackTrending>false</trackTrending>

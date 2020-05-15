@@ -96,6 +96,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   ContactAccountId;
   ContactAccountName;
   searchKey;
+  JobRealName;
   NewCaller = false;
   NewAccount = false;
   NewProperty = false;
@@ -128,6 +129,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   BillingCity;
   BillingState;
   BillingPostalCode;
+  Policy;
+  AlternateName;
   Type;
   BillingCountry;
   AccountPhone;
@@ -616,6 +619,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       { label: "Black", value: "Black" }
     ];
   }
+  
   MarketClassChange(event) {
     try {
       this.MarketClass = event.detail.value;
@@ -694,7 +698,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   MarketSegmentSubClassChange(event) {
     this.MarketSegmentSubClass = event.detail.value;
   }
-
+  AlternateNameChange(e){
+    this.AlternateName = e.detail.value;
+}
   PolicyChange(e) {
     this.Policy = e.detail.value;
   }
@@ -2127,7 +2133,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             "A Primary/Bill-to, Caller and Project Site Contact Role MUST be selected"
           );
         } else {
-          if (this.PropertyID === "" && this.PropertyType === "") {
+          if (this.PropertyID === "" && this.Street === "") {
             console.log(
               "Property Id is " +
                 this.PropertyID +
@@ -2186,11 +2192,13 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   Street: this.Street,
                   PropertyType: this.PropertyType,
                   Zip: this.Zip,
-                  AddressLine2: this.AddressLine2
+                  AddressLine2: this.AddressLine2,
+                  AlternateName: this.AlternateName
                 });
                 //Job Fields
                 JobJSON = JSON.stringify({
                   Description: this.Description,
+                  JobRealName: this.JobRealName,
                   Division: this.Division,
                   Office: this.OfficeId,
                   MarketSegment: this.MarketSegment,
@@ -2202,6 +2210,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   MultipleDivisions: this.MultipleDivision,
                   EsJobType: this.EsJobType,
                   DateOfLoss: this.DateOfLoss,
+                  Policy:this.Policy,
                   ClientJob: this.ClientJob,
                   YearBuilt: this.YearBuilt,
                   MajorEvent: this.MajorEventId,
@@ -2253,6 +2262,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       "/lightning/o/ATI_Job__c/list?filterName=Recent";
     event.action = this.location;
   }
+  waitASecond(seconds) {
+      return new PromiseRejectionEvent(function(resolve,reject){
+          setTimeout(function(){
+              seconds++;
+              resolve(seconds);
+          }, 1000);
+          })
+      }
+  
   GenerateAccountRoleJSON() {
     var AccountRoleObject = {
       AccountRoleLineItems: this.GetAccountRolesObjects()

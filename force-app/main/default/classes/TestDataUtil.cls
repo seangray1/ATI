@@ -189,7 +189,7 @@ public class TestDataUtil {
         List<Contact> Contact = createContacts(1, true, new Map<String, String>{'accountId' => acc.Id});
         List<Property__c> props = CreateProperty(1, true);
         List<Master_Job__c> mjobs = CreateMasterJob(1, true, props);
-        List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props);
+        List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props, contact[0].id, acc.id);
        system.debug('Props is ' + props + '    mjobs is ' + mjobs);
         for( Integer i = 0; i < numToInsert; i++ ) {
             ATI_Job__c  j = new ATI_Job__c(Name='Test ATI_Job__c '+String.valueOf(i)  );
@@ -226,7 +226,14 @@ public class TestDataUtil {
                                                           List<ATI_Job__c> Jobs  = new List<ATI_Job__c >();
                                                           List<Property__c> props = CreateProperty(1, true);
                                                             List<Master_Job__c> mjobs = CreateMasterJob(1, true, props);
-                                                            List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props);
+                                                            Contact c = new Contact( LastName='Test Contact 2' );
+                                                       c.contact_type__c = 'Adjustor';
+                                                       c.firstname = 'sean';
+                                                       c.Lastname = 'gray';
+                                                       c.email = 'test' + '@gmail.com';
+                                                       c.accountId = accountId;
+                                                       insert c;
+                                                            List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props,accountId, c.id);
        
                                                           
                                                           for( Integer i = 0; i < numToInsert; i++ ) {
@@ -313,7 +320,7 @@ public class TestDataUtil {
     public static List<Property__c> CreateProperty(Integer numToInsert, Boolean doInsert){
         list<Property__c> propList = new List<Property__c>();
         for(Integer i=0; i<numToInsert; i++){
-            Property__c prop = new Property__c(Address_Line_1__c = '92832 La Palma Ave ' + i, Property_Type__c = 'Residential');
+            Property__c prop = new Property__c(Address_Line_1__c = '92832 La Palma Ave ' + i, City__c = 'T', Zip__c = '92',State__c = 'CA', Property_Type__c = 'Residential');
             propList.add(prop);
         }
         if (doInsert) {
@@ -334,10 +341,11 @@ public class TestDataUtil {
         return mjList;
     }
    
-    public static List<Account_Roles__c> CreateAccountRoles(Integer numToInsert, Boolean doInsert, List<Property__c> props){
+    public static List<Account_Roles__c> CreateAccountRoles(Integer numToInsert, Boolean doInsert, List<Property__c> props, Id AccountId, Id ContactId){
         list<Account_Roles__c> ars = new List<Account_Roles__c>();
         for(Integer i=0; i<numToInsert; i++){
-            Account_Roles__c ar = new Account_Roles__c(Property_ID__c = props[i].id, Multiple_Roles__c = 'Primary/Bill-to', Roles__c = 'Bill To');
+            Account_Roles__c ar = new Account_Roles__c(Property_ID__c = props[i].id, Account_ID__c = AccountId, Contact_ID__c = ContactId,
+             Multiple_Roles__c = 'Primary/Bill-to;Project Site Contact;Referred By;Caller');
             ars.add(ar);
         }
         if (doInsert) {

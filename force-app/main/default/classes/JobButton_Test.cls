@@ -34,23 +34,26 @@ private class JobButton_Test {
          Case c = [Select Id FROM CASE Where ATI_Job__c =: jobs.id LIMIT 1];
         // Case ca = new Case(recordTypeId = approvedRecordTypeId, Priority = '1-Accident/Injury', OwnerId = UserInfo.getUserId(), Next_Action_Date_Time__c = System.Now() + 1, Subject = 'Call', Description = 'Test', ATI_Job__c = jobs.id, ContactId = cont.Id );
         // insert ca;
-        //jobutility.offerLetterToPDF(jobs, jobs);
-            jobutility.createTaskProjectNote(.1, jobs.id, U2, '1', '2', system.today(), 'Yes', 'No', 'Test');
-            jobutility.PMAssignmentChatter(system.today(), jobs.id, U2, system.today(), 'test', 'test', '{"ContactString":["'+con1.id+'"],"ProjectManagerString":["'+ u2+ '"]}'); 
-            
-            jobutility.projectNoteDate(jobs.id);
-            jobutility.projectNotePercent(jobs.id);
-            JobUtility.PMAssignmentQuery(jobs.id);
-            JobUtility.CaseChatterTaskCreation(jobs.id, 'Test', 'Test');
-            JobUtility.JobCaseInfo(jobs.id);
+        //JobButtons.offerLetterToPDF(jobs, jobs);
+            JobButtons.createTaskProjectNote(.1, jobs.id, U2, '1', '2', system.today(), 'Yes', 'No', 'Test');
+            JobButtons.PMAssignmentChatter(system.today(), jobs.id, U2, system.today(), 'test', 'test', con1.id, u2); 
+           
+            JobButtons.projectNoteDate(jobs.id);
+            JobButtons.projectNotePercent(jobs.id);
+            JobButtons.PMAssignmentQuery(jobs.id);
+            JobButtons.CaseChatterTaskCreation(jobs.id, 'Test', 'Test');
+            JobButtons.JobCaseInfo(jobs.id);
+            JobButtons.LargeLossApprovalSubmission(jobs.id);
+            JobButtons.ContactAccount(jobs.id);
+            JobButtons.AllocationApproval('t', jobs.id, 'JobNumber', 'Amount', 'FirstQ', 'SecondQ', 'ThirdQ', 'Subcontractor', 'Description');
             TaskTriggerUtility.LogACall(c.id, '{"ContactString":["' + cont.Id +'"]}', 'Call', 'Normal', system.today(), 'Coffee', 'Payments', 'Paid', 'Log A Call', 'Test', true);
             TaskTriggerUtility.LogACall(c.id, '{"ContactString":"' + cont.Id +'"}', 'Call', 'Normal', system.today(), 'Coffee', 'Payments', 'Paid', 'Log A Call', 'Test', false);
             TaskTriggerUtility.getContacts(c.id);
             TaskTriggerUtility.updateTaskOwnerEmailOnContact(tasks);
         system.debug('oldjob + ' + jobs.Stage__c);
         system.debug('newjob + ' + jobs.Stage__c);
-        // jobs.Stage__c='Won';
-        // update jobs;
+        jobs.Stage__c='Won';
+        update jobs;
         system.debug('newjob + ' + jobs.Stage__c);
         
     }

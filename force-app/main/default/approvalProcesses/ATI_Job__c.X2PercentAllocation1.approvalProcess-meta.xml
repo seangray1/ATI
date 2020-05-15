@@ -416,12 +416,8 @@
         <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>Regional_Director__c</name>
+                <name>Branch_Manager__c</name>
                 <type>relatedUserField</type>
-            </approver>
-            <approver>
-                <name>scott.moore@atirestoration.com</name>
-                <type>user</type>
             </approver>
             <approver>
                 <name>sean.gray@atirestoration.com</name>
@@ -474,6 +470,16 @@
             <value>1324</value>
         </criteriaItems>
     </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>Update_1_sub</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Timberline_box</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
     <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
     <label>2PercentAllocation</label>

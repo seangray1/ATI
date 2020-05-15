@@ -15,7 +15,7 @@
     <columns>Contents_Operations_Manager__c</columns>
     <columns>Microbial_Operations_Manager__c</columns>
     <columns>Biohazard_Operations_Manager__c</columns>
-    <columns>Catastrophes_Operations_Manager__c</columns>
+    <columns>Xactnet_address__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>
