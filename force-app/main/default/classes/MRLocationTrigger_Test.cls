@@ -60,34 +60,4 @@ public class MRLocationTrigger_Test
          System.assertEquals(result.getErrors().size(),1);
 
      }
-
-
-
-
-     public static string Test(){
-        Map<String, attachment> attachmentMap = new Map<String,Attachment>();
-        Set<String> attachNameSet = new Set<String>();
-        List<Attachment> attachments = new List<Attachment>();
-        attachment a = new attachment();
-        attachments.add(a);
-
-        for(attachment attach : attachments){
-            attachNameSet.add(attach.name);
-            attachmentMap.put(attach.name, attach);
-        }
-
-        //query for CloudFiles
-        List<CloudFiles__c> cloudFiles = [Select Id, Name FROM CloudFiles__c Where Name =: attachNameSet];
-        if(!cloudFiles.isEmpty()){
-        for(CloudFiles__c cloudFile : cloudFiles){
-            attachmentMap.remove(cloudFile.name);
-
-            }
-        }
-        
-        if(!attachmentMap.isEmpty()){
-            insert attachmentMap.values();
-        }
-
-     }
 }

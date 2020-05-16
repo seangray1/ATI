@@ -2,19 +2,10 @@
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
         <fullName>LEAD_COVID_Anaheim</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Anaheim</description>
         <protected>false</protected>
         <recipients>
-            <recipient>Corporate_Office</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
             <recipient>Director_of_Business_Development_SoCal</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Sr_VP_Health_Env_Svc</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -34,13 +25,8 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Chicago</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Chicago</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>Chicago_Branch</recipient>
-            <type>role</type>
-        </recipients>
         <recipients>
             <recipient>Director_of_Business_Development_Eastern</recipient>
             <type>role</type>
@@ -62,13 +48,8 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Dallas</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Dallas</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>Dallas_Branch</recipient>
-            <type>role</type>
-        </recipients>
         <recipients>
             <recipient>Director_of_Business_Development_Central</recipient>
             <type>role</type>
@@ -90,15 +71,33 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Denver</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Denver</description>
         <protected>false</protected>
         <recipients>
-            <recipient>Denver_Branch</recipient>
+            <recipient>Director_of_Business_Development_North_West</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>Director_of_Business_Development_North_West</recipient>
+            <recipient>arlene.uribe@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>frank.islas@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/LEAD_COVID</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_COVID_HQ</fullName>
+        <description>LEAD - COVID HQ</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>National_Accounts_VP_HQ</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -118,15 +117,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Houston</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Houston</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Central</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Houston_Regional_Manager</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -146,15 +140,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Las_Vegas</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Las Vegas</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_SoCal</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Las_Vegas_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -174,15 +163,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Los_Angeles</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Los Angeles</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_SoCal</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Los_Angeles_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -202,15 +186,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_New_England</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID New England</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Eastern</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>New_England_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -230,15 +209,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Orlando</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Orlando</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Eastern</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Tampa_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -258,15 +232,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Philadelphia</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Philadelphia</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Eastern</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Philadelphia</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -286,15 +255,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Phoenix</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Phoenix</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Central</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Phoenix_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -314,15 +278,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Riverside</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Riverside</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_SoCal</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Riverside_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -342,15 +301,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Sacramento</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Sacramento</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_North_West</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Sacramento_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -370,15 +324,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_San_Diego</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID San Diego</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_SoCal</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>San_Diego_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -398,15 +347,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_San_Francisco_San_Jose</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID San Francisco/San Jose</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_North_West</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>San_Francisco_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -426,15 +370,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Seattle</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Seattle</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_North_West</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Seattle_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -454,15 +393,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Sonoma</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Sonoma</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_North_West</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Regional_Manager_Sonoma</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -482,15 +416,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Tampa</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Tampa</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Eastern</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Tampa_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -510,15 +439,10 @@
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Tucson</fullName>
-        <ccEmails>covid19@atirestoration.com</ccEmails>
         <description>LEAD - COVID Tucson</description>
         <protected>false</protected>
         <recipients>
             <recipient>Director_of_Business_Development_Central</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Phoenix_Branch</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -535,6 +459,21 @@
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/LEAD_COVID</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_Central</fullName>
+        <description>LEAD - Central</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Director_of_Business_Development_Central</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/LEAD_Standard</template>
     </alerts>
     <alerts>
         <fullName>LEAD_Contact_Center_Queue</fullName>
@@ -555,6 +494,51 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>unfiled$public/LEAD_Contact_Center_Queue</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_East</fullName>
+        <description>LEAD - East</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Director_of_Business_Development_Eastern</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/LEAD_Standard</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_Northwest</fullName>
+        <description>LEAD - Northwest</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Director_of_Business_Development_North_West</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/LEAD_Standard</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_Southwest</fullName>
+        <description>LEAD - Southwest</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Director_of_Business_Development_SoCal</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/LEAD_Standard</template>
     </alerts>
     <rules>
         <fullName>LEAD - Contact Center Queue</fullName>

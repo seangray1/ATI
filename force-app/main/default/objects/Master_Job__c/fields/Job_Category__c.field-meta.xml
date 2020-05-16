@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Job Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hurricane Florence</fullName>
+                <default>false</default>
+                <label>Hurricane Florence</label>
+            </value>
+            <value>
+                <fullName>Hurricane Harvey</fullName>
+                <default>false</default>
+                <label>Hurricane Harvey</label>
+            </value>
+            <value>
+                <fullName>Hurricane Irma</fullName>
+                <default>false</default>
+                <label>Hurricane Irma</label>
+            </value>
+            <value>
+                <fullName>Napa Earthquake</fullName>
+                <default>false</default>
+                <label>Napa Earthquake</label>
+            </value>
+            <value>
+                <fullName>AZ 0914 Monsoon</fullName>
+                <default>false</default>
+                <label>AZ 0914 Monsoon</label>
+            </value>
+            <value>
+                <fullName>Wine Country Fires</fullName>
+                <default>false</default>
+                <label>Wine Country Fires</label>
+            </value>
+            <value>
+                <fullName>2019 Saddle Ridge/LA Fire</fullName>
+                <default>false</default>
+                <label>2019 Saddle Ridge/LA Fire</label>
+            </value>
+            <value>
+                <fullName>2019 TIck/LA Fire</fullName>
+                <default>false</default>
+                <label>2019 TIck/LA Fire</label>
+            </value>
+            <value>
+                <fullName>Wildfires</fullName>
+                <default>false</default>
+                <label>Wildfires</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -160,13 +160,44 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.LastModifiedBy.Profile.Name</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Restricted Process Execution</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
             <label>On Approved Job</label>
         </rules>
     </decisions>
-    <interviewLabel>JOB_Alert_AE1_and_AE2_When_Assigned-2_InterviewLabel</interviewLabel>
+    <interviewLabel>JOB_Alert_AE1_and_AE2_When_Assigned-3_InterviewLabel</interviewLabel>
     <label>JOB - Alert AE1 and AE2 When Assigned</label>
     <processMetadataValues>
         <name>ObjectType</name>

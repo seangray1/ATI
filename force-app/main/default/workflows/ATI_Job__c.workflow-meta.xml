@@ -323,6 +323,14 @@
         <description>Call Center New ATI Job Notification - Anaheim</description>
         <protected>false</protected>
         <recipients>
+            <recipient>gregg.zembik@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>lejia.islas@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>natalie.yrineo@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -831,6 +839,21 @@
         <template>ATI_Job_Templates/ATI_Facility_Source_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>JOB_From_Contact_Center</fullName>
+        <description>JOB - From Contact Center</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/New_Job_From_Contact_Center</template>
+    </alerts>
+    <alerts>
         <fullName>JOB_GLP_New_Loss_Info_Request_to_PD</fullName>
         <ccEmails>nat.lee@atirestoration.com</ccEmails>
         <description>JOB - GLP New Loss Info Request to PD</description>
@@ -842,6 +865,42 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_GLP_New_Loss_Info_Request_to_PD</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_Job_Request_Form_Completed</fullName>
+        <description>JOB - Job Request Form Completed</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_Job_Request_Completed</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_Job_Request_Form_Submitted</fullName>
+        <description>JOB - Job Request Form Submitted</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Office_New_Loss_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_Job_Request_Submitted</template>
     </alerts>
     <alerts>
         <fullName>JOB_La_Quinta_New_Loss_Info_Request_to_PD</fullName>
@@ -969,10 +1028,6 @@
             <recipient>arlene.uribe@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>ATI_Job_Templates/ATI_Job_Submit_Reminder</template>
     </alerts>
@@ -1048,6 +1103,14 @@
             <recipient>bucky.buchanan@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
+        <recipients>
+            <recipient>grant.wassall@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>kurt.fairless@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderType>CurrentUser</senderType>
         <template>ATI_Job_Templates/ATI_Job_Large_Loss_Email_Template</template>
     </alerts>
@@ -1056,7 +1119,15 @@
         <description>Large Loss Notification for Jeff Huddleston in ATI Job</description>
         <protected>false</protected>
         <recipients>
-            <recipient>jeff.huddleston@atirestoration.com</recipient>
+            <recipient>bucky.buchanan@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>grant.wassall@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>kurt.fairless@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -1067,7 +1138,15 @@
         <description>Large Loss Notification for Scott Moore in ATI Job</description>
         <protected>false</protected>
         <recipients>
-            <recipient>scott.moore@atirestoration.com</recipient>
+            <recipient>bucky.buchanan@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>grant.wassall@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>kurt.fairless@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -1190,18 +1269,6 @@
         <senderAddress>survey@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Survey_Templates/Survey_Participation_Yelp_Link</template>
-    </alerts>
-    <alerts>
-        <fullName>Wine_Country_Fire_Email_Alert</fullName>
-        <description>Wine Country Fire Email Alert</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>kelli.smith@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <senderAddress>donotreply@atirestoration.com</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>ATI_Job_Templates/ATI_Job_Wine_Country_Fire_Job_Notification</template>
     </alerts>
     <fieldUpdates>
         <fullName>ATI_Job_Naming_Convention</fullName>
@@ -2496,7 +2563,7 @@
     <rules>
         <fullName>Getfeedback Construction Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND(  !ISNULL(Survey_Sent_Date__c)  , Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Demolition&#39;), ISPICKVAL(Division__c, &#39;Construction&#39;) ))</formula>
+        <formula>AND(  !ISNULL(Survey_Sent_Date__c)  , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Demolition&#39;), ISPICKVAL(Division__c, &#39;Construction&#39;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2534,7 +2601,7 @@
     <rules>
         <fullName>Getfeedback Consulting Services Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Consulting&#39;)))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Consulting&#39;)))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2616,7 +2683,7 @@
     <rules>
         <fullName>Getfeedback Content Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Contents&#39;) ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Contents&#39;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2666,6 +2733,11 @@
             <field>ATI_Job__c.Name</field>
             <operation>notEqual</operation>
         </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>notEqual</operation>
+            <value>Restricted Process Execution</value>
+        </criteriaItems>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -2693,7 +2765,7 @@
     <rules>
         <fullName>Getfeedback Emergency Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Catastrophes&#39;), ISPICKVAL(Division__c, &#39;Emergency Svces&#39;) ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Catastrophes&#39;), ISPICKVAL(Division__c, &#39;Emergency Svces&#39;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2753,7 +2825,7 @@
     <rules>
         <fullName>Getfeedback Environmental Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , Survey_Completed__c == false,OR(  ISPICKVAL(Division__c, &#39;Asbestos&#39;),  ISPICKVAL(Division__c, &#39;Biohazard&#39;),  ISPICKVAL(Division__c, &#39;Lead&#39;),  ISPICKVAL(Division__c, &#39;Microbial&#39;)  ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR(  ISPICKVAL(Division__c, &#39;Asbestos&#39;),  ISPICKVAL(Division__c, &#39;Biohazard&#39;),  ISPICKVAL(Division__c, &#39;Lead&#39;),  ISPICKVAL(Division__c, &#39;Microbial&#39;)  ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2813,7 +2885,7 @@
     <rules>
         <fullName>Getfeedback Technical Services Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Technical Svces&#39;) ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Technical Svces&#39;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2953,6 +3025,11 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
             <field>ATI_Job__c.Date_Time_Submitted_for_Approval__c</field>
             <operation>equals</operation>
         </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>notEqual</operation>
+            <value>Restricted Process Execution</value>
+        </criteriaItems>
         <description>Send reminder email to Job creator when Job is not submitted for approval after 1 hour</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
@@ -2970,7 +3047,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
             <name>Job_Number_Change_Alert</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>When Job number has changed, email Jenny Pace, Vonda Barela, and payroll.</description>
         <formula>AND(ISCHANGED (Job_Number__c) ,  $Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</formula>
         <triggerType>onAllChanges</triggerType>
@@ -3334,10 +3411,6 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
     </rules>
     <rules>
         <fullName>Wine Country Fire Notification</fullName>
-        <actions>
-            <name>Wine_Country_Fire_Email_Alert</name>
-            <type>Alert</type>
-        </actions>
         <active>false</active>
         <criteriaItems>
             <field>ATI_Job__c.Job_Category__c</field>

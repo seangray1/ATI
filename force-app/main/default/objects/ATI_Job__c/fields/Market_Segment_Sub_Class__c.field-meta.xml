@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Market_Segment_Sub_Class__c</fullName>
+    <externalId>false</externalId>
+    <label>Market Segment Sub Class</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Market_Segment__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>K-12</fullName>
+                <default>false</default>
+                <label>K-12</label>
+            </value>
+            <value>
+                <fullName>Higher Education</fullName>
+                <default>false</default>
+                <label>Higher Education</label>
+            </value>
+            <value>
+                <fullName>Border Patrol</fullName>
+                <default>false</default>
+                <label>Border Patrol</label>
+            </value>
+            <value>
+                <fullName>Bureau of Land Management</fullName>
+                <default>false</default>
+                <label>Bureau of Land Management</label>
+            </value>
+            <value>
+                <fullName>Central Intelligence Agency (CIA)</fullName>
+                <default>false</default>
+                <label>Central Intelligence Agency (CIA)</label>
+            </value>
+            <value>
+                <fullName>General Services Admin (GSA)</fullName>
+                <default>false</default>
+                <label>General Services Admin (GSA)</label>
+            </value>
+            <value>
+                <fullName>Department of Agriculture (USDA)</fullName>
+                <default>false</default>
+                <label>Department of Agriculture (USDA)</label>
+            </value>
+            <value>
+                <fullName>Department of Commerce</fullName>
+                <default>false</default>
+                <label>Department of Commerce</label>
+            </value>
+            <value>
+                <fullName>Department of Defense (DOD)</fullName>
+                <default>false</default>
+                <label>Department of Defense (DOD)</label>
+            </value>
+            <value>
+                <fullName>Army</fullName>
+                <default>false</default>
+                <label>Army</label>
+            </value>
+            <value>
+                <fullName>Navy</fullName>
+                <default>false</default>
+                <label>Navy</label>
+            </value>
+            <value>
+                <fullName>Air Force</fullName>
+                <default>false</default>
+                <label>Air Force</label>
+            </value>
+            <value>
+                <fullName>Marine Corps</fullName>
+                <default>false</default>
+                <label>Marine Corps</label>
+            </value>
+            <value>
+                <fullName>Coast Guard</fullName>
+                <default>false</default>
+                <label>Coast Guard</label>
+            </value>
+            <value>
+                <fullName>Department of Education</fullName>
+                <default>false</default>
+                <label>Department of Education</label>
+            </value>
+            <value>
+                <fullName>Department of Energy</fullName>
+                <default>false</default>
+                <label>Department of Energy</label>
+            </value>
+            <value>
+                <fullName>Department of Health &amp; Human Services</fullName>
+                <default>false</default>
+                <label>Department of Health &amp; Human Services</label>
+            </value>
+            <value>
+                <fullName>Department of Homeland Security (DHS)</fullName>
+                <default>false</default>
+                <label>Department of Homeland Security (DHS)</label>
+            </value>
+            <value>
+                <fullName>Department of Housing and Urban Development</fullName>
+                <default>false</default>
+                <label>Department of Housing and Urban Development</label>
+            </value>
+            <value>
+                <fullName>Department of Justice (DOJ)</fullName>
+                <default>false</default>
+                <label>Department of Justice (DOJ)</label>
+            </value>
+            <value>
+                <fullName>Department of Labor (DOL)</fullName>
+                <default>false</default>
+                <label>Department of Labor (DOL)</label>
+            </value>
+            <value>
+                <fullName>Department of State (DOS)</fullName>
+                <default>false</default>
+                <label>Department of State (DOS)</label>
+            </value>
+            <value>
+                <fullName>Department of the Interior</fullName>
+                <default>false</default>
+                <label>Department of the Interior</label>
+            </value>
+            <value>
+                <fullName>Department of the Treasury</fullName>
+                <default>false</default>
+                <label>Department of the Treasury</label>
+            </value>
+            <value>
+                <fullName>Department of Transportation</fullName>
+                <default>false</default>
+                <label>Department of Transportation</label>
+            </value>
+            <value>
+                <fullName>Department of Veterans Affairs (VA)</fullName>
+                <default>false</default>
+                <label>Department of Veterans Affairs (VA)</label>
+            </value>
+            <value>
+                <fullName>Federal Bureau of Investigation (FBI)</fullName>
+                <default>false</default>
+                <label>Federal Bureau of Investigation (FBI)</label>
+            </value>
+            <value>
+                <fullName>Fish and Wildlife Service</fullName>
+                <default>false</default>
+                <label>Fish and Wildlife Service</label>
+            </value>
+            <value>
+                <fullName>National Guard</fullName>
+                <default>false</default>
+                <label>National Guard</label>
+            </value>
+            <value>
+                <fullName>National Park Service</fullName>
+                <default>false</default>
+                <label>National Park Service</label>
+            </value>
+            <value>
+                <fullName>United States Postal Service (USPS)</fullName>
+                <default>false</default>
+                <label>United States Postal Service (USPS)</label>
+            </value>
+            <value>
+                <fullName>Hospital</fullName>
+                <default>false</default>
+                <label>Hospital</label>
+            </value>
+            <value>
+                <fullName>Assisted Living / Hospice</fullName>
+                <default>false</default>
+                <label>Assisted Living / Hospice</label>
+            </value>
+            <value>
+                <fullName>Medical Office</fullName>
+                <default>false</default>
+                <label>Medical Office</label>
+            </value>
+            <value>
+                <fullName>Pharma/Lab</fullName>
+                <default>false</default>
+                <label>Pharma/Lab</label>
+            </value>
+            <value>
+                <fullName>Animal / Medical / Veterinary</fullName>
+                <default>false</default>
+                <label>Animal / Medical / Veterinary</label>
+            </value>
+            <value>
+                <fullName>Hotel / Motel / Resort / Lodge</fullName>
+                <default>false</default>
+                <label>Hotel / Motel / Resort / Lodge</label>
+            </value>
+            <value>
+                <fullName>Sports &amp; Entertainment</fullName>
+                <default>false</default>
+                <label>Sports &amp; Entertainment</label>
+            </value>
+            <value>
+                <fullName>Casino / Gaming</fullName>
+                <default>false</default>
+                <label>Casino / Gaming</label>
+            </value>
+            <value>
+                <fullName>Restaurant / Bar</fullName>
+                <default>false</default>
+                <label>Restaurant / Bar</label>
+            </value>
+            <value>
+                <fullName>Office</fullName>
+                <default>false</default>
+                <label>Office</label>
+            </value>
+            <value>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+                <label>Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Agriculture</fullName>
+                <default>false</default>
+                <label>Agriculture</label>
+            </value>
+            <value>
+                <fullName>Warehouse / Distribution</fullName>
+                <default>false</default>
+                <label>Warehouse / Distribution</label>
+            </value>
+            <value>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+                <label>Utilities</label>
+            </value>
+            <value>
+                <fullName>Self Storage</fullName>
+                <default>false</default>
+                <label>Self Storage</label>
+            </value>
+            <value>
+                <fullName>Religion</fullName>
+                <default>false</default>
+                <label>Religion</label>
+            </value>
+            <value>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+                <label>Transportation</label>
+            </value>
+            <value>
+                <fullName>Apartments</fullName>
+                <default>false</default>
+                <label>Apartments</label>
+            </value>
+            <value>
+                <fullName>Condo / HOA / POA</fullName>
+                <default>false</default>
+                <label>Condo / HOA / POA</label>
+            </value>
+            <value>
+                <fullName>Mall</fullName>
+                <default>false</default>
+                <label>Mall</label>
+            </value>
+            <value>
+                <fullName>Store Front</fullName>
+                <default>false</default>
+                <label>Store Front</label>
+            </value>
+            <value>
+                <fullName>Grocery / Liquor</fullName>
+                <default>false</default>
+                <label>Grocery / Liquor</label>
+            </value>
+            <value>
+                <fullName>Big Box Store</fullName>
+                <default>false</default>
+                <label>Big Box Store</label>
+            </value>
+            <value>
+                <fullName>Financial</fullName>
+                <default>false</default>
+                <label>Financial</label>
+            </value>
+            <value>
+                <fullName>Airport</fullName>
+                <default>false</default>
+                <label>Airport</label>
+            </value>
+            <value>
+                <fullName>City</fullName>
+                <default>false</default>
+                <label>City</label>
+            </value>
+            <value>
+                <fullName>County</fullName>
+                <default>false</default>
+                <label>County</label>
+            </value>
+            <value>
+                <fullName>State</fullName>
+                <default>false</default>
+                <label>State</label>
+            </value>
+            <value>
+                <fullName>Prison</fullName>
+                <default>false</default>
+                <label>Prison</label>
+            </value>
+            <value>
+                <fullName>Police / Sheriff / Fire Department</fullName>
+                <default>false</default>
+                <label>Police / Sheriff / Fire Department</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Utilities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <valueName>Airport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <valueName>City</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <valueName>County</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <valueName>State</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <valueName>Prison</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <valueName>Police / Sheriff / Fire Department</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State/Municipal</controllingFieldValue>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <controllingFieldValue>Multi Family</controllingFieldValue>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>K-12</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Higher Education</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Border Patrol</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Bureau of Land Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Central Intelligence Agency (CIA)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>General Services Admin (GSA)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Agriculture (USDA)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Commerce</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Defense (DOD)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Army</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Navy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Air Force</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Marine Corps</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Coast Guard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Education</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Energy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Health &amp; Human Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Homeland Security (DHS)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Housing and Urban Development</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Justice (DOJ)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Labor (DOL)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of State (DOS)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of the Interior</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of the Treasury</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Transportation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Department of Veterans Affairs (VA)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Federal Bureau of Investigation (FBI)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>Fish and Wildlife Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>National Guard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>National Park Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <valueName>United States Postal Service (USPS)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Assisted Living / Hospice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Medical Office</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Pharma/Lab</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>Animal / Medical / Veterinary</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Hotel / Motel / Resort / Lodge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Sports &amp; Entertainment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Casino / Gaming</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospitality</controllingFieldValue>
+            <valueName>Restaurant / Bar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Office</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Manufacturing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Agriculture</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Warehouse / Distribution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Self Storage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Religion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+            <valueName>Transportation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi Family</controllingFieldValue>
+            <valueName>Apartments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Multi Family</controllingFieldValue>
+            <valueName>Condo / HOA / POA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Mall</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Store Front</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Grocery / Liquor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Big Box Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>Financial</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

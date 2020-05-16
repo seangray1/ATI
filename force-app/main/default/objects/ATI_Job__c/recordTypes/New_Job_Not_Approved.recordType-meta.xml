@@ -897,6 +897,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Intake_Status__c</picklist>
+        <values>
+            <fullName>Business Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reviewed%2FCompleted</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Job_Category__c</picklist>
         <values>
             <fullName>2019 Saddle Ridge%2FLA Fire</fullName>
@@ -920,6 +931,10 @@
         </values>
         <values>
             <fullName>Corona Virus %233</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Covid Related</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1457,6 +1472,334 @@
         </values>
         <values>
             <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_Class__c</picklist>
+        <values>
+            <fullName>Non-Residential</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_Segment_Sub_Class__c</picklist>
+        <values>
+            <fullName>Agriculture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Air Force</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Airport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Animal %2F Medical %2F Veterinary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apartments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Army</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assisted Living %2F Hospice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Big Box Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Border Patrol</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bureau of Land Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Casino %2F Gaming</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Central Intelligence Agency %28CIA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>City</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coast Guard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condo %2F HOA %2F POA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>County</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Agriculture %28USDA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Commerce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Defense %28DOD%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Energy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Health %26 Human Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Homeland Security %28DHS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Housing and Urban Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Justice %28DOJ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Labor %28DOL%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of State %28DOS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Transportation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of Veterans Affairs %28VA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of the Interior</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department of the Treasury</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Bureau of Investigation %28FBI%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fish and Wildlife Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Services Admin %28GSA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grocery %2F Liquor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Higher Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hotel %2F Motel %2F Resort %2F Lodge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>K-12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufacturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marine Corps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Guard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Park Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Navy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pharma%2FLab</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Police %2F Sheriff %2F Fire Department</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prison</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Religion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restaurant %2F Bar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Self Storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sports %26 Entertainment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store Front</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transportation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United States Postal Service %28USPS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse %2F Distribution</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_Segment__c</picklist>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High-Net-Worth %28HNW%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospitality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Industrial %26 Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi Family</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program %28MRP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State%2FMunicipal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PM_Assignment_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent for Approval</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -3,7 +3,9 @@
     <fullName>All_Materials</fullName>
     <columns>Item_Code__c</columns>
     <columns>NAME</columns>
+    <columns>Description__c</columns>
     <columns>Unit_of_Measurement__c</columns>
+    <columns>Unit_Cost__c</columns>
     <filterScope>Everything</filterScope>
     <label>All Materials</label>
 </ListView>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Date_Required_Status_AftermathInactv</fullName>
+    <active>true</active>
+    <description>End Date Required if Status is Aftermath or Inactive</description>
+    <errorConditionFormula>AND(
+ISBLANK( End_Date__c ),
+OR(
+ISPICKVAL( Status__c , &quot;Inactive&quot;),
+ISPICKVAL( Status__c , &quot;Aftermath&quot;)
+)
+)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>End Date Required if Status is Aftermath or Inactive</errorMessage>
+</ValidationRule>

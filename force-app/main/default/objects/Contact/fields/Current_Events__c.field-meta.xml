@@ -16,6 +16,11 @@
                 <default>false</default>
                 <label>COVID-19</label>
             </value>
+            <value>
+                <fullName>Go Back Safely</fullName>
+                <default>false</default>
+                <label>Go Back Safely</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

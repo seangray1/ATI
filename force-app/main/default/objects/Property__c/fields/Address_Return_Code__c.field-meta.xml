@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Address_Return_Code__c</fullName>
+    <description>Used for a return value from the address
+verification. Return values are: Confirmed,
+Not Confirmed, Confirmed - By Dropping
+Secondary Info, Confirmed - Missing
+Secondary Info, or Not Submitted</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used for a return value from the address
+verification. Return values are: Confirmed,
+Not Confirmed, Confirmed - By Dropping
+Secondary Info, Confirmed - Missing
+Secondary Info, or Not Submitted</inlineHelpText>
+    <label>Address Return Code</label>
+    <length>40</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -72,6 +72,11 @@
                 <default>false</default>
                 <label>Corona Virus #3</label>
             </value>
+            <value>
+                <fullName>Covid Related</fullName>
+                <default>false</default>
+                <label>Covid Related</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

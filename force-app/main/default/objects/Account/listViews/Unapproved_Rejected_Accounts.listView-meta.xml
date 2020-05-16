@@ -10,6 +10,7 @@
     <columns>ACCOUNT.TYPE</columns>
     <columns>Status__c</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Status__c</field>
