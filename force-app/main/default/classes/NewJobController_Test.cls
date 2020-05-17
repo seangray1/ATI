@@ -57,6 +57,12 @@ private class NewJobController_Test {
             NewJobController.InsertPersonAccount('Name', 'LastName', '222-222-2222' , 'Farmers', '', '15632 Youngwood Drive', 'Whittier', 'CA', '90603', 'US');
             NewJobController.GetCustomers('Test');
             NewJobController.GetDivisionPicklist();
+            NewJobController.GetDivisionPicklist1();
+            NewJobController.GetDivisionPicklist2();
+            NewJobController.GetDivisionPicklist3();
+            NewJobController.GetDivisionPicklist4();
+            NewJobController.GetDivisionPicklist5();
+            NewJobController.GetDivisionPicklist6();
             NewJobController.GetEsJobTypePicklist();
             NewJobController.GetLeadSourcePicklist();
             NewJobController.GetMultipleDivisionPicklist();
@@ -76,8 +82,6 @@ private class NewJobController_Test {
             // NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '');
             NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
             NewJobController.UpdateProperty(jobs[0].Property_Id__c, '15632 Youngwood Drive', 'Whittier', 'CA', '90603');
-            Create_Opportunity_Handler.createOpportunity(jobs);
-            
         }
         
     }

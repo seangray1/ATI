@@ -6,7 +6,8 @@ public with sharing class MasterJobTriggerHandler {
                 if(MasterJob.Date_Of_Loss__c == null){
                 MasterJob.Name = MasterJob.Job_Address_Line_1__c + ' ' + MasterJob.Project_Site_City__c + ' ' + MasterJob.Project_Site_State__c ; 
                 }else{
-                MasterJob.Name = MasterJob.Job_Address_Line_1__c + ' ' + MasterJob.Project_Site_City__c + ' ' + MasterJob.Project_Site_State__c +' | ' + MasterJob.Date_Of_Loss__c;  
+                MasterJob.Name = MasterJob.Job_Address_Line_1__c + ' ' + MasterJob.Project_Site_City__c + ' ' + MasterJob.Project_Site_State__c +' | ' + MasterJob.Date_Of_Loss__c;
+                MasterJob.Name = MasterJob.Name.replace('00:00:00', '');   
                 }
                 if(MasterJob.name.length() > 79){
                     MasterJob.name = MasterJob.name.substring(0, 79);
@@ -37,6 +38,7 @@ public with sharing class MasterJobTriggerHandler {
                 }
                 if(MasterJob.Date_Of_Loss__c != oldMasterJobs.get(MasterJob.Id).Date_Of_Loss__c){
                     MasterJob.Name = MasterJob.Job_Address_Line_1__c + ' ' + MasterJob.Project_Site_City__c + ' ' + MasterJob.Project_Site_State__c + ' | ' + MasterJob.Date_Of_Loss__c;
+                    MasterJob.Name = MasterJob.Name.replace('00:00:00', ''); 
                 }
 
             }
@@ -56,7 +58,10 @@ public with sharing class MasterJobTriggerHandler {
         Set<Id> MasterJobIdSet = new Set<Id>();
         List<ATI_Job__c> JobList = new List<ATI_Job__c>();
         for(Master_Job__c MasterJob : newMasterJobs){
+            system.debug('Master Job' + MasterJob);
+            
             Master_Job__c oldJob = oldMasterJobs.get(MasterJob.Id);
+            system.debug('Old Master Job ' + oldJob);
             if(MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Claim__c != oldJob.Claim__c || 
             MasterJob.Policy__c != oldJob.Policy__c || MasterJob.Deductible__c != oldJob.Deductible__c ||
             MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Description_Of_Loss__c != oldJob.Description_Of_Loss__c ||
@@ -67,7 +72,7 @@ public with sharing class MasterJobTriggerHandler {
         //remember to do if statements to check if blank
         //query for jobs that need to be updated
         if(!MasterJobIdSet.isEmpty()){
-        JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c, Master_Job__c, Property_ID__c, Description_Of_Loss__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
+        JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c, Master_Job__c, Property_ID__c, Description__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
         if(!JobList.isEmpty()){
         for(ATI_Job__c job : JobList){
             Master_job__c newMasterJob = newMasterJobsMap.get(job.Master_job__c);
@@ -76,7 +81,7 @@ public with sharing class MasterJobTriggerHandler {
             job.Deductible__c = newMasterJob.Deductible__c;
             job.Policy__c = newMasterJob.Policy__c;
             job.Property_ID__c = newMasterJob.Property__c;
-            job.Description_Of_Loss__c = newMasterJob.Description_Of_Loss__c;
+            job.Description__c = newMasterJob.Description_Of_Loss__c;
         }
         Update JobList;
     }

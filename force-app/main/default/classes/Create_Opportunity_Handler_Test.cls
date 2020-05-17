@@ -41,7 +41,7 @@ public class Create_Opportunity_Handler_Test {
             Jobs[0].Job_Name__c ='test';
             insert Jobs;
 
-            Create_Opportunity_Handler.createOpportunity(Jobs);
+            // Create_Opportunity_Handler.createOpportunity(Jobs);
             ATI_Job__c Job = new ATI_Job__c(Name = 'Testasd');
             Map<Id,ATI_Job__c> oldJobsList = new Map<Id,ATI_Job__c>();
             oldJobsList.put(jobs[0].id, Job);

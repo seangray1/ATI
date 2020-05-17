@@ -1710,11 +1710,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>HNW</fullName>
+            <fullName>Healthcare</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Healthcare</fullName>
+            <fullName>High-Net-Worth %28HNW%29</fullName>
             <default>false</default>
         </values>
         <values>

@@ -141,6 +141,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   AddressLine1;
   PropertyType = "";
   Zip;
+  @track PropertyChecked = false;
   Description =
     "Type of Loss:" +
     "\n" +
@@ -444,6 +445,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         " record id is " +
         this.jobrecordId
     );
+    if(this.TypeOfJobEntry === "NewJobEntry"){
+      this.PropertyChecked = true;
+    }
     if (this.TypeOfJobEntry === "AfterHoursJobEntry") {
       GetJobInfo({ recordId: this.jobrecordId }).then((result) => {
         let jobresults = result;
@@ -455,6 +459,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           Zipcode: jobresults.Project_Site_Zipcode__c
         }).then((result) => {
           let Prop = result;
+          this.PropertyChecked = true;
           console.log("Prop is " + Prop);
           if (Prop.County__c === "Same Property") {
             this.PropertyPrompt = true;

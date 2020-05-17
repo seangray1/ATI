@@ -17,6 +17,7 @@
                 <lightning-spinner alternative-text="Loading"  size="medium" variant="brand"></lightning-spinner>
             </div>
         </template>
+        <template if:true={PropertyChecked}>
         <div class="slds-box slds-theme_shade">
             <lightning-accordion allow-multiple-sections-open
                          onsectiontoggle={handleSectionToggle}
@@ -660,6 +661,7 @@
             
         <!-- </div> -->
     </div>
+</template>
     <div class="slds-p-around_medium lgc-bg-inverse element">
         <lightning-button-group>
     <lightning-button label='Submit' onclick={CreateNewJob} variant="brand"></lightning-button>

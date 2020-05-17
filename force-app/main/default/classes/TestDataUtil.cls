@@ -189,7 +189,7 @@ public class TestDataUtil {
         List<Contact> Contact = createContacts(1, true, new Map<String, String>{'accountId' => acc.Id});
         List<Property__c> props = CreateProperty(1, true);
         List<Master_Job__c> mjobs = CreateMasterJob(1, true, props);
-        List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props, contact[0].id, acc.id);
+        List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props, acc.id, contact[0].id);
        system.debug('Props is ' + props + '    mjobs is ' + mjobs);
         for( Integer i = 0; i < numToInsert; i++ ) {
             ATI_Job__c  j = new ATI_Job__c(Name='Test ATI_Job__c '+String.valueOf(i)  );
@@ -332,7 +332,7 @@ public class TestDataUtil {
     public static List<Master_job__c> CreateMasterJob(Integer numToInsert, Boolean doInsert, List<Property__c> props){
         list<Master_job__c> mjList = new List<Master_job__c>();
         for(Integer i=0; i<numToInsert; i++){
-            Master_job__c mj = new Master_job__c(Property__c = props[i].id, Description_of_Loss__c = 'Description' + i, Stage__c = 'Pre-work');
+            Master_job__c mj = new Master_job__c(Property__c = props[i].id, Description_of_Loss__c = 'Description' + i, Stage__c = 'Pre-work', Date_of_loss__c = System.today());
             mjList.add(mj);
         }
         if (doInsert) {

@@ -24,9 +24,9 @@
                 <label>Non-Program</label>
             </value>
             <value>
-                <fullName>HNW</fullName>
+                <fullName>High-Net-Worth (HNW)</fullName>
                 <default>false</default>
-                <label>HNW</label>
+                <label>High-Net-Worth (HNW)</label>
             </value>
             <value>
                 <fullName>Education</fullName>
@@ -79,7 +79,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Residential</controllingFieldValue>
-            <valueName>HNW</valueName>
+            <valueName>High-Net-Worth (HNW)</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Non-Residential</controllingFieldValue>

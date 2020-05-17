@@ -9176,7 +9176,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Master_Job__c.Deductible__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9286,7 +9286,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Master_Job__c.Policy__c</field>
         <readable>true</readable>
     </fieldPermissions>
