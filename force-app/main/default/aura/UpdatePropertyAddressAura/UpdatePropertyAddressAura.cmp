@@ -1,30 +1,4 @@
 <aura:component controller="NewJobController" implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
-<aura:attribute type="Boolean" default="true" name="readOnly"></aura:attribute> 
-<div class="slds-theme_shade">
-<div style="max-width: 400px;">
-        <lightning:inputAddress
-            aura:id="myaddress"
-            addressLabel="Address"
-            streetLabel="Street"
-            cityLabel="City"
-            countryLabel="Country"
-            provinceLabel="Province"
-            postalCodeLabel="PostalCode"
-            street=""
-            city=""
-            country=""
-            province=""
-            postalCode=""
-            required="true"
-            showAddressLookup="true"
-            readonly="true"
-            
-        />
-    </div>
-
-<lightning:buttonGroup>
-    <lightning:button onclick="{!c.ButtonClicked}" variant="brand" label="Update"></lightning:button>
-    <lightning:button onclick="{!c.Cancel}" label="Cancel"></lightning:button>
-</lightning:buttonGroup>
-</div> 
+      
+<c:propertyUpdateLWC recordId = "{!v.recordId}" onclosePage="{!c.refreshView}"/>
 </aura:component>

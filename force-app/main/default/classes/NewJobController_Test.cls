@@ -46,7 +46,9 @@ private class NewJobController_Test {
             NewJobController.GetProperties('Test');
             NewJobController.GetOffices('HQ');
             NewJobController.CheckId(jobs[0].Property_Id__c);
-            NewJobController.GetMasterJobs(jobs[0].Property_Id__c);
+           
+            // NewJobController.CheckId6(jobs[0].Property_Id__c);
+            
             NewJobController.GetPropertyInfo('Whittier','15632 Youngwood Drive', 'CA', '90603');
             NewJobController.GetJobInfo(jobs[0].id);
             NewJobController.GetMajorEvents('Test');
@@ -54,34 +56,39 @@ private class NewJobController_Test {
             NewJobController.InsertContact('FirstName', 'LastName', 'test@gmail.com', '222-222-2222', 'Adjuster', '', '15632 Youngwood Drive', 'Whittier', 'CA', '90603', 'US', lstAccounts[0].Id, false);
             NewJobController.InsertAccount('Name',  '222-222-2222' , 'Farmers', '', '15632 Youngwood Drive', 'Whittier', 'CA', '90603', 'US');
             // NewJobController.GetAccountRoless(jobs[0].Property_Id__c);
-            NewJobController.InsertPersonAccount('Name', 'LastName', '222-222-2222' , 'Farmers', '', '15632 Youngwood Drive', 'Whittier', 'CA', '90603', 'US');
-            NewJobController.GetCustomers('Test');
-            NewJobController.GetDivisionPicklist();
-            NewJobController.GetDivisionPicklist1();
-            NewJobController.GetDivisionPicklist2();
-            NewJobController.GetDivisionPicklist3();
-            NewJobController.GetDivisionPicklist4();
-            NewJobController.GetDivisionPicklist5();
-            NewJobController.GetDivisionPicklist6();
-            NewJobController.GetEsJobTypePicklist();
-            NewJobController.GetLeadSourcePicklist();
-            NewJobController.GetMultipleDivisionPicklist();
-            NewJobController.GetPropertyTypePicklist();
-            NewJobController.GetJobClassPicklist();
-            NewJobController.GetContactAccounts('Test');
-            NewJobController.getPickListValuesIntoList();
-            NewJobController.GetUserName();
-            NewJobController.GetUsers('Sean');
-            NewJobController.GetCustomers('Test');
+            NewJobController.InsertPersonAccount('Name', 'LastName', '222-222-2222' , 's@gmail.com','Farmers', '', '15632 Youngwood Drive', 'Whittier', 'CA', '90603', 'US');
+            // NewJobController.GetCustomers('Test');
+            // NewJobController.GetDivisionPicklist();
+            // NewJobController.GetDivisionPicklist1();
+            // NewJobController.GetDivisionPicklist2();
+            // NewJobController.GetDivisionPicklist3();
+            
+           
+            // NewJobController.GetEsJobTypePicklist();
+            // NewJobController.GetLeadSourcePicklist();
+            // NewJobController.GetMultipleDivisionPicklist();
+            // NewJobController.GetPropertyTypePicklist();
+            // NewJobController.GetJobClassPicklist();
+            // NewJobController.GetJobClassPicklist1();
+            // NewJobController.GetJobClassPicklist2();
+            // NewJobController.GetJobClassPicklist3();
+            // NewJobController.GetJobClassPicklist4();
+            // NewJobController.GetContactAccounts('Test');
+            // NewJobController.getPickListValuesIntoList();
+            // NewJobController.GetUserName();
+            // NewJobController.GetUsers('Sean');
+            // NewJobController.GetCustomers('Test');
+            // NewJobController.GetUserInfo();
             NewJobController.AfterHoursJobCreation('TestJob', 'Construction', '', off.id, '15632 Youngwood Drive', 'CA', 'Whittier', '90603', 'US', '15632 Youngwood Drive', 'Test', 'Test', '', '');
             String AccountRoleInfo = '{"AccountRoleLineItems":[{"Text":"Primary/Bill-to;Caller;Referred By;Project Site Contact","Contact":"' + lstContact[0].Id + '","Account":"' + lstAccounts[0].Id + '"}]}';
             String PropertyInfo = '{"PropertyId":"","City":"El Monte","Country":"United States","State":"CA","Street":"3534 North Peck Road","Zip":"91731","AddressLine2":"444","AlternateName":"test23"}';
             String JobInfo = '{"Description":"Type of Loss","JobRealName":"","Division":"Catastrophes","Office":"' + off.Id + '","JobClass":"Educational - Private","ProjectDirector":"' + u2 + '","TakenBy":"' + u2 + '","Claim":"444","Policy":"444","JobName":"test job RQF x232","LeadSource":"Consulting Firm","MultipleDivisions":"Asbestos","DateOfLoss":"2020-05-07","ClientJob":"44","YearBuilt":"1999","MajorEvent":""}';
-            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '');
-            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'NewJobEntry', '');
+            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '', true);
+            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '', false);
+            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'NewJobEntry', '', false);
             // NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '');
             NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
-            NewJobController.UpdateProperty(jobs[0].Property_Id__c, '15632 Youngwood Drive', 'Whittier', 'CA', '90603');
+            NewJobController.UpdateProperty(jobs[0].Property_Id__c, '15632 Youngwood Drive', 'Whittier', 'CA', '90603','USA');
         }
         
     }

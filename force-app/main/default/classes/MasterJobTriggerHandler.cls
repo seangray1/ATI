@@ -61,14 +61,17 @@ public with sharing class MasterJobTriggerHandler {
             system.debug('Master Job' + MasterJob);
             
             Master_Job__c oldJob = oldMasterJobs.get(MasterJob.Id);
+            if(MasterJob.AfterHoursUpdate__c == oldjob.AfterHoursUpdate__c){
             system.debug('Old Master Job ' + oldJob);
             if(MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Claim__c != oldJob.Claim__c || 
             MasterJob.Policy__c != oldJob.Policy__c || MasterJob.Deductible__c != oldJob.Deductible__c ||
-            MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Description_Of_Loss__c != oldJob.Description_Of_Loss__c ||
+            MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c ||
             MasterJob.Property__c != oldJob.Property__c){
                 MasterJobIdSet.add(MasterJob.Id);
             }
         }
+        }
+
         //remember to do if statements to check if blank
         //query for jobs that need to be updated
         if(!MasterJobIdSet.isEmpty()){
@@ -81,7 +84,7 @@ public with sharing class MasterJobTriggerHandler {
             job.Deductible__c = newMasterJob.Deductible__c;
             job.Policy__c = newMasterJob.Policy__c;
             job.Property_ID__c = newMasterJob.Property__c;
-            job.Description__c = newMasterJob.Description_Of_Loss__c;
+           
         }
         Update JobList;
     }

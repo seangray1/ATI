@@ -22,6 +22,10 @@ public with sharing class MasterJobTriggerHandler_Test {
             
             list<contact> lstContact = TestDataUtil.createContacts(2, false, new map<String,Object>(), lstAccounts[0].Id);
             insert lstContact;
+            Property__c p = new Property__c(Name = 'Test', Alternate_Name__c = 'Test Job', Address_Line_1__c = '15632 La Palma', City__c = 'Anaheim', State__c='CA');
+        insert p;
+        Master_Job__c mj = new Master_Job__c(Name = 'Test', property__c = p.Id, Stage__c = 'Pre-work');
+        insert mj;
             List<ATI_Job__c> jobs = new List<ATI_Job__c>();
             Jobs = TestDataUtil.createJob(1, false, new map<String,Object>(), lstAccounts[0].Id);
     
@@ -38,22 +42,24 @@ public with sharing class MasterJobTriggerHandler_Test {
             Jobs[0].Project_Site_Record_Id__c = '12345';
             Jobs[0].RecordTypeId = notApprovedId;
             Jobs[0].Job_Name__c ='test';
+            jobs[0].Property_ID__c = p.Id;
+            jobs[0].Master_Job__c = mj.id;
 
             insert Jobs; 
             Master_Job__c m12 = new Master_Job__c(Name = 'test123', Id = Jobs[0].Master_Job__c, Date_Of_Loss__c = system.today() + 3);
             update m12; 
 
-        Property__c p = new Property__c(Name = 'Test', Alternate_Name__c = 'Test Job', Address_Line_1__c = '15632 La Palma', City__c = 'Anaheim', State__c='CA');
-        insert p;
+        
         system.debug('Property is ' + p);
-        Master_Job__c mj = new Master_Job__c(Name = 'Test', property__c = p.Id, Stage__c = 'Pre-work');
-        insert mj;
+        
         Master_Job__c mj1 = new Master_Job__c(Name = 'Test', Address_Line_1__c = '123', State__c = 'CA', City__c = 'Whit', Stage__c = 'Pre-work');
         insert mj1;
         
         system.debug('Master Job is ' + mj);
         p.Alternate_Name__c = 'Test Job 1';
+        p.Address_Line_1__c = '3423';
         update p;
+        system.debug('Job address is now ' + jobs[0].Project_Site_Address__c);
         mj.Date_of_Loss__c = system.today() + 1;
         update mj;
         mj1.Property__c = p.Id;

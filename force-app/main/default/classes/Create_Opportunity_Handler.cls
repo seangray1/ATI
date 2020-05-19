@@ -56,8 +56,10 @@ public without sharing class Create_Opportunity_Handler
                 newOpportunity.Office2__c = eachjob.Office2__c;
                 system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Name = eachjob.Name;
+                system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Division__c = eachjob.Division__c;
                 newOpportunity.Major_Event__c = eachjob.Major_Event__c;
+                system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Job_Name__c= eachjob.Job_Name__c;
                 newOpportunity.Project_Site_State__c= eachjob.Project_Site_State__c;
                 newOpportunity.Project_Site_Address__c= eachjob.Project_Site_Address__c;
@@ -66,13 +68,14 @@ public without sharing class Create_Opportunity_Handler
                 newOpportunity.Project_Site_City__c= eachjob.Project_Site_City__c;
                 newOpportunity.CloseDate = date.today();
                 newOpportunity.AccountId = eachjob.Account__c;
+                system.debug('Job Name is ' + eachjob.Name);
                 if(eachjob.Referred_by__c <> null) {
                     newOpportunity.Contact__c=eachjob.Referred_by__c;
                 } else {
                     newOpportunity.Contact__c=eachjob.Contact__c; 
                 }
             }
-        
+            system.debug('Job Name is ');
             listInsertOpportunity.add(newOpportunity);
         }
        

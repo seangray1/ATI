@@ -67,6 +67,12 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
+            ],
+            "c/propertyUpdateLWC": [
+                "propertyUpdateLWC/propertyUpdateLWC.js"
+            ],
+            "c/PropertyUpdateLWC": [
+                "PropertyUpdateLWC/PropertyUpdateLWC.js"
             ]
         },
         "experimentalDecorators": true

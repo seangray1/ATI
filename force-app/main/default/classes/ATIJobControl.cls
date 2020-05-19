@@ -284,6 +284,10 @@ public without sharing class ATIJobControl {
                 
                 // Get the old values of the job
                 ATI_Job__c oj = oldJobs.get(nj.Id);
+                system.debug('Old Job is ' + oj);
+                system.debug('New Job is ' + nj);
+                system.debug('Old job pd is ' + oj.Project_Manager__c);
+                system.debug('New Job Pd is ' + nj.Project_manager__c);
                 
                 // If there is no old values, assume a recalc is necessary
                 if (oj == null) {
@@ -302,10 +306,10 @@ public without sharing class ATIJobControl {
                     {
                         
                     }
-                    
+                    system.debug('Date time taken is ' + nj.Date_Time_Taken__c);
                     if(nj.Date_Time_Taken__c > date.newInstance(2013, 1, 1) && sequenceT >= cfgSequenceT)
                     {
-                        
+                        system.debug('Date time taken after is ' + nj.Date_Time_Taken__c);
                     
                         // Otherwise, check if a dependency field was changed OR
                         // the resulting field has changed

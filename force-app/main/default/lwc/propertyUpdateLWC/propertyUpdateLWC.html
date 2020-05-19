@@ -1,0 +1,31 @@
+<template>
+    <template if:false={loading}>
+    <lightning-input-address
+                                required
+                                read-only
+                                class="propertyFormControl"
+                                data-id="AddressLookup"
+                                address-label="Address Search"
+                                street-label="Street"
+                                city-label="City"
+                                country-label="Country"
+                                
+                                province-label="State"
+                                postal-code-label="Zip"
+                                
+                                street=""
+                                city=""
+                                county=""
+                                country=""
+                                province=""
+                                postal-code=""
+                                show-address-lookup
+                                
+                    
+                    ></lightning-input-address>
+                    <lightning-button-group>
+                    <lightning-button label="Save" variant="brand" onclick={PropertyUpdate}></lightning-button>
+                    <lightning-button label="Cancel"  onclick={Close}></lightning-button>
+                </lightning-button-group>
+            </template>
+</template>
