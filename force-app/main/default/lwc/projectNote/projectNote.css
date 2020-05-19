@@ -6,10 +6,17 @@
     width: 100px;
     
 }
-.Labels {
-    font-size: 120%;
-}
+
 .errormessage {
     font-size: 140%;
     color: darkred;
 }
+.lgc-bg-inverse {
+    background-color: rgb(22, 50, 92);
+}
+.Labels{
+    position: relative;
+    bottom : -10px; 
+    right: -5px;
+    font-size: 120%;
+ }

@@ -4,7 +4,6 @@
     <columns>NAME</columns>
     <columns>Office_Email__c</columns>
     <columns>Region__c</columns>
-    <columns>State__c</columns>
     <columns>EVP_1__c</columns>
     <columns>EVP_2__c</columns>
     <columns>Branch_Manager__c</columns>
@@ -16,6 +15,7 @@
     <columns>Contents_Operations_Manager__c</columns>
     <columns>Microbial_Operations_Manager__c</columns>
     <columns>Biohazard_Operations_Manager__c</columns>
+    <columns>Address__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

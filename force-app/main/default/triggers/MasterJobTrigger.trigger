@@ -8,8 +8,8 @@ trigger MasterJobTrigger on Master_Job__c (before insert, before update, after u
     if(Trigger.isBefore && Trigger.isUpdate){
         MasterJobTriggerHandler.MasterJobNameUpdate(trigger.new, trigger.oldMap);
     }
-    // if(Trigger.isAfter && Trigger.isUpdate){
-    //     MasterJobTriggerHandler.UpdateJobDetails(trigger.new, trigger.oldMap, trigger.newMap);
-    // }
+    if(Trigger.isAfter && Trigger.isUpdate){
+        MasterJobTriggerHandler.UpdateJobDetails(trigger.new, trigger.oldMap, trigger.newMap);
+    }
 }
 }

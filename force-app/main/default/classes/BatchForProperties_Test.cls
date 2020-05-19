@@ -1,0 +1,17 @@
+@isTest
+private with sharing class BatchForProperties_Test {
+    static testMethod void BatchForProperties_Test() {
+        Id u2 = UserInfo.getUserId();
+        
+        system.runAs(new User(Id=Userinfo.getUserId())){
+            
+            
+            Property__c prop = new Property__c(Name = 'Test', Address_Line_1__c = '92832 La Palma Ave ', City__c = 'T', Zip__c = '92',State__c = 'CA', Property_Type__c = 'Residential', Alternate_Name__c = 'Test Prop');
+            Property__c prop1 = new Property__c(Name = 'Test1', Address_Line_1__c = '92832 Laaf Palma Ave ', City__c = 'Ta', Zip__c = '92',State__c = 'CA', Property_Type__c = 'Residential', Alternate_Name__c = 'Test Prop');
+            insert prop;
+            insert prop1;
+            BatchForProperties b = new BatchForProperties();
+            Id ba = Database.executeBatch(b);
+        }
+    }
+}

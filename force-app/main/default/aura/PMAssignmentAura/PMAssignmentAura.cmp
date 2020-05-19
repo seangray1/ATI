@@ -15,18 +15,18 @@
 
         <aura:html tag="style">
         .slds-modal__container{
-        height : auto;
-        width: 70%;
+        min-width: 70rem;
+        height : 50rem;
+        width: 70rem;
         max-width: 70rem;
         }
         .modal-body{
-        height : 700px !important;
-        max-height: 700px !important;
+        height : 100% !important;
+        max-height: 100% !important;
+        width : 70rem !important;
+        max-width : 70rem !important;
+        min-width: 70rem;
         }
-        
-        .customFooter{
-        display: inline !important;
-        }
-    </aura:html> 
+        </aura:html>
         <c:pMAssignment recordId = "{!v.recordId}" onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm}"/>
 </aura:component>

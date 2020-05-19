@@ -1,3 +1,14 @@
+/**
+ * @File Name          : TestDataUtil.cls
+ * @Description        : 
+ * @Author             : sean.gray@atirestoration.com
+ * @Group              : 
+ * @Last Modified By   : sean.gray@atirestoration.com
+ * @Last Modified On   : 3/18/2020, 7:13:37 AM
+ * @Modification Log   : 
+ * Ver       Date            Author      		    Modification
+ * 1.0    3/18/2020   sean.gray@atirestoration.com     Initial Version
+**/
 @isTest
 public class TestDataUtil {
     
@@ -84,6 +95,19 @@ public class TestDataUtil {
         triggerStatus.TaxGroupRefreshFromTimberline__c =true;
         triggerStatus.TaxGroupSetName__c =true;
         insert triggerStatus;
+        EconzIntegration__c csTest = new EconzIntegration__c();
+        csTest.Name = 'Test';
+        csTest.EndPointURL__c = 'Test';
+        csTest.UserId__c = 'Test';
+        csTest.Password__c = 'Test';
+        insert csTest;
+        
+        EconzIntegration__c csProd = new EconzIntegration__c();
+        csProd.Name = 'Prod';
+        csProd.EndPointURL__c = 'Prod';
+        csProd.UserId__c = 'Prod';
+        csProd.Password__c = 'Prod';
+        insert csProd;
     }
     
     //create Accounts 
@@ -163,9 +187,14 @@ public class TestDataUtil {
                                                       'BillingState' => 'CA',
                                                       'Type' => 'Consultant' })[0];
         List<Contact> Contact = createContacts(1, true, new Map<String, String>{'accountId' => acc.Id});
-        
+        List<Property__c> props = CreateProperty(1, true);
+        List<Master_Job__c> mjobs = CreateMasterJob(1, true, props);
+        List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props, acc.id, contact[0].id);
+       system.debug('Props is ' + props + '    mjobs is ' + mjobs);
         for( Integer i = 0; i < numToInsert; i++ ) {
             ATI_Job__c  j = new ATI_Job__c(Name='Test ATI_Job__c '+String.valueOf(i)  );
+            j.Property_ID__c = props[0].id;
+            j.Master_Job__c = mjobs[0].id;
             j.Name = 'semira234';
             j.Job_Name__c = 'test';
             j.Project_Site_Contact_Name__c = contact[0].id;
@@ -183,6 +212,7 @@ public class TestDataUtil {
             Jobs.add(j);
         }
         
+                
         return createRecords( Jobs, doInsert, nameValueMap );
     }
     
@@ -191,12 +221,27 @@ public class TestDataUtil {
                                                       Boolean doInsert, 
                                                       Map<String, Object> nameValue,
                                                       Id accountId) {
+
                                                           List<Contact> Contact = createContacts(1, true, new Map<String, String>{'accountId' => accountId});
                                                           List<ATI_Job__c> Jobs  = new List<ATI_Job__c >();
+                                                          List<Property__c> props = CreateProperty(1, true);
+                                                            List<Master_Job__c> mjobs = CreateMasterJob(1, true, props);
+                                                            Contact c = new Contact( LastName='Test Contact 2' );
+                                                       c.contact_type__c = 'Adjustor';
+                                                       c.firstname = 'sean';
+                                                       c.Lastname = 'gray';
+                                                       c.email = 'test' + '@gmail.com';
+                                                       c.accountId = accountId;
+                                                       insert c;
+                                                            List<Account_Roles__c> accountroles = CreateAccountRoles(1, true, props,accountId, c.id);
+       
+                                                          
                                                           for( Integer i = 0; i < numToInsert; i++ ) {
                                                               ATI_Job__c  j = new ATI_Job__c(Name='Test ATI_Job__c '+String.valueOf(i)  );
                                                               j.Account__c = accountId;
                                                               // j.Name = 'semira';
+                                                              j.Property_Id__c = props[0].id;
+                                                                j.Master_Job__c = mjobs[0].id;
                                                               j.Job_Name__c = 'test';
                                                               j.Project_Site_Contact_Name__c = contact[0].id;
                                                               j.Project_Site_Contact_Account__c = accountId;
@@ -272,6 +317,42 @@ public class TestDataUtil {
                                                            }
     
    
+    public static List<Property__c> CreateProperty(Integer numToInsert, Boolean doInsert){
+        list<Property__c> propList = new List<Property__c>();
+        for(Integer i=0; i<numToInsert; i++){
+            Property__c prop = new Property__c(Address_Line_1__c = '92832 La Palma Ave ' + i, City__c = 'T', Zip__c = '92',State__c = 'CA', Property_Type__c = 'Residential');
+            propList.add(prop);
+        }
+        if (doInsert) {
+            insert propList;
+        }
+        return propList;
+    }
+    
+    public static List<Master_job__c> CreateMasterJob(Integer numToInsert, Boolean doInsert, List<Property__c> props){
+        list<Master_job__c> mjList = new List<Master_job__c>();
+        for(Integer i=0; i<numToInsert; i++){
+            Master_job__c mj = new Master_job__c(Property__c = props[i].id, Description_of_Loss__c = 'Description' + i, Stage__c = 'Pre-work', Date_of_loss__c = System.today());
+            mjList.add(mj);
+        }
+        if (doInsert) {
+            insert mjList;
+        }
+        return mjList;
+    }
+   
+    public static List<Account_Roles__c> CreateAccountRoles(Integer numToInsert, Boolean doInsert, List<Property__c> props, Id AccountId, Id ContactId){
+        list<Account_Roles__c> ars = new List<Account_Roles__c>();
+        for(Integer i=0; i<numToInsert; i++){
+            Account_Roles__c ar = new Account_Roles__c(Property_ID__c = props[i].id, Account_ID__c = AccountId, Contact_ID__c = ContactId,
+             Multiple_Roles__c = 'Primary/Bill-to;Project Site Contact;Referred By;Caller');
+            ars.add(ar);
+        }
+        if (doInsert) {
+            insert ars;
+        }
+        return ars;
+    }
     
     // Generic method to create Records for sobjects
     public static List<SObject> createRecords( List<SObject> records, Boolean doInsert, Map<String, Object> attributes ){
@@ -303,12 +384,14 @@ public class TestDataUtil {
             }
         }
         
+       
         if (doInsert) {
             // insert records;
             Database.DMLOptions dml = new Database.DMLOptions();
             dml.DuplicateRuleHeader.AllowSave = true; 
             Account duplicateAccount = new Account(Name='dupe'); 
             List<Database.SaveResult> results = Database.insert(records, dml); 
+            //System.Debug('Database.SaveResult-------------------------->:' +results);
         }
         return records;
     }

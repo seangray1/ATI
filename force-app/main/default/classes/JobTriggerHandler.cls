@@ -13,6 +13,8 @@ public without sharing class JobTriggerHandler {
     
     public static void handleBeforeInsertOnly(){
         // PREVENT DUPLICATE JOB NUMBERS ON CLONE
+        system.debug('Hitting before clone' );
+        system.debug('cfg.JobSetJobNumber__c'+cfg.JobSetJobNumber__c);
         if (cfg.JobSetJobNumber__c && Trigger.isBefore && Trigger.isInsert) {
             System.debug(Logginglevel.INFO, 'JobTrigger: Running ATIJobControl.preventDuplicateJobNumbers...');
             ATIJobControl.preventDuplicateJobNumbers(Trigger.new);
@@ -26,7 +28,8 @@ public without sharing class JobTriggerHandler {
         //JobAEBonusTriggerHandler.createJobPrimaryContactRoles( null, Trigger.new );        
         JobAEBonusTriggerHandler.updateLastPreviousJobDateOnAccount( Trigger.new );
         //JobAccountAndJobContact.InsertJobAccountandJobContact(Trigger.new);
-               
+        Create_Opportunity_Handler.createOpportunity(Trigger.new); // Added by  DemandBlue
+        
         //synch After Hour Leads with Econz
         Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
@@ -54,8 +57,11 @@ public without sharing class JobTriggerHandler {
     public static void handleAfterUpdatesOnly(){
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
-        JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
         
+        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap); // Added by  DemandBlue
+        
+        JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
+        JobUtility.UnlockRecord(Trigger.new, oldJobMap);
         JobUtility.offerLetterToPDF(trigger.new, oldJobMap);
         //JobAEBonusTriggerHandler.createJobPrimaryContactRoles( oldJobMap, newJobMap.values() );
         
@@ -83,7 +89,7 @@ public without sharing class JobTriggerHandler {
         JobAEBonusTriggerHandler.populateAEOnApprovedJobs( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );
         JobAEBonusTriggerHandler.afterCreditRequestApproved( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );        
        // JobAEBonusTriggerHandler.populateAEs( oldJobMap, Trigger.new );
-        //Econz_Integration_Callouts.updateOldName( oldJobMap, Trigger.new );
+        // Econz_Integration_Callouts.updateOldName( oldJobMap, Trigger.new );
         //handle job BranchManager update depending on Office__c and Division__c
        // JobUtility.updateBranchManager(Trigger.new);
         //Athith Comments
@@ -98,7 +104,7 @@ public without sharing class JobTriggerHandler {
             
             }
         }
-        
+        JobUtility.UpdateApprovedPM(trigger.new, oldJobMap);
         
         
     }

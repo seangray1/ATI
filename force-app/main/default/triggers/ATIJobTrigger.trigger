@@ -17,6 +17,7 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                          {
                                                if(TriggerFlagController.flag == true) {
                                              if(Trigger.isBefore && Trigger.isInsert){
+                                                 system.debug('Hitting before insert' );
                                                  JobTriggerHandler.handleBeforeInsertOnly();
                                                  system.debug('The before Insert is called');
                                              }}

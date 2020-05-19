@@ -34,6 +34,15 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
+            ],
+            "c/afterHoursJobLWC": [
+                "afterHoursJobLWC/afterHoursJobLWC.js"
+            ],
+            "c/newJobLWC": [
+                "newJobLWC/newJobLWC.js"
+            ],
+            "c/allocationsApp": [
+                "allocationsApp/allocationsApp.js"
             ]
         },
         "experimentalDecorators": true

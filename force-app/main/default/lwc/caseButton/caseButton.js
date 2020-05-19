@@ -10,9 +10,9 @@
  * 1.0    10/28/2019   Sean Gray     Initial Version
 **/
 import { LightningElement, track, api, wire } from 'lwc';
-import JobCaseInfo from '@salesforce/apex/JobUtility.JobCaseInfo';
-import ContactAccount from '@salesforce/apex/JobUtility.ContactAccount';
-import CaseChatterTaskCreation from '@salesforce/apex/JobUtility.CaseChatterTaskCreation';
+import JobCaseInfo from '@salesforce/apex/JobButtons.JobCaseInfo';
+import ContactAccount from '@salesforce/apex/JobButtons.ContactAccount';
+import CaseChatterTaskCreation from '@salesforce/apex/JobButtons.CaseChatterTaskCreation';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
