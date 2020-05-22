@@ -132,7 +132,8 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <content>ATI_Job_Record_Page</content>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>JOB_New_Job_Lightning_Page</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -140,7 +141,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override updated by Lightning App Builder during activation.</comment>
-        <content>ATI_Job_Record_Page</content>
+        <content>JOB_New_Job_Lightning_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>

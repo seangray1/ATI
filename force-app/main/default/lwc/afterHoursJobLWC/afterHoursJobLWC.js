@@ -93,27 +93,27 @@ SaveDescriptionTwo1(){
 }
 openDescriptionModal1(){
     const address = this.template.querySelector('[data-id="AddressLookup"]');
-            const isValid = address.checkValidity();
-             if(isValid) {
+            // const isValid = address.checkValidity();
+            //  if(isValid) {
                 this.Street = address.street;
                 this.City = address.city;
                 this.State = address.province;
                 this.Zipcode = address.postalCode;
                 this.Country = address.country;
-             }
+            // }
     this.ModalScreen = false;
     this.newDescriptionTwo = true;
 }
 openContactInfoModal1(){
     const address = this.template.querySelector('[data-id="AddressLookup"]');
-            const isValid = address.checkValidity();
-             if(isValid) {
+            // const isValid = address.checkValidity();
+            //  if(isValid) {
                 this.Street = address.street;
                 this.City = address.city;
                 this.State = address.province;
                 this.Zipcode = address.postalCode;
                 this.Country = address.country;
-             }
+            //  }
     this.ModalScreen = false;
     this.newDescription = true;
 }
@@ -299,8 +299,9 @@ Save(){
         alert('Fill in all required fields before saving');
     }else{
     const address = this.template.querySelector('[data-id="AddressLookup"]');
-            const isValid = address.checkValidity();
-             if(isValid) {
+            // const isValid = address.checkValidity();
+            //   if(isValid) {
+                if(address.street !== null && address.street !== undefined && address.street !== ""){
                 Street = address.street;
                 City = address.city;
                 State = address.province;
@@ -335,7 +336,10 @@ Save(){
         });
     }
     }) 
-}
+//}
+                }else{
+                    alert('Search For an Address');
+                }
     }
 }
 Cancel(event) {

@@ -846,10 +846,6 @@
             <field>Office_New_Loss_Email__c</field>
             <type>email</type>
         </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>ATI_Job_Templates/New_Job_From_Contact_Center</template>
     </alerts>
@@ -877,11 +873,8 @@
             <field>Office_New_Loss_Email__c</field>
             <type>email</type>
         </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/JOB_Job_Request_Completed</template>
     </alerts>
     <alerts>
@@ -895,11 +888,8 @@
             <field>Office_New_Loss_Email__c</field>
             <type>email</type>
         </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/JOB_Job_Request_Submitted</template>
     </alerts>
     <alerts>
@@ -914,6 +904,40 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_La_Quinta_New_Loss_Info_Request_to_PD</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_PM_Assignment_Approval</fullName>
+        <description>JOB PM Assignment Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Suggested_PM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_PM_Assignment_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_PM_Assignment_Rejection</fullName>
+        <description>JOB PM Assignment Rejection</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/JOB_PM_Assignment_Rejection</template>
     </alerts>
     <alerts>
         <fullName>JOB_Regional_Office_Campaign_April_2020</fullName>
@@ -1202,7 +1226,7 @@
     </alerts>
     <alerts>
         <fullName>Send_email_to_PD_PM_RM_and_Cust_Svc_when_customer_replies_to_SMS_that_they_re_no</fullName>
-        <description>Send email to PD, PM, RM, and Cust Svc when customer replies to SMS that they&#39;re not satisfied with job</description>
+        <description>Send email to PD, PM, RM, and Cust Svc when customer replies to SMS that they&apos;re not satisfied with job</description>
         <protected>false</protected>
         <recipients>
             <recipient>kristen.butler@atirestoration.com</recipient>
@@ -1353,7 +1377,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Completion_Date_Stamp</fullName>
-        <description>Time stamp of when Job stage is set to &#39;Complete&#39;</description>
+        <description>Time stamp of when Job stage is set to &apos;Complete&apos;</description>
         <field>Completion_Date__c</field>
         <formula>TODAY()</formula>
         <name>Completion Date Stamp</name>
@@ -1363,7 +1387,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Status_to_Approved</fullName>
-        <description>Field update to set Credit Request Status to &#39;Approved&#39; upon approval of Manager in the Credit Request Approval Process</description>
+        <description>Field update to set Credit Request Status to &apos;Approved&apos; upon approval of Manager in the Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
         <literalValue>Approved</literalValue>
         <name>Credit Request Status to Approved</name>
@@ -1373,7 +1397,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Status_to_Rejected</fullName>
-        <description>Field update to set the Credit Request Status to &#39;Rejected,&#39; when a Manager rejects a request in the Credit Request Approval Process</description>
+        <description>Field update to set the Credit Request Status to &apos;Rejected,&apos; when a Manager rejects a request in the Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
         <literalValue>Rejected</literalValue>
         <name>Credit Request Status to Rejected</name>
@@ -1383,7 +1407,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Status_to_Unapproved</fullName>
-        <description>Field update to set Credit Request Status to &#39;Unapproved&#39; in Credit Request Approval Process</description>
+        <description>Field update to set Credit Request Status to &apos;Unapproved&apos; in Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
         <literalValue>Unapproved</literalValue>
         <name>Credit Request Status to Unapproved</name>
@@ -1393,7 +1417,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Submitter_Email</fullName>
-        <description>Field update to populate email of credit request submitter&#39;s email</description>
+        <description>Field update to populate email of credit request submitter&apos;s email</description>
         <field>Credit_Request_Submitter_Email__c</field>
         <formula>$User.Email</formula>
         <name>Credit Request Submitter Email</name>
@@ -1403,7 +1427,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Email_Update_on_Job</fullName>
-        <description>Field update to clear out &#39;Add/Correct Email&#39; field after trigger to populate updated email onto Contact record</description>
+        <description>Field update to clear out &apos;Add/Correct Email&apos; field after trigger to populate updated email onto Contact record</description>
         <field>Add_Correct_Email__c</field>
         <name>Email Update on Job</name>
         <notifyAssignee>false</notifyAssignee>
@@ -1670,6 +1694,15 @@
         <name>Update Last Timberline Update field</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_PM_Assignment_Status</fullName>
+        <field>PM_Assignment_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update PM Assignment Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -2265,7 +2298,7 @@
             <operation>notEqual</operation>
             <value>Restricted Process Execution</value>
         </criteriaItems>
-        <description>Workflow field update to populate ATI Job Name with &#39;Job Name | Job Number&#39;</description>
+        <description>Workflow field update to populate ATI Job Name with &apos;Job Name | Job Number&apos;</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -2285,7 +2318,7 @@
             <operation>notEqual</operation>
             <value>Restricted Process Execution</value>
         </criteriaItems>
-        <description>Email notification sent to collections for all Jobs with a Project Type of &#39;Prevailing Wage / Certified&#39; or &#39;Union&#39;</description>
+        <description>Email notification sent to collections for all Jobs with a Project Type of &apos;Prevailing Wage / Certified&apos; or &apos;Union&apos;</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -2426,7 +2459,7 @@
             <operation>notEqual</operation>
             <value>Restricted Process Execution</value>
         </criteriaItems>
-        <description>When this checkbox is check, it will send email to EVP&#39;s, BM, PM, Super, and Ops Manager.</description>
+        <description>When this checkbox is check, it will send email to EVP&apos;s, BM, PM, Super, and Ops Manager.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -2455,8 +2488,8 @@
             <type>FieldUpdate</type>
         </actions>
         <active>false</active>
-        <description>Stamps the Date that a Job&#39;s Stage was set to Complete</description>
-        <formula>AND(ISBLANK(Completion_Date__c),  OR(  AND(ISNEW(), OR(TEXT(Stage__c) = &#39;Work Complete&#39;, TEXT(Stage__c) = &#39;Billing Complete&#39;)),  AND(ISCHANGED(Stage__c ), OR(TEXT(Stage__c) = &#39;Work Complete&#39;, TEXT(Stage__c) = &#39;Billing Complete&#39;))  )  ,$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <description>Stamps the Date that a Job&apos;s Stage was set to Complete</description>
+        <formula>AND(ISBLANK(Completion_Date__c),  OR(  AND(ISNEW(), OR(TEXT(Stage__c) = &apos;Work Complete&apos;, TEXT(Stage__c) = &apos;Billing Complete&apos;)),  AND(ISCHANGED(Stage__c ), OR(TEXT(Stage__c) = &apos;Work Complete&apos;, TEXT(Stage__c) = &apos;Billing Complete&apos;))  )  ,$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -2466,7 +2499,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND( OR( TEXT(Division__c )== &#39;Construction&#39;, TEXT(Division__c )== &#39;Marketing&#39; ), OR( ISNEW(), ISCHANGED(Division__c ) ),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND( OR( TEXT(Division__c )== &apos;Construction&apos;, TEXT(Division__c )== &apos;Marketing&apos; ), OR( ISNEW(), ISCHANGED(Division__c ) ),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -2500,7 +2533,7 @@
             <type>Alert</type>
         </actions>
         <active>false</active>
-        <formula>AND(Office2__c = &#39;Orange&#39; , ISPICKVAL(Division__c, &quot;Emergency Svces&quot;) ,$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(Office2__c = &apos;Orange&apos; , ISPICKVAL(Division__c, &quot;Emergency Svces&quot;) ,$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -2510,7 +2543,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Field update to clear out &#39;Add/Correct Email&#39; field after trigger to populate updated email onto Contact record</description>
+        <description>Field update to clear out &apos;Add/Correct Email&apos; field after trigger to populate updated email onto Contact record</description>
         <formula>AND(Add_Correct_Email__c != null,$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -2557,13 +2590,13 @@
             <type>OutboundMessage</type>
         </actions>
         <active>true</active>
-        <formula>OR(AND( Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &#39;&#39;,  Project_Site_Contact_Name__r.Email != &#39;&#39;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  OR(  ISPICKVAL(Division__c, &#39;Demolition&#39;),  ISPICKVAL(Division__c, &#39;Construction&#39;)  ),  OR(  ISPICKVAL(Stage__c, &#39;Work Complete&#39;),  ISPICKVAL(Stage__c, &#39;Billing Complete&#39;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR(  ISPICKVAL(Division__c, &#39;Demolition&#39;),  ISPICKVAL(Division__c, &#39;Construction&#39;) ))))</formula>
+        <formula>OR(AND( Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &apos;&apos;,  Project_Site_Contact_Name__r.Email != &apos;&apos;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  OR(  ISPICKVAL(Division__c, &apos;Demolition&apos;),  ISPICKVAL(Division__c, &apos;Construction&apos;)  ),  OR(  ISPICKVAL(Stage__c, &apos;Work Complete&apos;),  ISPICKVAL(Stage__c, &apos;Billing Complete&apos;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR(  ISPICKVAL(Division__c, &apos;Demolition&apos;),  ISPICKVAL(Division__c, &apos;Construction&apos;) ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Getfeedback Construction Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND(  !ISNULL(Survey_Sent_Date__c)  , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Demolition&#39;), ISPICKVAL(Division__c, &#39;Construction&#39;) ))</formula>
+        <formula>AND(  !ISNULL(Survey_Sent_Date__c)  , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &apos;Demolition&apos;), ISPICKVAL(Division__c, &apos;Construction&apos;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2601,7 +2634,7 @@
     <rules>
         <fullName>Getfeedback Consulting Services Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Consulting&#39;)))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &apos;Consulting&apos;)))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2655,7 +2688,7 @@
             <type>OutboundMessage</type>
         </actions>
         <active>true</active>
-        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &#39;&#39;,  Project_Site_Contact_Name__r.Email != &#39;&#39;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  ISPICKVAL(Division__c, &#39;Consulting&#39;),  OR(  ISPICKVAL(Stage__c, &#39;Work Complete&#39;),  ISPICKVAL(Stage__c, &#39;Billing Complete&#39;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &#39;Consulting&#39;) ))))</formula>
+        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &apos;&apos;,  Project_Site_Contact_Name__r.Email != &apos;&apos;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  ISPICKVAL(Division__c, &apos;Consulting&apos;),  OR(  ISPICKVAL(Stage__c, &apos;Work Complete&apos;),  ISPICKVAL(Stage__c, &apos;Billing Complete&apos;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &apos;Consulting&apos;) ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -2677,13 +2710,13 @@
             <type>OutboundMessage</type>
         </actions>
         <active>true</active>
-        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &#39;&#39;,  Project_Site_Contact_Name__r.Email != &#39;&#39;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  ISPICKVAL(Division__c, &#39;Contents&#39;),  OR(  ISPICKVAL(Stage__c, &#39;Work Complete&#39;),  ISPICKVAL(Stage__c, &#39;Billing Complete&#39;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &#39;Contents&#39;) ))))</formula>
+        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &apos;&apos;,  Project_Site_Contact_Name__r.Email != &apos;&apos;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  ISPICKVAL(Division__c, &apos;Contents&apos;),  OR(  ISPICKVAL(Stage__c, &apos;Work Complete&apos;),  ISPICKVAL(Stage__c, &apos;Billing Complete&apos;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &apos;Contents&apos;) ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Getfeedback Content Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Contents&#39;) ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &apos;Contents&apos;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2759,13 +2792,13 @@
             <type>OutboundMessage</type>
         </actions>
         <active>true</active>
-        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &#39;&#39;,  Project_Site_Contact_Name__r.Email != &#39;&#39;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  OR(  ISPICKVAL(Division__c, &#39;Catastrophes&#39;),  ISPICKVAL(Division__c, &#39;Emergency Svces&#39;)  ),  OR(  ISPICKVAL(Stage__c, &#39;Work Complete&#39;),  ISPICKVAL(Stage__c, &#39;Billing Complete&#39;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &#39;Catastrophes&#39;), ISPICKVAL(Division__c, &#39;Emergency Svces&#39;) ))))</formula>
+        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &apos;&apos;,  Project_Site_Contact_Name__r.Email != &apos;&apos;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  OR(  ISPICKVAL(Division__c, &apos;Catastrophes&apos;),  ISPICKVAL(Division__c, &apos;Emergency Svces&apos;)  ),  OR(  ISPICKVAL(Stage__c, &apos;Work Complete&apos;),  ISPICKVAL(Stage__c, &apos;Billing Complete&apos;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &apos;Catastrophes&apos;), ISPICKVAL(Division__c, &apos;Emergency Svces&apos;) ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Getfeedback Emergency Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Catastrophes&#39;), ISPICKVAL(Division__c, &#39;Emergency Svces&#39;) ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &apos;Catastrophes&apos;), ISPICKVAL(Division__c, &apos;Emergency Svces&apos;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2819,13 +2852,13 @@
             <type>OutboundMessage</type>
         </actions>
         <active>true</active>
-        <formula>OR(AND(  Estimate_Only__c = false,  Ladder_Assist__c = false,  Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &#39;&#39;,  Project_Site_Contact_Name__r.Email != &#39;&#39;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  OR(  ISPICKVAL(Division__c, &#39;Asbestos&#39;),  ISPICKVAL(Division__c, &#39;Biohazard&#39;),  ISPICKVAL(Division__c, &#39;Lead&#39;),  ISPICKVAL(Division__c, &#39;Microbial&#39;)  ),  OR(  ISPICKVAL(Stage__c, &#39;Work Complete&#39;),  ISPICKVAL(Stage__c, &#39;Billing Complete&#39;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR(  ISPICKVAL(Division__c, &#39;Asbestos&#39;),  ISPICKVAL(Division__c, &#39;Biohazard&#39;),  ISPICKVAL(Division__c, &#39;Lead&#39;),  ISPICKVAL(Division__c, &#39;Microbial&#39;)  ))))</formula>
+        <formula>OR(AND(  Estimate_Only__c = false,  Ladder_Assist__c = false,  Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &apos;&apos;,  Project_Site_Contact_Name__r.Email != &apos;&apos;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  OR(  ISPICKVAL(Division__c, &apos;Asbestos&apos;),  ISPICKVAL(Division__c, &apos;Biohazard&apos;),  ISPICKVAL(Division__c, &apos;Lead&apos;),  ISPICKVAL(Division__c, &apos;Microbial&apos;)  ),  OR(  ISPICKVAL(Stage__c, &apos;Work Complete&apos;),  ISPICKVAL(Stage__c, &apos;Billing Complete&apos;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR(  ISPICKVAL(Division__c, &apos;Asbestos&apos;),  ISPICKVAL(Division__c, &apos;Biohazard&apos;),  ISPICKVAL(Division__c, &apos;Lead&apos;),  ISPICKVAL(Division__c, &apos;Microbial&apos;)  ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Getfeedback Environmental Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR(  ISPICKVAL(Division__c, &#39;Asbestos&#39;),  ISPICKVAL(Division__c, &#39;Biohazard&#39;),  ISPICKVAL(Division__c, &#39;Lead&#39;),  ISPICKVAL(Division__c, &#39;Microbial&#39;)  ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR(  ISPICKVAL(Division__c, &apos;Asbestos&apos;),  ISPICKVAL(Division__c, &apos;Biohazard&apos;),  ISPICKVAL(Division__c, &apos;Lead&apos;),  ISPICKVAL(Division__c, &apos;Microbial&apos;)  ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2879,13 +2912,13 @@
             <type>OutboundMessage</type>
         </actions>
         <active>true</active>
-        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &#39;&#39;,  Project_Site_Contact_Name__r.Email != &#39;&#39;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  ISPICKVAL(Division__c, &#39;Technical Svces&#39;),  OR(  ISPICKVAL(Stage__c, &#39;Work Complete&#39;),  ISPICKVAL(Stage__c, &#39;Billing Complete&#39;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &#39;Technical Svces&#39;) ))))</formula>
+        <formula>OR(AND(  Estimate_Only__c = false,   Ladder_Assist__c = false,   Completion_Date__c &gt;= DATE(2019,01,19),  No_Email_Available__c = false,  Project_Site_Contact_Name__c != &apos;&apos;,  Project_Site_Contact_Name__r.Email != &apos;&apos;,  Project_Site_Contact_Name__r.HasOptedOutOfEmail = false,  ISNULL(Survey_Sent_Date__c ),  ISPICKVAL(Division__c, &apos;Technical Svces&apos;),  OR(  ISPICKVAL(Stage__c, &apos;Work Complete&apos;),  ISPICKVAL(Stage__c, &apos;Billing Complete&apos;)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;),(AND( ManualSurveySend__c = True,OR( ISPICKVAL(Division__c, &apos;Technical Svces&apos;) ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Getfeedback Technical Services Survey Remainder Email</fullName>
         <active>true</active>
-        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &#39;Technical Svces&#39;) ))</formula>
+        <formula>AND( !ISNULL(Survey_Sent_Date__c) , $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Survey_Completed__c == false,OR( ISPICKVAL(Division__c, &apos;Technical Svces&apos;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -2964,9 +2997,21 @@ Channyn Rowe</description>
         </actions>
         <active>true</active>
         <description>Outbound message to send Opportunity fields to Timberline via Jitterbit</description>
-        <formula>AND(OR(AND(ISCHANGED(Stage__c),ISPICKVAL(Stage__c, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, ISCHANGED(PM_Approval_Only__c), AND(OR(ISCHANGED(Project_Manager_new__c), ISCHANGED(Project_Manager__c),ISCHANGED(Account_Executive_1_Timber__c),ISCHANGED(Account_Executive_2_Timber__c),ISCHANGED(Job_Name__c)),NOT(ISBLANK( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE)), 
-
-$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(
+OR(
+AND(ISCHANGED(Stage__c),
+ISPICKVAL(Stage__c, &quot;Won&quot;)) ,
+Sync_to_Timberline__c = TRUE,
+ISCHANGED(PM_Approval_Only__c),
+AND(OR(ISCHANGED(Project_Manager_new__c),
+ISCHANGED(Project_Manager__c),
+ISCHANGED(Account_Executive_1_Timber__c),
+ISCHANGED(Account_Executive_2_Timber__c),
+ISCHANGED(Job_Name__c)
+),
+NOT(ISNULL( Last_Successful_Timberline_Update__c)),
+X1sub__c = FALSE)),
+$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Project_Manager__c &lt;&gt; null)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -3049,7 +3094,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>false</active>
         <description>When Job number has changed, email Jenny Pace, Vonda Barela, and payroll.</description>
-        <formula>AND(ISCHANGED (Job_Number__c) ,  $Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</formula>
+        <formula>AND(ISCHANGED (Job_Number__c) ,  $Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -3067,8 +3112,8 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>false</active>
-        <description>Stamps the Date that a Job&#39;s Stage was set to Won (and overwrites Job Start Date each time)</description>
-        <formula>AND(OR(AND(ISNEW(),TEXT(Stage__c) = &#39;Won&#39;),AND(ISCHANGED(Stage__c ),TEXT(Stage__c) = &#39;Won&#39;)),$Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</formula>
+        <description>Stamps the Date that a Job&apos;s Stage was set to Won (and overwrites Job Start Date each time)</description>
+        <formula>AND(OR(AND(ISNEW(),TEXT(Stage__c) = &apos;Won&apos;),AND(ISCHANGED(Stage__c ),TEXT(Stage__c) = &apos;Won&apos;)),$Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -3078,7 +3123,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND( NOT( (ISPICKVAL(Account__r.Job_Type__c, &quot;&quot;))) , NOT(ISPICKVAL(Stage__c , &quot;Work Complete&quot;)), NOT(ISPICKVAL(Stage__c , &quot;Billing Complete&quot;)),$Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</formula>
+        <formula>AND( NOT( (ISPICKVAL(Account__r.Job_Type__c, &quot;&quot;))) , NOT(ISPICKVAL(Stage__c , &quot;Work Complete&quot;)), NOT(ISPICKVAL(Stage__c , &quot;Billing Complete&quot;)),$Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -3089,7 +3134,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>true</active>
         <description>If Job is LA county educational or governmental and stage is won, mark the Job as union. Look at Job class (school or government agency) and county is LA.</description>
-        <formula>AND( CONTAINS( County__c , &quot;Los Angeles&quot;), ISPICKVAL( Stage__c,&quot;Won&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&#39;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ),$Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</formula>
+        <formula>AND( CONTAINS( County__c , &quot;Los Angeles&quot;), ISPICKVAL( Stage__c,&quot;Won&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&apos;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ),$Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -3100,7 +3145,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>true</active>
         <description>If Job is SD USD, mark the Job as Certified. Look at Job class (school or government agency) and county is SD</description>
-        <formula>AND( CONTAINS( County__c , &quot;San Diego&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&#39;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ),$Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</formula>
+        <formula>AND( CONTAINS( County__c , &quot;San Diego&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&apos;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ),$Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -3126,13 +3171,14 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>true</active>
         <description>A workflow email alert will be created to alert a Project Director immediately following Job assignment.</description>
-        <formula>AND( RecordTypeId = &#39;0120g000000l3yM&#39; &amp;&amp;  (ISCHANGED( Project_Manager__c )),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND( 
+OR(ISNEW(),ISCHANGED( Project_Manager__c )),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Ops Manager Assignment</fullName>
         <active>false</active>
-        <formula>AND(RecordTypeId = &#39;01270000000UPGF&#39; &amp;&amp;  (ISCHANGED(Project_Manager_new__c)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(RecordTypeId = &apos;01270000000UPGF&apos; &amp;&amp;  (ISCHANGED(Project_Manager_new__c)),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -3189,7 +3235,7 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Records the user that modified the &#39;Send Prelim&#39; field and the date/time of modification.</description>
+        <description>Records the user that modified the &apos;Send Prelim&apos; field and the date/time of modification.</description>
         <formula>AND(ISCHANGED( Send_Prelim__c ),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -3325,12 +3371,12 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>false</active>
-        <description>Workflow rule to update &#39;Send Prelim&#39; field to &#39;No&#39; for most program Jobs, all national accounts (lead source), all contents, marketing, and consulting jobs, certain accounts, and all jobs in certain states.</description>
+        <description>Workflow rule to update &apos;Send Prelim&apos; field to &apos;No&apos; for most program Jobs, all national accounts (lead source), all contents, marketing, and consulting jobs, certain accounts, and all jobs in certain states.</description>
         <formula>AND(ISPICKVAL(Send_Prelim__c, &quot;&quot;) &amp;&amp; 
 
 	((BEGINS(TEXT(Lead_Source__c), &quot;Program&quot;) &amp;&amp; NOT(ISPICKVAL(Lead_Source__c, &quot;Program - Contractor Connection&quot;))) || 
 
-	BEGINS(TEXT(Lead_Source__c),&quot;National Account__r&quot;) || ISPICKVAL(Division__c,&quot;Contents&quot;) || ISPICKVAL(Division__c,&quot;Marketing&quot;) || ISPICKVAL(Division__c,&quot;Consulting&quot;) || ISPICKVAL(Job_Class__c,&quot;Educational&quot;) || ISPICKVAL(Job_Class__c,&quot;Municipality/ Gov&#39;t&quot;) || BEGINS(Account__r.Name, &quot;Allstate&quot;) || BEGINS(Account__r.Name, &quot;Alacrity&quot;) || BEGINS(Account__r.Name, &quot;Encompass&quot;) || BEGINS(Account__r.Name, &quot;CSAA&quot;) || BEGINS(Account__r.Name, &quot;Farmers&quot;) || BEGINS(Account__r.Name, &quot;Watterson&quot;) || BEGINS(Account__r.Name, &quot;JC Penney&quot;) || BEGINS(Account__r.Name, &quot;JP Morgan Chase&quot;) || BEGINS(Account__r.Name, &quot;Wyndham Worldwide&quot;) || BEGINS(Account__r.Name, &quot;National Community Renaissance&quot;) || BEGINS(Account__r.Name, &quot;Burlington Northern&quot;) || BEGINS(Account__r.Name, &quot;Facility Source&quot;) || BEGINS(Account__r.Name, &quot;Jones Lang LaSalle Americas&quot;) || BEGINS(Account__r.Name, &quot;2B Adjusting&quot;) || BEGINS(Account__r.Name, &quot;Essex Property Trust&quot;) || BEGINS(Account__r.Name, &quot;Wal-Mart&quot;) || BEGINS(Account__r.Name, &quot;City of Phoenix&quot;) || BEGINS(Account__r.Name, &quot;Aimco Property Management&quot;) || BEGINS(Account__r.Name, &quot;Cushman &amp; Wakefield&quot;) || BEGINS(Account__r.Name, &quot;St. Joseph&#39;s Hosp.&quot;) || BEGINS(Account__r.Name, &quot;Walgreens&quot;) || BEGINS(Account__r.Name, &quot;Watterson Environmental Group&quot;) || BEGINS(Account__r.Name, &quot;Prometheus Real Estate Group&quot;) || BEGINS(Account__r.Name, &quot;Irvine Company&quot;) || Project_Site_State__c = &quot;CO&quot; || Project_Site_State__c = &quot;CT&quot; || Project_Site_State__c = &quot;DE&quot; || (Project_Site_State__c = &quot;FL&quot; &amp;&amp; ISPICKVAL(Job_Class__c,&quot;Residential&quot;)) || Project_Site_State__c = &quot;HI&quot; || Project_Site_State__c = &quot;ID&quot; || Project_Site_State__c = &quot;IL&quot; || Project_Site_State__c = &quot;KY&quot; || Project_Site_State__c = &quot;MD&quot; || Project_Site_State__c = &quot;NE&quot; || Project_Site_State__c = &quot;NJ&quot; || Project_Site_State__c = &quot;NY&quot; || Project_Site_State__c = &quot;ND&quot; || Project_Site_State__c = &quot;PA&quot; || Project_Site_State__c = &quot;VT&quot;),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+	BEGINS(TEXT(Lead_Source__c),&quot;National Account__r&quot;) || ISPICKVAL(Division__c,&quot;Contents&quot;) || ISPICKVAL(Division__c,&quot;Marketing&quot;) || ISPICKVAL(Division__c,&quot;Consulting&quot;) || ISPICKVAL(Job_Class__c,&quot;Educational&quot;) || ISPICKVAL(Job_Class__c,&quot;Municipality/ Gov&apos;t&quot;) || BEGINS(Account__r.Name, &quot;Allstate&quot;) || BEGINS(Account__r.Name, &quot;Alacrity&quot;) || BEGINS(Account__r.Name, &quot;Encompass&quot;) || BEGINS(Account__r.Name, &quot;CSAA&quot;) || BEGINS(Account__r.Name, &quot;Farmers&quot;) || BEGINS(Account__r.Name, &quot;Watterson&quot;) || BEGINS(Account__r.Name, &quot;JC Penney&quot;) || BEGINS(Account__r.Name, &quot;JP Morgan Chase&quot;) || BEGINS(Account__r.Name, &quot;Wyndham Worldwide&quot;) || BEGINS(Account__r.Name, &quot;National Community Renaissance&quot;) || BEGINS(Account__r.Name, &quot;Burlington Northern&quot;) || BEGINS(Account__r.Name, &quot;Facility Source&quot;) || BEGINS(Account__r.Name, &quot;Jones Lang LaSalle Americas&quot;) || BEGINS(Account__r.Name, &quot;2B Adjusting&quot;) || BEGINS(Account__r.Name, &quot;Essex Property Trust&quot;) || BEGINS(Account__r.Name, &quot;Wal-Mart&quot;) || BEGINS(Account__r.Name, &quot;City of Phoenix&quot;) || BEGINS(Account__r.Name, &quot;Aimco Property Management&quot;) || BEGINS(Account__r.Name, &quot;Cushman &amp; Wakefield&quot;) || BEGINS(Account__r.Name, &quot;St. Joseph&apos;s Hosp.&quot;) || BEGINS(Account__r.Name, &quot;Walgreens&quot;) || BEGINS(Account__r.Name, &quot;Watterson Environmental Group&quot;) || BEGINS(Account__r.Name, &quot;Prometheus Real Estate Group&quot;) || BEGINS(Account__r.Name, &quot;Irvine Company&quot;) || Project_Site_State__c = &quot;CO&quot; || Project_Site_State__c = &quot;CT&quot; || Project_Site_State__c = &quot;DE&quot; || (Project_Site_State__c = &quot;FL&quot; &amp;&amp; ISPICKVAL(Job_Class__c,&quot;Residential&quot;)) || Project_Site_State__c = &quot;HI&quot; || Project_Site_State__c = &quot;ID&quot; || Project_Site_State__c = &quot;IL&quot; || Project_Site_State__c = &quot;KY&quot; || Project_Site_State__c = &quot;MD&quot; || Project_Site_State__c = &quot;NE&quot; || Project_Site_State__c = &quot;NJ&quot; || Project_Site_State__c = &quot;NY&quot; || Project_Site_State__c = &quot;ND&quot; || Project_Site_State__c = &quot;PA&quot; || Project_Site_State__c = &quot;VT&quot;),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -3404,9 +3450,21 @@ $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         </actions>
         <active>true</active>
         <description>Updates Last Timberline Update field with current date time when a record is saved.</description>
-        <formula>AND(OR(AND(ISCHANGED(Stage__c),ISPICKVAL(Stage__c, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, ISCHANGED(PM_Approval_Only__c), AND(OR(ISCHANGED(Project_Manager_new__c), ISCHANGED(Project_Manager__c),ISCHANGED(Account_Executive_1_Timber__c),ISCHANGED(Account_Executive_2_Timber__c),ISCHANGED(Job_Name__c)),NOT(ISNULL( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE)), 
-
-$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
+        <formula>AND(
+OR(
+AND(ISCHANGED(Stage__c),
+ISPICKVAL(Stage__c, &quot;Won&quot;)) ,
+Sync_to_Timberline__c = TRUE,
+ISCHANGED(PM_Approval_Only__c),
+AND(OR(ISCHANGED(Project_Manager_new__c),
+ISCHANGED(Project_Manager__c),
+ISCHANGED(Account_Executive_1_Timber__c),
+ISCHANGED(Account_Executive_2_Timber__c),
+ISCHANGED(Job_Name__c)
+),
+NOT(ISNULL( Last_Successful_Timberline_Update__c)),
+X1sub__c = FALSE)),
+$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, Project_Manager__c &lt;&gt; null)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

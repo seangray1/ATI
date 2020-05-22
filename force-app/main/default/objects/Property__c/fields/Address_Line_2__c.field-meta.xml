@@ -5,6 +5,7 @@
     <label>Address Line 2</label>
     <length>200</length>
     <required>false</required>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

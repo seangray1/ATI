@@ -3,7 +3,7 @@
     <fullName>Master_Job_ID__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Master Job ID</label>
+    <label>Job ID</label>
     <referenceTo>ATI_Job__c</referenceTo>
     <relationshipLabel>Account Roles</relationshipLabel>
     <relationshipName>Account_Roles</relationshipName>

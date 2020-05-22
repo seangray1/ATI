@@ -904,7 +904,7 @@
         </values>
         <values>
             <fullName>Reviewed%2FCompleted</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -1841,6 +1841,17 @@
         </values>
         <values>
             <fullName>Union</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Property_Verification_Status__c</picklist>
+        <values>
+            <fullName>False</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>True</fullName>
             <default>false</default>
         </values>
     </picklistValues>

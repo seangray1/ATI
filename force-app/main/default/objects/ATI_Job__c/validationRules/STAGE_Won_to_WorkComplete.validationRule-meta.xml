@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>STAGE_Won_to_WorkComplete</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>Job stage in Won stage can only be changed to Work Complete stage.</description>
     <errorConditionFormula>AND( 
 ISCHANGED( Stage__c ), 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>STAGE_EstimatingRev_to_WonLost</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>Job stage in Estimating/Review stage can only be changed to Won or Lost stage.</description>
     <errorConditionFormula>AND( 
 ISCHANGED( Stage__c ), 

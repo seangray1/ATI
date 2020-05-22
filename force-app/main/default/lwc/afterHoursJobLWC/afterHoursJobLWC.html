@@ -181,10 +181,12 @@
                                     province={State}
                                     postal-code={Zipcode}
                                     show-address-lookup
-                                    class="jobFormControl center"
+                                    
                                     read-only
-                                    required 
+                                     
                                      >
+                                     
+                                     <!-- required removing class="jobFormControl center" -->
         </lightning-input-address>
         <lightning-input label="Address Line 2" value={AddressLine2}  class="center" onchange={AddressLine2Change}></lightning-input>
         <br>
@@ -524,7 +526,7 @@
             show-address-lookup
             class=""
             read-only
-            required 
+            
              >
         </lightning-input-address>
         <!-- </div> -->

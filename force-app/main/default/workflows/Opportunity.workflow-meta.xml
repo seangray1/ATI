@@ -857,7 +857,7 @@
     </alerts>
     <alerts>
         <fullName>Send_email_to_PD_when_customer_replies_to_SMS_that_they_re_not_satisfied_with_jo</fullName>
-        <description>Send email to PD when customer replies to SMS that they&#39;re not satisfied with job</description>
+        <description>Send email to PD when customer replies to SMS that they&apos;re not satisfied with job</description>
         <protected>false</protected>
         <recipients>
             <field>Project_Manager__c</field>
@@ -992,7 +992,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Completion_Date_Stamp</fullName>
-        <description>Time stamp of when Job stage is set to &#39;Complete&#39;</description>
+        <description>Time stamp of when Job stage is set to &apos;Complete&apos;</description>
         <field>Completion_Date__c</field>
         <formula>TODAY()</formula>
         <name>Completion Date Stamp</name>
@@ -1002,7 +1002,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Status_to_Approved</fullName>
-        <description>Field update to set Credit Request Status to &#39;Approved&#39; upon approval of Manager in the Credit Request Approval Process</description>
+        <description>Field update to set Credit Request Status to &apos;Approved&apos; upon approval of Manager in the Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
         <literalValue>Approved</literalValue>
         <name>Credit Request Status to Approved</name>
@@ -1012,7 +1012,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Status_to_Rejected</fullName>
-        <description>Field update to set the Credit Request Status to &#39;Rejected,&#39; when a Manager rejects a request in the Credit Request Approval Process</description>
+        <description>Field update to set the Credit Request Status to &apos;Rejected,&apos; when a Manager rejects a request in the Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
         <literalValue>Rejected</literalValue>
         <name>Credit Request Status to Rejected</name>
@@ -1022,7 +1022,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Status_to_Unapproved</fullName>
-        <description>Field update to set Credit Request Status to &#39;Unapproved&#39; in Credit Request Approval Process</description>
+        <description>Field update to set Credit Request Status to &apos;Unapproved&apos; in Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
         <literalValue>Unapproved</literalValue>
         <name>Credit Request Status to Unapproved</name>
@@ -1032,7 +1032,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Credit_Request_Submitter_Email</fullName>
-        <description>Field update to populate email of credit request submitter&#39;s email</description>
+        <description>Field update to populate email of credit request submitter&apos;s email</description>
         <field>Credit_Request_Submitter_Email__c</field>
         <formula>$User.Email</formula>
         <name>Credit Request Submitter Email</name>
@@ -1053,7 +1053,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Email_Update_on_Job</fullName>
-        <description>Field update to clear out &#39;Add/Correct Email&#39; field after trigger to populate updated email onto Contact record</description>
+        <description>Field update to clear out &apos;Add/Correct Email&apos; field after trigger to populate updated email onto Contact record</description>
         <field>Add_Correct_Email__c</field>
         <name>Email Update on Job</name>
         <notifyAssignee>false</notifyAssignee>
@@ -1176,7 +1176,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Opportunity_Naming_Convention</fullName>
-        <description>Workflow field update to populate Opportunity Name with &#39;Job Number | Job Name&#39;</description>
+        <description>Workflow field update to populate Opportunity Name with &apos;Job Number | Job Name&apos;</description>
         <field>Name</field>
         <formula>Job_Number__c &amp; &quot; &quot; &amp; &quot;|&quot; &amp; &quot; &quot; &amp; Job_Name__c</formula>
         <name>Opportunity Naming Convention</name>
@@ -1444,7 +1444,7 @@
             <operation>equals</operation>
             <value>Certified,Union</value>
         </criteriaItems>
-        <description>Email notification sent to collections for all Jobs with a Project Type of &#39;Prevailing Wage / Certified&#39; or &#39;Union&#39;</description>
+        <description>Email notification sent to collections for all Jobs with a Project Type of &apos;Prevailing Wage / Certified&apos; or &apos;Union&apos;</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1538,7 +1538,7 @@ ISPICKVAL(StageName,&quot;Won&quot;)</formula>
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
-        <description>When this checkbox is check, it will send email to EVP&#39;s, BM, PM, Super, and Ops Manager.</description>
+        <description>When this checkbox is check, it will send email to EVP&apos;s, BM, PM, Super, and Ops Manager.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1562,11 +1562,11 @@ ISPICKVAL(StageName,&quot;Won&quot;)</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>false</active>
-        <description>Stamps the Date that a Job&#39;s Stage was set to Complete</description>
+        <description>Stamps the Date that a Job&apos;s Stage was set to Complete</description>
         <formula>AND(ISBLANK(Completion_Date__c),  
 OR(
-AND(ISNEW(), OR(TEXT(StageName) = &#39;Work Complete&#39;, TEXT(StageName) = &#39;Billing Complete&#39;)),
-AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &#39;Work Complete&#39;, TEXT(StageName) = &#39;Billing Complete&#39;))
+AND(ISNEW(), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(StageName) = &apos;Billing Complete&apos;)),
+AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(StageName) = &apos;Billing Complete&apos;))
 )
 )</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1578,7 +1578,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &#39;Work Complete&#39;, TEXT(St
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND( OR( TEXT(Division__c )== &#39;Construction&#39;, TEXT(Division__c )== &#39;Marketing&#39; ), OR( ISNEW(),  ISCHANGED(Division__c ) ))</formula>
+        <formula>AND( OR( TEXT(Division__c )== &apos;Construction&apos;, TEXT(Division__c )== &apos;Marketing&apos; ), OR( ISNEW(),  ISCHANGED(Division__c ) ))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1607,7 +1607,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &#39;Work Complete&#39;, TEXT(St
             <type>Alert</type>
         </actions>
         <active>false</active>
-        <formula>Office2__c  = &#39;Orange&#39; &amp;&amp;  ISPICKVAL(Division__c, &quot;Emergency Svces&quot;)</formula>
+        <formula>Office2__c  = &apos;Orange&apos; &amp;&amp;  ISPICKVAL(Division__c, &quot;Emergency Svces&quot;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1617,7 +1617,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &#39;Work Complete&#39;, TEXT(St
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Field update to clear out &#39;Add/Correct Email&#39; field after trigger to populate updated email onto Contact record</description>
+        <description>Field update to clear out &apos;Add/Correct Email&apos; field after trigger to populate updated email onto Contact record</description>
         <formula>Add_Correct_Email__c != null</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -1759,8 +1759,8 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Stamps the Date that a Job&#39;s Stage was set to Won (and overwrites Job Start Date each time)</description>
-        <formula>OR(AND(ISNEW(),TEXT(StageName) = &#39;Won&#39;),AND(ISCHANGED(StageName ),TEXT(StageName) = &#39;Won&#39;))</formula>
+        <description>Stamps the Date that a Job&apos;s Stage was set to Won (and overwrites Job Start Date each time)</description>
+        <formula>OR(AND(ISNEW(),TEXT(StageName) = &apos;Won&apos;),AND(ISCHANGED(StageName ),TEXT(StageName) = &apos;Won&apos;))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1789,7 +1789,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
         </actions>
         <active>true</active>
         <description>If Job is LA county educational or governmental and stage is won, mark the Job as union. Look at Job class (school or government agency) and county is LA.</description>
-        <formula>AND( CONTAINS( County__c , &quot;Los Angeles&quot;),  ISPICKVAL( StageName,&quot;Won&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&#39;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ))</formula>
+        <formula>AND( CONTAINS( County__c , &quot;Los Angeles&quot;),  ISPICKVAL( StageName,&quot;Won&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&apos;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1800,7 +1800,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
         </actions>
         <active>true</active>
         <description>If Job is SD USD, mark the Job as Certified. Look at Job class (school or government agency) and county is SD</description>
-        <formula>AND( CONTAINS( County__c , &quot;San Diego&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&#39;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ))</formula>
+        <formula>AND( CONTAINS( County__c , &quot;San Diego&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&apos;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1843,7 +1843,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
         </actions>
         <active>true</active>
         <description>A workflow email alert will be created to alert a Project Director immediately following Job assignment.</description>
-        <formula>RecordTypeId = &#39;01270000000UPGF&#39;  &amp;&amp; 
+        <formula>RecordTypeId = &apos;01270000000UPGF&apos;  &amp;&amp; 
 (ISCHANGED( Project_Manager__c ))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -1853,12 +1853,12 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Opportunity_Naming_Convention</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Name</field>
             <operation>greaterOrEqual</operation>
         </criteriaItems>
-        <description>Workflow field update to populate Opportunity Name with &#39;Job Name | Job Number&#39;</description>
+        <description>Workflow field update to populate Opportunity Name with &apos;Job Name | Job Number&apos;</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1869,7 +1869,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
         </actions>
         <active>false</active>
         <description>Ops Manager Assignment workflow</description>
-        <formula>RecordTypeId = &#39;01270000000UPGF&#39; &amp;&amp; 
+        <formula>RecordTypeId = &apos;01270000000UPGF&apos; &amp;&amp; 
 (ISCHANGED(Project_Manager_new__c))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -1927,7 +1927,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Records the user that modified the &#39;Send Prelim&#39; field and the date/time of modification.</description>
+        <description>Records the user that modified the &apos;Send Prelim&apos; field and the date/time of modification.</description>
         <formula>ISCHANGED( Send_Prelim__c )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -2052,12 +2052,12 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Update &#39;Send Prelim&#39; field to &#39;No&#39; for most program Jobs, all national accounts (lead source), all contents, marketing, and consulting jobs, educational and municipal/gov&#39;t jobs (job class), certain accounts, and all jobs in certain states.</description>
+        <description>Update &apos;Send Prelim&apos; field to &apos;No&apos; for most program Jobs, all national accounts (lead source), all contents, marketing, and consulting jobs, educational and municipal/gov&apos;t jobs (job class), certain accounts, and all jobs in certain states.</description>
         <formula>ISPICKVAL(Send_Prelim__c, &quot;&quot;) &amp;&amp; 
 
 	((BEGINS(TEXT(LeadSource), &quot;Program&quot;) &amp;&amp; NOT(ISPICKVAL(LeadSource, &quot;Program - Contractor Connection&quot;))) || 
 
-	BEGINS(TEXT(LeadSource),&quot;National Account&quot;) || ISPICKVAL(Division__c,&quot;Contents&quot;) || ISPICKVAL(Division__c,&quot;Marketing&quot;) || ISPICKVAL(Division__c,&quot;Consulting&quot;) || ISPICKVAL(Job_Class__c,&quot;Educational&quot;) || ISPICKVAL(Job_Class__c,&quot;Municipality/ Gov&#39;t&quot;) || BEGINS(Account.Name, &quot;Allstate&quot;) || BEGINS(Account.Name, &quot;Alacrity&quot;) || BEGINS(Account.Name, &quot;Encompass&quot;) || BEGINS(Account.Name, &quot;CSAA&quot;) || BEGINS(Account.Name, &quot;Farmers&quot;) || BEGINS(Account.Name, &quot;Watterson&quot;) || BEGINS(Account.Name, &quot;JC Penney&quot;) || BEGINS(Account.Name, &quot;JP Morgan Chase&quot;) || BEGINS(Account.Name, &quot;Wyndham Worldwide&quot;) || BEGINS(Account.Name, &quot;National Community Renaissance&quot;) || BEGINS(Account.Name, &quot;Burlington Northern&quot;) || BEGINS(Account.Name, &quot;Facility Source&quot;) || BEGINS(Account.Name, &quot;Jones Lang LaSalle Americas&quot;) || BEGINS(Account.Name, &quot;2B Adjusting&quot;) || BEGINS(Account.Name, &quot;Essex Property Trust&quot;) || BEGINS(Account.Name, &quot;Wal-Mart&quot;) || BEGINS(Account.Name, &quot;City of Phoenix&quot;) || BEGINS(Account.Name, &quot;Aimco Property Management&quot;) || BEGINS(Account.Name, &quot;Cushman &amp; Wakefield&quot;) || BEGINS(Account.Name, &quot;St. Joseph&#39;s Hosp.&quot;) || BEGINS(Account.Name, &quot;Walgreens&quot;) || BEGINS(Account.Name, &quot;Watterson Environmental Group&quot;) || BEGINS(Account.Name, &quot;Prometheus Real Estate Group&quot;) || BEGINS(Account.Name, &quot;Irvine Company&quot;) || Project_Site_State__c = &quot;CO&quot; || Project_Site_State__c = &quot;CT&quot; || Project_Site_State__c = &quot;DE&quot; || (Project_Site_State__c = &quot;FL&quot; &amp;&amp; ISPICKVAL(Job_Class__c,&quot;Residential&quot;)) || Project_Site_State__c = &quot;HI&quot; || Project_Site_State__c = &quot;ID&quot; || Project_Site_State__c = &quot;IL&quot; || Project_Site_State__c = &quot;KY&quot; || Project_Site_State__c = &quot;MD&quot; || Project_Site_State__c = &quot;NE&quot; || Project_Site_State__c = &quot;NJ&quot; || Project_Site_State__c = &quot;NY&quot; || Project_Site_State__c = &quot;ND&quot; || Project_Site_State__c = &quot;PA&quot; || Project_Site_State__c = &quot;VT&quot;)</formula>
+	BEGINS(TEXT(LeadSource),&quot;National Account&quot;) || ISPICKVAL(Division__c,&quot;Contents&quot;) || ISPICKVAL(Division__c,&quot;Marketing&quot;) || ISPICKVAL(Division__c,&quot;Consulting&quot;) || ISPICKVAL(Job_Class__c,&quot;Educational&quot;) || ISPICKVAL(Job_Class__c,&quot;Municipality/ Gov&apos;t&quot;) || BEGINS(Account.Name, &quot;Allstate&quot;) || BEGINS(Account.Name, &quot;Alacrity&quot;) || BEGINS(Account.Name, &quot;Encompass&quot;) || BEGINS(Account.Name, &quot;CSAA&quot;) || BEGINS(Account.Name, &quot;Farmers&quot;) || BEGINS(Account.Name, &quot;Watterson&quot;) || BEGINS(Account.Name, &quot;JC Penney&quot;) || BEGINS(Account.Name, &quot;JP Morgan Chase&quot;) || BEGINS(Account.Name, &quot;Wyndham Worldwide&quot;) || BEGINS(Account.Name, &quot;National Community Renaissance&quot;) || BEGINS(Account.Name, &quot;Burlington Northern&quot;) || BEGINS(Account.Name, &quot;Facility Source&quot;) || BEGINS(Account.Name, &quot;Jones Lang LaSalle Americas&quot;) || BEGINS(Account.Name, &quot;2B Adjusting&quot;) || BEGINS(Account.Name, &quot;Essex Property Trust&quot;) || BEGINS(Account.Name, &quot;Wal-Mart&quot;) || BEGINS(Account.Name, &quot;City of Phoenix&quot;) || BEGINS(Account.Name, &quot;Aimco Property Management&quot;) || BEGINS(Account.Name, &quot;Cushman &amp; Wakefield&quot;) || BEGINS(Account.Name, &quot;St. Joseph&apos;s Hosp.&quot;) || BEGINS(Account.Name, &quot;Walgreens&quot;) || BEGINS(Account.Name, &quot;Watterson Environmental Group&quot;) || BEGINS(Account.Name, &quot;Prometheus Real Estate Group&quot;) || BEGINS(Account.Name, &quot;Irvine Company&quot;) || Project_Site_State__c = &quot;CO&quot; || Project_Site_State__c = &quot;CT&quot; || Project_Site_State__c = &quot;DE&quot; || (Project_Site_State__c = &quot;FL&quot; &amp;&amp; ISPICKVAL(Job_Class__c,&quot;Residential&quot;)) || Project_Site_State__c = &quot;HI&quot; || Project_Site_State__c = &quot;ID&quot; || Project_Site_State__c = &quot;IL&quot; || Project_Site_State__c = &quot;KY&quot; || Project_Site_State__c = &quot;MD&quot; || Project_Site_State__c = &quot;NE&quot; || Project_Site_State__c = &quot;NJ&quot; || Project_Site_State__c = &quot;NY&quot; || Project_Site_State__c = &quot;ND&quot; || Project_Site_State__c = &quot;PA&quot; || Project_Site_State__c = &quot;VT&quot;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -2126,7 +2126,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
-        <description>Date/Time stamp of &#39;Update Forecast&#39; field marked to True</description>
+        <description>Date/Time stamp of &apos;Update Forecast&apos; field marked to True</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

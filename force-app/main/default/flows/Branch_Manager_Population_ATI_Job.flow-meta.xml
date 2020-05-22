@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assignments>
-        <name>myVariable_waitStartTimeAssignment</name>
-        <label>myVariable_waitStartTimeAssignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>myDecision</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -120,7 +104,7 @@ OR(
 
 NOT(CONTAINS([ATI_Job__c].Office2__c ,&quot;a1O70000000X5cdEAC&quot;)),
 
- ($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)
+ ($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)
 
 )</stringValue>
             </value>
@@ -137,7 +121,7 @@ OR(
 
 NOT(CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5cdEAC&quot;)),
 
- ({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)
+ ({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;)
 
 )</expression>
     </formulas>
@@ -164,7 +148,7 @@ ISPICKVAL ([ATI_Job__c].Division__c, &quot;Asbestos&quot;),
 ISPICKVAL ([ATI_Job__c].Division__c, &quot;Demolition&quot;),
 ISPICKVAL ([ATI_Job__c].Division__c, &quot;Health Services&quot;)),
 
-($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)
+($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)
 
 
 )</stringValue>
@@ -191,7 +175,7 @@ ISPICKVAL ({!myVariable_current.Division__c}, &quot;Asbestos&quot;),
 ISPICKVAL ({!myVariable_current.Division__c}, &quot;Demolition&quot;),
 ISPICKVAL ({!myVariable_current.Division__c}, &quot;Health Services&quot;)),
 
-({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)
+({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;)
 
 
 )</expression>
@@ -220,7 +204,7 @@ ISPICKVAL([ATI_Job__c].Division__c, &quot;Contents&quot;),
 ISPICKVAL([ATI_Job__c].Division__c, &quot;Emergency Svces&quot;)
 ),
 
-($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)
+($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)
 
 )</stringValue>
             </value>
@@ -247,11 +231,11 @@ ISPICKVAL({!myVariable_current.Division__c}, &quot;Contents&quot;),
 ISPICKVAL({!myVariable_current.Division__c}, &quot;Emergency Svces&quot;)
 ),
 
-({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)
+({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;)
 
 )</expression>
     </formulas>
-    <interviewLabel>Branch_Manager_Population_ATI_Job-5_InterviewLabel</interviewLabel>
+    <interviewLabel>Branch_Manager_Population_ATI_Job-6_InterviewLabel</interviewLabel>
     <label>Branch Manager Population ATI Job</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -524,8 +508,8 @@ ISPICKVAL({!myVariable_current.Division__c}, &quot;Emergency Svces&quot;)
         </inputAssignments>
         <object>ATI_Job__c</object>
     </recordUpdates>
-    <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
-    <status>Active</status>
+    <startElementReference>myDecision</startElementReference>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
@@ -541,16 +525,6 @@ ISPICKVAL({!myVariable_current.Division__c}, &quot;Emergency Svces&quot;)
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>ATI_Job__c</objectType>
-    </variables>
-    <variables>
-        <name>myVariable_waitStartTimeVariable</name>
-        <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <elementReference>$Flow.CurrentDateTime</elementReference>
-        </value>
     </variables>
     <variables>
         <name>RecursiveCountVariable</name>

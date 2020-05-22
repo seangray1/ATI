@@ -17,7 +17,7 @@ import { getRecord } from 'lightning/uiRecordApi';
 var today = new Date();
 var dd = today.getDate();
 
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var date = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
 var ContactJSON;
 var PackagedString;
 const DELAY = 300;
@@ -26,6 +26,9 @@ const fields = [
 ];
 export default class logCall extends LightningElement {
     connectedCallback(){
+        var mm = today.getMonth();
+        console.log('Month is ' + mm);
+        console.log(date);
         getContact({recordId: this.recordId })
     .then(result => {
         //this.contacts = result;
@@ -41,7 +44,7 @@ export default class logCall extends LightningElement {
 @track ContactId;
 @track Type;
 @track Priority = 'Normal';
-@track DueDate = date;
+@track DueDate = '';
 @track MarketingType;
 @track ServiceClass;
 @track PaymentCallType;
@@ -225,8 +228,13 @@ LogACall(){
     console.log('ContactJSON is   ' + ContactJSON);
     PackagedString = JSON.stringify(ContactJSON);
     this.loading = true;
+    let today1 = new Date();
     
-    
+    console.log(this.DueDate);
+    if(this.DueDate === ''){
+        this.DueDate = today1.getFullYear()+'-'+("0" + (today1.getMonth() + 1)).slice(-2)+'-'+today1.getDate();
+    }
+    console.log(this.DueDate);
     console.log('Before Log a call contactId is ' + this.ContactId + '   and JSON is ' + PackagedString);
     LogACall({recordId:this.recordId, ContactJSON: PackagedString, Type1: this.Type, Priority1: this.Priority, DueDate1 : this.DueDate, MarketingType1: this.MarketingType,ServiceClass1: this.ServiceClass, PaymentCallType1: this.PaymentCallType, Subject1:this.Subject, Comments1:this.Comments, ContactChange:this.contactChange})
     .then(result => {

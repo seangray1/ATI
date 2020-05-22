@@ -46,6 +46,12 @@ private class NewJobController_Test {
             NewJobController.GetProperties('Test');
             NewJobController.GetOffices('HQ');
             NewJobController.CheckId(jobs[0].Property_Id__c);
+            NewJobController.CheckId1(jobs[0].Property_Id__c);
+            NewJobController.CheckId2(jobs[0].Property_Id__c);
+            NewJobController.CheckId3(jobs[0].Property_Id__c);
+            NewJobController.CheckId4(jobs[0].Property_Id__c);
+            NewJobController.CheckId5(jobs[0].Property_Id__c);
+            NewJobController.CheckId6(jobs[0].Property_Id__c);
             NewJobController.GetMasterJobs(jobs[0].Property_Id__c);
             NewJobController.GetPropertyInfo('Whittier','15632 Youngwood Drive', 'CA', '90603');
             NewJobController.GetJobInfo(jobs[0].id);
@@ -63,25 +69,49 @@ private class NewJobController_Test {
             NewJobController.GetDivisionPicklist4();
             NewJobController.GetDivisionPicklist5();
             NewJobController.GetDivisionPicklist6();
+            NewJobController.GetDivisionPicklist7();
+            NewJobController.GetDivisionPicklist8();
+            NewJobController.GetDivisionPicklist9();
+            NewJobController.GetDivisionPicklist10();
+            NewJobController.GetDivisionPicklist11();
+            NewJobController.GetDivisionPicklist12();
+            NewJobController.GetDivisionPicklist13();
+            NewJobController.GetDivisionPicklist14();
+            NewJobController.GetDivisionPicklist15();
+            NewJobController.GetDivisionPicklist16();
+            NewJobController.GetDivisionPicklist17();
+            NewJobController.GetDivisionPicklist18();
+            NewJobController.GetDivisionPicklist19();
+            NewJobController.GetDivisionPicklist20();
+            NewJobController.GetDivisionPicklist21();
+            NewJobController.GetDivisionPicklist22();
+            NewJobController.GetDivisionPicklist23();
+           
             NewJobController.GetEsJobTypePicklist();
             NewJobController.GetLeadSourcePicklist();
             NewJobController.GetMultipleDivisionPicklist();
             NewJobController.GetPropertyTypePicklist();
             NewJobController.GetJobClassPicklist();
+            NewJobController.GetJobClassPicklist1();
+            NewJobController.GetJobClassPicklist2();
+            NewJobController.GetJobClassPicklist3();
+            NewJobController.GetJobClassPicklist4();
             NewJobController.GetContactAccounts('Test');
             NewJobController.getPickListValuesIntoList();
             NewJobController.GetUserName();
             NewJobController.GetUsers('Sean');
             NewJobController.GetCustomers('Test');
+            NewJobController.GetUserInfo();
             NewJobController.AfterHoursJobCreation('TestJob', 'Construction', '', off.id, '15632 Youngwood Drive', 'CA', 'Whittier', '90603', 'US', '15632 Youngwood Drive', 'Test', 'Test', '', '');
             String AccountRoleInfo = '{"AccountRoleLineItems":[{"Text":"Primary/Bill-to;Caller;Referred By;Project Site Contact","Contact":"' + lstContact[0].Id + '","Account":"' + lstAccounts[0].Id + '"}]}';
             String PropertyInfo = '{"PropertyId":"","City":"El Monte","Country":"United States","State":"CA","Street":"3534 North Peck Road","Zip":"91731","AddressLine2":"444","AlternateName":"test23"}';
             String JobInfo = '{"Description":"Type of Loss","JobRealName":"","Division":"Catastrophes","Office":"' + off.Id + '","JobClass":"Educational - Private","ProjectDirector":"' + u2 + '","TakenBy":"' + u2 + '","Claim":"444","Policy":"444","JobName":"test job RQF x232","LeadSource":"Consulting Firm","MultipleDivisions":"Asbestos","DateOfLoss":"2020-05-07","ClientJob":"44","YearBuilt":"1999","MajorEvent":""}';
-            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '');
-            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'NewJobEntry', '');
+            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '', true);
+            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '', false);
+            NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'NewJobEntry', '', false);
             // NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, '', 'AfterHoursJobEntry', '');
             NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
-            NewJobController.UpdateProperty(jobs[0].Property_Id__c, '15632 Youngwood Drive', 'Whittier', 'CA', '90603');
+            NewJobController.UpdateProperty(jobs[0].Property_Id__c, '15632 Youngwood Drive', 'Whittier', 'CA', '90603','USA');
         }
         
     }

@@ -117,7 +117,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_3_A1</targetReference>
+                <targetReference>myRule_3_pmetdec</targetReference>
             </connector>
             <label>Job Request Completed</label>
         </rules>
@@ -145,7 +145,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_5_A1</targetReference>
+                <targetReference>myRule_5_pmetdec</targetReference>
             </connector>
             <label>Contact Center Job</label>
         </rules>
@@ -187,50 +187,146 @@
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>myRule_3_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>300</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_3_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_3_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_3_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_3_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_5_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>500</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_5_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_5_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_5_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_5_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_5_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
     <description>For notify offices when job request form is submitted, completed and when contact center creates jobs.</description>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
-        <expression>({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1_pmetrule</name>
         <dataType>Boolean</dataType>
-        <expression>({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL({!myVariable_old.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL({!myVariable_old.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Reviewed/Completed&quot;) </stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Reviewed/Completed&quot;) </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_3</name>
         <dataType>Boolean</dataType>
-        <expression>({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Reviewed/Completed&quot;)</expression>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Reviewed/Completed&quot;)</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>ISNEW() &amp;&amp; ISBLANK(TEXT([ATI_Job__c].Intake_Status__c)) &amp;&amp; ($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Reviewed/Completed&quot;) </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_3_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;System Administrator&apos;) &amp;&amp; ISPICKVAL({!myVariable_old.Intake_Status__c}, &quot;Reviewed/Completed&quot;)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>ISNEW() &amp;&amp; ISBLANK(TEXT([ATI_Job__c].Intake_Status__c)) &amp;&amp; ($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &apos;System Administrator&apos;) </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_5</name>
         <dataType>Boolean</dataType>
-        <expression>ISNEW() &amp;&amp; ISBLANK(TEXT({!myVariable_current.Intake_Status__c})) &amp;&amp; ({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)</expression>
+        <expression>ISNEW() &amp;&amp; ISBLANK(TEXT({!myVariable_current.Intake_Status__c})) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;System Administrator&apos;)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>ISNEW() &amp;&amp; ISBLANK(TEXT([ATI_Job__c].Intake_Status__c)) &amp;&amp; ($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &apos;System Administrator&apos;) </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_5_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW() &amp;&amp; ISBLANK(TEXT({!myVariable_old.Intake_Status__c})) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;System Administrator&apos;)</expression>
     </formulas>
     <interviewLabel>Job_Intake_Alert-3_InterviewLabel</interviewLabel>
     <label>JOB - New Job Alerts</label>
@@ -260,7 +356,7 @@
     </processMetadataValues>
     <processType>Workflow</processType>
     <startElementReference>myDecision</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

@@ -43,6 +43,9 @@
             ],
             "c/allocationsApp": [
                 "allocationsApp/allocationsApp.js"
+            ],
+            "c/propertyUpdateLWC": [
+                "propertyUpdateLWC/propertyUpdateLWC.js"
             ]
         },
         "experimentalDecorators": true

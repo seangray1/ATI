@@ -6,15 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>&quot;A &quot;&quot;Major Event&quot;&quot; is a catastrophe, disaster, or other series of related incidents over a wide geographic area which have a widespread impact on many different entities, e.g. a large earthquake or hurricane, an epidemic, over the course of a season.</inlineHelpText>
     <label>Major Event</label>
-    <lookupFilter>
-        <active>true</active>
-        <filterItems>
-            <field>Major_Event__c.Status__c</field>
-            <operation>notEqual</operation>
-            <value>Inactive</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-    </lookupFilter>
     <referenceTo>Major_Event__c</referenceTo>
     <relationshipLabel>Jobs</relationshipLabel>
     <relationshipName>Jobs</relationshipName>

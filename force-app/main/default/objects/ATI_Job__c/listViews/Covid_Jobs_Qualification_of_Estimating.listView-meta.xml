@@ -8,12 +8,7 @@
     <columns>Stage__c</columns>
     <columns>Job_Category__c</columns>
     <columns>Age__c</columns>
-    <filterScope>Mine</filterScope>
-    <filters>
-        <field>Job_Category__c</field>
-        <operation>equals</operation>
-        <value>Corona Virus #1,Corona Virus #2,Corona Virus #3</value>
-    </filters>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
@@ -23,6 +18,16 @@
         <field>Stage__c</field>
         <operation>equals</operation>
         <value>Qualification,Estimating/Review</value>
+    </filters>
+    <filters>
+        <field>Major_Event__c</field>
+        <operation>equals</operation>
+        <value>Corona Virus #1,Corona Virus #2,Corona Virus #3,Covid Related</value>
+    </filters>
+    <filters>
+        <field>Is_PD_the_Logged_in_User__c</field>
+        <operation>equals</operation>
+        <value>1</value>
     </filters>
     <label>*My Covid Jobs (PD) - Qual &amp; Est/Rev</label>
 </ListView>

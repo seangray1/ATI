@@ -17,6 +17,7 @@
                 <lightning-spinner alternative-text="Loading"  size="medium" variant="brand"></lightning-spinner>
             </div>
         </template>
+        <template if:true={PropertyChecked}>
         <div class="slds-box slds-theme_shade">
             <lightning-accordion allow-multiple-sections-open
                          onsectiontoggle={handleSectionToggle}
@@ -393,17 +394,17 @@
                      
                      <label class="Labels spacing required1" > Market Class</label>
                             <lightning-combobox  
-                             options={MarketClassValues} value={MarketClass} onchange={MarketClassChange} 
+                             options={MarketClassValues} value={MarketClass} disabled={MarketsDisabled} onchange={MarketClassChange} 
                             class=" spacing jobFormControl"></lightning-combobox>
                     <label class="Labels spacing required1" > Market Segment</label>
                             <lightning-combobox  
                              options={MarketSegmentOptions} value={MarketSegment} onchange={MarketSegmentChange} 
-                            class=" spacing jobFormControl"></lightning-combobox>
+                            class=" spacing jobFormControl" disabled={MarketsDisabled}></lightning-combobox>
                      <template if:true={NonResidential}>
                     <label class="Labels spacing required1" > Market Segment Sub Class</label>
                             <lightning-combobox  
                              options={MarketSegmentSubClassOptions} value={MarketSegmentSubClass} onchange={MarketSegmentSubClassChange} 
-                            class=" spacing jobFormControl"></lightning-combobox>        
+                            class=" spacing jobFormControl" disabled={MarketsDisabled}></lightning-combobox>        
                         </template>
                        
                            
@@ -641,7 +642,7 @@
             
             <!-- <textarea style="height: 250px; width:500px;" disabled={DescriptionDisabled} class="jobFormControl" onchange={DescriptionChange}>{Description}</textarea> -->
                             
-                                        <lightning-textarea placeholder="Type Description Here" disabled={DescriptionDisabled} class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
                                        
                                     </div>
                                     <!-- <div class="slds-col slds-size_1-of-2">
@@ -659,13 +660,16 @@
         <!-- <div class="slds-box slds-theme_shade"> -->
             
         <!-- </div> -->
-    </div>
+    
+
     <div class="slds-p-around_medium lgc-bg-inverse element">
         <lightning-button-group>
     <lightning-button label='Submit' onclick={CreateNewJob} variant="brand"></lightning-button>
     <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
     </lightning-button-group>
     </div>
+</div>
+</template>
 </div>
 
     <template if:true={bShowModal}>
@@ -1246,11 +1250,11 @@
                             <div class="slds-box slds-theme_shade">
                 
                 
-                    
+                                <!-- class="propertyFormControl" -->
                                 <lightning-input-address
-                                required
+                               
                                 read-only
-                                class="propertyFormControl"
+                                
                                 data-id="AddressLookup"
                                 address-label="Address Search"
                                 street-label="Street"

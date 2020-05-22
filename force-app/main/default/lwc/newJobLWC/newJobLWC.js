@@ -75,6 +75,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     "Account Roles",
     "Property Information"
   ];
+  @track MarketsDisabled = false;
   PersonAccount = false;
   jobLoading = false;
   testingProperty;
@@ -141,6 +142,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   AddressLine1;
   PropertyType = "";
   Zip;
+  @track PropertyChecked = false;
   Description =
     "Type of Loss:" +
     "\n" +
@@ -282,6 +284,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   Body = "";
   Odor = "";
   Belongings = "";
+  @track ExistingMasterJob = false;
   @api jobrecordId;
   @api TypeOfJobEntry;
   @track PropertyIsNotSelected = true;	
@@ -444,10 +447,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         " record id is " +
         this.jobrecordId
     );
+    if(this.TypeOfJobEntry === "NewJobEntry"){
+      this.PropertyChecked = true;
+    }
     if (this.TypeOfJobEntry === "AfterHoursJobEntry") {
       GetJobInfo({ recordId: this.jobrecordId }).then((result) => {
         let jobresults = result;
         this.JobTemp = result;
+        this.MasterJobId = jobresults.Master_Job__c;
+        console.log('MasterJob Id from ConnectedCallback is ' + this.MasterJobId);
         GetPropertyInfo({
           City: jobresults.Project_Site_City__c,
           Address: jobresults.Project_Site_Address__c,
@@ -455,6 +463,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           Zipcode: jobresults.Project_Site_Zipcode__c
         }).then((result) => {
           let Prop = result;
+          this.PropertyChecked = true;
           console.log("Prop is " + Prop);
           if (Prop.County__c === "Same Property") {
             this.PropertyPrompt = true;
@@ -504,7 +513,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         this.DateOfLoss = jobresults.Date_of_Loss__c;
         this.JobName = jobresults.Job_Name__c;
         this.Division = jobresults.Division__c;
-        this.MasterJobId = jobresults.Master_Job__c;
+        
         this.Afterhoursform = true;
 
         this.ContactInfoAndDescription =
@@ -950,8 +959,10 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       alert("Fill in all required fields before saving");
     } else {
       const address = this.template.querySelector('[data-id="AddressLookup"]');
-      const isValid = address.checkValidity();
-      if (isValid) {
+      // const isValid = address.checkValidity();
+      // if (isValid) {
+
+      if(address.street !== null && address.street !== undefined && address.street !== ""){
         this.Street = address.street;
         this.City = address.city;
         this.State = address.province;
@@ -1966,6 +1977,13 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.Zip = this.PropertySelectedField.Zip__c;
     this.City = this.PropertySelectedField.City__c;
     this.State = this.PropertySelectedField.State__c;
+    // if(this.PropertySelectedField.Market_Class__c !== "" && this.PropertySelectedField.Market_Class__c !== undefined && this.PropertySelectedField.Market_Class__c !== null){
+    // this.MarketClass = this.PropertySelectedField.Market_Class__c;
+    // this.MarketSegment = this.PropertySelectedField.Market_Segment__c;
+    // this.MarketSegmentSubClass = this.PropertySelectedField.Market_Segment_Sub_Class__c;
+    // this.MarketsDisabled = true;
+    // }
+    
 
     checkId({ propId: this.testingProperty.Id }).then((result) => {
       let data = result;
@@ -2041,45 +2059,55 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   populateMasterJobField(event) {
     this.MasterJobDetails = event.target.value;
     this.MasterJobId = this.MasterJobDetails.Id;
+    console.log('MasterJob Id from PopulateMasterJobFIeld is ' + this.MasterJobId);
+    if(this.TypeOfJobEntry === "AfterHoursJobEntry"){
+      this.ExistingMasterJob = true;
+    }
 
     if (
       this.MasterJobDetails.Claim__c !== "" &&
-      this.MasterJobDetails.Claim__c !== undefined
+      this.MasterJobDetails.Claim__c !== undefined &&
+      this.MasterJobDetails.Claim__c !== null
     ) {
       this.Claim = this.MasterJobDetails.Claim__c;
       this.ClaimDisabled = true;
     }
     if (
       this.MasterJobDetails.Description_of_Loss__c !== "" &&
-      this.MasterJobDetails.Description_of_Loss__c !== undefined
+      this.MasterJobDetails.Description_of_Loss__c !== undefined &&
+      this.MasterJobDetails.Description_of_Loss__c !== null
     ) {
       this.Description = this.MasterJobDetails.Description_of_Loss__c;
       this.DescriptionDisabled = true;
     }
     if (
       this.MasterJobDetails.Lead_Source__c !== "" &&
-      this.MasterJobDetails.Lead_Source__c !== undefined
+      this.MasterJobDetails.Lead_Source__c !== undefined &&
+      this.MasterJobDetails.Lead_Source__c !== null
     ) {
       this.LeadSource = this.MasterJobDetails.Lead_Source__c;
-      this.LeadSourceDisabled = true;
+      //this.LeadSourceDisabled = true;
     }
     if (
       this.MasterJobDetails.Date_of_Loss__c !== "" &&
-      this.MasterJobDetails.Date_of_Loss__c !== undefined
+      this.MasterJobDetails.Date_of_Loss__c !== undefined &&
+      this.MasterJobDetails.Date_of_Loss__c !== null
     ) {
       this.DateOfLoss = this.MasterJobDetails.Date_of_Loss__c;
       this.DateOfLossDisabled = true;
     }
     if (
       this.MasterJobDetails.Cont_P_O_Client_Job__c !== "" &&
-      this.MasterJobDetails.Cont_P_O_Client_Job__c !== undefined
+      this.MasterJobDetails.Cont_P_O_Client_Job__c !== undefined &&
+      this.MasterJobDetails.Cont_P_O_Client_Job__c !== null
     ) {
       this.ClientJob = this.MasterJobDetails.Cont_P_O_Client_Job__c;
       this.ClientJobDisabled = true;
     }
     if (
       this.MasterJobDetails.Multiple_Divisions__c !== "" &&
-      this.MasterJobDetails.Multiple_Divisions__c !== undefined
+      this.MasterJobDetails.Multiple_Divisions__c !== undefined &&
+      this.MasterJobDetails.Multiple_Divisions__c !== null
     ) {
       this.MultipleDivision = this.MasterJobDetails.Multiple_Divisions__c;
     }
@@ -2196,6 +2224,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   AlternateName: this.AlternateName
                 });
                 //Job Fields
+                
                 JobJSON = JSON.stringify({
                   Description: this.Description,
                   JobRealName: this.JobRealName,
@@ -2215,9 +2244,12 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   YearBuilt: this.YearBuilt,
                   MajorEvent: this.MajorEventId,
                   MarketSegmentSubClass: this.MarketSegmentSubClass,
-                  MarketClass: this.MarketClass
+                  MarketClass: this.MarketClass,
+                  ExistingMasterJob: this.ExistingMasterJob
                 });
                 //Master Job is just MasterJobId, if null then need to create a new one.
+                console.log('Masterjob id before insert' + this.MasterJobId);
+                console.log('ExistingMasterjob before insert ' + this.ExistingMasterJob);
                 this.jobLoading = true;
                 CreateNewJob({
                   AccountRoleInfo: AccountRoleInfo,
@@ -2225,7 +2257,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   JobInfo: JobJSON,
                   MasterJobId: this.MasterJobId,
                   JobEntryType: this.TypeOfJobEntry,
-                  jobrecordId: this.jobrecordId
+                  jobrecordId: this.jobrecordId,
+                  ExistingMasterJob:this.ExistingMasterJob
                 }).then((result) => {
                   console.log("Response is " + result);
                   this.jobLoading = false;

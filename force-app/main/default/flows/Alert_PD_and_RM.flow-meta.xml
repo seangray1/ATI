@@ -514,7 +514,7 @@
         <showHeader>true</showHeader>
     </screens>
     <startElementReference>Job_Record</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>Comments</name>
         <text>@[{!OfficeManager.Id}]

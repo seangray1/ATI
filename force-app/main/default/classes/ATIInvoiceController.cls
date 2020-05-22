@@ -131,7 +131,17 @@ public class ATIInvoiceController{
     //method that will return value of fields related to the Bill to account Lookup field
     public void PrePopData(){
 		 System.debug('This is Inside PrepopData - contextBusinessAddressId ....' + contextBusinessAddressId);
- 
+        system.debug('invoiceRecord Bill to is ' + invoiceRecord);
+        ATI_Job__c job = [Select Id, Account__c FROM ATI_Job__c Where Id=:invoiceRecord.ATI_Job__c];
+        List<Account_Roles__c> ar = [Select Id, Master_Job_ID__c, Account_ID__c, Multiple_Roles__c FROM Account_Roles__c Where Master_Job_ID__c =: job.Id];
+        Account_Roles__c BillToAccountRole = new Account_Roles__c();
+        
+        for(Account_Roles__c a : ar){
+            if(a.Multiple_roles__c.contains('Primary/Bill-to')){
+                BillToAccountRole = a;
+            }
+        }
+
          List<Account> acctList = [Select a.BillingStreet, a.BillingState, a.BillingPostalCode, 
                            a.BillingCountry, a.BillingCity, a.Tax_Group__c, a.Billing_Notes__c From Account a WHERE a.Id =:invoiceRecord.Bill_To__c
                            or a.Id = :invoiceRecord.Care_Of__c];
@@ -180,6 +190,13 @@ public class ATIInvoiceController{
             invoiceRecord.Care_of_Address1__c = '';
         }
     }
+    if(invoiceRecord.Bill_To__c == null && BillToAccountRole.Account_Id__c != null){
+        invoiceRecord.Bill_To__c = BillToAccountRole.Account_ID__c;
+    }
+    if(invoiceRecord.Bill_To__c == null && BillToAccountRole.Account_Id__c == null){
+        invoiceRecord.Bill_To__c = job.Account__c;
+    }
+    
 }
     
     public void PrePopTxRate(){

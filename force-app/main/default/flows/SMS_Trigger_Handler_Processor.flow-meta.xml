@@ -73,7 +73,7 @@
         <object>Triggered_SMS_Handler__c</object>
     </recordUpdates>
     <startElementReference>Unsent_Trigger_Handler_Records</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <description>This is the collection of found unsent SMS trigger records.</description>
         <name>colSMStriggerrecords</name>

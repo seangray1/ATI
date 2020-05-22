@@ -1557,7 +1557,7 @@ CONTAINS({!myVariable_current.Office2__c} ,&quot;a1O70000000X5dv&quot;),
     </processMetadataValues>
     <processType>Workflow</processType>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
