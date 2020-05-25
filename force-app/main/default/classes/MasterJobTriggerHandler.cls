@@ -59,21 +59,22 @@ public with sharing class MasterJobTriggerHandler {
         List<ATI_Job__c> JobList = new List<ATI_Job__c>();
         for(Master_Job__c MasterJob : newMasterJobs){
             system.debug('Master Job' + MasterJob);
-            
+            //lead source 
             Master_Job__c oldJob = oldMasterJobs.get(MasterJob.Id);
             if(MasterJob.AfterHoursUpdate__c == oldjob.AfterHoursUpdate__c){
             system.debug('Old Master Job ' + oldJob);
             if(MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Claim__c != oldJob.Claim__c || 
             MasterJob.Policy__c != oldJob.Policy__c || MasterJob.Deductible__c != oldJob.Deductible__c ||
-            MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c ||
-            MasterJob.Property__c != oldJob.Property__c){
+            MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Lead_Source__c != oldJob.Lead_Source__c ||
+            MasterJob.Property__c != oldJob.Property__c || MasterJob.PO__c != oldJob.PO__c
+            || MasterJob.Account_Executive_1__c != oldJob.Account_Executive_1__c || MasterJob.Account_Executive_2__c != oldJob.Account_Executive_2__c){
                 MasterJobIdSet.add(MasterJob.Id);
             }
         }
         }
 
-        //remember to do if statements to check if blank
-        //query for jobs that need to be updated
+        // remember to do if statements to check if blank
+        // query for jobs that need to be updated
         if(!MasterJobIdSet.isEmpty()){
         JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c, Master_Job__c, Property_ID__c, Description__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
         if(!JobList.isEmpty()){
@@ -84,6 +85,9 @@ public with sharing class MasterJobTriggerHandler {
             job.Deductible__c = newMasterJob.Deductible__c;
             job.Policy__c = newMasterJob.Policy__c;
             job.Property_ID__c = newMasterJob.Property__c;
+            job.PO__c = newMasterJob.PO__c;
+            job.Account_Executive_1__c = newMasterJob.Account_Executive_1__c;
+            job.Account_Executive_2__c = newMasterJob.Account_Executive_2__c;
            
         }
         Update JobList;

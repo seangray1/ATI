@@ -73,7 +73,19 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>BatchForMasterJobs</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BatchForMasterJobs_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>BatchForProperties</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BatchForProperties_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -182,6 +194,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>BudgetFieldUpdate_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BudgetLineItemFieldUpdate</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1026,6 +1042,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>WaiverControl</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>XactFileReOpenedClass</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2644,6 +2664,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Market_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ATI_Job__c.Master_Job__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5004,6 +5029,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Budget__c.Start_Date__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Budget__c.Store_Log__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9127,8 +9157,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Master_Job__c.Amount__c</field>
+        <editable>true</editable>
+        <field>Master_Job__c.AfterHoursUpdate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11468,6 +11498,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Property__c.LastUpdate__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Property__c.Lead_RRP_Apply__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -11477,9 +11512,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Property__c.Market_Class__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>

@@ -4,7 +4,7 @@
     <description>Project Site State</description>
     <externalId>false</externalId>
     <label>Project Site State</label>
-    <length>2</length>
+    <length>50</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

@@ -3,8 +3,9 @@
     
     <types>
         <members>*</members>
-        <name>AuraDefinitionBundle</name>
+        <name>LightningComponentBundle</name>
     </types>
+    
   
      
 

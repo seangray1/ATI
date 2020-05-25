@@ -7,6 +7,7 @@ import GetMajorEvents from '@salesforce/apex/NewJobController.GetMajorEvents';
 import FORM_FACTOR from '@salesforce/client/formFactor';
 import { NavigationMixin } from 'lightning/navigation';
 import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
+
 const DELAY = 600;
 var Street, City, State, ZipCode, Country;
 export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) {
@@ -17,7 +18,7 @@ DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorE
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
 ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
 DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
-@track Desktop = false; @track Mobile = false;
+@track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
 }
@@ -126,6 +127,7 @@ connectedCallback(){
     if(FORM_FACTOR === 'Medium' || FORM_FACTOR === 'Small'){
         this.Mobile = true;
     }
+    
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
         for(var i = 0; i<AccountRolePicklistValues.length;i++){
@@ -152,9 +154,12 @@ searchAgain(){
     this.ProjectDirectorId = "";
 }
 ClearProjectDirector(event){
+   
+    this.ProjectDirectorValue = event.detail.value;
     let searchKey = event.detail.value;
     if(searchKey.length === 0){
     this.ProjectDirectors = "";
+    this.ProjectDirectorValue = "";
     }
     }
 ClearMajorEvent(event){
@@ -269,6 +274,7 @@ AddressLine2Change(e){
     this.AddressLine2 = e.detail.value;
 }
 ClearOffice(event){
+   
     let searchKey = event.detail.value;
     if(searchKey.length === 0){
     this.Offices = "";
@@ -298,6 +304,15 @@ Save(){
     if(!input){
         alert('Fill in all required fields before saving');
     }else{
+        if(this.OfficeId === null || this.OfficeId === undefined || this.OfficeId === ""){
+            alert('Please make a selection from the Office list');
+        }else{
+            
+        if(this.ProjectDirectorValue.length > 1 && (this.ProjectDirectorId === null || this.ProjectDirectorId === undefined || this.ProjectDirectorId === "")){
+            alert('Please make a selection from the Project Director list')
+        }else{
+
+        
     const address = this.template.querySelector('[data-id="AddressLookup"]');
             // const isValid = address.checkValidity();
             //   if(isValid) {
@@ -337,10 +352,13 @@ Save(){
     }
     }) 
 //}
+                
                 }else{
                     alert('Search For an Address');
                 }
     }
+}
+}
 }
 Cancel(event) {
     location.href =

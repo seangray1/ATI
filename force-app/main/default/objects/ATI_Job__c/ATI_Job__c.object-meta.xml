@@ -207,6 +207,6 @@
         <searchResultsAdditionalFields>Project_Manager__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Date_Time_Taken__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ControlledByParent</sharingModel>
+    <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

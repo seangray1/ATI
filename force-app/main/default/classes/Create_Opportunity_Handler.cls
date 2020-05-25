@@ -112,6 +112,7 @@ public without sharing class Create_Opportunity_Handler
                     updateOpportunity.Office2__c = newJob.Office2__c;
                     updateOpportunity.Amount = newJob.Amount__c;
                     updateOpportunity.Name = newJob.Name;
+                    
                     if(newJob.Referred_by__c <> null){
                         updateOpportunity.Contact__c=newJob.Referred_by__c;
                     } else {

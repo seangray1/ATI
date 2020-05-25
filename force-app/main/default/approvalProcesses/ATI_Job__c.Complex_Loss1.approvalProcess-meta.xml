@@ -242,6 +242,7 @@
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
+        <field>Owner</field>
         <field>Amount__c</field>
         <field>Account__c</field>
         <field>Project_Manager__c</field>

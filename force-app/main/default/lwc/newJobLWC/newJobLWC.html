@@ -413,7 +413,7 @@
                     <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
                             <lightning-input onkeyup={OfficeChange}
-                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing  jobFormControl"></lightning-input>
+                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} disabled={OfficeDisabled} type="search" class="spacing  jobFormControl"></lightning-input>
                               
                                 <template if:true={Offices}>
                                     <table
@@ -578,7 +578,7 @@
                         <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
                           
                         <label class="Labels spacing"> Policy #</label>
-                        <lightning-input  value={Policy}  onchange={PolicyChange} class="spacing" ></lightning-input>  
+                        <lightning-input  value={Policy}  onchange={PolicyChange} disabled={PolicyDisabled} class="spacing" ></lightning-input>  
                     </div>
                     <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing" > Cont. P.O./ Client Job #</label>

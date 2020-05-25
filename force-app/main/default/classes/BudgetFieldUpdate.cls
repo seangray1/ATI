@@ -96,6 +96,7 @@ public without sharing class BudgetFieldUpdate {
                 job.budget__c = 'Created';
                 jobsToUpdate.add(job);
                 
+                
                 // if(b.budget_status__c == 'Submitted for Approval'){
                 //     job.budget__c = 'Submitted for Approval';
                 // }
@@ -111,7 +112,12 @@ public without sharing class BudgetFieldUpdate {
             
             }
         }//for loop for each customer survey and assign them to customer survey.  
-        update jobsToUpdate;
+        //update jobsToUpdate;
+        MAP<Id,ATI_Job__c> ATIJobDupeMap = new MAP<Id,ATI_Job__c>();
+         ATIJobDupeMap.putall(jobsToUpdate);
+         if(ATIJobDupeMap.size()>0){
+            update ATIJobDupeMap.values();
+ }
      
     }
     public static void UpdateFinancialGP(List<Budget__c> bud, Map<Id,Budget__c> oldBud)

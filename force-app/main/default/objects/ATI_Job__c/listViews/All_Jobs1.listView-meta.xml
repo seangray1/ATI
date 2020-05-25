@@ -9,6 +9,12 @@
     <columns>CloseDate__c</columns>
     <columns>Amount__c</columns>
     <columns>Date_Time_Taken__c</columns>
+    <columns>Project_Site_Address__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project_Site_Address__c</field>
+        <operation>startsWith</operation>
+        <value>423 Berry</value>
+    </filters>
     <label>All Jobs</label>
 </ListView>

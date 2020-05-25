@@ -148,13 +148,12 @@
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
+        <field>Owner</field>
         <field>Submitted_for_Approval_By__c</field>
-        <field>Amount__c</field>
+        
         <field>Account_Executive_1__c</field>
         <field>Account_Executive_2__c</field>
-        <field>Account__c</field>
-        <field>Contact__c</field>
-        <field>Referred_by__c</field>
+       
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
@@ -170,11 +169,7 @@
     <emailTemplate>ATI_Job_Templates/Credit_Request_Approval_Submissions</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <criteriaItems>
-            <field>ATI_Job__c.RecordType</field>
-            <operation>equals</operation>
-            <value>Job (Approved)</value>
-        </criteriaItems>
+        
         <criteriaItems>
             <field>User.Profile</field>
             <operation>equals</operation>

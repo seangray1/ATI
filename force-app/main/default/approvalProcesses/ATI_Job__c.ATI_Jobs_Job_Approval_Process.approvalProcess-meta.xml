@@ -22,6 +22,7 @@
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
+        <field>Owner</field>
         <field>Job_Number__c</field>
         <field>Office2__c</field>
         <field>Division__c</field>

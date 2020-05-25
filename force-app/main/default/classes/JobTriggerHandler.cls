@@ -74,7 +74,7 @@ public without sharing class JobTriggerHandler {
         JobUtility.createFotoInProject( oldJobMap, newJobMap.values() );
         JobUtility.updateFotoInProject( oldJobMap, newjobMap.values() );
        // BigTime_Callout_Integration.invokeCallout(Trigger.new, oldJobMap);
-        
+       JobTriggerHandlerWorkflow.MasterJobAmountRollup(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
         if(!Econz_Integration_Callouts.isECONZCalloutsProcessed){
         system.debug('====Integration====');
             Econz_Integration_Callouts.manageEConzCallouts(oldJobMap, newJobMap.values());
@@ -150,6 +150,7 @@ public without sharing class JobTriggerHandler {
        AccountExecutiveController.UpdateAccountExecutives(Trigger.new);
         // moving this to after update as we cannot change the Job owner on insert due to Job splits issue
         JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
+        
         
     }
     

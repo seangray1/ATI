@@ -20,7 +20,7 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
             global Database.QueryLocator start(Database.BatchableContext BC){
              //    string pn = 'PN-'+ '%';
              //AND Job_Class__c != \'Residential\' AND (Year_Taken__c = \'2017\' OR Year_Taken__c = \'2020\' OR Year_Taken__c = \'2019\' OR Year_Taken__c = \'2020\')
-                query = 'select Id, Address_Line_1__c, Job_Address_Line_1__c, Address_Verified__c, job_city__c, Job_state__c, job_zip__c, Street__c, City__c, State__c, Zip__c, County__c from Property__c where Google_Verified__c = False AND job_City__c != null AND Job_State__c != null AND Job_Address_Line_1__c != null AND job_zip__c != null' ;
+                query = 'select Id, Address_Line_1__c, Job_Address_Line_1__c, Address_Verified__c, job_city__c, Job_state__c, job_zip__c, Street__c, City__c, State__c, Zip__c, County__c from Property__c where LastUpdate__c = TRUE AND job_City__c != null AND Job_State__c != null AND Job_Address_Line_1__c != null AND job_zip__c != null' ;
          
              return Database.getQueryLocator(query);
      

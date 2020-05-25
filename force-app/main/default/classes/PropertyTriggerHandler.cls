@@ -34,20 +34,20 @@ public with sharing class PropertyTriggerHandler {
             
         }
     }
-//     if(!propset.isEmpty()){
-//         jobs = [Select Id, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c, Property_ID__c FROM 
-//         ATI_Job__c WHere Property_Id__c =: propset];
-//     }
-//     if(!jobs.isEmpty()){
-//     for(ATI_Job__c job: jobs){
-//         Property__c prop = newPropMap.get(job.Property_ID__c);
-//         job.Project_Site_Address__c = prop.Address_line_1__c;
-//         job.Project_Site_City__c = prop.City__c;
-//         job.Project_Site_State__c = prop.State__c;
-//         job.Project_Site_Zipcode__c = prop.Zip__c;
-//     }
-//     update jobs;
-// }
+    if(!propset.isEmpty()){
+        jobs = [Select Id, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c, Property_ID__c FROM 
+        ATI_Job__c WHere Property_Id__c =: propset];
+    }
+    if(!jobs.isEmpty()){
+    for(ATI_Job__c job: jobs){
+        Property__c prop = newPropMap.get(job.Property_ID__c);
+        job.Project_Site_Address__c = prop.Address_line_1__c;
+        job.Project_Site_City__c = prop.City__c;
+        job.Project_Site_State__c = prop.State__c;
+        job.Project_Site_Zipcode__c = prop.Zip__c;
+    }
+    update jobs;
+}
     
     }
 }

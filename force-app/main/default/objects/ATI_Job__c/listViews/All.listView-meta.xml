@@ -5,5 +5,10 @@
     <columns>Date_Taken__c</columns>
     <columns>Stage__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>LAST_UPDATE</field>
+        <operation>equals</operation>
+        <value>5/18/2020 12:00 AM</value>
+    </filters>
     <label>All</label>
 </ListView>

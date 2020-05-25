@@ -247,6 +247,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   DateOfLoss;
   ClientJob;
   YearBuilt;
+  PolicyDisabled = false;
   ARRoleBlank = false;
   ClientJobDisabled = false;
   ClaimDisabled = false;
@@ -492,6 +493,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           this.ProjectDirectorValue = jobresults.Project_Manager__r.Name;
         }
         if (
+          jobresults.Taken_By__c !== undefined &&
+          jobresults.Taken_By__c !== null &&
+          jobresults.Taken_By__c !== ""
+        ) {
+          
+          this.TakenByValue = jobresults.Taken_By__r.Name;
+          this.TakenById = jobresults.Taken_By__c;
+        }
+        if (
           jobresults.Major_Event__c !== undefined &&
           jobresults.Major_Event__c !== null &&
           jobresults.Major_Event__c !== ""
@@ -523,10 +533,12 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         console.log(this.ContactInfoAndDescription);
       });
     }
+    if(this.TypeOfJobEntry === 'NewJobEntry'){
     GetUserName({}).then((result) => {
       this.TakenByValue = result;
       this.TakenById = this.UserId;
     });
+  }
     GetAccountRolesPicklist({}).then((result) => {
       var AccountRolePicklistValues = result;
       for (var i = 0; i < AccountRolePicklistValues.length; i++) {
@@ -898,6 +910,14 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.Zip = this.JobTemp.Project_Site_Zipcode__c;
     this.JobClass = this.PropertyTempId.Job_Class__c;
      this.YearBuilt = this.PropertyTempId.Year_Structure_Built__c;
+    //  console.log('Market Class is ' + this.PropertyTempId.Market_Segment__c);
+    //  if(this.PropertyTempId.Market_Class__c !== "" && this.PropertyTempId.Market_Class__c !== undefined && this.PropertyTempId.Market_Class__c !== null){
+    //   this.MarketClass = this.PropertyTempId.Market_Class__c;
+    //   this.MarketSegment = this.PropertyTempId.Market_Segment__c;
+    //   this.MarketSegmentSubClass = this.PropertyTempId.Market_Segment_Sub_Class__c;
+    //   this.MarketsDisabled = true;
+    //  }
+      
     this.PropertyPrompt = false;
     this.NotNewProperty = false;
     checkId({ propId: this.PropertyID }).then((result) => {
@@ -1990,12 +2010,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.Zip = this.PropertySelectedField.Zip__c;
     this.City = this.PropertySelectedField.City__c;
     this.State = this.PropertySelectedField.State__c;
-    // if(this.PropertySelectedField.Market_Class__c !== "" && this.PropertySelectedField.Market_Class__c !== undefined && this.PropertySelectedField.Market_Class__c !== null){
-    // this.MarketClass = this.PropertySelectedField.Market_Class__c;
-    // this.MarketSegment = this.PropertySelectedField.Market_Segment__c;
-    // this.MarketSegmentSubClass = this.PropertySelectedField.Market_Segment_Sub_Class__c;
-    // this.MarketsDisabled = true;
-    // }
+    console.log('Market Class is '  + this.PropertySelectedField.Market_Class__c);
+    
+    
     
 
     checkId({ propId: this.testingProperty.Id }).then((result) => {
@@ -2099,7 +2116,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.MasterJobDetails.Lead_Source__c !== null
     ) {
       this.LeadSource = this.MasterJobDetails.Lead_Source__c;
-      //this.LeadSourceDisabled = true;
+      this.LeadSourceDisabled = true;
     }
     if (
       this.MasterJobDetails.Date_of_Loss__c !== "" &&
@@ -2116,6 +2133,25 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     ) {
       this.ClientJob = this.MasterJobDetails.Cont_P_O_Client_Job__c;
       this.ClientJobDisabled = true;
+    }
+    if (
+      this.MasterJobDetails.Office2__c !== "" &&
+      this.MasterJobDetails.Office2__c !== undefined &&
+      this.MasterJobDetails.Office2__c !== null
+    ) {
+      this.OfficeValue = this.MasterJobDetails.Office2__r.Name;
+      this.OfficeId = this.MasterJobDetails.Office2__c;
+      //this.OfficeDisabled = true;
+    }
+    console.log('policy is ' + this.MasterJobDetails.Policy__c);
+    if (
+      this.MasterJobDetails.Policy__c !== "" &&
+      this.MasterJobDetails.Policy__c !== undefined &&
+      this.MasterJobDetails.Policy__c !== null
+    ) {
+      this.Policy = this.MasterJobDetails.Policy__c;
+      
+      this.PolicyDisabled = true;
     }
     if (
       this.MasterJobDetails.Multiple_Divisions__c !== "" &&

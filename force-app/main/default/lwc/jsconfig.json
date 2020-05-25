@@ -65,14 +65,11 @@
             "c/propertySelectLWC": [
                 "propertySelectLWC/propertySelectLWC.js"
             ],
-            "c/rejectbudget": [
-                "rejectbudget/rejectbudget.js"
-            ],
             "c/propertyUpdateLWC": [
                 "propertyUpdateLWC/propertyUpdateLWC.js"
             ],
-            "c/PropertyUpdateLWC": [
-                "PropertyUpdateLWC/PropertyUpdateLWC.js"
+            "c/rejectbudget": [
+                "rejectbudget/rejectbudget.js"
             ]
         },
         "experimentalDecorators": true

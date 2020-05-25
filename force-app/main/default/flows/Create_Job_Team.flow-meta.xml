@@ -729,7 +729,7 @@
         <object>ATI_Job_Split__c</object>
     </recordCreates>
     <startElementReference>myDecision</startElementReference>
-    <status>Draft</status>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

@@ -190,6 +190,7 @@ public without sharing class NewJobController {
         
         return off;
     }
+   
     @AuraEnabled(cacheable = true)
     public static List<Contact> GetCustomers(String searchKey) {
         
@@ -432,6 +433,120 @@ public without sharing class NewJobController {
         for(Account_Roles__c ar : a){
             ar.Text__c = ar.Roles__c;
         }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
         
 
         system.debug('Prop Id + ' + propId);
@@ -442,7 +557,7 @@ public without sharing class NewJobController {
     
     @AuraEnabled 
     public static list<Master_Job__c> GetMasterJobs(string propId){
-        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c,  Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Stage__c != 'Closed' LIMIT 5];
+        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c, Office2__c, Office2__r.Name, Policy__c, Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Stage__c != 'Closed' LIMIT 5];
         system.debug('Prop Id + ' + propId);
         system.debug(mj.size());
         
@@ -456,7 +571,7 @@ public without sharing class NewJobController {
         String searchLikeKey = searchLikeKey1.normalizeSpace();
         system.debug('SearchLikeKey is ' + searchLikeKey);
         // try {
-        List<Property__c> props = [Select Id, Year_Structure_Built__c, County__c, Job_Class__c, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 1];
+        List<Property__c> props = [Select Id, Market_Class__c, Market_Segment__c, Market_Segment_Sub_Class__c, Year_Structure_Built__c, County__c, Job_Class__c, Name, State__c, City__c, Street__c, Address_Line_1__c, Zip__c FROM Property__c Where Full_Address__c Like : searchLikeKey LIMIT 1];
         system.debug('Properties are ' + props);
         if(!props.isEmpty()){
         Property__c prop1 = props[0];
@@ -476,7 +591,7 @@ public without sharing class NewJobController {
     @AuraEnabled 
     public static ATI_Job__c GetJobInfo(string recordId){
         ATI_Job__c job = [Select Id, Name, Project_Site_Address__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
-        Project_Site_Address_2__c, Job_Name__c, Stage__c, Master_Job__c, Division__c,  Date_of_Loss__c, Description__c, 
+        Project_Site_Address_2__c, Job_Name__c, Stage__c, Master_Job__c, Division__c,  Date_of_Loss__c, Description__c, Taken_By__c, Taken_By__r.Name,
         Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name FROM ATI_Job__c Where Id =: recordId];
        
         
@@ -487,6 +602,24 @@ public without sharing class NewJobController {
         id id1 = UserInfo.getProfileId();
         Profile p = [Select Name FROM Profile WHere Id =: id1];
         return p.Name;
+    }
+    @AuraEnabled
+    public static userInfoWrapper GetUserInfoAndIntakeStatus(string recordId){
+        id id1 = UserInfo.getProfileId();
+        Profile p = [Select Name FROM Profile WHere Id =: id1];
+        ATI_Job__c job = [Select Id, Intake_Status__c FROM ATI_Job__c WHere Id =: recordId];
+        userInfoWrapper u = new userInfoWrapper();
+        u.ProfileName = p.Name;
+        u.IntakeStatus = job.Intake_Status__c;
+        system.debug(u);
+        return u;
+    }
+   
+    public class userInfoWrapper{
+        @AuraEnabled 
+        public string ProfileName {get;set;}
+        @AuraEnabled 
+        public string IntakeStatus {get;set;}
     }
     @AuraEnabled(cacheable = true)
     public static List<User> GetUsers(String searchKey) {
@@ -889,7 +1022,7 @@ public without sharing class NewJobController {
             job.Account__c = account[0].id;
             job.Project_site_Contact_Name__c = account[0].PersonContactId;
             job.Project_site_Contact_Account__c = account[0].id;
-        } 
+       } 
         insert job;
         
         system.debug('After Job creation');
@@ -1194,7 +1327,8 @@ public without sharing class NewJobController {
             prop.County__c = prop.County__c.substring(0, 15);
         }
         //Job_Class__c = jobWrap.JobClass,
-        ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName,  Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
+        
+        ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Job_Request_Completed_By__c = UserInfo.getUserId(), Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
         Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass, Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
          Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
@@ -1216,7 +1350,7 @@ public without sharing class NewJobController {
         system.debug('Before update' + job.Master_Job__c);
         update job;
         system.debug('After update' + job.Master_Job__c);
-        if(ExistingMasterJob == true){
+        if(ExistingMasterJob == true && mjToDelete.Id != job.Master_Job__c){
             system.debug('MjJob To delete ' + mjToDelete);
         delete mjToDelete;
         }
