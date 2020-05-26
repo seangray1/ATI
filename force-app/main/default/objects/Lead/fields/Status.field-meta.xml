@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status</fullName>
+    <inlineHelpText>MQL - Marketing Qualified Leads coming from Pardot
+Recycled - Select this when not ready to be converted, but is also not dead
+Prospect - In education nurture in Pardot
+Converted - Select this when the lead is qualified and ready to be converted</inlineHelpText>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+</CustomField>

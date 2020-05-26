@@ -7,4 +7,5 @@ trigger efs_ATI_JobTrigger on ATI_Job__c (after update, after insert)
     else if(trigger.isAfter && trigger.isUpdate)
         efs__.EgnyteSyncQueueTrigger.onAfterUpdate();
                                          }
+   
 }

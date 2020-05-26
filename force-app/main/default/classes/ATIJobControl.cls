@@ -398,6 +398,10 @@ public without sharing class ATIJobControl {
                                                       j.Division__c,
                                                       sequenceStr);
             j.Name = j.Job_Number__c+ ' | '+j.Job_Name__c;
+            if(Trigger.isUpdate)
+            {
+                j.Job_Prev_number__c = oldJobMap.get(j.Id).Job_Prev_number__c;
+            }
             if (!String.IsBlank(j.Job_Number__c)) {
                 j.Job_Number_No_Dashes__c = ((String)j.Job_Number__c).replace('-','');
             }

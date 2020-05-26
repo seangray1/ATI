@@ -112,6 +112,7 @@ public class JobUtility {
 	// }
 
     public static void DeleteNotification(List<ATI_Job__c> jobs){
+        User u = [Select id, email FROM User where Name = 'Charlotte Neuhaus'];
       for(ATI_Job__c job : jobs){
                 if(job.Last_Successful_Timberline_Update__c != null){
               // List<ATI_Job__c> jobati = jobs.get(job);
@@ -119,12 +120,8 @@ public class JobUtility {
                Messaging.reserveSingleEmailCapacity(2);
                     Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
 					String[] toAddresses = new String[] {};
-                    toAddresses.add('charlotte.neuhaus@atirestoration.com');
-                   // toAddresses.add('sean.gray@atirestoration.com');
-					//String[] ccAddresses = new String[] {'sean.gray@atirestoration.com'};
+                    toAddresses.add(u.email);
                     mail.setToAddresses(toAddresses);
-                 //	mail.setCcAddresses(ccAddresses);
-                   // mail.setReplyTo('sean.gray@atirestoration.com');
                     mail.setSenderDisplayName('Salesforce Support');
                     mail.setSubject('Job Name :'+job.name + ' Deleted' );
                     mail.setBccSender(false);

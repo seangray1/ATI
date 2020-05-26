@@ -227,7 +227,13 @@ public without sharing class NewJobController {
         return a;
 
     }
-    
+    @AuraEnabled 
+    public static list<Account_Roles__c> GetJobAccountRoles(string recordId){
+        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Master_Job_Id__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Master_Job_Id__c =: recordId LIMIT 5];
+        system.debug('Account Roles are ' + a.size() + ' and record Id is ' + recordId);
+        return a;
+
+    }
     
     @AuraEnabled 
     public static list<Account_Roles__c> CheckId6(string propId){
@@ -590,11 +596,10 @@ public without sharing class NewJobController {
     }
     @AuraEnabled 
     public static ATI_Job__c GetJobInfo(string recordId){
-        ATI_Job__c job = [Select Id, Name, Project_Site_Address__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
-        Project_Site_Address_2__c, Job_Name__c, Stage__c, Master_Job__c, Division__c,  Date_of_Loss__c, Description__c, Taken_By__c, Taken_By__r.Name,
-        Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name FROM ATI_Job__c Where Id =: recordId];
-       
-        
+        ATI_Job__c job = [Select Id, Name, Property_Id__c, Project_Site_Address__c, CloseDate__c, Policy__c, Cont_P_O_Client_Job__c, PO__c, Send_prelim__c, Deductible__c, Claim__c, Project_Site_Contact_Account__c, Lead_Source__c, contact__c,Project_Site_Contact_Name__c,Contact_Information__c, Customer__c,Account__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
+        Project_Site_Address_2__c, Job_Name__c, Stage__c, Master_Job__c, Referred_by__c,  Division__c,  Date_of_Loss__c, Description__c, Taken_By__c, Taken_By__r.Name,
+        Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name, Market_Class__c, Market_Segment__c,
+        Market_Segment_Sub_Class__c FROM ATI_Job__c Where Id =: recordId];
         return job;
     }
     @AuraEnabled
@@ -906,133 +911,157 @@ public without sharing class NewJobController {
         //    return e.getMessage(); 
         // }
     }  
-    @AuraEnabled
-    public static String AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
-    String AddressLine2, String ContactInfo, String Description, String MajorEvent, String ProjectDirector){
-        //Create Master Job
-        //a. Office goes on Master, State City Zip goes on job. Description goes on Master
-        //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
-        // also set job record type to approved..
-        system.debug('Before Master Job creation');
-        Http h = new Http();
-            HttpRequest req = new HttpRequest();
-             String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
-             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-             req.setMethod('GET');
-             req.setTimeout(60000);
-             string county;
-             string street1;
-             string streetnumber;
-             string localityCity;
-             string sublocalityCity;
-             string neighborhoodCity;
-            if(!Test.isRunningTest()){
-            HttpResponse res = h.send(req);
-            system.debug('Response is ' + res.getBody());
-            resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-            system.debug('results are ' + result);
-            
-            for(results a: result.results){
-                system.debug('a ' + a);
-                for(address_components ad : a.address_components){
-                    system.debug('ad ' + ad.types[0]);
-                    if(ad.types[0] == 'administrative_area_level_2'){
-                        county = ad.long_name.replace('County', '');
-                    }
-                    if(ad.types[0] == 'route'){
-                        street1 = ad.short_name;
-                      //  system.debug('Street is  ' + street);
-                    }
-                    if(ad.types[0] == 'locality'){
-                        localityCity = ad.short_name;
-        
-                    }
-                    
-                    if(ad.types[0] == 'political'){
-                        sublocalityCity = ad.short_name;
-                        system.debug('Hitting 1 ' + sublocalityCity);
-                   
-                    }
-                    if(ad.types[0] == 'neighborhood'){
-                        neighborhoodCity = ad.short_name;
-                       
-                    }
-                    if(ad.types[0] == 'administrative_area_level_1'){
-                        state = ad.short_name;
-                     //   system.debug('city is  ' + city);
-                    }
-                    if(ad.types[0] == 'street_number'){
-                        streetnumber = ad.short_name;
-                        //system.debug('street # is  ' + streetnumber);
-                    }
-                    if(ad.types[0] == 'postal_code'){
-                        ZipCode = ad.short_name;
-                      //  system.debug('Postal # is  ' + postalcode);
-                    }
+@AuraEnabled
+public static String AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
+String AddressLine2, String ContactInfo, String Description, String MajorEvent, String ProjectDirector, String recordId)
+{
+//Create Master Job
+//a. Office goes on Master, State City Zip goes on job. Description goes on Master
+//Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
+// also set job record type to approved..
 
-                }  
-            }street = streetnumber +' '+ street1;
+    string county;
+    string street1;
+    string streetnumber;
+    string localityCity;
+    string sublocalityCity;
+    string neighborhoodCity;
+    String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
+    Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+    EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+    req.setMethod('GET');
+    req.setTimeout(60000);
+    if(!Test.isRunningTest())
+    {
+        HttpResponse res = h.send(req);
+        system.debug('Response is ' + res.getBody());
+        resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+        system.debug('results are ' + result);
+        for(results a: result.results)
+        {
+            system.debug('a ' + a);
+            for(address_components ad : a.address_components)
+            {
+                system.debug('ad ' + ad.types[0]);
+                if(ad.types[0] == 'administrative_area_level_2')
+                {
+                    county = ad.long_name.replace('County', '');
+                }
+                if(ad.types[0] == 'route')
+                {
+                    street1 = ad.short_name;
+                }
+                if(ad.types[0] == 'locality')
+                {
+                    localityCity = ad.short_name;
+                }
+
+                if(ad.types[0] == 'political')
+                {
+                    sublocalityCity = ad.short_name;
+                    system.debug('Hitting 1 ' + sublocalityCity);
+
+                }
+                if(ad.types[0] == 'neighborhood')
+                {
+                    neighborhoodCity = ad.short_name;
+                }
+                if(ad.types[0] == 'administrative_area_level_1')
+                {
+                    state = ad.short_name;
+                }
+                if(ad.types[0] == 'street_number')
+                {
+                    streetnumber = ad.short_name;
+                //system.debug('street # is  ' + streetnumber);
+                }
+                if(ad.types[0] == 'postal_code')
+                {
+                    ZipCode = ad.short_name;
+                //  system.debug('Postal # is  ' + postalcode);
+                }
+
+            }  
         }
-        if(neighborhoodCity != null){
-            City = neighborhoodCity;
-        }
-        if(sublocalityCity != null){
-            City = sublocalityCity;
-        }
-        if(localityCity != null){
-            City = localityCity;
-        }
-            Savepoint sp = Database.setSavepoint();
-        try {
-            
-            
-        Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
-        mj.City__c = City;
-        mj.State__c = State;
-        mj.Address_Line_1__c = Street;
-        insert mj;
-        system.debug('After Master Job creation');
-        Id userId = userinfo.getUserId();
-        Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
-        Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
-        
-        List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
-        system.debug('Account list ' +  account);
-        
-        system.debug('Before Job creation');
-            //County Search
-        
-            //Add contactinfo when the field is created.
-            system.debug('City is  ' + City);
-            if(City.length() > 15){
-                City = City.substring(0, 15);
-            }
-            system.debug('County is  ' + county);
-            if(county != null && county.length() > 15){
-                county = county.substring(0, 15);
-            }
+        street = streetnumber +' '+ street1;
+    }
+    if(neighborhoodCity != null)
+    {
+        City = neighborhoodCity;
+    }
+    if(sublocalityCity != null)
+    {
+        City = sublocalityCity;
+    }
+    if(localityCity != null)
+    {
+        City = localityCity;
+    }
+    Savepoint sp = Database.setSavepoint();
+    try 
+    {
+        if(recordId == null)
+        {    
+            Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
+            mj.City__c = City;
+            mj.State__c = State;
+            mj.Address_Line_1__c = Street;
+            insert mj;
+            system.debug('After Master Job creation');
+            Id userId = userinfo.getUserId();
+            Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
+            Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
+            List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
+            // if(City.length() > 15)
+            // {
+            // City = City.substring(0, 15);
+            // }
+            // system.debug('County is  ' + county);
+            // if(county != null && county.length() > 15){
+            // county = county.substring(0, 15);
+            // }
             //date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
-        Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
-        Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
-        Date_Time_Taken__c = datetime.now());
-        system.debug('Job info is ' + job);
-        if(!account.isempty()){
-            job.Account__c = account[0].id;
-            job.Project_site_Contact_Name__c = account[0].PersonContactId;
-            job.Project_site_Contact_Account__c = account[0].id;
-       } 
-        insert job;
-        
-        system.debug('After Job creation');
-        return job.id;
+            ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
+            Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
+            Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
+            Date_Time_Taken__c = datetime.now());
+            system.debug('Job info is ' + job);
+            if(!account.isempty())
+            {
+                job.Account__c = account[0].id;
+                job.Project_site_Contact_Name__c = account[0].PersonContactId;
+                job.Project_site_Contact_Account__c = account[0].id;
+            } 
+            insert job;
+            return job.id;
         }
-        catch (Exception e) {
-            Database.rollback(sp);
-            return e.getMessage();
+
+        if(recordId != null)
+        {
+            Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
+            ATI_Job__c jobdata = GetJobInfo(recordId);
+            ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = jobdata.Taken_By__c,
+            Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
+            Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
+            Date_Time_Taken__c = datetime.now(),  Policy__c = jobdata.Policy__c, Deductible__c = jobdata.Deductible__c,
+            Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c, Send_Prelim__c = jobdata.Send_Prelim__c, Account__c = jobdata.Account__c,
+            Contact__c = jobdata.Contact__c, Lead_Source__c = jobdata.Lead_Source__c, Market_Class__c = jobdata.Market_Class__c, Market_Segment__c = jobdata.Market_Segment__c,
+            Market_Segment_Sub_Class__c = jobdata.Market_Segment_Sub_Class__c, Date_of_Loss__c = jobdata.Date_of_Loss__c, Project_Site_Contact_Name__c = jobdata.Project_Site_Contact_Name__c,
+            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c);
+            system.debug('Job contains ' + job);
+            insert job;
+            return job.Id;
         }
-    }                
+    }
+    catch (Exception e) 
+    {
+    Database.rollback(sp);
+    return e.getMessage();
+    }
+    return 'Job failed to create';
+}                
     @AuraEnabled 
     public static string CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId, string JobEntryType, string jobrecordId, boolean ExistingMasterJob){
         system.debug('Existing mster job' + ExistingMasterJob);

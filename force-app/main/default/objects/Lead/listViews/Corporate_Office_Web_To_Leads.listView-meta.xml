@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Corporate_Office_Web_To_Leads</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Corporate Office</label>
+    <queue>Corporate_Office_Web_To_Leads</queue>
+    <sharedTo>
+        <role>Corporate_Office</role>
+        <role>Information_Technology</role>
+    </sharedTo>
+</ListView>

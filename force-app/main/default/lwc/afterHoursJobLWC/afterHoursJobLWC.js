@@ -1,9 +1,10 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 import SearchOffices from '@salesforce/apex/NewJobController.GetOffices';
 import AfterHoursJobCreation from '@salesforce/apex/NewJobController.AfterHoursJobCreation';
 import GetEsJobTypePicklist from '@salesforce/apex/NewJobController.GetEsJobTypePicklist';
 import GetDivisionPicklist from '@salesforce/apex/NewJobController.GetDivisionPicklist';
 import GetMajorEvents from '@salesforce/apex/NewJobController.GetMajorEvents';
+import GetJobInfo from '@salesforce/apex/NewJobController.GetJobInfo';
 import FORM_FACTOR from '@salesforce/client/formFactor';
 import { NavigationMixin } from 'lightning/navigation';
 import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
@@ -19,6 +20,7 @@ ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSel
 ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
 DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
 @track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];
+@api recordId;
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
 }
@@ -122,12 +124,34 @@ openContactInfoModal1(){
 connectedCallback(){
     console.log('Browser is ' + FORM_FACTOR);
     if(FORM_FACTOR === 'Large'){
-        this.Desktop = true;
+        if(this.recordId !== null)
+        {
+            this.Mobile = true;
+            GetJobInfo({recordId : this.recordId}).then(result =>{
+                this.OfficeId = result.Office2__c;
+                this.OfficeValue = result.Office2__r.Name;
+                this.JobName = result.Job_Name__c;
+                this.MajorEventId = result.Major_Event__c;
+                this.MajorEventValue = result.Major_Event__r.Name;
+                this.Description = result.Description__c;
+                this.ContactInfo = result.Contact_Info__c;
+                this.Street = result.Project_Site_Address__c;
+                this.City = result.Project_Site_City__c;
+                this.Zipcode = result.Project_Site_Zipcode__c;
+                this.State = result.Project_Site_State__c;
+                
+            })
+        }
+        else
+        {
+            this.Desktop = true;
+        }
+        
     }
     if(FORM_FACTOR === 'Medium' || FORM_FACTOR === 'Small'){
         this.Mobile = true;
     }
-    
+    console.log('record Id is ' + this.recordId);
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
         for(var i = 0; i<AccountRolePicklistValues.length;i++){
@@ -324,7 +348,7 @@ Save(){
                 Country = address.country;
                 this.loading = true;
                 AfterHoursJobCreation({JobName:this.JobName, Division:this.Division, EsJobType:this.EsJobType, Office:this.OfficeId, Street:Street, State:State, City:City, 
-                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description, MajorEvent:this.MajorEventId, ProjectDirector:this.ProjectDirectorId}).then(result => {
+                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description, MajorEvent:this.MajorEventId, ProjectDirector:this.ProjectDirectorId, recordId:this.recordId}).then(result => {
                 let data = result;
                 
         if(data.length > 18){

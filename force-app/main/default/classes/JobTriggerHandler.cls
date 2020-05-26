@@ -74,7 +74,7 @@ public without sharing class JobTriggerHandler {
         JobUtility.createFotoInProject( oldJobMap, newJobMap.values() );
         JobUtility.updateFotoInProject( oldJobMap, newjobMap.values() );
        // BigTime_Callout_Integration.invokeCallout(Trigger.new, oldJobMap);
-       JobTriggerHandlerWorkflow.MasterJobAmountRollup(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+       
         if(!Econz_Integration_Callouts.isECONZCalloutsProcessed){
         system.debug('====Integration====');
             Econz_Integration_Callouts.manageEConzCallouts(oldJobMap, newJobMap.values());
@@ -112,6 +112,13 @@ public without sharing class JobTriggerHandler {
     /* handles both before insert and updates */
     public static void handleBeforeInsertUpdate(){
         // Update Job Number
+        if(Trigger.isBefore && (Trigger.isUpdate)){
+            JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
+            }
+        JobTriggerHandlerWorkflow.AssignProjectRoles(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        JobTriggerHandlerWorkflow.StageChanged(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        
+        
         if (cfg.JobSetJobNumber__c && Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
             
             map<Id,ATI_Job__c> oldMap =null;
@@ -128,9 +135,8 @@ public without sharing class JobTriggerHandler {
             ATIJobControl.setGLAccountPrefix(Trigger.new);
             
         }
-        if(Trigger.isBefore && (Trigger.isUpdate)){
-        JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
-        }
+        
+       
         if(Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)){
             //logic - copies the Jobs Project Manager into the Owner field
             JobUtility.ManagerToOwnerCopy((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
@@ -146,9 +152,15 @@ public without sharing class JobTriggerHandler {
     
     /* handles both After insert and updates */
     public static void handleAfterInsertUpdate(){ 
-        
+        if(Trigger.isInsert){system.debug('triggerinsertcalled');}
+        if(Trigger.isUpdate){system.debug('triggerupdatecalled');}
+        if(Trigger.isUpdate)
+        {
+        JobTriggerHandlerWorkflow.MasterJobAmountRollup(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        }
        AccountExecutiveController.UpdateAccountExecutives(Trigger.new);
         // moving this to after update as we cannot change the Job owner on insert due to Job splits issue
+        JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
         JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
         
         

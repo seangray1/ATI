@@ -3,10 +3,11 @@
     <fullName>Amount__c</fullName>
     <externalId>false</externalId>
     <label>Amount</label>
-    <summarizedField>ATI_Job__c.Amount__c</summarizedField>
-    <summaryForeignKey>ATI_Job__c.Master_Job__c</summaryForeignKey>
-    <summaryOperation>sum</summaryOperation>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Summary</type>
+    <type>Number</type>
+    <unique>false</unique>
 </CustomField>

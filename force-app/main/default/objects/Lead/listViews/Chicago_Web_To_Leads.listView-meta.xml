@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Chicago_Web_To_Leads</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Chicago Branch</label>
+    <queue>Chicago_Web_To_Leads</queue>
+    <sharedTo>
+        <role>Chicago_Branch</role>
+        <role>Information_Technology</role>
+    </sharedTo>
+</ListView>

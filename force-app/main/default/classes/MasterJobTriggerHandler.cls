@@ -76,7 +76,7 @@ public with sharing class MasterJobTriggerHandler {
         // remember to do if statements to check if blank
         // query for jobs that need to be updated
         if(!MasterJobIdSet.isEmpty()){
-        JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c, Master_Job__c, Property_ID__c, Description__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
+        JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c, Master_Job__c, Property_ID__c, Description__c, Account_Executive_1__c, Account_Executive_2__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
         if(!JobList.isEmpty()){
         for(ATI_Job__c job : JobList){
             Master_job__c newMasterJob = newMasterJobsMap.get(job.Master_job__c);

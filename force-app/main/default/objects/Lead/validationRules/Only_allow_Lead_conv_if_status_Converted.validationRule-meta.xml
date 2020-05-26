@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_allow_Lead_conv_if_status_Converted</fullName>
+    <active>true</active>
+    <description>Only allows Lead conversion to person account or account/contact if the lead status is &quot;Converted&quot;.</description>
+    <errorConditionFormula>AND(IsConverted, NOT( TEXT( PRIORVALUE(Status) ) = &quot;Converted&quot;) )</errorConditionFormula>
+    <errorMessage>Lead Status must be &quot;Converted&quot; prior to converting the lead</errorMessage>
+</ValidationRule>

@@ -454,6 +454,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
     if (this.TypeOfJobEntry === "AfterHoursJobEntry") {
       GetJobInfo({ recordId: this.jobrecordId }).then((result) => {
+        
         let jobresults = result;
         this.JobTemp = result;
         this.MasterJobId = jobresults.Master_Job__c;

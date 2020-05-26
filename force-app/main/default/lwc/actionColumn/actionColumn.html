@@ -1,0 +1,9 @@
+<template>
+    <lightning-button-group>
+        <lightning-button label = "Project Note" variant="brand" onclick={OpenProjectNote}></lightning-button>
+    </lightning-button-group>
+
+    <template if:true={ProjectNoteClicked}>
+        <c:projectNote></c:projectNote>
+    </template>
+</template>

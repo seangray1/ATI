@@ -423,9 +423,9 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                                         }
                                     }                                     
                                 }            
-            if( !accountsToUpdate.isEmpty() ){
-                update accountsToUpdate;
-            }
+            // if( !accountsToUpdate.isEmpty() ){
+            //     update accountsToUpdate;
+            // }
         }
     }
 

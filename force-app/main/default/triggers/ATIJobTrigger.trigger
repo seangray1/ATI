@@ -6,12 +6,13 @@
  * @Last Modified By   : sean.gray@atirestoration.com
  * @Last Modified On   : 12/19/2019, 1:54:21 PM
  * @Modification Log   : 
- * Ver       Date            Author      		    Modification
+ * Ver       Date            Author                 Modification
  * 1.0    12/19/2019   sean.gray@atirestoration.com     Initial Version
 **/
 trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                      after insert,after update,
                                      before delete) {
+                                     
                                          List<Profile> profileName = [SELECT Name FROM Profile WHERE Id=:userinfo.getProfileId() LIMIT 1];
                                          if(profileName[0].Name != 'Restricted Process Execution')
                                          {
@@ -41,13 +42,16 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                              if(Trigger.isAfter && Trigger.isInsert){
                                                  JobTriggerHandler.handleAfterInsertOnly();
                                                  //TriggerFlagController.flag = false;
+                                                 efs__.EgnyteSyncQueueTrigger.onAfterInsert();
                                                  system.debug('The after Insert is called');
                                              }}
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isAfter && Trigger.isUpdate ){
                                                  TriggerFlagController.flag = false;
                                                  JobTriggerHandler.handleAfterUpdatesOnly();
+                                                 
                                                  system.debug('The after Update is called');
+                                                 efs__.EgnyteSyncQueueTrigger.onAfterUpdate();
                                              } }   
                                               
                                              if(Trigger.isBefore && (Trigger.isDelete)){
@@ -55,4 +59,11 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                                  system.debug('The delete is called');
                                              }          
                                      }
-                                    }
+    //  if(Trigger.isAfter && (Trigger.isInsert && Trigger.isUpdate)){
+    //     //XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);
+    //     XactFileReOpenedClass.TriggerMail(trigger.new);
+    // }
+    /*if(Trigger.isAfter && ){
+        XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);
+    }*/
+}

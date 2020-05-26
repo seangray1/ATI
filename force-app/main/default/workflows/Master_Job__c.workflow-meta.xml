@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
-<fieldUpdates>
+    <alerts>
+        <fullName>Credit_Request_Approval</fullName>
+        <description>Credit Request Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Credit_Request_Submitter_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/Credit_Request_Approvals</template>
+    </alerts>
+    <alerts>
+        <fullName>Credit_Request_Rejection</fullName>
+        <description>Credit Request Rejection</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Credit_Request_Submitter_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/Credit_Request_Rejections</template>
+    </alerts>
+    <fieldUpdates>
         <fullName>Credit_Request_Status_to_Approved</fullName>
         <description>Field update to set Credit Request Status to &apos;Approved&apos; upon approval of Manager in the Credit Request Approval Process</description>
         <field>Credit_Request_Status__c</field>
@@ -40,28 +64,4 @@
         <operation>Formula</operation>
         <protected>false</protected>
     </fieldUpdates>
-    <alerts>
-        <fullName>Credit_Request_Approval</fullName>
-        <description>Credit Request Approval</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Credit_Request_Submitter_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>donotreply@atirestoration.com</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>ATI_Job_Templates/Credit_Request_Approvals</template>
-    </alerts>
-    <alerts>
-        <fullName>Credit_Request_Rejection</fullName>
-        <description>Credit Request Rejection</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Credit_Request_Submitter_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>donotreply@atirestoration.com</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>ATI_Job_Templates/Credit_Request_Rejections</template>
-    </alerts>
-    </Workflow>
+</Workflow>

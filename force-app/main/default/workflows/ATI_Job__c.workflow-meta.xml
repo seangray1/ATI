@@ -3194,22 +3194,29 @@ X1sub__c = FALSE),NOT(ISNULL (Project_Manager__c))
             <name>Send_Job_Record_To_Jitterbit</name>
             <type>OutboundMessage</type>
         </actions>
-        <active>false</active>
-        <formula>AND(
-OR(
-AND(ISCHANGED(Stage__c),
-ISPICKVAL(Stage__c, &quot;Won&quot;)) ,
-Sync_to_Timberline__c = TRUE,
-ISCHANGED(PM_Approval_Only__c),
-AND(OR(ISCHANGED(Project_Manager_new__c),
-ISCHANGED(Project_Manager__c),
-ISCHANGED(Account_Executive_1_Timber__c),
-ISCHANGED(Account_Executive_2_Timber__c),
-ISCHANGED(Job_Name__c)
+        <active>true</active>
+        <formula>OR(
+AND(
+ISCHANGED( Customer_Contacted__c ),
+NOT(ISBLANK(Customer_Contacted__c ))
 ),
-NOT(ISNULL( Last_Successful_Timberline_Update__c)),
-X1sub__c = FALSE)),
-$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;, NOT(ISNULL (Project_Manager__c)))</formula>
+AND(
+ISCHANGED( Approved_Date__c ),
+NOT(ISBLANK(Approved_Date__c ))
+),
+AND(
+ISCHANGED( Estimate_Rejection_Date__c ),
+NOT(ISBLANK(Estimate_Rejection_Date__c ))
+),
+AND(
+ISCHANGED( Inspected__c ),
+NOT(ISBLANK(Inspected__c ))
+),
+AND(
+ISCHANGED( XASP_Recent_Activity__c ),
+NOT(ISBLANK(XASP_Recent_Activity__c ))
+)
+)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

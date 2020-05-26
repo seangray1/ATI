@@ -1,5 +1,5 @@
 public class XactFileReOpenedClass {
-	
+    
     //public static void TriggerMail(List<ATI_Job__c> Jobs, Map<id, ATI_Job__c> oldMaps){
     public static void TriggerMail(List<ATI_Job__c> Jobs){
         system.debug('!!!!!!!'+Jobs);
@@ -11,11 +11,11 @@ public class XactFileReOpenedClass {
             //system.debug('OldMap'+oldMap);
             //if(oldMap.XACT_File_Reopened__c!=job.XACT_File_Reopened__c && job.XACT_File_Reopened__c==true){
             if(job.XACT_File_Reopened__c==true){
-    			system.debug('Inside If mail'+job.Project_Manager__r.email);
+                system.debug('Inside If mail'+job.Project_Manager__r.email);
                 Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
                 String[] toAddresses = new String[] {};
                 if(job.Project_Manager__r.email!=null){toAddresses.add(job.Project_Manager__r.email);}
-               	if(job.Office2__r.Project_Coordinator__r.email!=null){toAddresses.add(job.Office2__r.Project_Coordinator__r.email);}
+                if(job.Office2__r.Project_Coordinator__r.email!=null){toAddresses.add(job.Office2__r.Project_Coordinator__r.email);}
                 String RecordURL = URL.getSalesforceBaseUrl().toExternalForm()+'/'+job.Id;
                 //Send Email
                 system.debug('Send Emails:'+toAddresses);

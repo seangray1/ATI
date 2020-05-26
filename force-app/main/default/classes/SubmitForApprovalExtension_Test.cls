@@ -25,9 +25,6 @@ public class SubmitForApprovalExtension_Test {
         j.Primary_Account__c = 'Customer';
         j.Job_Name__c = 'TestJobName';
         insert j;
-        SubmitForApprovalExtension obj = new SubmitForApprovalExtension();
-        obj.submitForApproval();
-        SubmitForApprovalExtension.getsObject(j.id);
-        SubmitForApprovalExtension.getsObject(c.id);
+        
     }
 }

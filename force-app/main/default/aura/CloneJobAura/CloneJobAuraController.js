@@ -1,6 +1,71 @@
 ({
-    closeForm: function(component, event, helper) {
-        
-        $A.get("e.force:closeQuickAction").fire();
-            },
+	doInit : function(component, event, helper) {
+        //var infoReturned;
+        //var recordId = component.get("v.recordId");
+            var avt = $A.get("e.force:navigateToComponent"); 
+            
+            avt.setParams({
+            componentDef:"c:JobRequestFormAura",
+                componentAttributes: {
+                        jobrecordId : component.get("v.recordId")
+                    }
+            });
+            avt.fire();
+            }
+
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ({
+    
+//    gotoCloneLT:function(component,event,helper){
+//     var avt = $A.get("e.force:navigateToComponent"); 
+    
+//     avt.setParams({
+//     componentDef:"c:CloneATIJob",
+//         componentAttributes: {
+//                 recordId : component.get("v.recordId"),
+//                 cloneRelatedJobs : 'false'
+//             }
+//     });
+// 		//$A.enqueueAction(avt);
+
+// avt.fire();
+       
+
+// },
+
+
+//     gotoCloneATILT:function(component,event,helper){
+//     var evt = $A.get("e.force:navigateToComponent"); 
+    
+//     evt.setParams({
+//     componentDef:"c:CloneATIJob",
+//         componentAttributes: {
+//                 recordId : component.get("v.recordId"),
+//                 cloneRelatedJobs : 'true'
+//             }
+//     });
+// 		//$A.enqueueAction(evt);
+// evt.fire();
+        
+// }
+// })

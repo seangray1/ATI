@@ -14,7 +14,7 @@
             </value>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>Update Job Stage</label>
+        <label>Update Master Job Stage</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
         <actionName>UpdateMasterJobStage</actionName>
@@ -63,6 +63,38 @@
         </inputParameters>
     </actionCalls>
     <decisions>
+        <name>isChangedDecision2_myRule_1_Stage_c</name>
+        <label>isChangedDecision2_myRule_1_Stage_c</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>isChangedRule_2_myRule_1_Stage_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>myVariable_old.Stage__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>myVariable_current.Stage__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision</targetReference>
+            </connector>
+            <label>isChangedRule_2_myRule_1_Stage_c</label>
+        </rules>
+    </decisions>
+    <decisions>
         <processMetadataValues>
             <name>index</name>
             <value>
@@ -78,7 +110,31 @@
             <name>myRule_1</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_1</leftValueReference>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>isChangedRule_2_myRule_1_Stage_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -87,15 +143,10 @@
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
-            <label>No Criteria</label>
+            <label>When Job Stage Change</label>
         </rules>
     </decisions>
     <description>Update Master Jobs Job Status</description>
-    <formulas>
-        <name>formula_myRule_1</name>
-        <dataType>Boolean</dataType>
-        <expression>true</expression>
-    </formulas>
     <interviewLabel>Update_Master_Jobs_Job_Status-4_InterviewLabel</interviewLabel>
     <label>Update Master Jobs Job Status</label>
     <processMetadataValues>
@@ -123,7 +174,7 @@
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <startElementReference>myDecision</startElementReference>
+    <startElementReference>isChangedDecision2_myRule_1_Stage_c</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
