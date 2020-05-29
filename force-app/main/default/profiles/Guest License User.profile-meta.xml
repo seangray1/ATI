@@ -705,6 +705,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MockHttpGoogleMapsResponse</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MockHttpResponseGenerator</apexClass>
         <enabled>false</enabled>
     </classAccesses>

@@ -1,4 +1,5 @@
 <template>
+    <div class="slds-scrollable_y slds-box slds-theme_shade" style="height:120rem;width: 100%;">
     <template if:true={ARReady}>
            
             <div class="row">
@@ -12,7 +13,7 @@
                                         <table class="table ActRoles everything">
                                             <thead>
                                                 <tr>
-                                                    <!-- <th> Name</th> -->
+                                                   
                                                    
                                                     
 
@@ -22,10 +23,8 @@
                                                     <th> Roles</th>
                                                     
                                                     <th class="AddActRoles"></th>
-                                                    <!-- <th class="DeleteClmn"></th> -->
                                                    
-
-
+                                        
 
                                                 </tr>
                                             </thead>
@@ -34,11 +33,7 @@
                                                 
                                                 <template for:each={AccountRoles} for:item="AccountRole">
                                                     <tr key={AccountRole.Contact_ID__c}>
-                                                        <!-- <td>
-                                                                        <lightning-input value={AccountRole.Name} class="form-control ARName">   
-                                                                        </lightning-input>
-                                                                   
-                                                        </td> -->
+                                                       
                                                         
                                                        
 
@@ -53,7 +48,7 @@
                                                                             variant="label-hidden"
                                                                             >
                                                                         </lightning-input-field>
-                                                                       <!-- onchange={ARContactChangeNew} -->
+                                                                    
                                                                     </lightning-record-edit-form>
                                                                    </div>
                                                              
@@ -123,17 +118,22 @@
             
             <lightning-button label="New Account"  title="addAccount" variant="brand" class="slds-m-left_x-small" onclick={addAccountQuestion} >    </lightning-button>
         </lightning-button-group>
-    
-
-        <!-- </div> -->
+        <div class="slds-p-around_medium lgc-bg-inverse element">
+            <lightning-button-group class="slds-align_absolute-center">
+        <lightning-button label='Submit' onclick={CreateAccountRoles} variant="brand"></lightning-button>
+        <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
+        </lightning-button-group>
+        </div>
     </template>
+
+    </div>
     
 <template if:true={CreateContact}>
     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
         aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
             <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
-            <!-- modal header start -->
+
             <header class="slds-modal__header">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                     title="Close" onclick={closeContact}>
@@ -144,7 +144,7 @@
                 <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate biggerText">Contact
                 </h2>
             </header>
-            <!-- modal body start -->
+
             <div class="slds-box slds-theme_shade">
 
                 <div class="slds-grid">
@@ -155,13 +155,7 @@
                         <lightning-input label="First Name" value={FirstName} class="contactFormControl" required autocomplete={AutoComplete} onchange={FirstNameChange}>
                         </lightning-input>
                         <lightning-input label="Last Name" value={LastName} class="contactFormControl" required autocomplete={AutoComplete} onchange={LastNameChange}></lightning-input>
-                        <!-- <lightning-combobox name="progress"
-                        label="Contact (Role)"
-                        value={ContactRole}
-                        placeholder="-Select-"
-                        options={AccountRolesValues.data.values}
-                        onchange={ContactRoleChanged} >
-                    </lightning-combobox> -->
+               
                     <lightning-combobox name="progress"
                     label="Contact Type"
                     value={ContactType}
@@ -189,15 +183,6 @@
                 
                     </div>
                    <br>
-                   
-                    <!-- <lightning-record-edit-form object-api-name="Account_Roles__c">
-                        <lightning-input-field field-name="Account_ID__c" value={ContactAccountValue}  required onchange={AccountSelectionChange}></lightning-input-field>
-                    </lightning-record-edit-form> -->
-               
-               
-                    
-               
-                    
                         <lightning-input label="Account" onkeyup={ContactAccountChanged}
                             placeholder='Search for Account.. ' type="search" onchange={ClearAccount} required class="contactFormControl" value={ContactAccountName}></lightning-input>
                  
@@ -250,7 +235,7 @@
                 
 
                     <br>
-<lightning-button label="New Account" variant="brand" onclick={ToggleNewAccount}>
+                <lightning-button label="New Account" variant="brand" onclick={ToggleNewAccount}>
 </lightning-button>
                     <lightning-input-address
                                     data-id="ContactAddressLookup"
@@ -302,7 +287,7 @@
         aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
             <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
-            <!-- modal header start -->
+          
             <header class="slds-modal__header">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                     title="Close" onclick={closeAccountModal}>
@@ -313,7 +298,7 @@
                 <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate biggerText">Account
                 </h2>
             </header>
-            <!-- modal body start -->
+       
             <div class="slds-box slds-theme_shade">
 
 
@@ -341,13 +326,7 @@
             <lightning-input label="Phone Ext." value={AccountPhoneExt} class="companyAccountFormControl" onchange={AccountPhoneExtChange}>
             </lightning-input>
   
-            <!-- <lightning-combobox name="progress"
-                label="Account (Role)"
-                value={ContactAccountRole}
-                placeholder="-Select-"
-                options={AccountRolesValues.data.values}
-                onchange={ContactAccountRoleChanged} >
-            </lightning-combobox>  -->
+         
             
         </div>
  
@@ -404,7 +383,7 @@
     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
         aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
-            <!-- modal header start -->
+         
             <header class="slds-modal__header">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                     title="Close" onclick={closeAccountQuestion}>
@@ -438,7 +417,7 @@
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
             aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                <!-- modal header start -->
+            
                 <header class="slds-modal__header">
                     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                         title="Close" onclick={closeModal}>
@@ -478,14 +457,7 @@
                             </lightning-input>
                             <lightning-input label="Phone Ext." class="personAccountFormControl" value={AccountPhoneExt} onchange={AccountPhoneExtChange}>
                             </lightning-input>
-<!--                    
-                            <lightning-combobox name="progress"
-                                label="Account (Role)"
-                                value={ContactAccountRole}
-                                placeholder="-Select-"
-                                options={AccountRolesValues.data.values}
-                                onchange={ContactAccountRoleChanged} >
-                            </lightning-combobox>  -->
+
                             
                         </div>
                  
@@ -547,7 +519,7 @@
             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
                 <div class="slds-modal__container">
-                    <!-- modal header start -->
+                   
                     <header class="slds-modal__header">
                         <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
                             title="Close" onclick={CloseAccountRole}>

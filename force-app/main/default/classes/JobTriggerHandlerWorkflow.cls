@@ -65,8 +65,8 @@ public with sharing class JobTriggerHandlerWorkflow
     }
     }
 
-    public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap)
-    {
+public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap, ObjectInserts oi)
+{
         Map<Id, Office__c> offices = new Map<Id,Office__c>([Select Id, Name, Branch_Manager__c, Biohazard_Operations_Manager__c,
         Asbestos_Operations_Manager__c, Catastrophes_Operations_Manager__c, Consulting_Operations_Manager__c, 
         Contents_Operations_Manager__c, Demolition_Operations_Manager__c, Emergency_Services_Operations_Manager__c, 
@@ -76,6 +76,7 @@ public with sharing class JobTriggerHandlerWorkflow
         Technical_Services_Operations_Manager__c, Evp_1__c FROM Office__c]);
         //IF OldJob == null, it's insert, set PM. If its update, only update the PM if the office has changed, allows manual changes
         //of the Project_Manager_New__c/Project Manager
+        system.debug('Offices from Objecinsert are ' + oi);
         system.debug('Offices are ' + offices);
         if(!offices.isEmpty())
         {
@@ -239,7 +240,8 @@ public with sharing class JobTriggerHandlerWorkflow
                 } 
             }
             //Update send Prelim
-        if((job.Division__c == 'Consultant' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies'))) && 
+        if((job.Division__c == 'Consultant' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
+        (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal') && 
         job.Send_Prelim__c == null) 
         {
             job.Send_Prelim__c = 'No';

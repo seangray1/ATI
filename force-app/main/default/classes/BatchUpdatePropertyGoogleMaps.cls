@@ -20,7 +20,7 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
             global Database.QueryLocator start(Database.BatchableContext BC){
              //    string pn = 'PN-'+ '%';
              //AND Job_Class__c != \'Residential\' AND (Year_Taken__c = \'2017\' OR Year_Taken__c = \'2020\' OR Year_Taken__c = \'2019\' OR Year_Taken__c = \'2020\')
-                query = 'select Id, Address_Line_1__c, Job_Address_Line_1__c, Address_Verified__c, job_city__c, Job_state__c, job_zip__c, Street__c, City__c, State__c, Zip__c, County__c from Property__c where LastUpdate__c = TRUE AND job_City__c != null AND Job_State__c != null AND Job_Address_Line_1__c != null AND job_zip__c != null' ;
+                query = 'select Id, Address_Line_1__c, Job_Address_Line_1__c, Address_Verified__c, job_city__c, Job_state__c, job_zip__c, Street__c, City__c, State__c, Zip__c, County__c from Property__c where Google_Verified__c = FALSE AND job_City__c != null AND Job_State__c != null AND Job_Address_Line_1__c != null AND job_zip__c != null' ;
          
              return Database.getQueryLocator(query);
      
@@ -29,10 +29,11 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
                 List<Property__c> propsToUpdate = new List<Property__c>();
                 for(Property__c p:scope){
                     // system.debug('Id is ' + p.Id);
-                    if(p.Job_Address_Line_1__c != null && p.Job_State__c != null && p.Job_City__c != null && p.Job_Zip__c != null && !p.Job_Address_Line_1__c.contains('null')){
+                    // if(p.Job_Address_Line_1__c != null && p.Job_State__c != null && p.Job_City__c != null && p.Job_Zip__c != null && !p.Job_Address_Line_1__c.contains('null')){
+                if(p.Job_Address_Line_1__c != null){
                 Http h = new Http();
             HttpRequest req = new HttpRequest();
-             String address = p.Job_Address_Line_1__c + ', ' + p.Job_State__c + ', ' + p.Job_City__c + ' ' + p.Job_Zip__c;
+             String address = p.Job_Address_Line_1__c + ', ' + p.Job_City__c + ', ' + p.Job_State__c + ' ' + p.Job_Zip__c;
              req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
              EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
              req.setMethod('GET');
@@ -44,6 +45,10 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
              string state;
              string streetnumber;
              string postalcode;
+            string localityCity;
+            string sublocalityCity;
+            string neighborhoodCity;
+            
            
             HttpResponse res = h.send(req);
             // system.debug('Response is ' + res.getBody());
@@ -62,9 +67,18 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
                         street = ad.short_name;
                       //  system.debug('Street is  ' + street);
                     }
-                    if(ad.types[0] == 'locality' && city == null){
-                        city = ad.short_name;
-                       // system.debug('state is  ' + state);
+                    if(ad.types[0] == 'locality'){
+                        localityCity = ad.short_name;
+        
+                    }
+                    if(ad.types[0] == 'political'){
+                        sublocalityCity = ad.short_name;
+                        
+                   
+                    }
+                    if(ad.types[0] == 'neighborhood'){
+                        neighborhoodCity = ad.short_name;
+                       
                     }
                     if(ad.types[0] == 'administrative_area_level_1' && state == null){
                         state = ad.short_name;
@@ -82,8 +96,16 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
 
                 
             }
-
         }
+            if(neighborhoodCity != null){
+                City = neighborhoodCity;
+            }
+            if(sublocalityCity != null){
+                City = sublocalityCity;
+            }
+            if(localityCity != null){
+                City = localityCity;
+            }
       
             // system.debug('Address Line 1 before ' + p.Address_Line_1__c);
             if(streetnumber != null) p.Address_Line_1__c = streetnumber + ' '+ street;
@@ -94,7 +116,8 @@ global class BatchUpdatePropertyGoogleMaps implements Database.Batchable<sObject
             p.City__c = city;
             p.Zip__c = postalcode;
             p.County__c = county;
-            p.Google_verified__c = true;
+            p.Google_Verified__c = true;
+            
             // p.Address_Verified__c = TRUE;
             if(street != null){
              propsToUpdate.add(p);

@@ -2,17 +2,23 @@
 	doInit : function(component, event, helper) {
         //var infoReturned;
         //var recordId = component.get("v.recordId");
+        var device = $A.get("$Browser.formFactor");
+//         var jobId = component.get("v.recordId");
+//         //alert('Device is ' + device);
+        if(device === 'PHONE' || device === 'TABLET'){
+            console.log('Device is ' + device);
+        }else{
             var avt = $A.get("e.force:navigateToComponent"); 
             
             avt.setParams({
             componentDef:"c:JobRequestFormAura",
                 componentAttributes: {
-                        jobrecordId : component.get("v.recordId")
+                        recordId : component.get("v.recordId")
                     }
             });
             avt.fire();
             }
-
+        }
 })
 
 

@@ -1,9 +1,11 @@
 <template>
-    <lightning-button-group>
-        <lightning-button label = "Project Note" variant="brand" onclick={OpenProjectNote}></lightning-button>
-    </lightning-button-group>
-
-    <template if:true={ProjectNoteClicked}>
-        <c:projectNote></c:projectNote>
-    </template>
+    <div class="slds-box slds-theme_shade">
+        <lightning-button-group>
+            <lightning-button label = "Project Note" variant="brand" onclick={OpenProjectNote}></lightning-button>
+            <lightning-button label = "Clone Job" class="slds-m-left_x-small" variant="brand" onclick={CloneJob}></lightning-button>
+            <lightning-button label = "Edit Account Roles" class="slds-m-left_x-small" variant="brand" onclick={EditAccountRoles}></lightning-button>
+        </lightning-button-group>
+    </div>
+   
+    
 </template>

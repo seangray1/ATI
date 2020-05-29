@@ -366,7 +366,7 @@
         <!-- </div> -->
             <!-- <div class="slds-col slds-size_1-of-7"> -->
             <lightning-input onkeyup={OfficeChange}
-                        placeholder='Search for Office.. ' label="Office"  onchange={ClearOffice} required value={OfficeValue} type="search" class="jobFormControl Labels1"></lightning-input>
+                        placeholder='Search for Office.. ' label="Office" disabled={FieldsDisabled} onchange={ClearOffice} required value={OfficeValue} type="search" class="jobFormControl Labels1"></lightning-input>
               
                 <template if:true={Offices}>
                     <table
@@ -516,6 +516,7 @@
             province={State}
             postal-code={Zipcode}
             show-address-lookup
+            disabled={FieldsDisabled}
             class=""
             read-only
             

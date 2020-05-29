@@ -705,6 +705,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MockHttpGoogleMapsResponse</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MockHttpResponseGenerator</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1631,7 +1635,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Cause_of_Loss__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1811,7 +1815,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Date_Assigned__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2023,7 +2027,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Estimate_Corrected__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -2043,12 +2047,12 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Estimate_QA_Approval__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Estimate_Rejection_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -2816,7 +2820,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Original_XASP_Transaction_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3451,17 +3455,17 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Trade__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Type_of_Loss_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Type_of_Loss__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3546,14 +3550,14 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.XACT_CarrierID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.XACT_Emergency__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -3566,17 +3570,17 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.XASP_Transaction_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Xact_Client_Info__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Xact_Contact_Info__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4841,7 +4845,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Budget_Line_Item__c.Item_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4871,7 +4875,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Budget_Line_Item__c.Quantity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4896,7 +4900,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Budget_Line_Item__c.Tax_Exempt__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4906,7 +4910,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Budget_Line_Item__c.Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10511,7 +10515,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Office__c.Branch__c</field>
         <readable>true</readable>
     </fieldPermissions>

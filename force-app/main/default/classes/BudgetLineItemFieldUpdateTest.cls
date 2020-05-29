@@ -4,9 +4,12 @@ public class BudgetLineItemFieldUpdateTest {
     public static TestMethod void runTestOnOffice()
     {
         TestDataUtil.createCustomSettings_TriggerStatus();
+        
+        
          Account acc = new account(Name = 'Test Account');
         insert acc;
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification');
+        
+        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE);
         insert job;
         
         Budget__c bud = new Budget__c(Name = 'Test Budget',ATI_Job__c = job.id);

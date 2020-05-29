@@ -90,7 +90,7 @@ repairCommentsChange(event){
 }
 Cancel(){
     this.loading = true;
-    this.dispatchEvent(new CustomEvent('closeform'));
+    this.dispatchEvent(new CustomEvent('Close'));
     // this[NavigationMixin.Navigate]({
     //     type: 'standard__recordPage',
     //     attributes: {
@@ -112,7 +112,7 @@ CreateProject(){
             this.ExtraData = result;
             if(this.ExtraData === 'Success'){
                 // this.dispatchEvent(new CustomEvent('submitform'));  
-                this.dispatchEvent(new CustomEvent('recordChange'));  
+                this.dispatchEvent(new CustomEvent('ProjectNoteSubmitted'));  
             //     this[NavigationMixin.Navigate]({
             //         type: 'standard__recordPage',
             //         attributes: {

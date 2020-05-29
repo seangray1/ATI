@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <description>Assign the contact to the matching Account</description>
+        <name>Assign_the_Account</name>
+        <label>Assign the Account</label>
+        <locationX>987</locationX>
+        <locationY>53</locationY>
+        <assignmentItems>
+            <assignToReference>CurrentCon.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>accId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_the_Contacts</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>When State and City of the Contact Matches with the Account</description>
+        <name>State_and_City_Matches</name>
+        <label>State and City Matches</label>
+        <locationX>704</locationX>
+        <locationY>20</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>State_and_City_Match</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CurrentCon.MailingCity</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>city</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CurrentCon.MailingState</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>state</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_the_Account</targetReference>
+            </connector>
+            <label>State and City Match</label>
+        </rules>
+    </decisions>
+    <description>Update Contacts with  Account when State and City  Matches</description>
+    <interviewLabel>Update Contacts with Matching Account {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Contacts with Matching Account</label>
+    <loops>
+        <description>Loop Through Contacts of the Parent Account</description>
+        <name>Loop_Through_Contacts</name>
+        <label>Loop Through Contacts</label>
+        <locationX>451</locationX>
+        <locationY>53</locationY>
+        <assignNextValueToReference>CurrentCon</assignNextValueToReference>
+        <collectionReference>StoreConRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>State_and_City_Matches</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Contacts From Parent Account</description>
+        <name>Get_Contacts_From_Parent_Account</name>
+        <label>Get Contacts From Parent Account</label>
+        <locationX>237</locationX>
+        <locationY>47</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Through_Contacts</targetReference>
+        </connector>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountID</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>MailingCity</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>city</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>MailingState</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>state</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputReference>StoreConRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>AccountId</queriedFields>
+        <queriedFields>MailingCity</queriedFields>
+        <queriedFields>MailingState</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update the Contacts to the matching Parent</description>
+        <name>Update_the_Contacts</name>
+        <label>Update the Contacts</label>
+        <locationX>1239</locationX>
+        <locationY>208</locationY>
+        <connector>
+            <targetReference>Loop_Through_Contacts</targetReference>
+        </connector>
+        <inputReference>CurrentCon</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Contacts_From_Parent_Account</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>accId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>accountID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>city</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CurrentCon</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <name>state</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>StoreConRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+</Flow>

@@ -9,4 +9,3 @@ global class MockHttpGoogleMapsResponse implements HttpCalloutMock {
         return res;
     }
 }
-

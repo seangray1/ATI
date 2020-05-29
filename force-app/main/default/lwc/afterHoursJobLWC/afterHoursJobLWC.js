@@ -19,7 +19,7 @@ DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorE
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
 ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
 DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
-@track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];
+@track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];FieldsDisabled = false;
 @api recordId;
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
@@ -123,16 +123,31 @@ openContactInfoModal1(){
 
 connectedCallback(){
     console.log('Browser is ' + FORM_FACTOR);
+    console.log('before form factor');
     if(FORM_FACTOR === 'Large'){
-        if(this.recordId !== null)
+            this.Desktop = true; 
+            console.log('inside Desktop one');  
+    }
+    if(FORM_FACTOR === 'Medium' || FORM_FACTOR === 'Small'){
+        this.Mobile = true;
+    }
+    if(this.recordId !== null)
         {
-            this.Mobile = true;
+            
+            this.FieldsDisabled = true;
+            // this.Mobile = true;
             GetJobInfo({recordId : this.recordId}).then(result =>{
+                
+                console.log('what is being returned ' + result);
                 this.OfficeId = result.Office2__c;
                 this.OfficeValue = result.Office2__r.Name;
                 this.JobName = result.Job_Name__c;
                 this.MajorEventId = result.Major_Event__c;
+                if(this.MajorEventId !== undefined &&
+                    this.MajorEventId !== null &&
+                    this.MajorEventId !== ""){
                 this.MajorEventValue = result.Major_Event__r.Name;
+                }
                 this.Description = result.Description__c;
                 this.ContactInfo = result.Contact_Info__c;
                 this.Street = result.Project_Site_Address__c;
@@ -142,15 +157,7 @@ connectedCallback(){
                 
             })
         }
-        else
-        {
-            this.Desktop = true;
-        }
         
-    }
-    if(FORM_FACTOR === 'Medium' || FORM_FACTOR === 'Small'){
-        this.Mobile = true;
-    }
     console.log('record Id is ' + this.recordId);
     GetDivisionPicklist({}).then(result =>{
         var AccountRolePicklistValues = result;
@@ -184,12 +191,15 @@ ClearProjectDirector(event){
     if(searchKey.length === 0){
     this.ProjectDirectors = "";
     this.ProjectDirectorValue = "";
+    this.ProjectDirectorId = "";
+    console.log('Clear PD in PDCCC');
     }
     }
 ClearMajorEvent(event){
     let searchKey = event.detail.value;
     if(searchKey.length === 0){
     this.MajorEvents = "";
+    
     }
     }
 
@@ -229,6 +239,7 @@ ProjectDirectorChange(event){
        var searchKey = event.target.value;
        if(searchKey.length === 0){this.ProjectDirectors = null;}
        if(searchKey.length >= 1){
+           console.log('Clear PD in PDC');
            
         // eslint-disable-next-line @lwc/lwc/no-async-operation
         //this.delayTimeout = setTimeout(() => {
@@ -335,11 +346,17 @@ Save(){
         if(this.ProjectDirectorValue.length > 1 && (this.ProjectDirectorId === null || this.ProjectDirectorId === undefined || this.ProjectDirectorId === "")){
             alert('Please make a selection from the Project Director list')
         }else{
-
+        if((this.recordId !== null || this.recordId !== undefined || this.recordId !== "") && (this.ProjectDirectorId === null || this.ProjectDirectorId === undefined || this.ProjectDirectorId === ""))
+        {
+            alert('Cloned Jobs must have a Project Director');
+        }
+        else
+        {
         
     const address = this.template.querySelector('[data-id="AddressLookup"]');
             // const isValid = address.checkValidity();
             //   if(isValid) {
+                
                 if(address.street !== null && address.street !== undefined && address.street !== ""){
                 Street = address.street;
                 City = address.city;
@@ -354,26 +371,36 @@ Save(){
         if(data.length > 18){
             this.loading = false;
             alert(data);
-        }else{
+        }else
+        {
             //ClearForm();
             this.Division = '--None--';this.JobName = ''; this.EsJobType = ''; this.Office = ''; this.Street = ''; this.State = ''; this.City = ''; this.Zipcode = '';
             this.Country = '';this.AddressLine2 = '';this.ContactInfo = '';this.Description = '';this.MajorEventId = ''; this.ProjectDirectorId = '';
-            this.ProjectDirectorValue = '';this.loading = false; this.OfficeValue = '';this.OfficeId = ''; this.DivisionEs = false;
+            this.ProjectDirectorValue = '';this.OfficeValue = '';this.OfficeId = ''; this.DivisionEs = false;
             this.EsJobType = '';this.PageStateReady = false;this.MajorEventValue = '';this.MajorEventSelected = false;this.ProjectDirectorSelected = false;
             this.ContactName = '';this.Email = '';this.PhoneNumber = '';this.Company= '';this.AdditionalInformation = '';this.newDescription = false;
             this.DescriptionOfLoss = '';this.InsuranceProvider = '';this.Claim = '';this.Policy = '';this.LeadSource = '';this.AdditionalInformationTwo = '';
-            
+            this.loading = false;
             this.newDescriptionTwo = false;
-            this.dispatchEvent(new CustomEvent('closeform'));
-        this[NavigationMixin.Navigate]({
-            type: 'standard__recordPage',
-            attributes: {
-                recordId: data,
-                objectApiName: 'ATI_Job__c',
-                actionName: 'view',
-            },
-        });
-    }
+            // if(this.recordId === null || this.recordId === undefined || this.recordId === "")
+            // {
+                this.dispatchEvent(new CustomEvent('closeform'));
+                this[NavigationMixin.Navigate]
+                ({
+                    type: 'standard__recordPage',
+                    attributes: 
+                    {
+                    recordId: data,
+                    objectApiName: 'ATI_Job__c',
+                    actionName: 'view',
+                    },
+                });
+            // }
+            // else
+            // {
+            //     this.dispatchEvent(new CustomEvent('CloseJobRequest'));
+            // }
+        }
     }) 
 //}
                 
@@ -384,12 +411,20 @@ Save(){
 }
 }
 }
+}
 Cancel(event) {
+    if(this.recordId === null || this.recordId === undefined || this.recordId === "")
+    {
     location.href =
       "https://" +
       window.location.hostname +
       "/lightning/o/ATI_Job__c/list?filterName=Recent";
     event.action = this.location;
+    }
+    else
+    {
+        this.dispatchEvent(new CustomEvent('CloseCloneJob'));
+    }
   }
 ClearForm(){
     this.Division = '';this.JobName = ''; this.EsJobType = ''; this.Office = ''; this.Street = ''; this.State = ''; this.City = ''; this.ZipCode = '';

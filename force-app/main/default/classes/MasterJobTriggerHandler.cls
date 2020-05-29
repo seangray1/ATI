@@ -67,7 +67,8 @@ public with sharing class MasterJobTriggerHandler {
             MasterJob.Policy__c != oldJob.Policy__c || MasterJob.Deductible__c != oldJob.Deductible__c ||
             MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Lead_Source__c != oldJob.Lead_Source__c ||
             MasterJob.Property__c != oldJob.Property__c || MasterJob.PO__c != oldJob.PO__c
-            || MasterJob.Account_Executive_1__c != oldJob.Account_Executive_1__c || MasterJob.Account_Executive_2__c != oldJob.Account_Executive_2__c){
+            || MasterJob.Account_Executive_1__c != oldJob.Account_Executive_1__c || MasterJob.Account_Executive_2__c != oldJob.Account_Executive_2__c
+            || MasterJob.Office2__c != oldJob.Office2__c){
                 MasterJobIdSet.add(MasterJob.Id);
             }
         }
@@ -88,6 +89,7 @@ public with sharing class MasterJobTriggerHandler {
             job.PO__c = newMasterJob.PO__c;
             job.Account_Executive_1__c = newMasterJob.Account_Executive_1__c;
             job.Account_Executive_2__c = newMasterJob.Account_Executive_2__c;
+            job.Office2__c = newMasterJob.Office2__c;
            
         }
         Update JobList;

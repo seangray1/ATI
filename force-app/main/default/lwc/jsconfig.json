@@ -2,6 +2,9 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "c/actionColumn": [
+                "actionColumn/actionColumn.js"
+            ],
             "c/afterHoursJobLWC": [
                 "afterHoursJobLWC/afterHoursJobLWC.js"
             ],
@@ -73,15 +76,6 @@
             ],
             "c/accountRolesEditLWC": [
                 "accountRolesEditLWC/accountRolesEditLWC.js"
-            ],
-            "c/AccountRolesEditLWC": [
-                "AccountRolesEditLWC/AccountRolesEditLWC.js"
-            ],
-            "c/actionColumn": [
-                "actionColumn/actionColumn.js"
-            ],
-            "c/ActionColumn": [
-                "ActionColumn/ActionColumn.js"
             ]
         },
         "experimentalDecorators": true

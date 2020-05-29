@@ -596,7 +596,7 @@ public without sharing class NewJobController {
     }
     @AuraEnabled 
     public static ATI_Job__c GetJobInfo(string recordId){
-        ATI_Job__c job = [Select Id, Name, Property_Id__c, Project_Site_Address__c, CloseDate__c, Policy__c, Cont_P_O_Client_Job__c, PO__c, Send_prelim__c, Deductible__c, Claim__c, Project_Site_Contact_Account__c, Lead_Source__c, contact__c,Project_Site_Contact_Name__c,Contact_Information__c, Customer__c,Account__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
+        ATI_Job__c job = [Select Id, Name, Property_Id__c, County__c, Project_Site_Address__c, CloseDate__c, Policy__c, Cont_P_O_Client_Job__c, PO__c, Send_prelim__c, Deductible__c, Claim__c, Project_Site_Contact_Account__c, Lead_Source__c, contact__c,Project_Site_Contact_Name__c,Contact_Information__c, Customer__c,Account__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
         Project_Site_Address_2__c, Job_Name__c, Stage__c, Master_Job__c, Referred_by__c,  Division__c,  Date_of_Loss__c, Description__c, Taken_By__c, Taken_By__r.Name,
         Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name, Market_Class__c, Market_Segment__c,
         Market_Segment_Sub_Class__c FROM ATI_Job__c Where Id =: recordId];
@@ -1013,6 +1013,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Id userId = userinfo.getUserId();
             Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
             Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
+            
             List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
             // if(City.length() > 15)
             // {
@@ -1041,17 +1042,34 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         if(recordId != null)
         {
             Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
+            Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').getRecordTypeId();
             ATI_Job__c jobdata = GetJobInfo(recordId);
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = jobdata.Taken_By__c,
-            Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
-            Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
+            Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = notApprovedId, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
+            Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
             Date_Time_Taken__c = datetime.now(),  Policy__c = jobdata.Policy__c, Deductible__c = jobdata.Deductible__c,
             Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c, Send_Prelim__c = jobdata.Send_Prelim__c, Account__c = jobdata.Account__c,
             Contact__c = jobdata.Contact__c, Lead_Source__c = jobdata.Lead_Source__c, Market_Class__c = jobdata.Market_Class__c, Market_Segment__c = jobdata.Market_Segment__c,
             Market_Segment_Sub_Class__c = jobdata.Market_Segment_Sub_Class__c, Date_of_Loss__c = jobdata.Date_of_Loss__c, Project_Site_Contact_Name__c = jobdata.Project_Site_Contact_Name__c,
-            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c);
+            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review');
             system.debug('Job contains ' + job);
             insert job;
+            List<Account_Roles__c> ARs = new List<Account_Roles__c>();
+
+            for(Account_Roles__c a : [Select Id, Account_ID__c, Contact_ID__c, Multiple_Roles__c FROM Account_Roles__c Where Master_Job_Id__c =: recordId limit 10])
+            {
+                Account_Roles__c ar = new Account_Roles__c(Master_Job_Id__c = job.Id, Account_ID__c = a.Account_ID__c, Contact_ID__c = a.Contact_ID__c, Multiple_Roles__c = a.Multiple_Roles__c);
+                ARs.add(ar);
+            }
+            insert ARs;
+            Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+            req1.setComments('Submitting request for approval.');
+            req1.setSubmitterId(UserInfo.getUserId());      
+            req1.setProcessDefinitionNameOrId('ATI_Jobs_Job_Approval_Process');
+            req1.setObjectId(job.Id);
+            req1.setskipentrycriteria(true);   
+            Approval.ProcessResult result = Approval.process(req1);           
+            Approval.Unlock(job.Id);
             return job.Id;
         }
     }
@@ -1259,7 +1277,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             prop.Zip__c = Property.Zip;
             prop.Country__c = Property.Country;
             prop.State__c = Property.State;
-            prop.Address_Line_2__c = Property.AddressLine2;
+            // prop.Address_Line_2__c = Property.AddressLine2;
             prop.Name = 'Test';
             // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
             prop.Address_Line_1__c = Property.Street;
@@ -1284,6 +1302,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
           // masterJob.Name = 'Test Master Job';
           system.debug('Master job is null.. Existing job in if statement ' + ExistingMasterJob);
            masterJob.Claim__c = jobWrap.Claim;
+           masterJob.Policy__c = jobWrap.Policy;
            masterJob.Description_of_Loss__c = jobWrap.Description;
            masterJob.Stage__c = 'Pre-work';
            //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);

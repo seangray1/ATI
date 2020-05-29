@@ -86,10 +86,11 @@ public without sharing class Create_Opportunity_Handler
     
     
     // Update opportunity record when Referred_by__c field is changed
-    public static void updateOpportunity(ATI_Job__c[]  newJobsList,Map<id,ATI_Job__c> oldJobsList){
-        list<Opportunity> listUpdateOpportunity=new list<Opportunity>();
-        
+    public static void updateOpportunity(ATI_Job__c[]  newJobsList,Map<id,ATI_Job__c> oldJobsList, Map<Id, ATI_Job__c> newJobMap){
+        Map<Id,Opportunity> OppMap =new Map<Id,Opportunity>();
+        Boolean Changed = false;
         set<id> setJobIds = new Set<id>();
+        
         for(ATI_Job__c newJob: newJobsList) {
             if(newJob.Property_ID__c <> null) {
                 setJobIds.add(newJob.Id) ; 
@@ -97,35 +98,44 @@ public without sharing class Create_Opportunity_Handler
         }
         if(!setJobIds.isEmpty()){
             system.debug('Number of job ids' + setJobIds);
-            List<Opportunity> Opp = [Select Id from Opportunity where Job__c =:setJobIds];
+            List<Opportunity> Opp = [Select Id, Job__c from Opportunity where Job__c =:setJobIds];
+            if(!Opp.isEmpty())
+            {
+                for(Opportunity o: opp)
+                {
+                    OppMap.put(o.Id, o);
+                }
+            }
         // ID OpportunityID = (ID) [Select ID from Opportunity where Job__c =:setJobIds Limit 1].ID;
         system.debug('Number of Opps ' + Opp);
-        if(!opp.isEmpty()){
-        for(ATI_Job__c newJob:newJobsList){
-            Opportunity updateOpportunity = new Opportunity(); 
-            if(oldJobsList.containsKey(newJob.Id)){
-                ATI_Job__c jobRecord = oldJobsList.get(newJob.id);
-                if(jobRecord.Referred_by__c <> newJob.Referred_by__c || jobRecord.Name != newJob.Name || jobRecord.Division__c != newJob.Division__c
-                || jobRecord.Amount__c != newJob.Amount__c || jobRecord.Office2__c != newJob.Office2__c){
-                    updateOpportunity.Id=opp[0].Id;
-                    updateOpportunity.Division__c = newJob.Division__c;
-                    updateOpportunity.Office2__c = newJob.Office2__c;
-                    updateOpportunity.Amount = newJob.Amount__c;
-                    updateOpportunity.Name = newJob.Name;
-                    if(newJob.Referred_by__c <> null){
-                        updateOpportunity.Contact__c=newJob.Referred_by__c;
+        if(!OppMap.isEmpty()){
+        for(Id o:OppMap.keyset()){
+            Opportunity oppInLoop = OppMap.get(o);
+            ATI_Job__c jobInOpp = newJobMap.get(oppInLoop.Job__c);
+             
+            if(oldJobsList.containsKey(jobInOpp.Id)){
+                ATI_Job__c jobRecord = oldJobsList.get(jobInOpp.id);
+                if(jobRecord.Referred_by__c <> jobInOpp.Referred_by__c || jobRecord.Name != jobInOpp.Name || jobRecord.Division__c != jobInOpp.Division__c
+                || jobRecord.Amount__c != jobInOpp.Amount__c || jobRecord.Office2__c != jobInOpp.Office2__c){
+                    OppMap.get(o).Division__c = jobInOpp.Division__c;
+                    OppMap.get(o).Office2__c = jobInOpp.Office2__c;
+                    OppMap.get(o).Amount = jobInOpp.Amount__c;
+                    OppMap.get(o).Name = jobInOpp.Name;
+                    Changed = true;
+                    if(jobInOpp.Referred_by__c <> null){
+                        OppMap.get(o).Contact__c=jobInOpp.Referred_by__c;
                     } else {
-                        updateOpportunity.Contact__c=newJob.Contact__c;                           
+                        OppMap.get(o).Contact__c=jobInOpp.Contact__c;                           
                     }
-                    listUpdateOpportunity.add(updateOpportunity);
                 }                   
             }
         }
     }
 }
         
-        if(listUpdateOpportunity.size()>0){
-            update listUpdateOpportunity;
+        if(Changed)
+        {
+            update OppMap.values();
         }
     }
 }

@@ -6,4 +6,5 @@ global without sharing class ObjectInserts {
     public list<Property__c> propertyList {get;set;}
     public list<User> userList {get;set;}
     public list<Office__c> officeList {get;set;}
+    global Map<Id, Office__c> officeMap {get;set;}
 }

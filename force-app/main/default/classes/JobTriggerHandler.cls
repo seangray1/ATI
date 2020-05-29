@@ -58,7 +58,7 @@ public without sharing class JobTriggerHandler {
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
         
-        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap); // Added by  DemandBlue
+        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap,newJobMap); // Added by  DemandBlue
         
         JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
         JobUtility.UnlockRecord(Trigger.new, oldJobMap);
@@ -115,7 +115,16 @@ public without sharing class JobTriggerHandler {
         if(Trigger.isBefore && (Trigger.isUpdate)){
             JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
             }
-        JobTriggerHandlerWorkflow.AssignProjectRoles(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        ObjectInserts oi = new ObjectInserts();
+        oi.officeMap = new Map<Id,Office__c>([Select Id, Name, Branch_Manager__c, Biohazard_Operations_Manager__c,
+        Asbestos_Operations_Manager__c, Catastrophes_Operations_Manager__c, Consulting_Operations_Manager__c, 
+        Contents_Operations_Manager__c, Demolition_Operations_Manager__c, Emergency_Services_Operations_Manager__c, 
+        Environmental_Branch_Manager__c, Environmental_Operations_Manager__c, ES_and_Contents_Operations_Manager__c,
+        Health_Science_Operations_Manager__c, Lead_Operations_Manager__c, Marketing_Operations_Manager__c,
+        Microbial_Operations_Manager__c, Operations_Manager__c, Regional_Manager__c, Structure_Contents_Branch_Manager__c,
+        Technical_Services_Operations_Manager__c, Evp_1__c FROM Office__c]);
+        
+        JobTriggerHandlerWorkflow.AssignProjectRoles(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap, oi);
         JobTriggerHandlerWorkflow.StageChanged(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
         
         
