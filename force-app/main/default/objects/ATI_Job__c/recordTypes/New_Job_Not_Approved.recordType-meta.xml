@@ -873,6 +873,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cloned - Completed%2FReviewed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloned - Pending Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Reviewed%2FCompleted</fullName>
             <default>false</default>
         </values>

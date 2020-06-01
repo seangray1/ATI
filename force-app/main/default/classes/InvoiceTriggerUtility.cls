@@ -24,4 +24,29 @@ public without sharing class InvoiceTriggerUtility {
             }
         }
     }
+    public static void CloseRelatedCases(list<Invoice__c> invoices, Map<Id, Invoice__c> oldInvoice)
+    {
+        Map<Id, Invoice__c> invoicesPassed = new Map<Id, Invoice__c>();
+        for(invoice__c inv : invoices)
+        {
+            if(inv.Net_Due__c == 0 && oldInvoice.get(inv.Id).Net_Due__c > 0)
+            {
+                invoicesPassed.put(inv.Id, inv);
+            }
+        }
+        if(!invoicesPassed.isEmpty())
+        {
+            List<Case> invCases = [Select Id, status, Related_Invoice__c FROM 
+                                Case Where Related_Invoice__c =: oldInvoice.keyset()];
+            for(Case cse : invCases)
+            {
+                cse.Status = 'Closed';
+                
+            }
+            if(invCases.isEmpty())
+            {
+                update invCases;
+            }
+        }
+    }
 }

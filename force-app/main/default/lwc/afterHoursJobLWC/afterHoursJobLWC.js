@@ -346,7 +346,7 @@ Save(){
         if(this.ProjectDirectorValue.length > 1 && (this.ProjectDirectorId === null || this.ProjectDirectorId === undefined || this.ProjectDirectorId === "")){
             alert('Please make a selection from the Project Director list')
         }else{
-        if((this.recordId !== null || this.recordId !== undefined || this.recordId !== "") && (this.ProjectDirectorId === null || this.ProjectDirectorId === undefined || this.ProjectDirectorId === ""))
+        if((this.recordId !== null) && (this.ProjectDirectorId === null || this.ProjectDirectorId === undefined || this.ProjectDirectorId === ""))
         {
             alert('Cloned Jobs must have a Project Director');
         }
@@ -421,9 +421,15 @@ Cancel(event) {
       "/lightning/o/ATI_Job__c/list?filterName=Recent";
     event.action = this.location;
     }
-    else
+    else if(this.Mobile === true)
     {
-        this.dispatchEvent(new CustomEvent('CloseCloneJob'));
+        this.dispatchEvent(new CustomEvent('closeForm'));
+    }else{
+        location.href =
+      "https://" +
+      window.location.hostname +
+      "/lightning/o/ATI_Job__c/list?filterName=Recent";
+    event.action = this.location;
     }
   }
 ClearForm(){

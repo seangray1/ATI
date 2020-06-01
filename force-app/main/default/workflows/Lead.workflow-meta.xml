@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
+        <fullName>LEAD_Assigned_BDM</fullName>
+        <description>LEAD - Assigned BDM</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/LEAD_Standard</template>
+    </alerts>
+    <alerts>
         <fullName>LEAD_Central</fullName>
         <description>LEAD - Central</description>
         <protected>false</protected>
@@ -112,6 +126,16 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>LEAD_Owner_to_CC</fullName>
+        <field>OwnerId</field>
+        <lookupValue>CC_Leads_Ready_to_Convert</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>LEAD - Owner to CC</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Prospect_Date_Time</fullName>
         <field>Prospect_Date_Time__c</field>
         <formula>NOW()</formula>
@@ -191,6 +215,34 @@
             <field>Lead.Status</field>
             <operation>equals</operation>
             <value>Dead</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Assigned to BDM</fullName>
+        <actions>
+            <name>LEAD_Assigned_BDM</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Assigned</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Ready to Convert to CC</fullName>
+        <actions>
+            <name>LEAD_Owner_to_CC</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Ready to Convert</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>

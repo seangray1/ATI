@@ -5,12 +5,16 @@ public class BudgetLineItemFieldUpdateTest {
     {
         TestDataUtil.createCustomSettings_TriggerStatus();
         
-        
+        List<user> users = TestDataUtil.createUsersNew(2, true);
          Account acc = new account(Name = 'Test Account');
         insert acc;
         
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE);
+        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id );
         insert job;
+        ATI_Job__c job2 = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = FALSE,Project_Manager__c =users[0].id );
+        insert job2;
+        job2.XACT_File_Reopened__c = TRUE;
+        update job2;
         
         Budget__c bud = new Budget__c(Name = 'Test Budget',ATI_Job__c = job.id);
         insert bud;

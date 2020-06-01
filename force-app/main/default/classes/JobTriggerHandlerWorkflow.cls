@@ -78,6 +78,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         //of the Project_Manager_New__c/Project Manager
         system.debug('Offices from Objecinsert are ' + oi);
         system.debug('Offices are ' + offices);
+        
         if(!offices.isEmpty())
         {
         Set<Id> acctSet = new Set<Id>();
@@ -92,11 +93,13 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             ATI_Job__c oldJob = new ATI_Job__c();
             if(Trigger.isInsert)
             {
-            job.ReferenceId__c = job.Id;
+            
                 if(job.Project_Manager__c != null)
                 {
                     job.OwnerId = job.Project_manager__c;
                 }
+                
+                
             }
             if(Trigger.isUpdate)
             {
@@ -105,6 +108,12 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 if(job.Project_Manager__c != null && job.Project_Manager__c != oldJobMap.get(job.Id).Project_Manager__c)
                 {
                 job.OwnerId = job.Project_manager__c;
+                }
+                //If approved and job was cloned => changes intake status to Cloned- completed/reviewed
+                if(job.RecordTypeId != oldJob.RecordTypeId && job.Intake_Status__c == 'Cloned - Pending Review')
+                {
+                job.Intake_Status__c = 'Cloned - Completed/Reviewed';
+                
                 }
             }
             if(Trigger.isUpdate && job.Office2__c != null && (oldJob.Office2__c != job.Office2__c || oldJob.Division__c != job.Division__c))
@@ -249,6 +258,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         }
         }
     }
+    
 }
     public static void StageChanged(List<ATI_Job__c> jobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap)
     {
@@ -296,11 +306,17 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
     {
         List<ATI_Job_Team__c> jobTeams = new List<ATI_Job_Team__c>();
         List<ATI_Job_Split__c> jsToInsert = new List<ATI_Job_Split__c>();
+        list<Financial__c> financialsToInsert = new List<Financial__c>();
         for(ATI_Job__c job : jobs)
         {
             system.debug('JobTeamCreation new job is ' + jobs);
             if(Trigger.isInsert)
             {
+                if(job.Financial_Record_Availablity__c == False)
+                {
+                    Financial__c f = new Financial__c(ATI_Job__c = job.Id, ReferenceId__c = job.Id);
+                    financialsToInsert.add(f);
+                }
                 system.debug('Passed Trigger is insert');
                 if(job.Project_Manager_New__c != null)
                 {
@@ -389,6 +405,10 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     jobTeams.add(jt);
                 }
             }
+        }
+        if(!financialsToInsert.isEmpty())
+        {
+            insert financialsToInsert;
         }
         system.debug('Job Teams contains ' + jobTeams.size());
         system.debug('Job Teams contains ' + jobTeams);

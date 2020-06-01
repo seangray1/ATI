@@ -19,8 +19,18 @@
             </value>
             <value>
                 <fullName>Reviewed/Completed</fullName>
-                <default>true</default>
+                <default>false</default>
                 <label>Reviewed/Completed</label>
+            </value>
+            <value>
+                <fullName>Cloned - Pending Review</fullName>
+                <default>false</default>
+                <label>Cloned - Pending Review</label>
+            </value>
+            <value>
+                <fullName>Cloned - Completed/Reviewed</fullName>
+                <default>false</default>
+                <label>Cloned - Completed/Reviewed</label>
             </value>
         </valueSetDefinition>
     </valueSet>

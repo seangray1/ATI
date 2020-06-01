@@ -31,4 +31,21 @@ public without sharing class AccountTriggerUtility {
             insert billingAddresses;
         }
     }
+
+    public static void UpdateRelatedCases(string recordId, string Notes, string CourtesyCallOutcome)
+    {
+        List<Case> cases = [Select Id, Status, Courtesy_Call_Outcome__c FROM Case WHere AccountId =: recordId];
+        if(!cases.isEmpty())
+        {
+            for(Case c : cases)
+            {
+                c.Courtesy_Call_Outcome__c = CourtesyCallOutcome;
+                
+                //related case criteria, they must have status = invoiced
+                //Update Milestone status? trigger completion of courtesy call followup in each related case, add note TASK to each case and account
+
+            }
+            update cases;
+        }
+    }
 }

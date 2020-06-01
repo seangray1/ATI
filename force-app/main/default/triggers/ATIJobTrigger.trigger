@@ -59,11 +59,11 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                                  system.debug('The delete is called');
                                              }          
                                      }
-     if(Trigger.isAfter && (Trigger.isInsert || Trigger.isUpdate)){
-        //XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);
-        XactFileReOpenedClass.TriggerMail(trigger.new);
-    }
-    /*if(Trigger.isAfter && ){
-        XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);
-    }*/
+    //  if(Trigger.isAfter && (Trigger.isInsert)){
+    //     //XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);
+    //     XactFileReOpenedClass.TriggerMail(trigger.new);
+    // }
+    // if(Trigger.isAfter && (Trigger.isUpdate)){
+    //     XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);
+    // }
 }

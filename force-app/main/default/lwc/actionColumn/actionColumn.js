@@ -1,11 +1,20 @@
 import { LightningElement, api } from 'lwc';
+import FORM_FACTOR from '@salesforce/client/formFactor';
 
 export default class ActionColumn extends LightningElement {
     @api recordId;
     ProjectNoteClicked = false;
+    
     OpenProjectNote()
     {
-        this.dispatchEvent(new CustomEvent('ProjectNoteClick'));  
+        if(FORM_FACTOR === 'Large')
+        {
+        this.dispatchEvent(new CustomEvent('ProjectNoteClick')); 
+        }
+        if(FORM_FACTOR !== 'Large')
+        {
+        this.dispatchEvent(new CustomEvent('MobileProjectNote')); 
+        }  
     }
     CloneJob()
     {

@@ -284,10 +284,7 @@ public without sharing class ATIJobControl {
                 
                 // Get the old values of the job
                 ATI_Job__c oj = oldJobs.get(nj.Id);
-                system.debug('Old Job is ' + oj);
-                system.debug('New Job is ' + nj);
-                system.debug('Old job pd is ' + oj.Project_Manager__c);
-                system.debug('New Job Pd is ' + nj.Project_manager__c);
+                
                 
                 // If there is no old values, assume a recalc is necessary
                 if (oj == null) {

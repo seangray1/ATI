@@ -38,6 +38,20 @@
         component.set("v.EditAccountRoles", false);
         $A.get("e.force:closeQuickAction").fire();
             },
-
+            
+    MobileProjectNote: function(component, event, helper) {       
+           // var recordId = component.get("v.recordId");
+            var avt = $A.get("e.force:navigateToComponent"); 
+                
+                avt.setParams({
+                componentDef:"c:ProjectNoteAura",
+                    componentAttributes: {
+                            jobrecordId : component.get("v.recordId"),
+                            //TypeOfJobEntry:"AfterHoursJobEntry"
+                            
+                        }
+                });
+                avt.fire();
+                },
             
 })

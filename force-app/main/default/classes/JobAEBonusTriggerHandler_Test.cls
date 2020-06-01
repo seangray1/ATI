@@ -103,7 +103,7 @@ public class JobAEBonusTriggerHandler_Test {
             JobAEBonusTriggerHandler.populateAEOnApprovedJobs(testmap, newmap);
             JobAEBonusTriggerHandler.getJobAccounts(jobs);
             JobAEBonusTriggerHandler.addTeamMembersJobSplitsOnInsert(jobs);
-            JobAEBonusTriggerHandler.afterCreditRequestApproved(testmap, newmap);
+            //JobAEBonusTriggerHandler.afterCreditRequestApproved(testmap, newmap);
              JobAEBonusTriggerHandler.updateTeamMembersOnAEChange(testmap, newmap);
             test.stopTest();
         }

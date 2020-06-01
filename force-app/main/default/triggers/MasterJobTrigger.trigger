@@ -6,7 +6,7 @@ trigger MasterJobTrigger on Master_Job__c (before insert, before update, after u
         MasterJobTriggerHandler.MasterJobNameFormat(trigger.new);
     }
     if(Trigger.isBefore && Trigger.isUpdate){
-        MasterJobTriggerHandler.MasterJobNameUpdate(trigger.new, trigger.oldMap);
+        MasterJobTriggerHandler.MasterJobNameUpdate(trigger.new, trigger.oldMap, trigger.newMap);
     }
     if(Trigger.isAfter && Trigger.isUpdate){
         MasterJobTriggerHandler.UpdateJobDetails(trigger.new, trigger.oldMap, trigger.newMap);

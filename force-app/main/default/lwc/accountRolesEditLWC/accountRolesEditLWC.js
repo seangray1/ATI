@@ -936,8 +936,4 @@ AddNewRow() {
   {
     this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
   }
-  CreateAccountRoles()
-  {
-    
-  }
 }

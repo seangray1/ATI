@@ -537,6 +537,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>JitterbitBatchToPurgeLogTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>JobAEBonusTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2406,7 +2410,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ATI_Job__c.Job_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -2784,7 +2788,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>ATI_Job__c.Office2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3954,6 +3958,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Parent_CompanyId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.Permanently_Inactive__c</field>
         <readable>true</readable>
@@ -4116,6 +4125,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Ultimate_Parent_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10169,7 +10183,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Master_Job__c.Office2__c</field>
         <readable>true</readable>
     </fieldPermissions>

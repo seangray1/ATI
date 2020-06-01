@@ -132,7 +132,7 @@
             <targetReference>Get_Contacts_From_Parent_Account</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>accId</name>
         <dataType>String</dataType>

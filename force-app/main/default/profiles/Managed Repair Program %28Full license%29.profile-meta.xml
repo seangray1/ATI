@@ -537,6 +537,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>JitterbitBatchToPurgeLogTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>JobAEBonusTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -3955,6 +3959,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Parent_CompanyId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.Permanently_Inactive__c</field>
         <readable>true</readable>
@@ -4117,6 +4126,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Ultimate_Parent_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

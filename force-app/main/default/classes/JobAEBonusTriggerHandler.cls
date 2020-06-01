@@ -62,53 +62,53 @@ public without sharing class JobAEBonusTriggerHandler {
         return forecastsMap;
     }
     
-    public static void afterCreditRequestApproved( Map<Id, ATI_Job__c> oldJobsMap, Map<Id, ATI_Job__c> newJobsMap ){
-        Set<String> creditReqEmails = new Set<String>();
-        try{            
-            for( ATI_Job__c job : newJobsMap.values() ){
-                ATI_Job__c oldJob = oldJobsMap.get( job.Id );
-                if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
-                   job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS ){
-                       if( job.Credit_Request_Submitter_Email__c != null ){
-                           creditReqEmails.add( job.Credit_Request_Submitter_Email__c );        
-                       }
-                   }
-            }
-            if( !creditReqEmails.isEmpty() ){
-                Map<String, Id> userEmailToId = new Map<String, Id>();
-                for( User u : [ SELECT Id, Email FROM User WHERE Email IN : creditReqEmails] ){
-                    userEmailToId.put( u.email, u.id );
-                }
-                for( ATI_Job__c job : newJobsMap.values() ){
-                    ATI_Job__c oldJob = oldJobsMap.get( job.Id );
-                    if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
-                       job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS && job.Credit_Request_Submitter_Email__c != null ){
-                           Id currentUserId = userEmailToId.get( job.Credit_Request_Submitter_Email__c );    
-                           //If there is already an AE 1 associated with that job that the requester is requesting credit for, 
-                           //instead of wiping all AE's out we would add the requester as AE 2 and set both AE 1 and AE 2 to a 50% split. 
-                           if( job.Account_Executive_1__c != null && job.Account_Executive_2__c == null && 
-                              job.Account_Executive_1__c != currentUserId ){
-                                  job.Account_Executive_2__c = currentUserId; 
-                              }else if( job.Account_Executive_2__c != null && job.Account_Executive_1__c == null && 
-                                       job.Account_Executive_2__c != currentUserId ){
-                                           job.Account_Executive_1__c = currentUserId; 
-                                       }else if( job.Account_Executive_1__c == null && job.Account_Executive_2__c == null ){
-                                           //If there is not an AE 1, then the Requester is added as the AE 1 with a 100% split (as is happening now)
-                                           job.Account_Executive_1__c = currentUserId;
-                                       }else if( job.Account_Executive_1__c != null && job.Account_Executive_2__c != null &&
-                                                job.Account_Executive_1__c != currentUserId ){
-                                                    //If there is already an AE 1 and an AE 2 on a job and someone requests credit, 
-                                                    //then it gives them an error(already an AE1 And AE 2 assigned, please contact the Marketing Manager etc.)
-                                                    job.addError( 'You may not request credit for a job with 2 AE\'s assigned. Please contact Marketing Manager'+
-                                                                 ' for assistance' );
-                                                }
-                       }
-                }            
-            }
-        }catch( DmlException ex ){
-            system.debug( ex.getMessage() );            
-        }
-    }
+    // public static void afterCreditRequestApproved( Map<Id, ATI_Job__c> oldJobsMap, Map<Id, ATI_Job__c> newJobsMap ){
+    //     Set<String> creditReqEmails = new Set<String>();
+    //     try{            
+    //         for( ATI_Job__c job : newJobsMap.values() ){
+    //             ATI_Job__c oldJob = oldJobsMap.get( job.Id );
+    //             if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
+    //                job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS ){
+    //                    if( job.Credit_Request_Submitter_Email__c != null ){
+    //                        creditReqEmails.add( job.Credit_Request_Submitter_Email__c );        
+    //                    }
+    //                }
+    //         }
+    //         if( !creditReqEmails.isEmpty() ){
+    //             Map<String, Id> userEmailToId = new Map<String, Id>();
+    //             for( User u : [ SELECT Id, Email FROM User WHERE Email IN : creditReqEmails] ){
+    //                 userEmailToId.put( u.email, u.id );
+    //             }
+    //             for( ATI_Job__c job : newJobsMap.values() ){
+    //                 ATI_Job__c oldJob = oldJobsMap.get( job.Id );
+    //                 if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
+    //                    job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS && job.Credit_Request_Submitter_Email__c != null ){
+    //                        Id currentUserId = userEmailToId.get( job.Credit_Request_Submitter_Email__c );    
+    //                        //If there is already an AE 1 associated with that job that the requester is requesting credit for, 
+    //                        //instead of wiping all AE's out we would add the requester as AE 2 and set both AE 1 and AE 2 to a 50% split. 
+    //                        if( job.Account_Executive_1__c != null && job.Account_Executive_2__c == null && 
+    //                           job.Account_Executive_1__c != currentUserId ){
+    //                               job.Account_Executive_2__c = currentUserId; 
+    //                           }else if( job.Account_Executive_2__c != null && job.Account_Executive_1__c == null && 
+    //                                    job.Account_Executive_2__c != currentUserId ){
+    //                                        job.Account_Executive_1__c = currentUserId; 
+    //                                    }else if( job.Account_Executive_1__c == null && job.Account_Executive_2__c == null ){
+    //                                        //If there is not an AE 1, then the Requester is added as the AE 1 with a 100% split (as is happening now)
+    //                                        job.Account_Executive_1__c = currentUserId;
+    //                                    }else if( job.Account_Executive_1__c != null && job.Account_Executive_2__c != null &&
+    //                                             job.Account_Executive_1__c != currentUserId ){
+    //                                                 //If there is already an AE 1 and an AE 2 on a job and someone requests credit, 
+    //                                                 //then it gives them an error(already an AE1 And AE 2 assigned, please contact the Marketing Manager etc.)
+    //                                                 job.addError( 'You may not request credit for a job with 2 AE\'s assigned. Please contact Marketing Manager'+
+    //                                                              ' for assistance' );
+    //                                             }
+    //                    }
+    //             }            
+    //         }
+    //     }catch( DmlException ex ){
+    //         system.debug( ex.getMessage() );            
+    //     }
+    // }
     
     
     /*

@@ -35,4 +35,9 @@ after update, before delete, before insert, before update) {
     {
         System.debug(Logginglevel.WARN, 'InvoiceTrigger: Skipped because InvoiceSyncToTimberline__c is false');
     }     
+
+    if(Trigger.isUpdate && Trigger.isAfter)
+    {
+        InvoiceTriggerUtility.CloseRelatedCases(Trigger.New, Trigger.oldMap);
+    }
 }

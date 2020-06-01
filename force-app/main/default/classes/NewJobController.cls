@@ -46,67 +46,68 @@ public without sharing class NewJobController {
     @AuraEnabled
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {
-            Http h = new Http();
-            HttpRequest req = new HttpRequest();
-             String address = Street + ', ' + State + ', ' + City + ' ' + Zip;
-             system.debug('Address is ' + address);
-             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-             req.setMethod('GET');
-             req.setTimeout(60000);
-             string county;
-             string streetnumber1;
-             string street1;
-             if(!Test.isRunningTest()){
-            HttpResponse res = h.send(req);
-            system.debug('Response is ' + res.getBody());
-            resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-            system.debug('results are ' + result);
+            PropertyAddresses propAddress = GoogleCallout(Street, City, Zip, State);
+            // Http h = new Http();
+            // HttpRequest req = new HttpRequest();
+            //  String address = Street + ', ' + State + ', ' + City + ' ' + Zip;
+            //  system.debug('Address is ' + address);
+            //  req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+            //  EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+            //  req.setMethod('GET');
+            //  req.setTimeout(60000);
+            //  string county;
+            //  string streetnumber1;
+            //  string street1;
+            //  if(!Test.isRunningTest()){
+            // HttpResponse res = h.send(req);
+            // system.debug('Response is ' + res.getBody());
+            // resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+            // system.debug('results are ' + result);
             
-            for(results a: result.results){
-                system.debug('a ' + a);
-                for(address_components ad : a.address_components){
-                    system.debug('ad ' + ad.types[0]);
-                    if(ad.types[0] == 'administrative_area_level_2'){
-                        county = ad.long_name.replace('County', '');
-                    }
+            // for(results a: result.results){
+            //     system.debug('a ' + a);
+            //     for(address_components ad : a.address_components){
+            //         system.debug('ad ' + ad.types[0]);
+            //         if(ad.types[0] == 'administrative_area_level_2'){
+            //             county = ad.long_name.replace('County', '');
+            //         }
                     
-                    if(ad.types[0] == 'locality'){
-                        City = ad.short_name;
-                       // system.debug('state is  ' + state);
-                    }
-                    if(ad.types[0] == 'administrative_area_level_1'){
-                        State = ad.short_name;
-                     //   system.debug('city is  ' + city);
-                    }
-                    if(ad.types[0] == 'street_number'){
-                        streetnumber1 = ad.short_name;
-                        //system.debug('street # is  ' + streetnumber);
-                    }
-                    if(ad.types[0] == 'route'){
-                        street1 = ad.short_name;
-                      //  system.debug('Street is  ' + street);
-                    }
-                    if(ad.types[0] == 'postal_code'){
-                        Zip = ad.short_name;
-                      //  system.debug('Postal # is  ' + postalcode);
-                    }
+            //         if(ad.types[0] == 'locality'){
+            //             City = ad.short_name;
+            //            // system.debug('state is  ' + state);
+            //         }
+            //         if(ad.types[0] == 'administrative_area_level_1'){
+            //             State = ad.short_name;
+            //          //   system.debug('city is  ' + city);
+            //         }
+            //         if(ad.types[0] == 'street_number'){
+            //             streetnumber1 = ad.short_name;
+            //             //system.debug('street # is  ' + streetnumber);
+            //         }
+            //         if(ad.types[0] == 'route'){
+            //             street1 = ad.short_name;
+            //           //  system.debug('Street is  ' + street);
+            //         }
+            //         if(ad.types[0] == 'postal_code'){
+            //             Zip = ad.short_name;
+            //           //  system.debug('Postal # is  ' + postalcode);
+            //         }
 
-                }  
-            }
-            street = streetnumber1 +' ' + street1;
-        }
+            //     }  
+            // }
+            // street = streetnumber1 +' ' + street1;
+        // }
 
 
-            Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = Street, City__c = City, Zip__c = Zip, State__c = State, County__c = county);
+            Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);
             update prop;
             List<ATI_Job__c> jobs = [Select ID, Project_Site_Address__c, Project_Site_CIty__c, Project_Site_State__c, Project_Site_Zipcode__c FROM ATI_Job__c WHere Property_Id__c =: prop.Id];
             for(ATI_Job__c job: jobs){
-                job.Project_Site_Address__c = Street;
-                job.Project_Site_CIty__c = City;
-                job.Project_Site_State__c = State;
-                job.Project_Site_Zipcode__c = Zip;
-                job.County__c = county;
+                job.Project_Site_Address__c = propAddress.Street;
+                job.Project_Site_City__c = propAddress.City;
+                job.Project_Site_State__c = propAddress.State;
+                job.Project_Site_Zipcode__c = propAddress.Zipcode;
+                job.County__c = propAddress.county;
             }
             if(!jobs.isEmpty()){
                 update jobs;
@@ -799,69 +800,71 @@ public without sharing class NewJobController {
         system.debug('AR ' + AccountRoleInfo + 'Property  ' + PropertyInfo);
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
-            Http h = new Http();
-            HttpRequest req = new HttpRequest();
-             String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-             req.setMethod('GET');
-             req.setTimeout(60000);
-             string county;
-             string streetnumber;
-             string street;
-             if(!Test.isRunningTest()){
-            HttpResponse res = h.send(req);
-            system.debug('Response is ' + res.getBody());
-            resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-            system.debug('results are ' + result);
+        PropertyAddresses propAddress = GoogleCallout(Property.Street, Property.City, Property.Zip, Property.State);
+        
+        //     Http h = new Http();
+        //     HttpRequest req = new HttpRequest();
+        //      String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
+        //      req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+        //      EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+        //      req.setMethod('GET');
+        //      req.setTimeout(60000);
+        //      string county;
+        //      string streetnumber;
+        //      string street;
+        //      if(!Test.isRunningTest()){
+        //     HttpResponse res = h.send(req);
+        //     system.debug('Response is ' + res.getBody());
+        //     resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+        //     system.debug('results are ' + result);
             
-            for(results a: result.results){
-                system.debug('a ' + a);
-                for(address_components ad : a.address_components){
-                    system.debug('ad ' + ad.types[0]);
-                    if(ad.types[0] == 'administrative_area_level_2'){
-                        county = ad.long_name.replace('County', '');
-                    }
+        //     for(results a: result.results){
+        //         system.debug('a ' + a);
+        //         for(address_components ad : a.address_components){
+        //             system.debug('ad ' + ad.types[0]);
+        //             if(ad.types[0] == 'administrative_area_level_2'){
+        //                 county = ad.long_name.replace('County', '');
+        //             }
                     
-                    if(ad.types[0] == 'locality'){
-                        Property.city = ad.short_name;
-                       // system.debug('state is  ' + state);
-                    }
-                    if(ad.types[0] == 'administrative_area_level_1'){
-                        Property.state = ad.short_name;
-                     //   system.debug('city is  ' + city);
-                    }
-                    if(ad.types[0] == 'street_number'){
-                        streetnumber = ad.short_name;
-                        //system.debug('street # is  ' + streetnumber);
-                    }
-                    if(ad.types[0] == 'route'){
-                        street = ad.short_name;
-                      //  system.debug('Street is  ' + street);
-                    }
-                    if(ad.types[0] == 'postal_code'){
-                        Property.Zip = ad.short_name;
-                      //  system.debug('Postal # is  ' + postalcode);
-                    }
+        //             if(ad.types[0] == 'locality'){
+        //                 Property.city = ad.short_name;
+        //                // system.debug('state is  ' + state);
+        //             }
+        //             if(ad.types[0] == 'administrative_area_level_1'){
+        //                 Property.state = ad.short_name;
+        //              //   system.debug('city is  ' + city);
+        //             }
+        //             if(ad.types[0] == 'street_number'){
+        //                 streetnumber = ad.short_name;
+        //                 //system.debug('street # is  ' + streetnumber);
+        //             }
+        //             if(ad.types[0] == 'route'){
+        //                 street = ad.short_name;
+        //               //  system.debug('Street is  ' + street);
+        //             }
+        //             if(ad.types[0] == 'postal_code'){
+        //                 Property.Zip = ad.short_name;
+        //               //  system.debug('Postal # is  ' + postalcode);
+        //             }
 
-                }  
-            }
-            property.street = streetnumber +' ' + street;
-        }
-            system.debug('county ' + county);
+        //         }  
+        //     }
+        //     property.street = streetnumber +' ' + street;
+        // }
+        //     system.debug('county ' + county);
         Boolean NewProperty;
         Property__c prop = new Property__c();
         List<Account_Roles__c> ARPropertyList = new List<Account_Roles__c>();
         if(String.isEmpty(Property.PropertyId)){
-            prop.Property_Type__c = Property.PropertyType;
+            //prop.Property_Type__c = Property.PropertyType;
             prop.Street__c = Property.Street;
-            prop.City__c = Property.City;
-            prop.Zip__c = Property.Zip;
+            prop.City__c = propAddress.City;
+            prop.Zip__c = propAddress.Zipcode;
             prop.Country__c = Property.Country;
-            prop.State__c = Property.State;
+            prop.State__c = propAddress.State;
             prop.Address_Line_2__c = Property.AddressLine2;
-            prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-            prop.County__c = county;
+            prop.Address_Line_1__c = propAddress.Street;
+            prop.County__c = propAddress.county;
             NewProperty= true;
             // prop.Year_Structure_Built__c = Decimal.valueOf(jobWrap.YearBuilt);
             // prop.Job_Class__c = jobWrap.JobClass;
@@ -920,94 +923,95 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
 //Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
 // also set job record type to approved..
 
-    string county;
-    string street1;
-    string streetnumber;
-    string localityCity;
-    string sublocalityCity;
-    string neighborhoodCity;
-    String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
-    Http h = new Http();
-    HttpRequest req = new HttpRequest();
-    req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-    EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-    req.setMethod('GET');
-    req.setTimeout(60000);
-    if(!Test.isRunningTest())
-    {
-        HttpResponse res = h.send(req);
-        system.debug('Response is ' + res.getBody());
-        resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-        system.debug('results are ' + result);
-        for(results a: result.results)
-        {
-            system.debug('a ' + a);
-            for(address_components ad : a.address_components)
-            {
-                system.debug('ad ' + ad.types[0]);
-                if(ad.types[0] == 'administrative_area_level_2')
-                {
-                    county = ad.long_name.replace('County', '');
-                }
-                if(ad.types[0] == 'route')
-                {
-                    street1 = ad.short_name;
-                }
-                if(ad.types[0] == 'locality')
-                {
-                    localityCity = ad.short_name;
-                }
+    // string county;
+    // string street1;
+    // string streetnumber;
+    // string localityCity;
+    // string sublocalityCity;
+    // string neighborhoodCity;
+    // String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
+    PropertyAddresses propAddress = GoogleCallout(Street,  City, Zipcode, State);
+    // Http h = new Http();
+    // HttpRequest req = new HttpRequest();
+    // req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+    // EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+    // req.setMethod('GET');
+    // req.setTimeout(60000);
+    // if(!Test.isRunningTest())
+    // {
+    //     HttpResponse res = h.send(req);
+    //     system.debug('Response is ' + res.getBody());
+    //     resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+    //     system.debug('results are ' + result);
+    //     for(results a: result.results)
+    //     {
+    //         system.debug('a ' + a);
+    //         for(address_components ad : a.address_components)
+    //         {
+    //             system.debug('ad ' + ad.types[0]);
+    //             if(ad.types[0] == 'administrative_area_level_2')
+    //             {
+    //                 county = ad.long_name.replace('County', '');
+    //             }
+    //             if(ad.types[0] == 'route')
+    //             {
+    //                 street1 = ad.short_name;
+    //             }
+    //             if(ad.types[0] == 'locality')
+    //             {
+    //                 localityCity = ad.short_name;
+    //             }
 
-                if(ad.types[0] == 'political')
-                {
-                    sublocalityCity = ad.short_name;
-                    system.debug('Hitting 1 ' + sublocalityCity);
+    //             if(ad.types[0] == 'political')
+    //             {
+    //                 sublocalityCity = ad.short_name;
+    //                 system.debug('Hitting 1 ' + sublocalityCity);
 
-                }
-                if(ad.types[0] == 'neighborhood')
-                {
-                    neighborhoodCity = ad.short_name;
-                }
-                if(ad.types[0] == 'administrative_area_level_1')
-                {
-                    state = ad.short_name;
-                }
-                if(ad.types[0] == 'street_number')
-                {
-                    streetnumber = ad.short_name;
-                //system.debug('street # is  ' + streetnumber);
-                }
-                if(ad.types[0] == 'postal_code')
-                {
-                    ZipCode = ad.short_name;
-                //  system.debug('Postal # is  ' + postalcode);
-                }
+    //             }
+    //             if(ad.types[0] == 'neighborhood')
+    //             {
+    //                 neighborhoodCity = ad.short_name;
+    //             }
+    //             if(ad.types[0] == 'administrative_area_level_1')
+    //             {
+    //                 state = ad.short_name;
+    //             }
+    //             if(ad.types[0] == 'street_number')
+    //             {
+    //                 streetnumber = ad.short_name;
+    //             //system.debug('street # is  ' + streetnumber);
+    //             }
+    //             if(ad.types[0] == 'postal_code')
+    //             {
+    //                 ZipCode = ad.short_name;
+    //             //  system.debug('Postal # is  ' + postalcode);
+    //             }
 
-            }  
-        }
-        street = streetnumber +' '+ street1;
-    }
-    if(neighborhoodCity != null)
-    {
-        City = neighborhoodCity;
-    }
-    if(sublocalityCity != null)
-    {
-        City = sublocalityCity;
-    }
-    if(localityCity != null)
-    {
-        City = localityCity;
-    }
+    //         }  
+    //     }
+    //     street = streetnumber +' '+ street1;
+    // }
+    // if(neighborhoodCity != null)
+    // {
+    //     City = neighborhoodCity;
+    // }
+    // if(sublocalityCity != null)
+    // {
+    //     City = sublocalityCity;
+    // }
+    // if(localityCity != null)
+    // {
+    //     City = localityCity;
+    // }
     Savepoint sp = Database.setSavepoint();
     try 
     {
         if(recordId == null)
         {    
             Master_Job__c mj = new Master_Job__c(Office2__c = Office, Description_of_Loss__c = Description, Stage__c = 'Pre-work');
-            mj.City__c = City;
-            mj.State__c = State;
-            mj.Address_Line_1__c = Street;
+            mj.City__c = propAddress.City;
+            mj.State__c = propAddress.State;
+            mj.Address_Line_1__c = propAddress.Street;
             insert mj;
             system.debug('After Master Job creation');
             Id userId = userinfo.getUserId();
@@ -1025,8 +1029,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             // }
             //date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
-            Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
-            Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
+            Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
+            Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
             Date_Time_Taken__c = datetime.now());
             system.debug('Job info is ' + job);
             if(!account.isempty())
@@ -1045,8 +1049,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').getRecordTypeId();
             ATI_Job__c jobdata = GetJobInfo(recordId);
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = jobdata.Taken_By__c,
-            Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = notApprovedId, Division__c = Division, Description__c = Description, Project_Site_Address__c = Street, Project_Site_Address_2__c = AddressLine2,
-            Project_Site_City__c = City, Project_Site_State__c = State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = ZipCode, Contact_Info__c = ContactInfo, County__c = county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
+            Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = notApprovedId, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
+            Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
             Date_Time_Taken__c = datetime.now(),  Policy__c = jobdata.Policy__c, Deductible__c = jobdata.Deductible__c,
             Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c, Send_Prelim__c = jobdata.Send_Prelim__c, Account__c = jobdata.Account__c,
             Contact__c = jobdata.Contact__c, Lead_Source__c = jobdata.Lead_Source__c, Market_Class__c = jobdata.Market_Class__c, Market_Segment__c = jobdata.Market_Segment__c,
@@ -1100,78 +1104,75 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         Id PrimaryContact;
         Id Referred;
         Id InsuranceAdjuster;
-        string streetnumber;
-        string street;
-        string localityCity;
-        string sublocalityCity;
-        string neighborhoodCity;
-        string county;
+        
+        
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
         JobWrapper jobWrap = (JobWrapper)JSON.deserialize(jobInfo, JobWrapper.class);
-        Http h = new Http();
-            HttpRequest req = new HttpRequest();
-             String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-             req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-             EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-             req.setMethod('GET');
-             req.setTimeout(60000);
-             if(!Test.isRunningTest()){
-            HttpResponse res = h.send(req);
-            system.debug('Response is ' + res.getBody());
-            resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-            system.debug('results are ' + result);
+        PropertyAddresses propAddress = GoogleCallout(Property.Street,  Property.City, Property.Zip, Property.State);
+        // Http h = new Http();
+        //     HttpRequest req = new HttpRequest();
+        //      String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
+        //      req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+        //      EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+        //      req.setMethod('GET');
+        //      req.setTimeout(60000);
+        //      if(!Test.isRunningTest()){
+        //     HttpResponse res = h.send(req);
+        //     system.debug('Response is ' + res.getBody());
+        //     resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+        //     system.debug('results are ' + result);
             
-            for(results a: result.results){
-                system.debug('a ' + a);
-                for(address_components ad : a.address_components){
-                    system.debug('ad ' + ad.types[0]);
-                    if(ad.types[0] == 'administrative_area_level_2'){
-                        county = ad.long_name.replace('County', '');
-                    }
-                    if(ad.types[0] == 'route'){
-                        street = ad.short_name;
+        //     for(results a: result.results){
+        //         system.debug('a ' + a);
+        //         for(address_components ad : a.address_components){
+        //             system.debug('ad ' + ad.types[0]);
+        //             if(ad.types[0] == 'administrative_area_level_2'){
+        //                 county = ad.long_name.replace('County', '');
+        //             }
+        //             if(ad.types[0] == 'route'){
+        //                 street = ad.short_name;
                       
-                    }
-                    if(ad.types[0] == 'locality'){
-                        localityCity = ad.short_name;
+        //             }
+        //             if(ad.types[0] == 'locality'){
+        //                 localityCity = ad.short_name;
         
-                    }
-                    if(ad.types[0] == 'political'){
-                        sublocalityCity = ad.short_name;
-                        system.debug('Hitting 1 ' + sublocalityCity);
+        //             }
+        //             if(ad.types[0] == 'political'){
+        //                 sublocalityCity = ad.short_name;
+        //                 system.debug('Hitting 1 ' + sublocalityCity);
                    
-                    }
-                    if(ad.types[0] == 'neighborhood'){
-                        neighborhoodCity = ad.short_name;
+        //             }
+        //             if(ad.types[0] == 'neighborhood'){
+        //                 neighborhoodCity = ad.short_name;
                        
-                    }
-                    if(ad.types[0] == 'administrative_area_level_1'){
-                        property.state = ad.short_name;
+        //             }
+        //             if(ad.types[0] == 'administrative_area_level_1'){
+        //                 property.state = ad.short_name;
                     
-                    }
-                    if(ad.types[0] == 'street_number'){
-                        streetnumber = ad.short_name;
+        //             }
+        //             if(ad.types[0] == 'street_number'){
+        //                 streetnumber = ad.short_name;
                       
-                    }
-                    if(ad.types[0] == 'postal_code'){
-                        property.Zip = ad.short_name;
+        //             }
+        //             if(ad.types[0] == 'postal_code'){
+        //                 property.Zip = ad.short_name;
                   
-                    }
+        //             }
 
-                }  
-            }
-            property.street = streetnumber +' '+ street;
-        }
-        if(neighborhoodCity != null){
-            property.City = neighborhoodCity;
-        }
-        if(sublocalityCity != null){
-            property.City = sublocalityCity;
-        }
-        if(localityCity != null){
-            property.City = localityCity;
-        }
+        //         }  
+        //     }
+        //     property.street = streetnumber +' '+ street;
+        // }
+        // if(neighborhoodCity != null){
+        //     property.City = neighborhoodCity;
+        // }
+        // if(sublocalityCity != null){
+        //     property.City = sublocalityCity;
+        // }
+        // if(localityCity != null){
+        //     property.City = localityCity;
+        // }
         Savepoint sp = Database.setSavepoint();
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
         try {
@@ -1273,14 +1274,14 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         if(String.isEmpty(Property.PropertyId)){
            // prop.Property_Type__c = Property.PropertyType;
             // prop.Street__c = Property.Street;
-            prop.City__c = Property.City;
-            prop.Zip__c = Property.Zip;
+            prop.City__c = propAddress.City;
+            prop.Zip__c = propAddress.Zipcode;
             prop.Country__c = Property.Country;
-            prop.State__c = Property.State;
+            prop.State__c = propAddress.State;
             // prop.Address_Line_2__c = Property.AddressLine2;
             prop.Name = 'Test';
             // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-            prop.Address_Line_1__c = Property.Street;
+            prop.Address_Line_1__c = propAddress.Street;
             NewProperty= true;
             prop.Year_Structure_Built__c = YearBuilt;
             // prop.Job_Class__c = jobWrap.JobClass;
@@ -1289,7 +1290,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             prop.Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass;
             prop.Alternate_Name__c = Property.AlternateName;
             
-            prop.County__c = county;
+            prop.County__c = propAddress.county;
             insert prop;  
             
         }else{
@@ -1312,9 +1313,9 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
            masterJob.Taken_By__c = jobWrap.TakenBy;
            masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
            masterJob.office2__c = jobWrap.Office;
-           masterJob.City__c = Property.City;
-            masterJob.State__c = Property.State;
-            masterJob.Address_Line_1__c = Property.Street;
+           masterJob.City__c = propAddress.City;
+            masterJob.State__c = propAddress.State;
+            masterJob.Address_Line_1__c = propAddress.Street;
            if(NewProperty){
                masterJob.Property__c = prop.Id;
            }else{
@@ -1368,12 +1369,12 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         }
         system.debug('NewJobEntry?? ' + JobEntryType);
         system.debug('Hitting before job insert, and MJobId is ' + mJobId );
-        if(prop.City__c.length() > 15){
-            prop.City__c = prop.City__c.substring(0, 15);
-        }
-        if(prop.county__c != null && prop.County__c.length() > 15){
-            prop.County__c = prop.County__c.substring(0, 15);
-        }
+        // if(prop.City__c.length() > 15){
+        //     prop.City__c = prop.City__c.substring(0, 15);
+        // }
+        // if(prop.county__c != null && prop.County__c.length() > 15){
+        //     prop.County__c = prop.County__c.substring(0, 15);
+        // }
         //Job_Class__c = jobWrap.JobClass,
         
         ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Job_Request_Completed_By__c = UserInfo.getUserId(), Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
@@ -1381,7 +1382,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
          Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
-        Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
+        Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
         Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
         // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
         // jobsas[0].name = 'test';
@@ -1465,7 +1466,113 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     //     Master_Job__c mJob = new Master_Job__c(Id = MasterJobId, Job__c = JobId);
     //     update mJob;
     // }
-    
+    private static PropertyAddresses GoogleCallout(String Street, String City, String Zipcode, String State)
+    {
+    string county;
+    string street1;
+    string streetnumber;
+    string localityCity;
+    string sublocalityCity;
+    string neighborhoodCity;
+    string adminlevel3City;
+    String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
+    PropertyAddresses propertyAddress = new PropertyAddresses();
+    Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
+    EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
+    req.setMethod('GET');
+    req.setTimeout(60000);
+    if(!Test.isRunningTest())
+    {
+        HttpResponse res = h.send(req);
+        system.debug('Response is ' + res.getBody());
+        resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
+        system.debug('results are ' + result);
+        for(results a: result.results)
+        {
+            system.debug('a ' + a);
+            for(address_components ad : a.address_components)
+            {
+                system.debug('ad ' + ad.types[0]);
+                if(ad.types[0] == 'administrative_area_level_2')
+                {
+                    propertyAddress.county = ad.long_name.replace('County', '');
+                }
+                if(ad.types[0] == 'administrative_area_level_3')
+                {
+                    adminlevel3City = ad.short_name;
+                }
+                if(ad.types[0] == 'route')
+                {
+                    street1 = ad.short_name;
+                }
+                if(ad.types[0] == 'locality')
+                {
+                    localityCity = ad.short_name;
+                }
+
+                if(ad.types[0] == 'political')
+                {
+                    sublocalityCity = ad.short_name;
+                    system.debug('Hitting 1 ' + sublocalityCity);
+
+                }
+                if(ad.types[0] == 'neighborhood')
+                {
+                    neighborhoodCity = ad.short_name;
+                }
+                if(ad.types[0] == 'administrative_area_level_1')
+                {
+                    propertyAddress.state = ad.short_name;
+                }
+                if(ad.types[0] == 'street_number')
+                {
+                    streetnumber = ad.short_name;
+                //system.debug('street # is  ' + streetnumber);
+                }
+                if(ad.types[0] == 'postal_code')
+                {
+                    propertyAddress.ZipCode = ad.short_name;
+                //  system.debug('Postal # is  ' + postalcode);
+                }
+
+            }  
+        }
+        if(streetnumber != null)
+        {
+            propertyAddress.street = streetnumber +' '+ street1;
+        }
+        else{
+            propertyAddress.Street = street1;
+        }
+    }
+    if(adminlevel3City != null)
+    {
+        propertyAddress.City = adminlevel3City;
+    }
+    if(neighborhoodCity != null)
+    {
+        propertyAddress.City = neighborhoodCity;
+    }
+    if(sublocalityCity != null)
+    {
+        propertyAddress.City = sublocalityCity;
+    }
+    if(localityCity != null)
+    {
+        propertyAddress.City = localityCity;
+    }
+    return propertyAddress;
+}
+
+    public class PropertyAddresses {
+        public string Street {get;set;}
+        public string City {get;set;}
+        public string Zipcode {get;set;}
+        public string State {get;set;}
+        public string County {get;set;}
+    }
     public class ContactId {
         public Id ContactId {get;set;}
     

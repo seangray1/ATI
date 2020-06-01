@@ -15,7 +15,7 @@ public class TestDataUtil {
     {
         createCustomSettings_TriggerStatus();
         List<User> userObjectList = createUsersNew(numToInsert, true);
-        system.debug('User size is ' + userObjectList.size() + '   $$$ User 5 is ' + userObjectList[5]);
+        //system.debug('User size is ' + userObjectList.size() + '   $$$ User 5 is ' + userObjectList[5]);
         List<Office__c> officeList = officeObject(numToInsert, userObjectList);
         List<Account> accountObjectList = createObjectAccounts(numToInsert);
         List<Contact> contactObjectList = createObjectContacts(numToInsert, accountObjectList);

@@ -11,5 +11,5 @@
 -->
 <aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride">
     <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
-    <c:courtesyCallLWC recordId = "{!v.recordId}"/>
+    <c:courtesyCallLWC recordId = "{!v.recordId}" onSubmit="{!c.Submit}" onClose="{!c.Close}"/>
 </aura:component>
