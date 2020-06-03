@@ -87,7 +87,7 @@ public without sharing class JobTriggerHandler {
     public static void handleBeforeUpdatesOnly(){        
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
         JobAEBonusTriggerHandler.populateAEOnApprovedJobs( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );
-        JobAEBonusTriggerHandler.afterCreditRequestApproved( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );        
+        //JobAEBonusTriggerHandler.afterCreditRequestApproved( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );        
        // JobAEBonusTriggerHandler.populateAEs( oldJobMap, Trigger.new );
         // Econz_Integration_Callouts.updateOldName( oldJobMap, Trigger.new );
         //handle job BranchManager update depending on Office__c and Division__c

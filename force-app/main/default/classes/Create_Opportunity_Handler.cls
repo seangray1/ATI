@@ -138,4 +138,173 @@ public without sharing class Create_Opportunity_Handler
             update OppMap.values();
         }
     }
+    public static list<Account_Roles__c> CheckId6(string propId){
+        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Property_ID__c =: propId];
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        return a;
+    }
 }

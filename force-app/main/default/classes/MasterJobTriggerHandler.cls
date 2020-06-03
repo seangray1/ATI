@@ -149,7 +149,9 @@ try
             || MasterJob.Office2__c != oldJob.Office2__c || MasterJob.Send_Prelim__c != oldJob.Send_Prelim__c ||
             MasterJob.PN_Request_Date__c != oldJob.PN_Request_Date__c || MasterJob.PN_Amount__c != oldJob.PN_Amount__c || MasterJob.ML_amount__c != oldJob.ML_amount__c ||
             MasterJob.PN_Recording_Number__c != oldJob.PN_Recording_Number__c || MasterJob.ML_Recording_Number__c != oldJob.ML_Recording_Number__c || 
-            MasterJob.ML_Request_Date__c != oldJob.ML_Request_Date__c || MasterJob.ML_Release_Recording_Date__c != oldJob.ML_Release_Recording_Date__c)
+            MasterJob.ML_Request_Date__c != oldJob.ML_Request_Date__c || MasterJob.ML_Release_Recording_Date__c != oldJob.ML_Release_Recording_Date__c ||
+            MasterJob.Cont_P_O_Client_Job__c != oldJob.Cont_P_O_Client_Job__c || MasterJob.Office2__c != oldJob.Office2__c ||
+            MasterJob.Lead_Source__c != oldJob.Lead_Source__c)
             {
                 MasterJobIdSet.add(MasterJob.Id);
             }
@@ -188,6 +190,9 @@ try
                 job.ML_Recording_Date__c = newMasterJob.ML_Recording_Date__c;
                 job.ML_Release_Recording_Date__c = newMasterJob.ML_Release_Recording_Date__c;
                 job.ML_Request_Date__c = newMasterJob.ML_Request_Date__c;
+                job.Cont_P_O_Client_Job__c = newMasterJob.Cont_P_O_Client_Job__c;
+                job.Lead_Source__c = newMasterJob.Lead_Source__c;
+                job.Office2__c = newMasterJob.Office2__c;
                 system.debug('Job fields to update ' + job.Send_Prelim__c);
                 
             }

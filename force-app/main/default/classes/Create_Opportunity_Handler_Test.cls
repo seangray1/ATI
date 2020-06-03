@@ -42,10 +42,13 @@ public class Create_Opportunity_Handler_Test {
             insert Jobs;
 
             // Create_Opportunity_Handler.createOpportunity(Jobs);
-            ATI_Job__c Job = new ATI_Job__c(Name = 'Testasd');
+            ATI_Job__c Job = new ATI_Job__c(Id = jobs[0].Id, Name = 'Testasd');
             Map<Id,ATI_Job__c> oldJobsList = new Map<Id,ATI_Job__c>();
+            Map<Id,ATI_Job__c> newJobsList = new Map<Id,ATI_Job__c>();
+            
             oldJobsList.put(jobs[0].id, Job);
-            Create_Opportunity_Handler.updateOpportunity(Jobs, oldJobsList);
+            newJobsList.put(jobs[0].id, job);
+            Create_Opportunity_Handler.updateOpportunity(Jobs, oldJobsList, newJobsList);
 
         // Property__c propertyInsert = new Property__c();
         // propertyInsert.Address_Line_1__c = 'Test Property';

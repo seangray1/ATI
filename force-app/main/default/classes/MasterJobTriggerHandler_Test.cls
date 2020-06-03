@@ -24,7 +24,7 @@ public with sharing class MasterJobTriggerHandler_Test {
             insert lstContact;
             Property__c p = new Property__c(Name = 'Test', Alternate_Name__c = 'Test Job', Address_Line_1__c = '15632 La Palma', City__c = 'Anaheim', State__c='CA');
         insert p;
-        Master_Job__c mj = new Master_Job__c(Name = 'Test', property__c = p.Id, Stage__c = 'Pre-work');
+        Master_Job__c mj = new Master_Job__c(Name = 'Test', property__c = p.Id, Stage__c = 'Pre-work', Credit_Request_Submitter_Email__c = 'sean.gray@atirestoration.com');
         insert mj;
             List<ATI_Job__c> jobs = new List<ATI_Job__c>();
             Jobs = TestDataUtil.createJob(1, false, new map<String,Object>(), lstAccounts[0].Id);
@@ -52,7 +52,7 @@ public with sharing class MasterJobTriggerHandler_Test {
         
         system.debug('Property is ' + p);
         
-        Master_Job__c mj1 = new Master_Job__c(Name = 'Test', Address_Line_1__c = '123', State__c = 'CA', City__c = 'Whit', Stage__c = 'Pre-work');
+        Master_Job__c mj1 = new Master_Job__c(Name = 'Test', Address_Line_1__c = '123', State__c = 'CA', City__c = 'Whit', Stage__c = 'Pre-work', Credit_Request_Submitter_Email__c = 'sean.gray@atirestoration.com');
         insert mj1;
         
         system.debug('Master Job is ' + mj);
@@ -61,6 +61,8 @@ public with sharing class MasterJobTriggerHandler_Test {
         update p;
         system.debug('Job address is now ' + jobs[0].Project_Site_Address__c);
         mj.Date_of_Loss__c = system.today() + 1;
+        mj.Credit_Request_Status__c = 'Approved';
+        
         update mj;
         mj1.Property__c = p.Id;
         update mj1;

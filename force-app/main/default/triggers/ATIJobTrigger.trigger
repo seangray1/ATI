@@ -22,11 +22,19 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                                  JobTriggerHandler.handleBeforeInsertOnly();
                                                  system.debug('The before Insert is called');
                                              }}
+                                             
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)){
                                                  JobTriggerHandler.handleBeforeInsertUpdate();
                                                  system.debug('The before Update Insert is called');
                                              }}
+                                             if(TriggerFlagController.flag == true) {
+                                                if(Trigger.isAfter && Trigger.isInsert){
+                                                    JobTriggerHandler.handleAfterInsertOnly();
+                                                    //TriggerFlagController.flag = false;
+                                                    efs__.EgnyteSyncQueueTrigger.onAfterInsert();
+                                                    system.debug('The after Insert is called');
+                                                }}
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isAfter && (Trigger.isInsert || Trigger.isUpdate)){
                                                  JobTriggerHandler.handleAfterInsertUpdate();
@@ -38,13 +46,7 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                                  JobTriggerHandler.handleBeforeUpdatesOnly();
                                                 system.debug('The before Update is called');
                                              }}
-                                             if(TriggerFlagController.flag == true) {
-                                             if(Trigger.isAfter && Trigger.isInsert){
-                                                 JobTriggerHandler.handleAfterInsertOnly();
-                                                 //TriggerFlagController.flag = false;
-                                                 efs__.EgnyteSyncQueueTrigger.onAfterInsert();
-                                                 system.debug('The after Insert is called');
-                                             }}
+                                             
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isAfter && Trigger.isUpdate ){
                                                  TriggerFlagController.flag = false;

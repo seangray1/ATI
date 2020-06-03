@@ -21,7 +21,8 @@ public with sharing class PropertyTriggerHandler {
         for(Property__c prop : newProps){
             Property__c oldProp = oldProps.get(prop.id);
             if(prop.Address_line_1__c != oldProp.Address_line_1__c || prop.City__c != oldProp.City__c || prop.State__c != oldProp.State__c || 
-            prop.Zip__c != oldProp.Zip__c || prop.Alternate_Name__c != oldProp.Alternate_Name__c){
+            prop.Zip__c != oldProp.Zip__c || prop.Alternate_Name__c != oldProp.Alternate_Name__c || prop.Market_Class__c != oldProp.Market_Class__c ||
+            prop.Market_Segment__c != oldProp.Market_Segment__c || prop.Market_Segment_Sub_Class__c != oldProp.Market_Segment_Sub_Class__c ){
                 propSet.add(prop.id);
                 if(prop.Alternate_Name__c == null){
                     prop.Name = prop.Address_Line_1__c + ' ' + prop.City__c + ' ' + prop.State__c;
@@ -35,7 +36,7 @@ public with sharing class PropertyTriggerHandler {
         }
     }
     if(!propset.isEmpty()){
-        jobs = [Select Id, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c, Property_ID__c FROM 
+        jobs = [Select Id, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Market_Class__c, Market_Segment__c, Market_Segment_Sub_Class__c, Project_Site_Zipcode__c, Property_ID__c FROM 
         ATI_Job__c WHere Property_Id__c =: propset];
     }
     if(!jobs.isEmpty()){
@@ -45,6 +46,9 @@ public with sharing class PropertyTriggerHandler {
         job.Project_Site_City__c = prop.City__c;
         job.Project_Site_State__c = prop.State__c;
         job.Project_Site_Zipcode__c = prop.Zip__c;
+        job.Market_Class__c = prop.Market_Class__c;
+        job.Market_Segment__c = prop.Market_Segment__c;
+        job.Market_Segment_Sub_Class__c = prop.Market_Segment_Sub_Class__c;
     }
     update jobs;
 }

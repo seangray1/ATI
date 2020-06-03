@@ -862,7 +862,7 @@ public without sharing class NewJobController {
             prop.Zip__c = propAddress.Zipcode;
             prop.Country__c = Property.Country;
             prop.State__c = propAddress.State;
-            prop.Address_Line_2__c = Property.AddressLine2;
+            // prop.Address_Line_2__c = Property.AddressLine2;
             prop.Address_Line_1__c = propAddress.Street;
             prop.County__c = propAddress.county;
             NewProperty= true;
@@ -1382,7 +1382,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
          Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description,
         Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
         Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
-        Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = prop.Address_Line_2__c,
+        Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = Property.AddressLine2,
         Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
         // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
         // jobsas[0].name = 'test';
