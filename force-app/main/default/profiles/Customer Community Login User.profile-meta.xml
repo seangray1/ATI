@@ -2244,6 +2244,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ATI_Job__c.Images__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ATI_Job__c.Inspected__c</field>
         <readable>false</readable>
     </fieldPermissions>

@@ -1,0 +1,18 @@
+<template>
+    <div class="slds-box slds-theme_shade">
+        <lightning-button-group>
+            <lightning-button label = "Approve Selected" name = 'Approve' variant="slds-button slds-button_outline-brand" onclick={ApproveSelected}></lightning-button>
+            <lightning-button label = "Reject Selected" class="slds-m-left_x-small" variant="slds-button slds-button_outline-brand" onclick={CloneJob}></lightning-button>
+            
+        </lightning-button-group>
+    </div>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                onrowaction={handleRowAction}
+                onrowselection={getSelectedName}>
+        </lightning-datatable>
+    </div>      
+</template>

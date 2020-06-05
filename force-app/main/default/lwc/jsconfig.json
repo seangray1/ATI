@@ -53,9 +53,6 @@
             "c/micaLWC": [
                 "micaLWC/micaLWC.js"
             ],
-            "c/newJobLWC": [
-                "newJobLWC/newJobLWC.js"
-            ],
             "c/newProjectSchedule": [
                 "newProjectSchedule/newProjectSchedule.js"
             ],
@@ -76,6 +73,12 @@
             ],
             "c/accountRolesEditLWC": [
                 "accountRolesEditLWC/accountRolesEditLWC.js"
+            ],
+            "c/itemsToApprove": [
+                "itemsToApprove/itemsToApprove.js"
+            ],
+            "c/newJobLWC": [
+                "../../../../metadata/unpackaged/lwc/newJobLWC/newJobLWC.js"
             ]
         },
         "experimentalDecorators": true

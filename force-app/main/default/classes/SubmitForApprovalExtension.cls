@@ -17,20 +17,85 @@ try
     String sObjName = recordId.getSObjectType().getDescribe().getName();
     if(sObjName == 'ATI_Job__c')
     {
-        ATI_Job__c job = [Select Id, Master_Job__c FROM ATI_Job__c Where Id =: recordId];
+        ATI_Job__c job1 = [Select Id, Master_Job__c FROM ATI_Job__c Where Id =: recordId];
         
         List<Profile> profs = [Select Id, Name FROM Profile Where Name in ('Marketing Representative','System Administrator', 'Project Director')];
         Map<Id,Profile> profiles = new Map<Id,Profile>();
         profiles.putall(profs);
         if(profiles.containsKey(userPr))
         {
+            Master_Job__c mjob = [Select Id, Name FROM Master_Job__c Where Id =: job1.Master_Job__c];
+            List<ATI_Job__c> job = [Select Id, Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Contact__c, Contact__r.Name FROM ATI_Job__c Where Master_job__c =: mjob.Id Limit 5];
+            list<Task> t = [Select Id, CreatedDate, whoId, subject, ownerId, description FROM Task Where whoId =:job[0].Contact__c AND Type = 'Marketing Note' ORDER BY createdDate DESC Limit 1];
+            Set<Id> uIds = new Set<Id>{UserInfo.getUserId()};
+            if(!t.isEmpty())
+            {
+                uIds.add(t[0].ownerId);
+            }
+            Map<id,User> u = new Map<Id, User>([Select Id, ManagerId, Name FROM User Where id =: uIds]);
+            Id managerId = u.get(userinfo.getUserId()).ManagerId;
             Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
             req1.setComments('Submitting request for approval.');
             req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
-            req1.setObjectId(job.Master_Job__c);
+            req1.setObjectId(mjob.Id);
             req1.setskipentrycriteria(true);          
-            Approval.ProcessResult result = Approval.process(req1);           
-            Approval.Unlock(job.Master_Job__c);
+            Approval.ProcessResult result = Approval.process(req1); 
+                    
+            Approval.Unlock(mjob.Id);
+            String JobNames;
+            for(integer i = 0; i<job.size(); i++)
+            {
+                if(i == 0)
+                {
+                    JobNames = job[i].Name;
+                }
+                else 
+                    {
+                        JobNames = JobNames + '; ' + job[i].Name;
+                    }
+                       
+            }
+            //String fullRecordURLJOB = URL.getSalesforceBaseUrl().toExternalForm() + '/' + result.Id;
+            //string comments = '\n' + 'Project Note: ' + job.name +'\n' + '\n' + '\n' + 'Percent of Job Complete: ' + percent + '%' + '\n' +'\n' + 'Work/Trades started/completed since last week: ' + workCompleted + '\n' +'\n' + 'Work to be started this week: '+ workStarted + '\n' + '\n' +'Estimated completion date Per PM: '+ completionDate + '\n' + '\n' +'Has Insured/Member completed all selections? Y/N:' + insured + '\n' +'\n' + 'Potential Supplement?Y/N: '+ supplement + '\n' +'\n' + 'Repair Update Comments: ' + repairComments;
+            List<Id> newWorkItemIds = result.getNewWorkitemIds();
+        
+            string approvallink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + newWorkItemIds[0];
+            string accountLink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Account__c;
+            string contactlink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Contact__c;
+            string referredBylink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Referred_By__c;
+            String comments = '\n' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '\n' + 'Job(s): ' + JobNames + '\n' + 
+            '\n' + 'Account : ' + job[0].Account__r.Name + '          ' + accountLink + '\n' + 'Contact: ' + job[0].Contact__r.Name + '          ' + contactLink;
+            if(job[0].Referred_By__c != null)
+            {
+                comments = comments + '\n' + 'Referred By : ' + job[0].Referred_By__r.Name + '          ' + referredByLink;
+            }
+            if(!t.isempty())
+            {
+                comments = comments + '\n' + '\n' +'Marketing Notes: ' + '\n' + 'Created By : ' + u.get(t[0].ownerId).Name + '\n' +
+                'Created Date: ' + t[0].createdDate + '\n'+ 'Notes: ' + t[0].Description;
+            }  
+            comments = comments + '\n' + '\n' + 'Link to Approval: ' + approvallink;
+            //Now submit email
+            //if statement if t is null..
+            FeedItem post = new FeedItem();
+            post.ParentId = mjob.Id;
+            ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
+            ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
+            ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
+            ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
+            messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
+            mentionSegmentInput.id = managerId;
+            messageBodyInput.messageSegments.add(mentionSegmentInput);  
+            textSegmentInput.text = comments;
+            messageBodyInput.messageSegments.add(textSegmentInput);
+            feedItemInput.body = messageBodyInput;
+            feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
+            feedItemInput.subjectId = mjob.Id;
+            if(Test.isRunningTest()){}
+            else{
+            ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
+            
+            }
             return 'Success';
         }else
         {
@@ -39,19 +104,92 @@ try
     }
     if(sObjName == 'Master_Job__c')
     {
-        
+        // ATI_Job__c job1 = [Select Id, Master_Job__c FROM ATI_Job__c Where Master_Job__c =: recordId LIMIT 1];
         List<Profile> profs = [Select Id, Name FROM Profile Where Name in ('Marketing Representative','System Administrator', 'Project Director')];
         Map<Id,Profile> profiles = new Map<Id,Profile>();
         profiles.putall(profs);
         if(profiles.containsKey(userPr))
         {
-            Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-            req1.setComments('Submitting request for approval.');
-            req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
-            req1.setObjectId(recordId);
-            req1.setskipentrycriteria(true);          
-            Approval.ProcessResult result = Approval.process(req1);           
-            Approval.Unlock(recordId);
+            Master_Job__c mjob = [Select Id, Name FROM Master_Job__c Where Id =: recordId];
+    List<ATI_Job__c> job = [Select Id, Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Contact__c, Contact__r.Name FROM ATI_Job__c Where Master_job__c =: recordId Limit 5];
+    list<Task> t = [Select Id, CreatedDate, whoId, subject, ownerId, description FROM Task Where whoId =:job[0].Contact__c AND Type = 'Marketing Note' ORDER BY createdDate DESC Limit 1];
+    Set<Id> uIds = new Set<Id>{UserInfo.getUserId()};
+    if(!t.isEmpty())
+    {
+        uIds.add(t[0].ownerId);
+    }
+    Map<id,User> u = new Map<Id, User>([Select Id, ManagerId, Name FROM User Where id =: uIds]);
+    Id managerId = u.get(userinfo.getUserId()).ManagerId;
+    Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+    req1.setComments('Submitting request for approval.');
+    req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+    req1.setObjectId(recordId);
+    req1.setskipentrycriteria(true);          
+    Approval.ProcessResult result = Approval.process(req1); 
+            
+    Approval.Unlock(recordId);
+    String JobNames;
+    for(integer i = 0; i<job.size(); i++)
+    {
+        if(i == 0)
+        {
+            JobNames = job[i].Name;
+        }
+        else 
+            {
+                JobNames = JobNames + '; ' + job[i].Name;
+            }
+               
+    }
+    //String fullRecordURLJOB = URL.getSalesforceBaseUrl().toExternalForm() + '/' + result.Id;
+    //string comments = '\n' + 'Project Note: ' + job.name +'\n' + '\n' + '\n' + 'Percent of Job Complete: ' + percent + '%' + '\n' +'\n' + 'Work/Trades started/completed since last week: ' + workCompleted + '\n' +'\n' + 'Work to be started this week: '+ workStarted + '\n' + '\n' +'Estimated completion date Per PM: '+ completionDate + '\n' + '\n' +'Has Insured/Member completed all selections? Y/N:' + insured + '\n' +'\n' + 'Potential Supplement?Y/N: '+ supplement + '\n' +'\n' + 'Repair Update Comments: ' + repairComments;
+    List<Id> newWorkItemIds = result.getNewWorkitemIds();
+
+    string approvallink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + newWorkItemIds[0];
+    string accountLink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Account__c;
+    string contactlink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Contact__c;
+    string referredBylink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Referred_By__c;
+    String comments = '\n' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '\n' + 'Job(s): ' + JobNames + '\n' + 
+    '\n' + 'Account : ' + job[0].Account__r.Name + '          ' + accountLink + '\n' + 'Contact: ' + job[0].Contact__r.Name + '          ' + contactLink;
+    if(job[0].Referred_By__c != null)
+    {
+        comments = comments + '\n' + 'Referred By : ' + job[0].Referred_By__r.Name + '          ' + referredByLink;
+    }
+    if(!t.isempty())
+    {
+        comments = comments + '\n' + '\n' +'Marketing Notes: ' + '\n' + 'Created By : ' + u.get(t[0].ownerId).Name + '\n' +
+        'Created Date: ' + t[0].createdDate + '\n'+ 'Notes: ' + t[0].Description;
+    }  
+    comments = comments + '\n' + '\n' + 'Link to Approval: ' + approvallink;
+    //Now submit email
+    //if statement if t is null..
+    FeedItem post = new FeedItem();
+    post.ParentId = recordId;
+    ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
+    ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
+    ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
+    ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
+    messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
+    mentionSegmentInput.id = managerId;
+    messageBodyInput.messageSegments.add(mentionSegmentInput);  
+    textSegmentInput.text = comments;
+    messageBodyInput.messageSegments.add(textSegmentInput);
+    feedItemInput.body = messageBodyInput;
+    feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
+    feedItemInput.subjectId = recordId;
+    if(Test.isRunningTest()){}
+    else{
+    ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
+    
+    }
+            
+            // Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+            // req1.setComments('Submitting request for approval.');
+            // req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+            // req1.setObjectId(recordId);
+            // req1.setskipentrycriteria(true);          
+            // Approval.ProcessResult result = Approval.process(req1);           
+            // Approval.Unlock(recordId);
             return 'Success';
         }else
         {
@@ -80,6 +218,86 @@ catch (Exception e)
     return e.getMessage();        
 } 
 }
+// @future
+// public static void submitEmailAndApproval(string mjobId, string jobId)
+// {
+//     Master_Job__c mjob = [Select Id, Name FROM Master_Job__c Where Id =: mjobId];
+//     List<ATI_Job__c> job = [Select Id, Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Contact__c, Contact__r.Name FROM ATI_Job__c Where Master_job__c =: mjobId Limit 5];
+//     list<Task> t = [Select Id, CreatedDate, whoId, subject, ownerId, description FROM Task Where whoId =:job[0].Contact__c ORDER BY createdDate DESC Limit 1];
+//     Set<Id> uIds = new Set<Id>{UserInfo.getUserId()};
+//     if(!t.isEmpty())
+//     {
+//         uIds.add(t[0].ownerId);
+//     }
+//     Map<id,User> u = new Map<Id, User>([Select Id, ManagerId, Name FROM User Where id =: uIds]);
+//     Id managerId = u.get(userinfo.getUserId()).ManagerId;
+//     Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+//     req1.setComments('Submitting request for approval.');
+//     req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+//     req1.setObjectId(mjobId);
+//     req1.setskipentrycriteria(true);          
+//     Approval.ProcessResult result = Approval.process(req1); 
+            
+//     Approval.Unlock(mjobId);
+//     String JobNames;
+//     for(integer i = 0; i<job.size(); i++)
+//     {
+//         if(i == 0)
+//         {
+//             JobNames = job[i].Name;
+//         }
+//         else 
+//             {
+//                 JobNames = JobNames + '; ' + job[i].Name;
+//             }
+               
+//     }
+//     //String fullRecordURLJOB = URL.getSalesforceBaseUrl().toExternalForm() + '/' + result.Id;
+//     //string comments = '\n' + 'Project Note: ' + job.name +'\n' + '\n' + '\n' + 'Percent of Job Complete: ' + percent + '%' + '\n' +'\n' + 'Work/Trades started/completed since last week: ' + workCompleted + '\n' +'\n' + 'Work to be started this week: '+ workStarted + '\n' + '\n' +'Estimated completion date Per PM: '+ completionDate + '\n' + '\n' +'Has Insured/Member completed all selections? Y/N:' + insured + '\n' +'\n' + 'Potential Supplement?Y/N: '+ supplement + '\n' +'\n' + 'Repair Update Comments: ' + repairComments;
+//     List<Id> newWorkItemIds = result.getNewWorkitemIds();
+
+//     string approvallink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + newWorkItemIds[0];
+//     string accountLink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Account__c;
+//     string contactlink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Contact__c;
+//     string referredBylink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Referred_By__c;
+//     String comments = '\n' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '\n' + 'Job(s): ' + JobNames + '\n' + 
+//     '\n' + 'Account : ' + job[0].Account__r.Name + '          ' + accountLink + '\n' + 'Contact: ' + job[0].Contact__r.Name + '          ' + contactLink;
+//     if(job[0].Referred_By__c != null)
+//     {
+//         comments = comments + '\n' + 'Referred By : ' + job[0].Referred_By__r.Name + '          ' + referredByLink;
+//     }
+//     if(!t.isempty())
+//     {
+//         comments = comments + '\n' + '\n' +'Marketing Notes: ' + '\n' + 'Created By : ' + u.get(t[0].ownerId).Name + '\n' +
+//         'Created Date: ' + t[0].createdDate + '\n'+ 'Notes: ' + t[0].Description;
+//     }  
+//     comments = comments + '\n' + '\n' + 'Link to Approval: ' + approvallink;
+//     //Now submit email
+//     //if statement if t is null..
+//     FeedItem post = new FeedItem();
+//     post.ParentId = mjobId;
+//     ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
+//     ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
+//     ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
+//     ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
+//     messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
+//     mentionSegmentInput.id = managerId;
+//     messageBodyInput.messageSegments.add(mentionSegmentInput);  
+//     textSegmentInput.text = comments;
+//     messageBodyInput.messageSegments.add(textSegmentInput);
+//     feedItemInput.body = messageBodyInput;
+//     feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
+//     feedItemInput.subjectId = mjobId;
+//     if(Test.isRunningTest()){}
+//     else{
+//     ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
+    
+//     }
+
+
+     // where type is marketing note and the latest, show the description, date, who wrote it etc.
+    
+//}
     // @AuraEnabled
     // public static sObject getsObject(ID ObjectId){
         

@@ -43,6 +43,151 @@ public without sharing class NewJobController {
         
         
     }
+    
+    @AuraEnabled
+    public static List<String> ApproveSelectedItems(String ItemsToApproveReject)
+    {
+        system.debug('Items before ' + ItemsToApproveReject);
+        Set<Id> pInstanceWorkitems = new Set<Id>();
+        //JSONWrapper projectWrap = (JSONWrapper)JSON.deserialize(ProjectJSON, JSONWrapper.class);
+        ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
+        system.debug('Items to Approve/reject ' + itemstoapproverejectlist);
+        List<string> iList = new List<string>();
+        for(ItemToApprove i : itemstoapproverejectlist.ItemsToApproveReject)
+        {
+            system.debug('i is ' + i);
+            iList.add(i.id);
+            pInstanceWorkitems.add(i.processinstanceId);
+        }
+        List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>(); 
+    for (Id pInstanceWorkitemsId:pInstanceWorkitems)
+    {
+    system.debug(pInstanceWorkitemsId);
+    
+        Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
+        req2.setComments('Approved');
+        req2.setAction('Approve'); //to approve use 'Approve'
+        // req2.setNextApproverIds(new Id[] {UserInfo.getUserId()});
+
+        // Use the ID from the newly created item to specify the item to be worked
+        req2.setWorkitemId(pInstanceWorkitemsId);
+
+        // Add the request for approval
+        system.debug('req 2 ' + req2);
+        allReq.add(req2);
+    }
+Approval.ProcessResult[] result2 =  Approval.process(allReq);
+        return iList;
+    }
+    @AuraEnabled
+    public static List<ItemToApprove> GetAccountData(){
+        Set<Id> userSet = new Set<Id>();
+        Set<Id> ProcessInstanceId = new Set<Id>();
+        Map<Id, ProcessInstance> processInstanceMap = new Map<Id, ProcessInstance>();
+        Map<Id, ProcessInstanceWorkitem> processJobMap = new Map<Id, ProcessInstanceWorkitem>();
+        Map<Id, ProcessInstance> processMJobMap = new Map<Id, ProcessInstance>();
+        Map<Id, ProcessInstanceWorkitem> processuserMap = new Map<Id, ProcessInstanceWorkitem>();
+        Map<Id, String> processuserMap1 = new Map<Id, string>();
+        
+        Set<Id> mjobids = new Set<Id>();
+        List<ProcessInstanceWorkitem> piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
+         
+        for(ProcessInstanceWorkitem p : piwi)
+        {
+            processJobMap.put(p.ProcessInstanceId, p);
+            userset.add(p.CreatedById);
+            processUserMap.put(p.CreatedById, p);
+            ProcessInstanceId.add(p.ProcessInstanceId);
+        }
+        List<user> usersList = [Select Id, Name FROM User Where Id=:userSet];
+        for(user u : usersList)
+        {
+            processUserMap1.put(u.Id, u.Name);
+        }
+        List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
+        for(ProcessInstance p : processInstanceList)
+        {
+            processInstanceMap.put(p.Id, p);
+            processMJobMap.put(p.targetObjectId, p);
+            
+            mjobids.add(p.targetObjectId);
+        }
+        Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
+        system.debug('mjob ids ' + mjobids);
+        List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
+        for(ATI_Job__c job : mjoblist)
+        {
+            system.debug('job is ' + job);
+            mjobMap.put(job.Master_Job__c, job);
+        }
+        List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
+        // system.debug('Items To Approve Class ' + ItemsToApproveClass);
+        // ItemToApprove ia = new ItemToApprove();
+        // ia.processId = 'Test';
+        // ItemsToApproveClass.items.add(ia);
+        // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
+        //system.debug('Items To Approve Class ' + ItemsToApproveClass);
+        
+        for(ProcessInstance p : processInstanceList)
+        {
+            ItemToApprove i = new ItemToApprove();
+            i.processId = processJobMap.get(p.Id).Id;
+            i.processinstanceId = p.Id;
+            i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
+            system.debug('i is ' + i );
+            i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
+            i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
+            i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
+            i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
+            i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
+            i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
+            i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
+            i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
+            system.debug('i is ' + i );
+
+            ItemsToApproveClass.add(i);
+        }
+        system.debug('ItemsToApproveClass is ' + ItemsToApproveClass);
+        system.debug('Jobs Class is ' + mjoblist);
+        
+        return ItemsToApproveClass;
+    }
+    
+//    @AuraEnabled
+//     public class JSONWrapper{
+//         public List<ItemToApprove> items;
+//     }
+    public class ItemListToApproveReject
+    {
+    @AuraEnabled
+    public List<ItemToApprove> ItemsToApproveReject {get;set;}
+    }
+    public class ItemToApprove{
+        @AuraEnabled
+        public string processId {get;set;}
+        @AuraEnabled
+        public string processinstanceId {get;set;}
+        @AuraEnabled
+        public string createdByName {get;set;}
+        @AuraEnabled
+        public string MasterJob {get;set;}
+        @AuraEnabled
+        public string MasterJobId {get;set;}
+        @AuraEnabled
+        public string Account {get;set;}
+        @AuraEnabled
+        public string AccountId {get;set;}
+        @AuraEnabled
+        public string Contact {get;set;}
+        @AuraEnabled
+        public string ContactId {get;set;}
+        @AuraEnabled
+        public string ReferredBy {get;set;}
+        @AuraEnabled
+        public string ReferredById {get;set;}
+        @AuraEnabled
+        public string id {get;set;}
+    }
     @AuraEnabled
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {
@@ -1055,7 +1200,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c, Send_Prelim__c = jobdata.Send_Prelim__c, Account__c = jobdata.Account__c,
             Contact__c = jobdata.Contact__c, Lead_Source__c = jobdata.Lead_Source__c, Market_Class__c = jobdata.Market_Class__c, Market_Segment__c = jobdata.Market_Segment__c,
             Market_Segment_Sub_Class__c = jobdata.Market_Segment_Sub_Class__c, Date_of_Loss__c = jobdata.Date_of_Loss__c, Project_Site_Contact_Name__c = jobdata.Project_Site_Contact_Name__c,
-            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review');
+            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review', Account_Executive_1__c = jobdata.Account_Executive_1__c,
+            Account_Executive_2__c = jobdata.Account_Executive_2__c);
             system.debug('Job contains ' + job);
             insert job;
             List<Account_Roles__c> ARs = new List<Account_Roles__c>();
@@ -1354,6 +1500,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         }
         else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == true){
             jobToRemoveMJ = [Select Id, Master_Job__c FROM ATI_Job__c Where Id =:jobrecordId];
+            
             masterJob.AfterHoursUpdate__c = true;
             mjToDelete.Id = JobToRemoveMJ.Master_Job__c;
             system.debug('Existing job in if statement ' + ExistingMasterJob);

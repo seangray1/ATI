@@ -236,6 +236,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Smoke Cleaning</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Water Mitigation</fullName>
             <default>false</default>
         </values>
