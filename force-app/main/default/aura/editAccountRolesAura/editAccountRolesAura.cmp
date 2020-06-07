@@ -1,3 +1,21 @@
-<aura:component>
+<aura:component implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
+    <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
+    <aura:attribute name="TypeOfJobEntry" type="String"/>
+    <aura:html tag="style">
+        .slds-modal__container{
+        height : auto;
+        width: 70%;
+        max-width: 70rem;
+        }
+        .modal-body{
+        height : 700px !important;
+        max-height: 700px !important;
+        }
+        
+        .customFooter{
+        display: inline !important;
+        }
+    </aura:html> 
+    <c:accountRolesEditLWC onCloseEditAccountRoles="{!c.refreshView}" recordId="{!v.recordId}"/>
 
-</aura:component>	
+</aura:component>

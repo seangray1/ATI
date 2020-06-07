@@ -112,9 +112,9 @@ public without sharing class JobTriggerHandler {
     /* handles both before insert and updates */
     public static void handleBeforeInsertUpdate(){
         // Update Job Number
-        if(Trigger.isBefore && (Trigger.isUpdate)){
-            JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
-            }
+        // if(Trigger.isBefore && (Trigger.isUpdate)){
+        //     JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        //     }
         ObjectInserts oi = new ObjectInserts();
         oi.officeMap = new Map<Id,Office__c>([Select Id, Name, Branch_Manager__c, Biohazard_Operations_Manager__c,
         Asbestos_Operations_Manager__c, Catastrophes_Operations_Manager__c, Consulting_Operations_Manager__c, 

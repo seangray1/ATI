@@ -7,6 +7,7 @@ import InsertPersonAccount from "@salesforce/apex/NewJobController.InsertPersonA
 import GetAccountRolesPicklist from "@salesforce/apex/NewJobController.getPickListValuesIntoList";
 import SearchCustomers from "@salesforce/apex/NewJobController.GetCustomers";
 import SearchContactAccounts from "@salesforce/apex/NewJobController.GetContactAccounts";
+import EditAccountRoles from "@salesforce/apex/NewJobController.EditAccountRoles";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
@@ -15,7 +16,7 @@ import ACCOUNTROLES_OBJECT from "@salesforce/schema/Account_Roles__c";
 import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
 import CONTACTTYPE_FIELD from "@salesforce/schema/Contact.Contact_Type__c";
 import TYPE_FIELD from "@salesforce/schema/Account.Type";
-
+let AccountRolesPassed= false;
 export default class AccountRolesEditLWC extends LightningElement 
 {
 @api recordId;
@@ -935,5 +936,130 @@ AddNewRow() {
   Cancel()
   {
     this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
+  }
+  EditAccountRoles()
+  {
+    let AccountRoleInfo = this.GenerateAccountRoleJSON();
+    
+    if (this.ARRoleBlank) {
+      this.ARRoleBlank = false;
+      this.billToCount = 0;
+      this.projectSiteContactCount = 0;
+      this.callerCount = 0;
+      alert("Roles cannot be left blank");
+    } else {
+      if (this.billToCount > 1 || this.callerCount > 1) {
+        alert(
+          "Only One Primary/Bill-to and One Project Site Contact can be selected as a Role"
+        );
+        this.billToCount = 0;
+        this.projectSiteContactCount = 0;
+        this.callerCount = 0;
+      } else {
+        if (
+          this.billToCount < 1 ||
+          this.projectSiteContactCount < 1 ||
+          this.callerCount < 1
+        ) {
+          this.billToCount = 0;
+          this.projectSiteContactCount = 0;
+          this.callerCount = 0;
+          alert(
+            "A Primary/Bill-to, Caller and Project Site Contact Role MUST be selected"
+          );
+        } else {
+          console.log('about to send');
+          this.jobLoading = true;
+          EditAccountRoles({
+            AccountRoleInfo: AccountRoleInfo,
+            recordId:this.recordId
+          }).then((result) => {
+            console.log("Response is " + result);
+            this.jobLoading = false;
+            this.billToCount = 0;
+            this.projectSiteContactCount = 0;
+            this.callerCount = 0;
+            let data = result;
+            if (data.length > 18) {
+              this.jobLoading = false;
+              alert(data);
+            } else {
+              this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
+            }
+        })
+    }
+}
+    }
+  }    
+  GenerateAccountRoleJSON() {
+    var AccountRoleObject = {
+      AccountRoleLineItems: this.GetAccountRolesObjects()
+    };
+    return JSON.stringify(AccountRoleObject);
+  }
+  GetAccountRolesObjects() {
+    
+    let projectSiteContact = false;
+    let billTo = false;
+    let caller = false;
+    var AccountRoles = [];
+    let ActTblRow = Array.from(
+      this.template.querySelectorAll("table.ActRoles tbody tr")
+    );
+    console.log('Account Roles contains ' + ActTblRow);
+    console.log("Account Roles lenght is  " + ActTblRow.length);
+    let ActRowCount = ActTblRow.length;
+
+    for (let Actindex = 0; Actindex < ActRowCount; Actindex++) {
+      // let ARName = ActTblRow[Actindex].querySelector('.ARName').value;
+      let ARRoles = ActTblRow[Actindex].querySelector(".ARRoles").value;
+      let ARContact = ActTblRow[Actindex].querySelector(".ARContact").value;
+      let ARAccount = ActTblRow[Actindex].querySelector(".ARAccount").value;
+      console.log(
+        "Inside for loop :     AR Roles is " +ARRoles 
+      );
+      if (ARRoles.includes("Project Site Contact")) {
+        projectSiteContact = true;
+        console.log("ARRoles Contains inside");
+        this.projectSiteContactCount += 1;
+      }
+      console.log("contains AR");
+      if (ARRoles.includes("Primary/Bill-to")) {
+        billTo = true;
+        this.billToCount += 1;
+      }
+      if (ARRoles.includes("Caller")) {
+        console.log("Caller has been called");
+        caller = true;
+        this.callerCount += 1;
+      }
+      if (
+        (ARContact === "" || ARContact === null) &&
+        (ARRoles === "" || ARRoles === null) &&
+        (ARAccount === "" || ARAccount === null)
+      ) {
+        console.log("Removing row");
+      } else {
+        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) {
+          this.ARRoleBlank = true;
+        } else {
+          AccountRoles.push({
+            //name: ARName,
+            Text: ARRoles,
+            Contact: ARContact,
+            Account: ARAccount
+          });
+          console.log('hit pushing into Account Roles' + AccountRoles);
+        }
+      }
+    }
+    console.log('Hit the end');
+    if (projectSiteContact === false || billTo === false || caller === false) {
+      AccountRolesPassed = false;
+    } else {
+      AccountRolesPassed = true;
+    }
+    console.log("AccountRolesPassed " + AccountRolesPassed);
+    return AccountRoles;
   }
 }

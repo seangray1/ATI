@@ -1,5 +1,10 @@
 <template>
     <div class="slds-scrollable_y slds-box slds-theme_shade" style="height:120rem;width: 100%;">
+        <template if:true={jobLoading}>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading"  size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
     <template if:true={ARReady}>
            
             <div class="row">
@@ -108,19 +113,20 @@
                 </div>
             
             <br>
-            <lightning-button-group>
-            <lightning-button label="Add Row"  onclick={AddNewRow}></lightning-button>
-                
-                
             
-            <lightning-button label="New Contact" title="addContact" class="slds-m-left_x-small" variant="brand" onclick={addContact} ></lightning-button>
-      
-            
-            <lightning-button label="New Account"  title="addAccount" variant="brand" class="slds-m-left_x-small" onclick={addAccountQuestion} >    </lightning-button>
-        </lightning-button-group>
         <div class="slds-p-around_medium lgc-bg-inverse element">
-            <lightning-button-group class="slds-align_absolute-center">
-        <lightning-button label='Submit' onclick={CreateNewJob} variant="brand"></lightning-button>
+            <lightning-button-group class="slds-align_absolute-left">
+                <lightning-button label="Add Row"  onclick={AddNewRow}></lightning-button>
+                    
+                    
+                
+                <lightning-button label="New Contact" title="addContact" class="slds-m-left_x-small" variant="brand" onclick={addContact} ></lightning-button>
+          
+                
+                <lightning-button label="New Account"  title="addAccount" variant="brand" class="slds-m-left_x-small" onclick={addAccountQuestion} >    </lightning-button>
+            </lightning-button-group>
+            <lightning-button-group class="float: right;">
+        <lightning-button label='Save' onclick={EditAccountRoles} variant="brand"></lightning-button>
         <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
         </lightning-button-group>
         </div>

@@ -67,19 +67,19 @@ public class JobUtility {
                 }
     }
     
-    public static void EgnytePathUpdate(List<ATI_Job__c> jobs, Map<Id, ATI_Job__c> oldMap){
-        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
-        for(ATI_Job__c job : jobs){
-            system.debug('Oldmap name' + oldMap.get(jobs[0].id).name + ' new Job is ' + jobs[0].name);
-        if((job.recordtypeId == approvedRecordTypeId  && job.name !=  oldMap.get(job.id).Name) || (job.recordtypeId != oldmap.get(job.id).recordtypeid)) {
-            string test1 = job.name.replace('|','');
-            string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
-            Date timeToDate = Date.valueOf(job.date_time_taken__c); 
-            job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+    // public static void EgnytePathUpdate(List<ATI_Job__c> jobs, Map<Id, ATI_Job__c> oldMap){
+    //     Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
+    //     for(ATI_Job__c job : jobs){
+    //         system.debug('Oldmap name' + oldMap.get(jobs[0].id).name + ' new Job is ' + jobs[0].name);
+    //     if((job.recordtypeId == approvedRecordTypeId  && job.name !=  oldMap.get(job.id).Name) || (job.recordtypeId != oldmap.get(job.id).recordtypeid)) {
+    //         string test1 = job.name.replace('|','');
+    //         string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
+    //         Date timeToDate = Date.valueOf(job.date_time_taken__c); 
+    //         job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
         
-        }
-        }
-    }
+    //     }
+    //     }
+    // }
     
     public static void UnlockRecord(List<ATI_Job__c> jobs, Map<Id,ATI_Job__c> oldMap){
         List<ATI_Job__c> jobList = new List<ATI_Job__c>();

@@ -44,8 +44,10 @@ public without sharing class NewJobController {
         
     }
     
-    @AuraEnabled
-    public static List<String> ApproveSelectedItems(String ItemsToApproveReject)
+@AuraEnabled
+public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision)
+{
+    try 
     {
         system.debug('Items before ' + ItemsToApproveReject);
         Set<Id> pInstanceWorkitems = new Set<Id>();
@@ -57,28 +59,26 @@ public without sharing class NewJobController {
         {
             system.debug('i is ' + i);
             iList.add(i.id);
-            pInstanceWorkitems.add(i.processinstanceId);
+            pInstanceWorkitems.add(i.processId);
         }
         List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>(); 
-    for (Id pInstanceWorkitemsId:pInstanceWorkitems)
+        for (Id pInstanceWorkitemsId:pInstanceWorkitems)
+        {
+            system.debug(pInstanceWorkitemsId);
+            Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
+            req2.setComments(Comments);
+            req2.setAction(Decision); //to approve use 'Approve'
+            req2.setWorkitemId(pInstanceWorkitemsId);
+            system.debug('req 2 ' + req2);
+            allReq.add(req2);
+        }
+        //Approval.ProcessResult[] result2 =  Approval.process(allReq);
+        return '200';
+    } catch (Exception e) 
     {
-    system.debug(pInstanceWorkitemsId);
-    
-        Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
-        req2.setComments('Approved');
-        req2.setAction('Approve'); //to approve use 'Approve'
-        // req2.setNextApproverIds(new Id[] {UserInfo.getUserId()});
-
-        // Use the ID from the newly created item to specify the item to be worked
-        req2.setWorkitemId(pInstanceWorkitemsId);
-
-        // Add the request for approval
-        system.debug('req 2 ' + req2);
-        allReq.add(req2);
+        return e.getMessage();
     }
-Approval.ProcessResult[] result2 =  Approval.process(allReq);
-        return iList;
-    }
+}
     @AuraEnabled
     public static List<ItemToApprove> GetAccountData(){
         Set<Id> userSet = new Set<Id>();
@@ -107,10 +107,13 @@ Approval.ProcessResult[] result2 =  Approval.process(allReq);
         List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
         for(ProcessInstance p : processInstanceList)
         {
-            processInstanceMap.put(p.Id, p);
-            processMJobMap.put(p.targetObjectId, p);
-            
-            mjobids.add(p.targetObjectId);
+            if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
+            {
+                processInstanceMap.put(p.Id, p);
+                processMJobMap.put(p.targetObjectId, p);
+                
+                mjobids.add(p.targetObjectId);
+            }
         }
         Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
         system.debug('mjob ids ' + mjobids);
@@ -128,7 +131,7 @@ Approval.ProcessResult[] result2 =  Approval.process(allReq);
         // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
         //system.debug('Items To Approve Class ' + ItemsToApproveClass);
         
-        for(ProcessInstance p : processInstanceList)
+        for(ProcessInstance p : processInstanceMap.values())
         {
             ItemToApprove i = new ItemToApprove();
             i.processId = processJobMap.get(p.Id).Id;
@@ -744,8 +747,13 @@ Approval.ProcessResult[] result2 =  Approval.process(allReq);
     public static ATI_Job__c GetJobInfo(string recordId){
         ATI_Job__c job = [Select Id, Name, Property_Id__c, County__c, Project_Site_Address__c, CloseDate__c, Policy__c, Cont_P_O_Client_Job__c, PO__c, Send_prelim__c, Deductible__c, Claim__c, Project_Site_Contact_Account__c, Lead_Source__c, contact__c,Project_Site_Contact_Name__c,Contact_Information__c, Customer__c,Account__c, Project_Site_City__c, Contact_Info__c, Project_Site_State__c, Project_Site_Zipcode__c,
         Project_Site_Address_2__c, Job_Name__c, Stage__c, Master_Job__c, Referred_by__c,  Division__c,  Date_of_Loss__c, Description__c, Taken_By__c, Taken_By__r.Name,
-        Office2__c, Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name, Market_Class__c, Market_Segment__c,
-        Market_Segment_Sub_Class__c FROM ATI_Job__c Where Id =: recordId];
+        Office2__c,  Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name, Market_Class__c, Market_Segment__c,
+        Market_Segment_Sub_Class__c, Account_Executive_1__c, Account_Executive_2__c, PN_Request_Date__c,
+        PN_Amount__c, ML_amount__c, PN_Recording_Number__c, ML_Recording_Number__c,
+        ML_Request_Date__c,ML_Release_Recording_Date__c, 
+        Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_By__c,
+        ML_Recording_Date__c
+         FROM ATI_Job__c Where Id =: recordId];
         return job;
     }
     @AuraEnabled
@@ -1063,91 +1071,9 @@ Approval.ProcessResult[] result2 =  Approval.process(allReq);
 public static String AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
 String AddressLine2, String ContactInfo, String Description, String MajorEvent, String ProjectDirector, String recordId)
 {
-//Create Master Job
-//a. Office goes on Master, State City Zip goes on job. Description goes on Master
-//Create Job, then future callout to update Master with job id?  job needs to have all fields, but also Account needs to be EsAccount to lookup
-// also set job record type to approved..
 
-    // string county;
-    // string street1;
-    // string streetnumber;
-    // string localityCity;
-    // string sublocalityCity;
-    // string neighborhoodCity;
-    // String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
     PropertyAddresses propAddress = GoogleCallout(Street,  City, Zipcode, State);
-    // Http h = new Http();
-    // HttpRequest req = new HttpRequest();
-    // req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-    // EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-    // req.setMethod('GET');
-    // req.setTimeout(60000);
-    // if(!Test.isRunningTest())
-    // {
-    //     HttpResponse res = h.send(req);
-    //     system.debug('Response is ' + res.getBody());
-    //     resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-    //     system.debug('results are ' + result);
-    //     for(results a: result.results)
-    //     {
-    //         system.debug('a ' + a);
-    //         for(address_components ad : a.address_components)
-    //         {
-    //             system.debug('ad ' + ad.types[0]);
-    //             if(ad.types[0] == 'administrative_area_level_2')
-    //             {
-    //                 county = ad.long_name.replace('County', '');
-    //             }
-    //             if(ad.types[0] == 'route')
-    //             {
-    //                 street1 = ad.short_name;
-    //             }
-    //             if(ad.types[0] == 'locality')
-    //             {
-    //                 localityCity = ad.short_name;
-    //             }
-
-    //             if(ad.types[0] == 'political')
-    //             {
-    //                 sublocalityCity = ad.short_name;
-    //                 system.debug('Hitting 1 ' + sublocalityCity);
-
-    //             }
-    //             if(ad.types[0] == 'neighborhood')
-    //             {
-    //                 neighborhoodCity = ad.short_name;
-    //             }
-    //             if(ad.types[0] == 'administrative_area_level_1')
-    //             {
-    //                 state = ad.short_name;
-    //             }
-    //             if(ad.types[0] == 'street_number')
-    //             {
-    //                 streetnumber = ad.short_name;
-    //             //system.debug('street # is  ' + streetnumber);
-    //             }
-    //             if(ad.types[0] == 'postal_code')
-    //             {
-    //                 ZipCode = ad.short_name;
-    //             //  system.debug('Postal # is  ' + postalcode);
-    //             }
-
-    //         }  
-    //     }
-    //     street = streetnumber +' '+ street1;
-    // }
-    // if(neighborhoodCity != null)
-    // {
-    //     City = neighborhoodCity;
-    // }
-    // if(sublocalityCity != null)
-    // {
-    //     City = sublocalityCity;
-    // }
-    // if(localityCity != null)
-    // {
-    //     City = localityCity;
-    // }
+  
     Savepoint sp = Database.setSavepoint();
     try 
     {
@@ -1164,14 +1090,6 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Id recordtypeid = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').getRecordTypeId();
             
             List<Account> account = [select id, PersonContactId, name from account where LastName =: 'ES Job Account'];
-            // if(City.length() > 15)
-            // {
-            // City = City.substring(0, 15);
-            // }
-            // system.debug('County is  ' + county);
-            // if(county != null && county.length() > 15){
-            // county = county.substring(0, 15);
-            // }
             //date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
             Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
@@ -1196,12 +1114,17 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = jobdata.Taken_By__c,
             Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = notApprovedId, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
             Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
-            Date_Time_Taken__c = datetime.now(),  Policy__c = jobdata.Policy__c, Deductible__c = jobdata.Deductible__c,
+            Date_Time_Taken__c = datetime.now(),  Policy__c = jobdata.Policy__c, Deductible__c = jobdata.Deductible__c,Account_Executive_1__c = jobdata.Account_Executive_1__c, Account_Executive_2__c = jobdata.Account_Executive_2__c,
             Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c, Send_Prelim__c = jobdata.Send_Prelim__c, Account__c = jobdata.Account__c,
             Contact__c = jobdata.Contact__c, Lead_Source__c = jobdata.Lead_Source__c, Market_Class__c = jobdata.Market_Class__c, Market_Segment__c = jobdata.Market_Segment__c,
             Market_Segment_Sub_Class__c = jobdata.Market_Segment_Sub_Class__c, Date_of_Loss__c = jobdata.Date_of_Loss__c, Project_Site_Contact_Name__c = jobdata.Project_Site_Contact_Name__c,
-            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review', Account_Executive_1__c = jobdata.Account_Executive_1__c,
-            Account_Executive_2__c = jobdata.Account_Executive_2__c);
+            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review', PN_Request_Date__c = jobdata.PN_Request_Date__c,
+            PN_Amount__c = jobdata.PN_Amount__c, ML_amount__c = jobdata.ML_amount__c, PN_Recording_Number__c = jobdata.PN_Recording_Number__c,
+            ML_Recording_Number__c = jobdata.ML_Recording_Number__c, ML_Request_Date__c = jobdata.ML_Request_Date__c, ML_Release_Recording_Date__c = jobdata.ML_Release_Recording_Date__c,
+            Send_Prelim_Last_Modified_Date_Time__c = jobdata.Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_By__c = jobdata.Send_Prelim_Last_Modified_By__c,
+            ML_Recording_Date__c = jobdata.ML_Recording_Date__c );
+        
+        
             system.debug('Job contains ' + job);
             insert job;
             List<Account_Roles__c> ARs = new List<Account_Roles__c>();
@@ -1229,7 +1152,178 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     return e.getMessage();
     }
     return 'Job failed to create';
-}                
+}   
+    @AuraEnabled
+    public static string EditAccountRoles(string AccountRoleInfo, string recordId){
+        List<Account_Roles__c> ARList = new List<Account_Roles__c>();
+        List<Account_Roles__c> ARPropertyList = new List<Account_Roles__c>();
+        Id ProjectSiteContactAccount;
+        Id ProjectSiteContactContact;
+        Id PrimaryAccount;
+        Id PrimaryContact;
+        Id Referred;
+        Id InsuranceAdjuster;
+        AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
+        Savepoint sp = Database.setSavepoint();
+        //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
+        try {
+
+        
+           
+           
+            Set<Id> ContactIdsSet = new Set<Id>();
+            Set<Id> PersonAccountIdSet = new Set<Id>();
+            Map<Id,Contact> ContactMap = new Map<Id,Contact>();
+            Map<Id,Account> PersonAccountMap = new Map<Id,Account>();
+            Map<Id, string> AEMContactSearchMap = new Map<id,string>();
+            
+            for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems)
+            {
+                system.debug('Account Roles are : ' + accountRoles);
+                if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account))
+                {
+                    ContactIdsSet.add(accountRoles.Contact);
+                    system.debug('1');
+                }
+                if(String.isEmpty(accountRoles.Contact))
+                {
+                    PersonAccountIdSet.add(accountRoles.Account);
+                }
+            }
+            if(!PersonAccountIdSet.isEmpty())
+            {
+                for(Account a : [Select Id, PersonContactId FROM Account Where Id =: PersonAccountIdSet])
+                {
+                    if(String.isNotEmpty(a.PersonContactId))
+                    {
+                    PersonAccountMap.put(a.Id, a);
+                    system.debug('2');
+                    }
+                }
+            }
+            if(!ContactIdsSet.isEmpty())
+            {
+                for(Contact c : [Select Id, AccountId FROM Contact Where Id =: ContactIdsSet])
+                {
+                    ContactMap.put(c.Id, c);
+                    system.debug('2');
+                }
+            }
+            
+            for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems)
+            {
+        
+                if(String.isEmpty(accountRoles.Account))
+                {
+                    accountRoles.Account = ContactMap.get(accountRoles.Contact).AccountId;
+                    system.debug('3');
+                }
+
+                if(accountRoles.Text.contains('Project Site Contact'))
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        ProjectSiteContactAccount = accountRoles.Account;
+                        system.debug('4 ' + ProjectSiteContactAccount);
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            ProjectSiteContactContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        ProjectSiteContactContact = accountRoles.Contact;
+                        system.debug('5');
+                    }
+                    if(ProjectSiteContactContact == null)
+                    {
+                        return 'The Project Site Contact must be a Person Account or have a Contact';
+                    }
+                }
+                if(accountRoles.Text.contains('Primary/Bill-to'))
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        PrimaryAccount = accountRoles.Account;
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            PrimaryContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        PrimaryContact = accountRoles.Contact;
+                        system.debug('7');
+                    }
+                }
+                if(accountRoles.Text.contains('Referred By')|| accountRoles.Text.contains('Caller') )
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        Referred = accountRoles.Contact;
+                        system.debug('9');
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            Referred = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        Referred = accountRoles.Contact;
+                        system.debug('8');
+                    }
+                    if(accountRoles.Text.contains('Referred By') && !String.isBlank(accountRoles.Contact))
+                    {
+                        AEMContactSearchMap.put(accountRoles.Contact,'Referred By');
+                        
+
+                    }else if(accountRoles.Text.contains('Insurance Adjuster/Company') && !String.isBlank(accountRoles.Contact))
+                        {
+                            AEMContactSearchMap.put(accountRoles.Contact,'Insurance Adjuster/Company');
+                        }
+                        else if(accountRoles.Text.contains('Property/Facility Manager') && !String.isBlank(accountRoles.Contact))
+                            {
+                                AEMContactSearchMap.put(accountRoles.Contact, 'Property/Facility Manager');
+                            }
+                }
+
+            }
+            List<Account_Roles__c> ARsToDelete = [Select Id FROM Account_Roles__c Where Master_Job_Id__c =:recordId];
+            ATI_Job__c job = new ATI_Job__c(Id = recordId, Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
+            Project_Site_Contact_Name__c = ProjectSiteContactContact);
+            update job;
+            
+            for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems)
+            {
+                system.debug('Account Roles are '  + accountRoles);
+                system.debug('Text is ' + accountRoles.Text);
+                if(String.isNotEmpty(accountRoles.Account))
+                {
+                    Account_Roles__c ARRole = new Account_Roles__c(Account_ID__c = accountRoles.Account, Contact_ID__c = accountRoles.Contact, Master_Job_Id__c = job.Id,
+                    Multiple_Roles__c = accountRoles.Text);
+                    ARList.add(ARRole);
+                }
+                if(String.isEmpty(accountRoles.Account) && String.isNotEmpty(accountRoles.Contact))
+                {
+                    Account_Roles__c ARRole = new Account_Roles__c(Account_ID__c = ContactMap.get(accountRoles.Contact).AccountId, Contact_ID__c = accountRoles.Contact, Master_Job_Id__c = job.Id,
+                    Multiple_Roles__c = accountRoles.Text);
+                    ARList.add(ARRole);
+                }
+            }
+            if(!ARList.isEmpty())
+            {
+                insert ARList;
+                delete ARsToDelete;
+            }
+            
+                return recordId;
+    } catch (Exception e) 
+    {
+    system.debug('Exception is ' + e + '         Whats being return with string is ' + string.valueof(e));
+        Database.rollback(sp);
+        return string.valueOf(e);
+    }
+}             
     @AuraEnabled 
     public static string CreateNewJob(string AccountRoleInfo,string PropertyInfo, string JobInfo, string MasterJobId, string JobEntryType, string jobrecordId, boolean ExistingMasterJob){
         system.debug('Existing mster job' + ExistingMasterJob);
@@ -1240,6 +1334,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         system.debug('Job Entry Type ' + JobEntryType);
         system.debug('Job record Id ' + jobrecordId);
         Master_Job__c masterJob = new Master_Job__c();
+        Master_Job__c MjobExisting = new Master_Job__c();
         Boolean NewProperty = false;
         List<Account_Roles__c> ARList = new List<Account_Roles__c>();
         List<Account_Roles__c> ARPropertyList = new List<Account_Roles__c>();
@@ -1256,355 +1351,403 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
         JobWrapper jobWrap = (JobWrapper)JSON.deserialize(jobInfo, JobWrapper.class);
         PropertyAddresses propAddress = GoogleCallout(Property.Street,  Property.City, Property.Zip, Property.State);
-        // Http h = new Http();
-        //     HttpRequest req = new HttpRequest();
-        //      String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-        //      req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-        //      EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-        //      req.setMethod('GET');
-        //      req.setTimeout(60000);
-        //      if(!Test.isRunningTest()){
-        //     HttpResponse res = h.send(req);
-        //     system.debug('Response is ' + res.getBody());
-        //     resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-        //     system.debug('results are ' + result);
-            
-        //     for(results a: result.results){
-        //         system.debug('a ' + a);
-        //         for(address_components ad : a.address_components){
-        //             system.debug('ad ' + ad.types[0]);
-        //             if(ad.types[0] == 'administrative_area_level_2'){
-        //                 county = ad.long_name.replace('County', '');
-        //             }
-        //             if(ad.types[0] == 'route'){
-        //                 street = ad.short_name;
-                      
-        //             }
-        //             if(ad.types[0] == 'locality'){
-        //                 localityCity = ad.short_name;
         
-        //             }
-        //             if(ad.types[0] == 'political'){
-        //                 sublocalityCity = ad.short_name;
-        //                 system.debug('Hitting 1 ' + sublocalityCity);
-                   
-        //             }
-        //             if(ad.types[0] == 'neighborhood'){
-        //                 neighborhoodCity = ad.short_name;
-                       
-        //             }
-        //             if(ad.types[0] == 'administrative_area_level_1'){
-        //                 property.state = ad.short_name;
-                    
-        //             }
-        //             if(ad.types[0] == 'street_number'){
-        //                 streetnumber = ad.short_name;
-                      
-        //             }
-        //             if(ad.types[0] == 'postal_code'){
-        //                 property.Zip = ad.short_name;
-                  
-        //             }
-
-        //         }  
-        //     }
-        //     property.street = streetnumber +' '+ street;
-        // }
-        // if(neighborhoodCity != null){
-        //     property.City = neighborhoodCity;
-        // }
-        // if(sublocalityCity != null){
-        //     property.City = sublocalityCity;
-        // }
-        // if(localityCity != null){
-        //     property.City = localityCity;
-        // }
         Savepoint sp = Database.setSavepoint();
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
         try {
 
         
-        system.debug('JobWrap is ' + jobWrap);
-        system.debug('PropertyWrap is ' + Property);
-        system.debug('AccountWrap is ' + AR);
-        Set<Id> ContactIdsSet = new Set<Id>();
-        Set<Id> PersonAccountIdSet = new Set<Id>();
-        Map<Id,Contact> ContactMap = new Map<Id,Contact>();
-        Map<Id,Account> PersonAccountMap = new Map<Id,Account>();
+            system.debug('JobWrap is ' + jobWrap);
+            system.debug('PropertyWrap is ' + Property);
+            system.debug('AccountWrap is ' + AR);
+            Set<Id> ContactIdsSet = new Set<Id>();
+            Set<Id> PersonAccountIdSet = new Set<Id>();
+            Map<Id,Contact> ContactMap = new Map<Id,Contact>();
+            Map<Id,Account> PersonAccountMap = new Map<Id,Account>();
+            Map<Id, string> AEMContactSearchMap = new Map<id,string>();
+            
+            for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems)
+            {
+                system.debug('Account Roles are : ' + accountRoles);
+                if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account))
+                {
+                    ContactIdsSet.add(accountRoles.Contact);
+                    system.debug('1');
+                }
+                if(String.isEmpty(accountRoles.Contact))
+                {
+                    PersonAccountIdSet.add(accountRoles.Account);
+                }
+            }
+            if(!PersonAccountIdSet.isEmpty())
+            {
+                for(Account a : [Select Id, PersonContactId FROM Account Where Id =: PersonAccountIdSet])
+                {
+                    if(String.isNotEmpty(a.PersonContactId))
+                    {
+                    PersonAccountMap.put(a.Id, a);
+                    system.debug('2');
+                    }
+                }
+            }
+            if(!ContactIdsSet.isEmpty())
+            {
+                for(Contact c : [Select Id, AccountId FROM Contact Where Id =: ContactIdsSet])
+                {
+                    ContactMap.put(c.Id, c);
+                    system.debug('2');
+                }
+            }
+            
+            for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems)
+            {
         
-        for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
-            system.debug('Account Roles are : ' + accountRoles);
-            if(String.isNotEmpty(accountRoles.Contact) && String.isEmpty(accountRoles.Account)){
-                ContactIdsSet.add(accountRoles.Contact);
-                system.debug('1');
-            }
-            if(String.isEmpty(accountRoles.Contact)){
-                PersonAccountIdSet.add(accountRoles.Account);
-            }
-        }
-        if(!PersonAccountIdSet.isEmpty()){
-            for(Account a : [Select Id, PersonContactId FROM Account Where Id =: PersonAccountIdSet]){
-                if(String.isNotEmpty(a.PersonContactId)){
-                PersonAccountMap.put(a.Id, a);
-                system.debug('2');
-            }
-        }
-        }
-        if(!ContactIdsSet.isEmpty()){
-            for(Contact c : [Select Id, AccountId FROM Contact Where Id =: ContactIdsSet]){
-                ContactMap.put(c.Id, c);
-                system.debug('2');
-            }
-        }
-    
-        for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
-    
-            if(String.isEmpty(accountRoles.Account)){
-                accountRoles.Account = ContactMap.get(accountRoles.Contact).AccountId;
-                system.debug('3');
-            }
+                if(String.isEmpty(accountRoles.Account))
+                {
+                    accountRoles.Account = ContactMap.get(accountRoles.Contact).AccountId;
+                    system.debug('3');
+                }
 
-            if(accountRoles.Text.contains('Project Site Contact')){
-                if(!String.isBlank(accountRoles.Account)){
-                ProjectSiteContactAccount = accountRoles.Account;
-                system.debug('4 ' + ProjectSiteContactAccount);
-                if(PersonAccountMap.containsKey(accountRoles.Account)){
-                    ProjectSiteContactContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
-                }
-                }
-                if(!String.isBlank(accountRoles.Contact)){
-                    ProjectSiteContactContact = accountRoles.Contact;
-                    system.debug('5');
-                }
-                if(ProjectSiteContactContact == null){
-                    return 'The Project Site Contact must be a Person Account or have a Contact';
-                }
-            }
-            if(accountRoles.Text.contains('Primary/Bill-to')){
-                if(!String.isBlank(accountRoles.Account)){
-                    PrimaryAccount = accountRoles.Account;
-                    if(PersonAccountMap.containsKey(accountRoles.Account)){
-                        PrimaryContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                if(accountRoles.Text.contains('Project Site Contact'))
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        ProjectSiteContactAccount = accountRoles.Account;
+                        system.debug('4 ' + ProjectSiteContactAccount);
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            ProjectSiteContactContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
                     }
-                    
-                    
-                }
-                if(!String.isBlank(accountRoles.Contact)){
-                    PrimaryContact = accountRoles.Contact;
-                    system.debug('7');
-                }
-            }
-            if(accountRoles.Text.contains('Referred By')|| accountRoles.Text.contains('Caller') ){
-                if(!String.isBlank(accountRoles.Account)){
-                    Referred = accountRoles.Contact;
-                    system.debug('9');
-                    if(PersonAccountMap.containsKey(accountRoles.Account)){
-                        Referred = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        ProjectSiteContactContact = accountRoles.Contact;
+                        system.debug('5');
+                    }
+                    if(ProjectSiteContactContact == null)
+                    {
+                        return 'The Project Site Contact must be a Person Account or have a Contact';
                     }
                 }
-                if(!String.isBlank(accountRoles.Contact)){
-                    Referred = accountRoles.Contact;
-                    system.debug('8');
+                if(accountRoles.Text.contains('Primary/Bill-to'))
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        PrimaryAccount = accountRoles.Account;
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            PrimaryContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        PrimaryContact = accountRoles.Contact;
+                        system.debug('7');
+                    }
                 }
-                
-            }
+                if(accountRoles.Text.contains('Referred By')|| accountRoles.Text.contains('Caller') )
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        Referred = accountRoles.Contact;
+                        system.debug('9');
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            Referred = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        Referred = accountRoles.Contact;
+                        system.debug('8');
+                    }
+                    if(accountRoles.Text.contains('Referred By') && !String.isBlank(accountRoles.Contact))
+                    {
+                        AEMContactSearchMap.put(accountRoles.Contact,'Referred By');
+                        
 
-        }
-        ATI_Job__c jobToRemoveMJ = new ATI_Job__c();
+                    }else if(accountRoles.Text.contains('Insurance Adjuster/Company') && !String.isBlank(accountRoles.Contact))
+                        {
+                            AEMContactSearchMap.put(accountRoles.Contact,'Insurance Adjuster/Company');
+                        }
+                        else if(accountRoles.Text.contains('Property/Facility Manager') && !String.isBlank(accountRoles.Contact))
+                            {
+                                AEMContactSearchMap.put(accountRoles.Contact, 'Property/Facility Manager');
+                            }
+                }
+
+            }
+            Id AEContactToUse;
+            Boolean ReferredByAEToggled = false;
+            
+            if(!AEMContactSearchMap.isEmpty())
+            {
+                system.debug('AEMValues is ' + AEMContactSearchMap.values());
+                Map<Id, Contact> contactOwners = new Map<Id, Contact>([Select Id, Owner.Id, Owner.Profile.Name FROM Contact Where Id =:AEMContactSearchMap.keySet()]);
+                system.debug('contact owners is ' + contactOwners);
+                for(Id cid : AEMContactSearchMap.keyset())
+                {
+                    if(AEMContactSearchMap.get(cid) == 'Referred By' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
+                    && ReferredByAEToggled == false)
+                    {
+                        AEContactToUse = contactOwners.get(cid).Owner.Id;
+                        ReferredByAEToggled = true;
+                    }
+                    if(AEMContactSearchMap.get(cid) == 'Insurance Adjuster/Company' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
+                    && ReferredByAEToggled == false)
+                    {
+                        AEContactToUse = contactOwners.get(cid).Owner.Id;
+                    }
+                    if(AEMContactSearchMap.get(cid) == 'Property/Facility Manager' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
+                    && ReferredByAEToggled == false)
+                    {
+                        AEContactToUse = contactOwners.get(cid).Owner.Id;
+                    }
+                }
+            }
+            ATI_Job__c jobToRemoveMJ = new ATI_Job__c();
             Master_Job__c mjToDelete = new Master_Job__c();
-        double YearBuilt;
-        if(!String.isBlank(jobWrap.YearBuilt)){
-            YearBuilt = double.valueOf(jobWrap.YearBuilt);
-        }
-        //system.debug('Master Job Id  is  ' + MasterJobId);
-        if(String.isEmpty(Property.PropertyId)){
-           // prop.Property_Type__c = Property.PropertyType;
-            // prop.Street__c = Property.Street;
-            prop.City__c = propAddress.City;
-            prop.Zip__c = propAddress.Zipcode;
-            prop.Country__c = Property.Country;
-            prop.State__c = propAddress.State;
-            // prop.Address_Line_2__c = Property.AddressLine2;
-            prop.Name = 'Test';
-            // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-            prop.Address_Line_1__c = propAddress.Street;
-            NewProperty= true;
-            prop.Year_Structure_Built__c = YearBuilt;
-            // prop.Job_Class__c = jobWrap.JobClass;
-            prop.Market_Class__c = jobWrap.MarketClass;
-            prop.Market_Segment__c = jobWrap.MarketSegment;
-            prop.Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass;
-            prop.Alternate_Name__c = Property.AlternateName;
-            
-            prop.County__c = propAddress.county;
-            insert prop;  
-            
-        }else{
-            prop = [Select Street__c, City__c, County__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
-        }
-        Id mJobId;
-        
-        //if Master Job is empty, create one. 
-        if(string.isEmpty(MasterJobId)){
-          // masterJob.Name = 'Test Master Job';
-          system.debug('Master job is null.. Existing job in if statement ' + ExistingMasterJob);
-           masterJob.Claim__c = jobWrap.Claim;
-           masterJob.Policy__c = jobWrap.Policy;
-           masterJob.Description_of_Loss__c = jobWrap.Description;
-           masterJob.Stage__c = 'Pre-work';
-           //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
-           masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
-           masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
-           masterJob.Lead_Source__c = jobWrap.LeadSource;
-           masterJob.Taken_By__c = jobWrap.TakenBy;
-           masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
-           masterJob.office2__c = jobWrap.Office;
-           masterJob.City__c = propAddress.City;
-            masterJob.State__c = propAddress.State;
-            masterJob.Address_Line_1__c = propAddress.Street;
-           if(NewProperty){
-               masterJob.Property__c = prop.Id;
-           }else{
-               masterJob.Property__c = Property.PropertyId;
-           }
-           insert masterJob;
-           mJobId = masterJob.id;
-        
-        }
-        else if(!string.isEmpty(MasterJobId) && JobEntryType == 'NewJobEntry'){
-            mJobId = MasterJobId;
-        }
-        
-        else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == false){
-            system.debug('Existing job in if false statement ' + ExistingMasterJob);
-            masterJob.Id = masterJobId;
-            masterJob.Claim__c = jobWrap.Claim;
-            masterJob.Description_of_Loss__c = jobWrap.Description;
-            // masterJob.Stage__c = 'Pre-work';
-            //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
-            masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
-            masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
-            masterJob.Lead_Source__c = jobWrap.LeadSource;
-            masterJob.Taken_By__c = jobWrap.TakenBy;
-            masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
-            masterJob.office2__c = jobWrap.Office;
-            masterJob.AfterHoursUpdate__c = true;
-            if(NewProperty){
-                masterJob.Property__c = prop.Id;
-            }else{
-                masterJob.Property__c = Property.PropertyId;
+            double YearBuilt;
+            if(!String.isBlank(jobWrap.YearBuilt)){
+                YearBuilt = double.valueOf(jobWrap.YearBuilt);
             }
-           
-            update masterJob;
-            mJobId = MasterJobId;
-        }
-        else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == true){
-            jobToRemoveMJ = [Select Id, Master_Job__c FROM ATI_Job__c Where Id =:jobrecordId];
+            //system.debug('Master Job Id  is  ' + MasterJobId);
+            if(String.isEmpty(Property.PropertyId)){
+            // prop.Property_Type__c = Property.PropertyType;
+                // prop.Street__c = Property.Street;
+                prop.City__c = propAddress.City;
+                prop.Zip__c = propAddress.Zipcode;
+                prop.Country__c = Property.Country;
+                prop.State__c = propAddress.State;
+                // prop.Address_Line_2__c = Property.AddressLine2;
+                prop.Name = 'Test';
+                // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
+                prop.Address_Line_1__c = propAddress.Street;
+                NewProperty= true;
+                prop.Year_Structure_Built__c = YearBuilt;
+                // prop.Job_Class__c = jobWrap.JobClass;
+                prop.Market_Class__c = jobWrap.MarketClass;
+                prop.Market_Segment__c = jobWrap.MarketSegment;
+                prop.Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass;
+                prop.Alternate_Name__c = Property.AlternateName;
+                
+                prop.County__c = propAddress.county;
+                insert prop;  
+                
+            }else{
+                prop = [Select Street__c, City__c, County__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
+            }
+            Id mJobId;
             
-            masterJob.AfterHoursUpdate__c = true;
-            mjToDelete.Id = JobToRemoveMJ.Master_Job__c;
-            system.debug('Existing job in if statement ' + ExistingMasterJob);
-            mJobId = MasterJobId;
-        }
-        
-        //insert job, and relate to Master Job
-        Id propId;
-        if(NewProperty){
-            propId = prop.Id;
-        }else{
-            propId = Property.PropertyId;
-        }
-        system.debug('NewJobEntry?? ' + JobEntryType);
-        system.debug('Hitting before job insert, and MJobId is ' + mJobId );
-        // if(prop.City__c.length() > 15){
-        //     prop.City__c = prop.City__c.substring(0, 15);
-        // }
-        // if(prop.county__c != null && prop.County__c.length() > 15){
-        //     prop.County__c = prop.County__c.substring(0, 15);
-        // }
-        //Job_Class__c = jobWrap.JobClass,
-        
-        ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Job_Request_Completed_By__c = UserInfo.getUserId(), Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
-        Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass, Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
-         Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description,
-        Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
-        Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
-        Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = Property.AddressLine2,
-        Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
-        // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
-        // jobsas[0].name = 'test';
-        if(JobEntryType == 'NewJobEntry'){
-            job.Name = jobWrap.JobName;
-            job.Stage__c = 'Qualification';
-        insert job;
-        }
-        if(JobEntryType =='AfterHoursJobEntry'){
-        job.Name = jobWrap.JobRealName;
-        job.Id = jobrecordId;
-        job.Intake_Status__c = 'Reviewed/Completed';
-        job.Date_Time_Completed__c = system.now();
-        system.debug('Before update' + job.Master_Job__c);
-        update job;
-        system.debug('After update' + job.Master_Job__c);
-        if(ExistingMasterJob == true && mjToDelete.Id != job.Master_Job__c){
-            system.debug('MjJob To delete ' + mjToDelete);
-        delete mjToDelete;
-        }
-        List<ATI_Job__c> jobs = new List<ATI_Job__c>();
-        jobs.add(job);
-        Create_Opportunity_Handler.createOpportunity(jobs);
-        }
-        // if(JobEntryType == 'NewJobEntry'){
-        // MasterJobUpdateJob(mJobId, job.Id);
-        // }
-        //insert AR's and relate to job
-        
-        for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
-            system.debug('Account Roles are '  + accountRoles);
-            system.debug('Text is ' + accountRoles.Text);
-            if(String.isNotEmpty(accountRoles.Account)){
-            Account_Roles__c ARRole = new Account_Roles__c(Account_ID__c = accountRoles.Account, Contact_ID__c = accountRoles.Contact, Master_Job_Id__c = job.Id,
-            Multiple_Roles__c = accountRoles.Text);
-            ARList.add(ARRole);
-            }if(String.isEmpty(accountRoles.Account) && String.isNotEmpty(accountRoles.Contact)){
-                Account_Roles__c ARRole = new Account_Roles__c(Account_ID__c = ContactMap.get(accountRoles.Contact).AccountId, Contact_ID__c = accountRoles.Contact, Master_Job_Id__c = job.Id,
+            //if Master Job is empty, create one. 
+            if(string.isEmpty(MasterJobId))
+            {
+                system.debug('Master job is null.. Existing job in if statement ' + ExistingMasterJob);
+                if(AEContactToUse != null)
+                {
+                    masterJob.Account_Executive_1__c = AEContactToUse;
+                }
+                masterJob.Claim__c = jobWrap.Claim;
+                masterJob.Policy__c = jobWrap.Policy;
+                masterJob.Description_of_Loss__c = jobWrap.Description;
+                masterJob.Stage__c = 'Pre-work';
+                //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
+                masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
+                masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
+                masterJob.Lead_Source__c = jobWrap.LeadSource;
+                masterJob.Taken_By__c = jobWrap.TakenBy;
+                masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
+                masterJob.office2__c = jobWrap.Office;
+                masterJob.City__c = propAddress.City;
+                masterJob.State__c = propAddress.State;
+                masterJob.Address_Line_1__c = propAddress.Street;
+                if(NewProperty)
+                {
+                    masterJob.Property__c = prop.Id;
+                }else
+                    {
+                        masterJob.Property__c = Property.PropertyId;
+                    }
+                insert masterJob;
+                mJobId = masterJob.id;
+            }
+            else if(!string.isEmpty(MasterJobId) && JobEntryType == 'NewJobEntry')
+            {
+                mJobId = MasterJobId;
+                MjobExisting = [Select Id, Account_Executive_1__c, Account_Executive_2__c FROM Master_Job__c Where Id =:masterJobId];
+                if(AEContactToUse != null && MjobExisting.Account_Executive_1__c == null)
+                {
+                MjobExisting.Account_Executive_1__c = AEContactToUse;
+                }
+                update MjobExisting;
+
+            }
+            else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == false)
+            {
+                system.debug('Existing job in if false statement ' + ExistingMasterJob);
+                masterJob.Id = masterJobId;
+                masterJob.Claim__c = jobWrap.Claim;
+                masterJob.Description_of_Loss__c = jobWrap.Description;
+                // masterJob.Stage__c = 'Pre-work';
+                //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
+                if(AEContactToUse != null)
+                {
+                    masterJob.Account_Executive_1__c = AEContactToUse;
+                }
+                masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
+                masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
+                masterJob.Lead_Source__c = jobWrap.LeadSource;
+                masterJob.Taken_By__c = jobWrap.TakenBy;
+                masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
+                masterJob.office2__c = jobWrap.Office;
+                masterJob.AfterHoursUpdate__c = true;
+                if(NewProperty)
+                {
+                    masterJob.Property__c = prop.Id;
+                }else
+                    {
+                    masterJob.Property__c = Property.PropertyId;
+                    }
+            
+                update masterJob;
+                mJobId = MasterJobId;
+            }
+            else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == true)
+            {
+                jobToRemoveMJ = [Select Id, Master_Job__c FROM ATI_Job__c Where Id =:jobrecordId];
+                MjobExisting = [Select Id, Account_Executive_1__c, Account_Executive_2__c FROM Master_Job__c Where Id =:masterJobId];
+                if(AEContactToUse != null && MjobExisting.Account_Executive_1__c == null)
+                {
+                MjobExisting.Account_Executive_1__c = AEContactToUse;
+                }
+                // if(AEContactToUse != null && MjobExisting.Account_Executive_1__c != null && MjobExisting.Account_Executive_2__c == null)
+                // {
+                //     masterJob.Account_Executive_2__c = AEContactToUse;
+                // }
+                //MjobExisting.AfterHoursUpdate__c = true;
+                mjToDelete.Id = JobToRemoveMJ.Master_Job__c;
+                system.debug('Existing job in if statement ' + ExistingMasterJob);
+                mJobId = MasterJobId;
+                update masterJob;
+            }
+            
+            //insert job, and relate to Master Job
+            Id propId;
+            if(NewProperty){
+                propId = prop.Id;
+            }else{
+                propId = Property.PropertyId;
+            }
+            system.debug('NewJobEntry?? ' + JobEntryType);
+            system.debug('Hitting before job insert, and MJobId is ' + mJobId );
+            // if(prop.City__c.length() > 15){
+            //     prop.City__c = prop.City__c.substring(0, 15);
+            // }
+            // if(prop.county__c != null && prop.County__c.length() > 15){
+            //     prop.County__c = prop.County__c.substring(0, 15);
+            // }
+            //Job_Class__c = jobWrap.JobClass,
+            
+            ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Job_Request_Completed_By__c = UserInfo.getUserId(), Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
+            Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass, Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
+            Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description,
+            Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
+            Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
+            Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = Property.AddressLine2,
+            Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
+            // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
+            // jobsas[0].name = 'test';
+            if(JobEntryType == 'NewJobEntry')
+            {
+                job.Name = jobWrap.JobName;
+                job.Stage__c = 'Qualification';
+                if(MjobExisting != null)
+                {
+                   job.Account_Executive_1__c = MjobExisting.Account_Executive_1__c;
+                   job.Account_Executive_2__c = MjobExisting.Account_Executive_2__c;
+                }else{
+                    job.Account_Executive_1__c = AEContactToUse;
+                }
+            insert job;
+            }
+            if(JobEntryType =='AfterHoursJobEntry'){
+                job.Name = jobWrap.JobRealName;
+                job.Id = jobrecordId;
+                job.Intake_Status__c = 'Reviewed/Completed';
+                job.Date_Time_Completed__c = system.now();
+                system.debug('Before update' + job.Master_Job__c);
+                if(ExistingMasterJob == false)
+                {
+                    job.Account_Executive_1__c = AEContactToUse;
+                   
+                }
+                if(ExistingMasterJob == true)
+                {
+                    job.Account_Executive_1__c = MjobExisting.Account_Executive_1__c;
+                    job.Account_Executive_2__c = MjobExisting.Account_Executive_2__c;
+                }
+            update job;
+            system.debug('After update' + job.Master_Job__c);
+            if(ExistingMasterJob == true && mjToDelete.Id != job.Master_Job__c){
+                system.debug('MjJob To delete ' + mjToDelete);
+            
+            delete mjToDelete;
+            }
+            List<ATI_Job__c> jobs = new List<ATI_Job__c>();
+            jobs.add(job);
+            Create_Opportunity_Handler.createOpportunity(jobs);
+            }
+            // if(JobEntryType == 'NewJobEntry'){
+            // MasterJobUpdateJob(mJobId, job.Id);
+            // }
+            //insert AR's and relate to job
+            
+            for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems){
+                system.debug('Account Roles are '  + accountRoles);
+                system.debug('Text is ' + accountRoles.Text);
+                if(String.isNotEmpty(accountRoles.Account)){
+                Account_Roles__c ARRole = new Account_Roles__c(Account_ID__c = accountRoles.Account, Contact_ID__c = accountRoles.Contact, Master_Job_Id__c = job.Id,
                 Multiple_Roles__c = accountRoles.Text);
                 ARList.add(ARRole);
-            }
-            //if Prop is new, need to add a different set of Account Roles to property, unrelated to the Job Account roles. 
-            if(NewProperty){
-                if(String.isNotEmpty(accountRoles.Account)){
-                    Account_Roles__c PropARRole = new Account_Roles__c(Account_ID__c = accountRoles.Account, Contact_ID__c = accountRoles.Contact, Property_ID__c = prop.Id,
+                }if(String.isEmpty(accountRoles.Account) && String.isNotEmpty(accountRoles.Contact)){
+                    Account_Roles__c ARRole = new Account_Roles__c(Account_ID__c = ContactMap.get(accountRoles.Contact).AccountId, Contact_ID__c = accountRoles.Contact, Master_Job_Id__c = job.Id,
                     Multiple_Roles__c = accountRoles.Text);
-                    ARPropertyList.add(PropARRole);
+                    ARList.add(ARRole);
                 }
-                if(String.isEmpty(accountRoles.Account) && String.isNotEmpty(accountRoles.Contact)){
-                    Account_Roles__c PropARRole = new Account_Roles__c(Account_ID__c = ContactMap.get(accountRoles.Contact).AccountId, Contact_ID__c = accountRoles.Contact, Property_ID__c = prop.Id,
-                    Multiple_Roles__c = accountRoles.Text);
-                    ARPropertyList.add(PropARRole);
-            } 
-            }
+                //if Prop is new, need to add a different set of Account Roles to property, unrelated to the Job Account roles. 
+                if(NewProperty){
+                    if(String.isNotEmpty(accountRoles.Account)){
+                        Account_Roles__c PropARRole = new Account_Roles__c(Account_ID__c = accountRoles.Account, Contact_ID__c = accountRoles.Contact, Property_ID__c = prop.Id,
+                        Multiple_Roles__c = accountRoles.Text);
+                        ARPropertyList.add(PropARRole);
+                    }
+                    if(String.isEmpty(accountRoles.Account) && String.isNotEmpty(accountRoles.Contact)){
+                        Account_Roles__c PropARRole = new Account_Roles__c(Account_ID__c = ContactMap.get(accountRoles.Contact).AccountId, Contact_ID__c = accountRoles.Contact, Property_ID__c = prop.Id,
+                        Multiple_Roles__c = accountRoles.Text);
+                        ARPropertyList.add(PropARRole);
+                } 
+                }
 
-        }
-        if(!ARList.isEmpty()){
-            insert ARList;
-            if(NewProperty){
-                insert ARPropertyList;
             }
+            if(!ARList.isEmpty()){
+                insert ARList;
+                if(NewProperty){
+                    insert ARPropertyList;
+                }
+            }
+            system.debug('Job Id ' + job.id);
+            
+            if(JobEntryType == 'AfterHoursJobEntry'){
+                return jobrecordId;
+            }else{
+                return job.id;
+            }
+            
+        } catch (Exception e) {
+            system.debug('Exception is ' + e + '         Whats being return with string is ' + string.valueof(e));
+                Database.rollback(sp);
+                return string.valueOf(e);
         }
-        system.debug('Job Id ' + job.id);
-        
-        if(JobEntryType == 'AfterHoursJobEntry'){
-            return jobrecordId;
-        }else{
-            return job.id;
-        }
-        
-    } catch (Exception e) {
-        system.debug('Exception is ' + e + '         Whats being return with string is ' + string.valueof(e));
-            Database.rollback(sp);
-            return string.valueOf(e);
-    }
         
 
     }

@@ -308,6 +308,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
     //JobTeamCreation needs to be called after AssignRoles Process
     public static void JobTeamCreation(List<ATI_Job__c> jobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap)
     {
+        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
         List<ATI_Job_Team__c> jobTeams = new List<ATI_Job_Team__c>();
         List<ATI_Job_Split__c> jsToInsert = new List<ATI_Job_Split__c>();
         list<Financial__c> financialsToInsert = new List<Financial__c>();
@@ -316,6 +317,13 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             system.debug('JobTeamCreation new job is ' + jobs);
             if(Trigger.isInsert)
             {
+                if(job.recordtypeId == approvedRecordTypeId) {
+                    string test1 = job.name.replace('|','');
+                    string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
+                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+                
+                }
                 if(job.Financial_Record_Availablity__c == False)
                 {
                     Financial__c f = new Financial__c(ATI_Job__c = job.Id, ReferenceId__c = job.Id);
@@ -337,6 +345,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     ATI_Job__c = job.Id);
                     jobTeams.add(jt);
                 }
+                
                 if(job.Account_Executive_1__c != null)
                 {
                     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
@@ -355,15 +364,26 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     ATI_Job__c = job.Id);
                     jobTeams.add(jt);
                 }
+
+                //If AE is new, sets the owner and inserts job split with them having 100%. If AE1 is not null on insertion, inserts the JobSplit AE1 with 100,
+                //if AE2 and AE1 is not null, inserts both and splits percentage to 50/50
                 if(job.Account_Executive_1__c == null && job.Account_Executive_2__c == null)
                 {
                 ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Others', Team_Member__c = job.Taken_By__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
                 Percentage__c = 100.00);
                 jsToInsert.add(js);
-                }else
+                }else if(job.Account_Executive_1__c != null && job.Account_Executive_2__c == null)
                 {
-                    ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Others', Team_Member__c = job.Taken_By__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
-                    Percentage__c = 0);
+                    ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                    Percentage__c = 100.00);
+                    jsToInsert.add(js);
+                    
+                }else if(job.Account_Executive_1__c != null && job.Account_Executive_2__c != null)
+                {
+                    ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                    Percentage__c = 50.00);
+                    ATI_Job_Split__c js1 = new ATI_Job_Split__c(Member_Role__c = 'AAccount Executive', Team_Member__c = job.Account_Executive_2__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                    Percentage__c = 50.00);
                     jsToInsert.add(js);
                 }
 
@@ -408,7 +428,16 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     ATI_Job__c = job.Id);
                     jobTeams.add(jt);
                 }
-            }
+                //Updates Egnyte path on update
+                if(job.recordtypeId == approvedRecordTypeId &&(job.name !=  oldJob.Name || job.recordtypeId != oldJob.recordtypeid)) 
+                {
+                    string test1 = job.name.replace('|','');
+                    string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
+                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+                
+                }
+        }
         }
         if(!financialsToInsert.isEmpty())
         {

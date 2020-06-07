@@ -29,6 +29,13 @@ export default class ItemsToApprove extends LightningElement {
     datasetup = [];
     columns = columns;
     SelectedData = [];
+    Comments = '';
+    Decision = '';
+    row = '';
+    SingleDecision = false;
+    DecisionClicked = false;
+    loading = false;
+
 
     // eslint-disable-next-line @lwc/lwc/no-async-await
     connectedCallback() {
@@ -66,59 +73,37 @@ export default class ItemsToApprove extends LightningElement {
                     this.datasetup[i].ReferredBy = "";
                     this.datasetup[i].ReferredBy1 = "";
                 }
-                // console.log('Account is ' + JSON.stringify(this.datasetup));
             }
             this.data = this.datasetup;
-            // console.log('Data is ' + this.data);
             
         });
-        // console.log('Data after is ' + this.data);
-        // this.data = [{Name:'Sean', email:'test'}];
-        // console.log('Data is ' +this.data);
     }
     handleRowAction(event) {
-        
-        
-        const actionName = event.detail.action.name;
-        console.log('Action name is ' + actionName);
-        const row = event.detail.row;
-        console.log('row is ' + JSON.stringify(row));
-        
-        switch (actionName) {
-            case 'Approve':
-                this.Approve(row);
-                break;
-            case 'Reject':
-                this.Reject(row);
-                break;
-            default:
-        }
+        this.Decision = event.detail.action.name;
+        this.DecisionClicked = true;
+        this.SingleDecision = true;
+        console.log('Decision' + this.Decision);
+        this.row = event.detail.row;
     }
-
-    Reject(row) {        
-           
-        const { id } = row;
-        const index = this.findRowIndexById(id);
-        // console.log('index is ' + index);
-                    const rows = this.data;
-                    // console.log('Row id is ' + JSON.stringify(row.id));
-                    // console.log('Row master job is ' + JSON.stringify(row.MasterJob));
-                    // console.log('Rows is ' + JSON.stringify(rows));
-                    // console.log('Rows with index included is ' + JSON.stringify(rows[row.id]));
-                   
-                    rows.splice(index, 1);
-                    console.log('rows is ' + JSON.stringify(rows));
-                    let rowsetup = [];
-                    this.data = [];
-                    for (var i = 0; i < rows.length; i++) {
-                        
-                        this.data.push({id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].createdByName, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
-                    }
-                    // this.data = this.datasetup;
-                    // this.data = rows;
-                   
-                    // console.log('data is ' + JSON.stringify(this.data));
+    SelectedDecisionClicked(event)
+    {
+        this.Decision = event.target.name;
+        this.DecisionClicked = true;
         
+    }
+    CommentsSaved()
+    {
+        console.log('Approve selected');
+        ApproveSelected(event);
+         
+    }
+    CloseComments()
+    {
+        this.Comments = '';
+        this.Decision = '';
+        this.row = '';
+        this.DecisionClicked = false;
+        this.SingleDecision = false;
     }
     findRowIndexById(id) {
         let ret = -1;
@@ -154,46 +139,132 @@ export default class ItemsToApprove extends LightningElement {
             
         }
     }
+    
     ApproveSelected(event)
     {   
-        var testeventname = event.detail.name;
-        console.log('Testeventname ' + testeventname);
-        let rowindexes = [];
-        if(this.SelectedData.length > 0)
+        try 
         {
-            for (let i = 0; i < this.SelectedData.length; i++){  
-                rowindexes.push(this.SelectedData[i].id);
-                console.log('After push ' + JSON.stringify(this.SelectedData) + ' rowindexes is ' + rowindexes); 
-            }
-            console.log('141 is hit');
-            let ItemsToSend = JSON.stringify({ItemsToApproveReject: this.SelectedData});
-            console.log('Items to send is ' + ItemsToSend);
-            ApproveSelectedItems({ItemsToApproveReject:ItemsToSend, Decision:'Approve'}).then(result => 
+        console.log('The single decision before all is ' + this.SingleDecision);
+        if(this.SingleDecision === false)
+        {
+            console.log('Single decision is false ' + this.SingleDecision);
+            this.loading = true;
+            // var testeventname = event.detail.name;
+            // console.log('Testeventname ' + testeventname);
+            let rowindexes = [];
+            if(this.SelectedData.length > 0)
             {
-                console.log('Result is ' + result);
-                let rows = this.data;
-                let rowsetup = [];
-                this.data = [];
-                console.log('Result lenght is ' + result.length);
-                
-    
+                for (let i = 0; i < this.SelectedData.length; i++)
+                {  
+                    rowindexes.push(this.SelectedData[i].id);
+                    console.log('After push ' + JSON.stringify(this.SelectedData) + ' rowindexes is ' + rowindexes); 
+                }
+                console.log('141 is hit');
+                let ItemsToSend = JSON.stringify({ItemsToApproveReject: this.SelectedData});
+                console.log('Items to send is ' + ItemsToSend);
+                ApproveSelectedItems({ItemsToApproveReject:ItemsToSend,Comments:this.Comments, Decision:this.Decision}).then(result => 
+                {
+                    if(result === '200')
+                    {
+                        console.log('Result is ' + result);
+                        let rows = this.data;
+                        let rowsetup = [];
+                        this.data = [];
+                        console.log('Result lenght is ' + rowindexes.length);
+                        for (let i = rowindexes.length -1; i >= 0; i--)
+                        {
+                            rows.splice(rowindexes[i], 1);
+                        }
+                        if(rows.length > 0)
+                        {
+                        for (var i = 0; i < rows.length; i++) 
+                        {
+                            this.data.push({id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].createdByName, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
+                        }
+                        this.loading = false;
+                        this.Comments = '';
+                        this.Decision = '';
+                        this.DecisionClicked = false;
+                        this.SelectedData =[];
+                        }else{
+                            this.loading = false;
+                            this.Comments = '';
+                            this.Decision = '';
+                            this.DecisionClicked = false;
+                            this.SelectedData =[];
 
-                for (let i = result.length -1; i >= 0; i--)
+                        }
+                    }
+                    else{
+                        this.loading = false;
+                        alert(result);
+                    }
+                })
+            }else
+            {
+                this.loading = false;
+                alert('Must select one or more to Approve Selected');
+            }
+        }
+    } catch (error) 
+    {
+        this.loading = false;
+        alert(error);        
+    }
+        if(this.SingleDecision === true)
+        {
+            try {
+            console.log('Single decision is true ' + this.SingleDecision);
+            this.loading = true;
+            
+            
+            const { id } = this.row;
+            const index = this.findRowIndexById(id);
+            // let ItemsToApproveReject =[];
+            let rowsetup = [];
+            let ItemsToSend = JSON.stringify(this.data[index]);
+            for (var i = 0; i < ItemsToSend.length; i++) 
+            {   
+                rowsetup.push({id:ItemsToSend[0].id,MasterJob: ItemsToSend[i].MasterJob, MasterJobName1: ItemsToSend[i].MasterJobName1, CreatedBy: ItemsToSend[i].createdByName, AccountName:ItemsToSend[i].AccountName, AccountName1:ItemsToSend[i].AccountName1, ContactName:ItemsToSend[i].ContactName, ContactName1:ItemsToSend[i].ContactName1, ReferredBy:ItemsToSend[i].ReferredBy, ReferredBy1:ItemsToSend[i].ReferredBy1});   
+            } 
+            // rowsetup.push(ItemsToSend);
+            let ItemToSend = JSON.stringify({ItemsToApproveReject:rowsetup});
+            const rows = this.data;
+            ApproveSelectedItems({ItemsToApproveReject:ItemToSend,Comments:this.Comments, Decision:this.Decision}).
+            then(result => 
+            {
+                
+                if(result === '200')
+                {  
+                    rows.splice(index, 1);
+                    console.log('rows is ' + JSON.stringify(rows));
+                    
+                    this.data = [];
+                    for (var i = 0; i < rows.length; i++) 
+                    {   
+                        this.data.push({id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].createdByName, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
+                    } 
+                    this.loading = false;
+                    this.row = '';
+                    this.Comments = '';
+                    this.Decision = '';
+                    this.DecisionClicked = false; 
+                }else
                 {
-                    rows.splice(result[i], 1);
-                }
-                if(rows.length > 0)
-                {
-                for (var i = 0; i < rows.length; i++) 
-                {
-                    this.data.push({id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].createdByName, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
-                }
+                    this.loading = false;
+                    alert(result);   
                 }
             })
-        }else
-        {
-            alert('Must select one or more to Approve Selected');
         }
+        catch (error) 
+        {
+            this.loading = false;
+            alert(error);  
+        }
+    }
+}
+    CommentsChange(event){
+        this.Comments = event.detail.value;
     }
     // GenerateDataJSON() {
     //     console.log('165 is hit');
