@@ -86,7 +86,7 @@ public without sharing class JobTriggerHandler {
     
     public static void handleBeforeUpdatesOnly(){        
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
-        JobAEBonusTriggerHandler.populateAEOnApprovedJobs( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );
+        //JobAEBonusTriggerHandler.populateAEOnApprovedJobs( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );
         //JobAEBonusTriggerHandler.afterCreditRequestApproved( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );        
        // JobAEBonusTriggerHandler.populateAEs( oldJobMap, Trigger.new );
         // Econz_Integration_Callouts.updateOldName( oldJobMap, Trigger.new );
@@ -94,17 +94,7 @@ public without sharing class JobTriggerHandler {
        // JobUtility.updateBranchManager(Trigger.new);
         //Athith Comments
         //Prepopulate the Timestamp for Date_Time_Approved__c field if the record type is Job (Approved)
-        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
-        Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
-        map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
-        for(ATI_Job__c Job: newJobMap.values()){
-        if( Job.recordtypeid != oldJobMap.get(Job.Id).recordtypeid && Job.recordtypeid == approvedRecordTypeId){
-            Job.Date_Time_Approved__c = system.now();
-            system.debug('===Date Time Approved==='+Job.Date_Time_Approved__c);
-            
-            }
-        }
-        JobUtility.UpdateApprovedPM(trigger.new, oldJobMap);
+        
         
         
     }
@@ -115,6 +105,10 @@ public without sharing class JobTriggerHandler {
         // if(Trigger.isBefore && (Trigger.isUpdate)){
         //     JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
         //     }
+        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
+        Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
+        map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
+        map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
         ObjectInserts oi = new ObjectInserts();
         oi.officeMap = new Map<Id,Office__c>([Select Id, Name, Branch_Manager__c, Biohazard_Operations_Manager__c,
         Asbestos_Operations_Manager__c, Catastrophes_Operations_Manager__c, Consulting_Operations_Manager__c, 
@@ -150,6 +144,19 @@ public without sharing class JobTriggerHandler {
             //logic - copies the Jobs Project Manager into the Owner field
             JobUtility.ManagerToOwnerCopy((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
         }
+        if(Trigger.isUpdate)
+        {
+            
+            for(ATI_Job__c Job: newJobMap.values())
+            {
+                if( Job.recordtypeid != oldJobMap.get(Job.Id).recordtypeid && Job.recordtypeid == approvedRecordTypeId)
+                {
+                    Job.Date_Time_Approved__c = system.now();
+                    system.debug('===Date Time Approved==='+Job.Date_Time_Approved__c);         
+                }
+            }
+        JobUtility.UpdateApprovedPM(trigger.new, oldJobMap);
+        }
     }
 
     public static void handleBeforeDelete(){       
@@ -170,7 +177,7 @@ public without sharing class JobTriggerHandler {
        AccountExecutiveController.UpdateAccountExecutives(Trigger.new);
         // moving this to after update as we cannot change the Job owner on insert due to Job splits issue
         JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
-        JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
+        //JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
         
         
     }

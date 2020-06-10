@@ -7,6 +7,7 @@ const actions = [
     
 ]; 
 
+
 const columns = [
     { label: 'Master Job', fieldName: 'MasterJob' , wrapText: true, type: 'url',
     typeAttributes: {label: { fieldName: 'MasterJobName1' }, target: '_blank'}},
@@ -24,6 +25,18 @@ const columns = [
     
     
 ];
+const columnsAll = [
+    {label: 'Approval Name', fieldName: 'ApprovalName' , wrapText: true, type: 'url',
+    typeAttributes: {label: { fieldName: 'ApprovalName1' }, target: '_blank'}},
+    { label: 'Submitted By', fieldName: 'CreatedBy' },
+    { label: 'Type', fieldName: 'ObjectName' },
+    
+    {
+        type: 'action',
+        typeAttributes: { rowActions: actions },
+    },
+    
+];
 export default class ItemsToApprove extends LightningElement {
     data = [];
     datasetup = [];
@@ -32,48 +45,68 @@ export default class ItemsToApprove extends LightningElement {
     Comments = '';
     Decision = '';
     row = '';
+    objectName = 'All';
     SingleDecision = false;
     DecisionClicked = false;
     loading = false;
+    AllView = true;
+    MasterJobView = false;
 
 
+
+    get ApprovalListViews() {
+
+      return [{label:"All", value:"All"}, {label:"Master Job", value:"Master Job"}, {label:"Contact", value:"Contact"}];
+  }
     // eslint-disable-next-line @lwc/lwc/no-async-await
     connectedCallback() {
         
            
-        GetAccountData({}).then(result =>{
+        GetAccountData({objectName:this.objectName}).then(result =>{
             // console.log('Result ' + JSON.stringify(result));
             let accounts = result;
+            
             // console.log('Account is ' + accounts);
             // console.log('Account is ' + JSON.stringify(accounts));
             console.log('Accounts lenght is ' + accounts.length );
             console.log(' and account name is ' + accounts[0].Account);
-            for (var i = 0; i < accounts.length; i++) {
-                console.log('1st Account Name ' + accounts[i].Account);
-                this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
-                console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
-                if(accounts[i].Account === undefined)
-                {
-                    console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
-                    this.datasetup[i].AccountName = "";
-                    this.datasetup[i].AccountNameId = "";
-                }
-                if(accounts[i].Contact === undefined)
-                {
-                    this.datasetup[i].ContactName = "";
-                    this.datasetup[i].ContactName1 = "";
-                }
-                if(accounts[i].MasterJob === undefined)
-                {
-                    this.datasetup[i].MasterJob = "";
-                    this.datasetup[i].MasterJobName1 = "";
-                }
-                if(accounts[i].ReferredBy === undefined)
-                {
-                    this.datasetup[i].ReferredBy = "";
-                    this.datasetup[i].ReferredBy1 = "";
-                }
-            }
+            for (var i = 0; i < accounts.length; i++) 
+            {
+            //     // if(this.objectName == 'All')
+            //     // {
+            //         console.log('1st Account Name ' + accounts[i].Account);
+            //         this.datasetup.push({ApprovalName:accounts[i].processId, CreatedBy: accounts[i].createdByName, ObjectName: accounts[i].ObjectName});
+                    
+                    
+            //     }
+                
+                
+                    console.log('1st Account Name ' + accounts[i].Account);
+                    this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
+                    if(accounts[i].Account === undefined)
+                    {
+                        console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
+                        this.datasetup[i].AccountName = "";
+                        this.datasetup[i].AccountNameId = "";
+                    }
+                    if(accounts[i].Contact === undefined)
+                    {
+                        this.datasetup[i].ContactName = "";
+                        this.datasetup[i].ContactName1 = "";
+                    }
+                    if(accounts[i].MasterJob === undefined)
+                    {
+                        this.datasetup[i].MasterJob = "";
+                        this.datasetup[i].MasterJobName1 = "";
+                    }
+                    if(accounts[i].ReferredBy === undefined)
+                    {
+                        this.datasetup[i].ReferredBy = "";
+                        this.datasetup[i].ReferredBy1 = "";
+                    }
+                
+           }
             this.data = this.datasetup;
             
         });
@@ -265,6 +298,73 @@ export default class ItemsToApprove extends LightningElement {
 }
     CommentsChange(event){
         this.Comments = event.detail.value;
+    }
+    ApprovalViewChanged(event){
+        this.objectName = event.detail.value;
+        if(this.objectName == 'Master Job')
+        {
+            reloadData();
+            this.MasterJobView = true;
+            this.AllView = false;
+        }
+        if(this.objectName == 'All')
+        {
+            reloadData();
+            this.MasterJobView = false;
+            this.AllView = true;
+        }
+    }
+    reloadData()
+    {
+        GetAccountData({objectName:this.objectName}).then(result =>{
+            // console.log('Result ' + JSON.stringify(result));
+            let accounts = result;
+            // console.log('Account is ' + accounts);
+            // console.log('Account is ' + JSON.stringify(accounts));
+            console.log('Accounts lenght is ' + accounts.length );
+            console.log(' and account name is ' + accounts[0].Account);
+            this.data = [];
+            for (var i = 0; i < accounts.length; i++) 
+            {
+                if(this.objectName == 'All')
+                {
+                    console.log('1st Account Name ' + accounts[i].Account);
+                    this.datasetup.push({ApprovalName:accounts[i].processId, CreatedBy: accounts[i].createdByName, ObjectName: accounts[i].ObjectName});
+                    
+                    
+                }
+                if(this.objectName == 'Master Job')
+                {
+                
+                    console.log('1st Account Name ' + accounts[i].Account);
+                    this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
+                    if(accounts[i].Account === undefined)
+                    {
+                        console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
+                        this.datasetup[i].AccountName = "";
+                        this.datasetup[i].AccountNameId = "";
+                    }
+                    if(accounts[i].Contact === undefined)
+                    {
+                        this.datasetup[i].ContactName = "";
+                        this.datasetup[i].ContactName1 = "";
+                    }
+                    if(accounts[i].MasterJob === undefined)
+                    {
+                        this.datasetup[i].MasterJob = "";
+                        this.datasetup[i].MasterJobName1 = "";
+                    }
+                    if(accounts[i].ReferredBy === undefined)
+                    {
+                        this.datasetup[i].ReferredBy = "";
+                        this.datasetup[i].ReferredBy1 = "";
+                    }
+                }
+            }
+            this.data = this.datasetup;
+            
+        });
     }
     // GenerateDataJSON() {
     //     console.log('165 is hit');

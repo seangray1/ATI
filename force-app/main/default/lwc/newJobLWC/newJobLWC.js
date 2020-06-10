@@ -248,6 +248,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   ClientJob;
   YearBuilt;
   PolicyDisabled = false;
+  MajorEventDisabled = false;
   ARRoleBlank = false;
   ClientJobDisabled = false;
   ClaimDisabled = false;
@@ -2152,6 +2153,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.Policy = this.MasterJobDetails.Policy__c;
       
       this.PolicyDisabled = true;
+    }
+    if (
+      this.MasterJobDetails.Major_Event__c !== "" &&
+      this.MasterJobDetails.Major_Event__c !== undefined &&
+      this.MasterJobDetails.Major_Event__c !== null
+    ) {
+      this.MajorEventValue = this.MasterJobDetails.Major_Event__r.Name;
+      this.MajorEventId= this.MasterJobDetails.Major_Event__c;
+      
+      this.MajorEventDisabled = true;
     }
     if (
       this.MasterJobDetails.Multiple_Divisions__c !== "" &&

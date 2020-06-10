@@ -1,11 +1,12 @@
-public with sharing class JobTriggerHandlerWorkflow 
+public without sharing class JobTriggerHandlerWorkflow 
 {
+  
     public static void MasterJobAmountRollup(List<ATI_Job__c> jobs, Map<Id,ATI_Job__c> newJobMap, Map<Id,ATI_Job__c> oldJobMap) 
     {
         Set<Id> NewJobMasterSet = new Set<Id>();
         Set<Id> OldJobMasterSet = new Set<Id>();
         Map<Id, Master_Job__c> MasterJobs = new Map<Id, Master_Job__c>();
-        List<Master_Job__c> MasterJobToUpdate = new List<Master_Job__c>();
+        Map<Id, Master_Job__c> MasterJobToUpdate = new Map<Id, Master_Job__c>();
     if(Trigger.isUpdate)
     {
         for(ATI_Job__c job : jobs)
@@ -49,7 +50,7 @@ public with sharing class JobTriggerHandlerWorkflow
                     {  
                         MasterJobs.get(job.Master_Job__c).Amount__c = MasterJobs.get(job.Master_Job__c).Amount__c + newjobamount - oldjobamount;
                         Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Amount__c = MasterJobs.get(job.Master_job__c).Amount__c);
-                        MasterJobToUpdate.add(mj);
+                        MasterJobToUpdate.put(mj.id, mj);
                     }
                     if(job.Master_Job__c != oldJob.Master_Job__c && newjobamount == oldjobamount)
                     {
@@ -57,20 +58,66 @@ public with sharing class JobTriggerHandlerWorkflow
                         'Job new amount is ' + job.Amount__c);
                         MasterJobs.get(job.Master_Job__c).Amount__c = MasterJobs.get(job.Master_Job__c).Amount__c + newjobamount;
                         Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Amount__c = MasterJobs.get(job.Master_job__c).Amount__c);
-                        MasterJobToUpdate.add(mj);
+                        MasterJobToUpdate.put(mj.id, mj);
+                    }
+                    if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
+                    {
+                        if(job.Estimate_Only__c == false)
+                        {
+                            if(MasterJobToUpdate.containsKey(job.Master_Job__c))
+                            {
+                                MasterJobToUpdate.get(job.Master_Job__c).Send_Prelim__c = 'Yes';
+                                MasterJobToUpdate.get(job.Master_Job__c).PN_Request_Date__c = system.today();
+                            }else
+                            {
+                                Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'Yes', PN_Request_Date__c = system.today() );
+                                MasterJobToUpdate.put(mj.Id, mj);
+                            }
+                            
+                        }
+                        
                     }
                 }
             }
+
         
         if(!MasterJobToUpdate.isEmpty())
         {
-            update MasterJobToUpdate;
+            update MasterJobToUpdate.values();
+        }
+    }
+    if(Trigger.isInsert)
+    {
+        Map<Id,Master_Job__c>  MasterJobToUpdatePrelim = new Map<Id,Master_Job__c>();
+        Set<Id> acctSet = new Set<Id>();
+        for(ATI_Job__c job : jobs)
+        {
+            acctSet.add(job.Account__c);
+        }
+        Map<Id, Account> AcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:acctSet]);
+        for(ATI_Job__c job : jobs)
+        {
+                if((job.Division__c == 'Consultant' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
+                (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal') && 
+                job.Send_Prelim__c == null) 
+                {
+                    // job.Send_Prelim__c = 'No';
+                    // job.PN_Request_Date__c = null;
+                    Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'No', PN_Request_Date__c = null );
+                    MasterJobToUpdatePrelim.put(mj.Id, mj);
+                }
+                
+                if(!MasterJobToUpdatePrelim.isEmpty())
+                {
+                    update MasterJobToUpdatePrelim.values();
+                }
         }
     }
     }
 
 public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap, ObjectInserts oi)
 {
+        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
         Map<Id, Office__c> offices = new Map<Id,Office__c>([Select Id, Name, Branch_Manager__c, Biohazard_Operations_Manager__c,
         Asbestos_Operations_Manager__c, Catastrophes_Operations_Manager__c, Consulting_Operations_Manager__c, 
         Contents_Operations_Manager__c, Demolition_Operations_Manager__c, Emergency_Services_Operations_Manager__c, 
@@ -83,8 +130,8 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         system.debug('Offices from Objecinsert are ' + oi);
         system.debug('Offices are ' + offices);
         
-        if(!offices.isEmpty())
-        {
+    if(!offices.isEmpty())
+    {
         Set<Id> acctSet = new Set<Id>();
         for(ATI_Job__c job : newJobs)
         {
@@ -102,6 +149,12 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 {
                     job.OwnerId = job.Project_manager__c;
                 }
+                if(job.recordtypeId == approvedRecordTypeId) {
+                    string test1 = job.name.replace('|','');
+                    string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
+                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+                }
                 
                 
             }
@@ -117,6 +170,14 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 if(job.RecordTypeId != oldJob.RecordTypeId && job.Intake_Status__c == 'Cloned - Pending Review')
                 {
                 job.Intake_Status__c = 'Cloned - Completed/Reviewed';
+                
+                }
+                if(job.recordtypeId == approvedRecordTypeId &&(job.name !=  oldJob.Name || job.recordtypeId != oldJob.recordtypeid)) 
+                {
+                    string test1 = job.name.replace('|','');
+                    string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
+                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
                 
                 }
             }
@@ -253,13 +314,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 } 
             }
             //Update send Prelim
-        if((job.Division__c == 'Consultant' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
-        (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal') && 
-        job.Send_Prelim__c == null) 
-        {
-            job.Send_Prelim__c = 'No';
-            job.PN_Request_Date__c = null;
-        }
+            
         }
     }
     
@@ -285,10 +340,18 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             {
                 job.Estimating_Review_Date__c = system.now();
             }
-            if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won' && job.Job_Start_Date__c == null)
-            {
-                job.Job_Start_Date__c = system.now();
-            }
+            // if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
+            // {
+            //     if(Estimate_Only__c == false)
+            //     {
+            //         job.Send_Prelim__c = 'Yes';
+            //     }
+            //     if(job.Job_Start_Date__c == null)
+            //     {
+            //         job.Job_Start_Date__c = system.now();
+            //     }
+
+            // }
             if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Lost' && job.Job_Lost_Date__c == null)
             {
                 job.Job_Lost_Date__c = system.now();
@@ -308,22 +371,19 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
     //JobTeamCreation needs to be called after AssignRoles Process
     public static void JobTeamCreation(List<ATI_Job__c> jobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap)
     {
-        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
+        
         List<ATI_Job_Team__c> jobTeams = new List<ATI_Job_Team__c>();
         List<ATI_Job_Split__c> jsToInsert = new List<ATI_Job_Split__c>();
+        List<ATI_Job_Team__c> otmToDelete = new List<ATI_Job_Team__c>();
+        List<ATI_Job_Split__c> jobSplitsDelete = new List<ATI_Job_Split__c>();
+        Set<Id> JobSetSplitsToDelete = new Set<Id>();
         list<Financial__c> financialsToInsert = new List<Financial__c>();
         for(ATI_Job__c job : jobs)
         {
             system.debug('JobTeamCreation new job is ' + jobs);
             if(Trigger.isInsert)
             {
-                if(job.recordtypeId == approvedRecordTypeId) {
-                    string test1 = job.name.replace('|','');
-                    string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
-                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
-                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
                 
-                }
                 if(job.Financial_Record_Availablity__c == False)
                 {
                     Financial__c f = new Financial__c(ATI_Job__c = job.Id, ReferenceId__c = job.Id);
@@ -346,18 +406,18 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     jobTeams.add(jt);
                 }
                 
-                if(job.Account_Executive_1__c != null)
-                {
-                    ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
-                    ATI_Job__c = job.Id);
-                    jobTeams.add(jt);
-                }
-                if(job.Account_Executive_2__c != null)
-                {
-                    ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_2__c, Team_Member_Role__c = 'Account Executive 2', 
-                    ATI_Job__c = job.Id);
-                    jobTeams.add(jt);
-                }
+                // if(job.Account_Executive_1__c != null)
+                // {
+                //     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
+                //     ATI_Job__c = job.Id);
+                //     jobTeams.add(jt);
+                // }
+                // if(job.Account_Executive_2__c != null)
+                // {
+                //     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_2__c, Team_Member_Role__c = 'Account Executive 2', 
+                //     ATI_Job__c = job.Id);
+                //     jobTeams.add(jt);
+                // }
                 if(job.Branch_Manager__c != null)
                 {
                     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Branch_Manager__c, Team_Member_Role__c = 'Regional Manager', 
@@ -367,25 +427,25 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
 
                 //If AE is new, sets the owner and inserts job split with them having 100%. If AE1 is not null on insertion, inserts the JobSplit AE1 with 100,
                 //if AE2 and AE1 is not null, inserts both and splits percentage to 50/50
-                if(job.Account_Executive_1__c == null && job.Account_Executive_2__c == null)
-                {
+                // if(job.Account_Executive_1__c == null && job.Account_Executive_2__c == null)
+                // {
                 ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Others', Team_Member__c = job.Taken_By__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
                 Percentage__c = 100.00);
                 jsToInsert.add(js);
-                }else if(job.Account_Executive_1__c != null && job.Account_Executive_2__c == null)
-                {
-                    ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
-                    Percentage__c = 100.00);
-                    jsToInsert.add(js);
+                // }else if(job.Account_Executive_1__c != null && job.Account_Executive_2__c == null)
+                // {
+                //     ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                //     Percentage__c = 100.00);
+                //     jsToInsert.add(js);
                     
-                }else if(job.Account_Executive_1__c != null && job.Account_Executive_2__c != null)
-                {
-                    ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
-                    Percentage__c = 50.00);
-                    ATI_Job_Split__c js1 = new ATI_Job_Split__c(Member_Role__c = 'AAccount Executive', Team_Member__c = job.Account_Executive_2__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
-                    Percentage__c = 50.00);
-                    jsToInsert.add(js);
-                }
+                // }else if(job.Account_Executive_1__c != null && job.Account_Executive_2__c != null)
+                // {
+                //     ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                //     Percentage__c = 50.00);
+                //     ATI_Job_Split__c js1 = new ATI_Job_Split__c(Member_Role__c = 'AAccount Executive', Team_Member__c = job.Account_Executive_2__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                //     Percentage__c = 50.00);
+                //     jsToInsert.add(js);
+                // }
 
             }
         
@@ -395,6 +455,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             //Remove old Job Team member by adding job.pm/pd etc if it meets criteria.. going to have to run a query for the team members then delete.
             //need another if statement before setting team member. actualy don't have access directly..
             ATI_Job__c oldJob = oldJobMap.get(job.Id);
+            List<ATI_JOb__c> updatedJobs = new List<ATI_Job__c>();
                 if(job.Project_Manager_New__c != null && oldJob.Project_Manager_New__c != job.Project_Manager_New__c)
                 {
                     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Project_Manager_New__c, Team_Member_Role__c = 'Project Manager', 
@@ -408,36 +469,57 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     ATI_Job__c = job.Id);
                     jobTeams.add(jt);
                 }
-                if(job.Account_Executive_1__c != null && oldJob.Account_Executive_1__c != job.Account_Executive_1__c)
-                {
-                    ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
-                    ATI_Job__c = job.Id);
-                    jobTeams.add(jt);
-                    //0 out owner split
-                }
-                if(job.Account_Executive_2__c != null && oldJob.Account_Executive_2__c != job.Account_Executive_2__c)
-                {
-                    ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_2__c, Team_Member_Role__c = 'Account Executive 2', 
-                    ATI_Job__c = job.Id);
-                    jobTeams.add(jt);
-                    //0 out owner split
-                }
+                // if(job.Account_Executive_1__c != null && oldJob.Account_Executive_1__c != job.Account_Executive_1__c)
+                // {
+                //     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
+                //     ATI_Job__c = job.Id);
+                //     jobTeams.add(jt);
+                //     //0 out owner split
+                // }
+                // if(job.Account_Executive_2__c != null && oldJob.Account_Executive_2__c != job.Account_Executive_2__c)
+                // {
+                //     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_2__c, Team_Member_Role__c = 'Account Executive 2', 
+                //     ATI_Job__c = job.Id);
+                //     jobTeams.add(jt);
+                //     //0 out owner split
+                // }
                 if(job.Branch_Manager__c != null && oldJob.Branch_Manager__c != job.Branch_Manager__c)
                 {
                     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Branch_Manager__c, Team_Member_Role__c = 'Regional Manager', 
                     ATI_Job__c = job.Id);
                     jobTeams.add(jt);
                 }
-                //Updates Egnyte path on update
-                if(job.recordtypeId == approvedRecordTypeId &&(job.name !=  oldJob.Name || job.recordtypeId != oldJob.recordtypeid)) 
+                //Dealing with AE's to update job team and job split
+                if (job.RecordTypeId != oldJob.RecordTypeId && (job.Account_Executive_1__c != null || job.Account_Executive_2__c != null)) 
                 {
-                    string test1 = job.name.replace('|','');
-                    string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
-                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
-                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
-                
-                }
-        }
+                    if(job.Account_Executive_1__c != null || job.Account_Executive_2__c == null)
+                    {
+                        ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                        Percentage__c = 100.00);
+                        ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
+                        ATI_Job__c = job.Id);
+                        jobTeams.add(jt);
+                        jsToInsert.add(js);
+                        JobSetSplitsToDelete.add(job.Id);
+                    }
+                    if(job.Account_Executive_1__c != null && job.Account_Executive_2__c != null)
+                    {
+                        ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                        Percentage__c = 50.00);
+                        ATI_Job_Split__c js1 = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_2__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
+                        Percentage__c = 50.00);
+                        ATI_Job_Team__c jt1 = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
+                        ATI_Job__c = job.Id);
+                        ATI_Job_Team__c jt2 = new ATI_Job_Team__c(User__c = job.Account_Executive_2__c, Team_Member_Role__c = 'Account Executive 2', 
+                        ATI_Job__c = job.Id);
+                        jsToInsert.add(js);
+                        jsToInsert.add(js1);
+                        jobTeams.add(jt1);
+                        jobTeams.add(jt2);
+                        JobSetSplitsToDelete.add(job.Id);
+                    }     
+                }      
+            }
         }
         if(!financialsToInsert.isEmpty())
         {
@@ -451,7 +533,14 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         }
         if(!jsToInsert.isEmpty())
         {
-            insert jsToInsert;
+            Map<Id, ATI_Job_Split__c> jobSplitOwners = new Map<Id, ATI_Job_Split__c>([Select id, percentage__c FROM ATI_Job_Split__c WHere ATI_Job__c =: JobSetSplitsToDelete]);
+            for(ATI_Job_Split__c jsplits : jobSplitOwners.values())
+            {
+                jsplits.Percentage__c = 0;
+                jsToInsert.add(jsplits);
+            }
+            
+            upsert jsToInsert;
         }
         
     }

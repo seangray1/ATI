@@ -589,7 +589,7 @@
    
                         <lightning-input onkeyup={MajorEventChange}
                         
-                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} type="search" class="jobFormControl spacing"></lightning-input>
+                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} disabled={MajorEventDisabled} type="search" class="jobFormControl spacing"></lightning-input>
                                     
                                 <template if:true={MajorEvents}>
                                     <table

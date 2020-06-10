@@ -49,7 +49,7 @@
         <description>LEAD - HQ</description>
         <protected>false</protected>
         <recipients>
-            <recipient>Marketing_VP_Corporate</recipient>
+            <recipient>National_Accounts_VP_HQ</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -163,7 +163,7 @@
         <protected>false</protected>
     </fieldUpdates>
     <rules>
-        <fullName>Active Date%2FTIme</fullName>
+        <fullName>LEAD - Active Date%2FTIme</fullName>
         <actions>
             <name>Active_Date_TIme</name>
             <type>FieldUpdate</type>
@@ -177,7 +177,7 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Assigned Date%2FTIme</fullName>
+        <fullName>LEAD - Assigned Date%2FTIme</fullName>
         <actions>
             <name>Assigned_Date_TIme</name>
             <type>FieldUpdate</type>
@@ -187,34 +187,6 @@
             <field>Lead.Status</field>
             <operation>equals</operation>
             <value>Assigned</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Converted Date%2FTIme</fullName>
-        <actions>
-            <name>Converted_Date_TIme</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Lead.Status</field>
-            <operation>equals</operation>
-            <value>Converted</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dead Date%2FTIme</fullName>
-        <actions>
-            <name>Dead_Date_TIme</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Lead.Status</field>
-            <operation>equals</operation>
-            <value>Dead</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -233,21 +205,35 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>LEAD - Ready to Convert to CC</fullName>
+        <fullName>LEAD - Converted Date%2FTIme</fullName>
         <actions>
-            <name>LEAD_Owner_to_CC</name>
+            <name>Converted_Date_TIme</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
         <criteriaItems>
             <field>Lead.Status</field>
             <operation>equals</operation>
-            <value>Ready to Convert</value>
+            <value>Converted</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Prospect Date%2FTIme</fullName>
+        <fullName>LEAD - Dead Date%2FTIme</fullName>
+        <actions>
+            <name>Dead_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Dead</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Prospect Date%2FTIme</fullName>
         <actions>
             <name>Prospect_Date_Time</name>
             <type>FieldUpdate</type>
@@ -261,7 +247,7 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Qualification Date%2FTIme</fullName>
+        <fullName>LEAD - Qualification Date%2FTIme</fullName>
         <actions>
             <name>Qualification_Date_Time</name>
             <type>FieldUpdate</type>
@@ -275,9 +261,23 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Ready to Convert Date%2FTIme</fullName>
+        <fullName>LEAD - Ready to Convert Date%2FTIme</fullName>
         <actions>
             <name>Ready_to_Convert_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Ready to Convert</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Ready to Convert to CC</fullName>
+        <actions>
+            <name>LEAD_Owner_to_CC</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>

@@ -44,235 +44,153 @@ public without sharing class NewJobController {
         
     }
     
-@AuraEnabled
-public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision)
-{
-    try 
-    {
-        system.debug('Items before ' + ItemsToApproveReject);
-        Set<Id> pInstanceWorkitems = new Set<Id>();
-        //JSONWrapper projectWrap = (JSONWrapper)JSON.deserialize(ProjectJSON, JSONWrapper.class);
-        ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
-        system.debug('Items to Approve/reject ' + itemstoapproverejectlist);
-        List<string> iList = new List<string>();
-        for(ItemToApprove i : itemstoapproverejectlist.ItemsToApproveReject)
-        {
-            system.debug('i is ' + i);
-            iList.add(i.id);
-            pInstanceWorkitems.add(i.processId);
-        }
-        List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>(); 
-        for (Id pInstanceWorkitemsId:pInstanceWorkitems)
-        {
-            system.debug(pInstanceWorkitemsId);
-            Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
-            req2.setComments(Comments);
-            req2.setAction(Decision); //to approve use 'Approve'
-            req2.setWorkitemId(pInstanceWorkitemsId);
-            system.debug('req 2 ' + req2);
-            allReq.add(req2);
-        }
-        //Approval.ProcessResult[] result2 =  Approval.process(allReq);
-        return '200';
-    } catch (Exception e) 
-    {
-        return e.getMessage();
-    }
-}
-    @AuraEnabled
-    public static List<ItemToApprove> GetAccountData(String objectName){
-        Set<Id> userSet = new Set<Id>();
-        Set<Id> ProcessInstanceId = new Set<Id>();
-        Map<Id, ProcessInstance> processInstanceMap = new Map<Id, ProcessInstance>();
-        Map<Id, ProcessInstanceWorkitem> processJobMap = new Map<Id, ProcessInstanceWorkitem>();
-        Map<Id, ProcessInstance> processMJobMap = new Map<Id, ProcessInstance>();
-        Map<Id, ProcessInstanceWorkitem> processuserMap = new Map<Id, ProcessInstanceWorkitem>();
-        Map<Id, String> processuserMap1 = new Map<Id, string>();
-        
-        Set<Id> mjobids = new Set<Id>();
-        List<ProcessInstanceWorkitem> piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
-    //   if(objectName == 'Master Job')
-    //   {   
-        for(ProcessInstanceWorkitem p : piwi)
-        {
-            processJobMap.put(p.ProcessInstanceId, p);
-            userset.add(p.CreatedById);
-            processUserMap.put(p.CreatedById, p);
-            ProcessInstanceId.add(p.ProcessInstanceId);
-        }
-        List<user> usersList = [Select Id, Name FROM User Where Id=:userSet];
-        for(user u : usersList)
-        {
-            processUserMap1.put(u.Id, u.Name);
-        }
-        List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
-        for(ProcessInstance p : processInstanceList)
-        {
-            if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
-            {
-                processInstanceMap.put(p.Id, p);
-                processMJobMap.put(p.targetObjectId, p);
-                
-                mjobids.add(p.targetObjectId);
-            }
-        }
-        Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
-        system.debug('mjob ids ' + mjobids);
-        Metadata a = new Metadata();
-        a.ObjectType__c = 'Account';
-        a.Column_1__c = 'Name';
-
-        Metadata a = [Select Id, fieds.. FROM Metadata Where sobjectType = objectName];
-        // There is a way to retrieve the fields on the custom metadata
-        // QUery + + 
-        String query = '[Select ' + a.FIeld1 +',
-        MetadataRecord a = query;
-        List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
-        for(ATI_Job__c job : mjoblist)
-        {
-            system.debug('job is ' + job);
-            mjobMap.put(job.Master_Job__c, job);
-        }
-        List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
-        // system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        // ItemToApprove ia = new ItemToApprove();
-        // ia.processId = 'Test';
-        // ItemsToApproveClass.items.add(ia);
-        // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
-        //system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        
-        for(ProcessInstance p : processInstanceMap.values())
-        {
-            ItemToApprove i = new ItemToApprove();
-            i.processId = processJobMap.get(p.Id).Id;
-            i.processinstanceId = p.Id;
-            i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
-            system.debug('i is ' + i );
-            i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
-            i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
-            i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
-            i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
-            i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
-            i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
-            i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
-            i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
-            system.debug('i is ' + i );
-
-            ItemsToApproveClass.add(i);
-        }
-        system.debug('ItemsToApproveClass is ' + ItemsToApproveClass);
-        system.debug('Jobs Class is ' + mjoblist);
-        
-        return ItemsToApproveClass;
-    }
-    // if(objectName == 'All')
-    //   {   
-    //     for(ProcessInstanceWorkitem p : piwi)
-    //     {
-    //         processJobMap.put(p.ProcessInstanceId, p);
-    //         userset.add(p.CreatedById);
-    //         processUserMap.put(p.CreatedById, p);
-    //         ProcessInstanceId.add(p.ProcessInstanceId);
-    //     }
-    //     List<user> usersList = [Select Id, Name FROM User Where Id=:userSet];
-    //     for(user u : usersList)
-    //     {
-    //         processUserMap1.put(u.Id, u.Name);
-    //     }
-    //     List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
-    //     for(ProcessInstance p : processInstanceList)
-    //     {
-    //         // if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
-    //         // {
-    //             processInstanceMap.put(p.Id, p);
-    //             processMJobMap.put(p.targetObjectId, p);
-                
-    //             // mjobids.add(p.targetObjectId);
-    //         // }
-    //     }
-    //     // Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
-    //     // system.debug('mjob ids ' + mjobids);
-    //     // List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
-    //     // for(ATI_Job__c job : mjoblist)
-    //     // {
-    //     //     system.debug('job is ' + job);
-    //     //     mjobMap.put(job.Master_Job__c, job);
-    //     // }
-    //     List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
-    //     // system.debug('Items To Approve Class ' + ItemsToApproveClass);
-    //     // ItemToApprove ia = new ItemToApprove();
-    //     // ia.processId = 'Test';
-    //     // ItemsToApproveClass.items.add(ia);
-    //     // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
-    //     //system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        
-    //     for(ProcessInstance p : processInstanceMap.values())
-    //     {
-    //         ItemToApprove i = new ItemToApprove();
-    //         i.processId = processJobMap.get(p.Id).Id;
-    //         i.processinstanceId = p.Id;
-    //         i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
-    //         i.ObjectName =  p.TargetObjectId;
-          
-    //         system.debug('i is ' + i );
-    //         // i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
-    //         // i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
-    //         // i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
-    //         // i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
-    //         // i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
-    //         // i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
-    //         // i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
-    //         // i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
-    //         system.debug('i is ' + i );
-
-    //         ItemsToApproveClass.add(i);
-    //     }
-        
-    //     return ItemsToApproveClass;
-    // }
-    // List<ItemToApprove> ita = new list<ItemToApprove>();
-    // return ita;
-
-
-    
-    
-//    @AuraEnabled
-//     public class JSONWrapper{
-//         public List<ItemToApprove> items;
+// @AuraEnabled
+// public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision)
+// {
+//     try 
+//     {
+//         system.debug('Items before ' + ItemsToApproveReject);
+//         Set<Id> pInstanceWorkitems = new Set<Id>();
+//         //JSONWrapper projectWrap = (JSONWrapper)JSON.deserialize(ProjectJSON, JSONWrapper.class);
+//         ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
+//         system.debug('Items to Approve/reject ' + itemstoapproverejectlist);
+//         List<string> iList = new List<string>();
+//         for(ItemToApprove i : itemstoapproverejectlist.ItemsToApproveReject)
+//         {
+//             system.debug('i is ' + i);
+//             iList.add(i.id);
+//             pInstanceWorkitems.add(i.processId);
+//         }
+//         List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>(); 
+//         for (Id pInstanceWorkitemsId:pInstanceWorkitems)
+//         {
+//             system.debug(pInstanceWorkitemsId);
+//             Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
+//             req2.setComments(Comments);
+//             req2.setAction(Decision); //to approve use 'Approve'
+//             req2.setWorkitemId(pInstanceWorkitemsId);
+//             system.debug('req 2 ' + req2);
+//             allReq.add(req2);
+//         }
+//         //Approval.ProcessResult[] result2 =  Approval.process(allReq);
+//         return '200';
+//     } catch (Exception e) 
+//     {
+//         return e.getMessage();
 //     }
-    public class ItemListToApproveReject
-    {
-    @AuraEnabled
-    public List<ItemToApprove> ItemsToApproveReject {get;set;}
-    }
-    public class ItemToApprove{
-        @AuraEnabled
-        public string processId {get;set;}
-        @AuraEnabled
-        public string processinstanceId {get;set;}
-        @AuraEnabled
-        public string createdByName {get;set;}
-        @AuraEnabled
-        public string MasterJob {get;set;}
-        @AuraEnabled
-        public string MasterJobId {get;set;}
-        @AuraEnabled
-        public string Account {get;set;}
-        @AuraEnabled
-        public string AccountId {get;set;}
-        @AuraEnabled
-        public string Contact {get;set;}
-        @AuraEnabled
-        public string ContactId {get;set;}
-        @AuraEnabled
-        public string ReferredBy {get;set;}
-        @AuraEnabled
-        public string ReferredById {get;set;}
-        @AuraEnabled
-        public string ObjectName {get;set;}
-        @AuraEnabled
-        public string id {get;set;}
-    }
+// }
+//     @AuraEnabled
+//     public static List<ItemToApprove> GetAccountData(){
+//         Set<Id> userSet = new Set<Id>();
+//         Set<Id> ProcessInstanceId = new Set<Id>();
+//         Map<Id, ProcessInstance> processInstanceMap = new Map<Id, ProcessInstance>();
+//         Map<Id, ProcessInstanceWorkitem> processJobMap = new Map<Id, ProcessInstanceWorkitem>();
+//         Map<Id, ProcessInstance> processMJobMap = new Map<Id, ProcessInstance>();
+//         Map<Id, ProcessInstanceWorkitem> processuserMap = new Map<Id, ProcessInstanceWorkitem>();
+//         Map<Id, String> processuserMap1 = new Map<Id, string>();
+        
+//         Set<Id> mjobids = new Set<Id>();
+//         List<ProcessInstanceWorkitem> piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
+         
+//         for(ProcessInstanceWorkitem p : piwi)
+//         {
+//             processJobMap.put(p.ProcessInstanceId, p);
+//             userset.add(p.CreatedById);
+//             processUserMap.put(p.CreatedById, p);
+//             ProcessInstanceId.add(p.ProcessInstanceId);
+//         }
+//         List<user> usersList = [Select Id, Name FROM User Where Id=:userSet];
+//         for(user u : usersList)
+//         {
+//             processUserMap1.put(u.Id, u.Name);
+//         }
+//         List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
+//         for(ProcessInstance p : processInstanceList)
+//         {
+//             if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
+//             {
+//                 processInstanceMap.put(p.Id, p);
+//                 processMJobMap.put(p.targetObjectId, p);
+                
+//                 mjobids.add(p.targetObjectId);
+//             }
+//         }
+//         Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
+//         system.debug('mjob ids ' + mjobids);
+//         List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
+//         for(ATI_Job__c job : mjoblist)
+//         {
+//             system.debug('job is ' + job);
+//             mjobMap.put(job.Master_Job__c, job);
+//         }
+//         List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
+//         // system.debug('Items To Approve Class ' + ItemsToApproveClass);
+//         // ItemToApprove ia = new ItemToApprove();
+//         // ia.processId = 'Test';
+//         // ItemsToApproveClass.items.add(ia);
+//         // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
+//         //system.debug('Items To Approve Class ' + ItemsToApproveClass);
+        
+//         for(ProcessInstance p : processInstanceMap.values())
+//         {
+//             ItemToApprove i = new ItemToApprove();
+//             i.processId = processJobMap.get(p.Id).Id;
+//             i.processinstanceId = p.Id;
+//             i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
+//             system.debug('i is ' + i );
+//             i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
+//             i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
+//             i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
+//             i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
+//             i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
+//             i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
+//             i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
+//             i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
+//             system.debug('i is ' + i );
+
+//             ItemsToApproveClass.add(i);
+//         }
+//         system.debug('ItemsToApproveClass is ' + ItemsToApproveClass);
+//         system.debug('Jobs Class is ' + mjoblist);
+        
+//         return ItemsToApproveClass;
+//     }
+    
+// //    @AuraEnabled
+// //     public class JSONWrapper{
+// //         public List<ItemToApprove> items;
+// //     }
+//     public class ItemListToApproveReject
+//     {
+//     @AuraEnabled
+//     public List<ItemToApprove> ItemsToApproveReject {get;set;}
+//     }
+//     public class ItemToApprove{
+//         @AuraEnabled
+//         public string processId {get;set;}
+//         @AuraEnabled
+//         public string processinstanceId {get;set;}
+//         @AuraEnabled
+//         public string createdByName {get;set;}
+//         @AuraEnabled
+//         public string MasterJob {get;set;}
+//         @AuraEnabled
+//         public string MasterJobId {get;set;}
+//         @AuraEnabled
+//         public string Account {get;set;}
+//         @AuraEnabled
+//         public string AccountId {get;set;}
+//         @AuraEnabled
+//         public string Contact {get;set;}
+//         @AuraEnabled
+//         public string ContactId {get;set;}
+//         @AuraEnabled
+//         public string ReferredBy {get;set;}
+//         @AuraEnabled
+//         public string ReferredById {get;set;}
+//         @AuraEnabled
+//         public string id {get;set;}
+//     }
     @AuraEnabled
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {

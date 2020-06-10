@@ -6,8 +6,7 @@ public without sharing class MasterJobTriggerHandler {
     public static final string TASK_TYPE_LUNCH_LEARN = 'Lunch and Learn';
     public static final string Job_RTYPE_JOB_APPROVED_DEV_NAME = 'Job_Approved';
 
-    public static void MasterJobNameFormat(List<Master_Job__c> MasterJobs) 
-    {
+    public static void MasterJobNameFormat(List<Master_Job__c> MasterJobs) {
         Set<Id> mjobids = new Set<Id>();
         for(Master_Job__c MasterJob : MasterJobs){
             if(MasterJob.Property__c != null){
@@ -47,11 +46,8 @@ public without sharing class MasterJobTriggerHandler {
             if(MasterJob.Send_Prelim__c != oldJob.Send_Prelim__c)
             {
                 MasterJob.Send_Prelim_Last_Modified_Date_Time1__c = system.now();
+                
                 MasterJob.Send_Prelim_Last_Modified_Date_Time__c = UserInfo.getUserName();
-                if(MasterJob.Send_prelim__c == 'Yes')
-                {
-                    MasterJob.PN_Request_Date__c = system.today();
-                }
             }
             if( MasterJob.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
                 MasterJob.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS )

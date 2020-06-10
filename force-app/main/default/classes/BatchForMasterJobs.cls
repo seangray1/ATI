@@ -14,11 +14,13 @@ global class BatchForMasterJobs implements Database.Batchable<sObject> {
     {
         
         Set<Id> masterjobset = new Set<Id>(); 
+        Map<Id,Master_Job__c> scopeToUpdate = new Map<Id, Master_Job__c>();
         for(ATI_Job__c s : scope)
         {
-            masterjobset.add(s.Master_Job__c);
+            Master_Job__c mj = new Master_Job__c(Id = s.Master_Job__c);
+            scopeToUpdate.put(s.Master_Job__c, mj);
         }
-        Map<Id,Master_Job__c> scopeToUpdate = new Map<Id, Master_Job__c>([Select Id, Amount__c FROM Master_Job__c Where Id =: masterjobset]);
+        
         for(Id s : scopeToUpdate.keyset())
         {
             if(outscopeToUpdate.containsKey(s))
@@ -32,15 +34,16 @@ global class BatchForMasterJobs implements Database.Batchable<sObject> {
             {
                 s.Amount__c = 0;
             }
-            if(scopeToUpdate.get(s.Master_Job__c).Amount__c == null)
-            {
-                scopeToUpdate.get(s.Master_Job__c).Amount__c = 0;
-            }
+            
             if(outscopeToUpdate.containsKey(s.Master_Job__c))
             {
                 scopeToUpdate.get(s.Master_Job__c).Amount__c = scopeToUpdate.get(s.Master_Job__c).Amount__c + s.Amount__c;
                 outscopeToUpdate.get(s.Master_Job__c).Amount__c = outscopeToUpdate.get(s.Master_Job__c).Amount__c;
 
+            }
+            if(scopeToUpdate.get(s.Master_Job__c).Amount__c == null)
+            {
+                scopeToUpdate.get(s.Master_Job__c).Amount__c = 0;
             }
             if(!outscopeToUpdate.containsKey(s.Master_Job__c))
             {

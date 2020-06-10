@@ -289,7 +289,7 @@ private static string buildUploadProjectInfoRequestXML(ATI_Job__c Job, string me
         strReq = strReq +'</Notes>';
         strReq = strReq +'<ExtendedProjectProperties>'; 
         
-        if(job.ES_Job_Type__c == 'Water Mitigation'){
+        if(ESJobTypeNum == 'Water Mitigation'){
         strReq = strReq +'<ExtendedProjectProperty Source="ATI" Name="Division"' +' '+ 'Value="' +job.division__c + '-Water"'+ ' '+ 'Type="string"/>';
         }
         if(job.Division__c == 'Construction'){

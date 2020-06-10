@@ -63,39 +63,31 @@ try
             string accountLink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Account__c;
             string contactlink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Contact__c;
             string referredBylink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Referred_By__c;
-            String comments = '\n' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '\n' + 'Job(s): ' + JobNames + '\n' + 
-            '\n' + 'Account : ' + job[0].Account__r.Name + '          ' + accountLink + '\n' + 'Contact: ' + job[0].Contact__r.Name + '          ' + contactLink;
+            String comments = '&nbsp;' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '&nbsp;' + 'Job(s): ' + JobNames + '&nbsp;' + 
+            '\n' + 'Account : ' + '<a href="' + accountLink + '">' + job[0].Account__r.Name  + '&nbsp;' + '</a>' + 'Contact:' +  '<a href="' + contactlink + '">' + job[0].Contact__r.Name  + '</a>';
             if(job[0].Referred_By__c != null)
             {
-                comments = comments + '\n' + 'Referred By : ' + job[0].Referred_By__r.Name + '          ' + referredByLink;
+                comments = comments + '&nbsp;' + 'Referred By : ' + '<a href="' + referredByLink + '">' + job[0].Referred_By__r.Name  + '</a>';
             }
             if(!t.isempty())
             {
-                comments = comments + '\n' + '\n' +'Marketing Notes: ' + '\n' + 'Created By : ' + u.get(t[0].ownerId).Name + '\n' +
-                'Created Date: ' + t[0].createdDate + '\n'+ 'Notes: ' + t[0].Description;
+                comments = comments + '&nbsp;' + '&nbsp;' +'Marketing Notes: ' + '&nbsp;' + 'Created By : ' + u.get(t[0].ownerId).Name + '&nbsp;' +
+                'Created Date: ' + t[0].createdDate + '&nbsp;'+ 'Notes: ' + t[0].Description;
             }  
-            comments = comments + '\n' + '\n' + 'Link to Approval: ' + approvallink;
+            comments = comments + '&nbsp;' + '&nbsp;' +  +  '<a href="' + approvallink + '">' + 'Link to Approval'  + '</a>';
             //Now submit email
             //if statement if t is null..
             FeedItem post = new FeedItem();
             post.ParentId = mjob.Id;
-            ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
-            ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
-            ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
-            ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
-            messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
-            mentionSegmentInput.id = managerId;
-            messageBodyInput.messageSegments.add(mentionSegmentInput);  
-            textSegmentInput.text = comments;
-            messageBodyInput.messageSegments.add(textSegmentInput);
-            feedItemInput.body = messageBodyInput;
-            feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
-            feedItemInput.subjectId = mjob.Id;
-            if(Test.isRunningTest()){}
-            else{
-            ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
-            
+            post.isRichText = true;
+            post.body = comments;
+            if(Test.isRunningTest()){
+
+            }else{
+                insert post;
             }
+            
+          
             return 'Success';
         }else
         {
@@ -149,47 +141,50 @@ try
     string accountLink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Account__c;
     string contactlink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Contact__c;
     string referredBylink = URL.getSalesforceBaseUrl().toExternalForm() + '/' + job[0].Referred_By__c;
-    String comments = '\n' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '\n' + 'Job(s): ' + JobNames + '\n' + 
-    '\n' + 'Account : ' + job[0].Account__r.Name + '          ' + accountLink + '\n' + 'Contact: ' + job[0].Contact__r.Name + '          ' + contactLink;
-    if(job[0].Referred_By__c != null)
-    {
-        comments = comments + '\n' + 'Referred By : ' + job[0].Referred_By__r.Name + '          ' + referredByLink;
-    }
-    if(!t.isempty())
-    {
-        comments = comments + '\n' + '\n' +'Marketing Notes: ' + '\n' + 'Created By : ' + u.get(t[0].ownerId).Name + '\n' +
-        'Created Date: ' + t[0].createdDate + '\n'+ 'Notes: ' + t[0].Description;
-    }  
-    comments = comments + '\n' + '\n' + 'Link to Approval: ' + approvallink;
+    // String comments = '<p>' + '&nbsp;' + u.get(UserInfo.getUserId()).Name + ' is requesting Credit for Master Job: ' + mjob.Name + '&nbsp;' + 'Job(s): ' + JobNames + '&nbsp;' + 
+    //     '\n' + 'Account : ' + '<a href="' + accountLink + '">' + job[0].Account__r.Name  + '&nbsp;' + '</a>' + 'Contact:' +  '<a href="' + contactlink + '">' + job[0].Contact__r.Name  + '</a>' ;
+    // if(job[0].Referred_By__c != null)
+    // {
+    //     comments = comments + '&nbsp;' + 'Referred By : ' + '<a href="' + referredByLink + '">' + job[0].Referred_By__r.Name  + '</a>';
+    // }
+    // if(!t.isempty())
+    // {
+    //     comments = comments + '&nbsp;' + '&nbsp;' +'Marketing Notes: ' + '&nbsp;' + 'Created By : ' + u.get(t[0].ownerId).Name + '&nbsp;' +
+    //     'Created Date: ' + t[0].createdDate + '&nbsp;'+ 'Notes: ' + t[0].Description;
+    // }  
+    // comments = comments + '&nbsp;' + '&nbsp;' +  +  '<a href="' + approvallink + '">' + 'Link to Approval'  + '</a>' + '</p>';
     //Now submit email
     //if statement if t is null..
-    FeedItem post = new FeedItem();
-    post.ParentId = recordId;
-    ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
-    ConnectApi.MentionSegmentInput mentionSegmentInput = new ConnectApi.MentionSegmentInput();
-    ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();
-    ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
-    messageBodyInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
-    mentionSegmentInput.id = managerId;
-    messageBodyInput.messageSegments.add(mentionSegmentInput);  
-    textSegmentInput.text = comments;
-    messageBodyInput.messageSegments.add(textSegmentInput);
-    feedItemInput.body = messageBodyInput;
-    feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
-    feedItemInput.subjectId = recordId;
-    if(Test.isRunningTest()){}
-    else{
-    ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
+    string codesnippet = '<html>\n\t<body>\n\t\tHello, world!\n\t</body>\n<a href="' + accountLink + '">accountslink</a></html>';
+    String communityId = null;
+    String targetUserOrGroupOrRecordId  = '0050g0000066uffAAA';
+
+    ConnectApi.FeedItemInput input = new ConnectApi.FeedItemInput();
+    input.subjectId = targetUserOrGroupOrRecordId;
+    input.feedElementType = ConnectApi.FeedElementType.FeedItem;
     
-    }
-            
-            // Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-            // req1.setComments('Submitting request for approval.');
-            // req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
-            // req1.setObjectId(recordId);
-            // req1.setskipentrycriteria(true);          
-            // Approval.ProcessResult result = Approval.process(req1);           
-            // Approval.Unlock(recordId);
+    ConnectApi.MessageBodyInput messageInput = new ConnectApi.MessageBodyInput();
+    ConnectApi.TextSegmentInput textSegment;
+    ConnectApi.MarkupBeginSegmentInput markupBeginSegment;
+    ConnectApi.MarkupEndSegmentInput markupEndSegment;
+    
+    messageInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
+    
+    markupBeginSegment = new ConnectApi.MarkupBeginSegmentInput();
+    markupBeginSegment.markupType = ConnectApi.MarkupType.Code;
+    messageInput.messageSegments.add(markupBeginSegment);
+    
+    textSegment = new ConnectApi.TextSegmentInput();
+    textSegment.text = codeSnippet;
+    messageInput.messageSegments.add(textSegment);
+    
+    markupEndSegment = new ConnectApi.MarkupEndSegmentInput();
+    markupEndSegment.markupType = ConnectApi.MarkupType.Code;
+    messageInput.messageSegments.add(markupEndSegment);
+    
+    input.body = messageInput;
+    
+    ConnectApi.ChatterFeeds.postFeedElement(null, input);
             return 'Success';
         }else
         {

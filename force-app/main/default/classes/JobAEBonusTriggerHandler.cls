@@ -153,6 +153,7 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
         return accountsMap;
     }
     
+    //Dont need this anymore 
     public static void populateAEOnApprovedJobs( Map<Id, ATI_Job__c> oldJobsMap, Map<Id, ATI_Job__c> newJobsMap ){
         List<ATI_Job__c> jobs = new List<ATI_Job__c>();
         List<RecordType> rtypes = [ SELECT Id FROM RecordType 
@@ -219,11 +220,13 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
         List<ATI_Job_Team__c> otmToDelete = new List<ATI_Job_Team__c>();
         List<ATI_Job_Split__c> jobSplitsDelete = new List<ATI_Job_Split__c>();
         Set<Id> mJobSet = new Set<Id>();
-        for(ATI_Job__c j : jobs){
+        for(ATI_Job__c j : jobs)
+        {
             mJobSet.add(j.Master_Job__c);
         }
         Map<Id,Master_Job__c> mJobMap = new Map<ID, Master_Job__c>([Select Id, OwnerId FROM Master_Job__c Where Id =: mJobSet]);
-        if (!jobs.isEmpty()) {
+        if (!jobs.isEmpty()) 
+        {
             // Get existing Job splits
             Map<Id, List<ATI_Job_Split__c>> existingJobSplitsMap = new Map<Id, List<ATI_Job_Split__c>>();
             
@@ -402,10 +405,12 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
             accountIds.add( job.Account__c );
         }
         if( !accountIds.isEmpty() ){
-            for( Account acc : [ SELECT Id, Last_Job_Date__c, Previous_Job_Date__c, 
+            for( Account acc : [ SELECT Id, Name, Last_Job_Date__c, Previous_Job_Date__c, 
                                 ( SELECT Id, CreatedDate FROM ATI_Jobs__r ORDER BY CreatedDate DESC Limit 2) 
                                 FROM Account 
                                 WHERE Id IN : accountIds ] ){
+                                    if(!acc.Name.contains('ES Job Account'))
+                                    {
                                     if( acc.ATI_Jobs__r != null && !acc.ATI_Jobs__r.isEmpty() ){
                                         Boolean hasAccountChanged = false;
                                         if( acc.Last_Job_Date__c != acc.ATI_Jobs__r[0].createdDate ){
@@ -422,7 +427,8 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                                             accountsToUpdate.add( acc );
                                         }
                                     }                                     
-                                }            
+                                    }
+                                    }         
             // if( !accountsToUpdate.isEmpty() ){
             //     update accountsToUpdate;
             // }

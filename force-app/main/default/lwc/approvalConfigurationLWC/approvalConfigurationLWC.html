@@ -1,0 +1,33 @@
+<template>
+    <template if:true={ObjectDataLoaded}>
+        <div class="slds-size-1-of-5">
+    <lightning-combobox name="progress"
+    
+    value={Object}
+    placeholder="-Select-"
+    options={ObjectOptions}
+    onchange={ObjectChange}
+    
+    class="spacing jobFormControl"
+    dropdown-alignment=auto 
+    >
+    </lightning-combobox>
+</div>
+
+        <template if:true={ObjectSelected}>
+            <div class="slds-size-1-of-5">
+            <lightning-combobox name="progress"
+            
+            value={Column1}
+            placeholder="-Select-"
+            options={ObjectOptions}
+            onchange={ObjectChange}
+            
+            class="spacing jobFormControl"
+            dropdown-alignment=auto 
+            >
+            </lightning-combobox>
+        </div>
+        </template>
+</template>
+</template>

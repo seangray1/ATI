@@ -10,14 +10,14 @@
         <processMetadataValues>
             <name>flowSelection</name>
             <value>
-                <stringValue>Update Master Job Stage</stringValue>
+                <stringValue>Update Contacts to Respective Accounts on Insert</stringValue>
             </value>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>Update Master Job Stage</label>
+        <label>Call Flow</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
-        <actionName>UpdateMasterJobStage</actionName>
+        <actionName>Update_Contacts_to_Respective_Accounts_on_Insert</actionName>
         <actionType>flow</actionType>
         <inputParameters>
             <processMetadataValues>
@@ -35,7 +35,7 @@
             <processMetadataValues>
                 <name>leftHandSideLabel</name>
                 <value>
-                    <stringValue>recordID</stringValue>
+                    <stringValue>ConAccountID</stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -56,9 +56,93 @@
                     <stringValue>Reference</stringValue>
                 </value>
             </processMetadataValues>
-            <name>recordID</name>
+            <name>ConAccountID</name>
             <value>
-                <elementReference>myVariable_current.Master_Job__c</elementReference>
+                <elementReference>myVariable_current.AccountId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>State</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>State</name>
+            <value>
+                <elementReference>myVariable_current.MailingState</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>City</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>City</name>
+            <value>
+                <elementReference>myVariable_current.MailingCity</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -87,27 +171,20 @@
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
-            <label>When Job Stage Change</label>
+            <label>No Criteria</label>
         </rules>
     </decisions>
-    <description>Update Master Jobs Job Status</description>
     <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
-                <stringValue>ISNEW() || ISCHANGED([ATI_Job__c].Stage__c ) </stringValue>
-            </value>
-        </processMetadataValues>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
-        <expression>ISNEW() || ISCHANGED({!myVariable_current.Stage__c} )</expression>
+        <expression>true</expression>
     </formulas>
-    <interviewLabel>Update_Master_Jobs_Job_Status-5_InterviewLabel</interviewLabel>
-    <label>Update Master Jobs Job Status</label>
+    <interviewLabel>Update_Contacts_to_Respective_Accounts_on_Record_Insert-1_InterviewLabel</interviewLabel>
+    <label>Update Contacts to Respective Accounts on Record Insert</label>
     <processMetadataValues>
         <name>ObjectType</name>
         <value>
-            <stringValue>ATI_Job__c</stringValue>
+            <stringValue>Contact</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -125,7 +202,7 @@
     <processMetadataValues>
         <name>TriggerType</name>
         <value>
-            <stringValue>onAllChanges</stringValue>
+            <stringValue>onCreateOnly</stringValue>
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
@@ -137,7 +214,7 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-        <objectType>ATI_Job__c</objectType>
+        <objectType>Contact</objectType>
     </variables>
     <variables>
         <name>myVariable_old</name>
@@ -145,6 +222,6 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
-        <objectType>ATI_Job__c</objectType>
+        <objectType>Contact</objectType>
     </variables>
 </Flow>

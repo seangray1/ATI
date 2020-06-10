@@ -2997,7 +2997,7 @@ Channyn Rowe</description>
             <name>Jitterbit_Job_OBM</name>
             <type>OutboundMessage</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Outbound message to send Opportunity fields to Timberline via Jitterbit</description>
         <formula>AND(
 	OR(
@@ -3439,7 +3439,7 @@ NOT(ISBLANK(XASP_Recent_Activity__c ))
             <name>Update_Last_Timberline_Update_field</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Updates Last Timberline Update field with current date time when a record is saved.</description>
         <formula>AND(
 OR(
