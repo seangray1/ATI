@@ -3,7 +3,7 @@
         "baseUrl": ".",
         "paths": {
             "c/accountRolesEditLWC": [
-                "../../../../metadata/unpackaged/lwc/accountRolesEditLWC/accountRolesEditLWC.js"
+                "accountRolesEditLWC/accountRolesEditLWC.js"
             ],
             "c/actionColumn": [
                 "actionColumn/actionColumn.js"
@@ -16,6 +16,9 @@
             ],
             "c/allocationsApp": [
                 "allocationsApp/allocationsApp.js"
+            ],
+            "c/approvalConfigurationLWC": [
+                "approvalConfigurationLWC/approvalConfigurationLWC.js"
             ],
             "c/bigTimeForceSync": [
                 "bigTimeForceSync/bigTimeForceSync.js"
@@ -57,7 +60,10 @@
                 "logCall/logCall.js"
             ],
             "c/micaLWC": [
-                "../../../../metadata/unpackaged/lwc/micaLWC/micaLWC.js"
+                "micaLWC/micaLWC.js"
+            ],
+            "c/newJobLWC": [
+                "newJobLWC/newJobLWC.js"
             ],
             "c/newProjectSchedule": [
                 "newProjectSchedule/newProjectSchedule.js"
@@ -76,12 +82,6 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
-            ],
-            "c/newJobLWC": [
-                "../../../../metadata/unpackaged/lwc/newJobLWC/newJobLWC.js"
-            ],
-            "c/approvalConfigurationLWC": [
-                "approvalConfigurationLWC/approvalConfigurationLWC.js"
             ]
         },
         "experimentalDecorators": true

@@ -1,6 +1,8 @@
 import { LightningElement } from 'lwc';
-import GetAccountData from '@salesforce/apex/NewJobController.GetAccountData';
-import ApproveSelectedItems from '@salesforce/apex/NewJobController.ApproveSelectedItems';
+import GetAccountData from '@salesforce/apex/DynamicApprovalController.GetAccountData';
+import ApproveSelectedItems from '@salesforce/apex/DynamicApprovalController.ApproveSelectedItems';
+import GetColumns from '@salesforce/apex/DynamicApprovalController.GetColumns';
+import GetViewTypes from '@salesforce/apex/DynamicApprovalController.GetViewTypes';
 const actions = [
     { label: 'Approve', name: 'Approve' },
     { label: 'Reject', name: 'Reject' },
@@ -40,17 +42,36 @@ const columnsAll = [
 export default class ItemsToApprove extends LightningElement {
     data = [];
     datasetup = [];
-    columns = columns;
+    Columns = [
+        // { label: 'Master Job', fieldName: 'MasterJob' , wrapText: true, type: 'url',
+        // typeAttributes: {label: { fieldName: 'MasterJobName1' }, target: '_blank'}},
+        // { label: 'Submitted By', fieldName: 'CreatedBy' },
+        // { label: 'Account', fieldName: 'AccountName', type: 'url',
+        // typeAttributes: {label: { fieldName: 'AccountName1' }, target: '_blank'} },
+        // { label: 'Contact', fieldName: 'ContactName', type: 'url',
+        // typeAttributes: {label: { fieldName: 'ContactName1' }, target: '_blank'} },
+        // { label: 'Referred By', fieldName: 'ReferredBy', type: 'url',
+        // typeAttributes: {label: { fieldName: 'ReferredBy1' }, target: '_blank'} },
+        // {
+        //     type: 'action',
+        //     typeAttributes: { rowActions: actions },
+        // },
+        
+        
+    ];
     SelectedData = [];
     Comments = '';
     Decision = '';
     row = '';
-    objectName = 'All';
+    objectName = 'Master_Job__c';
+    ColumnsLoaded = false;
     SingleDecision = false;
     DecisionClicked = false;
     loading = false;
     AllView = true;
     MasterJobView = false;
+    ApprovalListViews =[{}];
+    ApprovalListViewLoaded = false;
 
 
 
@@ -61,53 +82,136 @@ export default class ItemsToApprove extends LightningElement {
     // eslint-disable-next-line @lwc/lwc/no-async-await
     connectedCallback() {
         
-           
+        GetViewTypes({}).then(result =>{
+            console.log('Result is ' + result);
+            for (var i = 0; i < result.length; i++) 
+            {
+                this.ApprovalListViews.push({label:result[i].label, value:result[i].apiName});
+            }
+            this.ApprovalListViews.shift();
+            this.ApprovalListViewLoaded = true;
+      
+        });
+        GetColumns({objectName:this.objectName}).then(result =>{
+            let ColumnNames = result;
+            // for (var i = 0; i < ColumnNames.length; i++) 
+            // {
+                    console.log('ColumnNames are ' + ColumnNames);
+                    // this.Columns = [{label:ColumnNames[0].Column_1__c, fieldName:ColumnNames[0].Column_1__c},
+                    // {label:ColumnNames[1].Column_2__c, fieldName:ColumnNames[1].Column_2__c},
+                    // {label:ColumnNames[2].Column_3__c, fieldName:ColumnNames[2].Column_3__c},
+                    // {label:ColumnNames[3].Column_4__c, fieldName:ColumnNames[3].Column_4__c},
+                    // {label:ColumnNames[4].Column_5__c, fieldName:ColumnNames[4].Column_5__c}];
+                    
+                    this.Columns = [{label:ColumnNames[0], fieldName:'Column_1__c'},
+                    {label:ColumnNames[1], fieldName:'Column_2__c'},
+                    {label:ColumnNames[2], fieldName:'Column_3__c'},
+                    {label:ColumnNames[3], fieldName:'Column_4__c'},
+                    {label:ColumnNames[4], fieldName:'Column_5__c'},
+                    {
+                        type: 'action',
+                        typeAttributes: { rowActions: actions },
+                    }];
+
+                    type: 'url',
+        // typeAttributes: {label: { fieldName: 'ReferredBy1' }, target: '_blank'} 
+                    console.log('Columns array 0 is ' + JSON.stringify(this.Columns[0]));
+                    this.Columns[0].type = 'url';
+                    this.Columns[0].typeAttributes = {label: { fieldName: 'Column_1_Name__c' }, target: '_blank'};
+                    
+                    console.log('Columns array 0 is ' + JSON.stringify(this.Columns[0]));
+                    console.log(this.Columns);
+                    this.dataLoaded = true;
+                    // this.Columns.push[];
+                    // this.Columns.push[{];
+                    // this.Columns.push[];
+                    // this.Columns.push[];
+                        
+                        
+                        //ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    // console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
+                    // if(accounts[i].Account === undefined)
+                    // {
+                    //     console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
+                    //     this.datasetup[i].AccountName = "";
+                    //     this.datasetup[i].AccountNameId = "";
+                    // }
+                    // if(accounts[i].Contact === undefined)
+                    // {
+                    //     this.datasetup[i].ContactName = "";
+                    //     this.datasetup[i].ContactName1 = "";
+                    // }
+                    // if(accounts[i].MasterJob === undefined)
+                    // {
+                    //     this.datasetup[i].MasterJob = "";
+                    //     this.datasetup[i].MasterJobName1 = "";
+                    // }
+                    // if(accounts[i].ReferredBy === undefined)
+                    // {
+                    //     this.datasetup[i].ReferredBy = "";
+                    //     this.datasetup[i].ReferredBy1 = "";
+                    // }
+                
+        //    }
+            //this.data = this.datasetup;
+            
+        });
+       
         GetAccountData({objectName:this.objectName}).then(result =>{
             // console.log('Result ' + JSON.stringify(result));
-            let accounts = result;
+           let ObjectData = result;
             
             // console.log('Account is ' + accounts);
             // console.log('Account is ' + JSON.stringify(accounts));
-            console.log('Accounts lenght is ' + accounts.length );
-            console.log(' and account name is ' + accounts[0].Account);
-            for (var i = 0; i < accounts.length; i++) 
+        //     console.log('Accounts lenght is ' + accounts.length );
+        //     console.log(' and account name is ' + accounts[0].Account);
+            for (var i = 0; i < ObjectData.length; i++) 
             {
-            //     // if(this.objectName == 'All')
-            //     // {
-            //         console.log('1st Account Name ' + accounts[i].Account);
-            //         this.datasetup.push({ApprovalName:accounts[i].processId, CreatedBy: accounts[i].createdByName, ObjectName: accounts[i].ObjectName});
+        //     //     // if(this.objectName == 'All')
+        //     //     // {
+        //     //         console.log('1st Account Name ' + accounts[i].Account);
+                    this.datasetup.push({Column_1__c:ObjectData[i].Column1, Column_2__c:ObjectData[i].Column2,
+                                        Column_3__c:ObjectData[i].Column3, Column_4__c:ObjectData[i].Column4,
+                                        Column_5__c:ObjectData[i].Column5, });
+                                        
+                    if(ObjectData[i].Column1Name !== null)
+                    {
+                        this.datasetup[i].Column_1__c = '/' + ObjectData[i].Column1;
+                        this.datasetup[i].Column_1_Name__c = ObjectData[i].Column1Name;
+                    }
                     
-                    
-            //     }
+                    console.log('ObjectData is ' + JSON.stringify(ObjectData[i]));
+                }
+                this.data = this.datasetup;
                 
                 
-                    console.log('1st Account Name ' + accounts[i].Account);
-                    this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
-                    console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
-                    if(accounts[i].Account === undefined)
-                    {
-                        console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
-                        this.datasetup[i].AccountName = "";
-                        this.datasetup[i].AccountNameId = "";
-                    }
-                    if(accounts[i].Contact === undefined)
-                    {
-                        this.datasetup[i].ContactName = "";
-                        this.datasetup[i].ContactName1 = "";
-                    }
-                    if(accounts[i].MasterJob === undefined)
-                    {
-                        this.datasetup[i].MasterJob = "";
-                        this.datasetup[i].MasterJobName1 = "";
-                    }
-                    if(accounts[i].ReferredBy === undefined)
-                    {
-                        this.datasetup[i].ReferredBy = "";
-                        this.datasetup[i].ReferredBy1 = "";
-                    }
+        //             console.log('1st Account Name ' + accounts[i].Account);
+        //             this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+        //             console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
+        //             if(accounts[i].Account === undefined)
+        //             {
+        //                 console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
+        //                 this.datasetup[i].AccountName = "";
+        //                 this.datasetup[i].AccountNameId = "";
+        //             }
+        //             if(accounts[i].Contact === undefined)
+        //             {
+        //                 this.datasetup[i].ContactName = "";
+        //                 this.datasetup[i].ContactName1 = "";
+        //             }
+        //             if(accounts[i].MasterJob === undefined)
+        //             {
+        //                 this.datasetup[i].MasterJob = "";
+        //                 this.datasetup[i].MasterJobName1 = "";
+        //             }
+        //             if(accounts[i].ReferredBy === undefined)
+        //             {
+        //                 this.datasetup[i].ReferredBy = "";
+        //                 this.datasetup[i].ReferredBy1 = "";
+        //             }
                 
-           }
-            this.data = this.datasetup;
+        //    }
+        //     this.data = this.datasetup;
             
         });
     }

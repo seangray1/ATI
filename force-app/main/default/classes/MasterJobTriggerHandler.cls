@@ -44,15 +44,15 @@ public without sharing class MasterJobTriggerHandler {
         {
             
             Master_Job__c oldJob = oldMasterJobs.get(MasterJob.Id);
-            if(MasterJob.Send_Prelim__c != oldJob.Send_Prelim__c)
-            {
-                MasterJob.Send_Prelim_Last_Modified_Date_Time1__c = system.now();
-                MasterJob.Send_Prelim_Last_Modified_Date_Time__c = UserInfo.getUserName();
-                if(MasterJob.Send_prelim__c == 'Yes')
-                {
-                    MasterJob.PN_Request_Date__c = system.today();
-                }
-            }
+            // if(MasterJob.Send_Prelim__c != oldJob.Send_Prelim__c)
+            // {
+            //     MasterJob.Send_Prelim_Last_Modified_Date_Time1__c = system.now();
+            //     MasterJob.Send_Prelim_Last_Modified_Date_Time__c = UserInfo.getUserName();
+            //     if(MasterJob.Send_prelim__c == 'Yes')
+            //     {
+            //         MasterJob.PN_Request_Date__c = system.today();
+            //     }
+            // }
             if( MasterJob.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
                 MasterJob.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS )
             {
@@ -133,8 +133,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
     Set<Id> MasterJobIdSet = new Set<Id>();
     
     List<ATI_Job__c> JobList = new List<ATI_Job__c>();
-try 
-{
+
     for(Master_Job__c MasterJob : newMasterJobs)
     {
         system.debug('Master Job' + MasterJob);
@@ -146,25 +145,28 @@ try
         if(MasterJob.AfterHoursUpdate__c == oldjob.AfterHoursUpdate__c)
         {
             system.debug('Old Master Job ' + oldJob);
+            system.debug('New Lead source ' + MasterJob.Lead_Source__c + '   Old Lead Source is ' + oldJob.Lead_Source__c);
             if(MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Claim__c != oldJob.Claim__c || 
             MasterJob.Policy__c != oldJob.Policy__c || MasterJob.Deductible__c != oldJob.Deductible__c ||
             MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Lead_Source__c != oldJob.Lead_Source__c ||
             MasterJob.Property__c != oldJob.Property__c || MasterJob.PO__c != oldJob.PO__c
             || MasterJob.Account_Executive_1__c != oldJob.Account_Executive_1__c || MasterJob.Account_Executive_2__c != oldJob.Account_Executive_2__c
-            || MasterJob.Office2__c != oldJob.Office2__c || MasterJob.Send_Prelim__c != oldJob.Send_Prelim__c ||
-            MasterJob.PN_Request_Date__c != oldJob.PN_Request_Date__c || MasterJob.PN_Amount__c != oldJob.PN_Amount__c || MasterJob.ML_amount__c != oldJob.ML_amount__c ||
-            MasterJob.PN_Recording_Number__c != oldJob.PN_Recording_Number__c || MasterJob.ML_Recording_Number__c != oldJob.ML_Recording_Number__c || 
-            MasterJob.ML_Request_Date__c != oldJob.ML_Request_Date__c || MasterJob.ML_Release_Recording_Date__c != oldJob.ML_Release_Recording_Date__c ||
-            MasterJob.Cont_P_O_Client_Job__c != oldJob.Cont_P_O_Client_Job__c || MasterJob.Office2__c != oldJob.Office2__c ||
+            || MasterJob.Office2__c != oldJob.Office2__c || MasterJob.Office2__c != oldJob.Office2__c ||
             MasterJob.Lead_Source__c != oldJob.Lead_Source__c || MasterJob.Major_Event__c != oldJob.Major_Event__c ||
-            MasterJob.National_Project_Manager__c != oldJob.National_Project_Manager__c)
+            MasterJob.National_Project_Manager__c != oldJob.National_Project_Manager__c ||  MasterJob.Cont_P_O_Client_Job__c != oldJob.Cont_P_O_Client_Job__c
+            || (MasterJob.Force_Master_Job_Sync__c == true && MasterJob.Force_Master_Job_Sync__c != oldJob.Force_Master_Job_Sync__c))
             {
+                system.debug('Passed');
                 MasterJobIdSet.add(MasterJob.Id);
             }
         }
     }
     
-
+    // || MasterJob.Send_Prelim__c != oldJob.Send_Prelim__c ||
+    // MasterJob.PN_Request_Date__c != oldJob.PN_Request_Date__c || MasterJob.PN_Amount__c != oldJob.PN_Amount__c || MasterJob.ML_amount__c != oldJob.ML_amount__c ||
+    // MasterJob.PN_Recording_Number__c != oldJob.PN_Recording_Number__c || MasterJob.ML_Recording_Number__c != oldJob.ML_Recording_Number__c || 
+    // MasterJob.ML_Request_Date__c != oldJob.ML_Request_Date__c || MasterJob.ML_Release_Recording_Date__c != oldJob.ML_Release_Recording_Date__c ||
+  
 // remember to do if statements to check if blank
 // query for jobs that need to be updated
     if(!MasterJobIdSet.isEmpty())
@@ -174,6 +176,7 @@ try
         {
             for(ATI_Job__c job : JobList)
             {
+                system.debug('Test is it hits ');
                 Master_job__c newMasterJob = newMasterJobsMap.get(job.Master_job__c);
                 job.Date_Of_Loss__c = newMasterJob.Date_of_Loss__c;
                 job.Claim__c = newMasterJob.Claim__c;
@@ -184,33 +187,31 @@ try
                 job.Account_Executive_1__c = newMasterJob.Account_Executive_1__c;
                 job.Account_Executive_2__c = newMasterJob.Account_Executive_2__c;
                 job.Office2__c = newMasterJob.Office2__c;
-                job.Send_Prelim__c = newMasterJob.Send_Prelim__c;
-                job.Send_Prelim_Last_Modified_Date_Time__c = newMasterJob.Send_Prelim_Last_Modified_Date_Time1__c;
-                job.Send_Prelim_Last_Modified_By__c = newMasterJob.Send_Prelim_Last_Modified_Date_Time__c;
-                job.PN_Request_Date__c = newMasterJob.PN_Request_Date__c;
-                job.PN_Amount__c = newMasterJob.PN_Amount__c;
-                job.PN_Recording_Number__c = newMasterJob.PN_Recording_Number__c;
-                job.PN_Recording_Date__c = newMasterJob.PN_Recording_Date__c;
-                job.ML_amount__c = newMasterJob.ML_amount__c;
-                job.ML_Recording_Number__c = newMasterJob.ML_Recording_Number__c;
-                job.ML_Recording_Date__c = newMasterJob.ML_Recording_Date__c;
-                job.ML_Release_Recording_Date__c = newMasterJob.ML_Release_Recording_Date__c;
-                job.ML_Request_Date__c = newMasterJob.ML_Request_Date__c;
+                
+                // job.Send_Prelim__c = newMasterJob.Send_Prelim__c;
+                // job.Send_Prelim_Last_Modified_Date_Time__c = newMasterJob.Send_Prelim_Last_Modified_Date_Time1__c;
+                // job.Send_Prelim_Last_Modified_By__c = newMasterJob.Send_Prelim_Last_Modified_Date_Time__c;
+                // job.PN_Request_Date__c = newMasterJob.PN_Request_Date__c;
+                // job.PN_Amount__c = newMasterJob.PN_Amount__c;
+                // job.PN_Recording_Number__c = newMasterJob.PN_Recording_Number__c;
+                // job.PN_Recording_Date__c = newMasterJob.PN_Recording_Date__c;
+                // job.ML_amount__c = newMasterJob.ML_amount__c;
+                // job.ML_Recording_Number__c = newMasterJob.ML_Recording_Number__c;
+                // job.ML_Recording_Date__c = newMasterJob.ML_Recording_Date__c;
+                // job.ML_Release_Recording_Date__c = newMasterJob.ML_Release_Recording_Date__c;
+                // job.ML_Request_Date__c = newMasterJob.ML_Request_Date__c;
                 job.Cont_P_O_Client_Job__c = newMasterJob.Cont_P_O_Client_Job__c;
                 job.Lead_Source__c = newMasterJob.Lead_Source__c;
                 job.Office2__c = newMasterJob.Office2__c;
                 //job.Office2__c = newMasterJob.Regional_Manager__c;
                 job.Major_Event__c = newMasterJob.Major_Event__c;
                 job.National_Project_Manager__c = newMasterJob.National_Project_Manager__c;
-                system.debug('Job fields to update ' + job.Send_Prelim__c);
+               
                 
             }
             update JobList;
         }
     }
-} catch (Exception e) 
-{
-system.debug(e);  
-}
+
 }
 }

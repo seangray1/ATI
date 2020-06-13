@@ -60,23 +60,23 @@ public without sharing class JobTriggerHandlerWorkflow
                         Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Amount__c = MasterJobs.get(job.Master_job__c).Amount__c);
                         MasterJobToUpdate.put(mj.id, mj);
                     }
-                    if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
-                    {
-                        if(job.Estimate_Only__c == false)
-                        {
-                            if(MasterJobToUpdate.containsKey(job.Master_Job__c))
-                            {
-                                MasterJobToUpdate.get(job.Master_Job__c).Send_Prelim__c = 'Yes';
-                                MasterJobToUpdate.get(job.Master_Job__c).PN_Request_Date__c = system.today();
-                            }else
-                            {
-                                Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'Yes', PN_Request_Date__c = system.today() );
-                                MasterJobToUpdate.put(mj.Id, mj);
-                            }
+                    // if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
+                    // {
+                    //     if(job.Estimate_Only__c == false)
+                    //     {
+                    //         if(MasterJobToUpdate.containsKey(job.Master_Job__c))
+                    //         {
+                    //             MasterJobToUpdate.get(job.Master_Job__c).Send_Prelim__c = 'Yes';
+                    //             MasterJobToUpdate.get(job.Master_Job__c).PN_Request_Date__c = system.today();
+                    //         }else
+                    //         {
+                    //             Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'Yes', PN_Request_Date__c = system.today() );
+                    //             MasterJobToUpdate.put(mj.Id, mj);
+                    //         }
                             
-                        }
+                    //     }
                         
-                    }
+                    // }
                 }
             }
 
@@ -86,33 +86,36 @@ public without sharing class JobTriggerHandlerWorkflow
             update MasterJobToUpdate.values();
         }
     }
-    if(Trigger.isInsert)
-    {
-        Map<Id,Master_Job__c>  MasterJobToUpdatePrelim = new Map<Id,Master_Job__c>();
-        Set<Id> acctSet = new Set<Id>();
-        for(ATI_Job__c job : jobs)
-        {
-            acctSet.add(job.Account__c);
-        }
-        Map<Id, Account> AcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:acctSet]);
-        for(ATI_Job__c job : jobs)
-        {
-                if((job.Division__c == 'Consultant' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
-                (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal') && 
-                job.Send_Prelim__c == null) 
-                {
-                    // job.Send_Prelim__c = 'No';
-                    // job.PN_Request_Date__c = null;
-                    Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'No', PN_Request_Date__c = null );
-                    MasterJobToUpdatePrelim.put(mj.Id, mj);
-                }
+    // if(Trigger.isInsert)
+    // {
+    //     system.debug('JobTriggerHandlerWorkflow in Insert');
+    //     Map<Id,Master_Job__c>  MasterJobToUpdatePrelim = new Map<Id,Master_Job__c>();
+    //     Set<Id> acctSet = new Set<Id>();
+    //     for(ATI_Job__c job : jobs)
+    //     {
+    //         acctSet.add(job.Account__c);
+    //     }
+    //     Map<Id, Account> AcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:acctSet]);
+    //     for(ATI_Job__c job : jobs)
+    //     {
+    //         system.debug('Job division is ' + job.division__c +  ' job acct name is ' + AcctMap.get(job.Account__c).Name + '  Send Prelim is ' + job.Send_prelim__c);
+    //             if((job.Division__c == 'Consulting' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
+    //             (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal') && 
+    //             job.Send_Prelim__c == null) 
+    //             {
+    //                 system.debug('JobTriggerHandlerWorkflow in for loop, met criteria');
+    //                 // job.Send_Prelim__c = 'No';
+    //                 // job.PN_Request_Date__c = null;
+    //                 Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'No', PN_Request_Date__c = null );
+    //                 MasterJobToUpdatePrelim.put(mj.Id, mj);
+    //             }
                 
-                if(!MasterJobToUpdatePrelim.isEmpty())
-                {
-                    update MasterJobToUpdatePrelim.values();
-                }
-        }
-    }
+    //             if(!MasterJobToUpdatePrelim.isEmpty())
+    //             {
+    //                 update MasterJobToUpdatePrelim.values();
+    //             }
+    //     }
+    // }
     }
 
 public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap, ObjectInserts oi)
@@ -133,11 +136,14 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
     if(!offices.isEmpty())
     {
         Set<Id> acctSet = new Set<Id>();
+        Set<Id> nAcctSet = new Set<Id>();
         for(ATI_Job__c job : newJobs)
         {
             acctSet.add(job.Account__c);
+            nAcctSet.add(job.National_Account__c);
         }
         Map<Id, Account> AcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:acctSet]);
+        Map<Id, Account> nAcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:nacctSet]);
         for(ATI_Job__c job : newJobs)
         {
 
@@ -245,7 +251,25 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 if(job.Division__c == 'Technical Svces')
                 {
                     job.Project_Manager_New__c = offices.get(job.Office2__c).Technical_Services_Operations_Manager__c; 
-                } 
+                }
+                  
+            }
+            if(Trigger.isUpdate)
+            {
+                if((job.Division__c == 'Consulting' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
+                        (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || 
+                        job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal'
+                         || job.Estimate_Only__c == true || (Job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Lost')|| 
+                         (job.National_Account__c != null && (nAcctMap.get(job.National_Account__c).Name.contains('Vixxo') || 
+                         nAcctMap.get(job.National_Account__c).Name.contains('Facility Source')))) && 
+                        job.Send_Prelim__c == null)
+                {
+                    job.Send_Prelim__c = 'No';
+                    job.PN_Request_Date__c = null;
+                    job.Send_Prelim_Last_Modified_By__c = UserInfo.getUserName();
+                    job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
+                    
+                }
             }
 
             if(Trigger.isInsert && job.Office2__c != null && job.Division__c != null)
@@ -311,10 +335,24 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 if(job.Division__c == 'Technical Svces')
                 {
                     job.Project_Manager_New__c = offices.get(job.Office2__c).Technical_Services_Operations_Manager__c; 
+                }
+                if((job.Division__c == 'Consulting' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
+                        (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || 
+                        job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || 
+                        job.Market_Segment__c == 'State/Municipal' || job.Estimate_Only__c == true || 
+                        (job.National_Account__c != null && (nAcctMap.get(job.National_Account__c).Name.contains('Vixxo') || 
+                        nAcctMap.get(job.National_Account__c).Name.contains('Facility Source')))) && 
+                        job.Send_Prelim__c == null)
+                {
+                    job.Send_Prelim__c = 'No';
+                    job.PN_Request_Date__c = null;
+                    job.Send_Prelim_Last_Modified_By__c = UserInfo.getUserName();
+                    job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
+                    
                 } 
             }
             //Update send Prelim
-            
+             
         }
     }
     
@@ -340,18 +378,26 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             {
                 job.Estimating_Review_Date__c = system.now();
             }
-            // if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
-            // {
-            //     if(Estimate_Only__c == false)
-            //     {
-            //         job.Send_Prelim__c = 'Yes';
-            //     }
-            //     if(job.Job_Start_Date__c == null)
-            //     {
-            //         job.Job_Start_Date__c = system.now();
-            //     }
+            if(job.Send_Prelim__c != oldjob.Send_Prelim__c)
+            {
+                job.Send_Prelim_Last_Modified_By__c = UserInfo.getUserName();
+                job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
+            }
+            if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
+            {
+                if(job.Estimate_Only__c == false && job.Send_Prelim__c == null)
+                {
+                    job.Send_Prelim__c = 'Yes';
+                    job.PN_Request_Date__c = system.today();
+                    job.Send_Prelim_Last_Modified_By__c = UserInfo.getUserName();
+                    job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
+                }
+                if(job.Job_Start_Date__c == null)
+                {
+                    job.Job_Start_Date__c = system.now();
+                }
 
-            // }
+            }
             if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Lost' && job.Job_Lost_Date__c == null)
             {
                 job.Job_Lost_Date__c = system.now();

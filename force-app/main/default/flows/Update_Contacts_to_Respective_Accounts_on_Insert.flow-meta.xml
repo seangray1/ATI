@@ -131,7 +131,7 @@
             <targetReference>Get_Account_Records_Created_Today</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>City</name>
         <dataType>String</dataType>

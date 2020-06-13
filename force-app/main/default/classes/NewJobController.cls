@@ -118,15 +118,6 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         }
         Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
         system.debug('mjob ids ' + mjobids);
-        Metadata a = new Metadata();
-        a.ObjectType__c = 'Account';
-        a.Column_1__c = 'Name';
-
-        Metadata a = [Select Id, fieds.. FROM Metadata Where sobjectType = objectName];
-        // There is a way to retrieve the fields on the custom metadata
-        // QUery + + 
-        String query = '[Select ' + a.FIeld1 +',
-        MetadataRecord a = query;
         List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
         for(ATI_Job__c job : mjoblist)
         {
@@ -1197,16 +1188,16 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Office2__c = Office, Master_Job__c = jobdata.Master_Job__c, Property_Id__c = jobdata.Property_Id__c, recordtypeId = notApprovedId, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
             Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = jobdata.CloseDate__c, Major_Event__c = MajorEvent, Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = datetime.now(),
             Date_Time_Taken__c = datetime.now(),  Policy__c = jobdata.Policy__c, Deductible__c = jobdata.Deductible__c,Account_Executive_1__c = jobdata.Account_Executive_1__c, Account_Executive_2__c = jobdata.Account_Executive_2__c,
-            Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c, Send_Prelim__c = jobdata.Send_Prelim__c, Account__c = jobdata.Account__c,
+            Claim__c = jobdata.Claim__c, Cont_P_O_Client_Job__c = jobdata.Cont_P_O_Client_Job__c, PO__c = jobdata.PO__c,  Account__c = jobdata.Account__c,
             Contact__c = jobdata.Contact__c, Lead_Source__c = jobdata.Lead_Source__c, Market_Class__c = jobdata.Market_Class__c, Market_Segment__c = jobdata.Market_Segment__c,
             Market_Segment_Sub_Class__c = jobdata.Market_Segment_Sub_Class__c, Date_of_Loss__c = jobdata.Date_of_Loss__c, Project_Site_Contact_Name__c = jobdata.Project_Site_Contact_Name__c,
-            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review', PN_Request_Date__c = jobdata.PN_Request_Date__c,
-            PN_Amount__c = jobdata.PN_Amount__c, ML_amount__c = jobdata.ML_amount__c, PN_Recording_Number__c = jobdata.PN_Recording_Number__c,
-            ML_Recording_Number__c = jobdata.ML_Recording_Number__c, ML_Request_Date__c = jobdata.ML_Request_Date__c, ML_Release_Recording_Date__c = jobdata.ML_Release_Recording_Date__c,
-            Send_Prelim_Last_Modified_Date_Time__c = jobdata.Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_By__c = jobdata.Send_Prelim_Last_Modified_By__c,
-            ML_Recording_Date__c = jobdata.ML_Recording_Date__c, National_Project_Manager__c = jobdata.National_Project_Manager__c );
+            Project_Site_Contact_Account__c = jobdata.Project_Site_Contact_Account__c, Intake_Status__c = 'Cloned - Pending Review', 
+             National_Project_Manager__c = jobdata.National_Project_Manager__c );
         
-        
+            // Send_Prelim__c = jobdata.Send_Prelim__c,PN_Request_Date__c = jobdata.PN_Request_Date__c,
+            // PN_Amount__c = jobdata.PN_Amount__c, ML_amount__c = jobdata.ML_amount__c, PN_Recording_Number__c = jobdata.PN_Recording_Number__c, ML_Recording_Date__c = jobdata.ML_Recording_Date__c,
+            // ML_Recording_Number__c = jobdata.ML_Recording_Number__c, ML_Request_Date__c = jobdata.ML_Request_Date__c, ML_Release_Recording_Date__c = jobdata.ML_Release_Recording_Date__c,
+            // Send_Prelim_Last_Modified_Date_Time__c = jobdata.Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_By__c = jobdata.Send_Prelim_Last_Modified_By__c,
             system.debug('Job contains ' + job);
             insert job;
             List<Account_Roles__c> ARs = new List<Account_Roles__c>();
@@ -1656,12 +1647,13 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             else if(!string.isEmpty(MasterJobId) && JobEntryType == 'NewJobEntry')
             {
                 mJobId = MasterJobId;
-                MjobExisting = [Select Id, Name,Policy__c, Cont_P_O_Client_Job__c, PO__c, Send_prelim__c, Deductible__c, Claim__c,
-                   Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c, PN_Request_Date__c,
-                PN_Amount__c, ML_amount__c, PN_Recording_Number__c, PN_Recording_Date__c,ML_Recording_Number__c,
-                ML_Request_Date__c,ML_Release_Recording_Date__c, 
-                Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_Date_Time1__c,
-                ML_Recording_Date__c FROM Master_Job__c Where Id =:masterJobId];
+                //PO__c, Send_prelim__c, PN_Request_Date__c,
+                // PN_Amount__c, ML_amount__c, PN_Recording_Number__c, PN_Recording_Date__c,ML_Recording_Number__c,
+                // ML_Request_Date__c,ML_Release_Recording_Date__c, 
+                // Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_Date_Time1__c,
+                // ML_Recording_Date__c
+                MjobExisting = [Select Id, Name,Policy__c, Cont_P_O_Client_Job__c,  Deductible__c, Claim__c,
+                   Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c FROM Master_Job__c Where Id =:masterJobId];
                 if(AEContactToUse != null && MjobExisting.Account_Executive_1__c == null)
                 {
                 MjobExisting.Account_Executive_1__c = AEContactToUse;
@@ -1702,12 +1694,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == true)
             {
                 jobToRemoveMJ = [Select Id, Master_Job__c FROM ATI_Job__c Where Id =:jobrecordId];
-                MjobExisting = [Select Id, Name, Policy__c, Cont_P_O_Client_Job__c, PO__c, Send_prelim__c, Deductible__c, Claim__c,
-                Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c, PN_Request_Date__c,
-                PN_Amount__c, PN_Recording_Date__c, ML_amount__c, PN_Recording_Number__c, ML_Recording_Number__c,
-                ML_Request_Date__c,ML_Release_Recording_Date__c, 
-                Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_Date_Time1__c,
-                ML_Recording_Date__c FROM Master_Job__c Where Id =:masterJobId];
+                MjobExisting = [Select Id, Name, Policy__c, Cont_P_O_Client_Job__c, PO__c,  Deductible__c, Claim__c,
+                Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c FROM Master_Job__c Where Id =:masterJobId];
                 if(AEContactToUse != null && MjobExisting.Account_Executive_1__c == null)
                 {
                 MjobExisting.Account_Executive_1__c = AEContactToUse;
@@ -1762,18 +1750,18 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     job.Account_Executive_2__c = MjobExisting.Account_Executive_2__c;
                     job.Date_of_loss__c = MjobExisting.Date_of_loss__c;
                     job.Deductible__c = MjobExisting.Deductible__c;
-                    job.Send_Prelim__c = MjobExisting.Send_Prelim__c;
-                    job.Send_Prelim_Last_Modified_Date_Time__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time1__c;
-                    job.Send_Prelim_Last_Modified_By__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time__c;
-                    job.PN_Request_Date__c = MjobExisting.PN_Request_Date__c;
-                    job.PN_Amount__c = MjobExisting.PN_Amount__c;
-                    job.PN_Recording_Number__c = MjobExisting.PN_Recording_Number__c;
-                    job.PN_Recording_Date__c = MjobExisting.PN_Recording_Date__c;
-                    job.ML_amount__c = MjobExisting.ML_amount__c;
-                    job.ML_Recording_Number__c = MjobExisting.ML_Recording_Number__c;
-                    job.ML_Recording_Date__c = MjobExisting.ML_Recording_Date__c;
-                    job.ML_Release_Recording_Date__c = MjobExisting.ML_Release_Recording_Date__c;
-                    job.ML_Request_Date__c = MjobExisting.ML_Request_Date__c;
+                    // job.Send_Prelim__c = MjobExisting.Send_Prelim__c;
+                    // job.Send_Prelim_Last_Modified_Date_Time__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time1__c;
+                    // job.Send_Prelim_Last_Modified_By__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time__c;
+                    // job.PN_Request_Date__c = MjobExisting.PN_Request_Date__c;
+                    // job.PN_Amount__c = MjobExisting.PN_Amount__c;
+                    // job.PN_Recording_Number__c = MjobExisting.PN_Recording_Number__c;
+                    // job.PN_Recording_Date__c = MjobExisting.PN_Recording_Date__c;
+                    // job.ML_amount__c = MjobExisting.ML_amount__c;
+                    // job.ML_Recording_Number__c = MjobExisting.ML_Recording_Number__c;
+                    // job.ML_Recording_Date__c = MjobExisting.ML_Recording_Date__c;
+                    // job.ML_Release_Recording_Date__c = MjobExisting.ML_Release_Recording_Date__c;
+                    // job.ML_Request_Date__c = MjobExisting.ML_Request_Date__c;
                 }else{
                     job.Account_Executive_1__c = AEContactToUse;
                 }
@@ -1797,18 +1785,18 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     job.Account_Executive_2__c = MjobExisting.Account_Executive_2__c;
                     job.Date_of_loss__c = MjobExisting.Date_of_loss__c;
                     job.Deductible__c = MjobExisting.Deductible__c;
-                    job.Send_Prelim__c = MjobExisting.Send_Prelim__c;
-                    job.Send_Prelim_Last_Modified_Date_Time__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time1__c;
-                    job.Send_Prelim_Last_Modified_By__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time__c;
-                    job.PN_Request_Date__c = MjobExisting.PN_Request_Date__c;
-                    job.PN_Amount__c = MjobExisting.PN_Amount__c;
-                    job.PN_Recording_Number__c = MjobExisting.PN_Recording_Number__c;
-                    job.PN_Recording_Date__c = MjobExisting.PN_Recording_Date__c;
-                    job.ML_amount__c = MjobExisting.ML_amount__c;
-                    job.ML_Recording_Number__c = MjobExisting.ML_Recording_Number__c;
-                    job.ML_Recording_Date__c = MjobExisting.ML_Recording_Date__c;
-                    job.ML_Release_Recording_Date__c = MjobExisting.ML_Release_Recording_Date__c;
-                    job.ML_Request_Date__c = MjobExisting.ML_Request_Date__c;
+                    // job.Send_Prelim__c = MjobExisting.Send_Prelim__c;
+                    // job.Send_Prelim_Last_Modified_Date_Time__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time1__c;
+                    // job.Send_Prelim_Last_Modified_By__c = MjobExisting.Send_Prelim_Last_Modified_Date_Time__c;
+                    // job.PN_Request_Date__c = MjobExisting.PN_Request_Date__c;
+                    // job.PN_Amount__c = MjobExisting.PN_Amount__c;
+                    // job.PN_Recording_Number__c = MjobExisting.PN_Recording_Number__c;
+                    // job.PN_Recording_Date__c = MjobExisting.PN_Recording_Date__c;
+                    // job.ML_amount__c = MjobExisting.ML_amount__c;
+                    // job.ML_Recording_Number__c = MjobExisting.ML_Recording_Number__c;
+                    // job.ML_Recording_Date__c = MjobExisting.ML_Recording_Date__c;
+                    // job.ML_Release_Recording_Date__c = MjobExisting.ML_Release_Recording_Date__c;
+                    // job.ML_Request_Date__c = MjobExisting.ML_Request_Date__c;
                 }
             update job;
             system.debug('After update' + job.Master_Job__c);

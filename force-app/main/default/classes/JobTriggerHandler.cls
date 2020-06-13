@@ -170,10 +170,9 @@ public without sharing class JobTriggerHandler {
     public static void handleAfterInsertUpdate(){ 
         if(Trigger.isInsert){system.debug('triggerinsertcalled');}
         if(Trigger.isUpdate){system.debug('triggerupdatecalled');}
-        if(Trigger.isUpdate)
-        {
+        
         JobTriggerHandlerWorkflow.MasterJobAmountRollup(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
-        }
+        
        AccountExecutiveController.UpdateAccountExecutives(Trigger.new);
         // moving this to after update as we cannot change the Job owner on insert due to Job splits issue
         JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
