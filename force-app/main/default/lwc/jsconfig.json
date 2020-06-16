@@ -20,6 +20,9 @@
             "c/approvalConfigurationLWC": [
                 "approvalConfigurationLWC/approvalConfigurationLWC.js"
             ],
+            "c/approvalConfigurationViews": [
+                "approvalConfigurationViews/approvalConfigurationViews.js"
+            ],
             "c/bigTimeForceSync": [
                 "bigTimeForceSync/bigTimeForceSync.js"
             ],

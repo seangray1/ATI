@@ -145,7 +145,6 @@
             </value>
         </inputAssignments>
         <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
         <description>Get the Contacts of the Existing Account</description>

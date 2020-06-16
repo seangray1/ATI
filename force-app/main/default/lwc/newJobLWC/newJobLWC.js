@@ -95,6 +95,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   ContactAccountPicked = false;
   ContactAccountSelected = false;
   ContactAccountId;
+  ContactAccountBlank = false;
   ContactAccountName;
   searchKey;
   JobRealName;
@@ -2201,6 +2202,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.callerCount = 0;
       alert("Roles cannot be left blank");
     } else {
+      if(this.ContactAccountBlank)
+      {
+        
+        this.billToCount = 0;
+        this.projectSiteContactCount = 0;
+        this.callerCount = 0;
+        this.ContactAccountBlank = false;
+        alert('If Roles are not blank, must select an Account or Contact');
+      }
+      else{
       if (this.billToCount > 1 || this.callerCount > 1) {
         alert(
           "Only One Primary/Bill-to and One Project Site Contact can be selected as a Role"
@@ -2344,6 +2355,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             }
           }
         }
+        }
       }
     }
   }
@@ -2381,7 +2393,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     );
     console.log("Get Account Roles has been called ");
     let ActRowCount = ActTblRow.length;
-    for (let Actindex = 0; Actindex < ActRowCount; Actindex++) {
+    for (let Actindex = 0; Actindex < ActRowCount; Actindex++) 
+    {
       // let ARName = ActTblRow[Actindex].querySelector('.ARName').value;
       let ARRoles = ActTblRow[Actindex].querySelector(".ARRoles").value;
       let ARContact = ActTblRow[Actindex].querySelector(".ARContact").value;
@@ -2394,17 +2407,20 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           "    ARAccount + " +
           ARAccount
       );
-      if (ARRoles.includes("Project Site Contact")) {
+      if (ARRoles !== null && ARRoles.includes("Project Site Contact")) 
+      {
         projectSiteContact = true;
         console.log("ARRoles Contains inside");
         this.projectSiteContactCount += 1;
       }
       console.log("contains AR");
-      if (ARRoles.includes("Primary/Bill-to")) {
+      if (ARRoles !== null && ARRoles.includes("Primary/Bill-to")) 
+      {
         billTo = true;
         this.billToCount += 1;
       }
-      if (ARRoles.includes("Caller")) {
+      if (ARRoles !== null && ARRoles.includes("Caller")) 
+      {
         console.log("Caller has been called");
         caller = true;
         this.callerCount += 1;
@@ -2413,12 +2429,22 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         (ARContact === "" || ARContact === null) &&
         (ARRoles === "" || ARRoles === null) &&
         (ARAccount === "" || ARAccount === null)
-      ) {
-        console.log("Removing row");
-      } else {
-        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) {
+      ) 
+      {
+        console.log("Removing row" + ARContact + ARAccount + ARRoles);
+      } 
+      else 
+      {
+        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) 
+        {
           this.ARRoleBlank = true;
-        } else {
+        }
+        else if((ARContact === "" || ARContact === null || ARContact === undefined) && (ARAccount === "" || ARAccount === null || ARAccount === undefined))
+        {
+          this.ContactAccountBlank = true;
+        }
+        else if(((ARContact !== null && ARContact !== "") || (ARAccount !== null && ARAccount !== ""))&& (ARRoles !== "" || ARRoles !== null)) 
+        {
           AccountRoles.push({
             //name: ARName,
             Text: ARRoles,
@@ -2428,7 +2454,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         }
       }
     }
-    if (projectSiteContact === false || billTo === false || caller === false) {
+    if (projectSiteContact === false || billTo === false || caller === false) 
+    {
       AccountRolesPassed = false;
     } else {
       AccountRolesPassed = true;
