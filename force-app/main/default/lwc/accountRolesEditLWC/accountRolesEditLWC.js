@@ -54,6 +54,7 @@ export default class AccountRolesEditLWC extends LightningElement
   MailingCounty;
   AccountId = "";
   MailingPostalCode;
+  ContactAccountBlank = false;
   Phone;
   Email;
   PersonEmail;
@@ -948,6 +949,16 @@ AddNewRow() {
       this.callerCount = 0;
       alert("Roles cannot be left blank");
     } else {
+      if(this.ContactAccountBlank)
+      {
+        
+        this.billToCount = 0;
+        this.projectSiteContactCount = 0;
+        this.callerCount = 0;
+        this.ContactAccountBlank = false;
+        alert('If Roles are not blank, must select an Account or Contact');
+      }
+      else{
       if (this.billToCount > 1 || this.callerCount > 1) {
         alert(
           "Only One Primary/Bill-to and One Project Site Contact can be selected as a Role"
@@ -989,6 +1000,7 @@ AddNewRow() {
         })
     }
 }
+      }
     }
   }    
   GenerateAccountRoleJSON() {
@@ -1040,16 +1052,22 @@ AddNewRow() {
       ) {
         console.log("Removing row");
       } else {
-        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) {
+        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) 
+        {
           this.ARRoleBlank = true;
-        } else {
+        }
+        else if((ARContact === "" || ARContact === null || ARContact === undefined) && (ARAccount === "" || ARAccount === null || ARAccount === undefined))
+        {
+          this.ContactAccountBlank = true;
+        }
+        else if(((ARContact !== null && ARContact !== "") || (ARAccount !== null && ARAccount !== ""))&& (ARRoles !== "" || ARRoles !== null)) 
+        {
           AccountRoles.push({
             //name: ARName,
             Text: ARRoles,
             Contact: ARContact,
             Account: ARAccount
           });
-          console.log('hit pushing into Account Roles' + AccountRoles);
         }
       }
     }

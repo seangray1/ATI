@@ -84,7 +84,10 @@
                             <apex:inputField value="{!wrap.budget.Trade_Option__c}" style="width:100px" id="NamePickList" onChange="changeDesc(this);"/>
                         </apex:column>
                         <apex:column headerValue="Trade Description">
-                            <apex:inputField value="{!wrap.budget.Trade__c}" id="desc" style="width:300px"/>
+                            <apex:inputField value="{!wrap.budget.Trade__c}" id="desc" style="width:100px"/>
+                        </apex:column>
+                        <apex:column headerValue="Item Description">
+                            <apex:inputField value="{!wrap.budget.Item_Description__c}"  style="width:300px"/>
                         </apex:column>
                         <apex:column headerValue="Order">
                             <apex:inputField value="{!wrap.budget.OrderNumber__c}" style="width:25px" />

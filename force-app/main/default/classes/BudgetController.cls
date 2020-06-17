@@ -62,7 +62,7 @@ public class BudgetController {
          system.debug('This is the Id Reurning: ' + BudgetID);
         
          //Query records if page returns an Id         
-         for(Budget_Line_Item__c budgetline:[Select id, Actual_Costs__c, Allocations__c, X10_10_Allocation__c, Burden__c, Program_Fees__c, Estimated_Completion_Date__c, 
+         for(Budget_Line_Item__c budgetline:[Select id, Actual_Costs__c, Allocations__c, Item_Description__c, X10_10_Allocation__c, Burden__c, Program_Fees__c, Estimated_Completion_Date__c, 
                                              Gross_Profit__c, In_House_Hours__c, In_House_Rate__c, In_House_Total__c, Materials__c, Profit__c, Revenue__c, Start_Date__c,
                                                 Budget_Goal__c, Subcontractor__c, Subcontractor_bid__c, Trade__c, Trade_Option__c, OrderNumber__c,
                                              Allocation_Percentage__c, Allocation_Overhead__c From Budget_Line_Item__c  
