@@ -16,11 +16,13 @@ import ACCOUNTROLES_OBJECT from "@salesforce/schema/Account_Roles__c";
 import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
 import CONTACTTYPE_FIELD from "@salesforce/schema/Contact.Contact_Type__c";
 import TYPE_FIELD from "@salesforce/schema/Account.Type";
+import GetUserInfo from "@salesforce/apex/NewJobController.GetUserInfo";
 let AccountRolesPassed= false;
 export default class AccountRolesEditLWC extends LightningElement 
 {
 @api recordId;
 @track MarketsDisabled = false;
+buttonsDisabled = false;
   PersonAccount = false;
   jobLoading = false;
   ARContacts;
@@ -221,6 +223,16 @@ export default class AccountRolesEditLWC extends LightningElement
                     this.ARReady = true;
                   }
             })
+        GetUserInfo({}).then(result => {
+          let profileName = result;
+          if(profileName !== 'System Administrator' && profileName !== 'Contact Center Rep')
+          {
+              this.buttonsDisabled = true;
+          }
+          else{
+            this.buttonsDisabled = false;
+          }
+        })
         GetAccountRolesPicklist({}).then((result) => {
       var AccountRolePicklistValues = result;
       for (var i = 0; i < AccountRolePicklistValues.length; i++) {
@@ -941,7 +953,7 @@ AddNewRow() {
   EditAccountRoles()
   {
     let AccountRoleInfo = this.GenerateAccountRoleJSON();
-    
+    console.log(this.ARRoleBlank);
     if (this.ARRoleBlank) {
       this.ARRoleBlank = false;
       this.billToCount = 0;
@@ -961,7 +973,7 @@ AddNewRow() {
       else{
       if (this.billToCount > 1 || this.callerCount > 1) {
         alert(
-          "Only One Primary/Bill-to and One Project Site Contact can be selected as a Role"
+          "Only One Primary/Bill-to and One Project Site Contact and Caller can be selected as a Role"
         );
         this.billToCount = 0;
         this.projectSiteContactCount = 0;
@@ -1030,17 +1042,17 @@ AddNewRow() {
       console.log(
         "Inside for loop :     AR Roles is " +ARRoles 
       );
-      if (ARRoles.includes("Project Site Contact")) {
+      if (ARRoles !== null && ARRoles.includes("Project Site Contact")) {
         projectSiteContact = true;
         console.log("ARRoles Contains inside");
         this.projectSiteContactCount += 1;
       }
       console.log("contains AR");
-      if (ARRoles.includes("Primary/Bill-to")) {
+      if (ARRoles !== null && ARRoles.includes("Primary/Bill-to")) {
         billTo = true;
         this.billToCount += 1;
       }
-      if (ARRoles.includes("Caller")) {
+      if (ARRoles !== null && ARRoles.includes("Caller")) {
         console.log("Caller has been called");
         caller = true;
         this.callerCount += 1;
@@ -1052,16 +1064,21 @@ AddNewRow() {
       ) {
         console.log("Removing row");
       } else {
+        console.log('AR ROles is ' + ARRoles);
         if (ARRoles === "" || ARRoles === null || ARRoles === undefined) 
         {
+          console.log('1AR ROles is ' + this.ARRoleBlank);
           this.ARRoleBlank = true;
+          console.log('2AR ROles is ' + this.ARRoleBlank);
         }
         else if((ARContact === "" || ARContact === null || ARContact === undefined) && (ARAccount === "" || ARAccount === null || ARAccount === undefined))
         {
+          console.log('Cont and ACct blank ' );
           this.ContactAccountBlank = true;
         }
         else if(((ARContact !== null && ARContact !== "") || (ARAccount !== null && ARAccount !== ""))&& (ARRoles !== "" || ARRoles !== null)) 
         {
+          console.log('passed' );
           AccountRoles.push({
             //name: ARName,
             Text: ARRoles,

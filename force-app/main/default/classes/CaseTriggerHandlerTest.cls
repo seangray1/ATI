@@ -61,7 +61,7 @@ public class CaseTriggerHandlerTest {
 		
         //Create the Case Record
 		String DescriptionText = 'Organization ICO Sales \n Crisis Plan Crisis Response Playbook \n Event Name Report an Incident \n Reported By Test@ati.com \n Device Time 3/17/2020 4:1:34 PM';
-        Case cas = new Case(Status ='New', Priority = 'Medium', Origin = 'Email', Description = DescriptionText ); 
+        Case cas = new Case(SuppliedEmail ='Test@test.com', Status ='New', Priority = 'Medium', Origin = 'Email', Description = DescriptionText ); 
         insert cas;
         system.debug('EmailAccount'+ cas.AccountId);
     }

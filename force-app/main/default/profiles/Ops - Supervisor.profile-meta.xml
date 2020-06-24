@@ -625,6 +625,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LargeLossUtility</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LeadEntry</apexClass>
         <enabled>false</enabled>
     </classAccesses>

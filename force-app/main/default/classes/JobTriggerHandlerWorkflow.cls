@@ -424,6 +424,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         List<ATI_Job_Split__c> jobSplitsDelete = new List<ATI_Job_Split__c>();
         Set<Id> JobSetSplitsToDelete = new Set<Id>();
         list<Financial__c> financialsToInsert = new List<Financial__c>();
+        Map<Id,ATI_Job__c> CustomerSurveysJobMap = new Map<Id,ATI_Job__c>();
         for(ATI_Job__c job : jobs)
         {
             system.debug('JobTeamCreation new job is ' + jobs);
@@ -515,20 +516,14 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     ATI_Job__c = job.Id);
                     jobTeams.add(jt);
                 }
-                // if(job.Account_Executive_1__c != null && oldJob.Account_Executive_1__c != job.Account_Executive_1__c)
-                // {
-                //     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_1__c, Team_Member_Role__c = 'Account Executive 1', 
-                //     ATI_Job__c = job.Id);
-                //     jobTeams.add(jt);
-                //     //0 out owner split
-                // }
-                // if(job.Account_Executive_2__c != null && oldJob.Account_Executive_2__c != job.Account_Executive_2__c)
-                // {
-                //     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Account_Executive_2__c, Team_Member_Role__c = 'Account Executive 2', 
-                //     ATI_Job__c = job.Id);
-                //     jobTeams.add(jt);
-                //     //0 out owner split
-                // }
+                if(job.Account_Executive_1__c != null && oldJob.Account_Executive_1__c != job.Account_Executive_1__c)
+                {
+                    CustomerSurveysJobMap.put(job.Id, job);
+                }
+                if(job.Account_Executive_2__c != null && oldJob.Account_Executive_2__c != job.Account_Executive_2__c)
+                {
+                    CustomerSurveysJobMap.put(job.Id, job);
+                }
                 if(job.Branch_Manager__c != null && oldJob.Branch_Manager__c != job.Branch_Manager__c)
                 {
                     ATI_Job_Team__c jt = new ATI_Job_Team__c(User__c = job.Branch_Manager__c, Team_Member_Role__c = 'Regional Manager', 
@@ -548,6 +543,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                         jsToInsert.add(js);
                         JobSetSplitsToDelete.add(job.Id);
                     }
+                    
                     if(job.Account_Executive_1__c != null && job.Account_Executive_2__c != null)
                     {
                         ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
@@ -563,6 +559,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                         jobTeams.add(jt1);
                         jobTeams.add(jt2);
                         JobSetSplitsToDelete.add(job.Id);
+                        
                     }     
                 }      
             }
@@ -576,6 +573,27 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         if(!jobTeams.isEmpty())
         {
             insert jobTeams;
+        }
+        if(!CustomerSurveysJobMap.isEmpty())
+        {
+            List<Customer_Survey__c> customerSurveys = [Select Id, Account_Executive_1__c, Account_Executive_2__c, ATI_Job__c FROM Customer_Survey__c WHERE ATI_Job__c =: CustomerSurveysJobMap.keyset()];
+            if(!customerSurveys.isEmpty())
+            {
+                for(Customer_Survey__c c : customerSurveys)
+                {
+                    if(c.Account_Executive_1__c == null)
+                    {
+                        c.Account_Executive_1__c = CustomerSurveysJobMap.get(c.ATI_Job__c).Account_Executive_1__c;
+                    }
+                    if(c.Account_Executive_2__c == null)
+                    {
+                        c.Account_Executive_2__c = CustomerSurveysJobMap.get(c.ATI_Job__c).Account_Executive_2__c;
+                    }
+           
+                    
+                }
+                update customerSurveys;
+            }
         }
         if(!jsToInsert.isEmpty())
         {

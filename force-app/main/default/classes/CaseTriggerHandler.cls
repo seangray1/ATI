@@ -7,23 +7,33 @@ Public Class CaseTriggerHandler{
               String reportedBy;
               String organization;
               String domain;
+           	Integer WebEmailCount = 0;
               
               List<Contact> cons = new List<Contact>();
               
               for(Case cs: cases){
-                            
-                    reportedBy = cs.Description.substringAfter('Reported By');
+                  
+                  If(String.isNotBlank(cs.SuppliedEmail)){
+                      WebEmailCount++;
+                  }
+                  
+                  If(String.isNotBlank(cs.Description)){
+                  	reportedBy = cs.Description.substringAfter('Reported By');
                     reportedBy = reportedBy.substringBefore('\n').trim();
                     organization = cs.Description.substringAfter('Organization');
                     organization = organization.substringBefore('\n').trim();
                     domain =  '\'%' + String.escapeSingleQuotes(reportedBy.substringAfter('@')) + '\'';
 
-                    
+                  }
                     
                     
               }
-
-                    List<Account> accs = Database.query('Select Id,Name From Account WHERE Website LIKE' + domain);
+	
+                    
+           System.debug('WebEmailCount---------->'+WebEmailCount);
+           
+           If(WebEmailCount > 0){
+               		List<Account> accs = Database.query('Select Id,Name From Account WHERE Website LIKE' + domain);
                     List<Account> orgAccs = [Select id,name from Account where name =:organization limit 1];
                     cons = [Select id,email from contact where email=:reportedBy limit 1];
                     List< Test_Account__mdt > testAccs = [select id,Account_Id__c from Test_Account__mdt];
@@ -69,7 +79,7 @@ Public Class CaseTriggerHandler{
 
          }
        
-       
+           }
        }
 
 

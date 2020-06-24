@@ -2207,7 +2207,7 @@
     <outboundMessages>
         <fullName>Send_Job_Record_To_Jitterbit</fullName>
         <apiVersion>48.0</apiVersion>
-        <endpointUrl>https://ATI69420.jitterbit.net/DEV/jobAtiCall</endpointUrl>
+        <endpointUrl>https://ATI69420.jitterbit.net/DEV/SFtoXactIntegration</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>false</includeSessionId>
         <integrationUser>sf.test@atirestoration.com</integrationUser>

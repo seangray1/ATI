@@ -79,6 +79,7 @@ public with sharing class BudgetPreviewController {
         // Determine Download URL
         pdfDLPageRef = Page.BudgetPDF;                             //This should be my page name
         pdfDLPageRef.getParameters().put('id', budget.Id);
+        
         pdfDLUrl = pdfDLPageRef.getUrl();
         
         System.debug('Downloading PDF WITH Letterhead from "'+pdfDLUrl+'"');

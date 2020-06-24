@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>false</active>
+    <active>true</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <type>creator</type>
@@ -19,23 +19,7 @@
         <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>arlene.uribe@atirestoration.com</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>frank.islas@atirestoration.com</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>mary.thomas@atirestoration.com</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>nicole.garces@atirestoration.com</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>vianey.rollaceli@atirestoration.com</name>
+                <name>nicholas.roman@atirestoration.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

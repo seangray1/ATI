@@ -11,6 +11,7 @@ export default class PropertyUpdateLWC extends LightningElement {
         GetUserInfo({}).then(result =>{
             
             console.log('Result is ' + result);
+            if(result.MasterJobCount > 1)
             if(result === 'System Administrator' || result === 'Contact Center Rep'){
                 console.log('working');
             }else{

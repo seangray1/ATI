@@ -268,56 +268,7 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {
             PropertyAddresses propAddress = GoogleCallout(Street, City, Zip, State);
-            // Http h = new Http();
-            // HttpRequest req = new HttpRequest();
-            //  String address = Street + ', ' + State + ', ' + City + ' ' + Zip;
-            //  system.debug('Address is ' + address);
-            //  req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-            //  EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-            //  req.setMethod('GET');
-            //  req.setTimeout(60000);
-            //  string county;
-            //  string streetnumber1;
-            //  string street1;
-            //  if(!Test.isRunningTest()){
-            // HttpResponse res = h.send(req);
-            // system.debug('Response is ' + res.getBody());
-            // resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-            // system.debug('results are ' + result);
-            
-            // for(results a: result.results){
-            //     system.debug('a ' + a);
-            //     for(address_components ad : a.address_components){
-            //         system.debug('ad ' + ad.types[0]);
-            //         if(ad.types[0] == 'administrative_area_level_2'){
-            //             county = ad.long_name.replace('County', '');
-            //         }
-                    
-            //         if(ad.types[0] == 'locality'){
-            //             City = ad.short_name;
-            //            // system.debug('state is  ' + state);
-            //         }
-            //         if(ad.types[0] == 'administrative_area_level_1'){
-            //             State = ad.short_name;
-            //          //   system.debug('city is  ' + city);
-            //         }
-            //         if(ad.types[0] == 'street_number'){
-            //             streetnumber1 = ad.short_name;
-            //             //system.debug('street # is  ' + streetnumber);
-            //         }
-            //         if(ad.types[0] == 'route'){
-            //             street1 = ad.short_name;
-            //           //  system.debug('Street is  ' + street);
-            //         }
-            //         if(ad.types[0] == 'postal_code'){
-            //             Zip = ad.short_name;
-            //           //  system.debug('Postal # is  ' + postalcode);
-            //         }
-
-            //     }  
-            // }
-            // street = streetnumber1 +' ' + street1;
-        // }
+        
 
 
             Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);

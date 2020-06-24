@@ -31,10 +31,32 @@ public without sharing class BudgetLineItemFieldUpdate {
                     }
                 }
                 if(String.isNotBlank(TradeValue)){
-                	b.Trade_Option__c = TradeValue;
+                b.Trade_Option__c  = TradeValue;
+                    b.Trade__c = TradeValue;
                 }
             }
         }
     
     }
+    
+    public static void InsertErrortLogForTrade(List<Budget_Line_Item__c> BugetLineItem){
+        List<Jitterbit_Log__c> JitLogList = new List<Jitterbit_Log__c>();
+        for(Budget_Line_Item__c Bl: BugetLineItem){
+            if(bl.Trade_Option__c  =='Others'){
+                Jitterbit_Log__c Jl = new Jitterbit_Log__c();
+                Jl.Status__c='Warning';
+                Jl.Name = 'Estimate - Buget Line Item Trade Option mismatch';
+                Jl.Error_Warning_Details__c = 'There is a mismatch value coming from Xact for Trade - '+bl.Trade__c;
+                Jl.XASP_Transaction_ID__c = '';
+                Jl.Record_ID__c =bl.id;
+                Jl.Source_System__c = 'XASP';
+                Jl.Destination_System__c ='ATI Salesforce'; 
+                JitLogList .add(Jl);               
+            }
+        }
+        if(JitLogList.size() > 0){
+            insert JitLogList;
+        }
+    }
+    
 }

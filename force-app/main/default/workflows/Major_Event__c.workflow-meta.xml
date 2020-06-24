@@ -10,7 +10,7 @@
         <protected>false</protected>
     </fieldUpdates>
     <rules>
-        <fullName>Update Status When End Date Populates</fullName>
+        <fullName>MAJOR EVENT Update Status When End Date Populates</fullName>
         <actions>
             <name>Update_Status_to_Inactive</name>
             <type>FieldUpdate</type>
