@@ -17,8 +17,11 @@ import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
 import CONTACTTYPE_FIELD from "@salesforce/schema/Contact.Contact_Type__c";
 import TYPE_FIELD from "@salesforce/schema/Account.Type";
 import GetUserInfo from "@salesforce/apex/NewJobController.GetUserInfo";
+import { NavigationMixin } from 'lightning/navigation';
+import { refreshApex } from '@salesforce/apex';
 let AccountRolesPassed= false;
-export default class AccountRolesEditLWC extends LightningElement 
+const DELAY = 100;
+export default class AccountRolesEditLWC extends NavigationMixin (LightningElement) 
 {
 @api recordId;
 @track MarketsDisabled = false;
@@ -278,6 +281,7 @@ getAllAccountRoleObjects() {
   ContactAccountChanged(event) {
     window.clearTimeout(this.delayTimeout);
     var searchKey = event.target.value;
+    console.log('Search Key is ' + searchKey);
     if (searchKey.length === 0) {
       this.ContactAccounts = null;
     }
@@ -324,6 +328,7 @@ getAllAccountRoleObjects() {
   ARContactChange(event) {
     window.clearTimeout(this.delayTimeout);
     var searchKey = event.target.value;
+    console.log('Search Key ' + searchKey);
     if (searchKey.length === 0) {
       this.ARContacts = null;
     }
@@ -347,6 +352,42 @@ getAllAccountRoleObjects() {
           });
       }, DELAY);
     }
+  }
+  populateContactAccountField(event) {
+    // console.log('Property Id first is + ' + this.Property.Id);
+    //console.log('Property Id first is + ' + this.testingProperty);
+    //this.PropertyID = event.detail.value;
+    this.ContactAccounts = "";
+    this.ContactAccountSelected = true;
+    this.AccountEmpty = false;
+    var ContactAccountField = event.target.value;
+    this.ContactAccountValue = ContactAccountField.Id;
+    this.ContactAccountId = ContactAccountField.Id;
+    this.ContactAccountName = ContactAccountField.Name;
+  }
+  populateContactAccountField(event) {
+    // console.log('Property Id first is + ' + this.Property.Id);
+    //console.log('Property Id first is + ' + this.testingProperty);
+    //this.PropertyID = event.detail.value;
+    this.ContactAccounts = "";
+    this.ContactAccountSelected = true;
+    this.AccountEmpty = false;
+    var ContactAccountField = event.target.value;
+    this.ContactAccountValue = ContactAccountField.Id;
+    this.ContactAccountId = ContactAccountField.Id;
+    this.ContactAccountName = ContactAccountField.Name;
+  }
+  populateCustomerField(event) {
+    // console.log('Property Id first is + ' + this.Property.Id);
+    //console.log('Property Id first is + ' + this.testingProperty);
+    //this.PropertyID = event.detail.value;
+    this.Customers = "";
+    this.CustomerSelected = true;
+    this.CustomerSelectedField = event.target.value;
+    this.CustomerValue = this.CustomerSelectedField.Name;
+    this.CustomerId = this.CustomerSelectedField.Id;
+    this.CustomerAccountId = this.CustomerSelectedField.Account.Id;
+    this.CustomerAccountName = this.CustomerSelectedField.Account.Name;
   }
 AddNewRow() {
     //this.AccountRoleNew(Name ='test');
@@ -998,6 +1039,7 @@ AddNewRow() {
             recordId:this.recordId
           }).then((result) => {
             console.log("Response is " + result);
+            
             this.jobLoading = false;
             this.billToCount = 0;
             this.projectSiteContactCount = 0;
@@ -1007,7 +1049,16 @@ AddNewRow() {
               this.jobLoading = false;
               alert(data);
             } else {
-              this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
+                this[NavigationMixin.Navigate]
+                ({
+                type: 'standard__recordPage',
+                attributes: {
+                  recordId: this.recordId,
+                  objectApiName: 'ATI_Job__c',
+                  actionName: 'view',
+                  },
+                });
+              //this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
             }
         })
     }

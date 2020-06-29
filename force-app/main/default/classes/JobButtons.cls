@@ -39,7 +39,7 @@ public without sharing class JobButtons {
         
         ATI_Job__c job = [Select Id, office2__c, Project_Manager__c, Project_manager_new__c, lead_source__c, Name, Percent_Complete__c, Estimated_Completion_Date_Per_PD__c FROM ATI_Job__c WHERE Id =: '1'];
         job.Name = job.Project_manager__c;
-        List<office__c> office = [Select Id, office_manager__c, project_coordinator__c, project_admin_two__c FROM Office__c WHERE id =:job.office2__c];
+        List<office__c> office = [Select Id, office_manager__c, Project_Note_Office_Email__c, project_coordinator__c, project_admin_two__c FROM Office__c WHERE id =:job.office2__c];
         system.debug('Working + ' + ownerId);
         string comments = '\n' + 'Project Note: ' + job.name +'\n' + '\n' + '\n' + 'Percent of Job Complete: ' + percent + '%' + '\n' +'\n' + 'Work/Trades started/completed since last week: ' + workCompleted + '\n' +'\n' + 'Work to be started this week: '+ workStarted + '\n' + '\n' +'Estimated completion date Per PM: '+ completionDate + '\n' + '\n' +'Has Insured/Member completed all selections? Y/N:' + insured + '\n' +'\n' + 'Potential Supplement?Y/N: '+ supplement + '\n' +'\n' + 'Repair Update Comments: ' + repairComments;
         Task t = new Task( Type = 'Project Note', ActivityDate = system.today(), Description = comments, OwnerId = ownerId, Priority = 'Low', Status='Completed', Subject = 'Project Note', WhatId = recordId);
@@ -81,6 +81,13 @@ public without sharing class JobButtons {
         feedItemInput.body = messageBodyInput;
         feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
         feedItemInput.subjectId = recordId;
+
+        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        email.setToAddresses(new String[] { office[0].Project_Note_Office_Email__c });
+        email.setSubject('Project Note');
+        email.setHtmlBody(comments);
+        Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ email });
+
         if(Test.isRunningTest()){return 'success';}
         else{
         ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);

@@ -1,0 +1,101 @@
+<template>
+   
+        <article class="slds-card slds-theme_shade" style="height:50px;">
+            <div class="slds-card__header slds-grid " >
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure" style="padding-bottom: 10px;">
+                  <span class="slds-icon_container slds-icon-custom-custom91"  title="AccountRoles">
+                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                      <use xlink:href={spring20Logo}></use>
+                    </svg>
+                    <span class="slds-assistive-text">contact</span>
+                  </span>
+                </div>
+                <div class="slds-media__body " style="padding-bottom: 10px;">
+                  <h2 class="slds-card__header-title">
+                    <a href={ViewAll} class="slds-card__header-link slds-truncate" title="Account Roles ()">
+                      <span >Account Roles ({AccountRolesSize})</span>
+                    </a>
+                  </h2>
+                </div>
+                
+            </header>
+        </div> 
+    </article>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                onrowaction={handleRowAction}
+                
+                hide-checkbox-column>
+        </lightning-datatable>
+    <div class="slds-theme_default" style="height: 50px;" ></div>  
+    </div> 
+    
+    <template if:true={ViewDetails}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+               
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={CloseViewDetails}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                   
+                </header>
+                
+                <div class="slds-box slds-theme_shade">
+                    <template if:true={ContactExists}>
+                    <div class="slds-m-top_medium slds-m-bottom_x-large">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+                            Contact Info
+                        </h2>
+                
+                        <!-- With an avatar -->
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-tile label={RowLevelDetails.ContactId} href={RowLevelDetails.Contact} type="media">
+                                <lightning-icon slot="media" icon-name="standard:contact"></lightning-icon>
+                                <ul class="slds-list_horizontal slds-has-dividers_right">
+                                    <li class="slds-item">{RowLevelDetails.ContactPhone}</li>
+                                    <li class="slds-item">{RowLevelDetails.ContactEmail}</li>
+                                </ul>
+                            </lightning-tile>
+                        </div>
+                    </div>
+                </template>
+                    <template if:true={AccountExists}>
+                    <div class="slds-m-top_medium slds-m-bottom_x-large">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+                            Account Info
+                        </h2>
+                
+                        <!-- With an avatar -->
+                        
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-tile label={RowLevelDetails.AccountId} href={RowLevelDetails.Account} type="media">
+                                <lightning-icon slot="media" icon-name="standard:account"></lightning-icon>
+                                <ul class="slds-list_horizontal slds-has-dividers_right">
+                                    <li class="slds-item">{RowLevelDetails.AccountPhone}</li>
+                                    <li class="slds-item">{RowLevelDetails.AccountType}</li>
+                                </ul>
+                            </lightning-tile>
+                        </div>
+                   
+                    </div>
+                </template>
+    
+                    <br>
+                    <lightning-button label="Cancel" class="Buttonspacing" onclick={CloseViewDetails}></lightning-button>
+            </div>
+        </div>
+        
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    
+</template>

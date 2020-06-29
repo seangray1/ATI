@@ -85,6 +85,12 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
+            ],
+            "c/accountRolesDataTable": [
+                "accountRolesDataTable/accountRolesDataTable.js"
+            ],
+            "c/AccountRolesDataTable": [
+                "AccountRolesDataTable/AccountRolesDataTable.js"
             ]
         },
         "experimentalDecorators": true

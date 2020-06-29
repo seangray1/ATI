@@ -137,7 +137,7 @@ public class ATIInvoiceController{
         Account_Roles__c BillToAccountRole = new Account_Roles__c();
         List<Invoice__c> oldInvoices = [Select Id, Bill_To__c FROM Invoice__c Where ATI_Job__c =: job.Id AND Last_Successful_Timberline_Sync__c != null ORDER BY 
         Last_Successful_Timberline_Sync__c DESC Limit 1];
-        if(!oldInvoices.isEmpty()){
+        if(!oldInvoices.isEmpty() && invoiceRecord.Bill_To__c == null){
             invoiceRecord.Bill_To__c = oldInvoices[0].Bill_To__c;
         }
         if(invoiceRecord.Bill_To__c == null && !ar.isEmpty())
@@ -151,7 +151,7 @@ public class ATIInvoiceController{
             }
         }
 
-         List<Account> acctList = [Select a.BillingStreet, a.BillingState, a.BillingPostalCode, 
+        List<Account> acctList = [Select a.BillingStreet, a.BillingState, a.BillingPostalCode, 
                            a.BillingCountry, a.BillingCity, a.Tax_Group__c, a.Billing_Notes__c From Account a WHERE a.Id =:invoiceRecord.Bill_To__c
                            or a.Id = :invoiceRecord.Care_Of__c];
          System.debug('Checking acctList--'+acctList +'--'+invoiceRecord.Care_Of__c)  ;                

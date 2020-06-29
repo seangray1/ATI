@@ -44,51 +44,68 @@ public without sharing class NewJobController {
         
     }
     
-@AuraEnabled
-public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision)
-{
-    try 
-    {
-        system.debug('Items before ' + ItemsToApproveReject);
-        Set<Id> pInstanceWorkitems = new Set<Id>();
-        //JSONWrapper projectWrap = (JSONWrapper)JSON.deserialize(ProjectJSON, JSONWrapper.class);
-        ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
-        system.debug('Items to Approve/reject ' + itemstoapproverejectlist);
-        List<string> iList = new List<string>();
-        for(ItemToApprove i : itemstoapproverejectlist.ItemsToApproveReject)
-        {
-            system.debug('i is ' + i);
-            iList.add(i.id);
-            pInstanceWorkitems.add(i.processId);
-        }
-        List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>(); 
-        for (Id pInstanceWorkitemsId:pInstanceWorkitems)
-        {
-            system.debug(pInstanceWorkitemsId);
-            Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
-            req2.setComments(Comments);
-            req2.setAction(Decision); //to approve use 'Approve'
-            req2.setWorkitemId(pInstanceWorkitemsId);
-            system.debug('req 2 ' + req2);
-            allReq.add(req2);
-        }
-        //Approval.ProcessResult[] result2 =  Approval.process(allReq);
-        return '200';
-    } catch (Exception e) 
-    {
-        return e.getMessage();
-    }
-}
+// @AuraEnabled
+// public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision)
+// {
+//     try 
+//     {
+//         system.debug('Items before ' + ItemsToApproveReject);
+        
+//         Set<Id> pInstanceWorkitems = new Set<Id>();
+//         //JSONWrapper projectWrap = (JSONWrapper)JSON.deserialize(ProjectJSON, JSONWrapper.class);
+//         ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
+//         system.debug('Items to Approve/reject ' + itemstoapproverejectlist);
+//         if(itemstoapproverejectlist.size() == 1)
+//         {
+//             ApproveSelectedItemsQueueable(ItemsToApproveReject, Comments, Decision);
+//             return '200';
+//         }
+//         else{
+//         List<string> iList = new List<string>();
+//         for(ItemToApprove i : itemstoapproverejectlist.ItemsToApproveReject)
+//         {
+//             system.debug('i is ' + i);
+//             iList.add(i.id);
+//             pInstanceWorkitems.add(i.processId);
+//         }
+//         List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>(); 
+//         for (Id pInstanceWorkitemsId:pInstanceWorkitems)
+//         {
+//             system.debug(pInstanceWorkitemsId);
+//             Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
+//             req2.setComments(Comments);
+//             req2.setAction(Decision); //to approve use 'Approve'
+//             req2.setWorkitemId(pInstanceWorkitemsId);
+//             system.debug('req 2 ' + req2);
+//             allReq.add(req2);
+//         }
+//         Approval.ProcessResult[] result2 =  Approval.process(allReq);
+//         return '200';
+//     }
+//     } catch (Exception e) 
+//     {
+//         return e.getMessage();
+//     }
+//     return '200';
+// }
     @AuraEnabled
     public static List<ItemToApprove> GetAccountData(String objectName){
+        system.debug('object name is ' + objectName);
         Set<Id> userSet = new Set<Id>();
         Set<Id> ProcessInstanceId = new Set<Id>();
         Map<Id, ProcessInstance> processInstanceMap = new Map<Id, ProcessInstance>();
+        Map<Id, ProcessInstance> processcContactInstanceMap = new Map<Id, ProcessInstance>();
         Map<Id, ProcessInstanceWorkitem> processJobMap = new Map<Id, ProcessInstanceWorkitem>();
         Map<Id, ProcessInstance> processMJobMap = new Map<Id, ProcessInstance>();
+        Map<Id, ProcessInstance> processContactMap = new Map<Id, ProcessInstance>();
         Map<Id, ProcessInstanceWorkitem> processuserMap = new Map<Id, ProcessInstanceWorkitem>();
+        Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
+        Map<Id, Contact> contactMap = new Map<Id,Contact>();
         Map<Id, String> processuserMap1 = new Map<Id, string>();
+        List<ATI_Job__c> mjoblist = new List<ATI_Job__c>();
+        List<Contact> contactlist = new List<Contact>();
         
+        Set<Id> contactIds = new Set<Id>();
         Set<Id> mjobids = new Set<Id>();
         List<ProcessInstanceWorkitem> piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
     //   if(objectName == 'Master Job')
@@ -108,6 +125,18 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
         for(ProcessInstance p : processInstanceList)
         {
+            if(objectName == 'Contact')
+            {
+            if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Contact')
+            {
+                processcContactInstanceMap.put(p.Id, p);
+                processContactMap.put(p.targetObjectId, p);
+                
+                contactIds.add(p.targetObjectId);
+            }
+        }
+        if(objectName == 'Master Job')
+            {
             if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
             {
                 processInstanceMap.put(p.Id, p);
@@ -116,13 +145,29 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
                 mjobids.add(p.targetObjectId);
             }
         }
-        Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
+        }
+
+        
         system.debug('mjob ids ' + mjobids);
-        List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
-        for(ATI_Job__c job : mjoblist)
+        if(objectName == 'Master Job')
         {
-            system.debug('job is ' + job);
-            mjobMap.put(job.Master_Job__c, job);
+             mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, 
+            Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
+            
+            for(ATI_Job__c job : mjoblist)
+            {
+                system.debug('job is ' + job);
+                mjobMap.put(job.Master_Job__c, job);
+            }
+        }
+        if(objectName == 'Contact')
+        {
+            contactMap.putAll([Select Id, Name FROM Contact Where Id =:contactIds]);
+            // for(Contact c : contactlist)
+            // {
+            //     system.debug('Contact is ' + c);
+            //     .put(Id, job);
+            // }
         }
         List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
         // system.debug('Items To Approve Class ' + ItemsToApproveClass);
@@ -131,25 +176,44 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         // ItemsToApproveClass.items.add(ia);
         // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
         //system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        
-        for(ProcessInstance p : processInstanceMap.values())
+        if(objectName == 'Master Job')
         {
-            ItemToApprove i = new ItemToApprove();
-            i.processId = processJobMap.get(p.Id).Id;
-            i.processinstanceId = p.Id;
-            i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
-            system.debug('i is ' + i );
-            i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
-            i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
-            i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
-            i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
-            i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
-            i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
-            i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
-            i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
-            system.debug('i is ' + i );
+            for(ProcessInstance p : processInstanceMap.values())
+            {
+                ItemToApprove i = new ItemToApprove();
+                i.processId = processJobMap.get(p.Id).Id;
+                i.processinstanceId = p.Id;
+                i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
+                system.debug('i is ' + i );
+                i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
+                i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
+                i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
+                i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
+                i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
+                i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
+                i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
+                i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
+                system.debug('i is ' + i );
 
-            ItemsToApproveClass.add(i);
+                ItemsToApproveClass.add(i);
+            }
+        }
+        if(objectName == 'Contact')
+        {
+            for(ProcessInstance p : processInstanceMap.values())
+            {
+                ItemToApprove i = new ItemToApprove();
+                i.processId = processJobMap.get(p.Id).Id;
+                i.processinstanceId = p.Id;
+                i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
+                system.debug('i is ' + i );
+                
+                i.Contact = contactMap.get(p.targetObjectId).Name;
+                i.ContactId = p.TargetObjectId;
+                system.debug('i is ' + i );
+
+                ItemsToApproveClass.add(i);
+            }
         }
         system.debug('ItemsToApproveClass is ' + ItemsToApproveClass);
         system.debug('Jobs Class is ' + mjoblist);
@@ -268,58 +332,6 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {
             PropertyAddresses propAddress = GoogleCallout(Street, City, Zip, State);
-            // Http h = new Http();
-            // HttpRequest req = new HttpRequest();
-            //  String address = Street + ', ' + State + ', ' + City + ' ' + Zip;
-            //  system.debug('Address is ' + address);
-            //  req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-            //  EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-            //  req.setMethod('GET');
-            //  req.setTimeout(60000);
-            //  string county;
-            //  string streetnumber1;
-            //  string street1;
-            //  if(!Test.isRunningTest()){
-            // HttpResponse res = h.send(req);
-            // system.debug('Response is ' + res.getBody());
-            // resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-            // system.debug('results are ' + result);
-            
-            // for(results a: result.results){
-            //     system.debug('a ' + a);
-            //     for(address_components ad : a.address_components){
-            //         system.debug('ad ' + ad.types[0]);
-            //         if(ad.types[0] == 'administrative_area_level_2'){
-            //             county = ad.long_name.replace('County', '');
-            //         }
-                    
-            //         if(ad.types[0] == 'locality'){
-            //             City = ad.short_name;
-            //            // system.debug('state is  ' + state);
-            //         }
-            //         if(ad.types[0] == 'administrative_area_level_1'){
-            //             State = ad.short_name;
-            //          //   system.debug('city is  ' + city);
-            //         }
-            //         if(ad.types[0] == 'street_number'){
-            //             streetnumber1 = ad.short_name;
-            //             //system.debug('street # is  ' + streetnumber);
-            //         }
-            //         if(ad.types[0] == 'route'){
-            //             street1 = ad.short_name;
-            //           //  system.debug('Street is  ' + street);
-            //         }
-            //         if(ad.types[0] == 'postal_code'){
-            //             Zip = ad.short_name;
-            //           //  system.debug('Postal # is  ' + postalcode);
-            //         }
-
-            //     }  
-            // }
-            // street = streetnumber1 +' ' + street1;
-        // }
-
-
             Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);
             update prop;
             List<ATI_Job__c> jobs = [Select ID, Project_Site_Address__c, Project_Site_CIty__c, Project_Site_State__c, Project_Site_Zipcode__c FROM ATI_Job__c WHere Property_Id__c =: prop.Id];
@@ -437,6 +449,16 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         system.debug('Contacts are ' + accts);
         return accts;
     }
+    @AuraEnabled(cacheable = true)
+    public static List<Account_Roles__c> RetrieveAccountRoles(String recordId) {
+        
+        List<Account_Roles__c> acctRoles = [Select Id,Account_Id__c, Account_Id__r.Name, Contact_Id__c, Contact_Id__r.Name,
+                                            Contact_Id__r.Phone, Contact_Id__r.Email, Account_Id__r.Phone, Account_Id__r.Type,
+                                            Timberline_Customer_Number__c, Multiple_Roles__c
+                                            FROM Account_Roles__c Where Master_Job_ID__c =: recordId];
+        system.debug('Account Roles are ' + acctRoles);
+        return acctRoles;
+    }
     
     @AuraEnabled 
     public static list<Account_Roles__c> CheckId(string propId){
@@ -451,7 +473,7 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
     }
     @AuraEnabled 
     public static list<Account_Roles__c> GetJobAccountRoles(string recordId){
-        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Master_Job_Id__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Master_Job_Id__c =: recordId LIMIT 5];
+        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Master_Job_Id__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Master_Job_Id__c =: recordId LIMIT 15];
         system.debug('Account Roles are ' + a.size() + ' and record Id is ' + recordId);
         return a;
 
@@ -1031,56 +1053,6 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         PropertyWrapper Property = (PropertyWrapper)JSON.deserialize(PropertyInfo, PropertyWrapper.class);
         PropertyAddresses propAddress = GoogleCallout(Property.Street, Property.City, Property.Zip, Property.State);
         
-        //     Http h = new Http();
-        //     HttpRequest req = new HttpRequest();
-        //      String address = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
-        //      req.setEndpoint('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address='+
-        //      EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
-        //      req.setMethod('GET');
-        //      req.setTimeout(60000);
-        //      string county;
-        //      string streetnumber;
-        //      string street;
-        //      if(!Test.isRunningTest()){
-        //     HttpResponse res = h.send(req);
-        //     system.debug('Response is ' + res.getBody());
-        //     resultswrapper result = (resultswrapper)JSON.deserialize(res.getBody(), resultswrapper.class);
-        //     system.debug('results are ' + result);
-            
-        //     for(results a: result.results){
-        //         system.debug('a ' + a);
-        //         for(address_components ad : a.address_components){
-        //             system.debug('ad ' + ad.types[0]);
-        //             if(ad.types[0] == 'administrative_area_level_2'){
-        //                 county = ad.long_name.replace('County', '');
-        //             }
-                    
-        //             if(ad.types[0] == 'locality'){
-        //                 Property.city = ad.short_name;
-        //                // system.debug('state is  ' + state);
-        //             }
-        //             if(ad.types[0] == 'administrative_area_level_1'){
-        //                 Property.state = ad.short_name;
-        //              //   system.debug('city is  ' + city);
-        //             }
-        //             if(ad.types[0] == 'street_number'){
-        //                 streetnumber = ad.short_name;
-        //                 //system.debug('street # is  ' + streetnumber);
-        //             }
-        //             if(ad.types[0] == 'route'){
-        //                 street = ad.short_name;
-        //               //  system.debug('Street is  ' + street);
-        //             }
-        //             if(ad.types[0] == 'postal_code'){
-        //                 Property.Zip = ad.short_name;
-        //               //  system.debug('Postal # is  ' + postalcode);
-        //             }
-
-        //         }  
-        //     }
-        //     property.street = streetnumber +' ' + street;
-        // }
-        //     system.debug('county ' + county);
         Boolean NewProperty;
         Property__c prop = new Property__c();
         List<Account_Roles__c> ARPropertyList = new List<Account_Roles__c>();
@@ -1871,6 +1843,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     //     Master_Job__c mJob = new Master_Job__c(Id = MasterJobId, Job__c = JobId);
     //     update mJob;
     // }
+
     private static PropertyAddresses GoogleCallout(String Street, String City, String Zipcode, String State)
     {
     string county;
@@ -1879,6 +1852,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     string localityCity;
     string sublocalityCity;
     string neighborhoodCity;
+    
     string adminlevel3City;
     String address = Street + ', ' + State + ', ' + City + ' ' + Zipcode;
     PropertyAddresses propertyAddress = new PropertyAddresses();
@@ -1914,7 +1888,14 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 }
                 if(ad.types[0] == 'locality')
                 {
+                    if(ad.short_name.length() <= 3)
+                    {
+                        localityCity = ad.long_name;
+                    }
+                    else
+                    {
                     localityCity = ad.short_name;
+                    }
                 }
 
                 if(ad.types[0] == 'political')
@@ -1941,7 +1922,12 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     propertyAddress.ZipCode = ad.short_name;
                 //  system.debug('Postal # is  ' + postalcode);
                 }
-
+                if(ad.types[0] == 'postal_code_suffix')
+                {
+                    propertyAddress.ZipCode += '-' + ad.short_name;
+                //  system.debug('Postal # is  ' + postalcode);
+                }
+                
             }  
         }
         if(streetnumber != null)
