@@ -18,7 +18,9 @@
                     </a>
                   </h2>
                 </div>
-                
+                <div class="slds-no-flex">
+                    <button onclick={EditAccountRoles} class="slds-button slds-button_neutral">Edit</button>
+                  </div>
             </header>
         </div> 
     </article>
@@ -31,8 +33,9 @@
                 
                 hide-checkbox-column>
         </lightning-datatable>
-    <div class="slds-theme_default" style="height: 50px;" ></div>  
+    <div class="slds-theme_default" style="height: 30px;" ></div>  
     </div> 
+</br>
     
     <template if:true={ViewDetails}>
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
@@ -50,6 +53,7 @@
                 </header>
                 
                 <div class="slds-box slds-theme_shade">
+                    <div style="display: inline-block;">
                     <template if:true={ContactExists}>
                     <div class="slds-m-top_medium slds-m-bottom_x-large">
                         <h2 class="slds-text-heading_medium slds-m-bottom_medium">
@@ -58,11 +62,20 @@
                 
                         <!-- With an avatar -->
                         <div class="slds-p-around_medium lgc-bg">
+                        
                             <lightning-tile label={RowLevelDetails.ContactId} href={RowLevelDetails.Contact} type="media">
                                 <lightning-icon slot="media" icon-name="standard:contact"></lightning-icon>
                                 <ul class="slds-list_horizontal slds-has-dividers_right">
                                     <li class="slds-item">{RowLevelDetails.ContactPhone}</li>
                                     <li class="slds-item">{RowLevelDetails.ContactEmail}</li>
+                                    
+                                    <li class="slds-item">{RowLevelDetails.ContactAccountName}</li>
+                                </ul>
+                                <ul class="slds-list_horizontal slds-has-dividers_right">
+                                    <li class="slds-item">{RowLevelDetails.ContactTitle}</li>
+                                    <li class="slds-item">{RowLevelDetails.ContactCity}</li>
+                                    <li class="slds-item">{RowLevelDetails.ContactState}</li>
+                                    
                                 </ul>
                             </lightning-tile>
                         </div>
@@ -82,13 +95,19 @@
                                 <ul class="slds-list_horizontal slds-has-dividers_right">
                                     <li class="slds-item">{RowLevelDetails.AccountPhone}</li>
                                     <li class="slds-item">{RowLevelDetails.AccountType}</li>
+                                    <li class="slds-item">{RowLevelDetails.AccountOwner}</li>
+                                </ul>
+                                <ul class="slds-list_horizontal slds-has-dividers_right">
+                                    <li class="slds-item">{RowLevelDetails.AccountCity}</li>
+                                    <li class="slds-item">{RowLevelDetails.AccountState}</li>
+                                    
                                 </ul>
                             </lightning-tile>
                         </div>
                    
                     </div>
                 </template>
-    
+            </div>
                     <br>
                     <lightning-button label="Cancel" class="Buttonspacing" onclick={CloseViewDetails}></lightning-button>
             </div>

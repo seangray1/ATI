@@ -275,6 +275,7 @@ public class JobUtility {
         
         Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
         Map<Id, ATI_Job__c> JobMap = new Map<Id, ATI_Job__c>();
+        List<ATI_Job__c> JobList = new List<ATI_Job__c>();
         for(ATI_Job__c job : jobs){
             //job record type changed, only approved job will be considered to call FotoIn
             if(Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)') == null || 
@@ -297,10 +298,12 @@ public class JobUtility {
                    continue;
                }else{
                    JobMap.put(job.id, job);
+                   JobList.add(job);
                }
         }
-        if( !JobMap.isEmpty() && !System.isBatch() && !System.isScheduled() ){
-            callFotoIn2Create(JobMap.keySet());
+        if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() ){
+            //callFotoIn2Create(JobMap.keySet());
+            Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Create'));
         }
         
     }
@@ -314,6 +317,7 @@ public class JobUtility {
         
         Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName;
         Map<Id, ATI_Job__c> JobMap = new Map<Id, ATI_Job__c>();
+        List<ATI_Job__c> JobList = new List<ATI_Job__c>();
         for(ATI_Job__c job : jobs){
             // only when the job record Type is Job approved
             if(Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)') == null || 
@@ -338,11 +342,17 @@ public class JobUtility {
                || (oldJobMap.get(job.id).Project_Site_Zipcode__c != job.Project_Site_Zipcode__c) 
               ){
                   JobMap.put(job.id, job);
+                  JobList.add(job);
+                  
               }
         }
-        if( !JobMap.isEmpty() && !System.isBatch() && !System.isScheduled()){
-            callFotoIn2Update(JobMap.keySet());
+        // if( !JobMap.isEmpty() && !System.isBatch() && !System.isScheduled()){
+        //     callFotoIn2Update(JobMap.keySet());
             
+        // }
+        if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() ){
+            //callFotoIn2Create(JobMap.keySet());
+            Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Edit'));
         }
         
     }

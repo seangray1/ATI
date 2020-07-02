@@ -1,7 +1,9 @@
 public class AccountRoleTriggerHandler {
 
-    public Static Void InsertCampaignJunction(List < Account_Roles__c > accRoles) {
+    public Static Void InsertCampaignJunction(List < Account_Roles__c > accRoles1) {
 
+    List < Account_Roles__c > accRoles = new List < Account_Roles__c > ([Select id, Name, Contact_ID__c,Master_Job_ID__c, Master_Job_ID__r.Date_Time_Taken__c from Account_Roles__c where id =: accRoles1  ]);
+        
     List < CampaignMember > campaignMembers = new List < CampaignMember > ();
     List < Contact > cons = new List < Contact > ();
     List < Campaign_Junction__c > insertCampJunctions = new List < Campaign_Junction__c > ();
@@ -17,7 +19,7 @@ public class AccountRoleTriggerHandler {
 
 
     if (conIds.size() > 0) {
-        List < CampaignMember > campMembers = [Select id, CampaignId, Contactid from CampaignMember where ContactId in: conids];
+        List < CampaignMember > campMembers = [Select id, CampaignId, Contactid, campaign.StartDate, campaign.Enddate from CampaignMember where ContactId in: conids];
         
         Map < id, List < CampaignMember >> conCampMap = new Map < id, List < CampaignMember >> ();
 
@@ -64,8 +66,14 @@ public class AccountRoleTriggerHandler {
                     insertCampJunction.Contact__c = campMember.ContactId;
                     insertCampJunction.Job__c = accRole.Master_Job_ID__c;
                     
-                    insertCampJunctions.add(insertCampJunction);
+                    System.debug('Job '+accRole.Master_Job_ID__c);
+                    System.debug('Job Taken date'+accRole.Master_Job_ID__r.Date_Time_Taken__c);
+                    System.debug('StartDate---->'+campMember.campaign.StartDate);
+                    System.debug('EndDate------>'+(campMember.campaign.EndDate).AddDays(1));
                     
+                    if(accRole.Master_Job_ID__r.Date_Time_Taken__c >= campMember.campaign.StartDate && accRole.Master_Job_ID__r.Date_Time_Taken__c <= (campMember.campaign.EndDate).AddDays(1)){
+                    	insertCampJunctions.add(insertCampJunction);
+                    }
                    
                 
                 }
@@ -84,7 +92,8 @@ public class AccountRoleTriggerHandler {
 
 }
     public Static Void UpdateCampaignJunction(List < Account_Roles__c > accRolesNew, map<id, Account_Roles__c> oldAccRolesMap) {
-        
+
+	List < Account_Roles__c > accRoles1 = new List < Account_Roles__c > ([Select id, Name, Contact_ID__c,Master_Job_ID__c, Master_Job_ID__r.Date_Time_Taken__c from Account_Roles__c where id =: accRolesNew  ]);        
     List < CampaignMember > campaignMembers = new List < CampaignMember > ();
     List < Contact > cons = new List < Contact > ();
     List < Account_Roles__c > accRoles = new List < Account_Roles__c > ();
@@ -94,7 +103,7 @@ public class AccountRoleTriggerHandler {
         
         
         
-        for (Account_Roles__c ar: accRolesNew) {
+        for (Account_Roles__c ar: accRoles1) {
         
             Account_Roles__c oldAccountRole = oldAccRolesMap.get(ar.ID);
         
@@ -126,7 +135,7 @@ public class AccountRoleTriggerHandler {
 
     if (conIds.size() > 0) {
 
-        List < CampaignMember > campMembers = [Select id, CampaignId, Contactid from CampaignMember where ContactId in: conids];
+        List < CampaignMember > campMembers = [Select id, CampaignId, Contactid, campaign.StartDate, campaign.EndDate from CampaignMember where ContactId in: conids];
         Map < id, List < CampaignMember >> conCampMap = new Map < id, List < CampaignMember >> ();
 
         for (CampaignMember campMember: campMembers) {
@@ -172,8 +181,9 @@ public class AccountRoleTriggerHandler {
                     insertCampJunction.Contact__c = campMember.ContactId;
                     insertCampJunction.Job__c = accRole.Master_Job_ID__c;
                     
-                    insertCampJunctions.add(insertCampJunction);
-                
+                    if(accRole.Master_Job_ID__r.Date_Time_Taken__c >= campMember.campaign.StartDate && accRole.Master_Job_ID__r.Date_Time_Taken__c <= (campMember.campaign.EndDate).AddDays(1)){
+                    	insertCampJunctions.add(insertCampJunction);
+                    }
                 }
                 
                 campaignMembers.clear();

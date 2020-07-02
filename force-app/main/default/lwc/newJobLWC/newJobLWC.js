@@ -201,7 +201,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   ContactRole;
   CustomerAccountId;
   CustomerAccountName;
-  AccountRolePicklistValuesContainer = [{}];
+  AccountRolePicklistValuesContainer;
   DivisionPicklistValues = [{}];
   JobClassPicklistValues = [{}];
   EsJobTypePicklistValues = [{}];
@@ -345,12 +345,17 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     recordTypeId: "$objectInfo.data.defaultRecordTypeId",
     fieldApiName: ROLE_FIELD
   })
-  AccountRolesValues;
-  @wire(getPicklistValues, {
-    recordTypeId: "$objectInfo.data.defaultRecordTypeId",
-    fieldApiName: ROLE_FIELD
-  })
-  AccountRoleValues;
+  AccountRolesValues({ data }) {
+    if (data) {
+      this.AccountRolePicklistValuesContainer = data.values;
+      console.log(this.AccountRolePicklistValuesContainer);
+    }
+  }
+  // @wire(getPicklistValues, {
+  //   recordTypeId: "$objectInfo.data.defaultRecordTypeId",
+  //   fieldApiName: ROLE_FIELD
+  // })
+  // AccountRoleValues;
   @wire(getPicklistValues, {
     recordTypeId: "0120g000000l3yMAAQ",
     fieldApiName: DIVISION_FIELD
@@ -468,7 +473,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         }).then((result) => {
           let Prop = result;
           this.PropertyChecked = true;
-          console.log("Prop is " + Prop);
+          console.log("Prop is " + JSON.stringify(Prop));
           if (Prop.County__c === "Same Property") {
             this.PropertyPrompt = true;
             this.PropertyTempId = Prop;
@@ -541,15 +546,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.TakenById = this.UserId;
     });
   }
-    GetAccountRolesPicklist({}).then((result) => {
-      var AccountRolePicklistValues = result;
-      for (var i = 0; i < AccountRolePicklistValues.length; i++) {
-        this.AccountRolePicklistValuesContainer.push({
-          label: AccountRolePicklistValues[i],
-          value: AccountRolePicklistValues[i]
-        });
-      }
-      this.AccountRolePicklistValuesContainer.shift();
+    // GetAccountRolesPicklist({}).then((result) => {
+    //   var AccountRolePicklistValues = result;
+    //   for (var i = 0; i < AccountRolePicklistValues.length; i++) {
+    //     this.AccountRolePicklistValuesContainer.push({
+    //       label: AccountRolePicklistValues[i],
+    //       value: AccountRolePicklistValues[i]
+    //     });
+    //   }
+    //   this.AccountRolePicklistValuesContainer.shift();
       this.ARReady = true;
       this.AccountRoles.push({
         Contact_ID__c: "",
@@ -557,7 +562,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         Multiple_Roles__c: ""
       });
       this.AccountRoles.shift();
-    });
+   // });
     GetPropertyTypePicklist({}).then((result) => {
       var PropertyTypePicklist = result;
       for (var i = 0; i < PropertyTypePicklist.length; i++) {

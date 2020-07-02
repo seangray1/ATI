@@ -731,6 +731,7 @@ AddNewRow() {
     this.newAccountRoles = false;
     this.MultRoleInd = "";
     this.MultipleRoles = "";
+    
   }
 
   closeAccountQuestion() {
@@ -989,7 +990,7 @@ AddNewRow() {
   }
   Cancel()
   {
-    this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
+    this.dispatchEvent(new CustomEvent('EditAccountRolesClose'));  
   }
   EditAccountRoles()
   {
@@ -1049,16 +1050,16 @@ AddNewRow() {
               this.jobLoading = false;
               alert(data);
             } else {
-                this[NavigationMixin.Navigate]
-                ({
-                type: 'standard__recordPage',
-                attributes: {
-                  recordId: this.recordId,
-                  objectApiName: 'ATI_Job__c',
-                  actionName: 'view',
-                  },
-                });
-              //this.dispatchEvent(new CustomEvent('CloseEditAccountRoles'));  
+                // this[NavigationMixin.Navigate]
+                // ({
+                // type: 'standard__recordPage',
+                // attributes: {
+                //   recordId: this.recordId,
+                //   objectApiName: 'ATI_Job__c',
+                //   actionName: 'view',
+                //   },
+                // });
+              this.dispatchEvent(new CustomEvent('EditAccountRolesSubmit'));  
             }
         })
     }

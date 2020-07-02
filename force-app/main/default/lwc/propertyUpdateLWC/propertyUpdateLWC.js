@@ -4,6 +4,9 @@ import GetUserInfo from "@salesforce/apex/NewJobController.GetUserInfo";
 export default class PropertyUpdateLWC extends LightningElement {
 @api recordId;
 @track loading = false;
+MarketSegmentSubClass;
+MarketClass;
+MarketSegment;
 
 
 
@@ -11,7 +14,7 @@ export default class PropertyUpdateLWC extends LightningElement {
         GetUserInfo({}).then(result =>{
             
             console.log('Result is ' + result);
-            if(result.MasterJobCount > 1)
+            // if(result.MasterJobCount > 1)
             if(result === 'System Administrator' || result === 'Contact Center Rep'){
                 console.log('working');
             }else{
@@ -20,6 +23,8 @@ export default class PropertyUpdateLWC extends LightningElement {
             }
         })
     }
+    // MarketClass:this.MarketClass
+    //     ,MarketSegment:this.MarketSegment, MarketSegmentSubClass:this.MarketSegmentSubClass
     PropertyUpdate(){
         this.loading = true;
         const address = this.template.querySelector('[data-id="AddressLookup"]');
@@ -31,7 +36,7 @@ export default class PropertyUpdateLWC extends LightningElement {
         let Zip = address.postalCode;
         let Country = address.country;
         console.log(Street + City + State + Zip + Country);
-        UpdatePropertyAddress({recordId: this.recordId, Street: Street, City:City, State:State, Zip:Zip,Country:Country}).then(result =>{
+        UpdatePropertyAddress({recordId: this.recordId, Street: Street, City:City, State:State, Zip:Zip,Country:Country, }).then(result =>{
             if(result === 'SUCCESS'){
                 this.loading = false;
                 this.dispatchEvent(new CustomEvent('closePage')); 
@@ -47,5 +52,17 @@ export default class PropertyUpdateLWC extends LightningElement {
 }
     Close(){
         this.dispatchEvent(new CustomEvent('closePage'));
+    }
+    MarketClassChange(event)
+    {
+        this.MarketClass = event.detail.value;
+    }
+    MarketSegmentChange(event)
+    {
+        this.MarketSegment = event.detail.value;
+    }
+    MarketSegmentSubClassChange(event)
+    {
+        this.MarketSegmentSubClass = event.detail.value;
     }
 }

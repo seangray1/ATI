@@ -30,7 +30,7 @@ global class AccountRoleInsertBatch implements Database.Batchable<sObject> {
     
     if(accRoleIds.size() > 0){
     
-    accRoles = [Select id,name,CreatedDate,Contact_ID__c,Master_Job_ID__c from Account_Roles__c where id not in:accRoleIds];
+    accRoles = [Select id,name,CreatedDate,Contact_ID__c,Master_Job_ID__c, Master_Job_ID__r.Date_Time_Taken__c from Account_Roles__c where id not in:accRoleIds];
     
     }
     
@@ -109,12 +109,12 @@ global class AccountRoleInsertBatch implements Database.Batchable<sObject> {
                     insertCampJunction.Contact__c = campMember.ContactId;
                     insertCampJunction.Job__c = accRole.Master_Job_ID__c;
                     
-                    System.debug('Account Role Creation Date'+accRole.createddate);
+                    System.debug('Job Taken date'+accRole.Master_Job_ID__r.Date_Time_Taken__c);
                     System.debug('StartDate---->'+campMember.campaign.StartDate);
                     System.debug('EndDate------>'+(campMember.campaign.EndDate).AddDays(1));
 
 
-                    if(accRole.createddate >= campMember.campaign.StartDate && accRole.createddate <= (campMember.campaign.EndDate).AddDays(1)){
+                    if(accRole.Master_Job_ID__r.Date_Time_Taken__c >= campMember.campaign.StartDate && accRole.Master_Job_ID__r.Date_Time_Taken__c <= (campMember.campaign.EndDate).AddDays(1)){
                     
                     insertCampJunctions.add(insertCampJunction);
                     

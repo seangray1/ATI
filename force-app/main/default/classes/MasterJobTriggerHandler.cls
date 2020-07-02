@@ -151,7 +151,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
             MasterJob.Date_of_loss__c != oldJob.Date_of_loss__c || MasterJob.Lead_Source__c != oldJob.Lead_Source__c ||
             MasterJob.Property__c != oldJob.Property__c || MasterJob.PO__c != oldJob.PO__c
             || MasterJob.Account_Executive_1__c != oldJob.Account_Executive_1__c || MasterJob.Account_Executive_2__c != oldJob.Account_Executive_2__c
-            || MasterJob.Office2__c != oldJob.Office2__c || MasterJob.Office2__c != oldJob.Office2__c ||
+            || MasterJob.National_Account__c != oldJob.National_Account__c || MasterJob.Office2__c != oldJob.Office2__c ||
             MasterJob.Lead_Source__c != oldJob.Lead_Source__c || MasterJob.Major_Event__c != oldJob.Major_Event__c ||
             MasterJob.National_Project_Manager__c != oldJob.National_Project_Manager__c ||  MasterJob.Cont_P_O_Client_Job__c != oldJob.Cont_P_O_Client_Job__c
             || (MasterJob.Force_Master_Job_Sync__c == true && MasterJob.Force_Master_Job_Sync__c != oldJob.Force_Master_Job_Sync__c))
@@ -187,6 +187,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
                 job.Account_Executive_1__c = newMasterJob.Account_Executive_1__c;
                 job.Account_Executive_2__c = newMasterJob.Account_Executive_2__c;
                 job.Office2__c = newMasterJob.Office2__c;
+                job.National_Account__c = newMasterJob.National_Account__c;
                 
                 // job.Send_Prelim__c = newMasterJob.Send_Prelim__c;
                 // job.Send_Prelim_Last_Modified_Date_Time__c = newMasterJob.Send_Prelim_Last_Modified_Date_Time1__c;
@@ -202,7 +203,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
                 // job.ML_Request_Date__c = newMasterJob.ML_Request_Date__c;
                 job.Cont_P_O_Client_Job__c = newMasterJob.Cont_P_O_Client_Job__c;
                 job.Lead_Source__c = newMasterJob.Lead_Source__c;
-                job.Office2__c = newMasterJob.Office2__c;
+               
                 //job.Office2__c = newMasterJob.Regional_Manager__c;
                 job.Major_Event__c = newMasterJob.Major_Event__c;
                 job.National_Project_Manager__c = newMasterJob.National_Project_Manager__c;

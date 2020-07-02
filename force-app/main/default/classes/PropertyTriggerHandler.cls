@@ -62,7 +62,7 @@ public without sharing class PropertyTriggerHandler {
         update mjobs;
     }
     
-    if(!jobs.isEmpty()){
+    if(!jobs.isEmpty() && jobs.size() < 10){
     for(ATI_Job__c job: jobs){
         Property__c prop = newPropMap.get(job.Property_ID__c);
         job.Project_Site_Address__c = prop.Address_line_1__c;
@@ -74,7 +74,12 @@ public without sharing class PropertyTriggerHandler {
         job.Market_Segment_Sub_Class__c = prop.Market_Segment_Sub_Class__c;
     }
     update jobs;
-}
+    }
+    else if(!jobs.isEmpty() && jobs.size() >= 10)
+    {
+        System.debug('Htting queuable and jbo size is ' + jobs.size());
+        Id b = System.enqueueJob(new Property_Queueable_Update(jobs, newPropMap));
+    }
     
     
     }

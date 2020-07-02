@@ -19,40 +19,72 @@
 global class Econz_Integration_Callouts {
     public static boolean isECONZCalloutsProcessed = false;
        //Athith Comments    
-       //Added Start date instead of Data time approved  
+       //Added Start date instead of Data time approved
+    //    public class EconzInfo
+    //    {
+    //        public string type {get;set;}
+    //        public string oldmapname {get;set;}
+    //        public dateTime startdateQueue {get;set;}
+    //    }
        public static dateTime startdate = null; 
        public static void manageEConzCallouts( Map<Id, ATI_Job__c> oldMap, list<ATI_Job__c> newValues){
            Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
            Id notApprovedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
-           for(ATI_Job__c Job: newValues){
+           
+           List<ATI_Job__c> JobsToQueue = new List<ATI_Job__c>();
+           Map<Id, String> CalloutTypeMap = new Map<Id, String>();
+           Map<Id, String> OldNameMap = new Map<Id, String>();
+           Map<Id, Datetime> StartDateMap = new Map<Id, Datetime>();
+          
+           for(ATI_Job__c Job: newValues)
+           {
+
+               
+               
                startdate = Job.date_time_approved__c;
+               StartDateMap.put(job.Id, startdate);
                system.debug('---startdate---'+startdate );
                //Athith Comments  
                //When the ATI_Job__c record type is changed from “New Job (Not Approved)” to “Job (Approved)” instead of ATI_Job__c stage becomes closed won, a task should be created in ECONZ.
                if( Job.RecordTypeID != oldMap.get(Job.Id).RecordTypeID &&  Job.RecordTypeID == devRecordTypeId && Job.ECONZ_Task_Created__c == false){
                    //startdate = system.now();
                    system.debug('===1==='+startdate);
-                   Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'addTask',null,startdate);
+                   //Disabled
+                   //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'addTask',null,startdate);
+                   JobsToQueue.add(job);
+                   
+                   CalloutTypeMap.put(job.Id, 'addTask');
+                   OldNameMap.put(job.Id, null);
+                 
                }
-               if(Job.RecordTypeID == devRecordTypeId){
+                else if(Job.RecordTypeID == devRecordTypeId){
                    if( Job.Stage__c != oldMap.get(Job.Id).Stage__c && (Job.Stage__c == 'Work Complete' || Job.Stage__c == 'Billing Complete')){
                        system.debug('===2===');
                        //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDates',null,startdate);
-                       Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDetails',oldMap.get(Job.Id).Name,startdate);
+                      // REAL ONE Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDetails',oldMap.get(Job.Id).Name,startdate);
+                       JobsToQueue.add(job);
+                       CalloutTypeMap.put(job.Id, 'updateTaskDetails');
+                        OldNameMap.put(job.Id, oldMap.get(Job.Id).Name);
                    }
                    
                    
-                   if(Job.Project_Manager_New__c != oldMap.get(Job.Id).Project_Manager_New__c){
+                   else if(Job.Project_Manager_New__c != oldMap.get(Job.Id).Project_Manager_New__c){
                        system.debug('===4===');
-                       Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskManager',null,startdate);
+                       //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskManager',null,startdate);
+                       JobsToQueue.add(job);
+                       CalloutTypeMap.put(job.Id, 'updateTaskManager');
+                       OldNameMap.put(job.Id, null);
                    }
                    
-                   if( (Job.Job_Name__c != null && Job.Job_Name__c != oldMap.get(Job.Id).Job_Name__c ) ||
+                   else if( (Job.Job_Name__c != null && Job.Job_Name__c != oldMap.get(Job.Id).Job_Name__c ) ||
                       (Job.Job_Number__c != null && Job.Job_Number__c != oldMap.get(Job.Id).Job_Number__c)){
                           system.debug('===5===');
-                          Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'renameTask',oldMap.get(Job.Id).Name,startdate);
+                          //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'renameTask',oldMap.get(Job.Id).Name,startdate);
+                          JobsToQueue.add(job);
+                          CalloutTypeMap.put(job.Id, 'renameTask');
+                       OldNameMap.put(job.Id, oldMap.get(Job.Id).Name);
                       }
-                   if( (Job.Project_Site_Address_2__c != null && Job.Project_Site_Address_2__c != oldMap.get(Job.Id).Project_Site_Address_2__c ) ||
+                   else if( (Job.Project_Site_Address_2__c != null && Job.Project_Site_Address_2__c != oldMap.get(Job.Id).Project_Site_Address_2__c ) ||
                       (Job.Project_Site_Address__c != null && Job.Project_Site_Address__c != oldMap.get(Job.Id).Project_Site_Address__c ) ||
                       (Job.Project_Site_City__c != null && Job.Project_Site_City__c != oldMap.get(Job.Id).Project_Site_City__c ) ||
                       (Job.Project_Site_State__c != null && Job.Project_Site_State__c != oldMap.get(Job.Id).Project_Site_State__c ) ||
@@ -61,28 +93,44 @@ global class Econz_Integration_Callouts {
                    //    (Job.Project_Manager__c != null && Job.Project_Manager__c != oldMap.get(Job.Id).Project_Manager__c ) ||
                       (Job.Project_Site_Zipcode__c != null && Job.Project_Site_Zipcode__c != oldMap.get(Job.Id).Project_Site_Zipcode__c) ){
                           system.debug('===6===');
-                          Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDetails',oldMap.get(Job.Id).Name,startdate);
+                          //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDetails',oldMap.get(Job.Id).Name,startdate);
+                          JobsToQueue.add(job);
+                          CalloutTypeMap.put(job.Id, 'updateTaskDetails');
+                       OldNameMap.put(job.Id, oldMap.get(Job.Id).Name);
                       }
-                   if(Job.Econz_Manual_Sync__c && !oldMap.get(Job.Id).Econz_Manual_Sync__c){
+                   else if(Job.Econz_Manual_Sync__c && !oldMap.get(Job.Id).Econz_Manual_Sync__c){
                        system.debug('===7===');
-                       Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'',oldMap.get(Job.Id).Name,startdate);
+                       //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'',oldMap.get(Job.Id).Name,startdate);
+                       JobsToQueue.add(job);
+                       CalloutTypeMap.put(job.Id, '');
+                       OldNameMap.put(job.Id, oldMap.get(Job.Id).Name);
                    }
                    //Athith Comments
                    //when stage = “Won” and it was previously marked as stage = “Work Complete” or stage = “Billing Complete”, the ECONZ task start date should be re-synced as the current date, and the ECONZ task end date should be cleared.             
-                   if(Job.Stage__c != oldMap.get(Job.Id).Stage__c && (oldMap.get(Job.Id).Stage__c == 'Work Complete' || oldMap.get(Job.Id).Stage__c == 'Billing Complete') && Job.Stage__c == 'Won')
+                    else if(Job.Stage__c != oldMap.get(Job.Id).Stage__c && (oldMap.get(Job.Id).Stage__c == 'Work Complete' || oldMap.get(Job.Id).Stage__c == 'Billing Complete') && Job.Stage__c == 'Won')
                    {
                        system.debug('===8===');
                        startdate = system.now();
-                       Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDetails',null,startdate);
+                       //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDetails',null,startdate);
+                       JobsToQueue.add(job);
+                       CalloutTypeMap.put(job.Id, 'updateTaskDetails');
+                       OldNameMap.put(job.Id, null);
                    }
                    //Athith Comments   
                    //when stage = “Lost”, the ECONZ task end date should be marked as the current date               
-                   if(Job.Stage__c != oldMap.get(Job.Id).Stage__c && Job.Stage__c == 'Lost')
+                   else if(Job.Stage__c != oldMap.get(Job.Id).Stage__c && Job.Stage__c == 'Lost')
                    {
                        system.debug('===9===');
-                       Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDates',null,startdate);
+                       //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskDates',null,startdate);
+                       JobsToQueue.add(job);
+                       CalloutTypeMap.put(job.Id, 'updateTaskDates');
+                       OldNameMap.put(job.Id, null);
                    }
                }
+           }
+           if(!JobsToQueue.isEmpty())
+           {
+               Id econzQueueableId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap));
            }
        } 
        

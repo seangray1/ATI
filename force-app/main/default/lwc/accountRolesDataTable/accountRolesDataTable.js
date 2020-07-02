@@ -1,7 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import RetrieveAccountRoles from "@salesforce/apex/NewJobController.RetrieveAccountRoles";
 import My_Resource from '@salesforce/resourceUrl/SLDS202';
-
 const actions = [
     { label: 'View Contact and Account', name: 'View Contact and Account' }, 
 ]; 
@@ -31,7 +30,7 @@ export default class AccountRolesDataTable extends LightningElement {
     AccountExists = false;
     ContactExists = false;
     @api recordId;
-    
+
     // eslint-disable-next-line @lwc/lwc/no-async-await
     connectedCallback() {
         RetrieveAccountRoles({recordId:this.recordId}).then(result =>{
@@ -51,6 +50,10 @@ export default class AccountRolesDataTable extends LightningElement {
                     datasetup[i].ContactId=data[i].Contact_ID__r.Name;
                     datasetup[i].ContactPhone=data[i].Contact_ID__r.Phone;
                     datasetup[i].ContactEmail=data[i].Contact_ID__r.Email;
+                    datasetup[i].ContactState=data[i].Contact_ID__r.MailingState;
+                    datasetup[i].ContactCity=data[i].Contact_ID__r.MailingCity;
+                    datasetup[i].ContactTitle=data[i].Contact_ID__r.Title;
+                    datasetup[i].ContactAccountName=data[i].Contact_ID__r.Account.Name;
                 }
                 if(data[i].Account_ID__c !== undefined)
                 {
@@ -58,13 +61,65 @@ export default class AccountRolesDataTable extends LightningElement {
                     datasetup[i].Account ='/' + data[i].Account_ID__c;
                     datasetup[i].AccountId=data[i].Account_ID__r.Name;
                     datasetup[i].AccountPhone=data[i].Account_ID__r.Phone;
-                    datasetup[i].AccountEmail=data[i].Account_ID__r.Type;
+                    datasetup[i].AccountType=data[i].Account_ID__r.Type;
+                    datasetup[i].AccountCity=data[i].Account_ID__r.BillingCity;
+                    datasetup[i].AccountState=data[i].Account_ID__r.BillingState;
+                    datasetup[i].AccountOwner=data[i].Account_ID__r.Owner.Name;
                 }
             }
             console.log(datasetup);
             this.data = datasetup;
         })
         
+    }
+    EditAccountRoles(event)
+    {
+        this.dispatchEvent(new CustomEvent('EditAccountRoles'));  
+    }
+    @api refreshApex()
+    {
+        this.data =[];
+        RetrieveAccountRoles({recordId:this.recordId}).then(result =>{
+            const data = result;
+            this.AccountRolesSize = data.length;
+            this.ViewAll = '/lightning/r/' + this.recordId + '/related/Account_Roles__r/view'
+           // console.log('Data ' + JSON.stringify(data));
+            let datasetup = [];
+            for(var i = 0; i < data.length; i++)
+            {
+                
+                datasetup.push({id:i, Roles:data[i].Multiple_Roles__c, TimberlineCustomerNumber:data[i].TimberlineCustomerNumber, Contact:"", Account:""})
+                if(data[i].Contact_ID__c !== undefined)
+                {
+                    console.log('inside Contact part' + JSON.stringify(data[i].Contact_ID__r.Name));
+                    datasetup[i].Contact ='/' + data[i].Contact_ID__c;
+                    datasetup[i].ContactId=data[i].Contact_ID__r.Name;
+                    datasetup[i].ContactTitle=data[i].Contact_ID__r.Title;
+                    datasetup[i].ContactAccountName=data[i].Contact_ID__r.Account.Name;
+                    datasetup[i].ContactPhone=data[i].Contact_ID__r.Phone;
+                    datasetup[i].ContactEmail=data[i].Contact_ID__r.Email;
+                    datasetup[i].ContactState=data[i].Contact_ID__r.MailingState;
+                    datasetup[i].ContactCity=data[i].Contact_ID__r.MailingCity;
+                    
+                }
+                if(data[i].Account_ID__c !== undefined)
+                {
+                    console.log('inside Account part' + JSON.stringify(data[i].Account_ID__c.Name));
+                    datasetup[i].Account ='/' + data[i].Account_ID__c;
+                    datasetup[i].AccountId=data[i].Account_ID__r.Name;
+                    datasetup[i].AccountPhone=data[i].Account_ID__r.Phone;
+                    datasetup[i].AccountType=data[i].Account_ID__r.Type;
+                    datasetup[i].AccountCity=data[i].Account_ID__r.BillingCity;
+                    datasetup[i].AccountState=data[i].Account_ID__r.BillingState;
+                    datasetup[i].AccountOwner=data[i].Account_ID__r.Owner.Name;
+                    
+                    
+                }
+                console.log('Datasetup ' + i + ' is ' + JSON.stringify(datasetup[i]));
+            }
+            //console.log(datasetup);
+            this.data = datasetup;
+        })
     }
     handleRowAction(event) 
     {
@@ -80,11 +135,11 @@ export default class AccountRolesDataTable extends LightningElement {
         //let ItemsToSend = JSON.stringify(this.data[index]);
         this.RowLevelDetails = this.data[index];
         console.log(JSON.stringify(this.RowLevelDetails));
-        if(this.RowLevelDetails.Contact !== "")
+        if(this.RowLevelDetails.Contact !== "" && this.RowLevelDetails.Contact !== null && this.RowLevelDetails.Contact !== undefined)
         {
             this.ContactExists = true;
         }
-        if(this.RowLevelDetails.Account !== "")
+        if(this.RowLevelDetails.Account !== "" && this.RowLevelDetails.Account !== null && this.RowLevelDetails.Account !== undefined)
         {
             this.AccountExists = true;
         }
@@ -113,5 +168,7 @@ export default class AccountRolesDataTable extends LightningElement {
     CloseViewDetails()
     {
         this.ViewDetails = false;
+        this.ContactExists = false;
+        this.AccountExists = false;
     }
 }

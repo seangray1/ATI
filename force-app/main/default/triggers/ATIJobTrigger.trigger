@@ -14,7 +14,7 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                      before delete) {
                                      
                                          List<Profile> profileName = [SELECT Name FROM Profile WHERE Id=:userinfo.getProfileId() LIMIT 1];
-                                         if(profileName[0].Name != 'Restricted Process Execution')
+                                         if(profileName[0].Name != 'Restricted Process Execution' && !System.isFuture() && !System.isQueueable())
                                          {
                                                if(TriggerFlagController.flag == true) {
                                              if(Trigger.isBefore && Trigger.isInsert){
@@ -60,6 +60,17 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                                  JobTriggerHandler.handleBeforeDelete();
                                                  system.debug('The delete is called');
                                              }          
+                                     }
+                                     else if(profileName[0].Name != 'Restricted Process Execution' && !System.isFuture() && System.isQueueable())
+                                     {
+                                         if(Trigger.isAfter)
+                                         {
+                                            JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+                                         }
+                                         if(Trigger.isAfter && Trigger.isUpdate)
+                                         {
+                                            JobAEBonusTriggerHandler.updateTeamMembersOnAEChange( (map<Id,ATI_Job__c>)Trigger.oldMap, (map<Id,ATI_Job__c>)Trigger.newMap );
+                                         }
                                      }
     //  if(Trigger.isAfter && (Trigger.isInsert)){
     //     //XactFileReOpenedClass.TriggerMail(trigger.new, trigger.oldMap);

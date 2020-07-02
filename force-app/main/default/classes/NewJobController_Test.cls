@@ -259,8 +259,81 @@ static testmethod void NewJobController_Test4()
         NewJobController.GetCustomers('Test');
         NewJobController.GetUserInfo();
         SubmitForApprovalExtension.submitForApproval(jobs[0].Master_Job__c);
-        NewJobController.AfterHoursJobCreation('TestJob', 'Construction', '', offices[0].id, '15632 Youngwood Drive', 'CA', 'Whittier', '90603', 'US', '15632 Youngwood Drive', 'Test', 'Test', '', '', '');
+        NewJobController.AfterHoursJobCreation('TestJob', 'Construction', '', offices[0].id, '15632 Youngwood Drive', 'CA', 'Whittier', '90603', 'US', '15632 Youngwood Drive', 'Test', 'Test', '', '', null);
 
+    }
+}
+static testmethod void NewJobController_Test5() 
+{
+    Id u2 = UserInfo.getUserId();
+
+    system.runAs(new User(Id=Userinfo.getUserId()))
+    {
+        Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName;
+        Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').RecordTypeId;
+        Id approvedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId;
+        Integer NumToInsert = 3;
+        
+        ObjectInserts ObjectData = TestDataUtil.createObjects(NumToInsert, false);
+        List<ATI_Job__c> jobs = ObjectData.jobList;
+        insert jobs;
+        TestDataUtil.CreateObjectAccountRoles(NumToInsert, jobs, ObjectData.accountList, ObjectData.contactList);
+        ATI_Job__c job = jobs[0];
+        Account [] acct= ObjectData.accountList;
+        Contact [] cont = ObjectData.contactList;
+        Master_Job__c [] masterjob = ObjectData.masterjobList;
+        Office__c [] offices = ObjectData.OfficeList;
+        User [] users = ObjectData.UserList;
+        Property__c [] property = ObjectData.PropertyList;
+        
+        List<Approval.ProcessSubmitRequest> allReq = new List<Approval.ProcessSubmitRequest>(); 
+            Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+            req1.setComments('Submitting request for approval.');
+            req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+            req1.setObjectId(masterjob[0].Id);
+            req1.setskipentrycriteria(true);
+    		req1.submitterId = UserInfo.getUserId();
+    		allreq.add(req1);
+            Approval.ProcessResult[] result = Approval.process(allreq);
+            List<ProcessInstance> pda = [Select Id, targetObjectId, CreatedDate FROM PRocessInstance WHere Status = 'Pending'];
+            ProcessInstance p = new ProcessInstance();
+            for(ProcessInstance f : pda)
+            {
+                if(f.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
+                {
+                    p = f;
+                }
+            }
+            ProcessInstanceWorkItem p1 = [Select Id FROM PRocessInstanceWorkItem WHere ProcessInstanceId =: p.Id];
+           
+
+        string ItemsToApproveReject = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p1.Id + '","processinstanceId":"' + p.Id + '","id":1,"MasterJob":"/a8G0R0000009dKCUAY","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
+        NewJobController.ApproveSelectedItems(ItemsToApproveReject, 'Test', 'Approve', p1.Id);
+        NewJobController.GetAccountData('Master Job');
+
+        List<Approval.ProcessSubmitRequest> allReq1 = new List<Approval.ProcessSubmitRequest>(); 
+            Approval.ProcessSubmitRequest req12 = new Approval.ProcessSubmitRequest();
+            req12.setComments('Submitting request for approval.');
+            req12.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+            req12.setObjectId(masterjob[1].Id);
+            req12.setskipentrycriteria(true);
+    		req12.submitterId = UserInfo.getUserId();
+    		allreq1.add(req12);
+            Approval.ProcessResult[] result1 = Approval.process(allreq1);
+            List<ProcessInstance> pda2 = [Select Id, targetObjectId, CreatedDate FROM PRocessInstance WHere Status = 'Pending'];
+            ProcessInstance p3 = new ProcessInstance();
+            for(ProcessInstance f : pda2)
+            {
+                if(f.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
+                {
+                    p3 = f;
+                }
+            }
+            ProcessInstanceWorkItem p12 = [Select Id FROM PRocessInstanceWorkItem WHere ProcessInstanceId =: p3.Id];
+           
+
+        string ItemsToApproveReject2 = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p12.Id + '","processinstanceId":"' + p3.Id + '","id":1,"MasterJob":"/a8G0R0000009dKCUAY","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
+        Id queue = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject2, 'Test', 'Approve'));
     }
 }
     // public class ObjectData {
