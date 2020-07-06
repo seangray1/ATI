@@ -95,14 +95,21 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>ISNEW() || ISCHANGED([ATI_Job__c].Stage__c ) </stringValue>
+                <stringValue>AND(
+ISNEW() || ISCHANGED([ATI_Job__c].Stage__c ) ,
+NOT(ISBLANK([ATI_Job__c].Master_Job__c))
+) 
+ </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
-        <expression>ISNEW() || ISCHANGED({!myVariable_current.Stage__c} )</expression>
+        <expression>AND(
+ISNEW() || ISCHANGED({!myVariable_current.Stage__c} ) ,
+NOT(ISBLANK({!myVariable_current.Master_Job__c}))
+)</expression>
     </formulas>
-    <interviewLabel>Update_Master_Jobs_Job_Status-5_InterviewLabel</interviewLabel>
+    <interviewLabel>Update_Master_Jobs_Job_Status-6_InterviewLabel</interviewLabel>
     <label>Update Master Jobs Job Status</label>
     <processMetadataValues>
         <name>ObjectType</name>

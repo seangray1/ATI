@@ -153,7 +153,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
             || MasterJob.Account_Executive_1__c != oldJob.Account_Executive_1__c || MasterJob.Account_Executive_2__c != oldJob.Account_Executive_2__c
             || MasterJob.National_Account__c != oldJob.National_Account__c || MasterJob.Office2__c != oldJob.Office2__c ||
             MasterJob.Lead_Source__c != oldJob.Lead_Source__c || MasterJob.Major_Event__c != oldJob.Major_Event__c ||
-            MasterJob.National_Project_Manager__c != oldJob.National_Project_Manager__c ||  MasterJob.Cont_P_O_Client_Job__c != oldJob.Cont_P_O_Client_Job__c
+            MasterJob.National_Project_Manager__c != oldJob.National_Project_Manager__c
             || (MasterJob.Force_Master_Job_Sync__c == true && MasterJob.Force_Master_Job_Sync__c != oldJob.Force_Master_Job_Sync__c))
             {
                 system.debug('Passed');
@@ -201,7 +201,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
                 // job.ML_Recording_Date__c = newMasterJob.ML_Recording_Date__c;
                 // job.ML_Release_Recording_Date__c = newMasterJob.ML_Release_Recording_Date__c;
                 // job.ML_Request_Date__c = newMasterJob.ML_Request_Date__c;
-                job.Cont_P_O_Client_Job__c = newMasterJob.Cont_P_O_Client_Job__c;
+                // job.Cont_P_O_Client_Job__c = newMasterJob.Cont_P_O_Client_Job__c;
                 job.Lead_Source__c = newMasterJob.Lead_Source__c;
                
                 //job.Office2__c = newMasterJob.Regional_Manager__c;

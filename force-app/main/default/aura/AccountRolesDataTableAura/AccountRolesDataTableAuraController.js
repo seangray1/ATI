@@ -1,4 +1,3 @@
-
 ({
     EditAccountRoles : function(component, event, helper) {
         component.set("v.EditAccountRoles", true);

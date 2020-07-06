@@ -1,6 +1,6 @@
 @isTest
 Public Class AccountRoleTriggerHandlerTest{
-
+    
 @isTest
 Static Void AccountTriggerFunctionalityTest(){
 
@@ -74,7 +74,8 @@ Static Void AccountTriggerFunctionalityTest(){
        Office__c office = new Office__c();
        office.Name = 'Office Test';
        insert office;
-       
+            
+            
        ATI_Job__c job = new ATI_Job__c();
        job.name = 'Test';
        job.Job_Name__c = 'Job Test';
@@ -86,8 +87,10 @@ Static Void AccountTriggerFunctionalityTest(){
        job.Project_Site_State__c = 'UT';
        job.Project_Site_Zipcode__c = '12345';
        job.County__c = 'CL';
-       insert job;
+       job.Date_Time_Taken__c = system.today();
        
+            insert job;
+            
        List<Account_Roles__c> accRoles = new List<Account_Roles__c>();
        List<Account_Roles__c> updAccRoles = new List<Account_Roles__c>();
        
@@ -137,7 +140,23 @@ Static Void AccountTriggerFunctionalityTest(){
   @isTest
   Static Void AccountRoleFunctionalityBatchTest(){
   
-  Account acct = new Account (Name = 'Acme, Inc.');
+  Profile profileId = [SELECT Id FROM Profile WHERE Name = 'Restricted Process Execution' LIMIT 1];
+        
+        User usr = new User(LastName = 'Testofc',
+                           FirstName='DeBki',
+                           Alias = 'jliv',
+                           Email = 'jason.liveston@asdf.com',
+                           Username = 'testati@google.com',
+                           ProfileId = profileId.id,
+                           TimeZoneSidKey = 'GMT',
+                           LanguageLocaleKey = 'en_US',
+                           EmailEncodingKey = 'UTF-8',
+                           LocaleSidKey = 'en_US'
+                           );
+      
+      system.runAs(usr){
+          
+      Account acct = new Account (Name = 'Acme, Inc.');
         insert acct;
 
         Contact con = new Contact(
@@ -183,21 +202,44 @@ Static Void AccountTriggerFunctionalityTest(){
             Status = 'sent',
             CampaignId = camp1.Id
             ); 
-            
-       List<Account_Roles__c> accRolesBatch = new List<Account_Roles__c>();
+      
+      
+      
+      Office__c office = new Office__c();
+       office.Name = 'Office Test';
+       insert office; 
+      
+      ATI_Job__c job1 = new ATI_Job__c();
+       job1.name = 'Test';
+       job1.Job_Name__c = 'Job Test';
+       job1.Office2__c = office.id;
+       job1.Lead_Source__c = 'Advertising and Publications';
+       job1.Stage__c = 'Qualification';
+       job1.Project_Site_Address__c = '665 S 300 E';
+       job1.Project_Site_City__c = 'LasVegas';
+       job1.Project_Site_State__c = 'UT';
+       job1.Project_Site_Zipcode__c = '12345';
+       job1.County__c = 'CL';
+       job1.Date_Time_Taken__c = system.today();
+       
+            insert job1;
+       
+      List<Account_Roles__c> accRolesBatch = new List<Account_Roles__c>();
        
        Account_Roles__c accRole2 = new Account_Roles__c();
        accRole2.Contact_ID__c = con.id;
+      accRole2.Master_Job_ID__c = job1.Id;
        accRolesBatch.add(accRole2);
        
        Account_Roles__c accRole3 = new Account_Roles__c();
        accRole3.Contact_ID__c = con1.id;
+      accRole3.Master_Job_ID__c = job1.Id;
        accRolesBatch.add(accRole3);
 
        insert accRolesBatch;
       List< Campaign_Junction__c> campJunctions = [select id from Campaign_Junction__c];
       delete campJunctions;
-       
+      }
        Test.startTest();
        AccountRoleInsertBatch accRoleBatch = new AccountRoleInsertBatch();
        Database.ExecuteBatch(accRoleBatch);

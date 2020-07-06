@@ -131,7 +131,11 @@ public class JobUtility {
                                     'Last Successful Timberline Sync Date: ' + job.Last_Successful_Timberline_Update__c + '<p>' +
                                     'Date/Time Deleted: ' + System.now() + '<p>'+
                                     'User who Deleted Record: ' + UserInfo.getName()  );
+                    if(!Test.isRunningTest())
+                    {
+                    
                     Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+                    }
 
            }
        }

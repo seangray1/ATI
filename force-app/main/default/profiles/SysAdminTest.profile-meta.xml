@@ -81,6 +81,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ApproveSelectedItemsQueueable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>BatchForJobSplit</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -441,6 +445,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Econz_Queueable_Integration</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Econz_SchRetryBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -498,6 +506,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ForgotPasswordControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FotoIn_Queueable_Integration</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -741,6 +753,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MultiRequestMock</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MyProfilePageController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -853,6 +869,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Property_Queueable_Update</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ResourceSchedulerController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -946,6 +966,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>SfObjectHelper_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SingleRequestMock</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

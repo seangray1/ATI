@@ -4,7 +4,7 @@ global class AccountRoleInsertBatch implements Database.Batchable<sObject> {
 
     global Database.QueryLocator start(Database.BatchableContext BC) {
 
-        String query = 'SELECT Id,Name,CreatedDate,Contact_ID__c,Master_Job_ID__c FROM Account_Roles__c';
+        String query = 'SELECT Id,Name,CreatedDate,Contact_ID__c,Master_Job_ID__r.Date_Time_Taken__c,Master_Job_ID__c FROM Account_Roles__c';
 
         return Database.getQueryLocator(query);
 
@@ -38,7 +38,7 @@ global class AccountRoleInsertBatch implements Database.Batchable<sObject> {
     
      
      accRoles.addall(scope);
-     system.debug('@@@@@@@@@'+accRoles);
+     
     
     
     }
@@ -50,8 +50,8 @@ global class AccountRoleInsertBatch implements Database.Batchable<sObject> {
     Set < Id > campIds = new Set < Id > ();
 
     for (Account_Roles__c accRole: accRoles) {
-
-        if (accRole.Contact_ID__c != null) {
+        
+        if ((accRole.Contact_ID__c != null) && (accRole.Master_Job_ID__c != null)) {
             conIds.add(accRole.Contact_ID__c);
         }
     }
@@ -109,9 +109,7 @@ global class AccountRoleInsertBatch implements Database.Batchable<sObject> {
                     insertCampJunction.Contact__c = campMember.ContactId;
                     insertCampJunction.Job__c = accRole.Master_Job_ID__c;
                     
-                    System.debug('Job Taken date'+accRole.Master_Job_ID__r.Date_Time_Taken__c);
-                    System.debug('StartDate---->'+campMember.campaign.StartDate);
-                    System.debug('EndDate------>'+(campMember.campaign.EndDate).AddDays(1));
+                    
 
 
                     if(accRole.Master_Job_ID__r.Date_Time_Taken__c >= campMember.campaign.StartDate && accRole.Master_Job_ID__r.Date_Time_Taken__c <= (campMember.campaign.EndDate).AddDays(1)){
