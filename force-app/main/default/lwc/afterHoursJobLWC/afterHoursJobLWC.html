@@ -68,6 +68,8 @@
                 </tbody>
             </table>
         </template>
+       
+    
         <!-- class="spacing jobFormControl center"
         dropdown-alignment=auto  -->
        
@@ -136,7 +138,14 @@
      </tbody>
  </table>
 </template>   
+<c-combobox
+name="progress"
 
+value={value}
+placeholder="Select Progress"
+options={options}
+onchange={handleChange12}
+></c-combobox>
         <lightning-input onkeyup={ProjectDirectorChange}
             
         label="Project Director"   placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="spacing"></lightning-input>

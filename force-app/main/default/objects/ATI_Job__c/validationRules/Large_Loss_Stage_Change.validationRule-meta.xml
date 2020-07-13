@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Large_Loss_Stage_Change</fullName>
+    <active>true</active>
+    <description>If it is a large loss, and the stage changes to &apos;Won&apos; , &apos;Billing Complete&apos;, or &apos;Work Complete&apos;, it needs to check if at least one Large Loss Review has been approved unless it is T&amp;M or Division is ES or Catastrophes</description>
+    <errorConditionFormula>ISCHANGED(Stage__c) &amp;&amp; 
+(ISPICKVAL(Stage__c, &apos;Won&apos;) || ISPICKVAL(Stage__c, &apos;Billing Complete&apos;) || ISPICKVAL(Stage__c, &apos;Work Complete&apos;)) &amp;&amp;
+
+Large_Loss_Flag__c = true &amp;&amp; 
+NOT(ISPICKVAL(Large_Loss_Status__c, &apos;Approved&apos;)) &amp;&amp;
+NOT(ISPICKVAL(Estimate_Type__c , &apos;T&amp;M&apos;)) &amp;&amp;
+NOT(ISPICKVAL(Division__c  , &apos;Emergency Svces&apos;)) &amp;&amp;
+NOT(ISPICKVAL(Division__c  , &apos;Catastrophes&apos;))</errorConditionFormula>
+    <errorMessage>At least one Large Loss Review must be Approved before changing the stage to &apos;Won&apos;, &apos;Billing Complete&apos;, or &apos;Work Complete&apos;.</errorMessage>
+</ValidationRule>

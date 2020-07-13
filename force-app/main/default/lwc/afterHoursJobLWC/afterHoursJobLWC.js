@@ -21,6 +21,35 @@ ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@trac
 DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
 @track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];FieldsDisabled = false;
 @api recordId;
+value = 'inProgress';
+      @track state = {
+          progress: this.value,
+          progressRequired: '',
+          progressDisabled: ''
+      };
+  
+      get options() {
+          return [
+              { label: 'New', value: 'new' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'Finished', value: 'finished' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' },
+              { label: 'In Progress', value: 'inProgress' }
+          ];
+      }
+  
+      handleChange12(event) {
+          this.state[event.target.name] = event.detail.value;
+      }
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
 }

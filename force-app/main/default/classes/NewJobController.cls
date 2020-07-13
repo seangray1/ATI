@@ -416,10 +416,12 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         system.debug('Properties are ' + props);
         return props;
     }
-    @AuraEnabled(cacheable = true)
+    @AuraEnabled
     public static List<Office__c> GetOffices(String searchKey) {
         String searchLikeKey = searchKey + '%';
+        system.debug('Search Key ' + searchLikeKey);
         List<Office__c> off = [Select Id, Name FROM Office__c Where Name Like : searchLikeKey LIMIT 5];
+        system.debug('Offices ' + off);
         
         return off;
     }

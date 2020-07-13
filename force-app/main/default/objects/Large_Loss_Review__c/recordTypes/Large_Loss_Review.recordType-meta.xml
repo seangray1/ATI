@@ -54,6 +54,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Pending</fullName>
             <default>true</default>
         </values>

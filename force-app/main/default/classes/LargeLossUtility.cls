@@ -110,7 +110,6 @@ public without sharing class LargeLossUtility {
             {
                 Large_Loss_Review__c l = CreateLargeLossRecord(largeloss.Job__c);
                 l.NLLS_Number__c = oldMap.get(largeloss.Id).NLLS_Number__c + 1;
-                l.Previous_Review__c = largeloss.Id;
                 recordsToInsert.add(l);
                 ATI_Job__c job = new ATI_Job__c(Id = largeloss.job__c, Large_Loss_Status__c = 'Approved');
                 jobsToUpdate.add(job);

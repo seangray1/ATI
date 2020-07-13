@@ -36,6 +36,18 @@ get options() {
     return [ 
         { label: 'Yes', value: 'Yes' },
         { label: 'No', value: 'No' },
+        { label: 'No1', value: 'No' },
+        { label: 'No2', value: 'No' },
+        { label: 'No', value: 'No' },
+        { label: 'No', value: 'No' },
+        { label: 'No4', value: 'No' },
+        { label: 'No', value: 'No' },
+        { label: 'No', value: 'No' },
+        { label: 'No5', value: 'No' },
+        { label: 'No', value: 'No' },
+        { label: 'No', value: 'No' },
+        { label: 'No43', value: 'No' },
+        { label: 'No', value: 'No' },
     ];
 }
 @wire(getRecord, { recordId: '$recordId', fields })

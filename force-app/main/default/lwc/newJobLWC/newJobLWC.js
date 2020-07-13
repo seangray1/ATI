@@ -83,7 +83,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   Properties;
   Offices;
   OfficeId;
-  OfficeValue;
+  @track OfficeValue;
   ContactAccountRole;
   Customers;
   CustomerValue;
@@ -245,6 +245,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   AddressLine2;
   projectSiteContactCount = 0;
   ProjectDirectorSelected = false;
+  OfficeSelected = false;
   DateOfLoss;
   ClientJob;
   YearBuilt;
@@ -813,19 +814,6 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
   }
   SaveDescription() {
-    const input = [
-      ...this.template.querySelectorAll(".jobdescription")
-    ].reduce((validSoFar, inputCmp) => {
-      inputCmp.reportValidity();
-      return validSoFar && inputCmp.checkValidity();
-    }, true);
-    if (!input) 
-    {
-      alert("Fill in all required questions before saving");
-    } 
-    else 
-    {
-    }
     this.Description =
       "Type of Loss: " +
       this.TypeOfLoss +
@@ -964,6 +952,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.newDescription = false;
   }
   searchAgain() {
+    this.ProjectDirectorSelected = false;
+    this.ProjectDirectorValue = "";
+    this.ProjectDirectorId = "";
+  }
+  searchAgain1() {
     this.ProjectDirectorSelected = false;
     this.ProjectDirectorValue = "";
     this.ProjectDirectorId = "";
@@ -1827,6 +1820,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
   }
   OfficeChange(event) {
+    console.log('Offices Search ' + event.target.value);
     window.clearTimeout(this.delayTimeout);
     var searchKey = event.target.value;
     if (searchKey.length === 0) {
@@ -1839,7 +1833,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.delayTimeout = setTimeout(() => {
         SearchOffices({ searchKey: searchKey })
           .then((result) => {
+            console.log('Offices result ' + JSON.stringify(result));
             this.Offices = result;
+            console.log('Offices result ' + JSON.stringify(this.Offices));
           })
 
           .catch((error) => {
@@ -1962,10 +1958,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     // });
   }
   populateOfficeField(event) {
-    this.Offices = "";
-    var OfficeField = event.target.value;
+    this.Offices = '';
+    let OfficeField = event.target.value;
+    console.log('officefield ' + JSON.stringify(OfficeField));
+    console.log(this.OfficeValue);
+    this.OfficeValue = '';
+    console.log(this.OfficeValue);
     this.OfficeValue = OfficeField.Name;
+    console.log(this.OfficeValue);
     this.OfficeId = OfficeField.Id;
+    this.OfficeSelected = true;
   }
   populateProjectDirectorField(event) {
     this.ProjectDirectors = "";
@@ -2393,7 +2395,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           }, 1000);
           })
       }
-  
+      
   GenerateAccountRoleJSON() {
     var AccountRoleObject = {
       AccountRoleLineItems: this.GetAccountRolesObjects()
