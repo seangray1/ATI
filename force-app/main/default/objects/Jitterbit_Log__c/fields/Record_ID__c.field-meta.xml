@@ -3,7 +3,7 @@
     <fullName>Record_ID__c</fullName>
     <description>Created by DemandBlue as part of Xact Integration</description>
     <externalId>false</externalId>
-    <label>Record ID</label>
+    <label>Target System ID</label>
     <length>50</length>
     <required>false</required>
     <trackTrending>false</trackTrending>

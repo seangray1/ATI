@@ -59,6 +59,7 @@ public with sharing class FotoIn_Queueable_Integration implements Queueable, Dat
             {
                 if(TypeOfAction == 'Create')
                 {
+                    system.debug('hitting create fotoiin');
                     callFotoIn2Create(job);                
                 }
                 if(TypeOfAction == 'Edit')
@@ -82,6 +83,7 @@ public with sharing class FotoIn_Queueable_Integration implements Queueable, Dat
                 }
             }
         }
+        system.debug('Values are : ' + globalJobMap.values());
         update globalJobMap.values();
         if(!jobList2.isEmpty())
         {

@@ -1458,6 +1458,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         Id PrimaryContact;
         Id Referred;
         Id InsuranceAdjuster;
+        Id InsuranceCompany;
+        Id InsuranceAdjuster1;
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
         Savepoint sp = Database.setSavepoint();
         //Property.. if PropertyID is empty, insert with the info given, then attach AR Roles to them. => relate Prop to Master job
@@ -1551,6 +1553,22 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                         system.debug('7');
                     }
                 }
+                if(accountRoles.Text.contains('Insurance Adjuster/Company'))
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        InsuranceCompany = accountRoles.Account;
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            InsuranceAdjuster1 = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        InsuranceAdjuster1 = accountRoles.Contact;
+                        system.debug('7');
+                    }
+                }
                 if(accountRoles.Text.contains('Referred By')|| accountRoles.Text.contains('Caller') )
                 {
                     if(!String.isBlank(accountRoles.Account))
@@ -1585,7 +1603,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             }
             List<Account_Roles__c> ARsToDelete = [Select Id FROM Account_Roles__c Where Master_Job_Id__c =:recordId];
             ATI_Job__c job = new ATI_Job__c(Id = recordId, Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
-            Project_Site_Contact_Name__c = ProjectSiteContactContact);
+            Project_Site_Contact_Name__c = ProjectSiteContactContact, Insurance_Company__c = InsuranceCompany, Insurance_Adjuster_Broker__c = InsuranceAdjuster1);
             update job;
             
             for(AccountRoleLineItems accountRoles : AR.AccountRoleLineItems)
@@ -1640,6 +1658,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         Id PrimaryContact;
         Id Referred;
         Id InsuranceAdjuster;
+        Id InsuranceCompany;
+        Id InsuranceAdjuster1;
         
         
         AccountRoleWrapper AR = (AccountRoleWrapper)JSON.deserialize(AccountRoleInfo, AccountRoleWrapper.class);
@@ -1737,6 +1757,22 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     if(!String.isBlank(accountRoles.Contact))
                     {
                         PrimaryContact = accountRoles.Contact;
+                        system.debug('7');
+                    }
+                }
+                if(accountRoles.Text.contains('Insurance Adjuster/Company'))
+                {
+                    if(!String.isBlank(accountRoles.Account))
+                    {
+                        InsuranceCompany = accountRoles.Account;
+                        if(PersonAccountMap.containsKey(accountRoles.Account))
+                        {
+                            InsuranceAdjuster1 = PersonAccountMap.get(accountRoles.Account).PersonContactId;
+                        }
+                    }
+                    if(!String.isBlank(accountRoles.Contact))
+                    {
+                        InsuranceAdjuster1 = accountRoles.Contact;
                         system.debug('7');
                     }
                 }
@@ -1955,7 +1991,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             
             ATI_Job__c job = new ATI_Job__c(Job_Name__c = jobWrap.JobName, Job_Request_Completed_By__c = UserInfo.getUserId(), Market_Class__c = jobWrap.MarketClass, Market_Segment__c = jobWrap.MarketSegment, 
             Market_Segment_Sub_Class__c = jobWrap.MarketSegmentSubClass, Office2__c = jobWrap.Office, Claim__c = jobWrap.Claim, Policy__c = jobWrap.Policy, Master_Job__c = mJobId, division__c = jobWrap.division,
-            Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description,
+            Lead_Source__c = jobWrap.LeadSource, property_Id__c = propId, Es_Job_Type__c = jobWrap.EsJobType, description__c = jobWrap.Description, Insurance_Company__c = InsuranceCompany, Insurance_Adjuster_Broker__c = InsuranceAdjuster1,
             Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
             Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
             Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = Property.AddressLine2,

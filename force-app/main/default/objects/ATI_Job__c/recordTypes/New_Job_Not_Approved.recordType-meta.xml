@@ -171,6 +171,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Deposit_Type__c</picklist>
+        <values>
+            <fullName>ACH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Check</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wire</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Division__c</picklist>
         <values>
             <fullName>Asbestos</fullName>

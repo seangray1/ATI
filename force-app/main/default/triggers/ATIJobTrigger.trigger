@@ -18,43 +18,47 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                          {
                                                if(TriggerFlagController.flag == true) {
                                              if(Trigger.isBefore && Trigger.isInsert){
-                                                 system.debug('Hitting before insert' );
+                                                system.debug('The before Insert is called');
                                                  JobTriggerHandler.handleBeforeInsertOnly();
-                                                 system.debug('The before Insert is called');
+                                                 
                                              }}
                                              
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)){
+                                                system.debug('The before Update Insert is called');
                                                  JobTriggerHandler.handleBeforeInsertUpdate();
-                                                 system.debug('The before Update Insert is called');
+                                                 
                                              }}
                                              if(TriggerFlagController.flag == true) {
                                                 if(Trigger.isAfter && Trigger.isInsert){
+                                                    system.debug('The after Insert is called');
                                                     JobTriggerHandler.handleAfterInsertOnly();
                                                     //TriggerFlagController.flag = false;
                                                     efs__.EgnyteSyncQueueTrigger.onAfterInsert();
-                                                    system.debug('The after Insert is called');
+                                                    
                                                 }}
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isAfter && (Trigger.isInsert || Trigger.isUpdate)){
+                                                system.debug('The after Update Insert is called');
                                                  JobTriggerHandler.handleAfterInsertUpdate();
-                                                 system.debug('The after Update Insert is called');
+                                                 
                                              }}
                                            
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isBefore && Trigger.isUpdate){
-                                                 JobTriggerHandler.handleBeforeUpdatesOnly();
                                                 system.debug('The before Update is called');
+                                                 JobTriggerHandler.handleBeforeUpdatesOnly();
+                                                
                                              }}
                                              
                                              if(TriggerFlagController.flag == true) {
                                              if(Trigger.isAfter && Trigger.isUpdate ){
                                                  TriggerFlagController.flag = false;
-                                                 JobTriggerHandler.handleAfterUpdatesOnly();
-                                                 
                                                  system.debug('The after Update is called');
+                                                 JobTriggerHandler.handleAfterUpdatesOnly();
                                                  efs__.EgnyteSyncQueueTrigger.onAfterUpdate();
-                                             } }   
+                                             } 
+                                            }   
                                               
                                              if(Trigger.isBefore && (Trigger.isDelete)){
                                                  JobTriggerHandler.handleBeforeDelete();
@@ -63,6 +67,7 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                      }
                                      else if(profileName[0].Name != 'Restricted Process Execution' && !System.isFuture() && System.isQueueable())
                                      {
+                                         system.debug('Getting called');
                                          if(Trigger.isAfter)
                                          {
                                             JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);

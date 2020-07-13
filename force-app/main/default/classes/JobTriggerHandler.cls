@@ -55,33 +55,7 @@ public without sharing class JobTriggerHandler {
     
     /* handles after updates only */
     public static void handleAfterUpdatesOnly(){
-        map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
-        map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
         
-        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap,newJobMap); // Added by  DemandBlue
-        
-        JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
-        JobUtility.UnlockRecord(Trigger.new, oldJobMap);
-        JobUtility.offerLetterToPDF(trigger.new, oldJobMap);
-        //JobAEBonusTriggerHandler.createJobPrimaryContactRoles( oldJobMap, newJobMap.values() );
-        
-        JobUtility.EmailUpdateOnJob(oldJobMap,Trigger.new);        
-        JobAccountAndJobContact.UpdateJobAccountandJobContact(oldJobMap,Trigger.new);
-        JobAEBonusTriggerHandler.updateTeamMembersOnAEChange( oldJobMap, newJobMap );        
-       // JobAEBonusTriggerHandler.populateAEsOnInvoices( oldJobMap, newJobMap );
-      //  JobAEBonusTriggerHandler.populateAEsOnForecasts( oldJobMap, newJobMap );
-      //  JobAEBonusTriggerHandler.calculateCommissions( oldJobMap, newJobMap );   
-        JobUtility.createFotoInProject( oldJobMap, newJobMap.values() );
-        JobUtility.updateFotoInProject( oldJobMap, newjobMap.values() );
-       // BigTime_Callout_Integration.invokeCallout(Trigger.new, oldJobMap);
-       
-        if(!Econz_Integration_Callouts.isECONZCalloutsProcessed){
-        system.debug('====Integration====');
-            Econz_Integration_Callouts.manageEConzCallouts(oldJobMap, newJobMap.values());
-            Econz_Integration_Callouts.isECONZCalloutsProcessed = true;
-
-        }
-        system.debug('===final==='+[select ECONZ_Task_Created__c from ATI_Job__c where id =: newJobMap.keyset()][0].ECONZ_Task_Created__c );
     }
     
     public static void handleBeforeUpdatesOnly(){        
@@ -168,16 +142,49 @@ public without sharing class JobTriggerHandler {
     
     /* handles both After insert and updates */
     public static void handleAfterInsertUpdate(){ 
-        if(Trigger.isInsert){system.debug('triggerinsertcalled');}
-        if(Trigger.isUpdate){system.debug('triggerupdatecalled');}
-        
+      
+        map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
+        map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
         JobTriggerHandlerWorkflow.MasterJobAmountRollup(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
         
        AccountExecutiveController.UpdateAccountExecutives(Trigger.new);
         // moving this to after update as we cannot change the Job owner on insert due to Job splits issue
-        JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
-        //JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
         
+        //JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
+        system.debug('Testing after job team creation in handleAfteriNSERTuPDATE');
+        if(Trigger.isUpdate)
+        {
+        
+        system.debug('Testing  AFTER after job team creation in handleAfteriNSERTuPDATE');
+        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap,newJobMap); // Added by  DemandBlue
+        
+        
+        JobUtility.UnlockRecord(Trigger.new, oldJobMap);
+        JobUtility.offerLetterToPDF(trigger.new, oldJobMap);
+        //JobAEBonusTriggerHandler.createJobPrimaryContactRoles( oldJobMap, newJobMap.values() );
+        
+        JobUtility.EmailUpdateOnJob(oldJobMap,Trigger.new);        
+        JobAccountAndJobContact.UpdateJobAccountandJobContact(oldJobMap,Trigger.new);
+        JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
+            JobAEBonusTriggerHandler.updateTeamMembersOnAEChange( oldJobMap, newJobMap );
+                
+       // JobAEBonusTriggerHandler.populateAEsOnInvoices( oldJobMap, newJobMap );
+      //  JobAEBonusTriggerHandler.populateAEsOnForecasts( oldJobMap, newJobMap );
+      //  JobAEBonusTriggerHandler.calculateCommissions( oldJobMap, newJobMap );   
+        JobUtility.createFotoInProject( oldJobMap, newJobMap.values() );
+        JobUtility.updateFotoInProject( oldJobMap, newjobMap.values() );
+       // BigTime_Callout_Integration.invokeCallout(Trigger.new, oldJobMap);
+       
+        if(!Econz_Integration_Callouts.isECONZCalloutsProcessed){
+        system.debug('====Integration====');
+            Econz_Integration_Callouts.manageEConzCallouts(oldJobMap, newJobMap.values());
+            Econz_Integration_Callouts.isECONZCalloutsProcessed = true;
+
+        }
+        system.debug('===final==='+[select ECONZ_Task_Created__c from ATI_Job__c where id =: newJobMap.keyset()][0].ECONZ_Task_Created__c );
+        efs__.EgnyteSyncQueueTrigger.onAfterUpdate();
+        }
+        JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
         
     }
     

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Supplement_Fields</fullName>
+    <active>true</active>
+    <description>If there are pending supplements, require Pending Supplements text field and Approved Supplement question.</description>
+    <errorConditionFormula>ISPICKVAL( Are_there_Pending_Supplements__c ,&quot;Yes&quot;) &amp;&amp;
+(
+ISBLANK(  Pending_Supplements__c  ) || ISBLANK(TEXT(  Are_the_Supplements_Approved__c ))
+)</errorConditionFormula>
+    <errorMessage>Required: Pending Supplements &amp; Are the Supplements Approved?</errorMessage>
+</ValidationRule>

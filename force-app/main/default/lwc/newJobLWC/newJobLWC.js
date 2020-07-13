@@ -813,6 +813,19 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
   }
   SaveDescription() {
+    const input = [
+      ...this.template.querySelectorAll(".jobdescription")
+    ].reduce((validSoFar, inputCmp) => {
+      inputCmp.reportValidity();
+      return validSoFar && inputCmp.checkValidity();
+    }, true);
+    if (!input) 
+    {
+      alert("Fill in all required questions before saving");
+    } 
+    else 
+    {
+    }
     this.Description =
       "Type of Loss: " +
       this.TypeOfLoss +

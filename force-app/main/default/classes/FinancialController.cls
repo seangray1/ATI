@@ -76,7 +76,16 @@ public with sharing class FinancialController
             
     public void saveChanges() 
      {
+      //  try{
         update Finance_Record;
+      //  }
+      //  catch(Exception e)
+      //  {
+      //    system.debug('Exception is ' + e.getMessage());
+      //  //ApexPages.Message ErrorMsg = new ApexPages.Message(ApexPages.Severity.ERROR,);
+      //  ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,e.getMessage()));
+      //       //ApexPages.addMessage(ErrorMsg);
+      //  }
      }
   
     public PageReference EdittheSection()

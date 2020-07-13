@@ -43,7 +43,7 @@ export default class AccountRolesDataTable extends LightningElement {
             {
                 
                 datasetup.push({id:i, Roles:data[i].Multiple_Roles__c, TimberlineCustomerNumber:data[i].TimberlineCustomerNumber, Contact:"", Account:""})
-                if(data[i].Contact_ID__c !== undefined)
+                if(data[i].Contact_ID__c !== undefined && data[i].Contact_ID__c !== null && data[i].Contact_ID__c !== "")
                 {
                     console.log('inside Contact part' + JSON.stringify(data[i].Contact_ID__r.Name));
                     datasetup[i].Contact ='/' + data[i].Contact_ID__c;
@@ -55,7 +55,7 @@ export default class AccountRolesDataTable extends LightningElement {
                     datasetup[i].ContactTitle=data[i].Contact_ID__r.Title;
                     datasetup[i].ContactAccountName=data[i].Contact_ID__r.Account.Name;
                 }
-                if(data[i].Account_ID__c !== undefined)
+                if(data[i].Account_ID__c !== undefined && data[i].Account_ID__c !== null && data[i].Account_ID__c !== "")
                 {
                     console.log('inside Account part' + JSON.stringify(data[i].Account_ID__c.Name));
                     datasetup[i].Account ='/' + data[i].Account_ID__c;

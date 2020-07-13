@@ -8,7 +8,7 @@
         <active>true</active>
         <filterItems>
             <field>Major_Event__c.Status__c</field>
-            <operation>contains</operation>
+            <operation>notContain</operation>
             <value>Inactive</value>
         </filterItems>
         <isOptional>false</isOptional>

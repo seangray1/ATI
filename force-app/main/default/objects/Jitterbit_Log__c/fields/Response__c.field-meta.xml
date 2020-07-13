@@ -3,7 +3,7 @@
     <fullName>Response__c</fullName>
     <description>Created by DemandBlue as part of Xact Integration</description>
     <externalId>false</externalId>
-    <label>Response</label>
+    <label>Operation Details</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

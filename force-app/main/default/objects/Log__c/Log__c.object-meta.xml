@@ -155,10 +155,9 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Log</label>
     <nameField>
-        <displayFormat>L-{000000}</displayFormat>
         <label>Log Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Logs</pluralLabel>
     <searchLayouts>

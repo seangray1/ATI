@@ -62,6 +62,9 @@
             "c/largeLossLWC": [
                 "largeLossLWC/largeLossLWC.js"
             ],
+            "c/largelosssubmitforapprovallwc": [
+                "largelosssubmitforapprovallwc/largelosssubmitforapprovallwc.js"
+            ],
             "c/logCall": [
                 "logCall/logCall.js"
             ],
@@ -88,6 +91,12 @@
             ],
             "c/rejectbudget": [
                 "rejectbudget/rejectbudget.js"
+            ],
+            "c/largeLossRefreshLWC": [
+                "largeLossRefreshLWC/largeLossRefreshLWC.js"
+            ],
+            "c/LargeLossRefreshLWC": [
+                "LargeLossRefreshLWC/LargeLossRefreshLWC.js"
             ]
         },
         "experimentalDecorators": true

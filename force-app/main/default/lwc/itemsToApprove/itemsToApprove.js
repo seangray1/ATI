@@ -93,10 +93,10 @@ export default class ItemsToApprove extends LightningElement {
     // eslint-disable-next-line @lwc/lwc/no-async-await
     connectedCallback() {
         let getcurrentpageurl = window.location.href;
-        console.log('Page url is ' + getcurrentpageurl);
+        
         if(getcurrentpageurl.includes("home")){
             this.DataTableHeight = 'short';
-            console.log('Page url is ' + getcurrentpageurl);
+           
         }
         else{
             this.DataTableHeight = 'tall';
@@ -119,12 +119,12 @@ export default class ItemsToApprove extends LightningElement {
                 // this.data = this.datasetup;
                 
                 
-                    console.log('1st Account Name ' + accounts[i].Account);
-                    this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
-                    console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
+                    
+                    this.datasetup.push({id:i,AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    
                     if(accounts[i].Account === undefined)
                     {
-                        console.log('clearing account name ' + i + ' ' + this.datasetup[i].AccountName);
+                        
                         this.datasetup[i].AccountName = "";
                         this.datasetup[i].AccountNameId = "";
                     }
@@ -154,7 +154,7 @@ export default class ItemsToApprove extends LightningElement {
         this.Decision = event.detail.action.name;
         this.DecisionClicked = true;
         this.SingleDecision = true;
-        console.log('Decision' + this.Decision);
+       
         this.row = event.detail.row;
     }
     SelectedDecisionClicked(event)
@@ -165,7 +165,7 @@ export default class ItemsToApprove extends LightningElement {
     }
     CommentsSaved()
     {
-        console.log('Approve selected');
+        
         ApproveSelected(event);
          
     }
@@ -198,16 +198,15 @@ export default class ItemsToApprove extends LightningElement {
     getSelectedName(event)
     {
         const selectedRows = event.detail.selectedRows;
-        console.log('Selected Row when blank is ' + selectedRows);
-        console.log('Before ' + this.SelectedData);
+        
         this.SelectedData = [];
         // Display that fieldName of the selected rows
         for (let i = 0; i < selectedRows.length; i++){
-            console.log("You selected: " + selectedRows[i].MasterJob);
+            
            
-            console.log('After clear ' + this.SelectedData);
+            
             this.SelectedData.push(selectedRows[i]);
-            console.log('After push ' + JSON.stringify(this.SelectedData));
+           
             
         }
     }
@@ -216,10 +215,11 @@ export default class ItemsToApprove extends LightningElement {
     {   
         try 
         {
-        console.log('The single decision before all is ' + this.SingleDecision);
+            let selectedrowss = event.detail.selectedRows;
+            console.log('Selec ' + selectedrowss);
         if(this.SingleDecision === false)
         {
-            console.log('Single decision is false ' + this.SingleDecision);
+           
             this.loading = true;
             // var testeventname = event.detail.name;
             // console.log('Testeventname ' + testeventname);
@@ -229,32 +229,47 @@ export default class ItemsToApprove extends LightningElement {
                 for (let i = 0; i < this.SelectedData.length; i++)
                 {  
                     rowindexes.push(this.SelectedData[i].id);
-                    console.log('After push ' + JSON.stringify(this.SelectedData) + ' rowindexes is ' + rowindexes); 
+                    
                 }
-                console.log('141 is hit');
+               
                 let ItemsToSend = JSON.stringify({ItemsToApproveReject: this.SelectedData});
-                console.log('Items to send is ' + ItemsToSend);
-                let rows = this.data;
-                let rowsetup = [];
+                
+                
                
                 ApproveSelectedItems({ItemsToApproveReject:ItemsToSend,Comments:this.Comments, Decision:this.Decision, processId: ''}).then(result => 
                 {
                     if(result === '200')
                     {
+                        this.SelectedData = [];
                         console.log('Result is ' + result);
+                        
+                      
+                        var el = this.template.querySelector('lightning-datatable');
+                        console.log('Elements are ' + el);
+                        var selected = el.selectedRows;
+                        console.log('Selected rows are ' + selected);
+                        selected = [];
+                        console.log('Selected rows are after ' + selected);
+                        
+                        let rows = this.data;
+                        let rowsetup = [];
                         this.data = [];
-                        console.log('Result lenght is ' + rowindexes.length);
+                        console.log('rows before ' + rows);
                         for (let i = rowindexes.length -1; i >= 0; i--)
                         {
+                            console.log('rows size ' + rows.length);
                             rows.splice(rowindexes[i], 1);
+                            console.log('rows size ' + rows.length);
+                            this.datasetup = rows;
                         }
+                        console.log('rows after ' + rows);
                         if(rows.length > 0)
                         {
                         for (var i = 0; i < rows.length; i++) 
                         {
-                            rowsetup.push({Contact:rows[i].Contact, ContactNamee:rows[i].ContactNamee,processId:rows[i].processId,processinstanceId:rows[i].processinstanceId,id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].CreatedBy, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
+                            this.data.push({id:this.datasetup[i].id,Contact:this.datasetup[i].Contact, ContactNamee:this.datasetup[i].ContactNamee,processId:this.datasetup[i].processId,processinstanceId:this.datasetup[i].processinstanceId,id:i,MasterJob: this.datasetup[i].MasterJob, MasterJobName1: this.datasetup[i].MasterJobName1, CreatedBy: this.datasetup[i].CreatedBy, AccountName:this.datasetup[i].AccountName, AccountName1:this.datasetup[i].AccountName1, ContactName:this.datasetup[i].ContactName, ContactName1:this.datasetup[i].ContactName1, ReferredBy:this.datasetup[i].ReferredBy, ReferredBy1:this.datasetup[i].ReferredBy1});   
                         }
-                        this.data = rowsetup;
+                        //this.data = rowsetup;
                         this.loading = false;
                         this.Comments = '';
                         this.Decision = '';
@@ -312,10 +327,10 @@ export default class ItemsToApprove extends LightningElement {
                     this.data = [];
                     for (var i = 0; i < rows.length; i++) 
                     {   
-                        this.datasetup.push({Contact:rows[i].Contact, ContactNamee:rows[i].ContactNamee,processinstanceId:rows[i].processinstanceId,id:i, id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].CreatedBy, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
+                        this.data.push({id:i, Contact:rows[i].Contact, ContactNamee:rows[i].ContactNamee,processinstanceId:rows[i].processinstanceId,id:i, id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].CreatedBy, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
                     }
                     
-                    this.data = this.datasetup; 
+                    //this.data = this.datasetup; 
                     console.log('datasetup ' + JSON.stringify(this.data));
                     this.datasetup = [];
                     this.loading = false;
@@ -376,7 +391,7 @@ export default class ItemsToApprove extends LightningElement {
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
                  
-                    this.datasetup.push({Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i, CreatedBy: accounts[i].createdByName});  
+                    this.datasetup.push({id:i, Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i, CreatedBy: accounts[i].createdByName});  
                 }
             }
             if(this.objectName === 'Master Job')
@@ -402,7 +417,7 @@ export default class ItemsToApprove extends LightningElement {
                 for (var i = 0; i < accounts.length; i++) 
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
-                    this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    this.datasetup.push({id:i, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
                     console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
                     if(accounts[i].Account === undefined)
                     {
@@ -464,7 +479,7 @@ export default class ItemsToApprove extends LightningElement {
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
                  
-                    this.datasetup.push({Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i, CreatedBy: accounts[i].createdByName});  
+                    this.datasetup.push({id:i, Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i, CreatedBy: accounts[i].createdByName});  
                 }
             }
             if(this.objectName === 'Master Job')
@@ -490,7 +505,7 @@ export default class ItemsToApprove extends LightningElement {
                 for (var i = 0; i < accounts.length; i++) 
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
-                    this.datasetup.push({AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    this.datasetup.push({id:i, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
                     console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
                     if(accounts[i].Account === undefined)
                     {

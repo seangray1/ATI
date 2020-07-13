@@ -11,6 +11,7 @@ public without sharing class JobTriggerHandlerWorkflow
     {
         for(ATI_Job__c job : jobs)
         {
+            
             NewJobMasterSet.add(job.Master_Job__c);
         }
         if(!NewJobMasterSet.isEmpty())
@@ -359,12 +360,19 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
 }
     public static void StageChanged(List<ATI_Job__c> jobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap)
     {
+        Map<Id, ATI_Job__c> JobsForLargeLossCheck = new Map<Id, ATI_Job__c>();
         for(ATI_Job__c job : jobs)
         {
+            
             ATI_Job__c oldJob = new ATI_Job__c();
             if(oldJobMap != null)
             {
+                system.debug('oldJobMap ' + oldJobMap.get(job.Id).recordtypeId + '  job is ' + job.recordtypeId);
                 oldJob = oldJobMap.get(job.id);
+            }
+            if(oldJob != null && job.Large_Loss_Flag__c == true && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Billing Complete')
+            {
+                JobsForLargeLossCheck.put(job.Id, job);
             }
             if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Billing Complete' && job.Billing_complete_Date__c == null)
             {
@@ -374,6 +382,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     job.Completion_Date__c = system.today();
                 }
             }
+           
             if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Estimating/Review' && job.Estimating_Review_Date__c == null)
             {
                 job.Estimating_Review_Date__c = system.now();
@@ -412,6 +421,15 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     job.Completion_Date__c = system.today();
                 }
             }
+        }
+        if(!JobsForLargeLossCheck.isEmpty())
+        {
+            List<Large_Loss_Review__c> largeLossToCancel = [Select Id, Status__c FROM Large_Loss_Review__c Where Job__c =:JobsForLargeLossCheck.keySet()];
+            for(Large_Loss_Review__c l : largeLossToCancel)
+            {
+                l.Status__c = 'Cancelled';
+            }
+            update largeLossToCancel;
         }
     }
     //JobTeamCreation needs to be called after AssignRoles Process
@@ -533,7 +551,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 //Dealing with AE's to update job team and job split
                 if (job.RecordTypeId != oldJob.RecordTypeId && (job.Account_Executive_1__c != null || job.Account_Executive_2__c != null)) 
                 {
-                    if(job.Account_Executive_1__c != null || job.Account_Executive_2__c == null)
+                    if(job.Account_Executive_1__c != null && job.Account_Executive_2__c == null)
                     {
                         ATI_Job_Split__c js = new ATI_Job_Split__c(Member_Role__c = 'Account Executive', Team_Member__c = job.Account_Executive_1__c, Type__c = 'Revenue', ATI_Job__c = job.Id,
                         Percentage__c = 100.00);
@@ -566,13 +584,13 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         }
         if(!financialsToInsert.isEmpty())
         {
-            insert financialsToInsert;
+           insert financialsToInsert;
         }
         system.debug('Job Teams contains ' + jobTeams.size());
         system.debug('Job Teams contains ' + jobTeams);
         if(!jobTeams.isEmpty())
         {
-            insert jobTeams;
+           insert jobTeams;
         }
         if(!CustomerSurveysJobMap.isEmpty())
         {
@@ -603,8 +621,11 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 jsplits.Percentage__c = 0;
                 jsToInsert.add(jsplits);
             }
-            
+            //update jobSplitOwners.values();
+            system.debug('jstoinsert before ' + jstoinsert);
+            TriggerFlagController.flag = false;
             upsert jsToInsert;
+            system.debug('jstoinsert after ' + jstoinsert);
         }
         
     }

@@ -4,11 +4,17 @@
     <columns>NAME</columns>
     <columns>Date_Taken__c</columns>
     <columns>Stage__c</columns>
+    <columns>Project_Site_City__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>LAST_UPDATE</field>
         <operation>equals</operation>
         <value>5/18/2020 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ATI_Job__c.Job_Approved</value>
     </filters>
     <label>All</label>
 </ListView>

@@ -12,9 +12,9 @@
     <columns>Project_Site_Address__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Project_Site_Address__c</field>
-        <operation>startsWith</operation>
-        <value>423 Berry</value>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>1/1/2020 12:00 AM</value>
     </filters>
     <label>All Jobs</label>
 </ListView>

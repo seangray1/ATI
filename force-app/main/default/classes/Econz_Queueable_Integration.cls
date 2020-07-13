@@ -87,7 +87,9 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
                 integrateEconz(job, typequeueablemap.get(job.id), startdateQueue.get(job.Id));
             }
         }
+      
         update globalJobMap.values();
+        
         update globalUserMap.values();
         if(!jobList2.isEmpty())
         {
@@ -102,6 +104,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         string PM_Key;
         string msg = '';
         system.debug('===startdate==='+startdate);
+        system.debug('Job Id and job is '+ job.Id + job.ECONZ_Last_Callout_Time__c);
         //Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
         if(Job !=null){
         if(startdate != null){
@@ -140,8 +143,9 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         }
         system.debug('integrateEconz');
         //update Job;
-        system.debug('Job Id and job is '+ job.Id + job);
+        system.debug('Job Id and job is '+ job.Id + job.ECONZ_Last_Callout_Time__c);
         globalJobMap.put(job.Id, job);
+        system.debug('callout time in the map ' + globalJobMap.get(job.Id).Econz_Last_callout_Time__c);
         system.debug('integrateEconz'+Job.ECONZ_Task_Created__c);
         if(Job.Project_Manager_New__c != null){// commented by Nanda on 01/19/2018 && PM_Key == null && Job.Project_Manager_New__r.EConz_Primary_Key__c != null){
             system.debug('User is getting updated');
@@ -182,13 +186,13 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
             reqXML = buildAddTaskRequestXML(Job , 'addTaskForManager', PM_Key, startdate);
             system.debug('reqXML-----'+reqXML);
             system.debug('Call from addTaskForManager');
-            invokeCallAndUpdateResults(reqXML, Job, 'addTaskForManager');
+            Job = invokeCallAndUpdateResults(reqXML, Job, 'addTaskForManager');
             if (Job.Project_Manager_New__c != null && String.isEmpty(Job.Project_Manager_New__r.EConz_Primary_Key__c)) {
                 Job.Project_Manager_New__r.EConz_Primary_Key__c = PM_Key;
                 system.debug('EConz_Primary_Key__c---'+Job.Project_Manager_New__r.EConz_Primary_Key__c);
             }
         }
-        globalJobMap.put(job.Id, job);
+        //globalJobMap.put(job.Id, job);
        // update Job;
         return Job;
     }
@@ -208,7 +212,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         string reqXML = buildRenameTaskRequestXML(Job, OldName);
         system.debug('reqXML----'+reqXML);
         system.debug('Call from renameTask');
-        invokeCallAndUpdateResults(reqXML, Job, 'renameTask');
+        job = invokeCallAndUpdateResults(reqXML, Job, 'renameTask');
         return Job;
     }
     
@@ -216,7 +220,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         
         string reqXML = buildUpdateTaskRequestXML(Job, startdate);
         system.debug('Call from updateTaskStartEnd');
-        invokeCallAndUpdateResults(reqXML, Job, 'updateTaskStartEnd');
+        job = invokeCallAndUpdateResults(reqXML, Job, 'updateTaskStartEnd');
         return Job;
     }
     
@@ -265,7 +269,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         if (PM_Key != null) {
             reqXML = buildUpdateManagerRequestXML(Job, PM_Key);
             system.debug('Call from updateTaskManager');
-            invokeCallAndUpdateResults(reqXML, Job, 'updateTaskManager');
+            job = invokeCallAndUpdateResults(reqXML, Job, 'updateTaskManager');
             if (Job.Project_Manager_New__c != null && String.isEmpty(Job.Project_Manager_New__r.EConz_Primary_Key__c)) {
                 Job.Project_Manager_New__r.EConz_Primary_Key__c = PM_Key;
             }
@@ -277,7 +281,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
     public static ATI_Job__c updateTaskDetails(ATI_Job__c Job,String PM_Key, dateTime startdate) {
         string reqXML = buildAddTaskRequestXML(Job, 'updateTaskDetails', PM_Key, startdate);
         system.debug('Call from updateTaskDetails');
-        invokeCallAndUpdateResults(reqXML, Job, 'updateTaskDetails');
+        job = invokeCallAndUpdateResults(reqXML, Job, 'updateTaskDetails');
         return Job;
     }
     
@@ -323,6 +327,10 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
                 system.debug('----Err'+ isError);
                 system.debug(method);
                 if (method == 'addTaskForManager'){
+                //     if(globalJobMap.containsKey(job.Id))
+                //     {
+                //         globalJobMap.get(job.Id).Econz_Task_created__c = true;
+                //     }
                     Job.ECONZ_Task_Created__c = true;
                     system.debug(Job.ECONZ_Task_Created__c);
                 }
@@ -335,6 +343,11 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         }
         else {
             // Not Integration Error but other error (network or et)
+            // if(globalJobMap.containsKey(job.Id))
+            // {
+            //     globalJobMap.get(job.Id).ECONZ_Integration_Error__c = true;
+            //     globalJobMap.get(job.Id).ECONZ_Error_Message__c = statusCode;
+            // }
             Job.ECONZ_Integration_Error__c = true;
             Job.ECONZ_Error_Message__c = statusCode;
         }
@@ -407,6 +420,18 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
             Job.ECONZ_Last_Callout_Time__c = system.now();
             Job.ECONZ_Integration_Error__c = false;
             Job.ECONZ_Error_Message__c = null;
+            // if(globalJobMap.containsKey(job.Id))
+            // {
+            //     globalJobMap.get(job.Id).ECONZ_Task_Created__c = true;
+            //     globalJobMap.get(job.Id).ECONZ_Last_Callout_Time__c = system.now();
+            //     globalJobMap.get(job.Id).ECONZ_Integration_Error__c = false;
+            //     globalJobMap.get(job.Id).ECONZ_Error_Message__c = null;  
+            // }
+            // else {
+                
+            //         globalJobMap.put(job.Id, job);
+                
+            // }
         }
         if(ErrorMessage == ' task error.notFound'){
             Job = addTask(Job,Job.date_time_approved__c);
@@ -430,6 +455,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         Job.ECONZ_Last_Callout_Time__c = system.now();
         Job.ECONZ_Integration_Error__c = false;
         Job.ECONZ_Error_Message__c = null;
+
         return Job;
     }
     

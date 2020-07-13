@@ -4,9 +4,13 @@
     <columns>CREATED_DATE</columns>
     <columns>NAME</columns>
     <columns>Log_Name__c</columns>
+    <columns>XASP_Transaction_ID__c</columns>
     <columns>Record_ID__c</columns>
+    <columns>Status__c</columns>
+    <columns>Error_Warning_Details__c</columns>
+    <columns>Source_System__c</columns>
+    <columns>Destination_System__c</columns>
     <columns>Response__c</columns>
-    <columns>Success__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

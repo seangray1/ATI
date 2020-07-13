@@ -59,7 +59,8 @@ public without sharing class PropertyTriggerHandler {
     }
     if(MasterJobNameChange)
     {
-        List<Master_Job__c> mjobs = [Select Id, Name, Date_of_loss__c, Property__c FROM Master_Job__c Where Property__c =: propset];
+        system.debug('Type is ' + type + '  size of Property Ids is ' + propset.size());
+        List<Master_Job__c> mjobs = [Select Id, Name, Date_of_loss__c, Property__c FROM Master_Job__c Where Property__c =: propset LIMIT 200];
         for(Master_Job__c m : mjobs)
         {
             property__c prop = newPropMap.get(m.Property__c);

@@ -380,7 +380,7 @@ Save(){
             this.EsJobType = '';this.PageStateReady = false;this.MajorEventValue = '';this.MajorEventSelected = false;this.ProjectDirectorSelected = false;
             this.ContactName = '';this.Email = '';this.PhoneNumber = '';this.Company= '';this.AdditionalInformation = '';this.newDescription = false;
             this.DescriptionOfLoss = '';this.InsuranceProvider = '';this.Claim = '';this.Policy = '';this.LeadSource = '';this.AdditionalInformationTwo = '';
-            this.loading = false;
+            //this.loading = false;
             this.newDescriptionTwo = false;
             // if(this.recordId === null || this.recordId === undefined || this.recordId === "")
             // {

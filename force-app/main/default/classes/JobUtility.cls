@@ -281,10 +281,22 @@ public class JobUtility {
         Map<Id, ATI_Job__c> JobMap = new Map<Id, ATI_Job__c>();
         List<ATI_Job__c> JobList = new List<ATI_Job__c>();
         for(ATI_Job__c job : jobs){
+            system.debug('Job is ' + job);
+            system.debug('OldMap is ' + oldjobmap);
+            
+            if(Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId != job.RecordTypeId)
+            {
+                system.debug('1st');
+            }
+            if(oldJobMap != null && job.RecordTypeId == oldJobMap.get(job.id).RecordTypeId)
+            {
+                system.debug('2st');
+            }
             //job record type changed, only approved job will be considered to call FotoIn
             if(Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)') == null || 
                Schema.SObjectType.ATI_Job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId != job.RecordTypeId || 
                (oldJobMap != null && job.RecordTypeId == oldJobMap.get(job.id).RecordTypeId)){
+                   system.debug('passed 1st criteria');
                 continue;
             }
             // job division is Marketing will be ignored
@@ -295,17 +307,19 @@ public class JobUtility {
                 continue;
             }*/
             if(job.Project_Site_Address__c == null 
-               || job.Project_Site_Address__c == null //&& job.Project_Site_Address_2__c == null) 
                || job.Project_Site_City__c == null 
                || job.Project_Site_State__c == null 
                || job.Project_Site_Zipcode__c == null){
+                system.debug('passed 2nd criteria');
                    continue;
                }else{
+                system.debug('Job1 is ' + job);
                    JobMap.put(job.id, job);
                    JobList.add(job);
                }
         }
-        if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() ){
+        system.debug('Job list size is ' + jobList.size() + '  System is batch/scheduled/test = ' + System.isBatch() + System.isScheduled() + Test.isRunningTest());
+        if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() && !Test.isRunningTest()){
             //callFotoIn2Create(JobMap.keySet());
             Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Create'));
         }
@@ -354,7 +368,7 @@ public class JobUtility {
         //     callFotoIn2Update(JobMap.keySet());
             
         // }
-        if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() ){
+        if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() && !Test.isRunningTest()){
             //callFotoIn2Create(JobMap.keySet());
             Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Edit'));
         }

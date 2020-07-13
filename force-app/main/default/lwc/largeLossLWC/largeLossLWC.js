@@ -10,38 +10,39 @@
  * 1.0    2/27/2020   Sean Gray     Initial Version
 **/
 import { LightningElement,api,track } from 'lwc';
-import jobApproval from '@salesforce/apex/LargeLossUtility.LargeLossApprovalSubmission';
+
 import ValidateRecord from '@salesforce/apex/LargeLossUtility.ValidateRecord';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
-export default class LargeLossLWC extends LightningElement {
-@api recordId
+import { NavigationMixin } from "lightning/navigation";
+export default class LargeLossLWC extends NavigationMixin(LightningElement) {
+@api recordId;
 @track loading = false;
 Validated = false;
 
-connectedCallback()
-{
-    ValidateRecord({recordId:this.recordId}).then(result =>
-    {
-        if(result === 'Success')
-        {
-            //code
-            this.Validated = true;
-        }
-        else
-        {
-            alert(result);
-            this.dispatchEvent(new CustomEvent('Close'));
-        }
-    })
-}
+// connectedCallback()
+// {
+//     ValidateRecord({recordId:this.recordId}).then(result =>
+//     {
+//         if(result === 'Success')
+//         {
+//             //code
+//             this.Validated = true;
+//         }
+//         else
+//         {
+//             alert(result);
+//             this.dispatchEvent(new CustomEvent('Close'));
+//         }
+//     })
+// }
 Send()
 {
     this.loading = true;
-    jobApproval({recordId : this.recordId}).then(result => 
+    ValidateRecord({recordId : this.recordId}).then(result => 
     {
-        this.loading = false;
+        //this.loading = false;
         let message = result;
-        if(message === 'success')
+        if(message.length <= 18)
         {
             const event = new ShowToastEvent({
                 title:'Success',
@@ -49,10 +50,18 @@ Send()
                 variant: 'success',
             });
             this.dispatchEvent(event);
-            this.dispatchEvent(new CustomEvent('refreshRecord'));  
+            this[NavigationMixin.Navigate]({
+                type: "standard__recordPage",
+                attributes: {
+                  recordId: message,
+                  objectApiName: "Large_Loss_Review__c",
+                  actionName: "view"
+                }
+              }); 
         }
         else
         {
+        this.loading = false;
         alert(message);
         }
     }

@@ -873,6 +873,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Queueable_Test_Methods</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ResourceSchedulerController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
