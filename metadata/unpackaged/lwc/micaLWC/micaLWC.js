@@ -249,6 +249,7 @@ export default class MicaLWC extends NavigationMixin(LightningElement) {
     }
     End()
     {
+        this.wait = true;
         SendToMica({recordId:this.recordId}).then(result => {
             const event = new ShowToastEvent({
                 title:'Success',

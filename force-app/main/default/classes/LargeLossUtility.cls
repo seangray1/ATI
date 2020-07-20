@@ -16,7 +16,7 @@ public without sharing class LargeLossUtility {
             req1.setComments(comments);
             req1.setObjectId(recordId);
             req1.setSubmitterId(UserInfo.getUserId());
-            req1.setProcessDefinitionNameOrId('Large_Loss_Review');
+            req1.setProcessDefinitionNameOrId('Large_Loss_Review1');
             req1.setSkipEntryCriteria(true);
             // Submit the approval request for the account
             Approval.ProcessResult result = Approval.process(req1);
@@ -28,6 +28,16 @@ public without sharing class LargeLossUtility {
             return e.getMessage();
         }
         
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<Large_Loss_Review__c> getLargeLossReviews(Id recordId) {
+        Large_Loss_Review__c l = [Select Id, Job__c FROM Large_Loss_Review__c WHERE Id =: recordId];
+        return [
+            SELECT Id, Name, Amount__c, Job_To_Date_Costs__c, Forecast_for_Current_Month__c, Estimated_GP_Percent__c
+            FROM Large_Loss_Review__c
+            WHERE Job__c =: l.job__c
+            LIMIT 10
+        ];
     }
 
     @AuraEnabled
@@ -90,46 +100,159 @@ public without sharing class LargeLossUtility {
             return e.getMessage();
         }
     }
+    // @AuraEnabled 
+    // public static string RefreshListLargeLoss(Map<Id,Large_Loss_Review__c> largelossMap)
+    // {
+    //     try 
+    //     {
+    //         // Large_Loss_Review__c l = [SELECT Id, Job__c
+    //         //                 FROM Large_Loss_Review__c 
+    //         //                 WHERE Id =: recordId];
+    //         Set<Id> jobIdSet = new Set<Id>();
+    //         for(Large_Loss__c l : largelossMap.values())
+    //         {
+    //             jobIdSet.add(l.Job__c);
+    //         }
+    //         list<Large_Loss__c> largeLossList = CreateListLargeLossRecord(largelossMap, jobIdSet);
+    //         //Large_Loss_Review__c largeloss = CreateLargeLossRecord(l.Job__c);
+    //         //largeloss.Id = recordId;
+    //         update largeloss;
+    //         return 'success';
+    //     }
+    //     catch(Exception e)
+    //     {
+    //         return e.getMessage();
+    //     }
+    // }
+    // public static Large_Loss_Review__c CreateListLargeLossRecord(Map<Id,Large_Loss_Review__c> largelossMap, Set<Id> jobIds)
+    // {
+    //     //query for all of the record
+    //     // missing contract start date and completion date
+    //     Map<Id, ATI_Job__c> job = new Map<Id,ATI_Job__c>([SELECT Project_Manager__c, ContractId__c, Project_manager_new__c, Regional_Director__c, Branch_Manager__c, Amount__c,
+    //     Estimated_Completion_Date_Per_PD__c,Estimated_Completion_Date__c,Job_Start_Date__c,Job_to_Date_Payments_AR_RS__c,Percent_Complete__c
+    //                     FROM ATI_Job__c
+    //                     WHERE Id =: jobIds]);
+    //     for(ATI_Job__c j : job.values())
+    //     {
+    //         contractIds.add(j.Contract_Id__c);
+    //         contractKeyValueJob.put(j.Contract_Id__c, j);
+    //     }
+    //     Map<Id, Contract> contr = new Map<Id,Contract>([SELECT Id, StartDate, EndDate
+    //                     FROM Contract
+    //                     WHERE Id =: contractIds]); 
+
+    //     Map<Id, Financial__c> financial = new Map<Id, Financial__c>([SELECT Id, Job_to_date_work_billed__c, Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c, Gross_Profit__c
+    //                             FROM Financial__c
+    //                             WHERE ATI_Job__c =: recordId LIMIT 1]);
+    //     Budget__c bud = [SELECT Id, Budget_Status__c, Rejected_Reason__c, Total_Budget_Goal__c, Allocation_Percentage__c
+    //                     FROM Budget__c
+    //                     WHERE ATI_Job__c =: recordId
+    //                     ORDER BY createdDate];
+    //     // List<Forecast__c> forecasts = [SELECT Id, SUM(Revenue_Amount__c), CreatedDate
+    //     //                                 FROM Forecast__c
+    //     //                                 Where ATI_Job__c =:recordId];
+    //     Date startOfMonth = Date.today().toStartOfMonth();
+        
+    //     Date startOfNextMonth = startOfMonth.addMonths(1);
+    //     system.debug('start of month ' + startOfMonth + ' Start of next month ' + startOfNextMonth);                                
+    //     List<AggregateResult> forecastFullAmount=[SELECT SUM(Revenue_Amount__c) 
+    //                               FROM Forecast__c 
+    //                               WHERE ATI_Job__c =:recordId];
+    //     List<AggregateResult> forecastFutureAmount=[SELECT SUM(Revenue_Amount__c) 
+    //                               FROM Forecast__c 
+    //                               WHERE ATI_Job__c =:recordId AND Invoice_Date__c >= :startOfNextMonth
+    //                               ];
+    //     List<AggregateResult> forecastCurrentMonthAmount=[SELECT SUM(Revenue_Amount__c) 
+    //                               FROM Forecast__c 
+    //                               WHERE ATI_Job__c =:recordId  AND Invoice_Date__c >= :startOfMonth
+    //                               AND Invoice_Date__c < :startOfNextMonth];
+    //     system.debug(forecastFullAmount + '  ' + forecastFutureAmount + '  ' + forecastCurrentMonthAmount);
+    //     Large_Loss_Review__c largeloss = new Large_Loss_Review__c(Job__c = recordId, Amount__c = job.Amount__c,
+    //     Contract_Start_Date__c = contr.StartDate, Contract_End_Date__c = contr.EndDate, Job_To_Date_Payments__c = job.Job_to_Date_Payments_AR_RS__c,
+    //     Percent_Complete__c = job.Percent_Complete__c, Job_Start_Date__c = job.Job_Start_Date__c, Estimated_Completion_Date_Per_Contract__c = job.Estimated_Completion_Date__c,
+    //     Estimated_Completion_Date_Per_PM__c = job.Estimated_Completion_Date_Per_PD__c, Job_To_Date_Work_Billed__c = financial.Job_to_date_work_billed__c,
+    //     Job_to_Date_Costs__c = financial.Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c = financial.Job_To_Date_GP_Percent__c, 
+    //     Estimated_GP_Percent__c = financial.Gross_Profit__c, Budget_Status__c = bud.Budget_Status__c, Rejected_Reason__c = bud.Rejected_Reason__c,
+    //     Total_Budget_Goal__c = bud.Total_Budget_Goal__c, Allocation_Percent__c = bud.Allocation_Percentage__c, 
+    //     Total_Billing_Forecast__c = (Double)forecastFullAmount[0].get('expr0'), Forecast_for_Current_Month__c = (Double)forecastCurrentMonthAmount[0].get('expr0'), 
+    //     Future_Forecast__c = (Double)forecastFutureAmount[0].get('expr0'), Regional_Manager__c = job.Branch_Manager__c, Regional_Director__c = job.Regional_Director__c,
+    //     Project_Director__c = job.Project_Manager__c, Project_Manager__c = job.Project_Manager_new__c);
+    //     //insert and return
+    //     return largeloss;
+    // }
     public static void AutoCreateNewLargeLoss(Map<Id,Large_Loss_Review__c> oldMap, List<Large_Loss_Review__c> largeLossList)
     {
-        List<ATI_Job__c> jobsToUpdate = new List<ATI_Job__c>();
+        
         Map<Id,Large_Loss_Review__c> largeLossRecordsToLock = new Map<Id,Large_Loss_Review__c>();
-        List<Large_Loss_Review__c> recordsToInsert = new List<Large_Loss_Review__c>();
+        Map<Id,Large_Loss_Review__c> largeLossRecordsToRefresh = new Map<Id,Large_Loss_Review__c>();
+        
         for(Large_Loss_Review__c largeloss : largeLossList)
         {
             Large_Loss_Review__c oldLargeLoss = oldmap.get(largeloss.Id);
             if((largeloss.Status__c == 'Approved' || largeloss.Status__c == 'Rejected') && largeloss.Status__c != oldLargeLoss.Status__c)
             {
                 //add to large loss records to create and lock
+
                 largeLossRecordsToLock.put(largeloss.Id, largeloss);
             }
+            if(largeloss.Are_Change_Orders_approved__c != oldLargeLoss.Are_Change_Orders_approved__c ||
+            largeloss.Are_the_Supplements_Approved__c != oldLargeLoss.Are_the_Supplements_Approved__c ||
+            largeloss.Are_there_Change_Orders__c != oldLargeLoss.Are_there_Change_Orders__c ||
+            largeloss.Are_there_Pending_Supplements__c != oldLargeLoss.Are_there_Pending_Supplements__c ||
+            largeloss.Pending_Supplements__c != oldLargeLoss.Pending_Supplements__c ||
+            largeloss.Will_the_job_fall_under_the_original_est__c != oldLargeLoss.Will_the_job_fall_under_the_original_est__c)
+            {
+                //refresh record
+                largeLossRecordsToRefresh.put(largeloss.Id, largeloss);
+            }
         }
+        if(!largeLossRecordsToLock.isEmpty())
+        {
+            createNewLargeLoss(largelossRecordsToLock);
+        }
+        if(!largeLossRecordsToRefresh.isEmpty())
+        {
+            for(Large_Loss_Review__c l : largeLossRecordsToRefresh.values())
+            {
+                RefreshLargeLoss(l.Id);
+            } 
+        }
+    }
+    public static void createNewLargeLoss(Map<Id,Large_Loss_Review__c> largelossRecordsToLock)
+    {
+        List<ATI_Job__c> jobsToUpdate = new List<ATI_Job__c>();
+        List<Large_Loss_Review__c> recordsToInsert = new List<Large_Loss_Review__c>();
+        Set<Id> jobids = new Set<Id>();
         if(!largeLossRecordsToLock.isEmpty())
         {
             for(Large_Loss_Review__c largeloss : largeLossRecordsToLock.values())
             {
                 Large_Loss_Review__c l = CreateLargeLossRecord(largeloss.Job__c);
-                l.NLLS_Number__c = oldMap.get(largeloss.Id).NLLS_Number__c + 1;
+                l.NLLS_Number__c = largelossRecordsToLock.get(largeloss.Id).NLLS_Number__c + 1;
+                l.Previous_Review__c = largeloss.id;
+                
                 recordsToInsert.add(l);
-                ATI_Job__c job = new ATI_Job__c(Id = largeloss.job__c, Large_Loss_Status__c = 'Approved');
-                jobsToUpdate.add(job);
+                
+                jobids.add(largeloss.job__c);
+                if(String.isEmpty(largeloss.previous_review__c))
+                {
+                    
+                    ATI_Job__c job = new ATI_Job__c(Id = largeloss.job__c, Large_Loss_Status__c = largeloss.status__c);
+                    jobsToUpdate.add(job);
+                }
+                
             }
-            insert recordsToInsert;
-            update jobstoUpdate;
+            ATI_Job__c jobStageCheck = [Select Id, Stage__c FROM ATI_Job__c WHERE Id =:jobids limit 1];
+            if(jobStageCheck.Stage__c != 'Billing Complete')
+            {
+                insert recordsToInsert;
+            }
+            
+            if(!jobstoupdate.isEmpty())
+            {
+                update jobstoUpdate;
+            }
             Approval.lock(largelossRecordsToLock.values());
-            //submit new records for approval
-            // List<Approval.ProcessSubmitRequest> allReq = new List<Approval.ProcessSubmitRequest>(); 
-            // for(Large_Loss_Review__c largeloss : recordsToInsert)
-            // {
-            //     Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-            //     req1.setComments('Submitting request for approval.');
-            //     req1.setProcessDefinitionNameOrId('Large_Loss_Review');
-            //     req1.setObjectId(largeloss.Id);
-            //     req1.setskipentrycriteria(true);
-            //     req1.submitterId = UserInfo.getUserId();
-            //     allreq.add(req1);
-            // }
-            // Approval.ProcessResult[] result = Approval.process(allreq); 
         }
     }
     public static void LargeLossNameFormat(List<Large_Loss_Review__c> largelossList)
@@ -260,13 +383,17 @@ public without sharing class LargeLossUtility {
         Estimated_Completion_Date_Per_PD__c,Estimated_Completion_Date__c,Job_Start_Date__c,Job_to_Date_Payments_AR_RS__c,Percent_Complete__c
                         FROM ATI_Job__c
                         WHERE Id =: recordId];
-        Contract contr = [SELECT Id, StartDate, EndDate
+        Contract contr = new Contract();
+        if(String.isNotEmpty(job.ContractId__c))
+        {
+            contr = [SELECT Id, StartDate, EndDate
                         FROM Contract
                         WHERE Id =: job.ContractId__c]; 
-        Financial__c financial = [SELECT Id, Job_to_date_work_billed__c, Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c, Gross_Profit__c
+        }
+        List<Financial__c> financial = [SELECT Id, Job_to_date_work_billed__c, Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c, Gross_Profit__c
                                 FROM Financial__c
                                 WHERE ATI_Job__c =: recordId LIMIT 1];
-        Budget__c bud = [SELECT Id, Budget_Status__c, Rejected_Reason__c, Total_Budget_Goal__c, Allocation_Percentage__c
+        List<Budget__c> bud = [SELECT Id, Budget_Status__c, Rejected_Reason__c, Total_Budget_Goal__c, Allocation_Percentage__c
                         FROM Budget__c
                         WHERE ATI_Job__c =: recordId
                         ORDER BY createdDate DESC LIMIT 1];
@@ -290,16 +417,49 @@ public without sharing class LargeLossUtility {
                                   AND Invoice_Date__c < :startOfNextMonth];
         system.debug(forecastFullAmount + '  ' + forecastFutureAmount + '  ' + forecastCurrentMonthAmount);
         Large_Loss_Review__c largeloss = new Large_Loss_Review__c(Job__c = recordId, Amount__c = job.Amount__c,
-        Contract_Start_Date__c = contr.StartDate, Contract_End_Date__c = contr.EndDate, Job_To_Date_Payments__c = job.Job_to_Date_Payments_AR_RS__c,
+         Job_To_Date_Payments__c = job.Job_to_Date_Payments_AR_RS__c,
         Percent_Complete__c = job.Percent_Complete__c, Job_Start_Date__c = job.Job_Start_Date__c, Estimated_Completion_Date_Per_Contract__c = job.Estimated_Completion_Date__c,
-        Estimated_Completion_Date_Per_PM__c = job.Estimated_Completion_Date_Per_PD__c, Job_To_Date_Work_Billed__c = financial.Job_to_date_work_billed__c,
-        Job_to_Date_Costs__c = financial.Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c = financial.Job_To_Date_GP_Percent__c, 
-        Estimated_GP_Percent__c = financial.Gross_Profit__c, Budget_Status__c = bud.Budget_Status__c, Rejected_Reason__c = bud.Rejected_Reason__c,
-        Total_Budget_Goal__c = bud.Total_Budget_Goal__c, Allocation_Percent__c = bud.Allocation_Percentage__c, 
-        Total_Billing_Forecast__c = (Double)forecastFullAmount[0].get('expr0'), Forecast_for_Current_Month__c = (Double)forecastCurrentMonthAmount[0].get('expr0'), 
-        Future_Forecast__c = (Double)forecastFutureAmount[0].get('expr0'), Regional_Manager__c = job.Branch_Manager__c, Regional_Director__c = job.Regional_Director__c,
+        Estimated_Completion_Date_Per_PM__c = job.Estimated_Completion_Date_Per_PD__c,  Regional_Manager__c = job.Branch_Manager__c, Regional_Director__c = job.Regional_Director__c,
         Project_Director__c = job.Project_Manager__c, Project_Manager__c = job.Project_Manager_new__c);
         //insert and return
+        // Job_To_Date_Work_Billed__c = financial.Job_to_date_work_billed__c,
+        // Job_to_Date_Costs__c = financial.Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c = financial.Job_To_Date_GP_Percent__c, 
+        // Estimated_GP_Percent__c = financial.Gross_Profit__c, Budget_Status__c = bud.Budget_Status__c, Rejected_Reason__c = bud.Rejected_Reason__c,
+        // Total_Budget_Goal__c = bud.Total_Budget_Goal__c, Allocation_Percent__c = bud.Allocation_Percentage__c, 
+        // Total_Billing_Forecast__c = (Double)forecastFullAmount[0].get('expr0'), Forecast_for_Current_Month__c = (Double)forecastCurrentMonthAmount[0].get('expr0'), 
+        // Future_Forecast__c = (Double)forecastFutureAmount[0].get('expr0'),
+        if(String.isNotEmpty(job.ContractId__c))
+        {
+            largeloss.Contract_Start_Date__c = contr.StartDate;
+            largeloss.Contract_End_Date__c = contr.EndDate;
+        }
+        if(!financial.isEmpty())
+        {
+            largeloss.job_To_Date_Work_Billed__c = financial[0].Job_to_date_work_billed__c;
+            largeloss.Job_to_Date_Costs__c = financial[0].Job_to_Date_Costs__c;
+            largeloss.Estimated_GP_Percent__c = financial[0].Gross_Profit__c;
+            largeloss.Job_To_Date_GP_Percent__c = financial[0].Job_To_Date_GP_Percent__c;
+        }
+        if(!bud.isEmpty())
+        {
+            largeloss.Budget_Status__c = bud[0].Budget_Status__c;
+            largeloss.Rejected_Reason__c = bud[0].Rejected_Reason__c;
+            largeloss.Total_Budget_Goal__c = bud[0].Total_Budget_Goal__c;
+            largeloss.Allocation_Percent__c = bud[0].Allocation_Percentage__c;
+        }
+        if(!forecastFullAmount.isEmpty())
+        {
+            largeloss.Total_Billing_Forecast__c = (Double)forecastFullAmount[0].get('expr0');
+        }
+        if(!forecastFutureAmount.isEmpty())
+        {
+            largeloss.Forecast_for_Current_Month__c = (Double)forecastCurrentMonthAmount[0].get('expr0');
+        }
+        if(!forecastCurrentMonthAmount.isEmpty())
+        {
+            largeloss.Future_Forecast__c = (Double)forecastFutureAmount[0].get('expr0');
+        }
+       
         return largeloss;
     }
 

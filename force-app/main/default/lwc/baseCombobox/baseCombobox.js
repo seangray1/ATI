@@ -52,7 +52,7 @@ export default class cBaseCombobox extends LightningElement {
     @api inputMaxlength;
     @api showInputActivityIndicator = false;
     @api required = false;
-    @api dropdownAlignment = 'left';
+    @api dropdownAlignment = 'auto';
     @api placeholder = 'Select an Item';
     @api inputLabel;
 

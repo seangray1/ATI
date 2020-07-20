@@ -145,48 +145,48 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   PropertyType = "";
   Zip;
   @track PropertyChecked = false;
-  Description =
-    "Type of Loss:" +
-    "\n" +
-    "Cause of Loss:" +
-    "\n" +
-    "Customer Type:" +
-    "\n" +
-    "Property Description:" +
-    "\n" +
-    "Areas Affected:" +
-    "\n" +
-    "Damaged Materials:" +
-    "\n" +
-    "Flooring Type:" +
-    "\n" +
-    "Is power shut-off in the building? (Y/N)" +
-    "\n" +
-    "Is there a gate code?" +
-    "\n" +
-    "Is there standing water? (Y/N)" +
-    "\n" +
-    "Is the standing water clean, gray or black water?(Clean,Gray,Black)" +
-    "\n" +
-    "Have you called a plumber?(Y/N)" +
-    "\n" +
-    "Has the water been shut off? (Y/N)" +
-    "\n" +
-    "Has the leak been fixed? (Y/N)" +
-    "\n" +
-    "What type of fire damage is there? (Smoke, soot, ashes)" +
-    "\n" +
-    "Were emergency responders on the scene? (Police, Fire)" +
-    "\n" +
-    "Have emergency responders given clearance to access the building?" +
-    "\n" +
-    "Are we dealing with blood or body fluids?" +
-    "\n" +
-    "How long was the body on site?" +
-    "\n" +
-    "Is there an odor we need to address?" +
-    "\n" +
-    "Are we packing the belongings for the next of kin?";
+  Description = '';
+    // "Type of Loss:" +
+    // "\n" +
+    // "Cause of Loss:" +
+    // "\n" +
+    // "Customer Type:" +
+    // "\n" +
+    // "Property Description:" +
+    // "\n" +
+    // "Areas Affected:" +
+    // "\n" +
+    // "Damaged Materials:" +
+    // "\n" +
+    // "Flooring Type:" +
+    // "\n" +
+    // "Is power shut-off in the building? (Y/N)" +
+    // "\n" +
+    // "Is there a gate code?" +
+    // "\n" +
+    // "Is there standing water? (Y/N)" +
+    // "\n" +
+    // "Is the standing water clean, gray or black water?(Clean,Gray,Black)" +
+    // "\n" +
+    // "Have you called a plumber?(Y/N)" +
+    // "\n" +
+    // "Has the water been shut off? (Y/N)" +
+    // "\n" +
+    // "Has the leak been fixed? (Y/N)" +
+    // "\n" +
+    // "What type of fire damage is there? (Smoke, soot, ashes)" +
+    // "\n" +
+    // "Were emergency responders on the scene? (Police, Fire)" +
+    // "\n" +
+    // "Have emergency responders given clearance to access the building?" +
+    // "\n" +
+    // "Are we dealing with blood or body fluids?" +
+    // "\n" +
+    // "How long was the body on site?" +
+    // "\n" +
+    // "Is there an odor we need to address?" +
+    // "\n" +
+    // "Are we packing the belongings for the next of kin?";
   Division;
   Office;
   JobClass;

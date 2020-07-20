@@ -7,8 +7,9 @@ export default class CustomLookup extends LightningElement {
     @api index;
     @api relationshipfield;
     @api iconname = "standard:account";
-    @api objectName = 'Account';
+    @api objectName = 'Contact';
     @api searchfield = 'Name';
+    contacts =[];
 
     /*constructor(){
         super();
@@ -16,7 +17,30 @@ export default class CustomLookup extends LightningElement {
         this.objectName = 'Account';
         this.searchField = 'Name';
     }*/
+    inputChange(event)
+    {
+        const searchKey = event.detail.value;
 
+        findRecords({
+            searchKey : searchKey, 
+            objectName : this.objectName, 
+            searchField : this.searchfield
+        })
+        .then(result => {
+            this.contacts = result;
+            for(let i=0; i < this.contacts.length; i++){
+                const rec = this.contacts[i];
+                this.contacts[i].Name = rec[this.searchfield];
+            }
+            this.error = undefined;
+            //console.log(' records ', this.records);
+        })
+        .catch(error => {
+            this.error = error;
+            this.contacts = undefined;
+        });
+        
+    }
     handleOnchange(event){
         //event.preventDefault();
         const searchKey = event.detail.value;

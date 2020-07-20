@@ -42,7 +42,7 @@ export default class AccountRolesDataTable extends LightningElement {
             for(var i = 0; i < data.length; i++)
             {
                 
-                datasetup.push({id:i, Roles:data[i].Multiple_Roles__c, TimberlineCustomerNumber:data[i].TimberlineCustomerNumber, Contact:"", Account:""})
+                datasetup.push({id:i, Roles:data[i].Multiple_Roles__c, TimberlineCustomerNumber:data[i].Timberline_Customer_Number__c, Contact:"", Account:""})
                 if(data[i].Contact_ID__c !== undefined && data[i].Contact_ID__c !== null && data[i].Contact_ID__c !== "")
                 {
                     console.log('inside Contact part' + JSON.stringify(data[i].Contact_ID__r.Name));
@@ -88,7 +88,7 @@ export default class AccountRolesDataTable extends LightningElement {
             for(var i = 0; i < data.length; i++)
             {
                 
-                datasetup.push({id:i, Roles:data[i].Multiple_Roles__c, TimberlineCustomerNumber:data[i].TimberlineCustomerNumber, Contact:"", Account:""})
+                datasetup.push({id:i, Roles:data[i].Multiple_Roles__c, TimberlineCustomerNumber:data[i].Timberline_Customer_Number__c, Contact:"", Account:""})
                 if(data[i].Contact_ID__c !== undefined)
                 {
                     console.log('inside Contact part' + JSON.stringify(data[i].Contact_ID__r.Name));

@@ -46,7 +46,7 @@ Send()
         {
             const event = new ShowToastEvent({
                 title:'Success',
-                message: 'Submitted for Approval',
+                message: 'Large Loss Review Created',
                 variant: 'success',
             });
             this.dispatchEvent(event);

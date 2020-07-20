@@ -2,6 +2,15 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "c/accordion": [
+                "accordion/accordion.js"
+            ],
+            "c/accordionSection": [
+                "accordionSection/accordionSection.js"
+            ],
+            "c/accordionUtilsPrivate": [
+                "accordionUtilsPrivate/accordionUtilsPrivate.js"
+            ],
             "c/accountRolesDataTable": [
                 "accountRolesDataTable/accountRolesDataTable.js"
             ],
@@ -26,17 +35,68 @@
             "c/approvalConfigurationViews": [
                 "approvalConfigurationViews/approvalConfigurationViews.js"
             ],
+            "c/avatar": [
+                "avatar/avatar.js"
+            ],
+            "c/badge": [
+                "badge/badge.js"
+            ],
+            "c/baseCombobox": [
+                "baseCombobox/baseCombobox.js"
+            ],
+            "c/baseComboboxFormattedText": [
+                "baseComboboxFormattedText/baseComboboxFormattedText.js"
+            ],
+            "c/baseComboboxItem": [
+                "baseComboboxItem/baseComboboxItem.js"
+            ],
             "c/bigTimeForceSync": [
                 "bigTimeForceSync/bigTimeForceSync.js"
             ],
             "c/budgetLWC": [
                 "budgetLWC/budgetLWC.js"
             ],
+            "c/button": [
+                "button/button.js"
+            ],
+            "c/buttonGroup": [
+                "buttonGroup/buttonGroup.js"
+            ],
+            "c/buttonIcon": [
+                "buttonIcon/buttonIcon.js"
+            ],
+            "c/buttonIconStateful": [
+                "buttonIconStateful/buttonIconStateful.js"
+            ],
+            "c/buttonMenu": [
+                "buttonMenu/buttonMenu.js"
+            ],
+            "c/buttonStateful": [
+                "buttonStateful/buttonStateful.js"
+            ],
+            "c/card": [
+                "card/card.js"
+            ],
+            "c/carousel": [
+                "carousel/carousel.js"
+            ],
+            "c/carouselImage": [
+                "carouselImage/carouselImage.js"
+            ],
             "c/caseButton": [
                 "caseButton/caseButton.js"
             ],
+            "c/checkboxGroup": [
+                "checkboxGroup/checkboxGroup.js"
+            ],
             "c/cloneJobLWC": [
                 "cloneJobLWC/cloneJobLWC.js"
+            ],
+            "c/combobox": [
+                "combobox/combobox.js"
+            ],
+            "c/contactTile": [
+                "contactTile/contactTile.js"
             ],
             "c/courtesyCallLWC": [
                 "courtesyCallLWC/courtesyCallLWC.js"
@@ -56,230 +116,11 @@
             "c/dailyTimesheet": [
                 "dailyTimesheet/dailyTimesheet.js"
             ],
-            "c/itemsToApprove": [
-                "itemsToApprove/itemsToApprove.js"
-            ],
-            "c/largeLossLWC": [
-                "largeLossLWC/largeLossLWC.js"
-            ],
-            "c/largelosssubmitforapprovallwc": [
-                "largelosssubmitforapprovallwc/largelosssubmitforapprovallwc.js"
-            ],
-            "c/logCall": [
-                "logCall/logCall.js"
-            ],
-            "c/micaLWC": [
-                "micaLWC/micaLWC.js"
-            ],
-            "c/newJobLWC": [
-                "newJobLWC/newJobLWC.js"
-            ],
-            "c/newProjectSchedule": [
-                "newProjectSchedule/newProjectSchedule.js"
-            ],
-            "c/pMAssignment": [
-                "pMAssignment/pMAssignment.js"
-            ],
-            "c/projectNote": [
-                "projectNote/projectNote.js"
-            ],
-            "c/propertySelectLWC": [
-                "propertySelectLWC/propertySelectLWC.js"
-            ],
-            "c/propertyUpdateLWC": [
-                "propertyUpdateLWC/propertyUpdateLWC.js"
-            ],
-            "c/rejectbudget": [
-                "rejectbudget/rejectbudget.js"
-            ],
-            "c/largeLossRefreshLWC": [
-                "largeLossRefreshLWC/largeLossRefreshLWC.js"
-            ],
-            "c/LargeLossRefreshLWC": [
-                "LargeLossRefreshLWC/LargeLossRefreshLWC.js"
-            ],
-            "c/combobox": [
-                "combobox/combobox.js"
-            ],
-            "c/radioGroup": [
-                "radioGroup/radioGroup.js"
-            ],
-            "c/contactTile": [
-                "contactTile/contactTile.js"
-            ],
-            "c/recordEditForm": [
-                "recordEditForm/recordEditForm.js"
-            ],
             "c/dualListbox": [
                 "dualListbox/dualListbox.js"
             ],
-            "c/card": [
-                "card/card.js"
-            ],
-            "c/pill": [
-                "pill/pill.js"
-            ],
-            "c/carousel": [
-                "carousel/carousel.js"
-            ],
-            "c/pillContainer": [
-                "pillContainer/pillContainer.js"
-            ],
-            "c/carouselImage": [
-                "carouselImage/carouselImage.js"
-            ],
-            "c/primitiveButton": [
-                "primitiveButton/primitiveButton.js"
-            ],
-            "c/checkboxGroup": [
-                "checkboxGroup/checkboxGroup.js"
-            ],
-            "c/primitiveIcon": [
-                "primitiveIcon/primitiveIcon.js"
-            ],
-            "c/buttonIcon": [
-                "buttonIcon/buttonIcon.js"
-            ],
-            "c/messages": [
-                "messages/messages.js"
-            ],
-            "c/buttonIconStateful": [
-                "buttonIconStateful/buttonIconStateful.js"
-            ],
-            "c/numberUtils": [
-                "numberUtils/numberUtils.js"
-            ],
-            "c/buttonMenu": [
-                "buttonMenu/buttonMenu.js"
-            ],
-            "c/outputField": [
-                "outputField/outputField.js"
-            ],
-            "c/buttonStateful": [
-                "buttonStateful/buttonStateful.js"
-            ],
-            "c/overflowLibrary": [
-                "overflowLibrary/overflowLibrary.js"
-            ],
-            "c/baseComboboxFormattedText": [
-                "baseComboboxFormattedText/baseComboboxFormattedText.js"
-            ],
-            "c/lookupLWC": [
-                "lookupLWC/lookupLWC.js"
-            ],
-            "c/baseComboboxItem": [
-                "baseComboboxItem/baseComboboxItem.js"
-            ],
-            "c/menuDivider": [
-                "menuDivider/menuDivider.js"
-            ],
-            "c/button": [
-                "button/button.js"
-            ],
-            "c/verticalNavigationSection": [
-                "verticalNavigationSection/verticalNavigationSection.js"
-            ],
-            "c/menuItem": [
-                "menuItem/menuItem.js"
-            ],
-            "c/buttonGroup": [
-                "buttonGroup/buttonGroup.js"
-            ],
-            "c/menuSubheader": [
-                "menuSubheader/menuSubheader.js"
-            ],
-            "c/searchComponent": [
-                "searchComponent/searchComponent.js"
-            ],
-            "c/slider": [
-                "slider/slider.js"
-            ],
-            "c/spinner": [
-                "spinner/spinner.js"
-            ],
-            "c/tab": [
-                "tab/tab.js"
-            ],
-            "c/recordViewForm": [
-                "recordViewForm/recordViewForm.js"
-            ],
-            "c/relativeDateTime": [
-                "relativeDateTime/relativeDateTime.js"
-            ],
-            "c/resizeObserver": [
-                "resizeObserver/resizeObserver.js"
-            ],
-            "c/routingService": [
-                "routingService/routingService.js"
-            ],
-            "c/recordEditUtils": [
-                "recordEditUtils/recordEditUtils.js"
-            ],
-            "c/recordForm": [
-                "recordForm/recordForm.js"
-            ],
-            "c/recordList": [
-                "recordList/recordList.js"
-            ],
-            "c/recordUtils": [
-                "recordUtils/recordUtils.js"
-            ],
-            "c/verticalNavigationItemIcon": [
-                "verticalNavigationItemIcon/verticalNavigationItemIcon.js"
-            ],
-            "c/verticalNavigationOverflow": [
-                "verticalNavigationOverflow/verticalNavigationOverflow.js"
-            ],
-            "c/utilsPrivate": [
-                "utilsPrivate/utilsPrivate.js"
-            ],
-            "c/verticalNavigation": [
-                "verticalNavigation/verticalNavigation.js"
-            ],
-            "c/verticalNavigationItem": [
-                "verticalNavigationItem/verticalNavigationItem.js"
-            ],
-            "c/verticalNavigationItemBadge": [
-                "verticalNavigationItemBadge/verticalNavigationItemBadge.js"
-            ],
-            "c/touchScrollLibrary": [
-                "touchScrollLibrary/touchScrollLibrary.js"
-            ],
-            "c/tree": [
-                "tree/tree.js"
-            ],
-            "c/treeItem": [
-                "treeItem/treeItem.js"
-            ],
-            "c/utils": [
-                "utils/utils.js"
-            ],
-            "c/tabBar": [
-                "tabBar/tabBar.js"
-            ],
-            "c/tabset": [
-                "tabset/tabset.js"
-            ],
-            "c/textarea": [
-                "textarea/textarea.js"
-            ],
-            "c/tile": [
-                "tile/tile.js"
-            ],
-            "c/formattedPhone": [
-                "formattedPhone/formattedPhone.js"
-            ],
-            "c/formattedLocation": [
-                "formattedLocation/formattedLocation.js"
-            ],
-            "c/formattedLookup": [
-                "formattedLookup/formattedLookup.js"
-            ],
-            "c/formattedName": [
-                "formattedName/formattedName.js"
-            ],
-            "c/formattedNumber": [
-                "formattedNumber/formattedNumber.js"
+            "c/dynamicIcon": [
+                "dynamicIcon/dynamicIcon.js"
             ],
             "c/fieldDependencyManager": [
                 "fieldDependencyManager/fieldDependencyManager.js"
@@ -293,50 +134,20 @@
             "c/formattedDateTime": [
                 "formattedDateTime/formattedDateTime.js"
             ],
-            "c/dynamicIcon": [
-                "dynamicIcon/dynamicIcon.js"
+            "c/formattedLocation": [
+                "formattedLocation/formattedLocation.js"
             ],
-            "c/iso8601Utils": [
-                "iso8601Utils/iso8601Utils.js"
+            "c/formattedLookup": [
+                "formattedLookup/formattedLookup.js"
             ],
-            "c/accordionUtilsPrivate": [
-                "accordionUtilsPrivate/accordionUtilsPrivate.js"
+            "c/formattedName": [
+                "formattedName/formattedName.js"
             ],
-            "c/avatar": [
-                "avatar/avatar.js"
+            "c/formattedNumber": [
+                "formattedNumber/formattedNumber.js"
             ],
-            "c/layout": [
-                "layout/layout.js"
-            ],
-            "c/layoutItem": [
-                "layoutItem/layoutItem.js"
-            ],
-            "c/badge": [
-                "badge/badge.js"
-            ],
-            "c/layoutUtils": [
-                "layoutUtils/layoutUtils.js"
-            ],
-            "c/baseCombobox": [
-                "baseCombobox/baseCombobox.js"
-            ],
-            "c/iconUtils": [
-                "iconUtils/iconUtils.js"
-            ],
-            "c/inputLocation": [
-                "inputLocation/inputLocation.js"
-            ],
-            "c/inputUtils": [
-                "inputUtils/inputUtils.js"
-            ],
-            "c/accordion": [
-                "accordion/accordion.js"
-            ],
-            "c/internationalizationLibrary": [
-                "internationalizationLibrary/internationalizationLibrary.js"
-            ],
-            "c/accordionSection": [
-                "accordionSection/accordionSection.js"
+            "c/formattedPhone": [
+                "formattedPhone/formattedPhone.js"
             ],
             "c/formattedText": [
                 "formattedText/formattedText.js"
@@ -349,6 +160,195 @@
             ],
             "c/icon": [
                 "icon/icon.js"
+            ],
+            "c/iconUtils": [
+                "iconUtils/iconUtils.js"
+            ],
+            "c/inputLocation": [
+                "inputLocation/inputLocation.js"
+            ],
+            "c/inputUtils": [
+                "inputUtils/inputUtils.js"
+            ],
+            "c/internationalizationLibrary": [
+                "internationalizationLibrary/internationalizationLibrary.js"
+            ],
+            "c/iso8601Utils": [
+                "iso8601Utils/iso8601Utils.js"
+            ],
+            "c/itemsToApprove": [
+                "itemsToApprove/itemsToApprove.js"
+            ],
+            "c/largeLossLWC": [
+                "largeLossLWC/largeLossLWC.js"
+            ],
+            "c/largeLossRefreshLWC": [
+                "largeLossRefreshLWC/largeLossRefreshLWC.js"
+            ],
+            "c/largelosssubmitforapprovallwc": [
+                "largelosssubmitforapprovallwc/largelosssubmitforapprovallwc.js"
+            ],
+            "c/layout": [
+                "layout/layout.js"
+            ],
+            "c/layoutItem": [
+                "layoutItem/layoutItem.js"
+            ],
+            "c/layoutUtils": [
+                "layoutUtils/layoutUtils.js"
+            ],
+            "c/logCall": [
+                "logCall/logCall.js"
+            ],
+            "c/lookupLWC": [
+                "lookupLWC/lookupLWC.js"
+            ],
+            "c/menuDivider": [
+                "menuDivider/menuDivider.js"
+            ],
+            "c/menuItem": [
+                "menuItem/menuItem.js"
+            ],
+            "c/menuSubheader": [
+                "menuSubheader/menuSubheader.js"
+            ],
+            "c/messages": [
+                "messages/messages.js"
+            ],
+            "c/micaLWC": [
+                "micaLWC/micaLWC.js"
+            ],
+            "c/newJobLWC": [
+                "newJobLWC/newJobLWC.js"
+            ],
+            "c/newProjectSchedule": [
+                "newProjectSchedule/newProjectSchedule.js"
+            ],
+            "c/numberUtils": [
+                "numberUtils/numberUtils.js"
+            ],
+            "c/outputField": [
+                "outputField/outputField.js"
+            ],
+            "c/overflowLibrary": [
+                "overflowLibrary/overflowLibrary.js"
+            ],
+            "c/pMAssignment": [
+                "pMAssignment/pMAssignment.js"
+            ],
+            "c/pill": [
+                "pill/pill.js"
+            ],
+            "c/pillContainer": [
+                "pillContainer/pillContainer.js"
+            ],
+            "c/primitiveButton": [
+                "primitiveButton/primitiveButton.js"
+            ],
+            "c/primitiveIcon": [
+                "primitiveIcon/primitiveIcon.js"
+            ],
+            "c/projectNote": [
+                "projectNote/projectNote.js"
+            ],
+            "c/propertySelectLWC": [
+                "propertySelectLWC/propertySelectLWC.js"
+            ],
+            "c/propertyUpdateLWC": [
+                "propertyUpdateLWC/propertyUpdateLWC.js"
+            ],
+            "c/radioGroup": [
+                "radioGroup/radioGroup.js"
+            ],
+            "c/recordEditForm": [
+                "recordEditForm/recordEditForm.js"
+            ],
+            "c/recordEditUtils": [
+                "recordEditUtils/recordEditUtils.js"
+            ],
+            "c/recordForm": [
+                "recordForm/recordForm.js"
+            ],
+            "c/recordList": [
+                "recordList/recordList.js"
+            ],
+            "c/recordUtils": [
+                "recordUtils/recordUtils.js"
+            ],
+            "c/recordViewForm": [
+                "recordViewForm/recordViewForm.js"
+            ],
+            "c/rejectbudget": [
+                "rejectbudget/rejectbudget.js"
+            ],
+            "c/relativeDateTime": [
+                "relativeDateTime/relativeDateTime.js"
+            ],
+            "c/resizeObserver": [
+                "resizeObserver/resizeObserver.js"
+            ],
+            "c/routingService": [
+                "routingService/routingService.js"
+            ],
+            "c/searchComponent": [
+                "searchComponent/searchComponent.js"
+            ],
+            "c/slider": [
+                "slider/slider.js"
+            ],
+            "c/spinner": [
+                "spinner/spinner.js"
+            ],
+            "c/tab": [
+                "tab/tab.js"
+            ],
+            "c/tabBar": [
+                "tabBar/tabBar.js"
+            ],
+            "c/tabset": [
+                "tabset/tabset.js"
+            ],
+            "c/textarea": [
+                "textarea/textarea.js"
+            ],
+            "c/tile": [
+                "tile/tile.js"
+            ],
+            "c/touchScrollLibrary": [
+                "touchScrollLibrary/touchScrollLibrary.js"
+            ],
+            "c/tree": [
+                "tree/tree.js"
+            ],
+            "c/treeItem": [
+                "treeItem/treeItem.js"
+            ],
+            "c/utils": [
+                "utils/utils.js"
+            ],
+            "c/utilsPrivate": [
+                "utilsPrivate/utilsPrivate.js"
+            ],
+            "c/verticalNavigation": [
+                "verticalNavigation/verticalNavigation.js"
+            ],
+            "c/verticalNavigationItem": [
+                "verticalNavigationItem/verticalNavigationItem.js"
+            ],
+            "c/verticalNavigationItemBadge": [
+                "verticalNavigationItemBadge/verticalNavigationItemBadge.js"
+            ],
+            "c/verticalNavigationItemIcon": [
+                "verticalNavigationItemIcon/verticalNavigationItemIcon.js"
+            ],
+            "c/verticalNavigationOverflow": [
+                "verticalNavigationOverflow/verticalNavigationOverflow.js"
+            ],
+            "c/verticalNavigationSection": [
+                "verticalNavigationSection/verticalNavigationSection.js"
+            ],
+            "c/largeLossDataTable": [
+                "largeLossDataTable/largeLossDataTable.js"
             ]
         },
         "experimentalDecorators": true

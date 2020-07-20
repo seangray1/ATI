@@ -335,7 +335,7 @@
         <lightning-accordion-section name="Additional Information"  label="Additional Information">
             <template if:true={ARDivision}>
         
-        <!-- <div class="slds-box slds-theme_shade"> -->
+        <!-- <div class="slds-box slds-theme_default"> -->
             <!-- <div class="slds-m-around_medium">
                 <h1 class="slds-text-heading_small" style="text-decoration: underline;">Additional Fields</h1>
             </div> -->
@@ -641,9 +641,9 @@
             <div class="slds-col slds-size_1-of-2">
             <label class="Labels required1" for="textarea-id-01"> Description of Loss</label>
             
-            <!-- <textarea style="height: 250px; width:500px;" disabled={DescriptionDisabled} class="jobFormControl" onchange={DescriptionChange}>{Description}</textarea> -->
+            <textarea style="height: 250px; width:500px;" disabled={DescriptionDisabled} class="jobFormControl slds-textarea" onchange={DescriptionChange}>{Description}</textarea>
                             
-                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                        <!-- <lightning-textarea placeholder="Type Description Here" class="jobFormControl"  required="" disabled={descriptionDisabled} onchange={DescriptionChange} value={Description}></lightning-textarea> -->
                                        
                                     </div>
                                     <!-- <div class="slds-col slds-size_1-of-2">
@@ -658,14 +658,14 @@
             </lightning-accordion>
         <br>
 
-        <!-- <div class="slds-box slds-theme_shade"> -->
+        <!-- <div class="slds-box slds-theme_default"> -->
             
         <!-- </div> -->
     
 
-    <div class="slds-p-around_medium lgc-bg-inverse element">
+    <div class="slds-p-around_medium slds-theme_alt-inverse slds-docked-form-footer">
         <lightning-button-group>
-    <lightning-button label='Submit' onclick={CreateNewJob} variant="brand"></lightning-button>
+    <lightning-button label='Submit' icon-name="utility:save" onclick={CreateNewJob} variant="brand"></lightning-button>
     <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
     </lightning-button-group>
     </div>
@@ -691,7 +691,7 @@
                 <!-- modal body start -->
 
 
-                <div class="slds-box slds-theme_shade">
+                <div class="slds-box slds-theme_default">
 
                     <div class="slds-m-around_medium">
                         <template if:true={MasterJobs}>
@@ -1482,7 +1482,7 @@
 
 
  <!-- <div if:true={PropertySelected}>
-            <div class="slds-box slds-theme_shade">
+            <div class="slds-box slds-theme_default">
                 <div class="slds-m-around_medium">
             <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property</h1>
         </div>
@@ -1497,7 +1497,7 @@
         </div> -->
 
         <!-- <lightning-input label="Property Test" value={testingProperty}></lightning-input> -->
-        <!-- <div class="slds-box slds-theme_shade">
+        <!-- <div class="slds-box slds-theme_default">
     <lightning-button label="New Property" variant="brand" onclick={ToggleNewProperty}></lightning-button>
                 <div if:true={NewProperty}>
                 <lightning-record-edit-form object-api-name="Property__c">

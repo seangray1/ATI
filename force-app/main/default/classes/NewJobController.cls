@@ -1936,11 +1936,13 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 }
                 masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
                // masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
+                masterJob.Major_Event__c = jobWrap.MajorEvent;
                 masterJob.Lead_Source__c = jobWrap.LeadSource;
                 masterJob.Taken_By__c = jobWrap.TakenBy;
                 masterJob.Multiple_Divisions__c = jobWrap.MultipleDivisions;
                 masterJob.office2__c = jobWrap.Office;
                 masterJob.AfterHoursUpdate__c = true;
+                masterJob.Policy__c = jobWrap.Policy;
                 if(NewProperty)
                 {
                     masterJob.Property__c = prop.Id;
