@@ -321,7 +321,7 @@ public class JobUtility {
         system.debug('Job list size is ' + jobList.size() + '  System is batch/scheduled/test = ' + System.isBatch() + System.isScheduled() + Test.isRunningTest());
         if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() && !Test.isRunningTest()){
             //callFotoIn2Create(JobMap.keySet());
-            Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Create'));
+            //Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Create'));
         }
         
     }
@@ -370,7 +370,7 @@ public class JobUtility {
         // }
         if( !JobList.isEmpty() && !System.isBatch() && !System.isScheduled() && !Test.isRunningTest()){
             //callFotoIn2Create(JobMap.keySet());
-            Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Edit'));
+            //Id fotoInQueueable = System.enqueueJob(new FotoIn_Queueable_Integration(JobList, 'Edit'));
         }
         
     }

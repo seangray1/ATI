@@ -16,6 +16,8 @@ public class SyncEconzLT {
            Map<Id, String> CalloutTypeMap = new Map<Id, String>();
            Map<Id, String> OldNameMap = new Map<Id, String>();
            Map<Id, Datetime> StartDateMap = new Map<Id, Datetime>();
+           Map<Id,ATI_Job__c> oldMap = new Map<Id,ATI_Job__c>();
+           Map<Id,ATI_Job__c> jobsCarriedOver = new Map<Id,ATI_Job__c>();
         for(ATI_Job__c job : newValues)
         {
             startdate = job.date_time_approved__c;
@@ -28,6 +30,6 @@ public class SyncEconzLT {
                 JobsToQueue.add(job);
             }  
         }
-        Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap));
+        Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, jobsCarriedOver));
     }
 }

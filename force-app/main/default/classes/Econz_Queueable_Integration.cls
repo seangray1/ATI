@@ -12,30 +12,36 @@
 public with sharing class Econz_Queueable_Integration implements Queueable, Database.AllowsCallouts {
 
     private Map<Id,ATI_Job__c> newMap;
-    private Map<Id,ATI_Job__c> oldMap;
+    Map<Id,ATI_Job__c> oldMapQueue;
     public List<ATI_Job__c> jobsqueueable;
     Map<Id,String> typequeueablemap;
     Map<Id,String> oldmapNamequeue;
     Map<Id,Datetime> startdateQueue;
+    Map<Id,ATI_Job__c> JobsCarriedOverMap;
+    
     public static Map<Id,ATI_Job__c> globalJobMap = new Map<Id, ATI_Job__c>();
+    
     public static Map<Id,User> globalUserMap = new Map<Id, User>();
     // public class EconzInfo{
     //     public string type {get;set;}
     //     public string oldmapname {get;set;}
     //     public dateTime startdateQueue {get;set;}
     // }
-    public Econz_Queueable_Integration(List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap) 
+    public Econz_Queueable_Integration(List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap, Map<Id,ATI_Job__c> oldMap, Map<Id,ATI_Job__c> JobsCarriedOverMapTemp) 
     {
         jobsqueueable = jobs;
         typequeueablemap = typemap;
         oldmapNamequeue = oldmapname;
         startdateQueue = startdatemap;
-        system.debug('hitting here with ' + jobs + typemap + oldmapname + startdatemap);
+        oldMapQueue = oldMap;
+        JobsCarriedOverMap = JobsCarriedOverMapTemp;
+        system.debug('hitting here with ' + jobs + typemap + oldmapname + startdatemap + oldMapQueue);
     }
     
     public void execute(QueueableContext context) {
         system.debug('Record Id is ' + jobsqueueable[0].Id);
         list<ATI_Job__c> jobList = jobsqueueable.deepClone(true, false, false);
+        system.debug(oldMapQueue);
         system.debug('joblist ' + joblist[0].Id);
         system.debug('job list ' + jobList.size());
         Integer count = 0;
@@ -66,13 +72,19 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         {
             Map<Id,ATI_Job__c> jobListQueryMap = new Map<Id,ATI_Job__c>();
             jobListQueryMap.putall(jobList);
+            system.debug('Joblist query map size is ' + jobListQueryMap.size());
             List<ATI_Job__c> jobListQuery = [SELECT Id, Name, Stage__c, Recordtype.id, Project_Manager_New__r.Email, Project_Manager_New__r.Name, Project_Manager__r.Name, Division__c, Office__c, Job_Start_Date__c, Date_Time_Approved__c, Job_Prev_Name__c,
             Project_Site_Address_2__c, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Completion_Date__c, Project_Manager_New__r.EConz_Primary_Key__c,
-            Project_Site_Zipcode__c, ECONZ_Error_Message__c, ECONZ_Integration_Error__c, ECONZ_Last_Callout_Time__c, ECONZ_Task_Created__c
+            Project_Site_Zipcode__c, ECONZ_Error_Message__c, ECONZ_Integration_Error__c, ECONZ_Last_Callout_Time__c, ECONZ_Task_Created__c, Project_Site_Name_Fotoin__c,
+            Project_Site_Record_Id__c, Project_Site_Call_Result_Message__c, Last_Successful_FotoIn_Update__c, Last_FotoIn_Update__c, Project_Site_Name__c, year__c, job_number__c
             FROM ATI_Job__c WHERE Id = :joblistqueryMap.keyset()]; 
+            system.debug('Joblist query map size is ' + jobListQuery.size());
+            integer counter = 0;
             for(ATI_Job__c job : jobListQuery)
             {
-                integrateEconz(job, typequeueablemap.get(job.id), startdateQueue.get(job.Id));
+                counter++;
+                system.debug('Counter is at ' + counter);
+                integrateEconz(job, typequeueablemap.get(job.id), startdateQueue.get(job.Id),oldMapQueue);
             }
         }
         else {
@@ -80,23 +92,55 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
             jobListQueryMap.putall(jobList1);
             List<ATI_Job__c> jobListQuery = [SELECT Id, Name, Stage__c, Recordtype.id, Project_Manager_New__r.Email, Project_Manager_New__r.Name, Project_Manager__r.Name, Division__c, Office__c, Job_Start_Date__c, Date_Time_Approved__c, Job_Prev_Name__c,
             Project_Site_Address_2__c, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Completion_Date__c, Project_Manager_New__r.EConz_Primary_Key__c,
-            Project_Site_Zipcode__c, ECONZ_Error_Message__c, ECONZ_Integration_Error__c, ECONZ_Last_Callout_Time__c, ECONZ_Task_Created__c
+            Project_Site_Zipcode__c, ECONZ_Error_Message__c, ECONZ_Integration_Error__c, ECONZ_Last_Callout_Time__c, ECONZ_Task_Created__c, Project_Site_Name_Fotoin__c,
+            Project_Site_Record_Id__c, Project_Site_Call_Result_Message__c, Last_Successful_FotoIn_Update__c, Last_FotoIn_Update__c, Project_Site_Name__c, year__c, job_number__c
             FROM ATI_Job__c WHERE Id = :joblistqueryMap.keyset()];
             for(ATI_Job__c job : jobListQuery)
             {
-                integrateEconz(job, typequeueablemap.get(job.id), startdateQueue.get(job.Id));
+                integrateEconz(job, typequeueablemap.get(job.id), startdateQueue.get(job.Id), oldMapQueue);
             }
         }
-      
+        system.debug('GlobalValues ' + globalJobMap.get(joblist[0].Id));
+        system.debug('GlobalValues ' + globalJobMap.get(joblist[0].Id).Econz_Task_created__c);
         update globalJobMap.values();
+        system.debug('GlobalValues ' + globalJobMap.get(joblist[0].Id));
+        system.debug('GlobalValues ' + globalJobMap.get(joblist[0].Id).Econz_Task_created__c);
         
         update globalUserMap.values();
+        for(Id globalJobMapId : globalJobMap.keyset())
+        {
+            JobsCarriedOverMap.put(globalJobMapId, globalJobMap.get(globalJobMapId));
+        }
         if(!jobList2.isEmpty())
         {
-            Id fotoin = System.enqueueJob(new Econz_Queueable_Integration(jobList2, typequeueablemap, oldmapNamequeue, startdateQueue));
+            Id fotoin = System.enqueueJob(new Econz_Queueable_Integration(jobList2, typequeueablemap, oldmapNamequeue, startdateQueue, oldMapQueue, JobsCarriedOverMap));
+        }
+        if(jobList2.isEmpty() && typequeueablemap.get(jobList[0].Id) == 'addTask')
+        {
+            List<ATI_Job__c> jobListToCarryOver = new List<ATI_Job__c>();
+            for(ATI_Job__c job : JobsCarriedOverMap.values())
+            {
+                if(job.Division__c != 'Marketing')
+                {
+                    jobListToCarryOver.add(job);
+                }
+            }
+            Id fotoin = System.enqueueJob(new FotoIn_Queueable_Integration(jobListToCarryOver, 'Create', JobsCarriedOverMap));
+        }
+        if(jobList2.isEmpty() && typequeueablemap.get(jobList[0].Id) == 'updateTaskDetails')
+        {
+            List<ATI_Job__c> jobListToCarryOver = new List<ATI_Job__c>();
+            for(ATI_Job__c job : JobsCarriedOverMap.values())
+            {
+                if(job.Division__c != 'Marketing' && job.Project_Site_Record_Id__c != null && !job.Job_Number__c.contains('#'))
+                {
+                    jobListToCarryOver.add(job);
+                }
+            }
+            Id fotoin = System.enqueueJob(new FotoIn_Queueable_Integration(jobListToCarryOver, 'Edit', JobsCarriedOverMap));
         }
     }
-    public static string integrateEconz(ATI_Job__c job, String action, dateTime startdate){
+    public static string integrateEconz(ATI_Job__c job, String action, dateTime startdate, Map<Id,ATI_Job__c> oldMapQueue){
         // Query ATI_Job__c
         system.debug('action-----'+action);
         // ATI_Job__c Job = getJobRecord(JobId);
@@ -106,7 +150,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         system.debug('===startdate==='+startdate);
         system.debug('Job Id and job is '+ job.Id + job.ECONZ_Last_Callout_Time__c);
         //Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
-        if(Job !=null){
+        
         if(startdate != null){
             if( Job.Project_Manager_New__c != null)
                 PM_Key = Job.Project_Manager_New__r.EConz_Primary_Key__c;
@@ -120,6 +164,14 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
                     system.debug('Before UpdateTaskDetails is getting called with action : ' + action);
                     Job = updateTaskDetails(Job,PM_Key, startdate);
                     system.debug('After UpdateTaskDetails getting called with action : ' + action);
+                    system.debug(oldMapQueue);
+                    if(!oldMapQueue.isEmpty())
+                    {
+                        if(Job.Project_Manager_new__c != oldMapQueue.get(Job.Id).Project_Manager_new__c)
+                        {
+                            Job = updateTaskManager(Job);
+                        }
+                    }
                 }
                 if(action == 'button' || action == 'updateTaskManager'){
                     Job = updateTaskManager(Job);
@@ -144,7 +196,9 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
         system.debug('integrateEconz');
         //update Job;
         system.debug('Job Id and job is '+ job.Id + job.ECONZ_Last_Callout_Time__c);
+        //globalJobMap.put(job.Id, job);
         globalJobMap.put(job.Id, job);
+        system.debug('Global task created is ' + globalJobMap.get(job.Id).ECONZ_Task_Created__c);
         system.debug('callout time in the map ' + globalJobMap.get(job.Id).Econz_Last_callout_Time__c);
         system.debug('integrateEconz'+Job.ECONZ_Task_Created__c);
         if(Job.Project_Manager_New__c != null){// commented by Nanda on 01/19/2018 && PM_Key == null && Job.Project_Manager_New__r.EConz_Primary_Key__c != null){
@@ -156,7 +210,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
             msg = Job.ECONZ_Error_Message__c;
         else
             msg =  'Success';
-        }
+        
         return msg;
     }
     

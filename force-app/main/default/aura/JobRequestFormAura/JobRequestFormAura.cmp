@@ -2,7 +2,7 @@
     <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
     <aura:attribute name="TypeOfJobEntry" type="String"/>
    
-    <!-- <c:afterHoursJobLWC onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm}" recordId="{!v.recordId}"/> -->
-    <c:allocationsApp onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm}" recordId="{!v.recordId}"/>
+    <c:afterHoursJobLWC onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm}" recordId="{!v.recordId}"/>
+    <!-- <c:allocationsApp onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm}" recordId="{!v.recordId}"/> -->
 
 </aura:component>

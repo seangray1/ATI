@@ -40,7 +40,8 @@ global class Econz_Integration_Callouts {
            {
 
                
-               
+            system.debug(oldMap.get(job.Id).Project_Manager_new__c);
+            system.debug(job.project_Manager_New__c);
                startdate = Job.date_time_approved__c;
                StartDateMap.put(job.Id, startdate);
                system.debug('---startdate---'+startdate );
@@ -68,13 +69,7 @@ global class Econz_Integration_Callouts {
                    }
                    
                    
-                   else if(Job.Project_Manager_New__c != oldMap.get(Job.Id).Project_Manager_New__c){
-                       system.debug('===4===');
-                       //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskManager',null,startdate);
-                       JobsToQueue.add(job);
-                       CalloutTypeMap.put(job.Id, 'updateTaskManager');
-                       OldNameMap.put(job.Id, null);
-                   }
+                   
                    
                    else if( (Job.Job_Name__c != null && Job.Job_Name__c != oldMap.get(Job.Id).Job_Name__c ) ||
                       (Job.Job_Number__c != null && Job.Job_Number__c != oldMap.get(Job.Id).Job_Number__c)){
@@ -82,8 +77,17 @@ global class Econz_Integration_Callouts {
                           //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'renameTask',oldMap.get(Job.Id).Name,startdate);
                           JobsToQueue.add(job);
                           CalloutTypeMap.put(job.Id, 'renameTask');
+                          system.debug(oldMap.get(Job.Id).Name + '  ' + job.Job_Prev_Name__c);
                        OldNameMap.put(job.Id, oldMap.get(Job.Id).Name);
                       }
+                      else if(Job.Project_Manager_New__c != oldMap.get(Job.Id).Project_Manager_New__c){
+                        system.debug(Job.Project_Manager_New__c + '  ' + oldMap.get(Job.Id).Project_Manager_New__c);
+                        system.debug('===4===');
+                        //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'updateTaskManager',null,startdate);
+                        JobsToQueue.add(job);
+                        CalloutTypeMap.put(job.Id, 'updateTaskManager');
+                        OldNameMap.put(job.Id, null);
+                    }
                    else if( (Job.Project_Site_Address_2__c != null && Job.Project_Site_Address_2__c != oldMap.get(Job.Id).Project_Site_Address_2__c ) ||
                       (Job.Project_Site_Address__c != null && Job.Project_Site_Address__c != oldMap.get(Job.Id).Project_Site_Address__c ) ||
                       (Job.Project_Site_City__c != null && Job.Project_Site_City__c != oldMap.get(Job.Id).Project_Site_City__c ) ||
@@ -130,7 +134,7 @@ global class Econz_Integration_Callouts {
            }
            if(!JobsToQueue.isEmpty())
            {
-               Id econzQueueableId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap));
+               Id econzQueueableId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, new Map<Id,ATI_Job__c>()));
            }
        } 
        

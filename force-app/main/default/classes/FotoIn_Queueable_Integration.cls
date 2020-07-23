@@ -1,6 +1,6 @@
 public with sharing class FotoIn_Queueable_Integration implements Queueable, Database.AllowsCallouts {
 
-    private Map<Id,ATI_Job__c> newMap;
+    public Map<Id,ATI_Job__c> newMap;
     private Map<Id,ATI_Job__c> oldMap;
     public List<ATI_Job__c> jobsqueueable;
     Map<Id,String> typequeueablemap;
@@ -14,10 +14,11 @@ public with sharing class FotoIn_Queueable_Integration implements Queueable, Dat
     //     public string oldmapname {get;set;}
     //     public dateTime startdateQueue {get;set;}
     // }
-    public FotoIn_Queueable_Integration(List<ATI_Job__c> jobs, String TypeOfAction1) 
+    public FotoIn_Queueable_Integration(List<ATI_Job__c> jobs, String TypeOfAction1, Map<Id,ATI_Job__c> jobMap) 
     {
         TypeOfAction = TypeOfAction1;
         jobsqueueable = jobs;
+        newMap = jobMap;
     }
     
     public void execute(QueueableContext context) {
@@ -87,7 +88,7 @@ public with sharing class FotoIn_Queueable_Integration implements Queueable, Dat
         update globalJobMap.values();
         if(!jobList2.isEmpty())
         {
-            Id fotoin = System.enqueueJob(new FotoIn_Queueable_Integration(joblist2, TypeOfAction));
+            Id fotoin = System.enqueueJob(new FotoIn_Queueable_Integration(joblist2, TypeOfAction, newMap));
         }
         
     }
