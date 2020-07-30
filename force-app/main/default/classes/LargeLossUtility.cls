@@ -16,7 +16,7 @@ public without sharing class LargeLossUtility {
             req1.setComments(comments);
             req1.setObjectId(recordId);
             req1.setSubmitterId(UserInfo.getUserId());
-            req1.setProcessDefinitionNameOrId('Large_Loss_Review1');
+            req1.setProcessDefinitionNameOrId('Large_Loss_Review2');
             req1.setSkipEntryCriteria(true);
             // Submit the approval request for the account
             Approval.ProcessResult result = Approval.process(req1);
@@ -33,9 +33,10 @@ public without sharing class LargeLossUtility {
     public static List<Large_Loss_Review__c> getLargeLossReviews(Id recordId) {
         Large_Loss_Review__c l = [Select Id, Job__c FROM Large_Loss_Review__c WHERE Id =: recordId];
         return [
-            SELECT Id, Name, Amount__c, Job_To_Date_Costs__c, Forecast_for_Current_Month__c, Estimated_GP_Percent__c
+            SELECT Id, Name, Amount__c, Job_To_Date_Costs__c, Forecast_for_Current_Month__c, Estimated_GP_Percent__c, Additional_Comments__c, NLLS_Reviewer__c,NLLS_Reviewer__r.Name, Status__c
             FROM Large_Loss_Review__c
             WHERE Job__c =: l.job__c
+            ORDER BY CreatedDate ASC
             LIMIT 10
         ];
     }
@@ -86,14 +87,20 @@ public without sharing class LargeLossUtility {
     {
         try 
         {
-            Large_Loss_Review__c l = [SELECT Id, Job__c
+            Large_Loss_Review__c l = [SELECT Id, Job__c, Status__c
                             FROM Large_Loss_Review__c 
                             WHERE Id =: recordId];
+            if(l.Status__c == 'Approved' || l.Status__c == 'Rejected')
+            {
+                return 'Approved/Rejected Large Loss Reviews cannot be updated';
+            }else{
+
             
             Large_Loss_Review__c largeloss = CreateLargeLossRecord(l.Job__c);
             largeloss.Id = recordId;
             update largeloss;
             return 'success';
+            }
         }
         catch(Exception e)
         {
@@ -380,7 +387,7 @@ public without sharing class LargeLossUtility {
         //query for all of the record
         // missing contract start date and completion date
         ATI_Job__c job = [SELECT Project_Manager__c, ContractId__c, Project_manager_new__c, Regional_Director__c, Branch_Manager__c, Amount__c,
-        Estimated_Completion_Date_Per_PD__c,Estimated_Completion_Date__c,Job_Start_Date__c,Job_to_Date_Payments_AR_RS__c,Percent_Complete__c
+        Estimated_Completion_Date_Per_PD__c,Estimated_Completion_Date__c,Job_Start_Date__c,Job_to_Date_Payments_AR_RS__c,Percent_Complete__c, Stage__c
                         FROM ATI_Job__c
                         WHERE Id =: recordId];
         Contract contr = new Contract();
@@ -420,7 +427,7 @@ public without sharing class LargeLossUtility {
          Job_To_Date_Payments__c = job.Job_to_Date_Payments_AR_RS__c,
         Percent_Complete__c = job.Percent_Complete__c, Job_Start_Date__c = job.Job_Start_Date__c, Estimated_Completion_Date_Per_Contract__c = job.Estimated_Completion_Date__c,
         Estimated_Completion_Date_Per_PM__c = job.Estimated_Completion_Date_Per_PD__c,  Regional_Manager__c = job.Branch_Manager__c, Regional_Director__c = job.Regional_Director__c,
-        Project_Director__c = job.Project_Manager__c, Project_Manager__c = job.Project_Manager_new__c);
+        Project_Director__c = job.Project_Manager__c, Project_Manager__c = job.Project_Manager_new__c, Job_Status__c = job.Stage__c);
         //insert and return
         // Job_To_Date_Work_Billed__c = financial.Job_to_date_work_billed__c,
         // Job_to_Date_Costs__c = financial.Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c = financial.Job_To_Date_GP_Percent__c, 

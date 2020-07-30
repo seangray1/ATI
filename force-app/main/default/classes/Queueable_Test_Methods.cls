@@ -37,7 +37,7 @@ private class Queueable_Test_Methods {
             //Test.setMock(HttpCalloutMock.class, fakeContactsResp);
             List<ATI_Job__c> jobfotoinlist = new List<ATI_Job__c>();
             jobfotoinlist.add(j);
-            Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Edit'));
+            Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Edit', new Map<Id,ATI_Job__c>()));
             jobfotoinlist.clear();
             // jobfotoinlist.add(jobs[1]);
             // Id fotonInQueue1 = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Create'));
@@ -68,7 +68,7 @@ private class Queueable_Test_Methods {
             //Test.setMock(HttpCalloutMock.class, fakeContactsResp);
             List<ATI_Job__c> jobfotoinlist = new List<ATI_Job__c>();
             jobfotoinlist.add(j);
-            Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Create'));
+            Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Create', new Map<Id,ATI_Job__c>()));
             jobfotoinlist.clear();
             // jobfotoinlist.add(jobs[1]);
             // Id fotonInQueue1 = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Create'));
@@ -102,14 +102,18 @@ private class Queueable_Test_Methods {
             Map<Id,Datetime> startdatemap = new Map<Id,Datetime>();
             Map<Id,String> oldmapname = new Map<Id,String>();
             Map<Id,String> typemap = new Map<Id,String>();
+            Map<Id,ATI_Job__c> oldMap = new Map<Id,ATI_Job__c>();
+            oldMap.put(j.Id, j);
             startdatemap.put(j.Id, Date.Today());
             // oldmapname.put(job.Id, null);
             typemap.put(j.Id, 'addTask');
             jobs.add(j);      
             //Test.setMock(HttpCalloutMock.class, fake_AddTask());
-            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap));
+            // List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap, Map<Id,ATI_Job__c> oldMap, Map<Id,ATI_Job__c> JobsCarriedOverMapTemp
+            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap, oldmap, new Map<Id,ATI_Job__c>()));
             //List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap
             //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'addTask','',Date.today());
+            Econz_Queueable_Integration.TestPass(jobs);
     }
     
     @isTest static void test_updateTaskManager() {
@@ -140,12 +144,14 @@ private class Queueable_Test_Methods {
             Map<Id,Datetime> startdatemap = new Map<Id,Datetime>();
             Map<Id,String> oldmapname = new Map<Id,String>();
             Map<Id,String> typemap = new Map<Id,String>();
+            Map<Id,ATI_Job__c> oldMap = new Map<Id,ATI_Job__c>();
+            oldMap.put(j.Id, j);
             startdatemap.put(j.Id, Date.Today());
             // oldmapname.put(job.Id, null);
             typemap.put(j.Id, 'updateTaskManager');
             jobs.add(j);      
             //Test.setMock(HttpCalloutMock.class, fake_AddTask());
-            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap));
+            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap, oldmap, new Map<Id,ATI_Job__c>()));
             //List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap
             //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'addTask','',Date.today());
         }
@@ -197,12 +203,14 @@ private class Queueable_Test_Methods {
             Map<Id,Datetime> startdatemap = new Map<Id,Datetime>();
             Map<Id,String> oldmapname = new Map<Id,String>();
             Map<Id,String> typemap = new Map<Id,String>();
+            Map<Id,ATI_Job__c> oldMap = new Map<Id,ATI_Job__c>();
+            oldMap.put(j.Id, j);
             startdatemap.put(j.Id, Date.Today());
             // oldmapname.put(job.Id, null);
             typemap.put(j.Id, 'updateTaskManager');
             jobs.add(j);      
             //Test.setMock(HttpCalloutMock.class, fake_AddTask());
-            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap));
+            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap, oldmap, new Map<Id,ATI_Job__c>()));
             //List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap
             //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'addTask','',Date.today());
     }
@@ -235,12 +243,14 @@ private class Queueable_Test_Methods {
             Map<Id,Datetime> startdatemap = new Map<Id,Datetime>();
             Map<Id,String> oldmapname = new Map<Id,String>();
             Map<Id,String> typemap = new Map<Id,String>();
+            Map<Id,ATI_Job__c> oldMap = new Map<Id,ATI_Job__c>();
+            oldMap.put(j.Id, j);
             startdatemap.put(j.Id, Date.Today());
             // oldmapname.put(job.Id, null);
             typemap.put(j.Id, 'renameTask');
             jobs.add(j);      
             //Test.setMock(HttpCalloutMock.class, fake_AddTask());
-            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap));
+            Id econzQueue = System.enqueueJob(new Econz_Queueable_Integration(jobs, typemap, oldmapname, startdatemap, oldmap, new Map<Id,ATI_Job__c>()));
             //List<ATI_Job__c> jobs, Map<Id,String> typemap, Map<Id,String> oldmapname, Map<Id,Datetime> startdatemap
             //Econz_Integration_Callouts.ECONZ_Future_Call(Job.Id,'addTask','',Date.today());
     

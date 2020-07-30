@@ -72,8 +72,8 @@
     
         <!-- class="spacing jobFormControl center"
         dropdown-alignment=auto  -->
-       
-                        <!-- <lightning-combobox name="progress"
+            <!-- <div class="comboboxes"> -->
+                        <lightning-combobox name="progress"
                         label="Division"
                         value={Division}
                         placeholder="-Select-"
@@ -83,16 +83,18 @@
                         
                        
                         required
-                        > -->
-                        <!-- </lightning-combobox> -->
-                    <lightning-record-edit-form object-api-name="ATI_Job__c">
+                        > 
+                   
+                         </lightning-combobox>
+                             <!-- </div> -->
+                    <!-- <lightning-record-edit-form object-api-name="ATI_Job__c">
                         <lightning-input-field field-name="Division__c" value={Division} onchange={DivisionChange}  required></lightning-input-field>
                     </lightning-record-edit-form>
-                        <!-- <select class="slds-select" name = "optionSelect" onchange={changeHandler} >
+                        <select class="slds-select" name = "optionSelect" onchange={changeHandler} >
                             <option value="OPTION A">OPTION A</option>
                             <option value="OPTION B">OPTION B</option>
                         </select>  -->
-                        <template if:true={DivisionEs}>
+                        <template if:true={DivisionEs}> 
                        
                         <lightning-combobox name="progress"
                         

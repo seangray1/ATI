@@ -1,4 +1,4 @@
-import { LightningElement, track, api } from 'lwc';
+import { LightningElement, track, api, wire } from 'lwc';
 import SearchOffices from '@salesforce/apex/NewJobController.GetOffices';
 import AfterHoursJobCreation from '@salesforce/apex/NewJobController.AfterHoursJobCreation';
 import GetEsJobTypePicklist from '@salesforce/apex/NewJobController.GetEsJobTypePicklist';
@@ -8,13 +8,57 @@ import GetJobInfo from '@salesforce/apex/NewJobController.GetJobInfo';
 import FORM_FACTOR from '@salesforce/client/formFactor';
 import { NavigationMixin } from 'lightning/navigation';
 import GetUsers from '@salesforce/apex/NewJobController.GetUsers';
+import { getPicklistValues } from "lightning/uiObjectInfoApi";
+import DIVISION_FIELD from "@salesforce/schema/ATI_Job__c.Division__c";
+
+import LEADSOURCE_FIELD from "@salesforce/schema/ATI_Job__c.Lead_Source__c";
+import ESJOBTYPE_FIELD from "@salesforce/schema/ATI_Job__c.ES_Job_Type__c";
 
 const DELAY = 600;
 var Street, City, State, ZipCode, Country;
 export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) {
+    LeadSourcePicklistValues;
+    EsJobTypePicklistValues;
+    DivisionPicklistValues;
+    @wire(getPicklistValues, {
+        recordTypeId: "0120g000000l3yMAAQ",
+        fieldApiName: DIVISION_FIELD
+      })
+      AtiJobDivisionValues({ data }) {
+        if (data) {
+          this.DivisionPicklistValues = data.values;
+          console.log(this.DivisionPicklistValues);
+        }
+      }
+      @wire(getPicklistValues, {
+        recordTypeId: "0120g000000l3yMAAQ",
+        fieldApiName: LEADSOURCE_FIELD
+      })
+      AtiJobLeadSourceValues({error, data }) {
+        if (data) {
+          this.LeadSourcePicklistValues = data.values;
+          console.log(this.LeadSourcePicklistValues);
+        }
+        else{
+          this.error = error;
+          // console.error(this.error);
+          console.log(this.error);
+        }
+      }
+     
+      @wire(getPicklistValues, {
+        recordTypeId: "0120g000000l3yMAAQ",
+        fieldApiName: ESJOBTYPE_FIELD
+      })
+      AtiJobJobClassValues({ data }) {
+        if (data) {
+          this.EsJobTypePicklistValues = data.values;
+          console.log(this.EsJobTypePicklistValues);
+        }
+      }
  //   = "Name:"+  '\n' + "Company:" + '\n' + 'Email:' + '\n' + 'Phone Number:' + '\n' + 'Additional Information:';Description of Loss:"+  '\n' + "Insurance Provider:" + '\n' + 'Claim #:' + '\n' + 'Policy #:'+
 //'\n' + 'Lead Source:' + '\n' + 'Additional Information:'
-JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;DivisionPicklistValues =[{}];EsJobTypePicklistValues=[{}];
+JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;
 DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
 ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
@@ -28,24 +72,7 @@ value = 'inProgress';
           progressDisabled: ''
       };
   
-      get options() {
-          return [
-              { label: 'New', value: 'new' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'Finished', value: 'finished' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' },
-              { label: 'In Progress', value: 'inProgress' }
-          ];
-      }
+  
   
       handleChange12(event) {
           this.state[event.target.name] = event.detail.value;
@@ -188,25 +215,26 @@ connectedCallback(){
         }
         
     console.log('record Id is ' + this.recordId);
-    GetDivisionPicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+    this.PageStateReady = true;  
+    // GetDivisionPicklist({}).then(result =>{
+    //     var AccountRolePicklistValues = result;
+    //     for(var i = 0; i<AccountRolePicklistValues.length;i++){
             
-            this.DivisionPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }
+    //         this.DivisionPicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+    //     }
         
-        this.DivisionPicklistValues.shift();   
-        this.PageStateReady = true;    
-    })
-    GetEsJobTypePicklist({}).then(result =>{
-        var AccountRolePicklistValues = result;
-        for(var i = 0; i<AccountRolePicklistValues.length;i++){
+    //     this.DivisionPicklistValues.shift();   
+    //     this.PageStateReady = true;    
+    // })
+    // GetEsJobTypePicklist({}).then(result =>{
+    //     var AccountRolePicklistValues = result;
+    //     for(var i = 0; i<AccountRolePicklistValues.length;i++){
             
-            this.EsJobTypePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
-        }
+    //         this.EsJobTypePicklistValues.push({label : AccountRolePicklistValues[i], value : AccountRolePicklistValues[i], });
+    //     }
         
-        this.EsJobTypePicklistValues.shift();
-    })
+    //     this.EsJobTypePicklistValues.shift();
+    // })
 }
 searchAgain(){
     this.ProjectDirectorSelected = false;

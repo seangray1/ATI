@@ -6,7 +6,23 @@ public class SyncEconzLT {
     public static String executeJob(String jobId){
         system.debug('jobId--'+jobId);
         ATI_Job__c job = [select Id, Stage__c from ATI_Job__c where Id =: jobId];
-            return Econz_Integration_Callouts.invokeIntegration(jobId);
+        Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
+        List<ATI_Job__c> JobsToQueue = new List<ATI_Job__c>();
+           Map<Id, String> CalloutTypeMap = new Map<Id, String>();
+           Map<Id, String> OldNameMap = new Map<Id, String>();
+           Map<Id, Datetime> StartDateMap = new Map<Id, Datetime>();
+           Map<Id,ATI_Job__c> oldMap = new Map<Id,ATI_Job__c>();
+           Map<Id,ATI_Job__c> jobsCarriedOver = new Map<Id,ATI_Job__c>();
+            startdate = job.date_time_approved__c;
+            
+                //Econz_Integration_Callouts.ECONZ_Future_Call(job.Id,'addTask',null,startdate);
+                CalloutTypeMap.put(job.Id, 'button');    
+                //OldNameMap.put(job.Id, 'addTask');    
+                StartDateMap.put(job.Id, startdate);    
+                JobsToQueue.add(job);  
+        Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, jobsCarriedOver));    
+        // return Econz_Integration_Callouts.invokeIntegration(jobId);
+        return 'Success';
     }
     
     public static void AfterHourEconzCall(list<ATI_Job__c> newValues)
@@ -30,6 +46,9 @@ public class SyncEconzLT {
                 JobsToQueue.add(job);
             }  
         }
-        Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, jobsCarriedOver));
+        if(!JobsToQueue.isEmpty() && !Test.isRunningTest())
+        {
+            Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, jobsCarriedOver));
+        }
     }
 }

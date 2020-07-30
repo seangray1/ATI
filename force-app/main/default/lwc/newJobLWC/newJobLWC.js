@@ -25,13 +25,13 @@ import SearchProperties from "@salesforce/apex/NewJobController.GetProperties";
 import GetPropertyInfo from "@salesforce/apex/NewJobController.GetPropertyInfo";
 import GetUsers from "@salesforce/apex/NewJobController.GetUsers";
 import GetMajorEvents from "@salesforce/apex/NewJobController.GetMajorEvents";
-import GetPropertyTypePicklist from "@salesforce/apex/NewJobController.GetPropertyTypePicklist";
-import GetAccountRolesPicklist from "@salesforce/apex/NewJobController.getPickListValuesIntoList";
-import GetDivisionPicklist from "@salesforce/apex/NewJobController.GetDivisionPicklist";
-import GetJobClassPicklist from "@salesforce/apex/NewJobController.GetJobClassPicklist";
-import GetEsJobTypePicklist from "@salesforce/apex/NewJobController.GetEsJobTypePicklist";
-import GetLeadSourcePicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
-import GetMultipleDivisionPicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
+// import GetPropertyTypePicklist from "@salesforce/apex/NewJobController.GetPropertyTypePicklist";
+// import GetAccountRolesPicklist from "@salesforce/apex/NewJobController.getPickListValuesIntoList";
+// import GetDivisionPicklist from "@salesforce/apex/NewJobController.GetDivisionPicklist";
+// import GetJobClassPicklist from "@salesforce/apex/NewJobController.GetJobClassPicklist";
+// import GetEsJobTypePicklist from "@salesforce/apex/NewJobController.GetEsJobTypePicklist";
+// import GetLeadSourcePicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
+// import GetMultipleDivisionPicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
 import SearchCustomers from "@salesforce/apex/NewJobController.GetCustomers";
 import SearchContactAccounts from "@salesforce/apex/NewJobController.GetContactAccounts";
 import SearchOffices from "@salesforce/apex/NewJobController.GetOffices";
@@ -53,7 +53,7 @@ import { getPicklistValues } from "lightning/uiObjectInfoApi";
 // import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
 // import MULTIPLEDIVISION_FIELD from "@salesforce/schema/Master_Job__c.Multiple_Divisions__c";
 import DIVISION_FIELD from "@salesforce/schema/ATI_Job__c.Division__c";
-import JOBCLASS_FIELD from "@salesforce/schema/ATI_Job__c.Job_Class__c";
+// import JOBCLASS_FIELD from "@salesforce/schema/ATI_Job__c.Job_Class__c";
 import LEADSOURCE_FIELD from "@salesforce/schema/ATI_Job__c.Lead_Source__c";
 import ESJOBTYPE_FIELD from "@salesforce/schema/ATI_Job__c.ES_Job_Type__c";
 
@@ -93,6 +93,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   CustomerId;
   CustomerSelectedField;
   ContactAccounts;
+  submitClicked = false;
   ContactAccountValue;
   ContactAccountPicked = false;
   ContactAccountSelected = false;
@@ -450,7 +451,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.PropertyChecked = true;
     }
     if (this.TypeOfJobEntry === "AfterHoursJobEntry") {
-      GetJobInfo({ recordId: this.jobrecordId }).then((result) => {
+      
+      GetJobInfo({ recordId: this.jobrecordId }).then(result => {
         let jobresults = result;
         this.JobTemp = result;
         this.MasterJobId = jobresults.Master_Job__c;
@@ -460,7 +462,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           Address: jobresults.Project_Site_Address__c,
           State: jobresults.Project_Site_State__c,
           Zipcode: jobresults.Project_Site_Zipcode__c
-        }).then((result) => {
+        }).then(result => {
           let Prop = result;
           this.PropertyChecked = true;
           console.log("Prop is " + JSON.stringify(Prop));
@@ -517,10 +519,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         this.JobName = jobresults.Job_Name__c;
         this.Division = jobresults.Division__c;
         
-        this.Afterhoursform = true;
+        
 
         this.ContactInfoAndDescription =
           jobresults.Contact_Info__c + "\n" + "\n" + jobresults.Description__c;
+          this.Afterhoursform = true;
         console.log(jobresults.Contact_Info__c);
         console.log(this.ContactInfoAndDescription);
       });
@@ -595,13 +598,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     //     this.MultipleDivisionPicklistValues.shift();
     // })
   }
-  renderedCallback()
-  {
-      
-  }
-  get options() {
-    return this.DivisionPicklistValues;
-  }
+  
+  
   get optionsYesNo() {
     return [
       { label: "Yes", value: "Yes" },
@@ -825,7 +823,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.Coronavirus +
       "\n" +
       "Are you requiring same-day dispatch? " +
-      this.SameDayDispatch;
+      this.SameDayDispatch + 
       "\n" +
       "Additional Information: " +
       this.AdditionalInfo;
@@ -888,7 +886,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
     if(this.Afterhoursform === true)
     {
-      this.Description = this.Description + "\n" + "\n" + "Info from original Job Request: "
+      this.Description = this.Description + "\n" + "\n" + "Info from original Job Request: " + 
       this.JobResultsDescription;
     }
   }
@@ -2339,6 +2337,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                 console.log('Masterjob id before insert' + this.MasterJobId);
                 console.log('ExistingMasterjob before insert ' + this.ExistingMasterJob);
                 this.jobLoading = true;
+                this.submitClicked = true;
                 CreateNewJob({
                   AccountRoleInfo: AccountRoleInfo,
                   PropertyInfo: PropertyJSON,
@@ -2348,6 +2347,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   jobrecordId: this.jobrecordId,
                   ExistingMasterJob:this.ExistingMasterJob
                 }).then((result) => {
+                  this.submitClicked = false;
                   console.log("Response is " + result);
                   this.jobLoading = false;
                   this.billToCount = 0;
@@ -2356,6 +2356,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   let data = result;
                   if (data.length > 18) {
                     this.jobLoading = false;
+                    this.submitClicked = false;
                     alert(data);
                   } else {
                     this[NavigationMixin.Navigate]({

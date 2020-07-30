@@ -119,7 +119,7 @@
         <!-- </div> -->
         <br>
         <lightning-accordion-section name="Account Roles" label="Account Roles">
-            <div if:true={ARDivision}>
+            
             
 
                 <div if:true={Afterhoursform}>
@@ -135,7 +135,7 @@
     
 
 </div>
-</div>
+
             <lightning-helptext style="width: 500px;" content='To assign a new Account or Contact to this Job, click [Add Row], then search for either the Contact or Account, then Select Account Roles and add all that apply.  To create a new Contact or Account click New Contact or New Account, enter the required information, and then Select Account Roles. 
             Required Roles:  Primary/Bill-to, Caller, Referred By, and Project Site Contact.  If there was no third party referral, set the Caller as the Referred By role also.  Add additional roles, if applicable, especially Insurance.'>
                     
@@ -665,7 +665,7 @@
 
     <div class="slds-p-around_medium slds-theme_alt-inverse slds-docked-form-footer">
         <lightning-button-group>
-    <lightning-button label='Submit' icon-name="utility:save" onclick={CreateNewJob} variant="brand"></lightning-button>
+    <lightning-button label='Submit' icon-name="utility:save" disabled={submitClicked} onclick={CreateNewJob} variant="brand"></lightning-button>
     <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
     </lightning-button-group>
     </div>

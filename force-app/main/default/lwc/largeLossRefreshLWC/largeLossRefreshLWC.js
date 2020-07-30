@@ -33,6 +33,7 @@ loading = false;
         else{
             this.loading = false;
             alert(message);
+            this.dispatchEvent(new CustomEvent('refreshRecord'));
         }
     });
       
