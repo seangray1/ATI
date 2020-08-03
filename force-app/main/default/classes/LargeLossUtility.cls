@@ -16,7 +16,7 @@ public without sharing class LargeLossUtility {
             req1.setComments(comments);
             req1.setObjectId(recordId);
             req1.setSubmitterId(UserInfo.getUserId());
-            req1.setProcessDefinitionNameOrId('Large_Loss_Review2');
+            req1.setProcessDefinitionNameOrId('Large_Loss_Review3');
             req1.setSkipEntryCriteria(true);
             // Submit the approval request for the account
             Approval.ProcessResult result = Approval.process(req1);

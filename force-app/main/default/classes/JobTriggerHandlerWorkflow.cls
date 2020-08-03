@@ -421,6 +421,10 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     job.Completion_Date__c = system.today();
                 }
             }
+            // if(Trigger.isUpdate && oldJob.Intake_Status__c == 'Cloned - Pending Review' && job.Intake_Status__c == 'Cloned - Completed/Reviewed')
+            // {
+            //     job.Job_Request_Completed_By__c = UserInfo.getUserId();
+            // }
         }
         if(!JobsForLargeLossCheck.isEmpty())
         {

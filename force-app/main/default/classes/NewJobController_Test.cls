@@ -222,7 +222,7 @@ static testmethod void NewJobController_Test4()
         NewJobController.GetOffices('HQ');
         NewJobController.CheckId(jobs[0].Property_Id__c);
         
-        NewJobController.CheckId6(jobs[0].Property_Id__c);
+        
         
         NewJobController.GetPropertyInfo('Whittier','15632 Youngwood Drive', 'CA', '90603');
         NewJobController.GetJobInfo(jobs[0].id);
@@ -259,80 +259,80 @@ static testmethod void NewJobController_Test4()
 
     }
 }
-static testmethod void NewJobController_Test5() 
-{
-    Id u2 = UserInfo.getUserId();
+// static testmethod void NewJobController_Test5() 
+// {
+//     Id u2 = UserInfo.getUserId();
 
-    system.runAs(new User(Id=Userinfo.getUserId()))
-    {
-        Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName;
-        Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').RecordTypeId;
-        Id approvedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId;
-        Integer NumToInsert = 3;
+//     system.runAs(new User(Id=Userinfo.getUserId()))
+//     {
+//         Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName;
+//         Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').RecordTypeId;
+//         Id approvedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId;
+//         Integer NumToInsert = 3;
         
-        ObjectInserts ObjectData = TestDataUtil.createObjects(NumToInsert, false);
-        List<ATI_Job__c> jobs = ObjectData.jobList;
-        insert jobs;
-        TestDataUtil.CreateObjectAccountRoles(NumToInsert, jobs, ObjectData.accountList, ObjectData.contactList);
-        ATI_Job__c job = jobs[0];
-        Account [] acct= ObjectData.accountList;
-        Contact [] cont = ObjectData.contactList;
-        Master_Job__c [] masterjob = ObjectData.masterjobList;
-        Office__c [] offices = ObjectData.OfficeList;
-        User [] users = ObjectData.UserList;
-        Property__c [] property = ObjectData.PropertyList;
+//         ObjectInserts ObjectData = TestDataUtil.createObjects(NumToInsert, false);
+//         List<ATI_Job__c> jobs = ObjectData.jobList;
+//         insert jobs;
+//         TestDataUtil.CreateObjectAccountRoles(NumToInsert, jobs, ObjectData.accountList, ObjectData.contactList);
+//         ATI_Job__c job = jobs[0];
+//         Account [] acct= ObjectData.accountList;
+//         Contact [] cont = ObjectData.contactList;
+//         Master_Job__c [] masterjob = ObjectData.masterjobList;
+//         Office__c [] offices = ObjectData.OfficeList;
+//         User [] users = ObjectData.UserList;
+//         Property__c [] property = ObjectData.PropertyList;
         
-        List<Approval.ProcessSubmitRequest> allReq = new List<Approval.ProcessSubmitRequest>(); 
-            Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-            req1.setComments('Submitting request for approval.');
-            req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
-            req1.setObjectId(masterjob[0].Id);
-            req1.setskipentrycriteria(true);
-    		req1.submitterId = UserInfo.getUserId();
-    		allreq.add(req1);
-            Approval.ProcessResult[] result = Approval.process(allreq);
-            List<ProcessInstance> pda = [Select Id, targetObjectId, CreatedDate FROM PRocessInstance WHere Status = 'Pending'];
-            ProcessInstance p = new ProcessInstance();
-            for(ProcessInstance f : pda)
-            {
-                if(f.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
-                {
-                    p = f;
-                }
-            }
-            ProcessInstanceWorkItem p1 = [Select Id FROM PRocessInstanceWorkItem WHere ProcessInstanceId =: p.Id];
+//         List<Approval.ProcessSubmitRequest> allReq = new List<Approval.ProcessSubmitRequest>(); 
+//             Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+//             req1.setComments('Submitting request for approval.');
+//             req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+//             req1.setObjectId(masterjob[0].Id);
+//             req1.setskipentrycriteria(true);
+//     		req1.submitterId = UserInfo.getUserId();
+//     		allreq.add(req1);
+//             Approval.ProcessResult[] result = Approval.process(allreq);
+//             List<ProcessInstance> pda = [Select Id, targetObjectId, CreatedDate FROM PRocessInstance WHere Status = 'Pending'];
+//             ProcessInstance p = new ProcessInstance();
+//             for(ProcessInstance f : pda)
+//             {
+//                 if(f.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
+//                 {
+//                     p = f;
+//                 }
+//             }
+//             ProcessInstanceWorkItem p1 = [Select Id FROM PRocessInstanceWorkItem WHere ProcessInstanceId =: p.Id];
            
 
-        string ItemsToApproveReject = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p1.Id + '","processinstanceId":"' + p.Id + '","id":1,"MasterJob":"/a8G0R0000009dKCUAY","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
-        NewJobController.ApproveSelectedItems(ItemsToApproveReject, 'Test', 'Approve', p1.Id);
-        NewJobController.GetAccountData('Master Job');
+//         string ItemsToApproveReject = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p1.Id + '","processinstanceId":"' + p.Id + '","id":1,"MasterJob":"/a8G0R0000009dKCUAY","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
+//         NewJobController.ApproveSelectedItems(ItemsToApproveReject, 'Test', 'Approve', p1.Id);
+//         NewJobController.GetAccountData('Master Job');
 
-        List<Approval.ProcessSubmitRequest> allReq1 = new List<Approval.ProcessSubmitRequest>(); 
-            Approval.ProcessSubmitRequest req12 = new Approval.ProcessSubmitRequest();
-            req12.setComments('Submitting request for approval.');
-            req12.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
-            req12.setObjectId(masterjob[1].Id);
-            req12.setskipentrycriteria(true);
-    		req12.submitterId = UserInfo.getUserId();
-    		allreq1.add(req12);
-            Approval.ProcessResult[] result1 = Approval.process(allreq1);
-            List<ProcessInstance> pda2 = [Select Id, targetObjectId, CreatedDate FROM PRocessInstance WHere Status = 'Pending'];
-            ProcessInstance p3 = new ProcessInstance();
-            for(ProcessInstance f : pda2)
-            {
-                if(f.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
-                {
-                    p3 = f;
-                }
-            }
-            ProcessInstanceWorkItem p12 = [Select Id FROM PRocessInstanceWorkItem WHere ProcessInstanceId =: p3.Id];
+//         List<Approval.ProcessSubmitRequest> allReq1 = new List<Approval.ProcessSubmitRequest>(); 
+//             Approval.ProcessSubmitRequest req12 = new Approval.ProcessSubmitRequest();
+//             req12.setComments('Submitting request for approval.');
+//             req12.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
+//             req12.setObjectId(masterjob[1].Id);
+//             req12.setskipentrycriteria(true);
+//     		req12.submitterId = UserInfo.getUserId();
+//     		allreq1.add(req12);
+//             Approval.ProcessResult[] result1 = Approval.process(allreq1);
+//             List<ProcessInstance> pda2 = [Select Id, targetObjectId, CreatedDate FROM PRocessInstance WHere Status = 'Pending'];
+//             ProcessInstance p3 = new ProcessInstance();
+//             for(ProcessInstance f : pda2)
+//             {
+//                 if(f.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
+//                 {
+//                     p3 = f;
+//                 }
+//             }
+//             ProcessInstanceWorkItem p12 = [Select Id FROM PRocessInstanceWorkItem WHere ProcessInstanceId =: p3.Id];
            
 
-        string ItemsToApproveReject2 = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p12.Id + '","processinstanceId":"' + p3.Id + '","id":1,"MasterJob":"/a8G0R0000009dKCUAY","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
-        Id queue = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject2, 'Test', 'Approve'));
-    }
+//         string ItemsToApproveReject2 = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p12.Id + '","processinstanceId":"' + p3.Id + '","id":1,"MasterJob":"/a8G0R0000009dKCUAY","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
+//         Id queue = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject2, 'Test', 'Approve'));
+//     }
 
-}
+// }
 static testmethod void NewJobController_Test6() 
 {
     Id u2 = UserInfo.getUserId();
@@ -397,7 +397,7 @@ static testmethod void NewJobController_Test6()
             
         
                 jobs[0].Project_Site_City__c ='Test FotoIN Add';
-                Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobs, 'Edit'));
+                // Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobs, 'Edit'));
             Test.stopTest();
         
         
@@ -415,7 +415,7 @@ static testmethod void NewJobController_Test7()
         Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').RecordTypeId;
         Id approvedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId;
         Integer NumToInsert = 3;
-        Test.startTest();
+        
         Map<String,String> fotoinheaders = new Map<String,String>();
         fotoinheaders.put('Content-Type', 'application/json');
         Map<String,String> googleheaders = new Map<String,String>();
@@ -432,7 +432,7 @@ static testmethod void NewJobController_Test7()
                                                 outputJsonAddress,
                                                 googleheaders);
 
-            Test.setMock(HttpCalloutMock.class, fakeContactsResp);
+            //Test.setMock(HttpCalloutMock.class, fakeContactsResp);
         ObjectInserts ObjectData = TestDataUtil.createObjects(NumToInsert, false);
         List<ATI_Job__c> jobs = ObjectData.jobList;
         insert jobs;
@@ -446,46 +446,11 @@ static testmethod void NewJobController_Test7()
         Property__c [] property = ObjectData.PropertyList;
         
         
-            // Map<String,String> fotoinheaders = new Map<String,String>();
-            // fotoinheaders.put('Content-Type', 'application/json');
-            // Map<String,String> googleheaders = new Map<String,String>();
-            // googleheaders.put('Content-Type', 'application/json');
-            // String outPutJson = '{"location": { "lat": 37.09024, "lng": -95.712891}}';
-            // String outputJsonAddress = '{{"results" : [{"access_points" : [],"address_components" : [{"long_name" : "15632","short_name" : "15632","types" : [ "street_number" ]},{"long_name" : "Youngwood Drive","short_name" : "Youngwood Dr","types" : [ "route" ]},{"long_name" : "East Whitter","short_name" : "East Whitter","types" : [ "neighborhood", "political" ]},{"long_name" : "Whittier","short_name" : "Whittier","types" : [ "locality", "political" ]},{"long_name" : "Los Angeles County","short_name" : "Los Angeles County","types" : [ "administrative_area_level_2", "political" ]},{"long_name" : "California","short_name" : "CA","types" : [ "administrative_area_level_1", "political" ]},{"long_name" : "United States","short_name" : "US","types" : [ "country", "political" ]},{"long_name" : "90603","short_name" : "90603","types" : [ "postal_code" ]},{"long_name" : "1235","short_name" : "1235","types" : [ "postal_code_suffix" ]}],"formatted_address" : "15632 Youngwood Dr, Whittier, CA 90603, USA","geometry" : {"bounds" : {"northeast" : {"lat" : 33.9551556,"lng" : -117.9936276},"southwest" : {"lat" : 33.9549415,"lng" : -117.9938733}},"location" : {"lat" : 33.9550515,"lng" : -117.9937451},"location_type" : "ROOFTOP","viewport" : {"northeast" : {"lat" : 33.9563975302915,"lng" : -117.9924014697085},"southwest" : {"lat" : 33.9536995697085,"lng" : -117.9950994302915}}},"place_id" : "ChIJ--yIXe3UwoARtn_JzLhd-i0","types" : [ "premise" ]}],"status" : "OK"}';
-            // SingleRequestMock fakeAccountResp = new SingleRequestMock(200,
-            //                                              '200',
-            //                                              outPutJson,
-            //                                              fotoinheaders);
- 
-            // SingleRequestMock fakeContactsResp = new SingleRequestMock(200,
-            //                                       'Complete',
-            //                                       outputJsonAddress,
-            //                                        googleheaders);
- 
-            // Map<String, HttpCalloutMock> endpoint2TestResp =
-            //                         new Map<String,HttpCalloutMock>();
-            // endpoint2TestResp.put('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address=',fakeAccountResp);
-            // endpoint2TestResp.put('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBuE7iBv1fugjx2Az7h-bCwJCoWOadglz8&address=',fakeContactsResp);
-    
-            // HttpCalloutMock multiCalloutMock =
-            //                         new MultiRequestMock(endpoint2TestResp);
-    
-            //Test.setMock(HttpCalloutMock.class, multiCalloutMock);
-            //Test.setMock(HttpCalloutMock.class, fakeContactsResp);
-                // Test.setMock(HttpCalloutMock.class, new MockHttpFotoIn(200, 'success', outPutJson, null));
-                // Test.setMock(HttpCalloutMock.class, new MockHttpGoogleMapsResponse(200, 'success', outputJsonAddress, null));
-                
-            
+        Test.startTest();
+        Test.setMock(HttpCalloutMock.class, fakeContactsResp);
+        NewJobController.GoogleCallout('TestMethod', 'Whittier', '90603', 'CA');
         
-                // jobs[0].Project_Site_City__c ='Test FotoIN Add';
-                // List<ATI_Job__c> jobfotoinlist = new List<ATI_Job__c>();
-                // jobfotoinlist.add(jobs[0]);
-                // Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Edit'));
-                // jobfotoinlist.clear();
-                // jobfotoinlist.add(jobs[1]);
-                // Id fotonInQueue1 = System.enqueueJob(new FotoIn_Queueable_Integration(jobfotoinlist, 'Create'));
-                
-            Test.stopTest();
+        Test.stopTest();
         
         
     }
