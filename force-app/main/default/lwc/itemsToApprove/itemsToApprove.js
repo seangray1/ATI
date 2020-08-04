@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
-import GetAccountData from '@salesforce/apex/NewJobController.GetAccountData';
-import ApproveSelectedItems from '@salesforce/apex/NewJobController.ApproveSelectedItems';
+import GetAccountData from '@salesforce/apex/DynamicApprovalController.GetAccountData';
+import ApproveSelectedItems from '@salesforce/apex/DynamicApprovalController.ApproveSelectedItems';
 import My_Resource from '@salesforce/resourceUrl/SLDS202';
 
 // import GetColumns from '@salesforce/apex/DynamicApprovalController.GetColumns';
@@ -58,6 +58,7 @@ export default class ItemsToApprove extends LightningElement {
         typeAttributes: {label: { fieldName: 'ContactName1' }, target: '_blank'} },
         { label: 'Referred By', fieldName: 'ReferredBy', type: 'url',
         typeAttributes: {label: { fieldName: 'ReferredBy1' }, target: '_blank'} },
+        { label: 'Comments', fieldName: 'Comments' },
         {
             type: 'action',
             typeAttributes: { rowActions: actions },
@@ -120,7 +121,7 @@ export default class ItemsToApprove extends LightningElement {
                 
                 
                     
-                    this.datasetup.push({id:i,AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    this.datasetup.push({id:i, Comments:accounts[i].Comments, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
                     
                     if(accounts[i].Account === undefined)
                     {
@@ -267,7 +268,7 @@ export default class ItemsToApprove extends LightningElement {
                         {
                         for (var i = 0; i < rows.length; i++) 
                         {
-                            this.data.push({id:this.datasetup[i].id,Contact:this.datasetup[i].Contact, ContactNamee:this.datasetup[i].ContactNamee,processId:this.datasetup[i].processId,processinstanceId:this.datasetup[i].processinstanceId,id:i,MasterJob: this.datasetup[i].MasterJob, MasterJobName1: this.datasetup[i].MasterJobName1, CreatedBy: this.datasetup[i].CreatedBy, AccountName:this.datasetup[i].AccountName, AccountName1:this.datasetup[i].AccountName1, ContactName:this.datasetup[i].ContactName, ContactName1:this.datasetup[i].ContactName1, ReferredBy:this.datasetup[i].ReferredBy, ReferredBy1:this.datasetup[i].ReferredBy1});   
+                            this.data.push({id:this.datasetup[i].id,Comments:this.datasetup[i].Comments,Contact:this.datasetup[i].Contact, ContactNamee:this.datasetup[i].ContactNamee,processId:this.datasetup[i].processId,processinstanceId:this.datasetup[i].processinstanceId,MasterJob: this.datasetup[i].MasterJob, MasterJobName1: this.datasetup[i].MasterJobName1, CreatedBy: this.datasetup[i].CreatedBy, AccountName:this.datasetup[i].AccountName, AccountName1:this.datasetup[i].AccountName1, ContactName:this.datasetup[i].ContactName, ContactName1:this.datasetup[i].ContactName1, ReferredBy:this.datasetup[i].ReferredBy, ReferredBy1:this.datasetup[i].ReferredBy1});   
                         }
                         //this.data = rowsetup;
                         this.loading = false;
@@ -327,7 +328,7 @@ export default class ItemsToApprove extends LightningElement {
                     this.data = [];
                     for (var i = 0; i < rows.length; i++) 
                     {   
-                        this.data.push({id:i, Contact:rows[i].Contact, ContactNamee:rows[i].ContactNamee,processinstanceId:rows[i].processinstanceId,id:i, id:i,MasterJob: rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].CreatedBy, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
+                        this.data.push({id:this.datasetup[i].id, Comments:rows[i].Comments, Contact:rows[i].Contact, ContactNamee:rows[i].ContactNamee,processinstanceId:rows[i].processinstanceId,processId:rows[i].processId, MasterJob:rows[i].MasterJob, MasterJobName1: rows[i].MasterJobName1, CreatedBy: rows[i].CreatedBy, AccountName:rows[i].AccountName, AccountName1:rows[i].AccountName1, ContactName:rows[i].ContactName, ContactName1:rows[i].ContactName1, ReferredBy:rows[i].ReferredBy, ReferredBy1:rows[i].ReferredBy1});   
                     }
                     
                     //this.data = this.datasetup; 
@@ -391,7 +392,7 @@ export default class ItemsToApprove extends LightningElement {
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
                  
-                    this.datasetup.push({id:i, Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i, CreatedBy: accounts[i].createdByName});  
+                    this.datasetup.push({id:this.datasetup[i].id, Comments:accounts[i].Comments, Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, CreatedBy: accounts[i].createdByName});  
                 }
             }
             if(this.objectName === 'Master Job')
@@ -407,6 +408,7 @@ export default class ItemsToApprove extends LightningElement {
                     typeAttributes: {label: { fieldName: 'ContactName1' }, target: '_blank'} },
                     { label: 'Referred By', fieldName: 'ReferredBy', type: 'url',
                     typeAttributes: {label: { fieldName: 'ReferredBy1' }, target: '_blank'} },
+                    { label: 'Comments', fieldName: 'Comments' },
                     {
                         type: 'action',
                         typeAttributes: { rowActions: actions },
@@ -417,7 +419,7 @@ export default class ItemsToApprove extends LightningElement {
                 for (var i = 0; i < accounts.length; i++) 
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
-                    this.datasetup.push({id:i, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    this.datasetup.push({id:this.datasetup[i].id, Comments:accounts[i].Comments, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
                     console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
                     if(accounts[i].Account === undefined)
                     {
@@ -479,7 +481,7 @@ export default class ItemsToApprove extends LightningElement {
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
                  
-                    this.datasetup.push({id:i, Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i, CreatedBy: accounts[i].createdByName});  
+                    this.datasetup.push({id:i, Comments:accounts[i].Comments,Contact:'/' + accounts[i].processId,ContactNamee:accounts[i].Contact,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, CreatedBy: accounts[i].createdByName});  
                 }
             }
             if(this.objectName === 'Master Job')
@@ -495,6 +497,7 @@ export default class ItemsToApprove extends LightningElement {
                     typeAttributes: {label: { fieldName: 'ContactName1' }, target: '_blank'} },
                     { label: 'Referred By', fieldName: 'ReferredBy', type: 'url',
                     typeAttributes: {label: { fieldName: 'ReferredBy1' }, target: '_blank'} },
+                    { label: 'Comments', fieldName: 'Comments' },
                     {
                         type: 'action',
                         typeAttributes: { rowActions: actions },
@@ -505,7 +508,7 @@ export default class ItemsToApprove extends LightningElement {
                 for (var i = 0; i < accounts.length; i++) 
                 {
                     console.log('1st Account Name ' + accounts[i].Account);
-                    this.datasetup.push({id:i, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, id:i,MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
+                    this.datasetup.push({id:i,  Comments:accounts[i].Comments, AccountName1:accounts[i].Account,ContactName1:accounts[i].Contact,MasterJobName1:accounts[i].MasterJob,ReferredBy1:accounts[i].ReferredBy,processId:accounts[i].processId,processinstanceId:accounts[i].processinstanceId, MasterJob: '/' + accounts[i].MasterJobId, CreatedBy: accounts[i].createdByName, AccountName:'/' + accounts[i].AccountId, ContactName:'/' + accounts[i].ContactId, ReferredBy:'/' + accounts[i].ReferredById});
                     console.log('Account name is ' + JSON.stringify(this.datasetup[i].AccountName));
                     if(accounts[i].Account === undefined)
                     {

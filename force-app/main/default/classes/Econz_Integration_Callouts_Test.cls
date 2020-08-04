@@ -20,6 +20,25 @@ private class Econz_Integration_Callouts_Test {
             Test.stopTest();
         }
     }
+    static testmethod void ExecuteJob() {
+        // Create a User
+        User testUser = createAdminUser();
+        insert testUser;
+        
+        System.runAs(testUser){
+            ATI_Job__c Job = createJobWithTestSetupData(testUser); 
+            Job.ECONZ_Task_Created__c = false;
+            Job.Project_Manager_new__c  = testUser.id;
+            job.Amount__c=5500;
+            insert Job;
+            Test.startTest();
+            Test.setMock(HttpCalloutMock.class, new fake_AddTask());
+            Econz_Integration_Callouts.isECONZCalloutsProcessed = true;
+            SyncEconzLT.executeJob(job.Id);
+            
+            Test.stopTest();
+        }
+    }
     
     static testmethod void test_updateTaskDates() {
         // Create a User

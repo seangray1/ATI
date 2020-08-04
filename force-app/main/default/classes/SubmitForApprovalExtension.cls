@@ -6,7 +6,7 @@ public without sharing class SubmitForApprovalExtension {
     //     doLock = Apexpages.currentPage().getParameters().get('lock');
     // }
 @AuraEnabled
-public static String submitForApproval(Id recordId)
+public static String submitForApproval(Id recordId, String comments)
 {
 try 
 {
@@ -35,7 +35,7 @@ try
             Map<id,User> u = new Map<Id, User>([Select Id, ManagerId, Name FROM User Where id =: uIds]);
             Id managerId = u.get(userinfo.getUserId()).ManagerId;
             Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-            req1.setComments('Submitting request for approval.');
+            req1.setComments(comments);
             req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
             req1.setObjectId(mjob.Id);
             req1.setskipentrycriteria(true);          
@@ -113,7 +113,7 @@ try
     Map<id,User> u = new Map<Id, User>([Select Id, ManagerId, Name FROM User Where id =: uIds]);
     Id managerId = u.get(userinfo.getUserId()).ManagerId;
     Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-    req1.setComments('Submitting request for approval.');
+    req1.setComments(comments);
     req1.setProcessDefinitionNameOrId('Credit_Request_Approval_Process');
     req1.setObjectId(recordId);
     req1.setskipentrycriteria(true);          
@@ -200,7 +200,7 @@ return 'User does not have Access to Request Credit';
     if(sObjName == 'Contact')
     {
         Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-        req1.setComments('Submitting request for approval.');
+        req1.setComments(comments);
         req1.setSubmitterId(user1);
         // Submit the record to specific process and skip the criteria evaluation
         req1.setProcessDefinitionNameOrId('Contact_Ownership_Request_Approval');

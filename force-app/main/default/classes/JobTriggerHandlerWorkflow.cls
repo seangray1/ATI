@@ -271,6 +271,10 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
                     
                 }
+                if(job.Amount__c != oldJob.Amount__c && job.Amount__c > 100000)
+                {
+                    job.Large_Loss_Flag__c = true;
+                }
             }
 
             if(Trigger.isInsert && job.Office2__c != null && job.Division__c != null)

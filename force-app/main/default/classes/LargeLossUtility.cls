@@ -33,7 +33,7 @@ public without sharing class LargeLossUtility {
     public static List<Large_Loss_Review__c> getLargeLossReviews(Id recordId) {
         Large_Loss_Review__c l = [Select Id, Job__c FROM Large_Loss_Review__c WHERE Id =: recordId];
         return [
-            SELECT Id, Name, Amount__c, Job_To_Date_Costs__c, Forecast_for_Current_Month__c, Estimated_GP_Percent__c, Additional_Comments__c, NLLS_Reviewer__c,NLLS_Reviewer__r.Name, Status__c
+            SELECT Id, Name, Amount__c, Job_To_Date_Costs__c, Forecast_for_Current_Month__c, Estimated_GP_Percent__c, Additional_Comments__c, NLL_Reviewer__c, Status__c
             FROM Large_Loss_Review__c
             WHERE Job__c =: l.job__c
             ORDER BY CreatedDate ASC

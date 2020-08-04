@@ -13,18 +13,61 @@ import { LightningElement,api,track } from 'lwc';
 import jobApproval from '@salesforce/apex/SubmitForApprovalExtension.submitForApproval';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 export default class creditRequestLWC extends LightningElement {
-@api recordId
-@track loading = false;
+// @api recordId
+// @track loading = false;
 
-Send(){
+// Send(){
+//     this.loading = true;
+// jobApproval({
+//     recordId : this.recordId
+// }).then(result => {
+//     this.loading = false;
+//     let message = result;
+
+//     if(message === 'Success'){
+//     //     const evt = new ShowToastEvent({
+//     //         title: 'Success',
+//     //         message: 'Record Saved!',
+//     //         variant: 'success',
+//     //     });
+//         // this.dispatchEvent(evt);
+//         const event = new ShowToastEvent({
+//             title:'Success',
+//             message: 'Submitted for Approval',
+//             variant: 'success',
+//         });
+//         this.dispatchEvent(event);
+//         this.dispatchEvent(new CustomEvent('refreshRecord'));  
+      
+//     }
+
+//     else{
+//         alert(message);
+//     }
+// });
+  
+
+// }
+
+// Back(){
+//     this.dispatchEvent(new CustomEvent('Close'));  
+// }
+
+@api recordId;
+loading = false;
+Comments = '';
+
+submit(){
     this.loading = true;
-jobApproval({
-    recordId : this.recordId
-}).then(result => {
-    this.loading = false;
+    let comments = this.template.querySelector('textarea');
+    console.log('comments are ' + comments);
+    jobApproval({
+    recordId : this.recordId, comments : this.Comments
+    }).then(result => {
+    ;
     let message = result;
 
-    if(message === 'Success'){
+    if(message === 'success'){
     //     const evt = new ShowToastEvent({
     //         title: 'Success',
     //         message: 'Record Saved!',
@@ -42,16 +85,18 @@ jobApproval({
     }
 
     else{
+        this.loading = false;
         alert(message);
     }
 });
   
 
 }
-
-Back(){
+handleFormInputChange(event)
+{
+    this.Comments = event.detail.value;
+}
+cancel(){
     this.dispatchEvent(new CustomEvent('Close'));  
 }
-
-
 }

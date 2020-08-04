@@ -20,7 +20,10 @@ public class SyncEconzLT {
                 //OldNameMap.put(job.Id, 'addTask');    
                 StartDateMap.put(job.Id, startdate);    
                 JobsToQueue.add(job);  
-        Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, jobsCarriedOver));    
+                if(!JobsToQueue.isEmpty() && !Test.isRunningTest())
+                {
+                    Id queueId = System.enqueueJob(new Econz_Queueable_Integration(JobsToQueue, CalloutTypeMap, OldNameMap, StartDateMap, oldMap, jobsCarriedOver));  
+                }  
         // return Econz_Integration_Callouts.invokeIntegration(jobId);
         return 'Success';
     }

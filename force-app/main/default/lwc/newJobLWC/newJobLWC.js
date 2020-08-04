@@ -728,6 +728,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   CoronavirusChange(e) {
     this.Coronavirus = e.detail.value;
   }
+  CoronavirusPersonChange(e){
+    this.CoronavirusPerson = e.detail.value;
+  }
   SameDayDispatchChange(e) {
     this.SameDayDispatch = e.detail.value;
   }
@@ -819,9 +822,12 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       "Is there a gate code? " +
       this.GateCode +
       "\n" +
-      "Is this related to the Coronavirus? " +
+      "Is the loss/damage related to Coronavirus? (Y/N)" +
       this.Coronavirus +
       "\n" +
+      "Has anyone at this property had symptoms of COVID-19 or been exposed to someone with symptoms of COVID-19? (Y/N)" +
+      this.CoronavirusPerson +
+      "\n" + 
       "Are you requiring same-day dispatch? " +
       this.SameDayDispatch + 
       "\n" +

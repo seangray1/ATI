@@ -1,5 +1,5 @@
 <template>
-    <div class="slds-box slds-theme_shade">
+    <!-- <div class="slds-box slds-theme_shade">
 
         <div class="slds-m-around_medium">
           <p style="width:100%; font-size:20px; text-align:center;margin: 45px 0 20px 0;"> Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?</p><br/>
@@ -8,12 +8,29 @@
             <br>
             
         </div>
-    </div>
-    <template if:true={loading}>
+    </div> -->
+    <label>Comments:</label>
+     <textarea class="slds-textarea" id="Comments" onchange={handleFormInputChange} name="Comments" rows="6" cols="50">
+        
+    </textarea>
+    <div if:true={loading}>
+        <div class="Spinner">
+         <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+     </div>
+     </div>
+     <br>
+     <br>
+    
+    <div class="slds-button-group">
+        <button type="button" onclick={submit} class="slds-button slds-button_brand">Submit</button>
+        <button type="button" onclick={cancel} class="slds-button slds-button_neutral">Cancel</button>
+        
+      </div>
+    <!-- <template if:true={loading}>
  
         <div class="exampleHolder">
             <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
         </div>
         
-      </template>
+      </template> -->
 </template>

@@ -52,8 +52,9 @@ public without sharing class ApproveSelectedItemsQueueable implements Queueable,
             req2.setWorkitemId(pInstanceWorkitemsId);
             system.debug('req 2 ' + req2);
             allReq.add(req2);
+            Approval.ProcessResult result2 =  Approval.process(req2);
         }
-        Approval.ProcessResult[] result2 =  Approval.process(allReq);
+        // Approval.ProcessResult[] result2 =  Approval.process(allReq);
         
     }
                    

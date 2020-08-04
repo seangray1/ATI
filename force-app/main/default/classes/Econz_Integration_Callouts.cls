@@ -147,12 +147,12 @@ global class Econz_Integration_Callouts {
            }
        }
        
-       // Invoked from Button
-    //    webservice static string invokeIntegration(Id JobId) {
-    //        ATI_Job__c Job = getJobRecord(JobId);
-    //        startdate = Job.Date_Time_Approved__c;
-    //        return integrateEconz(JobId,'button',startdate);
-    //    }
+    //    Invoked from Button
+       webservice static string invokeIntegration(Id JobId) {
+           ATI_Job__c Job = getJobRecord(JobId);
+           startdate = Job.Date_Time_Approved__c;
+           return integrateEconz(JobId,'button',startdate);
+       }
        
        // Future Class invoked from Trigger.
        // Added the custom startdate parameter to pass the dynamic start date and to avoid the start date missing functionalities
