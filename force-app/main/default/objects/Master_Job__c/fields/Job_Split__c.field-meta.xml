@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Split__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>To be used for Job Splits created to divide Revenue between 2 offices or 2 PD&apos;s, both master jobs must relate to one another</description>
+    <externalId>false</externalId>
+    <inlineHelpText>To be used for Job Splits created to divide Revenue between 2 offices or 2 PD&apos;s, both master jobs must relate to one another</inlineHelpText>
+    <label>Job Split</label>
+    <referenceTo>Master_Job__c</referenceTo>
+    <relationshipLabel>Master Jobs</relationshipLabel>
+    <relationshipName>Master_Jobs</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

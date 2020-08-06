@@ -135,14 +135,23 @@ public class ATIInvoiceController{
         ATI_Job__c job = [Select Id, Account__c FROM ATI_Job__c Where Id=:invoiceRecord.ATI_Job__c];
         List<Account_Roles__c> ar = [Select Id, Master_Job_ID__c, Account_ID__c, Multiple_Roles__c FROM Account_Roles__c Where Master_Job_ID__c =: job.Id];
         Account_Roles__c BillToAccountRole = new Account_Roles__c();
-        
-        for(Account_Roles__c a : ar){
-            if(a.Multiple_roles__c.contains('Primary/Bill-to')){
-                BillToAccountRole = a;
+        List<Invoice__c> oldInvoices = [Select Id, Bill_To__c FROM Invoice__c Where ATI_Job__c =: job.Id AND Last_Successful_Timberline_Sync__c != null ORDER BY 
+        Last_Successful_Timberline_Sync__c DESC Limit 1];
+        if(!oldInvoices.isEmpty() && invoiceRecord.Bill_To__c == null){
+            invoiceRecord.Bill_To__c = oldInvoices[0].Bill_To__c;
+        }
+        if(invoiceRecord.Bill_To__c == null && !ar.isEmpty())
+        {
+            for(Account_Roles__c a : ar)
+            {
+                if(a.Multiple_roles__c.contains('Primary/Bill-to'))
+                {
+                    BillToAccountRole = a;
+                }
             }
         }
 
-         List<Account> acctList = [Select a.BillingStreet, a.BillingState, a.BillingPostalCode, 
+        List<Account> acctList = [Select a.BillingStreet, a.BillingState, a.BillingPostalCode, 
                            a.BillingCountry, a.BillingCity, a.Tax_Group__c, a.Billing_Notes__c From Account a WHERE a.Id =:invoiceRecord.Bill_To__c
                            or a.Id = :invoiceRecord.Care_Of__c];
          System.debug('Checking acctList--'+acctList +'--'+invoiceRecord.Care_Of__c)  ;                
@@ -193,9 +202,9 @@ public class ATIInvoiceController{
     if(invoiceRecord.Bill_To__c == null && BillToAccountRole.Account_Id__c != null){
         invoiceRecord.Bill_To__c = BillToAccountRole.Account_ID__c;
     }
-    if(invoiceRecord.Bill_To__c == null && BillToAccountRole.Account_Id__c == null){
-        invoiceRecord.Bill_To__c = job.Account__c;
-    }
+    // if(invoiceRecord.Bill_To__c == null && BillToAccountRole.Account_Id__c == null){
+    //     invoiceRecord.Bill_To__c = job.Account__c;
+    // }
     
 }
     

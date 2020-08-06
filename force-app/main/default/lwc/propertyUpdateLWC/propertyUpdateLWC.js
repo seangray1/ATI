@@ -1,8 +1,24 @@
 import { LightningElement, api, track } from 'lwc';
 import UpdatePropertyAddress from "@salesforce/apex/NewJobController.UpdateProperty";
+import GetUserInfo from "@salesforce/apex/NewJobController.GetUserInfo";
 export default class PropertyUpdateLWC extends LightningElement {
 @api recordId;
 @track loading = false;
+
+
+
+    connectedCallback(){
+        GetUserInfo({}).then(result =>{
+            
+            console.log('Result is ' + result);
+            if(result === 'System Administrator' || result === 'Contact Center Rep'){
+                console.log('working');
+            }else{
+                alert('Access Not Allowed');
+                this.dispatchEvent(new CustomEvent('closePage')); 
+            }
+        })
+    }
     PropertyUpdate(){
         this.loading = true;
         const address = this.template.querySelector('[data-id="AddressLookup"]');

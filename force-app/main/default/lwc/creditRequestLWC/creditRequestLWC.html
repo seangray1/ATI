@@ -1,0 +1,19 @@
+<template>
+    <div class="slds-box slds-theme_shade">
+
+        <div class="slds-m-around_medium">
+          <p style="width:100%; font-size:20px; text-align:center;margin: 45px 0 20px 0;"> Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?</p><br/>
+          <div style="width:100%; text-align:center;"><button style="padding: 3px 40px;margin-right: 20px;" class="slds-button slds-button_brand" onclick={Send}>Confirm</button>
+          <button style="padding: 3px 40px;" class="slds-button slds-button_neutral" onclick={Back}>Cancel</button></div>
+            <br>
+            
+        </div>
+    </div>
+    <template if:true={loading}>
+ 
+        <div class="exampleHolder">
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+        </div>
+        
+      </template>
+</template>

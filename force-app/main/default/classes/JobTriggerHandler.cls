@@ -58,7 +58,7 @@ public without sharing class JobTriggerHandler {
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
         map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
         
-        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap); // Added by  DemandBlue
+        Create_Opportunity_Handler.updateOpportunity(trigger.new,oldJobMap,newJobMap); // Added by  DemandBlue
         
         JobUtility.removeJobOwnerfromTeam( oldJobMap, Trigger.new );
         JobUtility.UnlockRecord(Trigger.new, oldJobMap);
@@ -74,7 +74,7 @@ public without sharing class JobTriggerHandler {
         JobUtility.createFotoInProject( oldJobMap, newJobMap.values() );
         JobUtility.updateFotoInProject( oldJobMap, newjobMap.values() );
        // BigTime_Callout_Integration.invokeCallout(Trigger.new, oldJobMap);
-        
+       
         if(!Econz_Integration_Callouts.isECONZCalloutsProcessed){
         system.debug('====Integration====');
             Econz_Integration_Callouts.manageEConzCallouts(oldJobMap, newJobMap.values());
@@ -86,25 +86,15 @@ public without sharing class JobTriggerHandler {
     
     public static void handleBeforeUpdatesOnly(){        
         map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
-        JobAEBonusTriggerHandler.populateAEOnApprovedJobs( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );
-        JobAEBonusTriggerHandler.afterCreditRequestApproved( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );        
+        //JobAEBonusTriggerHandler.populateAEOnApprovedJobs( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );
+        //JobAEBonusTriggerHandler.afterCreditRequestApproved( oldJobMap, (map<Id,ATI_Job__c>)Trigger.newMap );        
        // JobAEBonusTriggerHandler.populateAEs( oldJobMap, Trigger.new );
         // Econz_Integration_Callouts.updateOldName( oldJobMap, Trigger.new );
         //handle job BranchManager update depending on Office__c and Division__c
        // JobUtility.updateBranchManager(Trigger.new);
         //Athith Comments
         //Prepopulate the Timestamp for Date_Time_Approved__c field if the record type is Job (Approved)
-        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
-        Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
-        map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
-        for(ATI_Job__c Job: newJobMap.values()){
-        if( Job.recordtypeid != oldJobMap.get(Job.Id).recordtypeid && Job.recordtypeid == approvedRecordTypeId){
-            Job.Date_Time_Approved__c = system.now();
-            system.debug('===Date Time Approved==='+Job.Date_Time_Approved__c);
-            
-            }
-        }
-        JobUtility.UpdateApprovedPM(trigger.new, oldJobMap);
+        
         
         
     }
@@ -112,6 +102,26 @@ public without sharing class JobTriggerHandler {
     /* handles both before insert and updates */
     public static void handleBeforeInsertUpdate(){
         // Update Job Number
+        // if(Trigger.isBefore && (Trigger.isUpdate)){
+        //     JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        //     }
+        Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
+        Id devRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
+        map<Id,ATI_Job__c> newJobMap =(map<Id,ATI_Job__c>)Trigger.newMap;
+        map<Id,ATI_Job__c> oldJobMap =(map<Id,ATI_Job__c>)Trigger.oldMap;
+        ObjectInserts oi = new ObjectInserts();
+        oi.officeMap = new Map<Id,Office__c>([Select Id, Name, Branch_Manager__c, Biohazard_Operations_Manager__c,
+        Asbestos_Operations_Manager__c, Catastrophes_Operations_Manager__c, Consulting_Operations_Manager__c, 
+        Contents_Operations_Manager__c, Demolition_Operations_Manager__c, Emergency_Services_Operations_Manager__c, 
+        Environmental_Branch_Manager__c, Environmental_Operations_Manager__c, ES_and_Contents_Operations_Manager__c,
+        Health_Science_Operations_Manager__c, Lead_Operations_Manager__c, Marketing_Operations_Manager__c,
+        Microbial_Operations_Manager__c, Operations_Manager__c, Regional_Manager__c, Structure_Contents_Branch_Manager__c,
+        Technical_Services_Operations_Manager__c, Evp_1__c FROM Office__c]);
+        
+        JobTriggerHandlerWorkflow.AssignProjectRoles(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap, oi);
+        JobTriggerHandlerWorkflow.StageChanged(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        
+        
         if (cfg.JobSetJobNumber__c && Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
             
             map<Id,ATI_Job__c> oldMap =null;
@@ -128,12 +138,24 @@ public without sharing class JobTriggerHandler {
             ATIJobControl.setGLAccountPrefix(Trigger.new);
             
         }
-        if(Trigger.isBefore && (Trigger.isUpdate)){
-        JobUtility.EgnytePathUpdate(Trigger.new, (map<Id,ATI_Job__c>)Trigger.oldMap);
-        }
+        
+       
         if(Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)){
             //logic - copies the Jobs Project Manager into the Owner field
             JobUtility.ManagerToOwnerCopy((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
+        }
+        if(Trigger.isUpdate)
+        {
+            
+            for(ATI_Job__c Job: newJobMap.values())
+            {
+                if( Job.recordtypeid != oldJobMap.get(Job.Id).recordtypeid && Job.recordtypeid == approvedRecordTypeId)
+                {
+                    Job.Date_Time_Approved__c = system.now();
+                    system.debug('===Date Time Approved==='+Job.Date_Time_Approved__c);         
+                }
+            }
+        JobUtility.UpdateApprovedPM(trigger.new, oldJobMap);
         }
     }
 
@@ -146,10 +168,16 @@ public without sharing class JobTriggerHandler {
     
     /* handles both After insert and updates */
     public static void handleAfterInsertUpdate(){ 
+        if(Trigger.isInsert){system.debug('triggerinsertcalled');}
+        if(Trigger.isUpdate){system.debug('triggerupdatecalled');}
+        
+        JobTriggerHandlerWorkflow.MasterJobAmountRollup(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
         
        AccountExecutiveController.UpdateAccountExecutives(Trigger.new);
         // moving this to after update as we cannot change the Job owner on insert due to Job splits issue
-        JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
+        JobTriggerHandlerWorkflow.JobTeamCreation(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+        //JobUtility.removeJobOwnerfromTeam((map<Id,ATI_Job__c>)Trigger.oldMap, Trigger.new);
+        
         
     }
     

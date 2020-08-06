@@ -4,7 +4,7 @@
  * @Author             : sean.gray@atirestoration.com
  * @Group              : 
  * @Last Modified By   : sean.gray@atirestoration.com
- * @Last Modified On   : 11/21/2019, 2:19:02 PM
+ * @Last Modified On   : 12/18/2019, 10:38:09 AM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
@@ -21,6 +21,7 @@ Global class MICA_Integration_Callout {
     public static string ReviewId;
     public static string ProjectGuid;
     public static Boolean Flag;
+    public static string ESJobTypeNum;
 
     
 
@@ -30,7 +31,7 @@ Global class MICA_Integration_Callout {
         List<ATI_Job__c> Job = [SELECT Id, Name, Office2__c, claim__c, policy__c, Contact__r.name, Contact__r.FirstName, Contact__r.LastName, 
         job_Start_Date__c, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c, Project_Manager_FirstName__c, 
         Project_Manager_LastName__c, division__c, MICA_Integration__c, ProjectGuid__c,ProjectId__c, class__c, category__c, project_manager__c, 
-        account__c, MICA_Last_Successful_Sync__c, ReviewId__c, QA_Assist_Estimate__c, job_name__c, job_number_No_Dashes__c, Mica_error_message__c
+        account__c, MICA_Last_Successful_Sync__c, ReviewId__c, QA_Assist_Estimate__c, job_name__c, job_number_No_Dashes__c, Mica_error_message__c, Es_job_type__c
                            FROM ATI_Job__c WHERE Id = :JobId];
         if(Job.size() > 0){
               return Job[0];
@@ -43,7 +44,7 @@ Global class MICA_Integration_Callout {
         List<ATI_Job__c> Job = [SELECT Id, Name, Office2__c, claim__c, policy__c, Contact__r.name, Contact__r.FirstName, Contact__r.LastName, 
         job_Start_Date__c, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c, division__c, Project_Manager_FirstName__c,
          Project_Manager_LastName__c, category__c, class__c, MICA_Integration__c, ProjectGuid__c, ProjectId__c, project_manager__c, account__c,
-          MICA_Last_Successful_Sync__c, ReviewId__c, QA_Assist_Estimate__c, job_name__c, job_number__c, job_number_No_Dashes__c, Mica_error_message__c
+          MICA_Last_Successful_Sync__c, ReviewId__c, QA_Assist_Estimate__c, job_name__c, job_number__c, job_number_No_Dashes__c, Mica_error_message__c, Es_job_type__c
                            FROM ATI_Job__c WHERE Id = :JobId];    
         if(Job.size() > 0){
               return Job[0];
@@ -57,7 +58,7 @@ Global class MICA_Integration_Callout {
     }
 
     //1st Step
-    webservice static string invokeIntegration(Id JobId, Boolean waterLoss, String estimatetype, String classNum, String categoryNum) {
+    webservice static string invokeIntegration(Id JobId, string classNum, string categoryNum, string ESJobType) {
         string Copy1 = 'line';
      string Copy2 = 'line';
      string Copy3 = 'line';
@@ -143,22 +144,18 @@ Global class MICA_Integration_Callout {
      string Copy178 = 'line';
      string Copy179 = 'line';
     string Copy180 = 'line';
+        ESJobTypeNum = ESJobType;
         classNumber = classNum;
         categoryNumber = categoryNum;
-        EstimateTypeMethod = estimatetype;
-        WaterLossClass = waterloss;
-        system.debug('Claim Number : '+classNumber + '@@@@@@ CategoryNumber : ' + categoryNumber+ '@@@@@ Estimate Type : ' +EstimateType + '@@@@ waterloss : '+ WaterLossClass);
         ATI_Job__c Job = getJobRecord(JobId);
+        // classNumber = job.Class__c;
+        // categoryNumber = job.Category__c;
+        EstimateTypeMethod = 'Main';
+        //WaterLossClass = waterloss;
         String method;
             method = 'UploadProjectInfo';
-            if(job.division__c == 'Construction' || (job.division__c == 'Emergency Svces' && WaterLossClass == true)){
+            
         return integrateMICA(JobId, method);
-            }
-            else{
-                
-                return '200';
-            }
-        
     }
 
     //2nd Step
@@ -291,12 +288,18 @@ private static string buildUploadProjectInfoRequestXML(ATI_Job__c Job, string me
         strReq = strReq +'<Note></Note>';
         strReq = strReq +'</Notes>';
         strReq = strReq +'<ExtendedProjectProperties>'; 
-        system.debug('WaterLoss Class is + ' + WaterLossClass);
-        if(WaterLossClass){
+        
+        if(ESJobTypeNum == 'Water Mitigation'){
         strReq = strReq +'<ExtendedProjectProperty Source="ATI" Name="Division"' +' '+ 'Value="' +job.division__c + '-Water"'+ ' '+ 'Type="string"/>';
         }
-        if(!WaterLossClass){
-        strReq = strReq +'<ExtendedProjectProperty Source="ATI" Name="Division"' +' '+ 'Value=' +'"'+ job.division__c + '"'+ ' '+ 'Type="string"/>'; 
+        if(job.Division__c == 'Construction'){
+        strReq = strReq +'<ExtendedProjectProperty Source="ATI" Name="Division"' +' '+ 'Value=' +'"'+ job.division__c + '"'+ ' '+ 'Type="string"/>';     
+        }
+        if(job.Division__c == 'Emergency Svces' && ESJobTypeNum == 'Board-Up'){
+        strReq = strReq +'<ExtendedProjectProperty Source="ATI" Name="Division"' +' '+ 'Value="' +job.division__c + '-' + 'Boardup"'+ ' '+ 'Type="string"/>'; 
+        }
+        if(job.Division__c == 'Emergency Svces' && ESJobTypeNum == 'Roof Tarp'){
+        strReq = strReq +'<ExtendedProjectProperty Source="ATI" Name="Division"' +' '+ 'Value="' +job.division__c + '-' + 'Tarp"'+ ' '+ 'Type="string"/>'; 
         }
         strReq = strReq +'</ExtendedProjectProperties>'; 
         strReq = strReq +'</Project>';
@@ -403,20 +406,19 @@ private static string buildUploadProjectInfoRequestXML(ATI_Job__c Job, string me
         
     
     system.debug('Estimate Type before Uploading Estimate : ' + EstimateTypeMethod);
-    return invokeUploadEstimate(job.id, EstimateTypeMethod, classNumber, categoryNumber, 'UploadEstimate', WaterLossClass);
+    return invokeUploadEstimate(job.id, EstimateTypeMethod, 'UploadEstimate', classNumber, categoryNumber, ESJobTypeNum);
    
     }
     
         
 
-    webservice static String invokeUploadEstimate(Id jobs, String EstimateType, String classNum, String category, String method, Boolean isWaterLoss){
+    webservice static String invokeUploadEstimate(Id jobs, String EstimateType, String method, String classNum, String categoryNum, string ESJobType){
         system.debug('Before Retrieving Records');
+        classNumber = classNum;
+        categoryNumber = categoryNum;
         ATI_Job__c job = getJobRecord(jobs);
         EstimateTypeMethod = EstimateType;
         system.debug('Estimate Type Method is + ' + EstimateTypeMethod);
-        classNumber = classNum;
-        categoryNumber = category;
-        WaterLossClass = isWaterLoss;
         
        
         //return 'Working';
@@ -523,14 +525,14 @@ private static string buildUploadProjectInfoRequestXML(ATI_Job__c Job, string me
         strReq = strReq +'<EstimateRevisionID>'+ranNum1+'</EstimateRevisionID>';
         //must be different each time.
         //if(WaterLossClass && ((!String.isBlank(categoryNumber)) || categoryNumber != '0')){
-        if(WaterLossClass){
+        if(job.ES_Job_Type__c == 'Water Mitigation'){
         strReq = strReq +'<WaterLossCategoryID>'+integer.ValueOf(categoryNumber)+ '</WaterLossCategoryID>';
         }
         else{
         strReq = strReq +'<WaterLossCategoryID>'+0+'</WaterLossCategoryID>';
         }
         //if(WaterLossClass = true && ((!String.isBlank(classNumber)) || classNumber != '0')){
-        if(WaterLossClass){
+        if(job.ES_Job_Type__c == 'Water Mitigation'){
        strReq = strReq +'<WaterLossClassID>'+integer.ValueOf(classNumber)+ '</WaterLossClassID>';
         }
         else{
@@ -638,18 +640,25 @@ private static string buildUploadProjectInfoRequestXML(ATI_Job__c Job, string me
             job.First_Successful_Estimate_Upload__c = system.now();
         }
         job.MICA_Last_Successful_Sync__c = system.now();
-        if(WaterLossClass){
-        job.class__c = classNumber;
-        job.category__c = categoryNumber;
-        }
+        if(ESJobTypeNum == 'Water Mitigation'){
+          job.class__c = classNumber;
+          job.category__c = categoryNumber;
+          }
         job.reviewId__c = ReviewId;
         job.QA_Assist_Estimate__c = ReviewUrl;
         if(String.isBlank(job.ProjectGuid__c)){
         job.projectGuid__c = ProjectGuid;
         }
+        if(job.ES_Job_Type__c == 'Other' || job.ES_Job_Type__c == null){
+          job.ES_Job_Type__c = ESJobTypeNum;
+          }
          if(String.isBlank(job.projectId__c)){
         job.projectId__c = ProjectId;
          }
+         List<contentdocumentlink> a = [Select Id,contentdocumentId FROM contentdocumentlink where LinkedEntityId =: job.id Order By SystemModStamp DESC Limit 1];
+        system.debug('Content documetn Link' + a[0]);
+        List<contentversion> ctv = [Select Id, contentdocumentId, versiondata, title FROM ContentVersion Where contentdocumentId =: a[0].contentdocumentId];
+        delete a;
         update job;
         Integer countOfEstimates;
         List<estimate__c> estimateLookup = [Select Id, Name, job__c, creation_date__c FROM Estimate__c Where job__c =: job.id ORDER BY Creation_Date__c DESC];
@@ -686,33 +695,40 @@ private static string buildUploadProjectInfoRequestXML(ATI_Job__c Job, string me
         //     estimate.name = 'Change Order- ' + job.job_number_No_Dashes__c + '-'+ '00'+ countOfEstimates;
         //     insert estimate;
         // }
-        List<contentdocumentlink> a = [Select Id,contentdocumentId FROM contentdocumentlink where LinkedEntityId =: job.id Order By SystemModStamp DESC Limit 1];
-        system.debug('Content documetn Link' + a[0]);
-        List<contentversion> ctv = [Select Id, Checksum, ContentDocumentId, ContentLocation, ContentModifiedById, 
-        ContentModifiedDate, ContentSize,  FileExtension, FileType, FirstPublishLocationId, 
-        IsAssetEnabled, IsLatest, IsMajorVersion, NegativeRatingCount, Origin, OwnerId, 
-        PathOnClient, PositiveRatingCount, PublishStatus, RatingCount, ReasonForChange, 
-        SharingOption, Title, VersionData, VersionNumber FROM ContentVersion Where contentdocumentId =: a[0].contentdocumentId];
+        // List<contentdocumentlink> a = [Select Id,contentdocumentId FROM contentdocumentlink where LinkedEntityId =: job.id Order By SystemModStamp DESC Limit 1];
+        // system.debug('Content documetn Link' + a[0]);
+        // List<contentversion> ctv = [Select Id, Checksum, ContentDocumentId, ContentLocation, ContentModifiedById, 
+        // ContentModifiedDate, ContentSize,  FileExtension, FileType, FirstPublishLocationId, 
+        // IsAssetEnabled, IsLatest, IsMajorVersion, NegativeRatingCount, Origin, OwnerId, 
+        // PathOnClient, PositiveRatingCount, PublishStatus, RatingCount, ReasonForChange, 
+        // SharingOption, Title, VersionData, VersionNumber FROM ContentVersion Where contentdocumentId =: a[0].contentdocumentId];
         
 
 
-        ContentVersion conVer = new ContentVersion();
-        conVer.PathOnClient = '/' + ctv[0].PathOnClient; 
-        conVer.Title = ctv[0].title; 
-        conVer.VersionData = ctv[0].versionData; 
-        insert conVer;
-        ContentDocumentLink cDe = new ContentDocumentLink();
-        ContentVersion cdId = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :conVer.Id];
-        cDe.ContentDocumentId = cdId.contentdocumentId;
-        cDe.LinkedEntityId = estimate.id; // you can use objectId,GroupId etc
-        cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
-        cDe.Visibility = 'AllUsers';
-        insert cDe; 
+        // ContentVersion conVer = new ContentVersion();
+        // conVer.PathOnClient = '/' + ctv[0].PathOnClient; 
+        // conVer.Title = ctv[0].title; 
+        // conVer.VersionData = ctv[0].versionData; 
+        // insert conVer;
+        // ContentDocumentLink cDe = new ContentDocumentLink();
+        // ContentVersion cdId = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :conVer.Id];
+        // cDe.ContentDocumentId = cdId.contentdocumentId;
+        // cDe.LinkedEntityId = estimate.id; // you can use objectId,GroupId etc
+        // cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
+        // cDe.Visibility = 'AllUsers';
+        // insert cDe; 
         //ContentVersion testContent = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :conVer.Id];
         return isSuccessfull;
     }else{
           if(job.ProjectGuid__c == null){
           job.projectGuid__c = ProjectGuid;
+          }
+          if(job.ES_Job_Type__c == 'Other' || job.ES_Job_Type__c == null){
+          job.ES_Job_Type__c = ESJobTypeNum;
+          }
+          if(ESJobTypeNum == 'Water Mitigation'){
+          job.class__c = classNumber;
+          job.category__c = categoryNumber;
           }
           job.mica_integration__c = true;
           job.mica_error_message__c = ErrorMessage;

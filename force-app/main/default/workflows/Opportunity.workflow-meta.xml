@@ -1438,7 +1438,7 @@
             <name>Alert_Collections_for_all_Jobs_with_project_type_equal_to_certified</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Project_Type__c</field>
             <operation>equals</operation>
@@ -1472,7 +1472,7 @@
             <name>Call_Union_Bring_in_New_Hires_Contact_Payroll</name>
             <type>Task</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>If project type is union, certified or division is biohazard, and only if job stage is Won, notify Payroll and set task for Project Manager for new hire orientation.  Task Due date is 6 hours within assignment</description>
         <formula>OR(
    ISPICKVAL(Division__c , &quot;Biohazard&quot;), 
@@ -1491,7 +1491,7 @@ ISPICKVAL(StageName,&quot;Won&quot;)</formula>
             <name>Opportunity_Branch_Manager_PM_Assignment</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Branch_Manager__c</field>
             <operation>notEqual</operation>
@@ -1509,7 +1509,7 @@ ISPICKVAL(StageName,&quot;Won&quot;)</formula>
             <name>Branch_Manager_PM_Notification_SJ_SF</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Branch_Manager__c</field>
             <operation>notEqual</operation>
@@ -1532,7 +1532,7 @@ ISPICKVAL(StageName,&quot;Won&quot;)</formula>
             <name>Building_Consultant_on_a_Job</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Building_Consultant__c</field>
             <operation>equals</operation>
@@ -1547,7 +1547,7 @@ ISPICKVAL(StageName,&quot;Won&quot;)</formula>
             <name>Clear_PN_Request_Date</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Send_Prelim__c</field>
             <operation>equals</operation>
@@ -1577,7 +1577,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(
             <name>Blank_Operations_Manager</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND( OR( TEXT(Division__c )== &apos;Construction&apos;, TEXT(Division__c )== &apos;Marketing&apos; ), OR( ISNEW(),  ISCHANGED(Division__c ) ))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -1587,7 +1587,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(
             <name>ERA_on_Job_Notification</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Project_Manager__c</field>
             <operation>notEqual</operation>
@@ -1616,7 +1616,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(
             <name>Email_Update_on_Job</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Field update to clear out &apos;Add/Correct Email&apos; field after trigger to populate updated email onto Contact record</description>
         <formula>Add_Correct_Email__c != null</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1627,7 +1627,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(
             <name>Error_City_of_LA</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.City_of_LA__c</field>
             <operation>notEqual</operation>
@@ -1646,7 +1646,7 @@ AND(ISCHANGED(StageName ), OR(TEXT(StageName) = &apos;Work Complete&apos;, TEXT(
             <name>Opportunity_Hurricane_Florence_Notification</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Job_Category__c</field>
             <operation>equals</operation>
@@ -1666,7 +1666,7 @@ Channyn Rowe</description>
             <name>JC_Adj</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Job_Number__c</field>
             <operation>notEqual</operation>
@@ -1681,7 +1681,7 @@ Channyn Rowe</description>
             <name>Jitterbit_Forecast_OBM</name>
             <type>OutboundMessage</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Update_Forecast__c</field>
             <operation>equals</operation>
@@ -1696,7 +1696,7 @@ Channyn Rowe</description>
             <name>Jitterbit_Job_OBM</name>
             <type>OutboundMessage</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Outbound message to send Opportunity fields to Timberline via Jitterbit</description>
         <formula>OR(AND(ISCHANGED(StageName),ISPICKVAL(StageName, &quot;Won&quot;)) ,Sync_to_Timberline__c = TRUE, 
 ISCHANGED(PM_Approval_Only__c),
@@ -1713,7 +1713,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Clear_Job_Start_Date</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
@@ -1739,7 +1739,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Job_Number_Change_Alert</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>When Job number has changed, email Jenny Pace, Vonda Barela, and payroll.</description>
         <formula>ISCHANGED (Job_Number__c)</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1758,7 +1758,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Job_Start_Date_Stamp</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Stamps the Date that a Job&apos;s Stage was set to Won (and overwrites Job Start Date each time)</description>
         <formula>OR(AND(ISNEW(),TEXT(StageName) = &apos;Won&apos;),AND(ISCHANGED(StageName ),TEXT(StageName) = &apos;Won&apos;))</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1769,7 +1769,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Job_Type_update</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Account.Job_Type__c</field>
             <operation>notEqual</operation>
@@ -1787,7 +1787,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Job_Workflow_for_LA_USD</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>If Job is LA county educational or governmental and stage is won, mark the Job as union. Look at Job class (school or government agency) and county is LA.</description>
         <formula>AND( CONTAINS( County__c , &quot;Los Angeles&quot;),  ISPICKVAL( StageName,&quot;Won&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&apos;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -1798,7 +1798,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Job_Workflow_for_SD_USD</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>If Job is SD USD, mark the Job as Certified. Look at Job class (school or government agency) and county is SD</description>
         <formula>AND( CONTAINS( County__c , &quot;San Diego&quot;), OR( ISPICKVAL( Job_Class__c , &quot;Municipality/ Gov&apos;t&quot;), ISPICKVAL( Job_Class__c , &quot;Educational&quot;) ))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -1841,7 +1841,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>New_PD_Job_Assignment</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>A workflow email alert will be created to alert a Project Director immediately following Job assignment.</description>
         <formula>RecordTypeId = &apos;01270000000UPGF&apos;  &amp;&amp; 
 (ISCHANGED( Project_Manager__c ))</formula>
@@ -1879,7 +1879,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Populate_Description_of_Loss</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>ISCHANGED(Description)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -1889,7 +1889,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Superintendent_Job_Alert</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Sends an email when a Project Manager is assigned to a job</description>
         <formula>ISCHANGED( Project_Manager_new__c ) || ISNEW()</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1900,7 +1900,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Update_of_Last_Stage_Change</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Records date/time of last change to/from Won Stage</description>
         <formula>OR(  AND(  ISCHANGED(StageName),  ISPICKVAL(StageName, &quot;Won&quot;)  ),   AND(  ISCHANGED(StageName),  ISPICKVAL(PRIORVALUE(StageName),&quot;Won&quot;))  )</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1911,7 +1911,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Record_previous_job_name</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Populates the previous job name if job name is changed.</description>
         <formula>ISCHANGED( Name )</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1926,7 +1926,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Job_Send_Prelim_Last_Modified_Date_Time</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Records the user that modified the &apos;Send Prelim&apos; field and the date/time of modification.</description>
         <formula>ISCHANGED( Send_Prelim__c )</formula>
         <triggerType>onAllChanges</triggerType>
@@ -1945,7 +1945,7 @@ AND(ISCHANGED(Project_Manager_new__c), NOT(ISNULL( Last_Successful_Timberline_Up
             <name>Client_Welcome_Letter</name>
             <type>Task</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
         <criteriaItems>
             <field>Opportunity.StageName</field>
@@ -1996,7 +1996,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Set_Mod_Alloc</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
         <criteriaItems>
             <field>Opportunity.Project_Manager__c</field>
@@ -2037,7 +2037,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Set_PN_Request_Date</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Send_Prelim__c</field>
             <operation>equals</operation>
@@ -2051,7 +2051,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Set_Send_Prelim_field_to_no_for_prg_jobs</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Update &apos;Send Prelim&apos; field to &apos;No&apos; for most program Jobs, all national accounts (lead source), all contents, marketing, and consulting jobs, educational and municipal/gov&apos;t jobs (job class), certain accounts, and all jobs in certain states.</description>
         <formula>ISPICKVAL(Send_Prelim__c, &quot;&quot;) &amp;&amp; 
 
@@ -2062,7 +2062,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
     </rules>
     <rules>
         <fullName>Task reminder to PM to call customer at 42 hours after approval</fullName>
-        <active>true</active>
+        <active>false</active>
         <description>Automatic task creation 42 hours after approval of an opportunity if the PM has not yet modified the record.</description>
         <formula>AND ( RecordTypeId  = &quot;012n00000000B3t&quot;,  ISPICKVAL (StageName, &quot;Qualified&quot;),  Date_Time_Approved__c &gt; LastModifiedDate)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -2090,7 +2090,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>check_1sub_checkbox</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Project_Manager__c</field>
             <operation>equals</operation>
@@ -2105,7 +2105,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Update_Close_Date_when_Won</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1</booleanFilter>
         <criteriaItems>
             <field>Opportunity.StageName</field>
@@ -2120,7 +2120,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Update_Forecast_Last_Timberline_Update</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Update_Forecast__c</field>
             <operation>equals</operation>
@@ -2135,7 +2135,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Update_Job_GP</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.Project_Manager__c</field>
             <operation>notEqual</operation>
@@ -2153,7 +2153,7 @@ Opportunity: Super_Ops to Project Manager New Full Name criteria</description>
             <name>Update_Last_Timberline_Update_field</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Updates Last Timberline Update field with current date time when a record is saved.</description>
         <formula>OR(Sync_to_Timberline__c = TRUE, AND(ISCHANGED(Superintendent__c), NOT(ISNULL( Last_Successful_Timberline_Update__c)), X1sub__c = FALSE))</formula>
         <triggerType>onAllChanges</triggerType>

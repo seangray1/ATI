@@ -5,7 +5,8 @@
     <label>Contractor P.O./ Client Job #</label>
     <length>35</length>
     <required>false</required>
-    <trackHistory>true</trackHistory>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

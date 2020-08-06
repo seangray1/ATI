@@ -16,5 +16,5 @@
     <protected>false</protected>
     <showsLocation>false</showsLocation>
     <showsStatus>false</showsStatus>
-    <url>https://atirestoration.lightning.force.com/lightning/r/Report/00O0g000005BPr6EAG/view?fv0={!Budget__c.Id}</url>
+    <url>/lightning/r/Report/00O0g000005xJELEA2/view?fv0={!Budget__c.Id}</url>
 </WebLink>

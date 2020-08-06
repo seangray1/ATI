@@ -3,6 +3,6 @@
     <fullName>Project_Director_Blank</fullName>
     <active>true</active>
     <errorConditionFormula>AND(ISPICKVAL(Stage__c,&quot;Complete&quot;),
-ISBLANK( Project_Manager__c))</errorConditionFormula>
+ISBLANK( Project_Manager__c))&amp;&amp; $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;</errorConditionFormula>
     <errorMessage>Please populate the Project Director.</errorMessage>
 </ValidationRule>

@@ -99,7 +99,19 @@
         <type>user</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>jeanna.reeve@atirestoration.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>kurt.fairless@atirestoration.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>shaun.parotto@atirestoration.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>stan.schritt@atirestoration.com</submitter>
         <type>user</type>
     </allowedSubmitters>
     <approvalPageFields>

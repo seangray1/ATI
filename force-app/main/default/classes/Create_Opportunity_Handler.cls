@@ -56,8 +56,10 @@ public without sharing class Create_Opportunity_Handler
                 newOpportunity.Office2__c = eachjob.Office2__c;
                 system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Name = eachjob.Name;
+                system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Division__c = eachjob.Division__c;
                 newOpportunity.Major_Event__c = eachjob.Major_Event__c;
+                system.debug('Job Name is ' + eachjob.Name);
                 newOpportunity.Job_Name__c= eachjob.Job_Name__c;
                 newOpportunity.Project_Site_State__c= eachjob.Project_Site_State__c;
                 newOpportunity.Project_Site_Address__c= eachjob.Project_Site_Address__c;
@@ -66,13 +68,14 @@ public without sharing class Create_Opportunity_Handler
                 newOpportunity.Project_Site_City__c= eachjob.Project_Site_City__c;
                 newOpportunity.CloseDate = date.today();
                 newOpportunity.AccountId = eachjob.Account__c;
+                system.debug('Job Name is ' + eachjob.Name);
                 if(eachjob.Referred_by__c <> null) {
                     newOpportunity.Contact__c=eachjob.Referred_by__c;
                 } else {
                     newOpportunity.Contact__c=eachjob.Contact__c; 
                 }
             }
-        
+            system.debug('Job Name is ');
             listInsertOpportunity.add(newOpportunity);
         }
        
@@ -83,10 +86,11 @@ public without sharing class Create_Opportunity_Handler
     
     
     // Update opportunity record when Referred_by__c field is changed
-    public static void updateOpportunity(ATI_Job__c[]  newJobsList,Map<id,ATI_Job__c> oldJobsList){
-        list<Opportunity> listUpdateOpportunity=new list<Opportunity>();
-        
+    public static void updateOpportunity(ATI_Job__c[]  newJobsList,Map<id,ATI_Job__c> oldJobsList, Map<Id, ATI_Job__c> newJobMap){
+        Map<Id,Opportunity> OppMap =new Map<Id,Opportunity>();
+        Boolean Changed = false;
         set<id> setJobIds = new Set<id>();
+        
         for(ATI_Job__c newJob: newJobsList) {
             if(newJob.Property_ID__c <> null) {
                 setJobIds.add(newJob.Id) ; 
@@ -94,35 +98,213 @@ public without sharing class Create_Opportunity_Handler
         }
         if(!setJobIds.isEmpty()){
             system.debug('Number of job ids' + setJobIds);
-            List<Opportunity> Opp = [Select Id from Opportunity where Job__c =:setJobIds];
+            List<Opportunity> Opp = [Select Id, Job__c from Opportunity where Job__c =:setJobIds];
+            if(!Opp.isEmpty())
+            {
+                for(Opportunity o: opp)
+                {
+                    OppMap.put(o.Id, o);
+                }
+            }
         // ID OpportunityID = (ID) [Select ID from Opportunity where Job__c =:setJobIds Limit 1].ID;
         system.debug('Number of Opps ' + Opp);
-        if(!opp.isEmpty()){
-        for(ATI_Job__c newJob:newJobsList){
-            Opportunity updateOpportunity = new Opportunity(); 
-            if(oldJobsList.containsKey(newJob.Id)){
-                ATI_Job__c jobRecord = oldJobsList.get(newJob.id);
-                if(jobRecord.Referred_by__c <> newJob.Referred_by__c || jobRecord.Name != newJob.Name || jobRecord.Division__c != newJob.Division__c
-                || jobRecord.Amount__c != newJob.Amount__c || jobRecord.Office2__c != newJob.Office2__c){
-                    updateOpportunity.Id=opp[0].Id;
-                    updateOpportunity.Division__c = newJob.Division__c;
-                    updateOpportunity.Office2__c = newJob.Office2__c;
-                    updateOpportunity.Amount = newJob.Amount__c;
-                    updateOpportunity.Name = newJob.Name;
-                    if(newJob.Referred_by__c <> null){
-                        updateOpportunity.Contact__c=newJob.Referred_by__c;
+        if(!OppMap.isEmpty()){
+        for(Id o:OppMap.keyset()){
+            Opportunity oppInLoop = OppMap.get(o);
+            ATI_Job__c jobInOpp = newJobMap.get(oppInLoop.Job__c);
+             
+            if(oldJobsList.containsKey(jobInOpp.Id)){
+                ATI_Job__c jobRecord = oldJobsList.get(jobInOpp.id);
+                if(jobRecord.Referred_by__c <> jobInOpp.Referred_by__c || jobRecord.Name != jobInOpp.Name || jobRecord.Division__c != jobInOpp.Division__c
+                || jobRecord.Amount__c != jobInOpp.Amount__c || jobRecord.Office2__c != jobInOpp.Office2__c){
+                    OppMap.get(o).Division__c = jobInOpp.Division__c;
+                    OppMap.get(o).Office2__c = jobInOpp.Office2__c;
+                    OppMap.get(o).Amount = jobInOpp.Amount__c;
+                    OppMap.get(o).Name = jobInOpp.Name;
+                    Changed = true;
+                    if(jobInOpp.Referred_by__c <> null){
+                        OppMap.get(o).Contact__c=jobInOpp.Referred_by__c;
                     } else {
-                        updateOpportunity.Contact__c=newJob.Contact__c;                           
+                        OppMap.get(o).Contact__c=jobInOpp.Contact__c;                           
                     }
-                    listUpdateOpportunity.add(updateOpportunity);
                 }                   
             }
         }
     }
 }
         
-        if(listUpdateOpportunity.size()>0){
-            update listUpdateOpportunity;
+        if(Changed)
+        {
+            update OppMap.values();
         }
+    }
+    public static list<Account_Roles__c> CheckId6(string propId){
+        List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Property_ID__c =: propId];
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        for(Account_Roles__c ar : a){
+            ar.Text__c = ar.Roles__c;
+        }
+        return a;
     }
 }

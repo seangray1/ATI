@@ -104,6 +104,10 @@
             <type>userLookup</type>
         </recipients>
         <recipients>
+            <field>Office_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
             <field>Project_Manager__c</field>
             <type>userLookup</type>
         </recipients>

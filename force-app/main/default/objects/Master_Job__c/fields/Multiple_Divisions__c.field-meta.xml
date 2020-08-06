@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Interested Services</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>

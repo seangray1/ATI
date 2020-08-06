@@ -4,10 +4,12 @@
     <externalId>false</externalId>
     <label>Stage</label>
     <required>true</required>
+    <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -29,6 +31,42 @@
                 <fullName>Closed</fullName>
                 <default>false</default>
                 <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Billing Complete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Billing Complete</label>
+            </value>
+            <value>
+                <fullName>Estimating/Review</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Estimating/Review</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lost</label>
+            </value>
+            <value>
+                <fullName>Qualification</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Qualification</label>
+            </value>
+            <value>
+                <fullName>Won</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Won</label>
+            </value>
+            <value>
+                <fullName>Work Complete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Work Complete</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -11,7 +11,212 @@
 **/
 @isTest
 public class TestDataUtil {
-    
+    public static ObjectInserts createObjects(Integer numToInsert, Boolean DoInsert) 
+    {
+        createCustomSettings_TriggerStatus();
+        List<User> userObjectList = createUsersNew(numToInsert, true);
+        //system.debug('User size is ' + userObjectList.size() + '   $$$ User 5 is ' + userObjectList[5]);
+        List<Office__c> officeList = officeObject(numToInsert, userObjectList);
+        List<Account> accountObjectList = createObjectAccounts(numToInsert);
+        List<Contact> contactObjectList = createObjectContacts(numToInsert, accountObjectList);
+        system.debug('in the createObject ' + accountObjectList + '     ' + contactObjectList);
+        List<Property__c> propertyList = CreateObjectProperty(numToInsert);
+        List<Master_Job__c> masterjobList = CreateObjectMasterJob(numToInsert, propertyList);
+        List<Account_Roles__c> accountRoleList = CreateObjectAccountRoles(numToInsert, propertyList, accountObjectList, contactObjectList);
+        List<ATI_Job__c> jobList  = CreateJobList(numToInsert, accountObjectList, contactObjectList, masterjobList, propertyList, accountRoleList, officeList, userObjectList, DoInsert);
+        ObjectInserts objectdata = new ObjectInserts();
+        objectdata.jobList = jobList;
+        objectdata.contactList = contactObjectList;
+        objectdata.accountList = accountObjectList;
+        objectdata.masterjobList = masterjobList;
+        objectdata.propertyList = propertyList;
+        objectdata.userList = userObjectList;
+        objectdata.officeList = officeList;
+        objectdata.accountroleList = accountRoleList;
+        return objectdata;
+}
+public static List<ATI_Job__c> CreateJobList(Integer numToInsert, List<Account> accountList, List<Contact> contactList, 
+List<Master_Job__c> masterjobList, List<Property__c> propertyList, List<Account_Roles__c> accountRoleList, List<office__c> officeList,
+List<User> userList, Boolean DoInsert)
+{
+    Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').RecordTypeId;
+    Id approvedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId;
+    List<ATI_Job__c> jobList  = new List<ATI_Job__c >();
+    List<String> pickListValuesList= new List<String>(); 
+    Schema.DescribeFieldResult fieldResult = ATI_Job__c.Division__c.getDescribe();   
+    List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();   
+    for( Schema.PicklistEntry pickListVal : ple)
+    {  
+        pickListValuesList.add(pickListVal.getLabel());  
+    }  
+    for( Integer i = 0; i < numToInsert; i++) 
+    {
+        ATI_Job__c  j = new ATI_Job__c(Name='Test ATI_Job__c '+String.valueOf(i));
+        j.Account__c = accountList[i].id;
+        j.Property_Id__c = propertyList[i].id;
+        j.Master_Job__c = masterjobList[i].id;
+        j.Job_Name__c = 'test' + i;
+        j.Project_Site_Contact_Name__c = contactList[i].id;
+        j.Project_Site_Contact_Account__c = accountList[i].id;
+        j.Project_Site_Address__c = 'Test Street';
+        j.Project_Site_City__c = 'Los Angeles';
+        j.Project_Site_state__c = 'CA';
+        j.Project_Site_zipcode__c ='90027';
+        j.Stage__c ='Qualification';
+        j.CloseDate__c = System.today().addDays(90);
+        j.Office2__c = officeList[i].id;
+        j.contact__c = contactList[i].id;
+        j.Insurance_Adjuster_Broker__c = contactList[i].id;
+        j.Project_Manager__c = userList[0].Id;
+        j.Project_Manager_New__c = userList[1].Id;
+        if(i < 12)
+        {
+            j.Division__c = pickListValuesList[i]; 
+        }
+        else
+        {
+            j.Division__c = 'Asbestos';
+        }
+        jobList.add(j);
+    }
+    if(DoInsert)
+    {
+    insert jobList;
+    }
+    return jobList;
+}
+public static List<Account> createObjectAccounts(Integer numToInsert) 
+{
+    List<Account> accounts = new List<Account>();
+    for( Integer i = 0; i < numToInsert; i++ ) 
+    {
+        Account a = new Account( Name='Test Account'+String.valueOf(i) );
+        a.billingStreet = String.valueOf(i) +'Test Street';
+        a.billingcity = 'Test City';
+        a.billingstate = 'CT';
+        a.billingpostalcode = '0001';
+        a.BillingCountry = 'USA';
+        a.phone = '8000000000';
+        a.Status__c = 'Prospect';
+        accounts.add(a);
+    }
+    system.debug('Before account insert ' +accounts);
+    insert accounts;
+    system.debug('After account insert ' + accounts);
+    return accounts;
+}
+public static List<Contact> createObjectContacts(Integer numToInsert, List<Account> accountList) 
+{
+    List<Contact> contacts = new List<Contact>();
+    for(Account a : accountList) 
+    {
+        Contact c = new Contact( LastName='Test Contacts'+String.valueOf(a.Name)  );
+        c.contact_type__c = 'Adjustor';
+        c.firstname = 'semira'+String.valueOf(a.Name);
+        c.Lastname = 'roy'+String.valueOf(a.Name);
+        c.email = 'test'+ '@gmail.com';
+        c.accountId = a.Id;
+        contacts.add(c);
+    }
+    system.debug('Before contact insert ' +contacts);
+    insert contacts;
+    system.debug('After contact insert ' + contacts);
+    return contacts;
+}
+public static List<Property__c> CreateObjectProperty(Integer numToInsert)
+{
+    List<Property__c> propList = new List<Property__c>();
+    for(Integer i=0; i<numToInsert; i++)
+    {
+        Property__c prop = new Property__c(Address_Line_1__c = '92832 La Palma Ave ' + i, City__c = 'T', Zip__c = '92',State__c = 'CA', Property_Type__c = 'Residential');
+        propList.add(prop);
+    }
+    insert propList;
+    return propList;
+}
+
+public static List<Master_job__c> CreateObjectMasterJob(Integer numToInsert, List<Property__c> props)
+{
+    List<Master_job__c> mjList = new List<Master_job__c>();
+    for(Property__c prop : props)
+    {
+        Master_job__c mj = new Master_job__c(Property__c = prop.Id,  Description_of_Loss__c = 'Description', Stage__c = 'Pre-work', Date_of_loss__c = System.today());
+        mjList.add(mj);
+    }
+    insert mjList;
+    return mjList;
+}
+
+public static List<Account_Roles__c> CreateObjectAccountRoles(Integer numToInsert, List<Property__c> props, List<Account> accountList, List<Contact> contactList)
+{
+    list<Account_Roles__c> ars = new List<Account_Roles__c>();
+    system.debug('Account List ' + accountList + '  Contact list ' + contactList);
+    for(Property__c prop : props)
+    {
+        Account_Roles__c ar = new Account_Roles__c(Property_ID__c = prop.id, Account_ID__c = AccountList[0].Id, Contact_ID__c = contactList[0].Id,
+        Multiple_Roles__c = 'Primary/Bill-to;Project Site Contact;Referred By;Caller');
+        ars.add(ar);
+    }
+    insert ars;
+    return ars;
+}
+public static List<Account_Roles__c> CreateObjectAccountRoles(Integer numToInsert, List<ATI_Job__c> jobs, List<Account> accountList, List<Contact> contactList)
+{
+    list<Account_Roles__c> ars = new List<Account_Roles__c>();
+    system.debug('Account List ' + accountList + '  Contact list ' + contactList);
+    for(ATI_Job__c job : jobs)
+    {
+        Account_Roles__c ar = new Account_Roles__c(Master_Job_Id__c = job.id, Account_ID__c = AccountList[0].Id, Contact_ID__c = contactList[0].Id,
+        Multiple_Roles__c = 'Primary/Bill-to;Project Site Contact;Referred By;Caller');
+        ars.add(ar);
+    }
+    insert ars;
+    return ars;
+}
+public static List<Office__c> officeObject(Integer numToInsert, List<user> users)
+{
+    List<Office__c> offices = new List<Office__c>();
+    Office__c off = new Office__c(Name = 'Anaheim', Branch_Manager__c = users[0].Id, Asbestos_Operations_Manager__c = users[1].Id);
+    Office__c off1 = new Office__c(Name = 'Test', Branch_Manager__c = users[0].Id, Asbestos_Operations_Manager__c = users[1].Id);
+    for( Integer i = 0; i < numToInsert; i++ ) 
+    {
+        Office__c TestOffice = new Office__c(Name = 'Test' + i, Branch_Manager__c = users[0].Id, Asbestos_Operations_Manager__c = users[1].Id);
+        offices.add(TestOffice);
+    }
+    offices.add(off);
+    offices.add(off1);
+    insert offices;
+    system.debug('Offices ' + offices);
+    return offices;
+}
+public static List<User> createUsersNew(Integer numToInsert, Boolean doInsert) 
+{
+    Profile p = [Select Id From Profile Where Name = 'System Administrator'];
+    List<User> users = new List<User>();
+    for( Integer i = 0; i < numToInsert; i++ ) 
+    {
+        User u = new User(
+        LastName='LastName_' + i, 
+        Alias='User_' + i, 
+        Email='test_' + i + '@gmail.com', 
+        UserName='testcaseuser_' + i + '@gmail.com',  
+        CommunityNickname='NickName_' + i,
+        Department = 'Some Department',
+        EmailEncodingKey = 'ISO-8859-1',
+        TimeZoneSidKey = 'America/Los_Angeles', 
+        LocaleSidKey = 'en_US', 
+        LanguageLocaleKey = 'en_US',
+        IsActive = true,
+        profileId = p.Id);
+        users.add(u);
+        }
+
+    if( doInsert ) 
+    {
+    insert users;
+    }
+    return users;
+}
     //create Users
     public static List<User> createUsers(Integer numToInsert,
                                          Boolean doInsert,
@@ -42,32 +247,6 @@ public class TestDataUtil {
                                              return users;
                                          }
     
-    public static List<User> createUsersNew(Integer numToInsert,
-                                         Boolean doInsert) {
-                                             Profile p = [Select Id From Profile Where Name = 'System Administrator'];
-                                             List<User> users = new List<User>();
-                                             for( Integer i = 0; i < numToInsert; i++ ) {
-                                                 User u = new User(
-                                                     LastName='LastName_' + i, 
-                                                     Alias='User_' + i, 
-                                                     Email='test_' + i + '@gmail.com', 
-                                                     UserName='testcaseuser_' + i + '@gmail.com',  
-                                                     CommunityNickname='NickName_' + i,
-                                                     Department = 'Some Department',
-                                                     EmailEncodingKey = 'ISO-8859-1',
-                                                     TimeZoneSidKey = 'America/Los_Angeles', 
-                                                     LocaleSidKey = 'en_US', 
-                                                     LanguageLocaleKey = 'en_US',
-                                                     IsActive = true,
-                                                 profileId = p.Id);
-                                                 users.add(u);
-                                             }
-                                             
-                                             if( doInsert ) {
-                                                 insert users;
-                                             }
-                                             return users;
-                                         }
     
     public static void createCustomSettings_TriggerStatus(){
         // create Triggerstatus Settings
@@ -111,30 +290,29 @@ public class TestDataUtil {
     }
     
     //create Accounts 
-    public static List<Account> createAccounts(Integer numToInsert,
-                                               Boolean doInsert,
-                                               Map<String, Object> nameValue) {
-                                                   List<Account> accounts = new List<Account>();
-                                                   for( Integer i = 0; i < numToInsert; i++ ) {
-                                                       Account a = new Account( Name='Test Account'+String.valueOf(i) );
-                                                       a.billingStreet = String.valueOf(i) +'Test Street';
-                                                       a.billingcity = 'Test City';
-                                                       a.billingstate = 'CT';
-                                                       a.billingpostalcode = '0001';
-                                                       a.BillingCountry = 'USA';
-                                                       a.phone = '8000000000';
-                                                       for(String key : nameValue.keySet()){
-                                                           a.put(key, nameValue.get(key));
-                                                       }
-                                                       accounts.add(a);
-                                                   }
-                                                   
-                                                   if( doInsert ) {
-                                                       insert accounts;
-                                                   }
-                                                   return accounts;
-                                               }
-    
+    public static List<Account> createAccounts(Integer numToInsert, Boolean doInsert, Map<String, Object> nameValue) 
+    {
+        List<Account> accounts = new List<Account>();
+        for( Integer i = 0; i < numToInsert; i++ ) {
+            Account a = new Account( Name='Test Account'+String.valueOf(i) );
+            a.billingStreet = String.valueOf(i) +'Test Street';
+            a.billingcity = 'Test City';
+            a.billingstate = 'CT';
+            a.billingpostalcode = '0001';
+            a.BillingCountry = 'USA';
+            a.phone = '8000000000';
+            for(String key : nameValue.keySet()){
+                a.put(key, nameValue.get(key));
+            }
+            accounts.add(a);
+        }
+        
+        if( doInsert ) {
+            insert accounts;
+        }
+        return accounts;
+    }
+
     
     public static List<Contact> createContacts( Integer numToInsert, boolean doInsert, Map<String, String> nameValueMap ){                 
         List<Contact> cts = new List<Contact>(); 

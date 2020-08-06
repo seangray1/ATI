@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
+        <fullName>LEAD_Assigned_BDM</fullName>
+        <description>LEAD - Assigned BDM</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Lead_Templates/LEAD_Standard</template>
+    </alerts>
+    <alerts>
         <fullName>LEAD_COVID_Anaheim</fullName>
         <description>LEAD - COVID Anaheim</description>
         <protected>false</protected>
@@ -21,7 +35,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Chicago</fullName>
@@ -44,7 +58,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Dallas</fullName>
@@ -67,7 +81,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Denver</fullName>
@@ -90,7 +104,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_HQ</fullName>
@@ -113,7 +127,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Houston</fullName>
@@ -136,7 +150,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Las_Vegas</fullName>
@@ -159,7 +173,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Los_Angeles</fullName>
@@ -182,7 +196,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_New_England</fullName>
@@ -205,7 +219,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Orlando</fullName>
@@ -228,7 +242,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Philadelphia</fullName>
@@ -251,7 +265,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Phoenix</fullName>
@@ -274,7 +288,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Riverside</fullName>
@@ -297,7 +311,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Sacramento</fullName>
@@ -320,7 +334,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_San_Diego</fullName>
@@ -343,7 +357,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_San_Francisco_San_Jose</fullName>
@@ -366,7 +380,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Seattle</fullName>
@@ -389,7 +403,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Sonoma</fullName>
@@ -412,7 +426,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Tampa</fullName>
@@ -435,7 +449,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_COVID_Tucson</fullName>
@@ -458,7 +472,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/LEAD_COVID</template>
+        <template>Lead_Templates/LEAD_COVID</template>
     </alerts>
     <alerts>
         <fullName>LEAD_Central</fullName>
@@ -473,7 +487,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>ATI_Job_Templates/LEAD_Standard</template>
+        <template>Lead_Templates/LEAD_Standard</template>
     </alerts>
     <alerts>
         <fullName>LEAD_Contact_Center_Queue</fullName>
@@ -493,7 +507,7 @@
         </recipients>
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/LEAD_Contact_Center_Queue</template>
+        <template>Lead_Templates/LEAD_Contact_Center_Queue</template>
     </alerts>
     <alerts>
         <fullName>LEAD_East</fullName>
@@ -508,7 +522,22 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>ATI_Job_Templates/LEAD_Standard</template>
+        <template>Lead_Templates/LEAD_Standard</template>
+    </alerts>
+    <alerts>
+        <fullName>LEAD_HQ</fullName>
+        <description>LEAD - HQ</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>National_Accounts_VP_HQ</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Lead_Templates/LEAD_Standard</template>
     </alerts>
     <alerts>
         <fullName>LEAD_Northwest</fullName>
@@ -523,7 +552,7 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>ATI_Job_Templates/LEAD_Standard</template>
+        <template>Lead_Templates/LEAD_Standard</template>
     </alerts>
     <alerts>
         <fullName>LEAD_Southwest</fullName>
@@ -538,8 +567,123 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>ATI_Job_Templates/LEAD_Standard</template>
+        <template>Lead_Templates/LEAD_Standard</template>
     </alerts>
+    <fieldUpdates>
+        <fullName>Active_Date_TIme</fullName>
+        <field>Active_Date_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Active Date/TIme</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Assigned_Date_TIme</fullName>
+        <field>Assigned_Date_TIme__c</field>
+        <formula>NOW()</formula>
+        <name>Assigned Date/TIme</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Converted_Date_TIme</fullName>
+        <field>Converted_Date_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Converted Date/TIme</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Dead_Date_TIme</fullName>
+        <field>Dead_Date_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Dead Date/TIme</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>LEAD_Owner_to_CC</fullName>
+        <field>OwnerId</field>
+        <lookupValue>CC_Leads_Ready_to_Convert</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>LEAD - Owner to CC</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Prospect_Date_Time</fullName>
+        <field>Prospect_Date_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Prospect Date/Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Qualification_Date_Time</fullName>
+        <field>Qualification_Date_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Qualification Date/Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Ready_to_Convert_Date_TIme</fullName>
+        <field>Ready_to_Convert_Date_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Ready to Convert Date/TIme</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <rules>
+        <fullName>LEAD - Active Date%2FTIme</fullName>
+        <actions>
+            <name>Active_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Working - Contacted</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Assigned Date%2FTIme</fullName>
+        <actions>
+            <name>Assigned_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Assigned</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Assigned to BDM</fullName>
+        <actions>
+            <name>LEAD_Assigned_BDM</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Assigned</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
     <rules>
         <fullName>LEAD - Contact Center Queue</fullName>
         <actions>
@@ -553,5 +697,89 @@
             <value>Contact Center Queue</value>
         </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Converted Date%2FTIme</fullName>
+        <actions>
+            <name>Converted_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Converted</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Dead Date%2FTIme</fullName>
+        <actions>
+            <name>Dead_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Dead</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Prospect Date%2FTIme</fullName>
+        <actions>
+            <name>Prospect_Date_Time</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Prospect</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Qualification Date%2FTIme</fullName>
+        <actions>
+            <name>Qualification_Date_Time</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Qualification</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Ready to Convert Date%2FTIme</fullName>
+        <actions>
+            <name>Ready_to_Convert_Date_TIme</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Ready to Convert</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD - Ready to Convert to CC</fullName>
+        <actions>
+            <name>LEAD_Owner_to_CC</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Ready to Convert</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
 </Workflow>

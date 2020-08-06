@@ -266,6 +266,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Smoke Cleaning</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Water Mitigation</fullName>
             <default>false</default>
         </values>
@@ -903,6 +907,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cloned - Completed%2FReviewed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloned - Pending Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Reviewed%2FCompleted</fullName>
             <default>false</default>
         </values>
@@ -1439,10 +1451,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Cashed Out</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Declined to Bid</fullName>
             <default>false</default>
         </values>
@@ -1455,7 +1463,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Lack of Funding</fullName>
+            <fullName>Insured Performed Work</fullName>
             <default>false</default>
         </values>
         <values>

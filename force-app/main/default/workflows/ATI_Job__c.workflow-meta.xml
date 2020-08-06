@@ -1678,6 +1678,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_Billing_Complete_Date</fullName>
+        <field>Billing_Complete_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Update Billing Complete Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Close_Date_when_Won_or_Lost</fullName>
         <field>CloseDate__c</field>
         <formula>TODAY()</formula>
@@ -2288,7 +2297,7 @@
             <name>ATI_Job_Naming_Convention</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>ATI_Job__c.Name</field>
             <operation>greaterOrEqual</operation>
@@ -2468,7 +2477,7 @@
             <name>Clear_PN_Request_Date</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>ATI_Job__c.Send_Prelim__c</field>
             <operation>equals</operation>
@@ -2498,7 +2507,7 @@
             <name>Blank_Operations_Manager</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND( OR( TEXT(Division__c )== &apos;Construction&apos;, TEXT(Division__c )== &apos;Marketing&apos; ), OR( ISNEW(), ISCHANGED(Division__c ) ),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -2984,10 +2993,24 @@ Channyn Rowe</description>
             <name>Record_previous_job_number</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Populates the previous job number if job number is changed.</description>
         <formula>AND(ISCHANGED( Job_Number__c ),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>JOB - Update Billing Complete Date</fullName>
+        <actions>
+            <name>Update_Billing_Complete_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>ATI_Job__c.Stage__c</field>
+            <operation>equals</operation>
+            <value>Billing Complete</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Jitterbit Job OBM</fullName>
@@ -3234,7 +3257,7 @@ OR(ISNEW(),ISCHANGED( Project_Manager__c )),$Profile.Name &lt;&gt; &quot;Restric
             <name>Job_Send_Prelim_Last_Modified_Date_Time</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Records the user that modified the &apos;Send Prelim&apos; field and the date/time of modification.</description>
         <formula>AND(ISCHANGED( Send_Prelim__c ),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>

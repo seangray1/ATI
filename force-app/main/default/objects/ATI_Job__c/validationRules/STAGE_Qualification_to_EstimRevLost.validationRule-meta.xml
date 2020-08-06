@@ -17,7 +17,8 @@ ISPICKVAL(PRIORVALUE(Stage__c), &quot;Qualification&quot;),
 NOT(ISPICKVAL(Stage__c, &quot;Estimating/Review&quot;)),
 $Profile.Name &lt;&gt; &quot;System Administrator&quot;, 
 NOT(ISPICKVAL(Stage__c, &quot;Lost&quot;))) 
-)</errorConditionFormula>
+)
+&amp;&amp; $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;</errorConditionFormula>
     <errorMessage>The Qualification stage must first be changed to Estimating/Review, saved, then changed to Won.
 Note: ES Jobs can be changed to Won directly. Please chatter @Nat Lee if you need assistance updating the stage.</errorMessage>
 </ValidationRule>

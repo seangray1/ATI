@@ -413,7 +413,7 @@
                     <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label>
                             <lightning-input onkeyup={OfficeChange}
-                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} type="search" class="spacing  jobFormControl"></lightning-input>
+                                        placeholder='Search for Office.. ' onchange={ClearOffice} value={OfficeValue} disabled={OfficeDisabled} type="search" class="spacing  jobFormControl"></lightning-input>
                               
                                 <template if:true={Offices}>
                                     <table
@@ -578,7 +578,7 @@
                         <lightning-input  value={Claim}  onchange={ClaimChange} disabled={ClaimDisabled} class="spacing" ></lightning-input>
                           
                         <label class="Labels spacing"> Policy #</label>
-                        <lightning-input  value={Policy}  onchange={PolicyChange} class="spacing" ></lightning-input>  
+                        <lightning-input  value={Policy}  onchange={PolicyChange} disabled={PolicyDisabled} class="spacing" ></lightning-input>  
                     </div>
                     <div class="slds-col slds-size_1-of-7">
                         <label class="Labels spacing" > Cont. P.O./ Client Job #</label>
@@ -589,7 +589,7 @@
    
                         <lightning-input onkeyup={MajorEventChange}
                         
-                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} type="search" class="jobFormControl spacing"></lightning-input>
+                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} disabled={MajorEventDisabled} type="search" class="jobFormControl spacing"></lightning-input>
                                     
                                 <template if:true={MajorEvents}>
                                     <table
@@ -1024,9 +1024,9 @@
                         province=""
                         postal-code=""
                         show-address-lookup
-                        class="companyAccountFormControl"
+                        
                         read-only
-                        required
+                        
                          ></lightning-input-address>
                          <br>
                          <br>
@@ -1122,6 +1122,8 @@
                       
                             <lightning-input label="Phone" value={AccountPhone} placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" class="personAccountFormControl" required onchange={AccountPhoneChange} >
                             </lightning-input>
+                            <lightning-input label="Email" type="email" autocomplete="off" class="personAccountFormControl"  value={PersonEmail} onchange={PersonEmailChange}>
+                            </lightning-input>
                             <lightning-input label="Phone Ext." class="personAccountFormControl" value={AccountPhoneExt} onchange={AccountPhoneExtChange}>
                             </lightning-input>
 <!--                    
@@ -1161,9 +1163,9 @@
                                         province=""
                                         postal=""
                                         show-address-lookup
-                                        required
+                                        
                                         read-only
-                                        class="personAccountFormControl"
+                                        
                                         
                                          ></lightning-input-address>
                                          <br>

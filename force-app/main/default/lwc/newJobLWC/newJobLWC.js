@@ -95,6 +95,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   ContactAccountPicked = false;
   ContactAccountSelected = false;
   ContactAccountId;
+  ContactAccountBlank = false;
   ContactAccountName;
   searchKey;
   JobRealName;
@@ -124,6 +125,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   MailingPostalCode;
   Phone;
   Email;
+  PersonEmail;
   PhoneExt;
   AccountName;
   BillingStreet;
@@ -246,6 +248,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   DateOfLoss;
   ClientJob;
   YearBuilt;
+  PolicyDisabled = false;
+  MajorEventDisabled = false;
   ARRoleBlank = false;
   ClientJobDisabled = false;
   ClaimDisabled = false;
@@ -491,6 +495,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           this.ProjectDirectorValue = jobresults.Project_Manager__r.Name;
         }
         if (
+          jobresults.Taken_By__c !== undefined &&
+          jobresults.Taken_By__c !== null &&
+          jobresults.Taken_By__c !== ""
+        ) {
+          
+          this.TakenByValue = jobresults.Taken_By__r.Name;
+          this.TakenById = jobresults.Taken_By__c;
+        }
+        if (
           jobresults.Major_Event__c !== undefined &&
           jobresults.Major_Event__c !== null &&
           jobresults.Major_Event__c !== ""
@@ -522,10 +535,12 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         console.log(this.ContactInfoAndDescription);
       });
     }
+    if(this.TypeOfJobEntry === 'NewJobEntry'){
     GetUserName({}).then((result) => {
       this.TakenByValue = result;
       this.TakenById = this.UserId;
     });
+  }
     GetAccountRolesPicklist({}).then((result) => {
       var AccountRolePicklistValues = result;
       for (var i = 0; i < AccountRolePicklistValues.length; i++) {
@@ -688,11 +703,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             console.log(key);
             break;
           case "Retail":
-            key = 8;
+            key = 9;
             console.log(key);
             break;
           case "State/Municipal":
-            key = 9;
+            key = 10;
             console.log(key);
             break;
         }
@@ -897,6 +912,14 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.Zip = this.JobTemp.Project_Site_Zipcode__c;
     this.JobClass = this.PropertyTempId.Job_Class__c;
      this.YearBuilt = this.PropertyTempId.Year_Structure_Built__c;
+    //  console.log('Market Class is ' + this.PropertyTempId.Market_Segment__c);
+    //  if(this.PropertyTempId.Market_Class__c !== "" && this.PropertyTempId.Market_Class__c !== undefined && this.PropertyTempId.Market_Class__c !== null){
+    //   this.MarketClass = this.PropertyTempId.Market_Class__c;
+    //   this.MarketSegment = this.PropertyTempId.Market_Segment__c;
+    //   this.MarketSegmentSubClass = this.PropertyTempId.Market_Segment_Sub_Class__c;
+    //   this.MarketsDisabled = true;
+    //  }
+      
     this.PropertyPrompt = false;
     this.NotNewProperty = false;
     checkId({ propId: this.PropertyID }).then((result) => {
@@ -1055,6 +1078,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.BillingState = "";
     this.BillingPostalCode = "";
     this.ContactAccountRole = "";
+    this.PersonEmail = "";
   }
   SaveContact() {
     const input = [
@@ -1193,6 +1217,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         const address = this.template.querySelector(
           '[data-id="PersonAccountAddressLookup"]'
         );
+        if(address.street !== null && address.street !== undefined && address.street !== ""){
         this.BillingStreet = address.street;
         this.BillingCity = address.city;
         this.BillingState = address.province;
@@ -1204,6 +1229,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           FirstName: this.AccountFirstName,
           LastName: this.AccountLastName,
           Phone: this.AccountPhone,
+          Email: this.PersonEmail,
           Type: this.Type,
           PhoneExt: this.AccountPhoneExt,
           BillingStreet: this.BillingStreet,
@@ -1245,9 +1271,12 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             this.BillingPostalCode = "";
             this.ContactAccountRole = "";
             this.PersonAccountRoles = "";
+            this.PersonEmail = "";
           }
         });
-      }
+      }else{
+        alert('Must search for an Address');}
+    }
     }
   }
 
@@ -1273,6 +1302,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         const address = this.template.querySelector(
           '[data-id="AccountAddressLookup"]'
         );
+        if(address.street !== null && address.street !== undefined && address.street !== ""){
         this.BillingStreet = address.street;
         this.BillingCity = address.city;
         this.BillingState = address.province;
@@ -1336,7 +1366,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             }
           }
         });
-      }
+      }else{
+        alert('Must search for an Address');}
+    }
     }
   }
 
@@ -1575,6 +1607,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   }
   EmailChange(e) {
     this.Email = e.detail.value;
+  }
+  PersonEmailChange(e) {
+    this.PersonEmail = e.detail.value;
   }
   PhoneExtChange(e) {
     this.PhoneExt = e.detail.value;
@@ -1977,12 +2012,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.Zip = this.PropertySelectedField.Zip__c;
     this.City = this.PropertySelectedField.City__c;
     this.State = this.PropertySelectedField.State__c;
-    // if(this.PropertySelectedField.Market_Class__c !== "" && this.PropertySelectedField.Market_Class__c !== undefined && this.PropertySelectedField.Market_Class__c !== null){
-    // this.MarketClass = this.PropertySelectedField.Market_Class__c;
-    // this.MarketSegment = this.PropertySelectedField.Market_Segment__c;
-    // this.MarketSegmentSubClass = this.PropertySelectedField.Market_Segment_Sub_Class__c;
-    // this.MarketsDisabled = true;
-    // }
+    console.log('Market Class is '  + this.PropertySelectedField.Market_Class__c);
+    
+    
     
 
     checkId({ propId: this.testingProperty.Id }).then((result) => {
@@ -2086,7 +2118,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.MasterJobDetails.Lead_Source__c !== null
     ) {
       this.LeadSource = this.MasterJobDetails.Lead_Source__c;
-      //this.LeadSourceDisabled = true;
+      this.LeadSourceDisabled = true;
     }
     if (
       this.MasterJobDetails.Date_of_Loss__c !== "" &&
@@ -2103,6 +2135,35 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     ) {
       this.ClientJob = this.MasterJobDetails.Cont_P_O_Client_Job__c;
       this.ClientJobDisabled = true;
+    }
+    if (
+      this.MasterJobDetails.Office2__c !== "" &&
+      this.MasterJobDetails.Office2__c !== undefined &&
+      this.MasterJobDetails.Office2__c !== null
+    ) {
+      this.OfficeValue = this.MasterJobDetails.Office2__r.Name;
+      this.OfficeId = this.MasterJobDetails.Office2__c;
+      //this.OfficeDisabled = true;
+    }
+    console.log('policy is ' + this.MasterJobDetails.Policy__c);
+    if (
+      this.MasterJobDetails.Policy__c !== "" &&
+      this.MasterJobDetails.Policy__c !== undefined &&
+      this.MasterJobDetails.Policy__c !== null
+    ) {
+      this.Policy = this.MasterJobDetails.Policy__c;
+      
+      this.PolicyDisabled = true;
+    }
+    if (
+      this.MasterJobDetails.Major_Event__c !== "" &&
+      this.MasterJobDetails.Major_Event__c !== undefined &&
+      this.MasterJobDetails.Major_Event__c !== null
+    ) {
+      this.MajorEventValue = this.MasterJobDetails.Major_Event__r.Name;
+      this.MajorEventId= this.MasterJobDetails.Major_Event__c;
+      
+      this.MajorEventDisabled = true;
     }
     if (
       this.MasterJobDetails.Multiple_Divisions__c !== "" &&
@@ -2141,6 +2202,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.callerCount = 0;
       alert("Roles cannot be left blank");
     } else {
+      if(this.ContactAccountBlank)
+      {
+        
+        this.billToCount = 0;
+        this.projectSiteContactCount = 0;
+        this.callerCount = 0;
+        this.ContactAccountBlank = false;
+        alert('If Roles are not blank, must select an Account or Contact');
+      }
+      else{
       if (this.billToCount > 1 || this.callerCount > 1) {
         alert(
           "Only One Primary/Bill-to and One Project Site Contact can be selected as a Role"
@@ -2284,6 +2355,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             }
           }
         }
+        }
       }
     }
   }
@@ -2321,7 +2393,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     );
     console.log("Get Account Roles has been called ");
     let ActRowCount = ActTblRow.length;
-    for (let Actindex = 0; Actindex < ActRowCount; Actindex++) {
+    for (let Actindex = 0; Actindex < ActRowCount; Actindex++) 
+    {
       // let ARName = ActTblRow[Actindex].querySelector('.ARName').value;
       let ARRoles = ActTblRow[Actindex].querySelector(".ARRoles").value;
       let ARContact = ActTblRow[Actindex].querySelector(".ARContact").value;
@@ -2334,17 +2407,20 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           "    ARAccount + " +
           ARAccount
       );
-      if (ARRoles.includes("Project Site Contact")) {
+      if (ARRoles !== null && ARRoles.includes("Project Site Contact")) 
+      {
         projectSiteContact = true;
         console.log("ARRoles Contains inside");
         this.projectSiteContactCount += 1;
       }
       console.log("contains AR");
-      if (ARRoles.includes("Primary/Bill-to")) {
+      if (ARRoles !== null && ARRoles.includes("Primary/Bill-to")) 
+      {
         billTo = true;
         this.billToCount += 1;
       }
-      if (ARRoles.includes("Caller")) {
+      if (ARRoles !== null && ARRoles.includes("Caller")) 
+      {
         console.log("Caller has been called");
         caller = true;
         this.callerCount += 1;
@@ -2353,12 +2429,22 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         (ARContact === "" || ARContact === null) &&
         (ARRoles === "" || ARRoles === null) &&
         (ARAccount === "" || ARAccount === null)
-      ) {
-        console.log("Removing row");
-      } else {
-        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) {
+      ) 
+      {
+        console.log("Removing row" + ARContact + ARAccount + ARRoles);
+      } 
+      else 
+      {
+        if (ARRoles === "" || ARRoles === null || ARRoles === undefined) 
+        {
           this.ARRoleBlank = true;
-        } else {
+        }
+        else if((ARContact === "" || ARContact === null || ARContact === undefined) && (ARAccount === "" || ARAccount === null || ARAccount === undefined))
+        {
+          this.ContactAccountBlank = true;
+        }
+        else if(((ARContact !== null && ARContact !== "") || (ARAccount !== null && ARAccount !== ""))&& (ARRoles !== "" || ARRoles !== null)) 
+        {
           AccountRoles.push({
             //name: ARName,
             Text: ARRoles,
@@ -2368,7 +2454,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         }
       }
     }
-    if (projectSiteContact === false || billTo === false || caller === false) {
+    if (projectSiteContact === false || billTo === false || caller === false) 
+    {
       AccountRolesPassed = false;
     } else {
       AccountRolesPassed = true;

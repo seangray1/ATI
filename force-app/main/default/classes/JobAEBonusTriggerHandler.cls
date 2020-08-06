@@ -62,53 +62,53 @@ public without sharing class JobAEBonusTriggerHandler {
         return forecastsMap;
     }
     
-    public static void afterCreditRequestApproved( Map<Id, ATI_Job__c> oldJobsMap, Map<Id, ATI_Job__c> newJobsMap ){
-        Set<String> creditReqEmails = new Set<String>();
-        try{            
-            for( ATI_Job__c job : newJobsMap.values() ){
-                ATI_Job__c oldJob = oldJobsMap.get( job.Id );
-                if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
-                   job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS ){
-                       if( job.Credit_Request_Submitter_Email__c != null ){
-                           creditReqEmails.add( job.Credit_Request_Submitter_Email__c );        
-                       }
-                   }
-            }
-            if( !creditReqEmails.isEmpty() ){
-                Map<String, Id> userEmailToId = new Map<String, Id>();
-                for( User u : [ SELECT Id, Email FROM User WHERE Email IN : creditReqEmails] ){
-                    userEmailToId.put( u.email, u.id );
-                }
-                for( ATI_Job__c job : newJobsMap.values() ){
-                    ATI_Job__c oldJob = oldJobsMap.get( job.Id );
-                    if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
-                       job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS && job.Credit_Request_Submitter_Email__c != null ){
-                           Id currentUserId = userEmailToId.get( job.Credit_Request_Submitter_Email__c );    
-                           //If there is already an AE 1 associated with that job that the requester is requesting credit for, 
-                           //instead of wiping all AE's out we would add the requester as AE 2 and set both AE 1 and AE 2 to a 50% split. 
-                           if( job.Account_Executive_1__c != null && job.Account_Executive_2__c == null && 
-                              job.Account_Executive_1__c != currentUserId ){
-                                  job.Account_Executive_2__c = currentUserId; 
-                              }else if( job.Account_Executive_2__c != null && job.Account_Executive_1__c == null && 
-                                       job.Account_Executive_2__c != currentUserId ){
-                                           job.Account_Executive_1__c = currentUserId; 
-                                       }else if( job.Account_Executive_1__c == null && job.Account_Executive_2__c == null ){
-                                           //If there is not an AE 1, then the Requester is added as the AE 1 with a 100% split (as is happening now)
-                                           job.Account_Executive_1__c = currentUserId;
-                                       }else if( job.Account_Executive_1__c != null && job.Account_Executive_2__c != null &&
-                                                job.Account_Executive_1__c != currentUserId ){
-                                                    //If there is already an AE 1 and an AE 2 on a job and someone requests credit, 
-                                                    //then it gives them an error(already an AE1 And AE 2 assigned, please contact the Marketing Manager etc.)
-                                                    job.addError( 'You may not request credit for a job with 2 AE\'s assigned. Please contact Marketing Manager'+
-                                                                 ' for assistance' );
-                                                }
-                       }
-                }            
-            }
-        }catch( DmlException ex ){
-            system.debug( ex.getMessage() );            
-        }
-    }
+    // public static void afterCreditRequestApproved( Map<Id, ATI_Job__c> oldJobsMap, Map<Id, ATI_Job__c> newJobsMap ){
+    //     Set<String> creditReqEmails = new Set<String>();
+    //     try{            
+    //         for( ATI_Job__c job : newJobsMap.values() ){
+    //             ATI_Job__c oldJob = oldJobsMap.get( job.Id );
+    //             if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
+    //                job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS ){
+    //                    if( job.Credit_Request_Submitter_Email__c != null ){
+    //                        creditReqEmails.add( job.Credit_Request_Submitter_Email__c );        
+    //                    }
+    //                }
+    //         }
+    //         if( !creditReqEmails.isEmpty() ){
+    //             Map<String, Id> userEmailToId = new Map<String, Id>();
+    //             for( User u : [ SELECT Id, Email FROM User WHERE Email IN : creditReqEmails] ){
+    //                 userEmailToId.put( u.email, u.id );
+    //             }
+    //             for( ATI_Job__c job : newJobsMap.values() ){
+    //                 ATI_Job__c oldJob = oldJobsMap.get( job.Id );
+    //                 if( job.Credit_Request_Status__c != oldJob.Credit_Request_Status__c && 
+    //                    job.Credit_Request_Status__c == Job_CREDIT_REQ_STATUS && job.Credit_Request_Submitter_Email__c != null ){
+    //                        Id currentUserId = userEmailToId.get( job.Credit_Request_Submitter_Email__c );    
+    //                        //If there is already an AE 1 associated with that job that the requester is requesting credit for, 
+    //                        //instead of wiping all AE's out we would add the requester as AE 2 and set both AE 1 and AE 2 to a 50% split. 
+    //                        if( job.Account_Executive_1__c != null && job.Account_Executive_2__c == null && 
+    //                           job.Account_Executive_1__c != currentUserId ){
+    //                               job.Account_Executive_2__c = currentUserId; 
+    //                           }else if( job.Account_Executive_2__c != null && job.Account_Executive_1__c == null && 
+    //                                    job.Account_Executive_2__c != currentUserId ){
+    //                                        job.Account_Executive_1__c = currentUserId; 
+    //                                    }else if( job.Account_Executive_1__c == null && job.Account_Executive_2__c == null ){
+    //                                        //If there is not an AE 1, then the Requester is added as the AE 1 with a 100% split (as is happening now)
+    //                                        job.Account_Executive_1__c = currentUserId;
+    //                                    }else if( job.Account_Executive_1__c != null && job.Account_Executive_2__c != null &&
+    //                                             job.Account_Executive_1__c != currentUserId ){
+    //                                                 //If there is already an AE 1 and an AE 2 on a job and someone requests credit, 
+    //                                                 //then it gives them an error(already an AE1 And AE 2 assigned, please contact the Marketing Manager etc.)
+    //                                                 job.addError( 'You may not request credit for a job with 2 AE\'s assigned. Please contact Marketing Manager'+
+    //                                                              ' for assistance' );
+    //                                             }
+    //                    }
+    //             }            
+    //         }
+    //     }catch( DmlException ex ){
+    //         system.debug( ex.getMessage() );            
+    //     }
+    // }
     
     
     /*
@@ -153,6 +153,7 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
         return accountsMap;
     }
     
+    //Dont need this anymore 
     public static void populateAEOnApprovedJobs( Map<Id, ATI_Job__c> oldJobsMap, Map<Id, ATI_Job__c> newJobsMap ){
         List<ATI_Job__c> jobs = new List<ATI_Job__c>();
         List<RecordType> rtypes = [ SELECT Id FROM RecordType 
@@ -219,11 +220,13 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
         List<ATI_Job_Team__c> otmToDelete = new List<ATI_Job_Team__c>();
         List<ATI_Job_Split__c> jobSplitsDelete = new List<ATI_Job_Split__c>();
         Set<Id> mJobSet = new Set<Id>();
-        for(ATI_Job__c j : jobs){
+        for(ATI_Job__c j : jobs)
+        {
             mJobSet.add(j.Master_Job__c);
         }
         Map<Id,Master_Job__c> mJobMap = new Map<ID, Master_Job__c>([Select Id, OwnerId FROM Master_Job__c Where Id =: mJobSet]);
-        if (!jobs.isEmpty()) {
+        if (!jobs.isEmpty()) 
+        {
             // Get existing Job splits
             Map<Id, List<ATI_Job_Split__c>> existingJobSplitsMap = new Map<Id, List<ATI_Job_Split__c>>();
             
@@ -402,10 +405,12 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
             accountIds.add( job.Account__c );
         }
         if( !accountIds.isEmpty() ){
-            for( Account acc : [ SELECT Id, Last_Job_Date__c, Previous_Job_Date__c, 
+            for( Account acc : [ SELECT Id, Name, Last_Job_Date__c, Previous_Job_Date__c, 
                                 ( SELECT Id, CreatedDate FROM ATI_Jobs__r ORDER BY CreatedDate DESC Limit 2) 
                                 FROM Account 
                                 WHERE Id IN : accountIds ] ){
+                                    if(!acc.Name.contains('ES Job Account'))
+                                    {
                                     if( acc.ATI_Jobs__r != null && !acc.ATI_Jobs__r.isEmpty() ){
                                         Boolean hasAccountChanged = false;
                                         if( acc.Last_Job_Date__c != acc.ATI_Jobs__r[0].createdDate ){
@@ -422,10 +427,11 @@ o   A user should also have the option to manually edit/delete the ATI_Job__c Pe
                                             accountsToUpdate.add( acc );
                                         }
                                     }                                     
-                                }            
-            if( !accountsToUpdate.isEmpty() ){
-                update accountsToUpdate;
-            }
+                                    }
+                                    }         
+            // if( !accountsToUpdate.isEmpty() ){
+            //     update accountsToUpdate;
+            // }
         }
     }
 

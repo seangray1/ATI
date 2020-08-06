@@ -14,7 +14,7 @@
             </value>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>Update Job Stage</label>
+        <label>Update Master Job Stage</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
         <actionName>UpdateMasterJobStage</actionName>
@@ -78,44 +78,38 @@
             <name>myRule_1</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.LastModifiedBy.Profile.Name</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Restricted Process Execution</stringValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
-            <label>Restricted Access</label>
+            <label>When Job Stage Change</label>
         </rules>
     </decisions>
     <description>Update Master Jobs Job Status</description>
-    <interviewLabel>Update_Master_Jobs_Job_Status-2_InterviewLabel</interviewLabel>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+ISNEW() || ISCHANGED([ATI_Job__c].Stage__c ) ,
+NOT(ISBLANK([ATI_Job__c].Master_Job__c))
+) 
+ </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+ISNEW() || ISCHANGED({!myVariable_current.Stage__c} ) ,
+NOT(ISBLANK({!myVariable_current.Master_Job__c}))
+)</expression>
+    </formulas>
+    <interviewLabel>Update_Master_Jobs_Job_Status-6_InterviewLabel</interviewLabel>
     <label>Update Master Jobs Job Status</label>
     <processMetadataValues>
         <name>ObjectType</name>

@@ -366,7 +366,7 @@
         <!-- </div> -->
             <!-- <div class="slds-col slds-size_1-of-7"> -->
             <lightning-input onkeyup={OfficeChange}
-                        placeholder='Search for Office.. ' label="Office"  onchange={ClearOffice} required value={OfficeValue} type="search" class="jobFormControl Labels1"></lightning-input>
+                        placeholder='Search for Office.. ' label="Office" disabled={FieldsDisabled} onchange={ClearOffice} required value={OfficeValue} type="search" class="jobFormControl Labels1"></lightning-input>
               
                 <template if:true={Offices}>
                     <table
@@ -389,15 +389,7 @@
                                                 class="slds-m-left_x-small jobButton"></lightning-button>
                                         </b>
                                         <br>
-                                        <!-- <lightning-formatted-text value={ContactAccount.Name} label={ContactAccount.Name}>
-                                                                
-                                                            </lightning-formatted-text>
-                     -->
-                                        <!-- <lightning-formatted-address street={Property.Address_Line_1__c}
-                                                                city={Property.City__c} country='US' province={Property.State__c}
-                                                                postal-code={Property.Zip__c} disabled={inputDisabled}>
-                                                            </lightning-formatted-address> -->
-                                        <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
+                    
                                     </th>
         
                                 </tr>
@@ -524,6 +516,7 @@
             province={State}
             postal-code={Zipcode}
             show-address-lookup
+            disabled={FieldsDisabled}
             class=""
             read-only
             

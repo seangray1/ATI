@@ -46,6 +46,18 @@
             ],
             "c/propertyUpdateLWC": [
                 "propertyUpdateLWC/propertyUpdateLWC.js"
+            ],
+            "c/accountRolesEditLWC": [
+                "accountRolesEditLWC/accountRolesEditLWC.js"
+            ],
+            "c/creditRequestLWC": [
+                "creditRequestLWC/creditRequestLWC.js"
+            ],
+            "c/itemsToApprove": [
+                "itemsToApprove/itemsToApprove.js"
+            ],
+            "c/accountRolesDataTable": [
+                "accountRolesDataTable/accountRolesDataTable.js"
             ]
         },
         "experimentalDecorators": true

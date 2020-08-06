@@ -8,5 +8,6 @@
     <fields>Stage__c</fields>
     <fields>Job_to_Date_Payments_AR_RS__c</fields>
     <fields>Job_to_Date_Work_Billed_RS__c</fields>
+    <fields>Timberline_Customer_Number__c</fields>
     <label>Admin</label>
 </CompactLayout>

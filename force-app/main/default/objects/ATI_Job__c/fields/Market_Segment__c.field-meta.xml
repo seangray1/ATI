@@ -68,6 +68,12 @@
                 <default>false</default>
                 <label>State/Municipal</label>
             </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Residential</controllingFieldValue>

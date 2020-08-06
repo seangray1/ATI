@@ -3,6 +3,6 @@
     <fullName>Check_for_Collectors</fullName>
     <active>true</active>
     <description>Check for collectors for that assigned project manager. If not, throws an error message.</description>
-    <errorConditionFormula>AND(not( ISBLANK(Project_Manager__c ) ),ISBLANK(Project_Manager__r.Collector__c ),  $Profile.Name &lt;&gt; &quot;System Administrator&quot;)</errorConditionFormula>
+    <errorConditionFormula>AND(not( ISBLANK(Project_Manager__c ) ),ISBLANK(Project_Manager__r.Collector__c ),  $Profile.Name &lt;&gt; &quot;System Administrator&quot;, $Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</errorConditionFormula>
     <errorMessage>Project Manager needs a collector assigned. Please contact your administrator.</errorMessage>
 </ValidationRule>

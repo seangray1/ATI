@@ -6,7 +6,7 @@ trigger PropertyTrigger on Property__c (before insert, before update) {
         PropertyTriggerHandler.PropertyNameFormat(trigger.new);
     }
     if(Trigger.isBefore && Trigger.isUpdate){
-        PropertyTriggerHandler.PropertyNameUpdate(trigger.new, trigger.oldMap);
+        PropertyTriggerHandler.PropertyNameUpdate(trigger.new, trigger.oldMap, trigger.newMap);
     }
 }
 }

@@ -1,4 +1,5 @@
 ({
+
     refreshView: function(component, event) {
         // refresh the view
         $A.get('e.force:refreshView').fire();

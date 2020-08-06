@@ -4,19 +4,11 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <label>Major Event</label>
-    <lookupFilter>
-        <active>true</active>
-        <filterItems>
-            <field>Major_Event__c.Status__c</field>
-            <operation>contains</operation>
-            <value>Inactive</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-    </lookupFilter>
     <referenceTo>Major_Event__c</referenceTo>
     <relationshipLabel>Master Jobs</relationshipLabel>
     <relationshipName>Master_Jobs</relationshipName>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

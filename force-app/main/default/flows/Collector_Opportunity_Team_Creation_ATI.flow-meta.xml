@@ -357,7 +357,7 @@
         <object>ATI_Job_Team__c</object>
     </recordCreates>
     <startElementReference>isChangedDecision2_myRule_1_Project_Manager_Full_Name_c</startElementReference>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
