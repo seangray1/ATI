@@ -1,6 +1,7 @@
 public without sharing class JobTriggerHandlerWorkflow 
 {
-  
+//   When Amount Changes on the job, roll up the amounts to Master Job
+//    Needs to set value to 0 in case the amount value is null... causes error
     public static void MasterJobAmountRollup(List<ATI_Job__c> jobs, Map<Id,ATI_Job__c> newJobMap, Map<Id,ATI_Job__c> oldJobMap) 
     {
         Set<Id> NewJobMasterSet = new Set<Id>();
@@ -61,23 +62,6 @@ public without sharing class JobTriggerHandlerWorkflow
                         Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Amount__c = MasterJobs.get(job.Master_job__c).Amount__c);
                         MasterJobToUpdate.put(mj.id, mj);
                     }
-                    // if(oldJob != null && job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Won')
-                    // {
-                    //     if(job.Estimate_Only__c == false)
-                    //     {
-                    //         if(MasterJobToUpdate.containsKey(job.Master_Job__c))
-                    //         {
-                    //             MasterJobToUpdate.get(job.Master_Job__c).Send_Prelim__c = 'Yes';
-                    //             MasterJobToUpdate.get(job.Master_Job__c).PN_Request_Date__c = system.today();
-                    //         }else
-                    //         {
-                    //             Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'Yes', PN_Request_Date__c = system.today() );
-                    //             MasterJobToUpdate.put(mj.Id, mj);
-                    //         }
-                            
-                    //     }
-                        
-                    // }
                 }
             }
 
@@ -87,38 +71,17 @@ public without sharing class JobTriggerHandlerWorkflow
             update MasterJobToUpdate.values();
         }
     }
-    // if(Trigger.isInsert)
-    // {
-    //     system.debug('JobTriggerHandlerWorkflow in Insert');
-    //     Map<Id,Master_Job__c>  MasterJobToUpdatePrelim = new Map<Id,Master_Job__c>();
-    //     Set<Id> acctSet = new Set<Id>();
-    //     for(ATI_Job__c job : jobs)
-    //     {
-    //         acctSet.add(job.Account__c);
-    //     }
-    //     Map<Id, Account> AcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:acctSet]);
-    //     for(ATI_Job__c job : jobs)
-    //     {
-    //         system.debug('Job division is ' + job.division__c +  ' job acct name is ' + AcctMap.get(job.Account__c).Name + '  Send Prelim is ' + job.Send_prelim__c);
-    //             if((job.Division__c == 'Consulting' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
-    //             (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal') && 
-    //             job.Send_Prelim__c == null) 
-    //             {
-    //                 system.debug('JobTriggerHandlerWorkflow in for loop, met criteria');
-    //                 // job.Send_Prelim__c = 'No';
-    //                 // job.PN_Request_Date__c = null;
-    //                 Master_Job__c mj = new Master_Job__c(Id = job.master_job__c, Send_Prelim__c = 'No', PN_Request_Date__c = null );
-    //                 MasterJobToUpdatePrelim.put(mj.Id, mj);
-    //             }
-                
-    //             if(!MasterJobToUpdatePrelim.isEmpty())
-    //             {
-    //                 update MasterJobToUpdatePrelim.values();
-    //             }
-    //     }
-    // }
     }
 
+    //Responsible for many before update/insert tasks
+    /*
+    Egnyte path set on insert update
+    Intake status for cloned jobs
+    Assigning PM's based on office
+    
+    Setting Send Prelim 
+
+    */
 public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job__c> newJobMap, Map<Id, ATI_Job__c> oldJobMap, ObjectInserts oi)
 {
         Id approvedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('Job (Approved)').getRecordTypeId();
@@ -160,7 +123,19 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     string test1 = job.name.replace('|','');
                     string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
                     Date timeToDate = Date.valueOf(job.date_time_taken__c); 
-                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+                    
+                    String month1;
+                    Integer i = job.Date_Time_Taken__c.Month();
+                    if(i<10)
+                    {
+                        month1 ='0'+ String.ValueOf(i);
+                    }
+                    else{
+                        month1= string.valueOf(i);
+                    }
+                    String projKey = month1+ '-' + job.Date_Time_Taken__c.Year();
+
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+projKey +'/'+ test;
                 }
                 
                 
@@ -183,8 +158,18 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 {
                     string test1 = job.name.replace('|','');
                     string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
-                    Date timeToDate = Date.valueOf(job.date_time_taken__c); 
-                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+                    Date timeToDate = Date.valueOf(job.date_time_taken__c); String month1;
+                    Integer i = job.Date_Time_Taken__c.Month();
+                    if(i<10)
+                    {
+                        month1 ='0'+ String.ValueOf(i);
+                    }
+                    else{
+                        month1= string.valueOf(i);
+                    }
+                    String projKey = month1+ '-' + job.Date_Time_Taken__c.Year();
+
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+projKey +'/'+ test;
                 
                 }
             }
@@ -271,7 +256,8 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
                     
                 }
-                if(job.Amount__c != oldJob.Amount__c && job.Amount__c > 100000)
+                if((job.Amount__c != oldJob.Amount__c && job.Amount__c > 100000) || (job.Total_Billing_Forecast_Amount__c != oldJob.Total_Billing_Forecast_Amount__c
+                && job.Total_Billing_Forecast_Amount__c > 100000))
                 {
                     job.Large_Loss_Flag__c = true;
                 }

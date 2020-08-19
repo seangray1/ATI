@@ -44,7 +44,7 @@ submit(){
 }
 handleFormInputChange(event)
 {
-    this.Comments = event.detail.value;
+    this.Comments = event.target.value;
 }
 cancel(){
     this.dispatchEvent(new CustomEvent('Close'));  

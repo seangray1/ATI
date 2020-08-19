@@ -43,7 +43,7 @@
                     <table class="table week-header">
                     <thead>
                       <tr>
-                        <th>Name</th>
+                        <th >Name </th>
                         <th>Labor Code</th>
                         <th colspan="2">Monday <span class="PDFDay">{!Date_mon}</span></th>
                         <th colspan="2">Tuesday <span class="PDFDay">{!Date_tue}</span></th>
@@ -55,6 +55,7 @@
                     </tr></thead>
                     <tbody>
                       <tr class="SubTitle">
+                        <td></td>
                         <td></td>
                         <td class="no-border">HRS</td>
                         <td>
@@ -87,216 +88,217 @@
                           <div class="bottom">DBL</div>
                         </td>
                         <td class="no-border">HRS</td>
-                        <td class="LastLine">
+                        <!-- <td class="LastLine"> -->
+                            <td class="LastLine">
                           <div class="top">OT</div>
                           <div class="bottom">DBL</div>
                         </td>
                       </tr>
-                      <tr class="PDFDesignation"><td colspan="15">PROJECT DIRECTOR / MGR.</td></tr>
+                      <tr class="PDFDesignation"><td colspan="16">PROJECT DIRECTOR / MGR.</td></tr>
                       <apex:repeat value="{!DailyTimeSheet.ProjectManagers}" var="timesheet">
                         <tr>
                             <td><apex:outputtext value="{!timesheet.Name}"/></td>
                             <td><apex:outputtext value="{!timesheet.LaborCode}"/></td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.MondayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.MondayRegHours}" rendered="{!if(timesheet.MondayRegHours!= '',True,False)}"/>
                             </td>
                             <td>
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.MondayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.MondayOTHours}" rendered="{!if(timesheet.MondayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.MondayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.MondayDBLHours}" rendered="{!if(timesheet.MondayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.TuesdayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.TuesdayRegHours}" rendered="{!if(timesheet.TuesdayRegHours!= '',True,False)}"/>
                             </td>
                             <td>
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.TuesdayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.TuesdayOTHours}" rendered="{!if(timesheet.TuesdayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.TuesdayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.TuesdayDBLHours}" rendered="{!if(timesheet.TuesdayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.WednesdayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.WednesdayRegHours}" rendered="{!if(timesheet.WednesdayRegHours!= '',True,False)}"/>
                             </td>
                             <td>
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.WednesdayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.WednesdayOTHours}" rendered="{!if(timesheet.WednesdayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.WednesdayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.WednesdayDBLHours}" rendered="{!if(timesheet.WednesdayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.ThursdayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.ThursdayRegHours}" rendered="{!if(timesheet.ThursdayRegHours!= '',True,False)}"/>
                             </td>
                             <td>
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.ThursdayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.ThursdayOTHours}" rendered="{!if(timesheet.ThursdayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.ThursdayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.ThursdayDBLHours}" rendered="{!if(timesheet.ThursdayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.FridayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.FridayRegHours}" rendered="{!if(timesheet.FridayRegHours!= '',True,False)}"/>
                             </td>
                             <td>
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.FridayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.FridayOTHours}" rendered="{!if(timesheet.FridayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.FridayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.FridayDBLHours}" rendered="{!if(timesheet.FridayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.SaturdayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.SaturdayRegHours}" rendered="{!if(timesheet.SaturdayRegHours!= '',True,False)}"/>
                             </td>
                             <td>
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.SaturdayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.SaturdayOTHours}" rendered="{!if(timesheet.SaturdayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.SaturdayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.SaturdayDBLHours}" rendered="{!if(timesheet.SaturdayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                             <td class="no-border">
-                                <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayRegHours == '',True,False)}"/>
+                                <apex:outputtext value="" rendered="{!if(timesheet.SundayRegHours == '',True,False)}"/>
                                 <apex:outputtext value="{!timesheet.SundayRegHours}" rendered="{!if(timesheet.SundayRegHours!= '',True,False)}"/>
                             </td>
                             <td class="LastLine">
                                 <div class="top">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayOTHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.SundayOTHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.SundayOTHours}" rendered="{!if(timesheet.SundayOTHours!= '',True,False)}"/>
                                 </div>
                                 <div class="bottom">
-                                    <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayDBLHours == '',True,False)}"/>
+                                    <apex:outputtext value="" rendered="{!if(timesheet.SundayDBLHours == '',True,False)}"/>
                                     <apex:outputtext value="{!timesheet.SundayDBLHours}" rendered="{!if(timesheet.SundayDBLHours!= '',True,False)}"/>
                                 </div>
                             </td>
                         </tr>
                     </apex:repeat>
-                        <tr class="PDFDesignation"><td colspan="15">SUPERVISORS</td></tr>     
+                        <tr class="PDFDesignation"><td colspan="16">SUPERVISORS</td></tr>     
                         <apex:repeat value="{!DailyTimeSheet.Supervisors}" var="timesheet">
     <tr>
         <td><apex:outputtext value="{!timesheet.Name}"/></td>
         <td><apex:outputtext value="{!timesheet.LaborCode}"/></td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.MondayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.MondayRegHours}" rendered="{!if(timesheet.MondayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.MondayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.MondayOTHours}" rendered="{!if(timesheet.MondayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.MondayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.MondayDBLHours}" rendered="{!if(timesheet.MondayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.TuesdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.TuesdayRegHours}" rendered="{!if(timesheet.TuesdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.TuesdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.TuesdayOTHours}" rendered="{!if(timesheet.TuesdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.TuesdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.TuesdayDBLHours}" rendered="{!if(timesheet.TuesdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.WednesdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.WednesdayRegHours}" rendered="{!if(timesheet.WednesdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.WednesdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.WednesdayOTHours}" rendered="{!if(timesheet.WednesdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.WednesdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.WednesdayDBLHours}" rendered="{!if(timesheet.WednesdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.ThursdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.ThursdayRegHours}" rendered="{!if(timesheet.ThursdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.ThursdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.ThursdayOTHours}" rendered="{!if(timesheet.ThursdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.ThursdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.ThursdayDBLHours}" rendered="{!if(timesheet.ThursdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.FridayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.FridayRegHours}" rendered="{!if(timesheet.FridayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.FridayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.FridayOTHours}" rendered="{!if(timesheet.FridayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.FridayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.FridayDBLHours}" rendered="{!if(timesheet.FridayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.SaturdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.SaturdayRegHours}" rendered="{!if(timesheet.SaturdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SaturdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SaturdayOTHours}" rendered="{!if(timesheet.SaturdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SaturdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SaturdayDBLHours}" rendered="{!if(timesheet.SaturdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.SundayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.SundayRegHours}" rendered="{!if(timesheet.SundayRegHours!= '',True,False)}"/>
         </td>
         <td class="LastLine">
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SundayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SundayOTHours}" rendered="{!if(timesheet.SundayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SundayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SundayDBLHours}" rendered="{!if(timesheet.SundayDBLHours!= '',True,False)}"/>
             </div>
         </td>
@@ -304,6 +306,7 @@
 </apex:repeat> 
  <tr class="PDFTimelineTotal">
   <td>Daily Supervisors Hrs</td>
+  <td>-</td>
   <td colspan="2" >{!DailyTimeSheet.TotSupMon}</td>
   <td colspan="2" >{!DailyTimeSheet.TotSupTue}</td>
   <td colspan="2" >{!DailyTimeSheet.TotSupWed}</td>
@@ -312,106 +315,106 @@
   <td colspan="2" >{!DailyTimeSheet.TotSupSat}</td>
   <td colspan="2" class="LastLine">{!DailyTimeSheet.TotSupSun}</td>
 </tr>
-<tr class="PDFDesignation"><td colspan="15">CREW MEMBERS</td></tr>
+<tr class="PDFDesignation"><td colspan="16">CREW MEMBERS</td></tr>
 <apex:repeat value="{!DailyTimeSheet.CrewMembers}" var="timesheet">
     <tr>
         <td><apex:outputtext value="{!timesheet.Name}"/></td>
         <td><apex:outputtext value="{!timesheet.LaborCode}"/></td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.MondayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.MondayRegHours}" rendered="{!if(timesheet.MondayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.MondayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.MondayOTHours}" rendered="{!if(timesheet.MondayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.MondayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.MondayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.MondayDBLHours}" rendered="{!if(timesheet.MondayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.TuesdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.TuesdayRegHours}" rendered="{!if(timesheet.TuesdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.TuesdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.TuesdayOTHours}" rendered="{!if(timesheet.TuesdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.TuesdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.TuesdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.TuesdayDBLHours}" rendered="{!if(timesheet.TuesdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.WednesdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.WednesdayRegHours}" rendered="{!if(timesheet.WednesdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.WednesdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.WednesdayOTHours}" rendered="{!if(timesheet.WednesdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.WednesdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.WednesdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.WednesdayDBLHours}" rendered="{!if(timesheet.WednesdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.ThursdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.ThursdayRegHours}" rendered="{!if(timesheet.ThursdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.ThursdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.ThursdayOTHours}" rendered="{!if(timesheet.ThursdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.ThursdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.ThursdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.ThursdayDBLHours}" rendered="{!if(timesheet.ThursdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.FridayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.FridayRegHours}" rendered="{!if(timesheet.FridayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.FridayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.FridayOTHours}" rendered="{!if(timesheet.FridayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.FridayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.FridayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.FridayDBLHours}" rendered="{!if(timesheet.FridayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.SaturdayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.SaturdayRegHours}" rendered="{!if(timesheet.SaturdayRegHours!= '',True,False)}"/>
         </td>
         <td>
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SaturdayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SaturdayOTHours}" rendered="{!if(timesheet.SaturdayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SaturdayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SaturdayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SaturdayDBLHours}" rendered="{!if(timesheet.SaturdayDBLHours!= '',True,False)}"/>
             </div>
         </td>
         <td class="no-border">
-            <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayRegHours == '',True,False)}"/>
+            <apex:outputtext value="" rendered="{!if(timesheet.SundayRegHours == '',True,False)}"/>
             <apex:outputtext value="{!timesheet.SundayRegHours}" rendered="{!if(timesheet.SundayRegHours!= '',True,False)}"/>
         </td>
         <td class="LastLine">
             <div class="top">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayOTHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SundayOTHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SundayOTHours}" rendered="{!if(timesheet.SundayOTHours!= '',True,False)}"/>
             </div>
             <div class="bottom">
-                <apex:outputtext value="00.00" rendered="{!if(timesheet.SundayDBLHours == '',True,False)}"/>
+                <apex:outputtext value="" rendered="{!if(timesheet.SundayDBLHours == '',True,False)}"/>
                 <apex:outputtext value="{!timesheet.SundayDBLHours}" rendered="{!if(timesheet.SundayDBLHours!= '',True,False)}"/>
             </div>
         </td>
@@ -419,6 +422,7 @@
 </apex:repeat> 
  <tr class="PDFTimelineTotal">
   <td>Daily Crew Members Hrs</td>
+  <td>-</td>
   <td colspan="2" >{!DailyTimeSheet.TotCWMon}</td>
   <td colspan="2" >{!DailyTimeSheet.TotCWTue}</td>
   <td colspan="2" >{!DailyTimeSheet.TotCWWed}</td>

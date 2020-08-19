@@ -21,14 +21,20 @@
                                 <div class="slds-form-element__control">
                                        
                                                 <!-- <lightning-input-field field-name="Id"></lightning-input-field> -->
+                                                
                                                 <lightning-input-field field-name="OwnerId" value={ownerId}></lightning-input-field>
+                                                
                                                 <!-- <label class="Labels"  for="input-01">Account</label>  -->
+                                                <div onblur={Test}>
                                                 <lightning-input-field field-name="AccountId"  value={accountId} disabled class="hidden"></lightning-input-field>
+                                                </div>
                                                 <lightning-input-field field-name="ATI_Job__c" value={recordId}></lightning-input-field>
                              
                                                 
                                                 <lightning-input-field field-name="Origin"></lightning-input-field>
+                                                <div onblur={Test} onkeyup={Test}>
                                                 <lightning-input-field field-name="Status" value={status}></lightning-input-field>
+                                              </div>
                                                 <lightning-input-field field-name="Priority" value={priority} onchange={priorityChange} required=""></lightning-input-field>
                                                 
                                                 <!-- <lightning-input-field field-name="RecordTypeId"></lightning-input-field> -->
@@ -93,12 +99,15 @@
                           </div>
                         </div>
                       </fieldset>
-
+                     <div onblur={Test1}>
+                      <lightning-input label="Test" ></lightning-input>
+                     </div>
                         <div class="slds-form-element">
                             
                             <div class="slds-form-element__control">
-                                    
-                                            <lightning-input-field field-name="Subject" value={subject} required="" onchange={subjectChange}></lightning-input-field>
+                              <div onblur={Test} >
+                                            <lightning-input-field field-name="Subject" value={subject}  required="" onchange={subjectChange}></lightning-input-field>
+                                            </div>
                                             
                               
                             </div>

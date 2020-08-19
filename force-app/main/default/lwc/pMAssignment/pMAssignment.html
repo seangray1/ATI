@@ -38,7 +38,7 @@
                   <div class="slds-form-element">
                     <label class="Labels" for="input-02"> Fees:</label>
                     <div class="slds-form-element__control">
-                                    <lightning-input type="number"  disabled value={Fees}></lightning-input>
+                                    <lightning-input type="number" formatter="currency" disabled value={Fees}></lightning-input>
                     </div>
                   </div>
                 </div>
@@ -46,7 +46,7 @@
                             <div class="slds-form-element">
                               <label class="Labels" for="input-03"> Allocation:</label>
                               <div class="slds-form-element__control">
-                                    <lightning-input type="number"  disabled value={Allocation}></lightning-input>
+                                    <lightning-input type="number" formatter="currency" disabled value={Allocation}></lightning-input>
                               </div>
                             </div>
                           </div>
@@ -62,7 +62,7 @@
                     <div class="slds-form-element">
                       <label class="Labels"  for="input-01"> Budget:</label>
                       <div class="slds-form-element__control">
-                                      <lightning-input type="number"  disabled value={Budget}></lightning-input>
+                                      <lightning-input type="number" formatter="currency" disabled value={Budget}></lightning-input>
                       </div>
                     </div>
                   </div>
@@ -70,7 +70,7 @@
                     <div class="slds-form-element">
                       <label class="Labels" for="input-02"> Forecast:</label>
                       <div class="slds-form-element__control">
-                                      <lightning-input type="number"  disabled value={Forecast}></lightning-input>
+                                      <lightning-input type="number" formatter="currency" disabled value={Forecast}></lightning-input>
                       </div>
                     </div>
                   </div>
@@ -78,7 +78,7 @@
                               <div class="slds-form-element">
                                 <label class="Labels" for="input-03"> Price:</label>
                                 <div class="slds-form-element__control">
-                                      <lightning-input type="number"  disabled value={Price}></lightning-input>
+                                      <lightning-input type="number" formatter="currency" disabled value={Price}></lightning-input>
                                 </div>
                               </div>
                             </div>
@@ -216,12 +216,14 @@
                         
                        
   </div>
+  <footer>
   <div class="slds-p-around_medium lgc-bg-inverse element">
     <lightning-button-group>
       <lightning-button label="Submit"  onclick={createPMAssignment} variant="brand"> </lightning-button> 
           <lightning-button label="Cancel" onclick={Cancel} ></lightning-button>
     </lightning-button-group>
     </div>
+  </footer>
     <template if:true={loading}>
       <div class="Spinner">
           <lightning-spinner size="medium" alternative-text="Loading" variant="brand"></lightning-spinner>

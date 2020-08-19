@@ -45,6 +45,8 @@ export default class DailyTimesheet extends NavigationMixin(LightningElement) {
     @track CrewMembers = {};
     @track Disval;
     @track NextWeekBlock = false;
+    finalCheckModal;
+    FinalWarning = "Marking this daily timesheet as final will save the current form as a PDF in the job folder and prevent you from making any further changes to the form for this job during this pay period. Are you sure you want to mark it as final?"
 
     @track todayDate;
     @track thisWeekstart;
@@ -130,6 +132,25 @@ Datefill(e){
     this.Date_sun = months[sdate.getMonth()]+' '+sdate.getDate();
     // this.Date_endDate = months[sdate.getMonth()]+' '+sdate.getDate()+', '+sdate.getFullYear();
     this.Date_endDate = sdate.getFullYear()+'-'+[sdate.getMonth()+1]+'-'+sdate.getDate();
+}
+finalCheck(event)
+{
+    
+    if(event.target.checked === true){
+        this.finalCheckModal = true;
+    }
+}
+closeFinalModal()
+{
+    this.template.querySelectorAll('[data-element="subscribe-checkbox"]')
+            .forEach(element => { element.checked = false; });
+    this.finalCheckModal = false;
+}
+saveFinalModal()
+{
+    this.template.querySelectorAll('[data-element="subscribe-checkbox"]')
+            .forEach(element => { element.checked = true; });
+    this.finalCheckModal = false;
 }
 
 RestrictUIInput()
@@ -1355,19 +1376,19 @@ ValidatehrsPM(e) {
       //  console.log('dailyTimesheetIdtosearch 3'); 
     }
     
-    SavePDFwithPreview(timesheetIDToattach)
-    {
-      //  console.log(timesheetIDToattach);
-        attachonly({timesheetID: timesheetIDToattach})
-        .then(result => {
-            console.log('save'+result);
-        })
-        .catch(error => {
-            console.log('error');
-            console.log(error);
-        });
+    // SavePDFwithPreview(timesheetIDToattach)
+    // {
+    //   //  console.log(timesheetIDToattach);
+    //     attachonly({timesheetID: timesheetIDToattach})
+    //     .then(result => {
+    //         console.log('save'+result);
+    //     })
+    //     .catch(error => {
+    //         console.log('error');
+    //         console.log(error);
+    //     });
 
-    }
+    // }
 
     SaveUpdatedDailyTimesheet(e) {
         var shift = this.template.querySelector('.shift').value;
@@ -1416,7 +1437,7 @@ ValidatehrsPM(e) {
               //  console.log('success');
               //  console.log(result);
                 this.test = result;
-                this.SavePDFwithPreview(result);
+                // this.SavePDFwithPreview(result);
                 this.SaveComments = 'Timesheet Saved Successfully..';
             })
             .catch(error => {
@@ -2050,7 +2071,12 @@ ValidatehrsPM(e) {
                 }
             });
             this.PWRegCW = CrewMemberRegPW; this.PWOTCW = CrewMemberOTPW; this.PWDBLCW = CrewMemberrDblPW;
-        this.NPWRegCW = CrewMemberRegNonPW; this.NPWOTCW = CrewMemberOTNonPW; this.NPWDBLCW = CrewMemberDblNonPW;
+        if(this.CrewMemberRegNonPW === 0)
+        {
+            this.NPWRegCW = 0;
+        } 
+        this.NPWOTCW = CrewMemberOTNonPW; 
+        this.NPWDBLCW = CrewMemberDblNonPW;
         }
     }
 

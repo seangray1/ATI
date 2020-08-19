@@ -224,11 +224,11 @@
                                                 <template if:true={DisableMon}>    
                                                   <!-- <template if:true={dailyTimesheetFinalCheckbox}> -->
                                                     <td class="no-border">
-                                                            <div class="lwcInput"><lightning-input type="decimal" disabled readonly="readonly" value={projectManager.MondayRegHours} onchange={ValidatehrsPM} onkeydown={ValidateForNoOnly} class="form-control TableInput PM_Monday PM_Reg" maxlength="5"  placeholder="00.00"></lightning-input></div>
+                                                            <div class="lwcInput"><lightning-input type="decimal" disabled readonly="readonly" value={projectManager.MondayRegHours} onchange={ValidatehrsPM} onkeydown={ValidateForNoOnly} class="form-control TableInput PM_Monday PM_Reg" maxlength="5"  placeholder=""></lightning-input></div>
                                                     </td>
                                                     <td>
                                                             <span class="top">
-                                                                    <div class="lwcInput"><lightning-input type="decimal" disabled readonly="readonly" value={projectManager.MondayOTHours} onchange={ValidatehrsPM} onkeydown={ValidateForNoOnly} class="form-control TableInput PM_Monday PM_OT" maxlength="5"  placeholder="00.00"></lightning-input></div>
+                                                                    <div class="lwcInput"><lightning-input type="decimal" disabled readonly="readonly" value={projectManager.MondayOTHours} onchange={ValidatehrsPM} onkeydown={ValidateForNoOnly} class="form-control TableInput PM_Monday PM_OT" maxlength="5"  placeholder="0"></lightning-input></div>
                                                             </span>
                                                             <span class="bottom">
                                                                     <div class="lwcInput"><lightning-input type="decimal" disabled readonly="readonly" value={projectManager.MondayDBLHours} onchange={ValidatehrsPM} onkeydown={ValidateForNoOnly} class="form-control TableInput PM_Monday PM_DBL" format="00.00" maxlength="5"  placeholder="00.00"></lightning-input></div>
@@ -1088,8 +1088,8 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_MonTot" value={CM_MonTot} maxlength="5" placeholder="0"></lightning-input></td>
-                                    <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_TueTot" value={CM_TueTot} maxlength="5" placeholder="0"></lightning-input></td>
+                                    <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_MonTot" value={CM_MonTot} maxlength="5" placeholder=""></lightning-input></td>
+                                    <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_TueTot" value={CM_TueTot} maxlength="5" placeholder=""></lightning-input></td>
                                     <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_WedTot" value={CM_WedTot} maxlength="5" placeholder="0"></lightning-input></td>
                                     <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_ThuTot" value={CM_ThuTot} maxlength="5" placeholder="0"></lightning-input></td>
                                     <td><lightning-input type="decimal" readonly="readonly" class="form-control TableInput CM_FriTot" value={CM_FriTot} maxlength="5" placeholder="0"></lightning-input></td>
@@ -1176,17 +1176,17 @@
                                     
                             </template>
                             <template if:false={dailyTimesheetFinalCheckbox}>
-                                    <lightning-input type="checkbox" disabled readonly="readonly"  label="Final" class=" finalcheckbox" name="chekbox1"></lightning-input>
+                                    <lightning-input type="checkbox" disabled readonly="readonly" data-element="subscribe-checkbox" onchange={finalCheck} label="Final" class=" finalcheckbox" name="chekbox1"></lightning-input>
                                    
                                 </template>
                            
                         </template>
                         <template if:false={restrict}>
                             <template if:true={dailyTimesheetFinalCheckbox}>
-                                    <lightning-input type="checkbox" label="Final" class=" finalcheckbox" checked name="chekbox1"></lightning-input>
+                                    <lightning-input type="checkbox" label="Final"  class=" finalcheckbox" checked name="chekbox1"></lightning-input>
                             </template>
                             <template if:false={dailyTimesheetFinalCheckbox}>
-                                    <lightning-input type="checkbox" label="Final" class=" finalcheckbox" name="chekbox1"></lightning-input>
+                                    <lightning-input type="checkbox" label="Final" data-element="subscribe-checkbox" onchange={finalCheck} class=" finalcheckbox" name="chekbox1"></lightning-input>
                                 </template>   
                         </template>
                         
@@ -1198,7 +1198,32 @@
 
             </div><!---END Inner Wrapper-->
         </div><!--- End Full Container-->
-
+        
+        <template if:true={finalCheckModal}>
+            <div class="SavePopup" style="height: 640px; position: absolute;">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <!-- <header class="slds-modal__header"> -->
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeFinalModal}>
+                                <lightning-icon icon-name="utility:close" size="medium">
+                                </lightning-icon>
+                            </button>
+                            <!-- <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Daily Timesheet</h2> -->
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                            <center><h2><b>{FinalWarning}</b></h2>
+                            </center>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            
+                            <lightning-button label="Yes" variant="brand" onclick={saveFinalModal}></lightning-button>
+                            <lightning-button label="Cancel" variant="neutral" onclick={closeFinalModal}></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+            </template>
         <template if:true={openmodel}>
         <div class="SavePopup" style="height: 640px; position: absolute;">
             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">

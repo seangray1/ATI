@@ -17,6 +17,7 @@ import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import CASE_OBJECT from '@salesforce/schema/Case';
+const DELAY = 1000;
 export default class caseButton extends NavigationMixin (LightningElement) {
     connectedCallback(){
         
@@ -60,8 +61,26 @@ get recordTypeId() {
     
 }
 subjectChange(event){
-    this.subject = event.detail.value;
+    // window.clearTimeout(this.delayTimeout);
     
+    clearTimeout(this.timeoutId); // no-op if invalid id
+    this.timeoutId = setTimeout(this.SubjectSet.bind(this), 5000);
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      //this.delayTimeout = setTimeout(() => {
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+    //   this.delayTimeout = setTimeout(() => {
+    //     this.subject = event.detail.value;
+    //     console.log('Test ' + this.subject);
+    //         //    this.AccountRoles[rowInd].ContactSearch = 't';
+    //       }).catch((error) => {
+    //         this.error = error;
+    //   }, DELAY);
+    
+    
+    
+}
+SubjectSet(){
+    console.log('etest delay' );
 }
 descriptionChange(event){
     this.description = event.detail.value;
@@ -79,6 +98,14 @@ ButtonClicked(){
     
  
    
+}
+Test1(e)
+{
+    console.log('Test1');
+    console.log(e.target.value);
+}
+Test(e){
+    console.log('Test ' + e);
 }
 handleSuccess(){
     

@@ -41,13 +41,13 @@ import checkId from "@salesforce/apex/NewJobController.CheckId";
 import CreateNewJob from "@salesforce/apex/NewJobController.CreateNewJob";
 import { NavigationMixin } from "lightning/navigation";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
-// import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import { getObjectInfo } from "lightning/uiObjectInfoApi";
 
 // import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 // import ATIJOB_OBJECT from "@salesforce/schema/ATI_Job__c";
 // import MASTERJOB_OBJECT from "@salesforce/schema/Master_Job__c";
-// import ACCOUNT_OBJECT from "@salesforce/schema/Account";
-// import CONTACT_OBJECT from "@salesforce/schema/Contact";
+import ACCOUNT_OBJECT from "@salesforce/schema/Account";
+import CONTACT_OBJECT from "@salesforce/schema/Contact";
 // import PROPERTY_OBJECT from "@salesforce/schema/Property__c";
 // import ACCOUNTROLES_OBJECT from "@salesforce/schema/Account_Roles__c";
 // import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
@@ -321,6 +321,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   @track Coronavirus = "";
   @track SameDayDispatch = "";
   @track focusClicked = false;
+  ContactTypeValues;
+  AccountTypeValues;
 
   // @wire(getRecord, {
   //     recordId: UserId,
@@ -339,10 +341,10 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   // }
   // @wire(getObjectInfo, { objectApiName: ACCOUNTROLES_OBJECT })
   // objectInfo;
-  // @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
-  // accountInfo;
-  // @wire(getObjectInfo, { objectApiName: CONTACT_OBJECT })
-  // contactInfo;
+  @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
+  accountInfo;
+  @wire(getObjectInfo, { objectApiName: CONTACT_OBJECT })
+  contactInfo;
   // @wire(getObjectInfo, { objectApiName: PROPERTY_OBJECT })
   // propertyInfo;
   // @wire(getObjectInfo, { objectApiName: MASTERJOB_OBJECT })
@@ -405,12 +407,22 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     recordTypeId: "$accountInfo.data.defaultRecordTypeId",
     fieldApiName: TYPE_FIELD
   })
-  AccountTypeValues;
+  AccountTypeValues1({ data }) {
+    if (data) {
+      this.AccountTypeValues = data.values;
+      
+    }
+  }
   @wire(getPicklistValues, {
     recordTypeId: "$contactInfo.data.defaultRecordTypeId",
     fieldApiName: CONTACTTYPE_FIELD
   })
-  ContactTypeValues;
+  ContactTypeValues1({ data }) {
+    if (data) {
+      this.ContactTypeValues = data.values;
+      
+    }
+  }
   
  
   
@@ -1529,12 +1541,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     let searchKey = event.detail.value;
     if (searchKey.length === 0) {
       this.Offices = "";
+      this.OfficeValue = "";
+      this.OfficeId = "";
     }
   }
   ClearProjectDirector(event) {
     let searchKey = event.detail.value;
     if (searchKey.length === 0) {
       this.ProjectDirectors = "";
+      this.ProjectDirectorId = "";
+      
     }
   }
   ClearMajorEvent(event) {
@@ -1817,7 +1833,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     window.clearTimeout(this.delayTimeout);
     var searchKey = event.target.value;
     if (searchKey.length === 0) {
-      this.Offices = null;
+      this.Offices = "";
+      this.OfficeValue = "";
+      this.OfficeId = "";
     }
     if (searchKey.length >= 1) {
       // eslint-disable-next-line @lwc/lwc/no-async-operation
@@ -1841,7 +1859,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     window.clearTimeout(this.delayTimeout);
     var searchKey = event.target.value;
     if (searchKey.length === 0) {
-      this.ProjectDirectors = null;
+      this.ProjectDirectors = "";
+      this.ProjectDirectors = "";
     }
     if (searchKey.length >= 1) {
       // eslint-disable-next-line @lwc/lwc/no-async-operation

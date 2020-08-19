@@ -179,6 +179,9 @@
             "c/itemsToApprove": [
                 "itemsToApprove/itemsToApprove.js"
             ],
+            "c/largeLossDataTable": [
+                "largeLossDataTable/largeLossDataTable.js"
+            ],
             "c/largeLossLWC": [
                 "largeLossLWC/largeLossLWC.js"
             ],
@@ -346,9 +349,6 @@
             ],
             "c/verticalNavigationSection": [
                 "verticalNavigationSection/verticalNavigationSection.js"
-            ],
-            "c/largeLossDataTable": [
-                "largeLossDataTable/largeLossDataTable.js"
             ]
         },
         "experimentalDecorators": true

@@ -10,7 +10,7 @@
         </div>
     </div> -->
     <label>Comments:</label>
-     <textarea class="slds-textarea" id="Comments" onchange={handleFormInputChange} name="Comments" rows="6" cols="50">
+     <textarea class="slds-textarea" id="Comments" onkeyup={handleFormInputChange} name="Comments" rows="6" cols="50">
         
     </textarea>
     <div if:true={loading}>
@@ -20,12 +20,13 @@
      </div>
      <br>
      <br>
-    
+    <footer>
     <div class="slds-button-group">
         <button type="button" onclick={submit} class="slds-button slds-button_brand">Submit</button>
         <button type="button" onclick={cancel} class="slds-button slds-button_neutral">Cancel</button>
         
       </div>
+    </footer>
     <!-- <template if:true={loading}>
  
         <div class="exampleHolder">

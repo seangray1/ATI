@@ -815,7 +815,7 @@
                     label="Contact Type"
                     value={ContactType}
                     placeholder="-Select-"
-                    options={ContactTypeValues.data.values}
+                    options={ContactTypeValues}
                     onchange={ContactTypeChange}
                     class="contactFormControl" required  >
                     </lightning-combobox>
@@ -977,7 +977,7 @@
             value={Type}
             class="companyAccountFormControl" required 
             placeholder="-Select-"
-            options={AccountTypeValues.data.values}
+            options={AccountTypeValues}
             onchange={TypeChange} >
         </lightning-combobox>
         
@@ -1113,7 +1113,7 @@
                             placeholder="-Select-"
                             class="personAccountFormControl" 
                             required
-                            options={AccountTypeValues.data.values}
+                            options={AccountTypeValues}
                             onchange={TypeChange} >
                         </lightning-combobox>
                        

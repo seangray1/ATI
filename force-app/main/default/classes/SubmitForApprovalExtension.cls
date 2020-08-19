@@ -11,7 +11,7 @@ public static String submitForApproval(Id recordId, String comments)
 try 
 {
             
-         
+         system.debug('Comments are ' + comments);
     Id userPr = UserInfo.getProfileId();
     Id user1 = UserInfo.getUserId();
     String sObjName = recordId.getSObjectType().getDescribe().getName();
@@ -24,7 +24,12 @@ try
         profiles.putall(profs);
         if(profiles.containsKey(userPr))
         {
-            Master_Job__c mjob = [Select Id, Name FROM Master_Job__c Where Id =: job1.Master_Job__c];
+            
+            Master_Job__c mjob = [Select Id, Name, Account_executive_1__c, Account_Executive_2__c FROM Master_Job__c Where Id =: job1.Master_Job__c];
+            if(mjob.Account_Executive_2__c == user1 || mjob.Account_Executive_1__c == user1 || (mjob.Account_Executive_1__c != null && mjob.Account_Executive_2__c != null))
+            {
+                return 'Either there are already 2 AEs assigned or you are already assigned to the job.';
+            }
             List<ATI_Job__c> job = [Select Id, Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Contact__c, Contact__r.Name FROM ATI_Job__c Where Master_job__c =: mjob.Id Limit 5];
             list<Task> t = [Select Id, CreatedDate, whoId, subject, ownerId, description FROM Task Where whoId =:job[0].Contact__c AND Type = 'Marketing Note' ORDER BY createdDate DESC Limit 1];
             Set<Id> uIds = new Set<Id>{UserInfo.getUserId()};
@@ -102,7 +107,11 @@ try
         profiles.putall(profs);
         if(profiles.containsKey(userPr))
         {
-            Master_Job__c mjob = [Select Id, Name FROM Master_Job__c Where Id =: recordId];
+            Master_Job__c mjob = [Select Id, Name, Account_executive_1__c, Account_Executive_2__c FROM Master_Job__c Where Id =: recordId];
+            if(mjob.Account_Executive_2__c == user1 || mjob.Account_Executive_1__c == user1 || (mjob.Account_Executive_1__c != null && mjob.Account_Executive_2__c != null))
+            {
+                return 'Either there are already 2 AEs assigned or you are already assigned to the job.';
+            }
     List<ATI_Job__c> job = [Select Id, Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Contact__c, Contact__r.Name FROM ATI_Job__c Where Master_job__c =: recordId Limit 5];
     list<Task> t = [Select Id, CreatedDate, whoId, subject, ownerId, description FROM Task Where whoId =:job[0].Contact__c AND Type = 'Marketing Note' ORDER BY createdDate DESC Limit 1];
     Set<Id> uIds = new Set<Id>{UserInfo.getUserId()};

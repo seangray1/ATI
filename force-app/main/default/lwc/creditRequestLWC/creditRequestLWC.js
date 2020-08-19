@@ -60,14 +60,14 @@ Comments = '';
 submit(){
     this.loading = true;
     let comments = this.template.querySelector('textarea');
-    console.log('comments are ' + comments);
+    console.log('comments are ' + this.Comments);
     jobApproval({
     recordId : this.recordId, comments : this.Comments
     }).then(result => {
     ;
     let message = result;
 
-    if(message === 'success'){
+    if(message === 'Success'){
     //     const evt = new ShowToastEvent({
     //         title: 'Success',
     //         message: 'Record Saved!',
@@ -94,7 +94,7 @@ submit(){
 }
 handleFormInputChange(event)
 {
-    this.Comments = event.detail.value;
+    this.Comments = event.target.value;
 }
 cancel(){
     this.dispatchEvent(new CustomEvent('Close'));  

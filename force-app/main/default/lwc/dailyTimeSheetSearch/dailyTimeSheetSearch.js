@@ -3,7 +3,7 @@
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin} from 'lightning/navigation';
 import findJobs from '@salesforce/apex/DailyTimesheetController.findJobs';
-const DELAY = 1400;
+const DELAY = 500;
 export default class DailyTimeSheetSearch extends NavigationMixin(LightningElement) {
     @track searchKey = '';
     @track Jobs;

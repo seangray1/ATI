@@ -34,46 +34,46 @@ public without sharing class DynamicApprovalController {
 //         return e.getMessage();
 //     }
 // }
-    public class ViewItems {
-        @auraenabled
-        public string label {get;set;}
-        @auraenabled
-        public string apiName {get;set;}
-    }
-    @AuraEnabled
-    public static List<ViewItems> GetViewTypes(String objectName)
-    {
-        List<ViewItems> ViewItems = new List<ViewItems>();
-        List<Approval_Configuration__mdt> approvalRecord = [Select Object_Name__c, label FROM Approval_Configuration__mdt];
-        system.debug('Approval Record is ' + approvalRecord);
-        for(Approval_Configuration__mdt md: approvalRecord)
-        {
-            ViewItems view = new ViewItems();
-            view.label = Schema.getGlobalDescribe().get(md.Object_Name__c).getDescribe().getLabel();
-            view.apiName = md.Object_Name__c;
-            system.debug('View is ' + view);
-            ViewItems.add(view);
-        }
+    // public class ViewItems {
+    //     @auraenabled
+    //     public string label {get;set;}
+    //     @auraenabled
+    //     public string apiName {get;set;}
+    // }
+    // @AuraEnabled
+    // public static List<ViewItems> GetViewTypes(String objectName)
+    // {
+    //     List<ViewItems> ViewItems = new List<ViewItems>();
+    //     List<Approval_Configuration__mdt> approvalRecord = [Select Object_Name__c, label FROM Approval_Configuration__mdt];
+    //     system.debug('Approval Record is ' + approvalRecord);
+    //     for(Approval_Configuration__mdt md: approvalRecord)
+    //     {
+    //         ViewItems view = new ViewItems();
+    //         view.label = Schema.getGlobalDescribe().get(md.Object_Name__c).getDescribe().getLabel();
+    //         view.apiName = md.Object_Name__c;
+    //         system.debug('View is ' + view);
+    //         ViewItems.add(view);
+    //     }
          
-        return ViewItems;
-    }
-    @AuraEnabled
-    public static List<string> GetColumns(String objectName)
-    {
-        system.debug('working');
-        Approval_Configuration__mdt approvalRecord = [Select Object_Name__c, label, Column_1__c, Column_2__c, Column_3__c,Column_4__c,Column_5__c FROM Approval_Configuration__mdt Where Object_Name__C =: objectName];
+    //     return ViewItems;
+    // }
+    // @AuraEnabled
+    // public static List<string> GetColumns(String objectName)
+    // {
+    //     system.debug('working');
+    //     Approval_Configuration__mdt approvalRecord = [Select Object_Name__c, label, Column_1__c, Column_2__c, Column_3__c,Column_4__c,Column_5__c FROM Approval_Configuration__mdt Where Object_Name__C =: objectName];
         
-        List<String> columnList = new List<String>{approvalRecord.Column_1__c, approvalRecord.Column_2__c, approvalRecord.Column_3__c, approvalRecord.Column_4__c, approvalRecord.Column_5__c};
-        List<String> columnListEdited = new List<String>();
-        for(String s : columnList)
-        {
-            s = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap().get(s).getDescribe().getLabel();
-            columnListEdited.add(s);
-        }
+    //     List<String> columnList = new List<String>{approvalRecord.Column_1__c, approvalRecord.Column_2__c, approvalRecord.Column_3__c, approvalRecord.Column_4__c, approvalRecord.Column_5__c};
+    //     List<String> columnListEdited = new List<String>();
+    //     for(String s : columnList)
+    //     {
+    //         s = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap().get(s).getDescribe().getLabel();
+    //         columnListEdited.add(s);
+    //     }
 
-        system.debug('List of column list ' + columnList);
-        return columnListEdited;
-    }
+    //     system.debug('List of column list ' + columnList);
+    //     return columnListEdited;
+    // }
 
     // @AuraEnabled
     // public static List<ItemToApprove> GetAccountData(String objectName){
@@ -342,6 +342,7 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
             ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
             system.debug('Items to Approve reject ' + itemstoapproverejectlist);
             Id qId = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject, Comments, Decision));
+            system.debug('working');
             return '200';
         }
         else
@@ -380,7 +381,13 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         
         Set<Id> contactIds = new Set<Id>();
         Set<Id> mjobids = new Set<Id>();
-        List<ProcessInstanceWorkitem> piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
+        List<ProcessInstanceWorkitem> piwi = new List<ProcessInstanceWorkitem>();
+        if(!Test.isRunningTest()){
+        piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
+        }
+        else{
+            piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem];  
+        }
         system.debug('Approvals include ' + piwi);
     //   if(objectName == 'Master Job')
     //   {   
@@ -396,7 +403,7 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         {
             processUserMap1.put(u.Id, u.Name);
         }
-        List<ProcessInstance> processInstanceList = [Select Id, targetObjectId, CreatedById,(SELECT Id, StepStatus, Comments FROM Steps) FROM ProcessInstance Where Id =: ProcessInstanceId];
+        List<ProcessInstance> processInstanceList = [Select Id, CreatedDate, targetObjectId, CreatedById,(SELECT Id, StepStatus, Comments FROM Steps) FROM ProcessInstance Where Id =: ProcessInstanceId];
         system.debug('Approvals include ' + processInstanceList);
         for(ProcessInstance p : processInstanceList)
         {
@@ -427,7 +434,7 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         if(objectName == 'Master Job')
         {
              mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, 
-            Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
+            Master_Job__r.Name, Master_Job__r.Approval_Error__c FROM ATI_Job__c Where Master_Job__c =: mjobids];
             
             for(ATI_Job__c job : mjoblist)
             {
@@ -462,11 +469,14 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
                 i.processinstanceId = p.Id;
                 i.comments = p.Steps[0].comments;
                 i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
+                Date subDate = date.valueOf(p.CreatedDate);
+                i.SubmittedDate =subDate;
                 system.debug('i is ' + i );
                 if(p.TargetObjectId != null && mjobMap.containsKey(p.targetObjectId))
                 {
                 i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
                 i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
+                i.ApprovalErrors = mjobMap.get(p.targetObjectId).Master_Job__r.Approval_Error__c;
                 i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
                 i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
                 i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
@@ -489,6 +499,8 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
                 i.processinstanceId = p.Id;
                 i.comments = p.Steps[0].comments;
                 i.createdByName = processuserMap1.get(processcContactInstanceMap.get(p.Id).createdById);
+                Date subDate = date.valueOf(p.CreatedDate);
+                i.SubmittedDate =subDate;
                 system.debug('i is ' + i );
                 
                 i.Contact = contactMap.get(p.targetObjectId).Name;
@@ -610,6 +622,10 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
         public string Comments {get;set;}
         @AuraEnabled
         public string ObjectName {get;set;}
+        @AuraEnabled
+        public string ApprovalErrors {get;set;}
+        @AuraEnabled
+        public date SubmittedDate {get;set;}
         @AuraEnabled
         public string id {get;set;}
     }

@@ -109,7 +109,7 @@ public without sharing class DailyTimesheetController {
                     Dailytimesheet.Id=timesheetList[0].id;
                     Dailytimesheet.StartDate__c=newstartdate;
                     Dailytimesheet.EndDate__c=newenddate;
-                    Dailytimesheet.Name=JobNumber+'-'+StartDate+'-'+EndDate;
+                    Dailytimesheet.Name=JobNumber+' - '+StartDate+'-'+EndDate;
                     Dailytimesheet.DailyTimsheetRecord__c=dailyTimesheetJson;
                     Dailytimesheet.Shift__c= shift;
                     Dailytimesheet.Location__c=location;
@@ -129,7 +129,7 @@ public without sharing class DailyTimesheetController {
                    Dailytimesheet.Final__c=finalcheckbox;
                    Dailytimesheet.Location__c=location;
                    Dailytimesheet.Shift__c= shift;
-                   Dailytimesheet.Name=JobNumber+'-'+StartDate+'-'+EndDate;
+                   Dailytimesheet.Name=JobNumber+' - '+StartDate+'-'+EndDate;
                    Dailytimesheet.comments__c=comments;
                     
                    
@@ -140,6 +140,10 @@ public without sharing class DailyTimesheetController {
         if(!timesheetListUpdated.isEmpty()){
             upsert timesheetListUpdated;
             system.debug('Test$$$$$'+timesheetListUpdated);
+            if(timesheetListUpdated[0].Final__c == true)
+            {
+                DailyTimesheetPDFController.attachonly(timesheetlistupdated[0].Id);
+            }
             return timesheetListUpdated[0].id;
            
         }

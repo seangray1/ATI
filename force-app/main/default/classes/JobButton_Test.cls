@@ -43,7 +43,7 @@ private class JobButton_Test {
             JobButtons.PMAssignmentQuery(jobs.id);
             JobButtons.CaseChatterTaskCreation(jobs.id, 'Test', 'Test');
             JobButtons.JobCaseInfo(jobs.id);
-            JobButtons.LargeLossApprovalSubmission(jobs.id);
+            // JobButtons.LargeLossApprovalSubmission(jobs.id);
             JobButtons.ContactAccount(jobs.id);
             JobButtons.AllocationApproval('t', jobs.id, 'JobNumber', 'Amount', 'FirstQ', 'SecondQ', 'ThirdQ', 'Subcontractor', 'Description');
             TaskTriggerUtility.LogACall(c.id, '{"ContactString":["' + cont.Id +'"]}', 'Call', 'Normal', system.today(), 'Coffee', 'Payments', 'Paid', 'Log A Call', 'Test', true);
