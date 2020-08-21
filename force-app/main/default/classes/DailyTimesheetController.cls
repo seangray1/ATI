@@ -142,7 +142,7 @@ public without sharing class DailyTimesheetController {
             system.debug('Test$$$$$'+timesheetListUpdated);
             if(timesheetListUpdated[0].Final__c == true)
             {
-                DailyTimesheetPDFController.attachonly(timesheetlistupdated[0].Id);
+                DailyTimesheetPDFController.attachonlyoncreate(timesheetlistupdated[0].Id);
             }
             return timesheetListUpdated[0].id;
            

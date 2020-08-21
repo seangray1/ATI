@@ -21,7 +21,8 @@ public class DailyTimesheetPDFTmpController {
     public DailyTimesheetPDFTmpController() {
     
     ID timesheetID= ApexPages.currentPage().getParameters().get('dt__id');
-    List<daily_timesheet__c> timesheetDetailList = [SELECT DailyTimsheetRecord__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Location__c,Name,Shift__c,StartDate__c FROM Daily_Timesheet__c where Id =: timesheetID];
+    system.debug('TimesheetId is ' + timesheetID);
+    List<daily_timesheet__c> timesheetDetailList = [SELECT  DailyTimsheetRecord__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Location__c,Name,Shift__c,StartDate__c FROM Daily_Timesheet__c where Id =: timesheetID];
     system.debug('Timesheetdetail list in VF is ' + timesheetDetailList);
         string jsonstring = timesheetDetailList[0].DailyTimsheetRecord__c;
         location = timesheetDetailList[0].Location__c;

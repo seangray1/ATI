@@ -245,5 +245,53 @@ public without sharing class DailyTimesheetPDFController {
      
      }
     }
+    @AuraEnabled
+    public static void attachonlyoncreate(ID timesheetID)
+    {
+        system.debug('Timesheet Id is ' + timesheetID);
+        CreatePDF(timesheetID);
+   
+     
+    }
+    @future(callout=true)
+    public static void CreatePDF(Id timesheetID)
+    {
+        List<daily_timesheet__c> timesheetDetailedList = [SELECT DailyTimsheetRecord__c,EndDate__c,Final__c,Id,Job__c,Location__c,Name,Shift__c,StartDate__c FROM Daily_Timesheet__c where Id =: timesheetID];
+        
+    system.debug('Timesheet list contains ' + timesheetDetailedList);
+    PageReference mypage = Page.DailyTimesheetPDFpageTemplate;
+	 mypage.getParameters().put('dt__id',timesheetID);
+	 mypage.setRedirect(true);
+     blob b = mypage.getContentAsPDF();
+     if(timesheetDetailedList[0].Final__c == true)
+     {
+         system.debug('Getting called');
+        Attachment mydoc = new Attachment();
+        mydoc.body = b;
+        mydoc.Name='Daily Timesheet ' + timesheetDetailedList[0].Name +'.pdf';
+        mydoc.ContentType = '.pdf';
+        mydoc.ParentId = timesheetDetailedList[0].job__c;
+        
+        insert mydoc;
+
+            
+        system.debug('Pdf attachments body is ' + mydoc.body);
+        ContentVersion conVer = new ContentVersion();
+        conVer.PathOnClient = '/' + mydoc.name; // The files name, extension is very important here which will help the file in preview.
+        conVer.Title = 'Daily Timesheet ' + timesheetDetailedList[0].Name +'.pdf'; // Display name of the files
+        conVer.VersionData = mydoc.body; // converting your binary string to Blog
+        insert conVer;
+        ContentVersion testContent = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :conVer.Id];
+        system.debug('test content is ' + testContent);
+        ContentDocumentLink cDe = new ContentDocumentLink();
+        cDe.ContentDocumentId = testContent.ContentDocumentId;
+        cDe.LinkedEntityId = timesheetDetailedList[0].job__c; // you can use objectId,GroupId etc
+        cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
+        cDe.Visibility = 'AllUsers';
+        insert cDe;
+        delete mydoc;
+     
+     }
+    }
        
 }
