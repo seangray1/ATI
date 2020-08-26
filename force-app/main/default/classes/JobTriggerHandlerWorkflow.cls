@@ -23,8 +23,7 @@ public without sharing class JobTriggerHandlerWorkflow
             for(ATI_Job__c job : jobs)
             {
                 
-                system.debug('1 NewMaster Amount ' + MasterJobs.get(job.Master_Job__c).Amount__c + '\n' +
-                'Job new amount is ' + job.Amount__c);
+                
                     Decimal oldjobamount;
                     Decimal newjobamount;
                     ATI_Job__c oldJob = oldJobMap.get(job.Id);
@@ -159,7 +158,18 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     string test1 = job.name.replace('|','');
                     string test = EncodingUtil.urlEncode(test1, 'UTF-8').replace('+', '%20'); // convert to year, do everything after date
                     Date timeToDate = Date.valueOf(job.date_time_taken__c); 
-                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+ test;
+                    String month1;
+                    Integer i = job.Date_Time_Taken__c.Month();
+                    if(i<10)
+                    {
+                        month1 ='0'+ String.ValueOf(i);
+                    }
+                    else{
+                        month1= string.valueOf(i);
+                    }
+                    String projKey = month1+ '-' + j.Date_Time_Taken__c.Year();
+
+                    job.egnyte_Full_Path__c = 'https://atirestoration.egnyte.com/app/index.do#storage/files/1/Shared/Salesforce.com/Jobs' + '/' + timeTodate.year()+ '/'+projKey +'/'+ test;
                 }
                 
                 

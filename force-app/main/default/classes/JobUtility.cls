@@ -412,6 +412,17 @@ public class JobUtility {
             JobWrap.archived = false;
             JobWrap.address = address;
             JobWrap.projectName = Job.Project_Site_Name_Fotoin__c;
+            // String month1;
+            // Integer i = JobWrap.Date_Time_Taken__c.Month();
+            // if(i<10)
+            // {
+            //     month1 ='0'+ String.ValueOf(i);
+            // }
+            // else{
+            //     month1= string.valueOf(i);
+            // }
+            // String projKey = month1+ '-' + j.Date_Time_Taken__c.Year();
+
             JobWrap.projectKey = Job.year__c;
         }
         else{
@@ -477,7 +488,7 @@ public class JobUtility {
         //took out Project_Site_Address_2__c from the soql query. 
         for(ATI_Job__c Job : [SELECT Id, Name, Project_Site_Record_Id__c, Project_Site_Call_Result_Message__c, 
                                          Last_Successful_FotoIn_Update__c, Last_FotoIn_Update__c, Project_Site_Name__c, 
-                                         Project_Site_Name_Fotoin__c, Project_Site_Address__c,year__c ,
+                                         Project_Site_Name_Fotoin__c, Project_Site_Address__c,year__c , Date_Time_Taken__c,
                                          Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c 
                                   FROM ATI_Job__c 
                                   WHERE Id IN: jobIdSet LIMIT 49999 ]){
@@ -508,7 +519,7 @@ public class JobUtility {
         
         //took out Project_Site_Address_2__c from the soql query. 
         for(ATI_Job__c Job : [SELECT Id, Name, Project_Site_Name_Fotoin__c, Project_Site_Name__c, 
-                                         Project_Site_Record_Id__c, Last_Successful_FotoIn_Update__c, 
+                                         Project_Site_Record_Id__c, Last_Successful_FotoIn_Update__c,Date_Time_Taken__c, 
                                          Last_FotoIn_Update__c,year__c, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Project_Site_Zipcode__c
                                   FROM ATI_Job__c WHERE Id IN: jobIdSet LIMIT 49999 FOR UPDATE ]){
             try{

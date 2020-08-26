@@ -25,13 +25,13 @@ import SearchProperties from "@salesforce/apex/NewJobController.GetProperties";
 import GetPropertyInfo from "@salesforce/apex/NewJobController.GetPropertyInfo";
 import GetUsers from "@salesforce/apex/NewJobController.GetUsers";
 import GetMajorEvents from "@salesforce/apex/NewJobController.GetMajorEvents";
-import GetPropertyTypePicklist from "@salesforce/apex/NewJobController.GetPropertyTypePicklist";
-import GetAccountRolesPicklist from "@salesforce/apex/NewJobController.getPickListValuesIntoList";
-import GetDivisionPicklist from "@salesforce/apex/NewJobController.GetDivisionPicklist";
-import GetJobClassPicklist from "@salesforce/apex/NewJobController.GetJobClassPicklist";
-import GetEsJobTypePicklist from "@salesforce/apex/NewJobController.GetEsJobTypePicklist";
-import GetLeadSourcePicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
-import GetMultipleDivisionPicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
+// import GetPropertyTypePicklist from "@salesforce/apex/NewJobController.GetPropertyTypePicklist";
+// import GetAccountRolesPicklist from "@salesforce/apex/NewJobController.getPickListValuesIntoList";
+// import GetDivisionPicklist from "@salesforce/apex/NewJobController.GetDivisionPicklist";
+// import GetJobClassPicklist from "@salesforce/apex/NewJobController.GetJobClassPicklist";
+// import GetEsJobTypePicklist from "@salesforce/apex/NewJobController.GetEsJobTypePicklist";
+// import GetLeadSourcePicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
+// import GetMultipleDivisionPicklist from "@salesforce/apex/NewJobController.GetLeadSourcePicklist";
 import SearchCustomers from "@salesforce/apex/NewJobController.GetCustomers";
 import SearchContactAccounts from "@salesforce/apex/NewJobController.GetContactAccounts";
 import SearchOffices from "@salesforce/apex/NewJobController.GetOffices";
@@ -43,19 +43,20 @@ import { NavigationMixin } from "lightning/navigation";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import ATIJOB_OBJECT from "@salesforce/schema/ATI_Job__c";
-import MASTERJOB_OBJECT from "@salesforce/schema/Master_Job__c";
+// import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+// import ATIJOB_OBJECT from "@salesforce/schema/ATI_Job__c";
+// import MASTERJOB_OBJECT from "@salesforce/schema/Master_Job__c";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
 import CONTACT_OBJECT from "@salesforce/schema/Contact";
-import PROPERTY_OBJECT from "@salesforce/schema/Property__c";
-import ACCOUNTROLES_OBJECT from "@salesforce/schema/Account_Roles__c";
-import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
-import MULTIPLEDIVISION_FIELD from "@salesforce/schema/Master_Job__c.Multiple_Divisions__c";
+// import PROPERTY_OBJECT from "@salesforce/schema/Property__c";
+// import ACCOUNTROLES_OBJECT from "@salesforce/schema/Account_Roles__c";
+// import ROLE_FIELD from "@salesforce/schema/Account_Roles__c.Roles__c";
+// import MULTIPLEDIVISION_FIELD from "@salesforce/schema/Master_Job__c.Multiple_Divisions__c";
 import DIVISION_FIELD from "@salesforce/schema/ATI_Job__c.Division__c";
-import JOBCLASS_FIELD from "@salesforce/schema/ATI_Job__c.Job_Class__c";
-import ESTIMATETYPE_FIELD from "@salesforce/schema/ATI_Job__c.Estimate_Type__c";
-import PROPERTYTYPE_FIELD from "@salesforce/schema/Property__c.Property_Type__c";
+// import JOBCLASS_FIELD from "@salesforce/schema/ATI_Job__c.Job_Class__c";
+import LEADSOURCE_FIELD from "@salesforce/schema/ATI_Job__c.Lead_Source__c";
+import ESJOBTYPE_FIELD from "@salesforce/schema/ATI_Job__c.ES_Job_Type__c";
+
 import MARKETCLASS_FIELD from "@salesforce/schema/ATI_Job__c.Market_Class__c";
 import MARKETSEGMENT_FIELD from "@salesforce/schema/ATI_Job__c.Market_Segment__c";
 import MARKETSEGMENTSUBCLASS_FIELD from "@salesforce/schema/ATI_Job__c.Market_Segment_Sub_Class__c";
@@ -83,7 +84,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   Properties;
   Offices;
   OfficeId;
-  OfficeValue;
+  @track OfficeValue;
+  descriptionNotFilled = true;
   ContactAccountRole;
   Customers;
   CustomerValue;
@@ -91,6 +93,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   CustomerId;
   CustomerSelectedField;
   ContactAccounts;
+  submitClicked = false;
   ContactAccountValue;
   ContactAccountPicked = false;
   ContactAccountSelected = false;
@@ -138,6 +141,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   BillingCountry;
   AccountPhone;
   AccountPhoneExt;
+  AdditionalInfo;
   City;
   Country;
   State;
@@ -145,48 +149,50 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   PropertyType = "";
   Zip;
   @track PropertyChecked = false;
-  Description =
-    "Type of Loss:" +
-    "\n" +
-    "Cause of Loss:" +
-    "\n" +
-    "Customer Type:" +
-    "\n" +
-    "Property Description:" +
-    "\n" +
-    "Areas Affected:" +
-    "\n" +
-    "Damaged Materials:" +
-    "\n" +
-    "Flooring Type:" +
-    "\n" +
-    "Is power shut-off in the building? (Y/N)" +
-    "\n" +
-    "Is there a gate code?" +
-    "\n" +
-    "Is there standing water? (Y/N)" +
-    "\n" +
-    "Is the standing water clean, gray or black water?(Clean,Gray,Black)" +
-    "\n" +
-    "Have you called a plumber?(Y/N)" +
-    "\n" +
-    "Has the water been shut off? (Y/N)" +
-    "\n" +
-    "Has the leak been fixed? (Y/N)" +
-    "\n" +
-    "What type of fire damage is there? (Smoke, soot, ashes)" +
-    "\n" +
-    "Were emergency responders on the scene? (Police, Fire)" +
-    "\n" +
-    "Have emergency responders given clearance to access the building?" +
-    "\n" +
-    "Are we dealing with blood or body fluids?" +
-    "\n" +
-    "How long was the body on site?" +
-    "\n" +
-    "Is there an odor we need to address?" +
-    "\n" +
-    "Are we packing the belongings for the next of kin?";
+  JobResultsDescription = "";
+  Description = "";
+  error;
+    // "Type of Loss:" +
+    // "\n" +
+    // "Cause of Loss:" +
+    // "\n" +
+    // "Customer Type:" +
+    // "\n" +
+    // "Property Description:" +
+    // "\n" +
+    // "Areas Affected:" +
+    // "\n" +
+    // "Damaged Materials:" +
+    // "\n" +
+    // "Flooring Type:" +
+    // "\n" +
+    // "Is power shut-off in the building? (Y/N)" +
+    // "\n" +
+    // "Is there a gate code?" +
+    // "\n" +
+    // "Is there standing water? (Y/N)" +
+    // "\n" +
+    // "Is the standing water clean, gray or black water?(Clean,Gray,Black)" +
+    // "\n" +
+    // "Have you called a plumber?(Y/N)" +
+    // "\n" +
+    // "Has the water been shut off? (Y/N)" +
+    // "\n" +
+    // "Has the leak been fixed? (Y/N)" +
+    // "\n" +
+    // "What type of fire damage is there? (Smoke, soot, ashes)" +
+    // "\n" +
+    // "Were emergency responders on the scene? (Police, Fire)" +
+    // "\n" +
+    // "Have emergency responders given clearance to access the building?" +
+    // "\n" +
+    // "Are we dealing with blood or body fluids?" +
+    // "\n" +
+    // "How long was the body on site?" +
+    // "\n" +
+    // "Is there an odor we need to address?" +
+    // "\n" +
+    // "Are we packing the belongings for the next of kin?";
   Division;
   Office;
   JobClass;
@@ -201,11 +207,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   ContactRole;
   CustomerAccountId;
   CustomerAccountName;
-  AccountRolePicklistValuesContainer = [{}];
-  DivisionPicklistValues = [{}];
-  JobClassPicklistValues = [{}];
-  EsJobTypePicklistValues = [{}];
-  LeadSourcePicklistValues = [{}];
+  AccountRolePicklistValuesContainer;
+  DivisionPicklistValues;
+  JobClassPicklistValues;
+  EsJobTypePicklistValues;
+  LeadSourcePicklistValues;
   MultipleDivisionPicklistValues = [{}];
   PropertyTypeValuesContainer = [{}];
   ARReady = false;
@@ -245,6 +251,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   AddressLine2;
   projectSiteContactCount = 0;
   ProjectDirectorSelected = false;
+  OfficeSelected = false;
   DateOfLoss;
   ClientJob;
   YearBuilt;
@@ -288,6 +295,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   Body = "";
   Odor = "";
   Belongings = "";
+  Afterhoursform = false;
   @track ExistingMasterJob = false;
   @api jobrecordId;
   @api TypeOfJobEntry;
@@ -313,6 +321,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   @track Coronavirus = "";
   @track SameDayDispatch = "";
   @track focusClicked = false;
+  ContactTypeValues;
+  AccountTypeValues;
 
   // @wire(getRecord, {
   //     recordId: UserId,
@@ -329,74 +339,93 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   //         this.TakenByValue = this.name;
   //     }
   // }
-  @wire(getObjectInfo, { objectApiName: ACCOUNTROLES_OBJECT })
-  objectInfo;
+  // @wire(getObjectInfo, { objectApiName: ACCOUNTROLES_OBJECT })
+  // objectInfo;
   @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
   accountInfo;
   @wire(getObjectInfo, { objectApiName: CONTACT_OBJECT })
   contactInfo;
-  @wire(getObjectInfo, { objectApiName: PROPERTY_OBJECT })
-  propertyInfo;
-  @wire(getObjectInfo, { objectApiName: MASTERJOB_OBJECT })
-  masterjobInfo;
-  @wire(getObjectInfo, { objectApiName: ATIJOB_OBJECT })
-  atijobInfo;
-  @wire(getPicklistValues, {
-    recordTypeId: "$objectInfo.data.defaultRecordTypeId",
-    fieldApiName: ROLE_FIELD
-  })
-  AccountRolesValues;
-  @wire(getPicklistValues, {
-    recordTypeId: "$objectInfo.data.defaultRecordTypeId",
-    fieldApiName: ROLE_FIELD
-  })
-  AccountRoleValues;
+  // @wire(getObjectInfo, { objectApiName: PROPERTY_OBJECT })
+  // propertyInfo;
+  // @wire(getObjectInfo, { objectApiName: MASTERJOB_OBJECT })
+  // masterjobInfo;
+  // @wire(getObjectInfo, { objectApiName: ATIJOB_OBJECT })
+  // atijobInfo;
+  // @wire(getPicklistValues, {
+  //   recordTypeId: "$objectInfo.data.defaultRecordTypeId",
+  //   fieldApiName: ROLE_FIELD
+  // })
+  // AccountRolesValues({ data }) {
+  //   if (data) {
+  //     this.AccountRolePicklistValuesContainer = data.values;
+  //     console.log(this.AccountRolePicklistValuesContainer);
+  //   }
+  // }
+  // @wire(getPicklistValues, {
+  //   recordTypeId: "$objectInfo.data.defaultRecordTypeId",
+  //   fieldApiName: ROLE_FIELD
+  // })
+  // AccountRoleValues;
   @wire(getPicklistValues, {
     recordTypeId: "0120g000000l3yMAAQ",
     fieldApiName: DIVISION_FIELD
   })
-  AtiJobDivisionValues;
+  AtiJobDivisionValues({ data }) {
+    if (data) {
+      this.DivisionPicklistValues = data.values;
+      console.log(this.DivisionPicklistValues);
+    }
+  }
   @wire(getPicklistValues, {
     recordTypeId: "0120g000000l3yMAAQ",
-    fieldApiName: JOBCLASS_FIELD
+    fieldApiName: LEADSOURCE_FIELD
   })
-  AtiJobJobClassValues;
+  AtiJobLeadSourceValues({error, data }) {
+    if (data) {
+      this.LeadSourcePicklistValues = data.values;
+      console.log(this.LeadSourcePicklistValues);
+    }
+    else{
+      this.error = error;
+      // console.error(this.error);
+      console.log(this.error);
+    }
+  }
+ 
   @wire(getPicklistValues, {
-    recordTypeId: "0120g000000l3yM",
-    fieldApiName: ESTIMATETYPE_FIELD
+    recordTypeId: "0120g000000l3yMAAQ",
+    fieldApiName: ESJOBTYPE_FIELD
   })
-  AtiJobEstimateTypeValues;
+  AtiJobJobClassValues({ data }) {
+    if (data) {
+      this.EsJobTypePicklistValues = data.values;
+      console.log(this.EsJobTypePicklistValues);
+    }
+  }
+  
   @wire(getPicklistValues, {
     recordTypeId: "$accountInfo.data.defaultRecordTypeId",
     fieldApiName: TYPE_FIELD
   })
-  AccountTypeValues;
+  AccountTypeValues1({ data }) {
+    if (data) {
+      this.AccountTypeValues = data.values;
+      
+    }
+  }
   @wire(getPicklistValues, {
     recordTypeId: "$contactInfo.data.defaultRecordTypeId",
     fieldApiName: CONTACTTYPE_FIELD
   })
-  ContactTypeValues;
-  @wire(getPicklistValues, {
-    recordTypeId: "$propertyInfo.data.defaultRecordTypeId",
-    fieldApiName: PROPERTYTYPE_FIELD
-  })
-  PropertyTypeValues;
-  @wire(getPicklistValues, {
-    recordTypeId: "$masterjobInfo.data.defaultRecordTypeId",
-    fieldApiName: MULTIPLEDIVISION_FIELD
-  })
-  MultipleDivisionPicklistValues;
-  // @wire(getPicklistValues, { recordTypeId: '$propertyInfo.data.defaultRecordTypeId', fieldApiName: MARKETCLASS_FIELD})
-  // MarketClassValues;
-  // @wire(getPicklistValues, { recordTypeId: '$propertyInfo.data.defaultRecordTypeId', fieldApiName: MARKETSEGMENT_FIELD})
-  // MarketSegmentValues;
-  // @wire(getPicklistValues, { recordTypeId: '$propertyInfo.data.defaultRecordTypeId', fieldApiName: MARKETSEGMENTSUBCLASS_FIELD})
-  // MarketSegmentSubClassValues;
-
-  // get options() {
-  //     return [{
-  //         AccountRolesValues.data.values}];
-  // }
+  ContactTypeValues1({ data }) {
+    if (data) {
+      this.ContactTypeValues = data.values;
+      
+    }
+  }
+  
+ 
+  
   @wire(getPicklistValues, {
     recordTypeId: "0120g000000l3yMAAQ",
     fieldApiName: MARKETCLASS_FIELD
@@ -427,35 +456,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       console.log(this.MarketSegmentSubClassValues);
     }
   }
-  // get MarketClass() {
-
-  //     return [{label:"Residential", value:"Residential"}, {label:"Non-Residential", value:"Non-Residential"}];
-  // }
-  // get MarketSegment() {
-
-  //     return [{label:"", value:""}, {label:"", value:""}];
-  // }
-  // get MarketSegmentResidential() {
-
-  //     return [{label:"", value:""}, {label:"", value:""}];
-  // }
-  // get MarketSegmentSubClass() {
-
-  //     return [{label:"", value:""}, {label:"", value:""}];
-  // }
-
+  
   connectedCallback() {
-    console.log(
-      "Testing api.. Test is :  " +
-        this.TypeOfJobEntry +
-        " record id is " +
-        this.jobrecordId
-    );
+    
     if(this.TypeOfJobEntry === "NewJobEntry"){
       this.PropertyChecked = true;
     }
     if (this.TypeOfJobEntry === "AfterHoursJobEntry") {
-      GetJobInfo({ recordId: this.jobrecordId }).then((result) => {
+      
+      GetJobInfo({ recordId: this.jobrecordId }).then(result => {
         let jobresults = result;
         this.JobTemp = result;
         this.MasterJobId = jobresults.Master_Job__c;
@@ -465,10 +474,10 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           Address: jobresults.Project_Site_Address__c,
           State: jobresults.Project_Site_State__c,
           Zipcode: jobresults.Project_Site_Zipcode__c
-        }).then((result) => {
+        }).then(result => {
           let Prop = result;
           this.PropertyChecked = true;
-          console.log("Prop is " + Prop);
+          console.log("Prop is " + JSON.stringify(Prop));
           if (Prop.County__c === "Same Property") {
             this.PropertyPrompt = true;
             this.PropertyTempId = Prop;
@@ -476,12 +485,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             this.NewProperty = true;
           }
         });
-        console.log(
-          "Job results are " +
-            jobresults +
-            "   jobresults city " +
-            jobresults.Project_Site_City__c
-        );
+        
         if (
           jobresults.Project_Manager__c !== undefined &&
           jobresults.Project_Manager__c !== null &&
@@ -514,7 +518,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           this.MajorEventId = jobresults.Major_Event__c;
         }
         this.JobRealName = jobresults.Name;
-        this.Description = jobresults.Description__c;
+        this.JobResultsDescription = jobresults.Description__c;
         this.OfficeId = jobresults.Office2__c;
         this.OfficeValue = jobresults.Office2__r.Name;
         this.Street = jobresults.Project_Site_Address__c;
@@ -527,10 +531,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         this.JobName = jobresults.Job_Name__c;
         this.Division = jobresults.Division__c;
         
-        this.Afterhoursform = true;
+        
 
         this.ContactInfoAndDescription =
           jobresults.Contact_Info__c + "\n" + "\n" + jobresults.Description__c;
+          this.Afterhoursform = true;
         console.log(jobresults.Contact_Info__c);
         console.log(this.ContactInfoAndDescription);
       });
@@ -541,15 +546,15 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.TakenById = this.UserId;
     });
   }
-    GetAccountRolesPicklist({}).then((result) => {
-      var AccountRolePicklistValues = result;
-      for (var i = 0; i < AccountRolePicklistValues.length; i++) {
-        this.AccountRolePicklistValuesContainer.push({
-          label: AccountRolePicklistValues[i],
-          value: AccountRolePicklistValues[i]
-        });
-      }
-      this.AccountRolePicklistValuesContainer.shift();
+    // GetAccountRolesPicklist({}).then((result) => {
+    //   var AccountRolePicklistValues = result;
+    //   for (var i = 0; i < AccountRolePicklistValues.length; i++) {
+    //     this.AccountRolePicklistValuesContainer.push({
+    //       label: AccountRolePicklistValues[i],
+    //       value: AccountRolePicklistValues[i]
+    //     });
+    //   }
+    //   this.AccountRolePicklistValuesContainer.shift();
       this.ARReady = true;
       this.AccountRoles.push({
         Contact_ID__c: "",
@@ -557,65 +562,43 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         Multiple_Roles__c: ""
       });
       this.AccountRoles.shift();
-    });
-    GetPropertyTypePicklist({}).then((result) => {
-      var PropertyTypePicklist = result;
-      for (var i = 0; i < PropertyTypePicklist.length; i++) {
-        this.PropertyTypeValuesContainer.push({
-          label: PropertyTypePicklist[i],
-          value: PropertyTypePicklist[i]
-        });
-      }
-    //   this.PropertyTypeValuesContainer.shift();
-    //   if (this.TypeOfJobEntry === "AfterHoursJobEntry") {
-    //     this.NewProperty = true;
+   // });
+    
+    // GetDivisionPicklist({}).then((result) => {
+    //   var AccountRolePicklistValues = result;
+    //   for (var i = 0; i < AccountRolePicklistValues.length; i++) {
+    //     this.DivisionPicklistValues.push({
+    //       label: AccountRolePicklistValues[i],
+    //       value: AccountRolePicklistValues[i]
+    //     });
     //   }
-    });
-    GetDivisionPicklist({}).then((result) => {
-      var AccountRolePicklistValues = result;
-      for (var i = 0; i < AccountRolePicklistValues.length; i++) {
-        this.DivisionPicklistValues.push({
-          label: AccountRolePicklistValues[i],
-          value: AccountRolePicklistValues[i]
-        });
-      }
 
-      this.DivisionPicklistValues.shift();
-      this.ARDivision = true;
-    });
-    GetJobClassPicklist({}).then((result) => {
-      var AccountRolePicklistValues = result;
-      for (var i = 0; i < AccountRolePicklistValues.length; i++) {
-        this.JobClassPicklistValues.push({
-          label: AccountRolePicklistValues[i],
-          value: AccountRolePicklistValues[i]
-        });
-      }
+    //   this.DivisionPicklistValues.shift();
+    //   this.ARDivision = true;
+    // });
+    
+    // GetEsJobTypePicklist({}).then((result) => {
+    //   var AccountRolePicklistValues = result;
+    //   for (var i = 0; i < AccountRolePicklistValues.length; i++) {
+    //     this.EsJobTypePicklistValues.push({
+    //       label: AccountRolePicklistValues[i],
+    //       value: AccountRolePicklistValues[i]
+    //     });
+    //   }
 
-      this.JobClassPicklistValues.shift();
-    });
-    GetEsJobTypePicklist({}).then((result) => {
-      var AccountRolePicklistValues = result;
-      for (var i = 0; i < AccountRolePicklistValues.length; i++) {
-        this.EsJobTypePicklistValues.push({
-          label: AccountRolePicklistValues[i],
-          value: AccountRolePicklistValues[i]
-        });
-      }
+    //   this.EsJobTypePicklistValues.shift();
+    // });
+    // GetLeadSourcePicklist({}).then((result) => {
+    //   var AccountRolePicklistValues = result;
+    //   for (var i = 0; i < AccountRolePicklistValues.length; i++) {
+    //     this.LeadSourcePicklistValues.push({
+    //       label: AccountRolePicklistValues[i],
+    //       value: AccountRolePicklistValues[i]
+    //     });
+    //   }
 
-      this.EsJobTypePicklistValues.shift();
-    });
-    GetLeadSourcePicklist({}).then((result) => {
-      var AccountRolePicklistValues = result;
-      for (var i = 0; i < AccountRolePicklistValues.length; i++) {
-        this.LeadSourcePicklistValues.push({
-          label: AccountRolePicklistValues[i],
-          value: AccountRolePicklistValues[i]
-        });
-      }
-
-      this.LeadSourcePicklistValues.shift();
-    });
+    //   this.LeadSourcePicklistValues.shift();
+    // });
 
     // GetMultipleDivisionPicklist({}).then(result =>{
     //     var AccountRolePicklistValues = result;
@@ -627,9 +610,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     //     this.MultipleDivisionPicklistValues.shift();
     // })
   }
-  get options() {
-    return this.DivisionPicklistValues;
-  }
+  
+  
   get optionsYesNo() {
     return [
       { label: "Yes", value: "Yes" },
@@ -758,6 +740,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   CoronavirusChange(e) {
     this.Coronavirus = e.detail.value;
   }
+  CoronavirusPersonChange(e){
+    this.CoronavirusPerson = e.detail.value;
+  }
   SameDayDispatchChange(e) {
     this.SameDayDispatch = e.detail.value;
   }
@@ -797,6 +782,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   BelongingsChange(e) {
     this.Belongings = e.detail.value;
   }
+  AdditionalInfoChange(e) {
+    this.AdditionalInfo = e.detail.value;
+  }
 
   newDescriptionClick() {
     this.newDescription = true;
@@ -808,6 +796,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
   }
   SaveDescription() {
+    const input = [
+      ...this.template.querySelectorAll(".descriptionControl")
+    ].reduce((validSoFar, inputCmp) => {
+      inputCmp.reportValidity();
+      return validSoFar && inputCmp.checkValidity();
+    }, true);
+    if (!input) 
+    {
+      alert("Answer all required description fields before saving");
+    } else {
     this.Description =
       "Type of Loss: " +
       this.TypeOfLoss +
@@ -836,12 +834,19 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       "Is there a gate code? " +
       this.GateCode +
       "\n" +
-      "Is this related to the Coronavirus?" +
+      "Is the loss/damage related to Coronavirus? (Y/N)" +
       this.Coronavirus +
       "\n" +
-      "Are you requiring same-day dispatch?" +
-      this.SameDayDispatch;
+      "Has anyone at this property had symptoms of COVID-19 or been exposed to someone with symptoms of COVID-19? (Y/N)" +
+      this.CoronavirusPerson +
+      "\n" + 
+      "Are you requiring same-day dispatch? " +
+      this.SameDayDispatch + 
+      "\n" +
+      "Additional Information: " +
+      this.AdditionalInfo;
     this.newDescription = false;
+    this.descriptionNotFilled = false;
     console.log(this.Division);
     console.log(
       "waterLoss " + this.waterLoss + "       fireLoss " + this.fireLoss
@@ -897,7 +902,13 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           this.Belongings;
       }
     }
+    if(this.Afterhoursform === true)
+    {
+      this.Description = this.Description + "\n" + "\n" + "Info from original Job Request: " + 
+      this.JobResultsDescription;
+    }
   }
+}
   closeDescriptionModal() {
     this.newDescription = false;
   }
@@ -946,6 +957,11 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     this.newDescription = false;
   }
   searchAgain() {
+    this.ProjectDirectorSelected = false;
+    this.ProjectDirectorValue = "";
+    this.ProjectDirectorId = "";
+  }
+  searchAgain1() {
     this.ProjectDirectorSelected = false;
     this.ProjectDirectorValue = "";
     this.ProjectDirectorId = "";
@@ -1809,6 +1825,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     }
   }
   OfficeChange(event) {
+    console.log('Offices Search ' + event.target.value);
     window.clearTimeout(this.delayTimeout);
     var searchKey = event.target.value;
     if (searchKey.length === 0) {
@@ -1821,7 +1838,9 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.delayTimeout = setTimeout(() => {
         SearchOffices({ searchKey: searchKey })
           .then((result) => {
+            console.log('Offices result ' + JSON.stringify(result));
             this.Offices = result;
+            console.log('Offices result ' + JSON.stringify(this.Offices));
           })
 
           .catch((error) => {
@@ -1944,10 +1963,16 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
     // });
   }
   populateOfficeField(event) {
-    this.Offices = "";
-    var OfficeField = event.target.value;
+    this.Offices = '';
+    let OfficeField = event.target.value;
+    console.log('officefield ' + JSON.stringify(OfficeField));
+    console.log(this.OfficeValue);
+    this.OfficeValue = '';
+    console.log(this.OfficeValue);
     this.OfficeValue = OfficeField.Name;
+    console.log(this.OfficeValue);
     this.OfficeId = OfficeField.Id;
+    this.OfficeSelected = true;
   }
   populateProjectDirectorField(event) {
     this.ProjectDirectors = "";
@@ -2245,6 +2270,14 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
             alert("Either Select a Property or Create a New Property");
           } else {
             console.log("Description " + this.Description);
+            if (this.Coronavirus === 'Yes' && (this.MajorEventId === null || this.MajorEventId === undefined || this.MajorEventId === '')) {
+              this.billToCount = 0;
+              this.projectSiteContactCount = 0;
+              this.callerCount = 0;
+              alert("A Major Event must be selected since this is a Coronavirus related job");
+            } 
+            else {
+              
             if (
               this.Description === "" ||
               this.Description === undefined ||
@@ -2322,6 +2355,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                 console.log('Masterjob id before insert' + this.MasterJobId);
                 console.log('ExistingMasterjob before insert ' + this.ExistingMasterJob);
                 this.jobLoading = true;
+                this.submitClicked = true;
                 CreateNewJob({
                   AccountRoleInfo: AccountRoleInfo,
                   PropertyInfo: PropertyJSON,
@@ -2331,6 +2365,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   jobrecordId: this.jobrecordId,
                   ExistingMasterJob:this.ExistingMasterJob
                 }).then((result) => {
+                  this.submitClicked = false;
                   console.log("Response is " + result);
                   this.jobLoading = false;
                   this.billToCount = 0;
@@ -2339,6 +2374,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
                   let data = result;
                   if (data.length > 18) {
                     this.jobLoading = false;
+                    this.submitClicked = false;
                     alert(data);
                   } else {
                     this[NavigationMixin.Navigate]({
@@ -2354,6 +2390,8 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
               }
             }
           }
+          }
+        
         }
         }
       }
@@ -2375,7 +2413,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
           }, 1000);
           })
       }
-  
+      
   GenerateAccountRoleJSON() {
     var AccountRoleObject = {
       AccountRoleLineItems: this.GetAccountRolesObjects()

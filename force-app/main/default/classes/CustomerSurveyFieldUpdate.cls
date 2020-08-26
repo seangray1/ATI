@@ -18,7 +18,8 @@ public without sharing class CustomerSurveyFieldUpdate {
         if(!jobIds.isEmpty()){
             jobsMap = new Map<Id, ATI_Job__c>([SELECT id, Name, Office2__c, Project_Site_Contact_Name__c, 
                                                       Project_Manager_new__c, Project_Manager__r.ManagerId, 
-                                                      Structure_Superintendent__c, Operations_Manager__c, Branch_Manager__c 
+                                                      Structure_Superintendent__c, Operations_Manager__c, Branch_Manager__c, Account_Executive_1__c, 
+                                                      Account_Executive_2__c
                                                FROM ATI_Job__c 
                                                WHERE id IN:jobIds]);
         }
@@ -45,6 +46,8 @@ public without sharing class CustomerSurveyFieldUpdate {
                 suv.Superintendent__c = job.Structure_Superintendent__c;
                 suv.manager__c = job.Project_Manager__r.ManagerId;
                 suv.Project_Site_Contact_Lookup__c = job.Project_Site_Contact_Name__c;
+                suv.Account_Executive_1__c = job.Account_Executive_1__c;
+                suv.Account_Executive_2__c = job.Account_Executive_2__c;
                 //suv.Branch_Manager__c = job.Branch_Manager__c;
                 //check if the id is found
                 office__c off = officesMap.get(job.Office2__c);

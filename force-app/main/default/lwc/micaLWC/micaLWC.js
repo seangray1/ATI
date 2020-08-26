@@ -12,9 +12,10 @@
 import { LightningElement, api, track, wire } from 'lwc';
 // import MICASync from '@salesforce/apex/MICASync.queryDivision';
 //import QueryRecordType from '@salesforce/apex/MICASync.queryRecordType';
-import SendToMica from '@salesforce/apex/MICASync.executeJobWithoutWater';
+// import SendToMica from '@salesforce/apex/MICASync.executeJobWithoutWater';
 //import SendToMicaWithWater from '@salesforce/apex/MICASync.executeJobWithWater';
-import UploadEstimate from '@salesforce/apex/MICASync.executeUploadEstimate';
+// import UploadEstimate from '@salesforce/apex/MICASync.executeUploadEstimate';
+import SendToMica from '@salesforce/apex/MICASync.UpdateJob';
 // import getClassCategory from '@salesforce/apex/MICASync.getClassCategory';
 // import StartWithMain from '@salesforce/apex/MICASync.StartWithMain';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
@@ -245,6 +246,21 @@ export default class MicaLWC extends NavigationMixin(LightningElement) {
             if(this.CategoryHasChanged === true){
             this.ClassCategoryBlank = false;
         }
+    }
+    End()
+    {
+        this.wait = true;
+        SendToMica({recordId:this.recordId}).then(result => {
+            const event = new ShowToastEvent({
+                title:'Success',
+                message: 'Saved',
+                variant: 'success',
+            });
+            this.dispatchEvent(event);
+            this.dispatchEvent(new CustomEvent('recordChange'));
+            this.msg = true;
+            this.wait=false;
+        })
     }
     categoryChangePicklist(event){
         this.categoryValue12 = event.detail.value;

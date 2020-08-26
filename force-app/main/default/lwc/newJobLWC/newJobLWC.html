@@ -119,7 +119,7 @@
         <!-- </div> -->
         <br>
         <lightning-accordion-section name="Account Roles" label="Account Roles">
-            <div if:true={ARDivision}>
+            
             
 
                 <div if:true={Afterhoursform}>
@@ -135,7 +135,7 @@
     
 
 </div>
-</div>
+
             <lightning-helptext style="width: 500px;" content='To assign a new Account or Contact to this Job, click [Add Row], then search for either the Contact or Account, then Select Account Roles and add all that apply.  To create a new Contact or Account click New Contact or New Account, enter the required information, and then Select Account Roles. 
             Required Roles:  Primary/Bill-to, Caller, Referred By, and Project Site Contact.  If there was no third party referral, set the Caller as the Referred By role also.  Add additional roles, if applicable, especially Insurance.'>
                     
@@ -333,9 +333,9 @@
         <br>
         
         <lightning-accordion-section name="Additional Information"  label="Additional Information">
-            <template if:true={ARDivision}>
+            <!-- <template if:true={ARDivision}> -->
         
-        <!-- <div class="slds-box slds-theme_shade"> -->
+        <!-- <div class="slds-box slds-theme_default"> -->
             <!-- <div class="slds-m-around_medium">
                 <h1 class="slds-text-heading_small" style="text-decoration: underline;">Additional Fields</h1>
             </div> -->
@@ -458,7 +458,7 @@
                         
                         value={Division}
                         placeholder="-Select-"
-                        options={options}
+                        options={DivisionPicklistValues}
                         onchange={DivisionChange}
                         class="spacing jobFormControl"
                         dropdown-alignment=auto 
@@ -537,7 +537,8 @@
 
 
                        
-                       
+                               
+                               
                                 
                     </div>
                     <div class="slds-col slds-size_1-of-7">
@@ -589,7 +590,7 @@
    
                         <lightning-input onkeyup={MajorEventChange}
                         
-                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} disabled={MajorEventDisabled} type="search" class="jobFormControl spacing"></lightning-input>
+                                        placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} disabled={MajorEventDisabled}  type="search" class="jobFormControl spacing"></lightning-input>
                                     
                                 <template if:true={MajorEvents}>
                                     <table
@@ -642,7 +643,7 @@
             
             <!-- <textarea style="height: 250px; width:500px;" disabled={DescriptionDisabled} class="jobFormControl" onchange={DescriptionChange}>{Description}</textarea> -->
                             
-                                        <lightning-textarea placeholder="Type Description Here" class="jobFormControl"  onchange={DescriptionChange} value={Description}></lightning-textarea>
+                                        <lightning-textarea placeholder="Click the button above to fill out description" class="jobFormControl" disabled={descriptionNotFilled} onchange={DescriptionChange} value={Description}></lightning-textarea>
                                        
                                     </div>
                                     <!-- <div class="slds-col slds-size_1-of-2">
@@ -651,20 +652,20 @@
                                     </div> -->
                                     </div>
                                     
-            </template>
+            <!-- </template> -->
         </lightning-accordion-section>
         <!-- </div> -->
             </lightning-accordion>
         <br>
 
-        <!-- <div class="slds-box slds-theme_shade"> -->
+        <!-- <div class="slds-box slds-theme_default"> -->
             
         <!-- </div> -->
     
 
-    <div class="slds-p-around_medium lgc-bg-inverse element">
+    <div class="slds-p-around_medium slds-theme_alt-inverse slds-docked-form-footer">
         <lightning-button-group>
-    <lightning-button label='Submit' onclick={CreateNewJob} variant="brand"></lightning-button>
+    <lightning-button label='Submit' icon-name="utility:save" disabled={submitClicked} onclick={CreateNewJob} variant="brand"></lightning-button>
     <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
     </lightning-button-group>
     </div>
@@ -690,7 +691,7 @@
                 <!-- modal body start -->
 
 
-                <div class="slds-box slds-theme_shade">
+                <div class="slds-box slds-theme_default">
 
                     <div class="slds-m-around_medium">
                         <template if:true={MasterJobs}>
@@ -814,7 +815,7 @@
                     label="Contact Type"
                     value={ContactType}
                     placeholder="-Select-"
-                    options={ContactTypeValues.data.values}
+                    options={ContactTypeValues}
                     onchange={ContactTypeChange}
                     class="contactFormControl" required  >
                     </lightning-combobox>
@@ -976,7 +977,7 @@
             value={Type}
             class="companyAccountFormControl" required 
             placeholder="-Select-"
-            options={AccountTypeValues.data.values}
+            options={AccountTypeValues}
             onchange={TypeChange} >
         </lightning-combobox>
         
@@ -1112,7 +1113,7 @@
                             placeholder="-Select-"
                             class="personAccountFormControl" 
                             required
-                            options={AccountTypeValues.data.values}
+                            options={AccountTypeValues}
                             onchange={TypeChange} >
                         </lightning-combobox>
                        
@@ -1383,22 +1384,23 @@
                                 <div class="slds-box slds-theme_shade">
                                     <!-- <div class="slds-grid"> -->
                                     <!-- <div class="slds-col slds-size_1-of-2"> -->
-                                    <lightning-input label="Type of Loss: (e.g. Water, Fire, Wind, Lead/Asbestos/Bio Contamination)" value={TypeOfLoss} onchange={TypeOfLossChange} ></lightning-input>
-                                    <lightning-input label="Cause of Loss: (e.g. Pipe Leak, Weather, Disaster)" onchange={CauseOfLossChange} value={CauseOfLoss}></lightning-input>
-                                    <lightning-input label="Customer Type: (e.g. Residential, Commercial, Municipal)" onchange={CustomerTypeChange} value={CustomerType}></lightning-input>
-                                    <lightning-input label="Property Description: (e.g. Building Type, # of Stories)" onchange={PropertyDescriptionChange} value={PropertyDescription}></lightning-input>
-                                    <lightning-input label="Areas Affected: (e.g. Rooms or Units)" onchange={AreasAffectedChange} value={AreasAffected} ></lightning-input>
+                                    <lightning-input label="Type of Loss: (e.g. Water, Fire, Wind, Lead/Asbestos/Bio Contamination)" required class="descriptionControl" value={TypeOfLoss} onchange={TypeOfLossChange} ></lightning-input>
+                                    <lightning-input label="Cause of Loss: (e.g. Pipe Leak, Weather, Disaster)" required class="descriptionControl" onchange={CauseOfLossChange} value={CauseOfLoss}></lightning-input>
+                                    <lightning-input label="Customer Type: (e.g. Residential, Commercial, Municipal)" required class="descriptionControl" onchange={CustomerTypeChange} value={CustomerType}></lightning-input>
+                                    <lightning-input label="Property Description: (e.g. Building Type, # of Stories)" required class="descriptionControl" onchange={PropertyDescriptionChange} value={PropertyDescription}></lightning-input>
+                                    <lightning-input label="Areas Affected: (e.g. Rooms or Units)" onchange={AreasAffectedChange} required class="descriptionControl" value={AreasAffected} ></lightning-input>
                                     
                                     
                                 <!-- </div> -->
                                     <!-- <div class="slds-col slds-size_1-of-2"> -->
-                                    <lightning-input label="Damaged Materials: (e.g. Flooring, Drywall, Exterior, Ceiling, Roof, Possessions/Contents)" value={DamagedMaterials} onchange={DamagedMaterialsChange}></lightning-input>
-                                    <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} value={FlooringType}></lightning-input>
-                                    <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
-                                    <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} value={GateCode}></lightning-combobox>
-                                    <lightning-combobox label="Is this related to the Coronavirus? (Y/N)" options={optionsYesNo} onchange={CoronavirusChange} value={Coronavirus}></lightning-combobox>
-                                    <lightning-combobox label="Are you requiring same-day dispatch? (Y/N)" options={optionsYesNo} onchange={SameDayDispatchChange} value={SameDayDispatch}></lightning-combobox>
-                                    
+                                    <lightning-input label="Damaged Materials: (e.g. Flooring, Drywall, Exterior, Ceiling, Roof, Possessions/Contents)" required class="descriptionControl" value={DamagedMaterials} onchange={DamagedMaterialsChange}></lightning-input>
+                                    <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} required class="descriptionControl" value={FlooringType}></lightning-input>
+                                    <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} required class="descriptionControl" onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
+                                    <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} required class="descriptionControl" value={GateCode}></lightning-combobox>
+                                    <lightning-combobox label="Is the loss/damage related to Coronavirus? (Y/N)" options={optionsYesNo} required class="descriptionControl" onchange={CoronavirusChange} value={Coronavirus}></lightning-combobox>
+                                    <lightning-combobox label="Has anyone at this property had symptoms of COVID-19 or been exposed to someone with symptoms of COVID-19? (Y/N)" options={optionsYesNo} required class="descriptionControl" onchange={CoronavirusPersonChange} value={CoronavirusPerson}></lightning-combobox>
+                                    <lightning-combobox label="Are you requiring same-day dispatch? (Y/N)" options={optionsYesNo} required class="descriptionControl" onchange={SameDayDispatchChange} value={SameDayDispatch}></lightning-combobox>
+                                    <lightning-textarea label="Additional Information" field-level-help="You may copy paste any additional info, such as from an email etc." value={AdditionalInfo} onchange={AdditionalInfoChange}  ></lightning-textarea>
                                     
                                    
                                 <!-- </div> -->
@@ -1481,7 +1483,7 @@
 
 
  <!-- <div if:true={PropertySelected}>
-            <div class="slds-box slds-theme_shade">
+            <div class="slds-box slds-theme_default">
                 <div class="slds-m-around_medium">
             <h1 class="slds-text-heading_small" style="text-decoration: underline;">Property</h1>
         </div>
@@ -1496,7 +1498,7 @@
         </div> -->
 
         <!-- <lightning-input label="Property Test" value={testingProperty}></lightning-input> -->
-        <!-- <div class="slds-box slds-theme_shade">
+        <!-- <div class="slds-box slds-theme_default">
     <lightning-button label="New Property" variant="brand" onclick={ToggleNewProperty}></lightning-button>
                 <div if:true={NewProperty}>
                 <lightning-record-edit-form object-api-name="Property__c">
