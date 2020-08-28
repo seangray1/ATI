@@ -176,6 +176,7 @@
         </action>
     </initialSubmissionActions>
     <label>Opportunity/Job Approval Process 20</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

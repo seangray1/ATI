@@ -383,6 +383,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process_2.11</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

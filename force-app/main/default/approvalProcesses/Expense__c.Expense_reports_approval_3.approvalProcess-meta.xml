@@ -653,6 +653,7 @@
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>
     </nextAutomatedApprover>
+    <processOrder>2</processOrder>
     <recallActions>
         <action>
             <name>Status_Recalled</name>

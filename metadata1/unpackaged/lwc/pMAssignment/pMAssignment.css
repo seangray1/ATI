@@ -1,0 +1,16 @@
+.Labels {
+    margin-left: 1%;
+    position: relative;
+    top: 10px;
+}
+.hidden {
+    display: none;
+}
+.required1:after {
+    content:" *";
+    
+    color: red;
+  }
+  .lgc-bg-inverse {
+    background-color: rgb(22, 50, 92);
+}

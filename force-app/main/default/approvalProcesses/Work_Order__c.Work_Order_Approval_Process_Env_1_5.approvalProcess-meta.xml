@@ -219,6 +219,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process-Env 1.5</label>
+    <processOrder>2</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

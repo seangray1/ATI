@@ -71,6 +71,7 @@
         </action>
     </initialSubmissionActions>
     <label>PD Invoice Approval Process - 2017</label>
+    <processOrder>2</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

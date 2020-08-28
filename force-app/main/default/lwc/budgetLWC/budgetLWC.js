@@ -16,6 +16,7 @@ import deleteBLI from '@salesforce/apex/BudgetLWCController.deleteBLI';
 import RetrieveJob from '@salesforce/apex/BudgetLWCController.RetrieveJob';
 import GetBudgetLineItemData from '@salesforce/apex/BudgetLWCController.GetBudgetLineItemData';
 import UpdateBLI from '@salesforce/apex/BudgetLWCController.UpdateBLI';
+
 import UpdateOnlyBLI from '@salesforce/apex/BudgetLWCController.UpdateOnlyBLI';
 import LWCBudgetOverrideStyle from '@salesforce/resourceUrl/LWCBudgetOverrideStyle';
 import BLIReportId from '@salesforce/label/c.LWC_BLI_Report_ID';
@@ -35,7 +36,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
     @api BLINewFields =['Trade_Option__c', 'Selector__c','Revenue__c','X10_10_Allocation__c','GP__c','Subcontractor__c','Subcontractor_bid__c','In_House_Hours__c','In_House_Rate__c','Materials__c','Equipment__c','Other_Costs__c','Item_Description__c'];
     _wiredResult; _wiredJobResult; _ApiWiredResult; @track SaveBtnLabel;
     @track IsBudgetNew = false; @api JobStartDate; @api JobEstimatedCompletionDate; @api JobRegionalManger; @api JobProjectDirecor; @api JobProjectManager; @track NewBLIData=[]; @track hasChanged=false;
-    label = {BLIReportId};
+    label = {BLIReportId}; @api IsImported = false;
     //FoR BLI Tree Grid
     parentId = null; levelsDeep = 0; depthChildrenCountMap = new Map(); datarestrucuted = false; @track FormattedBLIData;
     // FOR BLI Tree Grid
@@ -83,39 +84,139 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
     }
 
     OnChangeBudgetFields(event){
-        var GpGoalVal = event.detail.value;
-        if(GpGoalVal!=null && GpGoalVal!='' && this.AllowBLISection){
+        var ChangedAPIName = event.target.name;
+        var GpGoalVal = event.target.value;
+        if(this.AllowBLISection && this.recordId){
             this.isLoading = true;
-            var TblRow =  Array.from(this.template.querySelectorAll('table.TblTreeView tbody tr.parent'));
-            var AllData=[];
-            for (let i = 0; i < TblRow.length; i++) {
-                var obj={};
-                obj.Id=TblRow[i].dataset.id;
-                obj.GP__c = GpGoalVal;
-                AllData.push(obj);
+            var obj={};
+            var key=event.target.name;
+            var value = event.target.value;
+            obj[key]=value;
+            obj.Id=this.recordId;
+            console.log('Obj Update Data: '+JSON.stringify(obj));
+            if(ChangedAPIName=='Allocation_Overhead__c')
+            {
+                var TblRow =  Array.from(this.template.querySelectorAll('table.TblTreeView tbody tr.parent'));
+                        var AllData=[];
+                        for (let i = 0; i < TblRow.length; i++) {
+                            var obj1={};
+                            obj1.Id=TblRow[i].dataset.id;
+                            // obj1.GP__c = GpGoalVal;
+                            AllData.push(obj1);
+                        }
+                       
+                        console.log('Record to Update: '+JSON.stringify(AllData));
+                        
+                        UpdateBLI({UpdateBLIList: AllData, OverheadProfit:value}).then(result => {
+                            console.log('result is ' + JSON.stringify(result));
+                            console.log('GP Goal Updated success');
+                            
+                            refreshApex(this._wiredResult);
+                            this.refreshBudgetValues();
+                            this.isLoading = false;
+                            this.datarestrucuted=false;
+                        }).catch(error => {
+                            window.console.log(error);
+                            this.isLoading = false;
+                            this.dispatchEvent(
+                                new ShowToastEvent({
+                                    title: 'Error Inserting Budget Line Item', 
+                                    message: error.message, 
+                                    variant: 'error'
+                                }),
+                            );
+                        });
             }
-           
-            console.log('Record to Update: '+JSON.stringify(AllData));
+
+
+            updateRecord({ fields: obj }).then(() => {
+                console.log('Success -Updated Budget');
+                if(ChangedAPIName=='GP_Goal__c'){
+                    console.log('Change API: '+ChangedAPIName);
+                    if(GpGoalVal!=null && GpGoalVal!='' && this.AllowBLISection){
+                        //this.isLoading = true;
+                        console.log('GP val: '+GpGoalVal);
+                        var TblRow =  Array.from(this.template.querySelectorAll('table.TblTreeView tbody tr.parent'));
+                        var AllData=[];
+                        for (let i = 0; i < TblRow.length; i++) {
+                            var obj1={};
+                            obj1.Id=TblRow[i].dataset.id;
+                            obj1.GP__c = GpGoalVal;
+                            AllData.push(obj1);
+                        }
+                       
+                        console.log('Record to Update: '+JSON.stringify(AllData));
+                        
+                        UpdateBLI({UpdateBLIList: AllData, OverheadProfit:null}).then(result => {
+                            console.log('GP Goal Updated success');
+                            this.isLoading = false;
+                            this.datarestrucuted=false;
+                            refreshApex(this._wiredResult);
+                            
+                        }).catch(error => {
+                            window.console.log(error);
+                            this.isLoading = false;
+                            this.dispatchEvent(
+                                new ShowToastEvent({
+                                    title: 'Error Inserting Budget Line Item', 
+                                    message: error.message, 
+                                    variant: 'error'
+                                }),
+                            );
+                        });
             
-            UpdateBLI({UpdateBLIList: AllData}).then(result => {
-                console.log('GP Goal Updated success');
-                this.isLoading = false;
-                this.datarestrucuted=false;
-                refreshApex(this._wiredResult);
+                        console.log('ToUpdate record: '+JSON.stringify(AllData));
+                    } else { this.isLoading = false; }
+                } 
+                // else if(ChangedAPIName=='Allocation_Overhead__c'){
+                //     var TblRow =  Array.from(this.template.querySelectorAll('table.TblTreeView tbody tr.parent'));
+                //         var AllData=[];
+                //         for (let i = 0; i < TblRow.length; i++) {
+                //             var obj1={};
+                //             obj1.Id=TblRow[i].dataset.id;
+                //             // obj1.GP__c = GpGoalVal;
+                //             AllData.push(obj1);
+                //         }
+                       
+                //         console.log('Record to Update: '+JSON.stringify(AllData));
+                        
+                //         UpdateBLI({UpdateBLIList: AllData}).then(result => {
+                //             console.log('result is ' + JSON.stringify(result));
+                //             console.log('GP Goal Updated success');
+                //             this.isLoading = false;
+                //             this.datarestrucuted=false;
+                //             refreshApex(this.wiredRetrieveBudget);
+                //         }).catch(error => {
+                //             window.console.log(error);
+                //             this.isLoading = false;
+                //             this.dispatchEvent(
+                //                 new ShowToastEvent({
+                //                     title: 'Error Inserting Budget Line Item', 
+                //                     message: error.message, 
+                //                     variant: 'error'
+                //                 }),
+                //             );
+                //         });
+
+                // }
+                
+                else { this.isLoading = false; }
+
             }).catch(error => {
-                window.console.log(error);
+                console.log('Errod d: '+JSON.stringify(error));
                 this.isLoading = false;
                 this.dispatchEvent(
                     new ShowToastEvent({
-                        title: 'Error Inserting Budget Line Item', 
-                        message: error.message, 
-                        variant: 'error'
+                        title: 'Error updating Budget data',
+                        message: error.message,
+                        variant: 'error',
                     }),
                 );
             });
-
-            console.log('ToUpdate record: '+JSON.stringify(AllData));
-        }
+            // updateRecord({ fields: obj }).then(result => {
+            // refreshApex(this._wiredResult);
+            // });
+        }        
     }
 
     // Delete New BLI
@@ -596,7 +697,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                                 
                                 if(this.OldBLIDeletedData){
                                     console.log('To be Inserte data: '+JSON.stringify(this.OldBLIDeletedData));
-                                    UpdateBLI({UpdateBLIList: this.OldBLIDeletedData}).then(result => {
+                                    UpdateBLI({UpdateBLIList: this.OldBLIDeletedData, OverheadProfit:null}).then(result => {
                                         console.log('Sucesss-Inserted.');
                                         //this.datarestrucuted=false;
                                         //refreshApex(this._wiredResult);
@@ -762,7 +863,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
             
             console.log('Insert ee:'+JSON.stringify(InsertBLIListArg));
             if(InsertBLIListArg.length>0){
-                UpdateBLI({UpdateBLIList: InsertBLIListArg}).then(result => {
+                UpdateBLI({UpdateBLIList: InsertBLIListArg, OverheadProfit:null}).then(result => {
                     
                     console.log('Success Status: '+result);
                     this[NavigationMixin.Navigate]({
@@ -898,8 +999,13 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                         }
                         console.log('After remove: '+JSON.stringify(this.OldBLIDeletedData));
                         this.datarestrucuted=false;
+                        
+
+                        
+                        // UpdateBLI({UpdateBLIList: AllData, OverheadProfit:null})
                         refreshApex(this._wiredResult);
                         this.refreshBudgetValues();
+                 
                         this.isLoading = false;
                         this.dispatchEvent(
                             new ShowToastEvent({
@@ -1023,7 +1129,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
             console.log('SaveList: '+JSON.stringify(UpdateBLIListArg));
             if(UpdateBLIListArg.length>0){
                 //this.isLoading=true;
-                UpdateBLI({UpdateBLIList: UpdateBLIListArg}).then(result => {
+                UpdateBLI({UpdateBLIList: UpdateBLIListArg, OverheadProfit:null}).then(result => {
                     
                     console.log('Success Status: '+result);
                     this.datarestrucuted=false;
@@ -1117,6 +1223,9 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
         if(result.data){
             this.OldBudgetData = result.data;
             console.log('Old Budget Data: '+JSON.stringify(this.OldBudgetData[0]));
+            if(this.OldBudgetData[0].Budget_LineItem_Status__c){
+                this.IsImported = true;
+            }
         } else if(result.error) {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -1376,7 +1485,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                                 if(objData.APIName=='Project_Manager__c' && this.JobProjectManager && this.IsBudgetNew==true){
                                     objData.value = this.JobProjectManager;
                                 }
-                                if(objData.APIName=='GP_Goal__c'){
+                                if(objData.APIName=='GP_Goal__c' || objData.APIName=='Allocation_Overhead__c' || objData.APIName=='Allocations__c' || objData.APIName=='X3_Program_Fees__c'){
                                     objData.changevnt = true;
                                 }
                                 if(DataList[i].LWC_Section__c=='Budget Info'){
@@ -1397,6 +1506,9 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                                     objData.Enable = true;
                                 } else{
                                     objData.Enable = false;
+                                }
+                                if(objData.APIName=='Allocation_Overhead__c' && this.IsImported==true){
+                                    objData.Enable = true;
                                 }
                                 this.APIfields.push(objData);
                                 count++;

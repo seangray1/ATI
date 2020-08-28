@@ -149,11 +149,8 @@
     <approvalPageFields>
         <field>Name</field>
         <field>Owner</field>
-        
-        
         <field>Account_Executive_1__c</field>
         <field>Account_Executive_2__c</field>
-       
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
@@ -169,7 +166,6 @@
     <emailTemplate>ATI_Job_Templates/Credit_Request_Approval_Submissions</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        
         <criteriaItems>
             <field>User.Profile</field>
             <operation>equals</operation>
@@ -213,14 +209,12 @@
             <type>FieldUpdate</type>
         </action>
     </initialSubmissionActions>
-    
-  
-    
     <label>Credit Request Approval Process</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>
     </nextAutomatedApprover>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>

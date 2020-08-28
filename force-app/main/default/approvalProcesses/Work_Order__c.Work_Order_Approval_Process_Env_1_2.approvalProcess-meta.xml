@@ -176,6 +176,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process-Env 1.2</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

@@ -239,6 +239,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process-Env 1.4</label>
+    <processOrder>3</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

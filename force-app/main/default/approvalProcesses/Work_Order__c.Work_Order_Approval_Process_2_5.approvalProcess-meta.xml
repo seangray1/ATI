@@ -246,6 +246,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process_2.5</label>
+    <processOrder>2</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

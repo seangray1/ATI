@@ -22,7 +22,7 @@
         <label>Contact Ownership Request</label>
         <name>Contact_Ownership_Request</name>
     </approvalStep>
-    <description>Approval process to allow for AE&#39;s to request ownership of unassigned contacts</description>
+    <description>Approval process to allow for AE&apos;s to request ownership of unassigned contacts</description>
     <emailTemplate>Contact_Email_Templates/Contact_Ownership_Request_Submission</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
@@ -76,6 +76,7 @@
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>
     </nextAutomatedApprover>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>

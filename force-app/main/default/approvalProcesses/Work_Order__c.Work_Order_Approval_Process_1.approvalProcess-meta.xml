@@ -145,6 +145,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process_1</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

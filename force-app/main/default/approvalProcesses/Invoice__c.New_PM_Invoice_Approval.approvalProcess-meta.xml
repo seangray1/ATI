@@ -67,6 +67,7 @@
         </action>
     </initialSubmissionActions>
     <label>New PM Invoice Approval</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

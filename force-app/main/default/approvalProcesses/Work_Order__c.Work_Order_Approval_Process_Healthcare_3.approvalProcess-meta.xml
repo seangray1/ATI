@@ -259,6 +259,7 @@
         </action>
     </initialSubmissionActions>
     <label>Work Order Approval Process Healthcare 3</label>
+    <processOrder>4</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

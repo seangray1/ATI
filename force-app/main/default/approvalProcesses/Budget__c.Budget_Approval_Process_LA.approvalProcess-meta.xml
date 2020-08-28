@@ -123,6 +123,7 @@
         </action>
     </initialSubmissionActions>
     <label>Budget Approval Process - LA</label>
+    <processOrder>2</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

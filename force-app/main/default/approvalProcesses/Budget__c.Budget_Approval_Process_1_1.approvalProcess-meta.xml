@@ -97,6 +97,7 @@
         </action>
     </initialSubmissionActions>
     <label>Budget Approval Process 1.1</label>
+    <processOrder>1</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

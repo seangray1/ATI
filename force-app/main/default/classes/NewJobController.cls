@@ -49,7 +49,7 @@ public without sharing class NewJobController {
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {
             PropertyAddresses propAddress = GoogleCallout(Street, City, Zip, State);
-            Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);
+            Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, Latitude__c = propAddress.lat, Longitude__c = propAddress.lng, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);
             update prop;
             List<ATI_Job__c> jobs = [Select ID, Project_Site_Address__c, Project_Site_CIty__c, Project_Site_State__c, Project_Site_Zipcode__c FROM ATI_Job__c WHere Property_Id__c =: prop.Id];
             for(ATI_Job__c job: jobs){
@@ -57,6 +57,8 @@ public without sharing class NewJobController {
                 job.Project_Site_City__c = propAddress.City;
                 job.Project_Site_State__c = propAddress.State;
                 job.Project_Site_Zipcode__c = propAddress.Zipcode;
+                job.SFMapsJobLongitude__c = propAddress.lng;
+                job.SFMapsJobLatitude__c = propAddress.lat;
                 job.County__c = propAddress.county;
             }
             if(!jobs.isEmpty()){
@@ -471,6 +473,8 @@ public without sharing class NewJobController {
             prop.Zip__c = propAddress.Zipcode;
             prop.Country__c = Property.Country;
             prop.State__c = propAddress.State;
+            prop.Latitude__c = propAddress.lat;
+            prop.Longitude__c = propAddress.lng;
             // prop.Address_Line_2__c = Property.AddressLine2;
             prop.Address_Line_1__c = propAddress.Street;
             prop.County__c = propAddress.county;
@@ -551,7 +555,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
             Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
             Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = system.now(),
-            Date_Time_Taken__c = system.now());
+            Date_Time_Taken__c = system.now(), SFMapsJobLatitude__c =propAddress.lat, SFMapsJobLongitude__c = propAddress.lng);
             system.debug('Job info is ' + job);
             if(!account.isempty())
             {
@@ -1012,6 +1016,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 prop.Zip__c = propAddress.Zipcode;
                 prop.Country__c = Property.Country;
                 prop.State__c = propAddress.State;
+                prop.Latitude__c = propAddress.lat;
+                prop.Longitude__c = propAddress.lng;
                 // prop.Address_Line_2__c = Property.AddressLine2;
                 prop.Name = 'Test';
                 // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
@@ -1159,7 +1165,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
             Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
             Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = Property.AddressLine2,
-            Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
+            Project_Site_City__c = prop.City__c, SFMapsJobLatitude__c =prop.Latitude__c, SFMapsJobLongitude__c = prop.Longitude__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
             // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
             // jobsas[0].name = 'test';
            
@@ -1348,6 +1354,28 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     localityCity = ad.short_name;
                     }
                 }
+                if(ad.types[0] == 'lat')
+                {
+                    if(ad.short_name.length() <= 3)
+                    {
+                        localityCity = ad.long_name;
+                    }
+                    else
+                    {
+                    localityCity = ad.short_name;
+                    }
+                }
+                if(ad.types[0] == 'lng')
+                {
+                    if(ad.short_name.length() <= 3)
+                    {
+                        localityCity = ad.long_name;
+                    }
+                    else
+                    {
+                    localityCity = ad.short_name;
+                    }
+                }
 
                 if(ad.types[0] == 'political')
                 {
@@ -1379,7 +1407,10 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 //  system.debug('Postal # is  ' + postalcode);
                 }
                 
-            }  
+            }
+            // system.debug(' Lat is ' + a.geometry.location.lat);
+            propertyAddress.lat = a.geometry.location.lat;
+            propertyAddress.lng = a.geometry.location.lng;
         }
         if(streetnumber != null)
         {
@@ -1414,6 +1445,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         public string Zipcode {get;set;}
         public string State {get;set;}
         public string County {get;set;}
+        public Decimal lat {get;set;}
+        public Decimal lng {get;set;}
     }
     public class ContactId {
         public Id ContactId {get;set;}
@@ -1442,6 +1475,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         public String State {get;set;}
         public String Country {get;set;}
         public String Zip {get;set;}
+        public Decimal lat {get;set;}
+        public Decimal lng {get;set;}
         public String PropertyType {get;set;}
         public String AddressLine2 {get;set;}
         public String AlternateName {get;set;}
@@ -1452,11 +1487,19 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     }
     public class results{
         public list<address_components> address_components{get;set;}
+        public geometry geometry{get;set;}
     }
     public class address_components{
         public String long_name {get;set;}
         public String short_name {get;set;}
         public list<String> types {get;set;}
+    }
+    public class geometry{
+        public location location{get;set;}
+    }
+    public class location{
+        public decimal lat{get;set;}
+        public decimal lng{get;set;}
     }
    
 

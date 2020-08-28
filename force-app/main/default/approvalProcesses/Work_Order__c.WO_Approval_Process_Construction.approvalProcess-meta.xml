@@ -215,6 +215,7 @@
         </action>
     </initialSubmissionActions>
     <label>WO Approval Process - Construction</label>
+    <processOrder>4</processOrder>
     <recordEditability>AdminOrCurrentApprover</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

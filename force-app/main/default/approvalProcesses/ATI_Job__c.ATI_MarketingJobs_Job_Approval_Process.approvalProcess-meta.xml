@@ -161,6 +161,7 @@
         </action>
     </initialSubmissionActions>
     <label>ATI Marketing Jobs/Job Approval Process</label>
+    <processOrder>3</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

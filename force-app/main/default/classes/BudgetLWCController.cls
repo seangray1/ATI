@@ -3,7 +3,7 @@ public without sharing class BudgetLWCController {
     @AuraEnabled(cacheable=true)
     public static List<Budget__c> RetrieveBudget(Id budgetId) 
     {
-        List<Budget__c> budgetRecord = [Select Id,Allocations__c,X3_Program_Fees__c,GP_Goal__c,Overhead__c,Profit__c,Sales_Tax__c,Overhead_Profit_Sales_Tax__c FROM Budget__c Where Id =: budgetId];
+        List<Budget__c> budgetRecord = [Select Id,Allocation_Overhead__c,Budget_LineItem_Status__c,Allocations__c,X3_Program_Fees__c,GP_Goal__c,Overhead__c,Profit__c,Sales_Tax__c,Overhead_Profit_Sales_Tax__c FROM Budget__c Where Id =: budgetId];
         return budgetRecord;
     }
 
@@ -11,7 +11,7 @@ public without sharing class BudgetLWCController {
     public static list<Budget_line_item__c> RetrieveBudgetLineItems(Id budgetId) 
     {
         system.debug('ID from LWC:'+budgetId);
-        List<Budget_Line_Item__c> budgetRecord = [ Select Actual_Costs__c,Selector__c,Allocations__c,Allocation_Amount__c,Allocation_Overhead__c, Allocation_Percentage__c,Budget_Goal_Amount__c,Budget_Goal__c,Budget__c,Burden__c,CreatedById,CreatedDate, Estimated_Completion_Date__c,Fees__c,Gross_Profit__c,Id,In_House_Hours__c,In_House_Rate__c,In_House_Total__c, IsDeleted,LastModifiedById,LastModifiedDate,Materials__c,Name,OrderNumber__c,Profit__c,Program_Fees__c, Program_Fee_Amount__c,Revenue__c,Start_Date__c,Subcontractor_bid__c,Subcontractor__c,SystemModstamp,Trade_Option__c,Trade__c,X10_10_Allocation__c, Is_sub_Parent__c, Is_Parent__c, DonotDelete__c,GP__c,Equipment__c,Other_Costs__c,Item_Description__c FROM Budget_Line_Item__c Where Budget__c =: budgetId and (Is_sub_Parent__c=true or Is_Parent__c=true) ];
+        List<Budget_Line_Item__c> budgetRecord = [ Select Actual_Costs__c,Actual_Costs_BL__c,Selector__c,Allocations__c,Allocation_Amount__c,Allocation_Overhead__c, Allocation_Percentage__c,Budget_Goal_Amount__c,Budget_Goal__c,Budget__c,Burden__c,CreatedById,CreatedDate, Estimated_Completion_Date__c,Fees__c,Gross_Profit__c,Id,In_House_Hours__c,In_House_Rate__c,In_House_Total__c, IsDeleted,LastModifiedById,LastModifiedDate,Materials__c,Name,OrderNumber__c,Profit__c,Program_Fees__c, Program_Fee_Amount__c,Revenue__c,Start_Date__c,Subcontractor_bid__c,Subcontractor__c,SystemModstamp,Trade_Option__c,Trade__c,X10_10_Allocation__c, Is_sub_Parent__c, Is_Parent__c, DonotDelete__c,GP__c,Equipment__c,Other_Costs__c,Item_Description__c FROM Budget_Line_Item__c Where Budget__c =: budgetId and (Is_sub_Parent__c=true or Is_Parent__c=true) ];
         return budgetRecord;
     }
 
@@ -68,6 +68,50 @@ public without sharing class BudgetLWCController {
             try{
                 upsert UpdateBLIList;
                 status='Successfully Updated';
+                
+                
+                system.debug('BL List ' + UpdateBLIList[0]);
+                system.debug('BL List ' + UpdateBLIList[0].Id);
+                Budget_Line_Item__c b1i = [SELECT Id,Allocation_Percentage__c, Budget__c, Revenue__c, X10_10_Allocation__c 
+                FROM Budget_Line_Item__c 
+                WHERE Id =: UpdateBLIList[0].Id];
+                List<Budget_Line_Item__c> b1 = [SELECT Id,Allocation_Percentage__c,  Revenue__c, X10_10_Allocation__c, Selector__c 
+                FROM Budget_Line_Item__c 
+                WHERE Budget__c =: b1i.Budget__c];
+                system.debug(b1);
+                Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c
+                FROM Budget__c
+                WHERE Id =:b1i.Budget__c];
+                
+                // system.debug('B1 is ' + b1);
+                // system.debug('B1 is ' + b1.Budget__c);
+                if(bud.Budget_LineItem_Status__c == null)
+                {
+                
+                    bud.Id = b1i.Budget__c;
+                    bud.Overhead__c = 0;
+                    bud.Profit__c = 0;
+                    for(Budget_Line_Item__c b : b1)
+                    {
+                        // if(bud.Overhead__c == null || bud.Profit__c == null)
+                        // {
+                            
+                        // }
+                        if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
+                        {
+
+                            system.debug('Allocation Percentage is ' + b.Allocation_Percentage__c);
+                            
+                            bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
+                            bud.Profit__c += b.Revenue__c * b.Allocation_Percentage__c;
+                            system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
+                        }    
+                    }
+                    update bud;
+                }
+
+
+                status='Successfully Updated';
             } catch(Exception e){
                 status = e.getMessage();
                 throw new AuraHandledException(e.getMessage());
@@ -75,7 +119,7 @@ public without sharing class BudgetLWCController {
         }
         return null;
     }
-
+    
     // TO Update BLI -- By DemandBlue
     @AuraEnabled
     public static String UpdateOnlyBLI(List<Budget_Line_Item__c> UpdateBLIList){

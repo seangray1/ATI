@@ -65,6 +65,7 @@
         </action>
     </initialSubmissionActions>
     <label>Account Creation Approval Submission</label>
+    <processOrder>2</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

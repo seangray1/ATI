@@ -266,7 +266,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                             UpsertBLIData.Revenue__c = NewPRevenue;
                             UpsertBLIData.Equipment__c = NewPEquipment.setscale(2);
                             UpsertBLIData.Materials__c = NewPMaterials.setscale(2);
-                            UpsertBLIData.In_House_Hours__c = NewPInhouseHours.setscale(2);
+                            UpsertBLIData.In_House_Hours__c = NewPInhouseHours.round();
                             UpsertBLIData.In_House_Rate__c = NewPInHouseRate.setscale(2);
                             UpsertBLIData.GP__c = NewPGP.setscale(2);
                             UpsertBLIData.Other_Costs__c = NewPOtherCost.setscale(2);
@@ -654,10 +654,10 @@ public without sharing class BudgetLineItemFieldUpdate {
                     if(LineItems[i].Other_Costs__c!=null && (LineItems[i].Other_Costs__c != oldValues.Other_Costs__c)){
                     UpdateBLIData.Other_Costs__c = ((ChildRevenue / ParentRevenue)*LineItems[i].Other_Costs__c).setscale(2);     
                     }
-                    if(LineItems[i].GP__c!=null && (LineItems[i].GP__c != oldValues.GP__c)){
+                    if((LineItems[i].GP__c != oldValues.GP__c)){
                     UpdateBLIData.GP__c = LineItems[i].GP__c.setscale(2);
                     }
-                    if(LineItems[i].In_House_Rate__c!=null && (LineItems[i].In_House_Rate__c != oldValues.In_House_Rate__c)){
+                    if((LineItems[i].In_House_Rate__c != oldValues.In_House_Rate__c)){
                     UpdateBLIData.In_House_Rate__c = LineItems[i].In_House_Rate__c.setscale(2);
                     }
                     
@@ -751,6 +751,60 @@ public without sharing class BudgetLineItemFieldUpdate {
         if(UpdatenewLineitems.size()> 0){
         update UpdatenewLineitems;
     	}
+    }
+
+    public static void UpdateOverheadProfit(List<Budget_Line_Item__c> budlines, Map<Id,Budget_Line_Item__c> oldBudLines)
+    {
+        
+        if(Trigger.isDelete && budlines.size() < 2)
+        {
+  
+            Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c
+            FROM Budget__c
+            WHERE Id =:budlines[0].Budget__c];
+            List<Budget_Line_Item__c> budLineItems = [SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c
+            FROM Budget_Line_Item__c
+            WHERE Budget__c =: budlines[0].Budget__c];
+            if(bud.Budget_LineItem_Status__c == null)
+            {
+                bud.Overhead__c = 0;
+                bud.Profit__c = 0;
+                for(Budget_Line_Item__c b : budLineItems)
+                {
+                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
+                    {
+                        bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
+                        bud.Profit__c += b.Revenue__c * b.Allocation_Percentage__c;
+                        system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
+                    }    
+                }
+                update bud;
+            }
+        }
+        if(Trigger.isInsert && budlines.size() < 2)
+        {
+            Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c
+            FROM Budget__c
+            WHERE Id =:budlines[0].Budget__c];
+            List<Budget_Line_Item__c> budLineItems = [SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c
+            FROM Budget_Line_Item__c
+            WHERE Budget__c =: budlines[0].Budget__c];
+            if(bud.Budget_LineItem_Status__c == null)
+            {
+                bud.Overhead__c = 0;
+                bud.Profit__c = 0;
+                for(Budget_Line_Item__c b : budLineItems)
+                {
+                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
+                    {
+                        bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
+                        bud.Profit__c += b.Revenue__c * b.Allocation_Percentage__c;
+                        system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
+                    }    
+                }
+                update bud;
+            }
+        }    
     }
     
 

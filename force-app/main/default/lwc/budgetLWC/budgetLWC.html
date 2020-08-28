@@ -21,7 +21,7 @@
                                     <div key={APIfield.key} class="slds-col--padded slds-size--1-of-6">
                                         <template if:false={APIfield.Enable}>
                                             <template if:true={APIfield.changevnt}>
-                                                <lightning-input-field variant="label-stacked" field-name={APIfield.APIName} value={APIfield.value} onchange={OnChangeBudgetFields}></lightning-input-field>
+                                                <lightning-input-field variant="label-stacked" name={APIfield.APIName} field-name={APIfield.APIName} value={APIfield.value} onchange={OnChangeBudgetFields}></lightning-input-field>
                                             </template>
                                             <templat if:false={APIfield.changevnt}>
                                                 <lightning-input-field variant="label-stacked" field-name={APIfield.APIName} value={APIfield.value} ></lightning-input-field>
@@ -67,7 +67,9 @@
                 <div class="BudgetInerTitle">Budget Line Item</div>
                 
                     <div class="BLIBtns">
-                        <lightning-button label="Add Line Item" name="New" variant="brand" icon-name="action:new" onclick={OpenBLIAddEditPopup} class="slds-m-left_x-small"></lightning-button>
+                        <template if:false={IsImported}>
+                            <lightning-button label="Add Line Item" name="New" variant="brand" icon-name="action:new" onclick={OpenBLIAddEditPopup} class="slds-m-left_x-small"></lightning-button>
+                        </template>
                         <lightning-button label="Expand All" variant="brand" icon-name="utility:expand_alt" onclick={ExpandAllChild} class="slds-m-left_x-small slds-float_right"></lightning-button>
                         <lightning-button label="Collapse All" variant="brand" icon-name="utility:contract_alt" onclick={CollapseAllChild} class="slds-m-left_x-small slds-float_right"></lightning-button>
                     </div>
