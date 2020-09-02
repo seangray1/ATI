@@ -3,9 +3,24 @@
     
     
     
+    
     <types>
         <members>*</members>
-        <name>CustomObject</name>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+    
+     <types>
+        <members>*</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    
+    <types>
+        <members>*</members>
+        <name>quickAction</name>
     </types>
     
     

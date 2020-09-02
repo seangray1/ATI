@@ -58,8 +58,8 @@ static testmethod void NewJobController_Test1()
         User [] users = ObjectData.UserList;
         Property__c [] property = ObjectData.PropertyList;
         
-        SubmitForApprovalExtension.submitForApproval(cont[0].Id);
-        SubmitForApprovalExtension.submitForApproval(job.Id);
+        SubmitForApprovalExtension.submitForApproval(cont[0].Id,'Comments');
+        SubmitForApprovalExtension.submitForApproval(job.Id, 'Comments');
         String AccountRoleInfo = '{"AccountRoleLineItems":[{"Text":"Primary/Bill-to;Caller;Referred By;Project Site Contact","Contact":"' + cont[0].Id + '","Account":"' + acct[0].Id + '"}]}';
         String PropertyInfo = '{"PropertyId":"","City":"El Monte","Country":"United States","State":"CA","Street":"3534 North Peck Road","Zip":"91731","AddressLine2":"444","AlternateName":"test23"}';
         String JobInfo = '{"Description":"Type of Loss","JobRealName":"","Division":"Catastrophes","Office":"' + offices[0].Id + '","JobClass":"Educational - Private","ProjectDirector":"' + u2 + '","TakenBy":"' + u2 + '","Claim":"444","Policy":"444","JobName":"test job RQF x232","LeadSource":"Consulting Firm","MultipleDivisions":"Asbestos","DateOfLoss":"2020-05-07","ClientJob":"44","YearBuilt":"1999","MajorEvent":""}';
@@ -254,7 +254,7 @@ static testmethod void NewJobController_Test4()
         NewJobController.GetUsers('Sean');
         NewJobController.GetCustomers('Test');
         NewJobController.GetUserInfo();
-        SubmitForApprovalExtension.submitForApproval(jobs[0].Master_Job__c);
+        SubmitForApprovalExtension.submitForApproval(jobs[0].Master_Job__c, 'Test');
         NewJobController.AfterHoursJobCreation('TestJob', 'Construction', '', offices[0].id, '15632 Youngwood Drive', 'CA', 'Whittier', '90603', 'US', '15632 Youngwood Drive', 'Test', 'Test', '', '', null);
 
     }

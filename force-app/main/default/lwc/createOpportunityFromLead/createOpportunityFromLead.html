@@ -1,0 +1,132 @@
+<template>
+    <template if:true={OpportunityCreation}>
+    <div class="slds-box slds-theme_shade">
+        <div class="slds-m-around_medium">
+          <p style="
+              width: 100%;
+              font-size: 20px;
+              text-align: center;
+              margin: 45px 0 20px 0;
+            ">
+            Would you like to create an Opportunity?
+          </p>
+          <br />
+          <footer>
+          <div style="width: 100%; text-align: center;">
+            <button style="padding: 3px 40px; margin-right: 20px;" class="slds-button slds-button_brand" onclick={Next}>
+              Yes
+            </button>
+            <button style="padding: 3px 40px;" class="slds-button slds-button_neutral" onclick={Back}>
+              No
+            </button>
+          </div>
+        </footer>
+          
+        </div>
+      </div>
+    </template>
+      <template if:true={LeadSelection}>
+        <div class="slds-box slds-theme_shade">
+            <div class="slds-m-around_medium">
+              <p style="
+                  width: 100%;
+                  font-size: 20px;
+                  text-align: center;
+                  
+                ">
+                Select the leads that are related to this Opportunity
+              </p>
+              </div>
+              
+              <br />
+              <div class="row">
+                <div class="col-rp-12">
+                    
+                        <table class="outer">
+                            <tbody>
+                                <tr>
+                                    <td class="left-col">
+
+                                        <table class="table ActRoles everything">
+                                            <thead>
+                                                <tr>
+                                                   
+                                                    <th> Lead</th>
+                                                    <th class="AddActRoles"></th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                
+                                                <template for:each={Leads} for:item="ld">
+                                                    <tr key={ld.num}>
+                                                        <td class="slds-col slds-size_1-of-2">
+                                                            <div class="rowPadding">
+                                                                    <lightning-record-edit-form
+                                                                        object-api-name="LightningRecordEditFormObject__c">
+                                                                        <lightning-input-field
+                                                                            value={ld.Lead__c}
+                                                                            field-name="Lead__c"
+                                                                            class="form-control LeadId everything"
+                                                                            variant="label-hidden"
+                                                                            >
+                                                                        </lightning-input-field>
+                                                                    
+                                                                    </lightning-record-edit-form>
+                                                                   </div>
+                                                             
+                                                        </td>
+                                                       
+                                                        
+                                                   
+                                                <td class="AddActRoles">
+                                                    
+                                               <lightning-button label='' class="delete-icon DeleteAR"
+                                               title="Delete" variant="destructive"
+                                               onclick={DeleteARRow} icon-name="action:delete">
+                                           </lightning-button>
+                                            </td>
+                                                    </tr>
+                                                </template>
+                                            
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              <!-- <table>
+                <lightning-record-edit-form object-api-name="Lead"></lightning-record-edit-form>
+              </table> -->
+              <br/>
+              <lightning-button label='Add More' icon-name="utility:add" help-text="Click to add additional Leads" variant="brand" onclick={addRow}></lightning-button>
+              
+
+            <br>
+            <br>
+              <footer>
+              <!-- <div style="width: 100%; text-align: center;"> -->
+                <lightning-button-group class="slds-align_absolute-center">
+                    <lightning-button label='Create' icon-name="utility:save" disabled={submitClicked} onclick={Send} variant="brand"></lightning-button>
+                    <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
+                    </lightning-button-group>
+                <!-- <button style="padding: 3px 40px; margin-right: 20px;" class="slds-button slds-button_brand" onclick={Send}>
+                  Create
+                </button>
+                <button style="padding: 3px 40px;" class="slds-button slds-button_neutral" onclick={Back}>
+                  Cancel
+                </button>
+              </div> -->
+            </footer>
+              
+        </div> 
+      </template>
+    <!-- </template> -->
+    <template if:true={loading}>
+      <div class="exampleHolder">
+        <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+      </div>
+    </template>
+</template>

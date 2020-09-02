@@ -14,7 +14,7 @@ public class CloneATIJob {
    @AuraEnabled
     public static string CloneJobRecord(String recordId, Boolean related){
         ATI_Job__c job = [SELECT Id, name, Job_Name__c,Job_Number__c, Account__c, Contact__c, Customer__c, Lead_Source__c,
-                         Description__c, Job_Class__c, Project_Site_Contact_Name__c,Contact_Information__c, Project_Manager__c, 
+                         Description__c, Job_Class__c, Project_Site_Contact_Name__c, Project_Manager__c, 
                          Branch_Manager__c, Project_Site_Contact_Account__c, Office2__c, Stage__c, Taken_By__c, Project_type__c,
                          Referred_by__c, CloseDate__c,Probability__c, County__c, City_of_LA__c, Project_Site_Address_2__c, 
                          Project_site_address__c, Project_site_city__c, Project_site_state__c, Project_site_zipcode__c, Year_Structure_built__c,

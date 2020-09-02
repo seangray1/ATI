@@ -18,6 +18,7 @@ after update, before delete, before insert, before update) {
     
     if( trigger.isInsert && trigger.isAfter ){
         TaskTriggerUtility.afterTaskInsert( trigger.new, trigger.newMap );
+        TaskUpdateLastActivityDate.TaskUpdateLastActivityDate(trigger.new);
     }
     
     if(trigger.isbefore && trigger.isInsert)
