@@ -101,16 +101,38 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
     {
         Set<Id> acctSet = new Set<Id>();
         Set<Id> nAcctSet = new Set<Id>();
+        Set<String> ZipcodeUpdateSet = new Set<String>();
+        Map<String,Office_Zip_Code__c> offZipMap = new Map<String,Office_Zip_Code__c>();
         for(ATI_Job__c job : newJobs)
         {
             acctSet.add(job.Account__c);
             nAcctSet.add(job.National_Account__c);
+            if(job.Project_Site_Zipcode__c != null && ((Trigger.isInsert) || (oldJobMap.containsKey(job.Id) && Job.Project_Site_Zipcode__c != oldJobMap.get(job.Id).Project_Site_Zipcode__c)))
+            {
+                string zip = job.Project_Site_Zipcode__c.substring(0, 5);
+                system.debug('zip is ' + zip);
+                ZipcodeUpdateSet.add(zip);
+            }
+        }
+        if(!ZipcodeUpdateSet.isEmpty())
+        {
+            List<Office_Zip_Code__c> zipList = [SELECT Id, Name, Office__c,Office__r.Name FROM Office_Zip_code__c WHERE Name =:ZipcodeUpdateSet];
+            for(Office_Zip_Code__c zip : zipList)
+            {
+                offZipMap.put(zip.Name, zip);
+            }
         }
         Map<Id, Account> AcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:acctSet]);
         Map<Id, Account> nAcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:nacctSet]);
         for(ATI_Job__c job : newJobs)
         {
-
+            string zip = job.Project_Site_Zipcode__c.substring(0, 5);
+            //updates the zipcode check if zipcode changes or is on insert
+            if(!ZipcodeUpdateSet.isEmpty() && offZipMap.containsKey(zip))
+            {
+                
+                job.Office_By_Zip_Code__c = offZipMap.get(zip).Office__r.Name;
+            }
             ATI_Job__c oldJob = new ATI_Job__c();
             if(Trigger.isInsert)
             {
