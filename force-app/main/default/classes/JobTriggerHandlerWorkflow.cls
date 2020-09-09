@@ -107,7 +107,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         {
             acctSet.add(job.Account__c);
             nAcctSet.add(job.National_Account__c);
-            if(job.Project_Site_Zipcode__c != null && ((Trigger.isInsert) || (oldJobMap.containsKey(job.Id) && Job.Project_Site_Zipcode__c != oldJobMap.get(job.Id).Project_Site_Zipcode__c)))
+            if(job.Project_Site_Zipcode__c != null && job.Project_Site_Zipcode__c.length() > 4 && ((Trigger.isInsert) || (oldJobMap.containsKey(job.Id) && Job.Project_Site_Zipcode__c != oldJobMap.get(job.Id).Project_Site_Zipcode__c)))
             {
                 string zip = job.Project_Site_Zipcode__c.substring(0, 5);
                 system.debug('zip is ' + zip);
@@ -126,12 +126,14 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         Map<Id, Account> nAcctMap = new Map<Id, Account>([Select Id, Name FROM Account Where Id =:nacctSet]);
         for(ATI_Job__c job : newJobs)
         {
-            string zip = job.Project_Site_Zipcode__c.substring(0, 5);
-            //updates the zipcode check if zipcode changes or is on insert
-            if(!ZipcodeUpdateSet.isEmpty() && offZipMap.containsKey(zip))
+            if(job.Project_Site_Zipcode__c != null && job.Project_Site_Zipcode__c.length() > 4)
             {
-                
-                job.Office_By_Zip_Code__c = offZipMap.get(zip).Office__r.Name;
+                string zip = job.Project_Site_Zipcode__c.substring(0, 5);
+                //updates the zipcode check if zipcode changes or is on insert
+                if(!ZipcodeUpdateSet.isEmpty() && offZipMap.containsKey(zip))
+                { 
+                    job.Office_By_Zip_Code__c = offZipMap.get(zip).Office__r.Name;
+                }
             }
             ATI_Job__c oldJob = new ATI_Job__c();
             if(Trigger.isInsert)
@@ -278,10 +280,10 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                     job.Send_Prelim_Last_Modified_Date_Time__c = system.now();
                     
                 }
-                if((job.Amount__c != oldJob.Amount__c && job.Amount__c > 100000) || (job.Total_Billing_Forecast_Amount__c != oldJob.Total_Billing_Forecast_Amount__c
-                && job.Total_Billing_Forecast_Amount__c > 100000))
-                {
-                    job.Large_Loss_Flag__c = true;
+                if((job.Amount__c != oldJob.Amount__c && job.Amount__c >= 100000) || (job.Total_Billing_Forecast_Amount__c != oldJob.Total_Billing_Forecast_Amount__c	
+                && job.Total_Billing_Forecast_Amount__c >= 100000))	
+                {	
+                    job.Large_Loss_Flag__c = true;	
                 }
             }
 
@@ -608,27 +610,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
         {
            insert jobTeams;
         }
-        if(!CustomerSurveysJobMap.isEmpty())
-        {
-            List<Customer_Survey__c> customerSurveys = [Select Id, Account_Executive_1__c, Account_Executive_2__c, ATI_Job__c FROM Customer_Survey__c WHERE ATI_Job__c =: CustomerSurveysJobMap.keyset()];
-            if(!customerSurveys.isEmpty())
-            {
-                for(Customer_Survey__c c : customerSurveys)
-                {
-                    if(c.Account_Executive_1__c == null)
-                    {
-                        c.Account_Executive_1__c = CustomerSurveysJobMap.get(c.ATI_Job__c).Account_Executive_1__c;
-                    }
-                    if(c.Account_Executive_2__c == null)
-                    {
-                        c.Account_Executive_2__c = CustomerSurveysJobMap.get(c.ATI_Job__c).Account_Executive_2__c;
-                    }
-           
-                    
-                }
-                update customerSurveys;
-            }
-        }
+        
         if(!jsToInsert.isEmpty())
         {
             Map<Id, ATI_Job_Split__c> jobSplitOwners = new Map<Id, ATI_Job_Split__c>([Select id, percentage__c FROM ATI_Job_Split__c WHere ATI_Job__c =: JobSetSplitsToDelete]);
@@ -638,10 +620,10 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 jsToInsert.add(jsplits);
             }
             //update jobSplitOwners.values();
-            system.debug('jstoinsert before ' + jstoinsert);
-            TriggerFlagController.flag = false;
+            // system.debug('jstoinsert before ' + jstoinsert);
+            // TriggerFlagController.flag = false;
             upsert jsToInsert;
-            system.debug('jstoinsert after ' + jstoinsert);
+            // system.debug('jstoinsert after ' + jstoinsert);
         }
         
     }

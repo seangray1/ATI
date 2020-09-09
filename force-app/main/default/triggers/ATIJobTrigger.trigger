@@ -82,6 +82,7 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                          if(Trigger.isAfter && Trigger.isUpdate)
                                          {
                                             JobAEBonusTriggerHandler.updateTeamMembersOnAEChange( (map<Id,ATI_Job__c>)Trigger.oldMap, (map<Id,ATI_Job__c>)Trigger.newMap );
+                                            Econz_Integration_Callouts.manageEConzCallouts(Trigger.oldMap, Trigger.new);
                                          }
                                      }
     

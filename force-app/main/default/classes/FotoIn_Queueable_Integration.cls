@@ -198,7 +198,20 @@ public with sharing class FotoIn_Queueable_Integration implements Queueable, Dat
             JobWrap.archived = false;
             JobWrap.address = address;
             JobWrap.projectName = Job.Project_Site_Name_Fotoin__c;
-            JobWrap.projectKey = Job.year__c;
+            // JobWrap.projectKey = Job.year__c;
+            String month1;
+            Integer i = Job.Date_Time_Taken__c.Month();
+            if(i<10)
+            {
+                month1 ='0'+ String.ValueOf(i);
+            }
+            else{
+                month1= string.valueOf(i);
+            }
+            String projKey = month1+ '-' + job.Date_Time_Taken__c.Year();
+
+            // JobWrap.projectKey = Job.year__c;
+            JobWrap.projectKey = projKey;
         }
         else{
             throw new CallFotoInException(res.getBody());

@@ -2177,7 +2177,7 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
       this.OfficeId = this.MasterJobDetails.Office2__c;
       //this.OfficeDisabled = true;
     }
-    console.log('policy is ' + this.MasterJobDetails.Policy__c);
+    console.log('policy is ' + this.MasterJobDetails.Major_Event__c);
     if (
       this.MasterJobDetails.Policy__c !== "" &&
       this.MasterJobDetails.Policy__c !== undefined &&

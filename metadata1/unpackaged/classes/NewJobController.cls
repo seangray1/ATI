@@ -217,7 +217,7 @@ public without sharing class NewJobController {
     
     @AuraEnabled 
     public static list<Master_Job__c> GetMasterJobs(string propId){
-        List<Master_Job__c> mj = [Select Id, Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c, Office2__c, Office2__r.Name, Policy__c, Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Stage__c != 'Closed' LIMIT 5];
+        List<Master_Job__c> mj = [Select Id, Name, Major_Event__c, Major_Event__r.Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, Claim__c, Office2__c, Office2__r.Name, Policy__c, Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, Multiple_Divisions__c  FROM Master_Job__c Where Property__c =: propId AND Stage__c != 'Closed' LIMIT 5];
         system.debug('Prop Id + ' + propId);
         system.debug(mj.size());
         

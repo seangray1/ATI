@@ -363,23 +363,23 @@ static testmethod void NewJobController_Test6()
         NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, jobs[0].Master_Job__c, 'NewJobEntry', '', true);
 
         
-        NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
-        Test.startTest();
-            Map<String,String> fotoinheaders = new Map<String,String>();
-            fotoinheaders.put('Content-Type', 'application/json');
-            Map<String,String> googleheaders = new Map<String,String>();
-            googleheaders.put('Content-Type', 'application/json');
-            String outPutJson = '{"location": { "lat": 37.09024, "lng": -95.712891}}';
-            String outputJsonAddress = '{{"results" : [{"access_points" : [],"address_components" : [{"long_name" : "15632","short_name" : "15632","types" : [ "street_number" ]},{"long_name" : "Youngwood Drive","short_name" : "Youngwood Dr","types" : [ "route" ]},{"long_name" : "East Whitter","short_name" : "East Whitter","types" : [ "neighborhood", "political" ]},{"long_name" : "Whittier","short_name" : "Whittier","types" : [ "locality", "political" ]},{"long_name" : "Los Angeles County","short_name" : "Los Angeles County","types" : [ "administrative_area_level_2", "political" ]},{"long_name" : "California","short_name" : "CA","types" : [ "administrative_area_level_1", "political" ]},{"long_name" : "United States","short_name" : "US","types" : [ "country", "political" ]},{"long_name" : "90603","short_name" : "90603","types" : [ "postal_code" ]},{"long_name" : "1235","short_name" : "1235","types" : [ "postal_code_suffix" ]}],"formatted_address" : "15632 Youngwood Dr, Whittier, CA 90603, USA","geometry" : {"bounds" : {"northeast" : {"lat" : 33.9551556,"lng" : -117.9936276},"southwest" : {"lat" : 33.9549415,"lng" : -117.9938733}},"location" : {"lat" : 33.9550515,"lng" : -117.9937451},"location_type" : "ROOFTOP","viewport" : {"northeast" : {"lat" : 33.9563975302915,"lng" : -117.9924014697085},"southwest" : {"lat" : 33.9536995697085,"lng" : -117.9950994302915}}},"place_id" : "ChIJ--yIXe3UwoARtn_JzLhd-i0","types" : [ "premise" ]}],"status" : "OK"}';
-            SingleRequestMock fakeAccountResp = new SingleRequestMock(200,
-                                                         '200',
-                                                         outPutJson,
-                                                         fotoinheaders);
+        // NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
+        // Test.startTest();
+        //     Map<String,String> fotoinheaders = new Map<String,String>();
+        //     fotoinheaders.put('Content-Type', 'application/json');
+        //     Map<String,String> googleheaders = new Map<String,String>();
+        //     googleheaders.put('Content-Type', 'application/json');
+        //     String outPutJson = '{"location": { "lat": 37.09024, "lng": -95.712891}}';
+        //     String outputJsonAddress = '{{"results" : [{"access_points" : [],"address_components" : [{"long_name" : "15632","short_name" : "15632","types" : [ "street_number" ]},{"long_name" : "Youngwood Drive","short_name" : "Youngwood Dr","types" : [ "route" ]},{"long_name" : "East Whitter","short_name" : "East Whitter","types" : [ "neighborhood", "political" ]},{"long_name" : "Whittier","short_name" : "Whittier","types" : [ "locality", "political" ]},{"long_name" : "Los Angeles County","short_name" : "Los Angeles County","types" : [ "administrative_area_level_2", "political" ]},{"long_name" : "California","short_name" : "CA","types" : [ "administrative_area_level_1", "political" ]},{"long_name" : "United States","short_name" : "US","types" : [ "country", "political" ]},{"long_name" : "90603","short_name" : "90603","types" : [ "postal_code" ]},{"long_name" : "1235","short_name" : "1235","types" : [ "postal_code_suffix" ]}],"formatted_address" : "15632 Youngwood Dr, Whittier, CA 90603, USA","geometry" : {"bounds" : {"northeast" : {"lat" : 33.9551556,"lng" : -117.9936276},"southwest" : {"lat" : 33.9549415,"lng" : -117.9938733}},"location" : {"lat" : 33.9550515,"lng" : -117.9937451},"location_type" : "ROOFTOP","viewport" : {"northeast" : {"lat" : 33.9563975302915,"lng" : -117.9924014697085},"southwest" : {"lat" : 33.9536995697085,"lng" : -117.9950994302915}}},"place_id" : "ChIJ--yIXe3UwoARtn_JzLhd-i0","types" : [ "premise" ]}],"status" : "OK"}';
+        //     SingleRequestMock fakeAccountResp = new SingleRequestMock(200,
+        //                                                  '200',
+        //                                                  outPutJson,
+        //                                                  fotoinheaders);
  
-            SingleRequestMock fakeContactsResp = new SingleRequestMock(200,
-                                                  'Complete',
-                                                  outputJsonAddress,
-                                                   googleheaders);
+        //     SingleRequestMock fakeContactsResp = new SingleRequestMock(200,
+        //                                           'Complete',
+        //                                           outputJsonAddress,
+        //                                            googleheaders);
  
             // Map<String, HttpCalloutMock> endpoint2TestResp =
             //                         new Map<String,HttpCalloutMock>();
@@ -390,15 +390,15 @@ static testmethod void NewJobController_Test6()
             //                         new MultiRequestMock(endpoint2TestResp);
     
             //Test.setMock(HttpCalloutMock.class, multiCalloutMock);
-            Test.setMock(HttpCalloutMock.class, fakeContactsResp);
-                // Test.setMock(HttpCalloutMock.class, new MockHttpFotoIn(200, 'success', outPutJson, null));
-                // Test.setMock(HttpCalloutMock.class, new MockHttpGoogleMapsResponse(200, 'success', outputJsonAddress, null));
+            // Test.setMock(HttpCalloutMock.class, fakeContactsResp);
+            //     // Test.setMock(HttpCalloutMock.class, new MockHttpFotoIn(200, 'success', outPutJson, null));
+            //     // Test.setMock(HttpCalloutMock.class, new MockHttpGoogleMapsResponse(200, 'success', outputJsonAddress, null));
                 
             
         
-                jobs[0].Project_Site_City__c ='Test FotoIN Add';
-                // Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobs, 'Edit'));
-            Test.stopTest();
+            //     jobs[0].Project_Site_City__c ='Test FotoIN Add';
+            //     // Id fotonInQueue = System.enqueueJob(new FotoIn_Queueable_Integration(jobs, 'Edit'));
+            // Test.stopTest();
         
         
 
