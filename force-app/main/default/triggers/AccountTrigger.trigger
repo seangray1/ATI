@@ -114,6 +114,12 @@ after update, before delete, before insert, before update) {
     
     if( trigger.isUpdate && trigger.isAfter ){
         AccountTriggerUtility.afterAccountUpdate( trigger.oldMap, trigger.new );
+        if(!System.isQueueable() && !System.isFuture())
+        {
+            AddressValidationCheck.AddressValidationCheck(trigger.new, trigger.oldMap);
+        }
+        
+
     }
     
 }

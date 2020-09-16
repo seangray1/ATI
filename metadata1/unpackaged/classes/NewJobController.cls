@@ -170,12 +170,12 @@ public without sharing class NewJobController {
         system.debug('Contacts are ' + accts);
         return accts;
     }
-    @AuraEnabled
-    public static string Test(string test){
-        system.debug('Test' + test);
-        return '200';
+    // @AuraEnabled
+    // public static string Test(string test){
+    //     system.debug('Test' + test);
+    //     return '200';
         
-    }
+    // }
     @AuraEnabled
     public static List<Account_Roles__c> RetrieveAccountRoles(String recordId) {
         
@@ -751,19 +751,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                         Referred = accountRoles.Contact;
                         system.debug('8');
                     }
-                    if(accountRoles.Text.contains('Referred By') && !String.isBlank(accountRoles.Contact))
-                    {
-                        AEMContactSearchMap.put(accountRoles.Contact,'Referred By');
-                        
-
-                    }else if(accountRoles.Text.contains('Insurance Adjuster/Company') && !String.isBlank(accountRoles.Contact))
-                        {
-                            AEMContactSearchMap.put(accountRoles.Contact,'Insurance Adjuster/Company');
-                        }
-                        else if(accountRoles.Text.contains('Property/Facility Manager') && !String.isBlank(accountRoles.Contact))
-                            {
-                                AEMContactSearchMap.put(accountRoles.Contact, 'Property/Facility Manager');
-                            }
+                    
                 }
 
             }
@@ -915,6 +903,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     if(!String.isBlank(accountRoles.Account))
                     {
                         PrimaryAccount = accountRoles.Account;
+                        AEMContactSearchMap.put(accountRoles.Account,'Primary Bill-to');
                         if(PersonAccountMap.containsKey(accountRoles.Account))
                         {
                             PrimaryContact = PersonAccountMap.get(accountRoles.Account).PersonContactId;
@@ -958,19 +947,20 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                         Referred = accountRoles.Contact;
                         system.debug('8');
                     }
-                    if(accountRoles.Text.contains('Referred By') && !String.isBlank(accountRoles.Contact))
-                    {
-                        AEMContactSearchMap.put(accountRoles.Contact,'Referred By');
+                    // if(accountRoles.Text.contains('Referred By') && !String.isBlank(accountRoles.Contact))
+                    // {
+                    //     AEMContactSearchMap.put(accountRoles.Contact,'Referred By');
                         
 
-                    }else if(accountRoles.Text.contains('Insurance Adjuster/Company') && !String.isBlank(accountRoles.Contact))
-                        {
-                            AEMContactSearchMap.put(accountRoles.Contact,'Insurance Adjuster/Company');
-                        }
-                        else if(accountRoles.Text.contains('Property/Facility Manager') && !String.isBlank(accountRoles.Contact))
-                            {
-                                AEMContactSearchMap.put(accountRoles.Contact, 'Property/Facility Manager');
-                            }
+                    // }
+                    // else if(accountRoles.Text.contains('Insurance Adjuster/Company') && !String.isBlank(accountRoles.Contact))
+                    //     {
+                    //         AEMContactSearchMap.put(accountRoles.Contact,'Insurance Adjuster/Company');
+                    //     }
+                    //     else if(accountRoles.Text.contains('Property/Facility Manager') && !String.isBlank(accountRoles.Contact))
+                    //         {
+                    //             AEMContactSearchMap.put(accountRoles.Contact, 'Property/Facility Manager');
+                    //         }
                 }
 
             }
@@ -980,26 +970,26 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             if(!AEMContactSearchMap.isEmpty())
             {
                 system.debug('AEMValues is ' + AEMContactSearchMap.values());
-                Map<Id, Contact> contactOwners = new Map<Id, Contact>([Select Id, Owner.Id, Owner.Profile.Name FROM Contact Where Id =:AEMContactSearchMap.keySet()]);
+                Map<Id, Account> contactOwners = new Map<Id, Account>([Select Id, Owner.Id, Owner.Profile.Name FROM Account Where Id =:AEMContactSearchMap.keySet()]);
                 system.debug('contact owners is ' + contactOwners);
                 for(Id cid : AEMContactSearchMap.keyset())
                 {
-                    if(AEMContactSearchMap.get(cid) == 'Referred By' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
+                    if(AEMContactSearchMap.get(cid) == 'Primary Bill-to' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
                     && ReferredByAEToggled == false)
                     {
                         AEContactToUse = contactOwners.get(cid).Owner.Id;
                         ReferredByAEToggled = true;
                     }
-                    if(AEMContactSearchMap.get(cid) == 'Insurance Adjuster/Company' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
-                    && ReferredByAEToggled == false)
-                    {
-                        AEContactToUse = contactOwners.get(cid).Owner.Id;
-                    }
-                    if(AEMContactSearchMap.get(cid) == 'Property/Facility Manager' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
-                    && ReferredByAEToggled == false)
-                    {
-                        AEContactToUse = contactOwners.get(cid).Owner.Id;
-                    }
+                    // if(AEMContactSearchMap.get(cid) == 'Insurance Adjuster/Company' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
+                    // && ReferredByAEToggled == false)
+                    // {
+                    //     AEContactToUse = contactOwners.get(cid).Owner.Id;
+                    // }
+                    // if(AEMContactSearchMap.get(cid) == 'Property/Facility Manager' && contactOwners.get(cid).Owner.Profile.Name == 'Marketing Representative'
+                    // && ReferredByAEToggled == false)
+                    // {
+                    //     AEContactToUse = contactOwners.get(cid).Owner.Id;
+                    // }
                 }
             }
             ATI_Job__c jobToRemoveMJ = new ATI_Job__c();
@@ -1081,15 +1071,24 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 // ML_Recording_Date__c
                 MjobExisting = [Select Id, Name,Policy__c,  Deductible__c, Claim__c,
                    Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c, National_Account__c FROM Master_Job__c Where Id =:masterJobId];
-                if(AEContactToUse != null && MjobExisting.Account_Executive_1__c == null)
+                if(AEContactToUse != null)
                 {
-                MjobExisting.Account_Executive_1__c = AEContactToUse;
+                    if(MjobExisting.Account_Executive_1__c != null)
+                    {
+                        MjobExisting.Account_Executive_2__c = AEContactToUse;
+                    }
+                    if(MjobExisting.Account_Executive_1__c == null)
+                    {
+                        MjobExisting.Account_Executive_1__c = AEContactToUse;
+                    }
                 }
                 update MjobExisting;
 
             }
             else if(JobEntryType == 'AfterHoursJobEntry' && ExistingMasterJob == false)
             {
+                Master_JOb__c MjobExisting2 = [Select Id, Name,Policy__c,  Deductible__c, Claim__c,
+                Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c, National_Account__c FROM Master_Job__c Where Id =:masterJobId];
                 system.debug('Existing job in if false statement ' + ExistingMasterJob);
                 masterJob.Id = masterJobId;
                 masterJob.Claim__c = jobWrap.Claim;
@@ -1098,7 +1097,15 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 //masterJob.Deductible__c = Decimal.valueOf(jobWrap.Deductible);
                 if(AEContactToUse != null)
                 {
-                    masterJob.Account_Executive_1__c = AEContactToUse;
+                    if(MjobExisting2.Account_Executive_1__c != null)
+                    {
+                        masterJob.Account_Executive_2__c = AEContactToUse;
+                    }
+                    if(MjobExisting2.Account_Executive_1__c == null)
+                    {
+                        masterJob.Account_Executive_1__c = AEContactToUse;
+                    }
+                   
                 }
                 masterJob.Date_of_Loss__c = jobWrap.DateOfLoss;
                // masterJob.Cont_P_O_Client_Job__c = jobWrap.ClientJob;
@@ -1128,7 +1135,14 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 Date_of_Loss__c, Major_Event__c, Major_Event__r.Name, Account_Executive_1__c, Account_Executive_2__c, National_Account__c FROM Master_Job__c Where Id =:masterJobId];
                 if(AEContactToUse != null && MjobExisting.Account_Executive_1__c == null)
                 {
-                MjobExisting.Account_Executive_1__c = AEContactToUse;
+                    if(MjobExisting.Account_Executive_1__c != null)
+                    {
+                        MjobExisting.Account_Executive_2__c = AEContactToUse;
+                    }
+                    if(MjobExisting.Account_Executive_1__c == null)
+                    {
+                        MjobExisting.Account_Executive_1__c = AEContactToUse;
+                    }
                 }
                 // if(AEContactToUse != null && MjobExisting.Account_Executive_1__c != null && MjobExisting.Account_Executive_2__c == null)
                 // {
@@ -1194,6 +1208,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     // job.ML_Release_Recording_Date__c = MjobExisting.ML_Release_Recording_Date__c;
                     // job.ML_Request_Date__c = MjobExisting.ML_Request_Date__c;
                 }else{
+                    
                     job.Account_Executive_1__c = AEContactToUse;
                 }
             insert job;
@@ -1207,7 +1222,9 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 system.debug('Before update' + job.Master_Job__c);
                 if(ExistingMasterJob == false)
                 {
-                    job.Account_Executive_1__c = AEContactToUse;
+                    // job.Account_Executive_1__c = AEContactToUse;
+                    job.Account_Executive_1__c = masterJob.Account_Executive_1__c;
+                    job.Account_Executive_2__c = masterJob.Account_Executive_2__c;
                    
                 }
                 if(ExistingMasterJob == true)

@@ -347,7 +347,7 @@ static testmethod void NewJobController_Test6()
         ObjectInserts ObjectData = TestDataUtil.createObjects(NumToInsert, false);
         List<ATI_Job__c> jobs = ObjectData.jobList;
         insert jobs;
-        TestDataUtil.CreateObjectAccountRoles(NumToInsert, jobs, ObjectData.accountList, ObjectData.contactList);
+        // TestDataUtil.CreateObjectAccountRoles(NumToInsert, jobs, ObjectData.accountList, ObjectData.contactList);
         ATI_Job__c job = jobs[0];
         Account [] acct= ObjectData.accountList;
         Contact [] cont = ObjectData.contactList;
@@ -363,7 +363,7 @@ static testmethod void NewJobController_Test6()
         NewJobController.CreateNewJob(AccountRoleInfo, PropertyInfo, JobInfo, jobs[0].Master_Job__c, 'NewJobEntry', '', true);
 
         
-        // NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
+        NewJobController.CreateNewProp(AccountRoleInfo, PropertyInfo);
         // Test.startTest();
         //     Map<String,String> fotoinheaders = new Map<String,String>();
         //     fotoinheaders.put('Content-Type', 'application/json');
@@ -444,7 +444,10 @@ static testmethod void NewJobController_Test7()
         Office__c [] offices = ObjectData.OfficeList;
         User [] users = ObjectData.UserList;
         Property__c [] property = ObjectData.PropertyList;
-        
+        NewJobController.RetrieveAccountRoles(property[0].Id);
+        NewJobController.GetJobAccountRoles(masterjob[0].Id);
+        NewJobController.GetMasterJobs(property[0].Id);
+
         
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, fakeContactsResp);

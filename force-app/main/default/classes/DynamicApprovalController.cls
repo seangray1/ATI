@@ -326,6 +326,23 @@ public without sharing class DynamicApprovalController {
         
     //     return ItemsToApproveClass;
     // }
+    @AuraEnabled 
+    public static Boolean GetGroupInfo()
+    {
+        List<Group> BDMGroup = [SELECT Id, Name FROM Group WHERE Name = 'Directors of Business Development'];
+        if(!BDMGroup.isEmpty())
+        {
+            List<GroupMember> BDMGroupMembers = [SELECT Id, GroupId, UserOrGroupId FROM GroupMember Where GroupId =:BDMGroup[0].Id];
+            for(GroupMember g : BDMGroupMembers)
+            {
+                if(UserInfo.getUserId() == g.UserOrGroupId)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     @AuraEnabled
 public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision, string processId)
 {

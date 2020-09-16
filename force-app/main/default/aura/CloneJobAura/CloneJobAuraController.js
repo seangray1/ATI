@@ -1,5 +1,5 @@
 ({
-	doInit : function(component, event, helper) {
+	gotoCloneATILT : function(component, event, helper) {
         //var infoReturned;
         var infoReturned;
         var recordId = component.get("v.recordId");
@@ -20,6 +20,9 @@
                 //         //alert('Device is ' + device);
                         if(device === 'PHONE' || device === 'TABLET'){
                             console.log('Device is ' + device);
+                            component.set("v.isPhone", true);
+                            component.set("v.isDesktop", false);
+                            
                         }else{    
                 
             var avt = $A.get("e.force:navigateToComponent"); 

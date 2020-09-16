@@ -63,7 +63,7 @@ DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorE
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
 ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
 DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
-@track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];FieldsDisabled = false;
+@track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];FieldsDisabled = false;RelatedJob="";
 @api recordId;
 value = 'inProgress';
       @track state = {
@@ -79,6 +79,10 @@ value = 'inProgress';
       }
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
+}
+RelatedJobChange(e)
+{
+    this.RelatedJob = e.detail.value;
 }
 InsuranceProviderChange(e){
     this.InsuranceProvider = e.detail.value;
@@ -387,7 +391,8 @@ EsJobTypeChange(e){
     this.EsJobType = e.detail.value;
 }
 Save(){
-    
+    console.log('Saving Job');
+    try{
     const input = [...this.template.querySelectorAll('.jobFormControl')]
         .reduce((validSoFar, inputCmp) => {
                     inputCmp.reportValidity();
@@ -409,8 +414,9 @@ Save(){
         }
         else
         {
-        
-    const address = this.template.querySelector('[data-id="AddressLookup"]');
+            console.log('Saving Job with related job');
+        const relatedJob = this.template.querySelector('[data-id="RelatedJob"]');
+        const address = this.template.querySelector('[data-id="AddressLookup"]');
             // const isValid = address.checkValidity();
             //   if(isValid) {
                 
@@ -421,9 +427,11 @@ Save(){
                 ZipCode = address.postalCode;
                 Country = address.country;
                 this.loading = true;
+                console.log('Sending TO apex');
                 AfterHoursJobCreation({JobName:this.JobName, Division:this.Division, EsJobType:this.EsJobType, Office:this.OfficeId, Street:Street, State:State, City:City, 
-                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description, MajorEvent:this.MajorEventId, ProjectDirector:this.ProjectDirectorId, recordId:this.recordId}).then(result => {
+                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description, MajorEvent:this.MajorEventId, ProjectDirector:this.ProjectDirectorId, recordId:this.recordId, RelatedJob:RelatedJob}).then(result => {
                 let data = result;
+                console.log('Result returned');
                 
         if(data.length > 18){
             this.loading = false;
@@ -468,6 +476,11 @@ Save(){
 }
 }
 }
+    }
+    catch(e)
+    {
+        console.error("error occured " + e);
+    }
 }
 Cancel(event) {
     if(this.recordId === null || this.recordId === undefined || this.recordId === "")

@@ -73,19 +73,7 @@
         <!-- class="spacing jobFormControl center"
         dropdown-alignment=auto  -->
             <!-- <div class="comboboxes"> -->
-                        <lightning-combobox name="progress"
-                        label="Division"
-                        value={Division}
-                        placeholder="-Select-"
-                        options={DivisionPicklistValues}
-                        onchange={DivisionChange}
-                        class={comboboxes}
-                        
                        
-                        required
-                        > 
-                   
-                         </lightning-combobox>
                              <!-- </div> -->
                     <!-- <lightning-record-edit-form object-api-name="ATI_Job__c">
                         <lightning-input-field field-name="Division__c" value={Division} onchange={DivisionChange}  required></lightning-input-field>
@@ -140,14 +128,7 @@
      </tbody>
  </table>
 </template>   
-<c-combobox
-name="progress"
 
-value={value}
-placeholder="Select Progress"
-options={options}
-onchange={handleChange12}
-></c-combobox>
         <lightning-input onkeyup={ProjectDirectorChange}
             
         label="Project Director"   placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="spacing"></lightning-input>
@@ -177,7 +158,11 @@ onchange={handleChange12}
                </template>
            </tbody>
        </table>
-   </template>   
+   </template>  
+   <lightning-record-edit-form object-api-name="LightningRecordEditFormObject__c">
+    <label style="color:rgb(62,62,60); font-size:.75rem;display:inline-block;padding-right:.5rem;padding-top:.25rem;margin-bottom:.125rem;">Related Job (If Applicable)</label>
+    <lightning-input-field field-name="Job__c" variant="label-hidden" onchange={RelatedJobChange} class="JobClass" data-id="RelatedJob" value={RelatedJob}></lightning-input-field>
+</lightning-record-edit-form> 
         <lightning-input-address
                                     data-id="AddressLookup"
                                     address-label="Search Address"
@@ -510,7 +495,12 @@ onchange={handleChange12}
                                 
             
         <!-- </div> -->
-             <br>
+             
+             <lightning-record-edit-form object-api-name="LightningRecordEditFormObject__c">
+                <label style="color:rgb(62,62,60); font-size:.75rem;display:inline-block;padding-right:.5rem;padding-top:.25rem;margin-bottom:.125rem;">Related Job (If Applicable)</label>
+                <lightning-input-field field-name="Job__c" variant="label-hidden" onchange={RelatedJobChange} class="JobClass" data-id="RelatedJob" value={RelatedJob}></lightning-input-field>
+            </lightning-record-edit-form>
+            <br>
         <!--       
         <div class="slds-col slds-size_1-of-2"> -->
             <lightning-input-address
@@ -675,6 +665,9 @@ onchange={handleChange12}
                                     <lightning-input label="Policy #" onchange={PolicyChange} value={Policy}></lightning-input>
                                     <lightning-helptext content="For example, Alacrity, Contractor connection, Public Adjuster, Property Management"></lightning-helptext>
                                     <lightning-input label="Lead Source" onchange={LeadSourceChange} value={LeadSource}></lightning-input>
+                                    
+                                        
+                                       
                                     <lightning-textarea label="Additional Information" onchange={AdditionalInformationTwoChange} value={AdditionalInformationTwo} ></lightning-textarea>
                                     
                                     

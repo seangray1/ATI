@@ -116,13 +116,16 @@ public without sharing class Create_Opportunity_Handler
             if(oldJobsList.containsKey(jobInOpp.Id)){
                 ATI_Job__c jobRecord = oldJobsList.get(jobInOpp.id);
                 if(jobRecord.Referred_by__c <> jobInOpp.Referred_by__c || jobRecord.Name != jobInOpp.Name || jobRecord.Division__c != jobInOpp.Division__c
-                || jobRecord.Amount__c != jobInOpp.Amount__c || jobRecord.Office2__c != jobInOpp.Office2__c){
+                || jobRecord.Amount__c != jobInOpp.Amount__c || jobRecord.Office2__c != jobInOpp.Office2__c || jobRecord.Major_Event__c != jobInOpp.Major_Event__c)
+                {
                     OppMap.get(o).Division__c = jobInOpp.Division__c;
                     OppMap.get(o).Office2__c = jobInOpp.Office2__c;
                     OppMap.get(o).Amount = jobInOpp.Amount__c;
                     OppMap.get(o).Name = jobInOpp.Name;
+                    OppMap.get(o).Major_Event__c = jobInOpp.Major_Event__c;
                     Changed = true;
-                    if(jobInOpp.Referred_by__c <> null){
+                    if(jobInOpp.Referred_by__c <> null)
+                    {
                         OppMap.get(o).Contact__c=jobInOpp.Referred_by__c;
                     } else {
                         OppMap.get(o).Contact__c=jobInOpp.Contact__c;                           

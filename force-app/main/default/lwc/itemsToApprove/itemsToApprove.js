@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import GetAccountData from '@salesforce/apex/DynamicApprovalController.GetAccountData';
 import ApproveSelectedItems from '@salesforce/apex/DynamicApprovalController.ApproveSelectedItems';
+import GetGroupInfo from '@salesforce/apex/DynamicApprovalController.GetGroupInfo';
 import My_Resource from '@salesforce/resourceUrl/SLDS202';
 
 // import GetColumns from '@salesforce/apex/DynamicApprovalController.GetColumns';
@@ -29,6 +30,7 @@ export default class ItemsToApprove extends LightningElement {
     // getcurrentpageurl = (new URL(document.location)).searchParams;
     // @api pageurl = this.getcurrentpageurl;
     data = [];
+    BDMUser = false;
     datasetup = [];
     RefreshIcon = My_Resource + '/assets/icons/utility-sprite/svg/symbols.svg#refresh';
     // Columns = [
@@ -104,6 +106,9 @@ export default class ItemsToApprove extends LightningElement {
         else{
             this.DataTableHeight = 'tall';
         }
+        GetGroupInfo({}).then(result =>{
+            this.BDMUser = result;
+        })
         GetAccountData({objectName:this.objectName}).then(result =>{
             // console.log('Result ' + JSON.stringify(result));
            let accounts = result;

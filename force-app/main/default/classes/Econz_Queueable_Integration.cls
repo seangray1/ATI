@@ -73,7 +73,7 @@ public with sharing class Econz_Queueable_Integration implements Queueable, Data
             Map<Id,ATI_Job__c> jobListQueryMap = new Map<Id,ATI_Job__c>();
             jobListQueryMap.putall(jobList);
             system.debug('Joblist query map size is ' + jobListQueryMap.size());
-            List<ATI_Job__c> jobListQuery = [SELECT Id, Name, Stage__c, Recordtype.id, Project_Manager_New__r.Email, Project_Manager_New__r.Name, Project_Manager__r.Name, Division__c, Office__c, Job_Start_Date__c, Date_Time_Approved__c, Job_Prev_Name__c,
+            List<ATI_Job__c> jobListQuery = [SELECT Id, Name, Stage__c, Date_Time_Taken__c, Recordtype.id, Project_Manager_New__r.Email, Project_Manager_New__r.Name, Project_Manager__r.Name, Division__c, Office__c, Job_Start_Date__c, Date_Time_Approved__c, Job_Prev_Name__c,
             Project_Site_Address_2__c, Project_Site_Address__c, Project_Site_City__c, Project_Site_State__c, Completion_Date__c, Project_Manager_New__r.EConz_Primary_Key__c,
             Project_Site_Zipcode__c, ECONZ_Error_Message__c, ECONZ_Integration_Error__c, ECONZ_Last_Callout_Time__c, ECONZ_Task_Created__c, Project_Site_Name_Fotoin__c,
             Project_Site_Record_Id__c, Project_Site_Call_Result_Message__c, Last_Successful_FotoIn_Update__c, Last_FotoIn_Update__c, Project_Site_Name__c, year__c, job_number__c
