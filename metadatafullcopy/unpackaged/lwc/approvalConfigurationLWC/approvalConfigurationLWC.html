@@ -1,0 +1,57 @@
+<template>
+    <div class="slds-box slds-theme_shade">
+        <div class="slds-grid">
+            
+    <template if:true={ObjectDataLoaded}>
+        <div class="slds-col slds-size_1-of-3">
+    <!-- <lightning-combobox name="progress"
+    
+    value={Object}
+    placeholder="-Select-"
+    options={ObjectOptions}
+    onchange={ObjectChange}
+    
+    class="spacing jobFormControl"
+    dropdown-alignment=auto 
+    >
+    </lightning-combobox> -->
+    <lightning-dual-listbox name="Object Name"
+    label="Select an Object to create an Approval View"
+    source-label="Available Objects"
+    selected-label="Object Selected"
+    value={Object}
+    
+    max={min}
+    field-level-help="Select an Object to create an Approval View"
+    options={ObjectOptions}
+    onchange={ObjectChange}></lightning-dual-listbox>
+</div>
+
+        <template if:true={ObjectSelected}>
+            <template if:true={FieldOptionsLoaded}>
+                <div class="slds-col slds-size_1-of-3">
+                <lightning-dual-listbox name="Columns"
+                label="Select Fields to be Displayed"
+                source-label="Available Fields"
+                selected-label="Columns"
+                value={Fields}
+                min={min}
+                max={max}
+                field-level-help="Select Fields in order of Column placement(Top being Column 1)"
+                options={FieldOptions}
+                onchange={FieldChange}></lightning-dual-listbox>
+        </div>
+    </template>
+        </template>
+</template>
+</div>
+</div>
+
+
+<div class="slds-p-around_medium lgc-bg-inverse element">
+    <lightning-button-group class="slds-align_absolute-center">
+<lightning-button label='Save Approval View' onclick={SaveApprovalView} variant="brand"></lightning-button>
+<lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
+</lightning-button-group>
+</div>
+</template>

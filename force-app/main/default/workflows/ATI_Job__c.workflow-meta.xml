@@ -906,6 +906,84 @@
         <template>ATI_Job_Templates/ATI_La_Quinta_New_Loss_Info_Request_to_PD</template>
     </alerts>
     <alerts>
+        <fullName>JOB_Large_Loss_Notification</fullName>
+        <description>JOB - Large Loss Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Large_Loss_Management_Team</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_Director__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/ATI_Job_Large_Loss_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>JOB_Large_Loss_Notification_500K</fullName>
+        <description>JOB - Large Loss Notification 500K</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Large_Loss_Management_Team</recipient>
+            <type>group</type>
+        </recipients>
+        <recipients>
+            <recipient>jeff.moore@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>kelly.kambs@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nat.lee@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>richard.devos@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ross.linquiti@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ryan.moore@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>steve.pace@atirestoration.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager_new__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_Director__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ATI_Job_Templates/ATI_Job_Large_Loss_Email_Template_500K</template>
+    </alerts>
+    <alerts>
         <fullName>JOB_PM_Assignment_Approval</fullName>
         <description>JOB PM Assignment Approval</description>
         <protected>false</protected>
@@ -1211,6 +1289,18 @@
         <senderAddress>donotreply@atirestoration.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>ATI_Job_Templates/ATI_Job_Project_Manager_formerly_Superintendent_Assignment</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_COVID_safety_email_when_job_is_marked_won</fullName>
+        <description>Send COVID safety email when job is marked won</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Project_Site_Contact_Name__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>donotreply@atirestoration.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATI_Job_Templates/ATI_Project_Contact_Information_Email</template>
     </alerts>
     <alerts>
         <fullName>Send_client_welcome_email_when_job_is_marked_won</fullName>
@@ -2207,7 +2297,7 @@
         <fields>Work_Phone__c</fields>
         <fields>X1sub__c</fields>
         <includeSessionId>true</includeSessionId>
-        <integrationUser>jitterbit@atirestoration.com</integrationUser>
+        <integrationUser>csadmin@ameri-tech.com</integrationUser>
         <name>Jitterbit Job OBM</name>
         <protected>false</protected>
         <useDeadLetterQueue>false</useDeadLetterQueue>
@@ -2988,6 +3078,63 @@ Channyn Rowe</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>JOB - Large Loss Notification</fullName>
+        <actions>
+            <name>JOB_Large_Loss_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>(1 OR 2 OR 3) AND 4 AND 5</booleanFilter>
+        <criteriaItems>
+            <field>ATI_Job__c.Amount__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Total_Billing_Forecast_Amount__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Large_Loss_Flag__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Total_Billing_Forecast_Amount__c</field>
+            <operation>lessThan</operation>
+            <value>500000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Amount__c</field>
+            <operation>lessThan</operation>
+            <value>500000</value>
+        </criteriaItems>
+        <description>To notify Large Loss Management Team of Large Loss jobs</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>JOB - Large Loss Notification 500k</fullName>
+        <actions>
+            <name>JOB_Large_Loss_Notification_500K</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>ATI_Job__c.Amount__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>500000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Total_Billing_Forecast_Amount__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>500000</value>
+        </criteriaItems>
+        <description>Purpose: FYI alerting management, operations, and finance of very large jobs as soon as they are identified.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>JOB - Record previous job number</fullName>
         <actions>
             <name>Record_previous_job_number</name>
@@ -3246,6 +3393,58 @@ OR(ISNEW(),ISCHANGED( Project_Manager__c )),$Profile.Name &lt;&gt; &quot;Restric
         <description>Populates the previous job name if job name is changed.</description>
         <formula>AND(OR(ISCHANGED( Name ) , ISCHANGED( Job_Name__c )),$Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send COVID safety email upon Won</fullName>
+        <actions>
+            <name>Send_COVID_safety_email_when_job_is_marked_won</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <criteriaItems>
+            <field>ATI_Job__c.Stage__c</field>
+            <operation>equals</operation>
+            <value>Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Project_Site_Contact_Email__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Date_Time_Client_Welcome_Email_Sent__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Project_Manager_New_Full_Name__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Division__c</field>
+            <operation>notEqual</operation>
+            <value>Consulting,Marketing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Estimate_Only__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Ladder_Assist__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ATI_Job__c.Project_Manager__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>notEqual</operation>
+            <value>Restricted Process Execution</value>
+        </criteriaItems>
+        <description>Sends COVID safety email when the job is marked as won</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Send Prelim Last Modified</fullName>

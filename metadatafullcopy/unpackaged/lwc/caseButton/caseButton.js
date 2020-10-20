@@ -1,0 +1,148 @@
+/**
+ * @File Name          : CaseButton.js
+ * @Description        : 
+ * @Author             : Sean Gray
+ * @Group              : 
+ * @Last Modified By   : Sean Gray
+ * @Last Modified On   : 2/1/2020, 6:03:03 PM
+ * @Modification Log   : 
+ * Ver       Date            Author      		    Modification
+ * 1.0    10/28/2019   Sean Gray     Initial Version
+**/
+import { LightningElement, track, api, wire } from 'lwc';
+import JobCaseInfo from '@salesforce/apex/JobButtons.JobCaseInfo';
+import ContactAccount from '@salesforce/apex/JobButtons.ContactAccount';
+import CaseChatterTaskCreation from '@salesforce/apex/JobButtons.CaseChatterTaskCreation';
+import {ShowToastEvent} from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import CASE_OBJECT from '@salesforce/schema/Case';
+const DELAY = 1000;
+export default class caseButton extends NavigationMixin (LightningElement) {
+    connectedCallback(){
+        
+        JobCaseInfo({recordId:this.recordId})
+        .then(result => {
+            this.contact = result;
+    })
+        ContactAccount({recordId:this.recordId})
+        .then(result => {
+            this.accountId = result;
+})
+}
+@api objectApiName;
+@track objectInfo;
+@track ownerId;
+@track accountId;
+@track job;
+@track caseOrigin;
+@track priority = null;
+@track businessCategory;
+@track resolutionType;
+@track nextActionDateTime;
+@track status;
+@track subject;
+@track description;
+@track contact;
+@api recordId;
+@track loading = false;
+@track returnedData;
+@track priority1 = true;
+@track recordTypeId = '0120g000000EAlyAAG';
+
+
+@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
+objectInfo;
+
+get recordTypeId() {
+    // Returns a map of record type Ids 
+    const rtis = this.objectInfo.data.recordTypeInfos;
+    return Object.keys(rtis).find(rti => rtis[rti].name === 'Contact Center Case');
+    
+}
+subjectChange(event){
+    // window.clearTimeout(this.delayTimeout);
+    
+    clearTimeout(this.timeoutId); // no-op if invalid id
+    this.timeoutId = setTimeout(this.SubjectSet.bind(this), 5000);
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      //this.delayTimeout = setTimeout(() => {
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+    //   this.delayTimeout = setTimeout(() => {
+    //     this.subject = event.detail.value;
+    //     console.log('Test ' + this.subject);
+    //         //    this.AccountRoles[rowInd].ContactSearch = 't';
+    //       }).catch((error) => {
+    //         this.error = error;
+    //   }, DELAY);
+    
+    
+    
+}
+SubjectSet(){
+    console.log('etest delay' );
+}
+descriptionChange(event){
+    this.description = event.detail.value;
+    
+    
+}
+priorityChange(){
+    this.priority1 = false;
+}
+
+ButtonClicked(){
+    if(this.subject.length !== 0 && this.description.length !== 0 && this.priority1 === false){
+        this.loading = true;
+    }
+    
+ 
+   
+}
+Test1(e)
+{
+    console.log('Test1');
+    console.log(e.target.value);
+}
+Test(e){
+    console.log('Test ' + e);
+}
+handleSuccess(){
+    
+    CaseChatterTaskCreation({recordId : this.recordId, subject : this.subject, description : this.description, ownerId : this.ownerId})
+    .then(result => {
+        this.returnedData = result;
+        if(this.returnedData !== null){
+
+        console.log(this.returnedData);
+   // this.dispatchEvent(new CustomEvent('recordChange'));
+    const event = new ShowToastEvent({
+        title:'Success',
+        message: 'Case Created',
+        variant:'Success',
+    });
+    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: {
+                            recordId: this.returnedData,
+                            objectApiName: 'Case',
+                            actionName: 'view',
+                        },
+                    });
+    this.dispatchEvent(event);
+}else{
+    this.dispatchEvent(new CustomEvent('recordChange'));
+    const event = new ShowToastEvent({
+        title:'Failure',
+        message: 'Error, Contact Your Administrator'
+    });
+    this.dispatchEvent(event);
+}
+})
+    
+    
+}
+Cancel(){
+    this.dispatchEvent(new CustomEvent('cancelChange'));
+}
+}

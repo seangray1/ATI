@@ -38,7 +38,7 @@
         <fields>Id</fields>
         <fields>Job_number__c</fields>
         <includeSessionId>true</includeSessionId>
-        <integrationUser>sf.test@atirestoration.com</integrationUser>
+        <integrationUser>csadmin@ameri-tech.com</integrationUser>
         <name>Financial Jitterbit OBM</name>
         <protected>false</protected>
         <useDeadLetterQueue>false</useDeadLetterQueue>
@@ -84,7 +84,7 @@
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
-        <description>Date/Time stamp of &#39;Update Forecast&#39; field marked to True</description>
+        <description>Date/Time stamp of &apos;Update Forecast&apos; field marked to True</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
 </Workflow>

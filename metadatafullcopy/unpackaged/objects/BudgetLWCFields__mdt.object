@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Budget_API_Names__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Budget API Names</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LWC_Section__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>LWC Section</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Budget Info</fullName>
+                    <default>true</default>
+                    <label>Budget Info</label>
+                </value>
+                <value>
+                    <fullName>Totals</fullName>
+                    <default>false</default>
+                    <label>Totals</label>
+                </value>
+                <value>
+                    <fullName>Overall Total</fullName>
+                    <default>false</default>
+                    <label>Overall Total</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>BudgetLWCField</label>
+    <pluralLabel>BudgetLWCFields</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

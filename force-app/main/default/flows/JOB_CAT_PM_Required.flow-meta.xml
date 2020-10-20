@@ -213,6 +213,37 @@
                     <stringValue>Restricted Process Execution</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Date_Taken__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <dateValue>2020-08-01</dateValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_1_pmetdec</targetReference>
             </connector>
@@ -413,10 +444,41 @@
                     <stringValue>Restricted Process Execution</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_old.Date_Taken__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <dateValue>2020-08-01</dateValue>
+                </rightValue>
+            </conditions>
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <interviewLabel>JOB_CAT_PM_Required-3_InterviewLabel</interviewLabel>
+    <interviewLabel>JOB_CAT_PM_Required-4_InterviewLabel</interviewLabel>
     <label>JOB - CAT PM Required</label>
     <processMetadataValues>
         <name>ObjectType</name>

@@ -14,7 +14,7 @@ public without sharing class DailyTimesheetController {
     @AuraEnabled (cacheable=true)
     public static List<Daily_Timesheet__c> currentTimesheetDetails(String dailyTimesheetIdtosearch)
     {       
-                List<Daily_Timesheet__c>  dailyTimesheetJobDetails = [SELECT DailyTimsheetRecord__c,Comments__c,Shift__c,Location__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Job__r.Project_manager__r.Name,Name,StartDate__c FROM Daily_Timesheet__c WHERE Id =: dailyTimesheetIdtosearch ]; 
+                List<Daily_Timesheet__c>  dailyTimesheetJobDetails = [SELECT DailyTimsheetRecord__c,Shift__c,Location__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Job__r.Project_manager__r.Name,Name,StartDate__c FROM Daily_Timesheet__c WHERE Id =: dailyTimesheetIdtosearch ]; 
                 system.debug('######'+dailyTimesheetJobDetails);
                 return dailyTimesheetJobDetails; 
     }
@@ -54,7 +54,7 @@ public without sharing class DailyTimesheetController {
         List <Daily_Timesheet__c> dailyTimesheetJobDetails = new List <Daily_Timesheet__c>();
         List <Daily_Timesheet__c> dailyTimesheetJobDetails1 = new List <Daily_Timesheet__c>();
         
-        dailyTimesheetJobDetails = [SELECT DailyTimsheetRecord__c,Comments__c,Shift__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Job__r.Project_manager__r.Name,Name,StartDate__c,Location__c FROM Daily_Timesheet__c WHERE Job__c =: jobIdtosearch and StartDate__c =: dateToSearch ]; 
+        dailyTimesheetJobDetails = [SELECT DailyTimsheetRecord__c,Shift__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Job__r.Project_manager__r.Name,Name,StartDate__c,Location__c FROM Daily_Timesheet__c WHERE Job__c =: jobIdtosearch and StartDate__c =: dateToSearch ]; 
             if(!dailyTimesheetJobDetails.isEmpty()){
                 system.debug('!#!#!#!#if'+dailyTimesheetJobDetails);
                 return dailyTimesheetJobDetails;
@@ -66,7 +66,7 @@ public without sharing class DailyTimesheetController {
                         Dailytimesheet1.Shift__c='Day';
                         Dailytimesheet1.Final__c=false;
                         Dailytimesheet1.Location__c='';
-                        Dailytimesheet1.comments__c='';
+                        // Dailytimesheet1.comments__c='';
                         Dailytimesheet1.StartDate__c=dateToSearch;
                         Dailytimesheet1.EndDate__c= dateToSearch.addDays(6);
                         Dailytimesheet1.DailyTimsheetRecord__c='noData';
@@ -100,7 +100,7 @@ public without sharing class DailyTimesheetController {
                 Date newenddate = date.newInstance(enddateyear,enddatemonth,enddatedate);
 
            
-             List<Daily_Timesheet__c> timesheetList =[SELECT ID,Name,EndDate__c,Job__c,StartDate__c,Final__c,Location__c,Shift__c,DailyTimsheetRecord__c, comments__c FROM Daily_Timesheet__c WHERE Job__c =: JobID and StartDate__c =: newstartdate];
+             List<Daily_Timesheet__c> timesheetList =[SELECT ID,Name,EndDate__c,Job__c,StartDate__c,Final__c,Location__c,Shift__c,DailyTimsheetRecord__c FROM Daily_Timesheet__c WHERE Job__c =: JobID and StartDate__c =: newstartdate];
              List<Daily_Timesheet__c> timesheetListUpdated = new List<Daily_Timesheet__c>();
              Daily_Timesheet__c Dailytimesheet =new Daily_Timesheet__c();
                 if(!timesheetList.isEmpty())

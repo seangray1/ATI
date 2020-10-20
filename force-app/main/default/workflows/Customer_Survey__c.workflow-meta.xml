@@ -80,6 +80,14 @@
             <type>user</type>
         </recipients>
         <recipients>
+            <field>Account_Executive_1__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Account_Executive_2__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
             <field>Branch_Manager__c</field>
             <type>userLookup</type>
         </recipients>
@@ -252,10 +260,6 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>kimberly.landaverde@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <recipient>kristen.butler@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -265,6 +269,10 @@
         </recipients>
         <recipients>
             <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>EVP_1__c</field>
             <type>userLookup</type>
         </recipients>
         <recipients>
@@ -284,10 +292,6 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>kimberly.landaverde@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <recipient>kristen.butler@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
@@ -297,6 +301,18 @@
         </recipients>
         <recipients>
             <field>Branch_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>EVP_1__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Project_Manager_new__c</field>
             <type>userLookup</type>
         </recipients>
         <senderAddress>survey@atirestoration.com</senderAddress>

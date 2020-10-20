@@ -412,18 +412,19 @@ public class JobUtility {
             JobWrap.archived = false;
             JobWrap.address = address;
             JobWrap.projectName = Job.Project_Site_Name_Fotoin__c;
-            // String month1;
-            // Integer i = JobWrap.Date_Time_Taken__c.Month();
-            // if(i<10)
-            // {
-            //     month1 ='0'+ String.ValueOf(i);
-            // }
-            // else{
-            //     month1= string.valueOf(i);
-            // }
-            // String projKey = month1+ '-' + j.Date_Time_Taken__c.Year();
+            String month1;
+            Integer i = Job.Date_Time_Taken__c.Month();
+            if(i<10)
+            {
+                month1 ='0'+ String.ValueOf(i);
+            }
+            else{
+                month1= string.valueOf(i);
+            }
+            String projKey = month1+ '-' + job.Date_Time_Taken__c.Year();
 
-            JobWrap.projectKey = Job.year__c;
+            // JobWrap.projectKey = Job.year__c;
+            JobWrap.projectKey = projKey;
         }
         else{
             throw new CallFotoInException(res.getBody());

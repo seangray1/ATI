@@ -1844,7 +1844,7 @@
         </rules>
     </decisions>
     <description>To automatically assign the BDD based on location of interest when status changes to Qualification</description>
-    <interviewLabel>Lead_Assign_BDM-3_InterviewLabel</interviewLabel>
+    <interviewLabel>Lead_Assign_BDM-4_InterviewLabel</interviewLabel>
     <label>Lead - Assign BDD</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -2122,7 +2122,7 @@
             <processMetadataValues>
                 <name>rightHandSideLabel</name>
                 <value>
-                    <stringValue>Jamie Moore - Director of Business Development, East/Midwest</stringValue>
+                    <stringValue>Jason Lee - Business Development Director</stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -2133,7 +2133,7 @@
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <stringValue>00570000004RKzJAAW</stringValue>
+                <stringValue>0054u000006SvQzAAK</stringValue>
             </value>
         </inputAssignments>
         <object>Lead</object>

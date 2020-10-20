@@ -1,0 +1,165 @@
+<!--
+  @File Name          : pMAssignment.html
+  @Description        : 
+  @Author             : sean.gray@atirestoration.com
+  @Group              : 
+  @Last Modified By   : Sean Gray
+  @Last Modified On   : 2/2/2020, 3:37:12 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    9/6/2019   sean.gray@atirestoration.com     Initial Version
+-->
+<template>
+    <div class="slds-scrollable_y" style="height:100%;width:100%">
+      <div class="slds-box slds-theme_shade">
+          <fieldset class="slds-form-element slds-form-element_compound">
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__row">
+                  <div class="slds-size_1-of-3">
+                    <div class="slds-form-element">
+                      <label class="Labels"  for="input-01">Opp Name:</label>
+                      <div class="slds-form-element__control">
+                                      <lightning-input type="text"  disabled value={OppName}></lightning-input>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-size_1-of-3">
+                    <div class="slds-form-element">
+                      <label class="Labels" for="input-02">Job Number:</label>
+                      <div class="slds-form-element__control">
+                                      <lightning-input type="text"  disabled value={JobNumber}></lightning-input>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-size_1-of-3">
+                              <div class="slds-form-element">
+                                <label class="Labels" for="input-03">Amount:</label>
+                                <div class="slds-form-element__control">
+                                      <lightning-input type="number"  disabled value={Amount}></lightning-input>
+                                </div>
+                              </div>
+                            </div>
+                
+        </div>
+      </div>  
+    </fieldset>
+              <br>
+          <fieldset class="slds-form-element slds-form-element_compound">
+                          <div class="slds-form-element__control">
+                            <div class="slds-form-element__row">
+                              <div class="slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                  <label class="Labels"  for="input-01">Will ATI need to assign a PM for the Project?</label>
+                                  <div class="slds-form-element__control">
+                                    <lightning-combobox
+                                    name="FirstQuestion"
+                                    value={FirstQ}
+                                    placeholder="--Select--"
+                                    options={options}
+                                    onchange={handleFirstChange}
+                                     >
+                            </lightning-combobox>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="slds-size_1-of-2">
+                                <div class="slds-form-element">
+                                  <label class="Labels2" for="input-02">Is this a one subcontractor project?</label>
+                                  <div class="slds-form-element__control">
+                                    <lightning-combobox
+                                    name="SecondQuestion"
+                                    value={SecondQ}
+                                    placeholder="--Select--"
+                                    options={options}
+                                    onchange={handleSecondChange}
+                                     ></lightning-combobox>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                    </div>
+                  </div>
+                  
+                        </fieldset>
+          <br>
+          <fieldset class="slds-form-element slds-form-element_compound">
+            <div class="slds-form-element__control">
+              <div class="slds-form-element__row">
+
+
+                <div class="slds-size_1-of-2">
+                    <div class="slds-form-element">
+                    <label class="Labels" for="input-03">Please list the subcontractor:</label>
+                    <div class="slds-form-element__control">
+                        <lightning-input value={Subcontractor} onchange={handleSubcontractorChange} ></lightning-input>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="slds-size_1-of-2">
+                    <div class="slds-form-element">
+                    <label class="Labels2" for="input-04">Is this a one trade project?</label>
+                    <div class="slds-form-element__control">
+                        <lightning-combobox
+                        name="ThirdQuestion"
+                        value={ThirdQ}
+                        placeholder="--Select--"
+                        options={options}
+                        onchange={handleThirdChange}
+                         ></lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+            </fieldset>
+            
+
+
+                       
+                                <div class="slds-form-element">
+                                          <label class="Labels" for="textarea-id-01"> Please list a description of Project:</label>
+                                          <div class="slds-form-element__control">
+                                            <lightning-textarea placeholder="Type a Description Here" onchange={handleDescriptionChange} value={Description}></lightning-textarea>
+                                          </div>
+                                        </div>
+                           
+                                        
+                          <!-- <div class="form">
+                                  <lightning-button label="Save"  onclick={createAllocation} variant="brand"> </lightning-button> 
+                                  <lightning-button label="Cancel" onclick={Cancel} ></lightning-button>
+                          </div> -->
+                          
+  <template if:true={error}>
+         <div class="errormessage">Fill out all required fields</div>
+  </template>
+    </div>
+    <div class="slds-p-around_medium lgc-bg-inverse element slds-docked-form-footer">
+      <lightning-button-group>
+        <lightning-button label="Save"  onclick={createAllocation} variant="brand"> </lightning-button> 
+        <lightning-button label="Cancel" onclick={Cancel} ></lightning-button>
+  </lightning-button-group>
+  </div>
+          </div>
+          <template if:true={loading}>
+            <div class="Spinner">
+                <lightning-spinner size="medium" alternative-text="Loading" variant="brand"></lightning-spinner>
+            </div>
+     </template>
+  </template>
+  
+  <!---@[{!OfficeManager.Id}]
+  @[{!RM.Id}]
+  Insurance Carrier/TPA: {!ContactName}
+  Fees: {!TotalProgramFees.Total_Program_Fees_New__c}
+  Allocation: {!TotalAllocations.Total_Allocations__c}
+  Price: {!Amount}
+  Budget : {!TotalBudgetGoal.Total_Budget_Goal__c}
+  Start Date: {!StartDate}
+  Completion Date: {!CompletionDate}
+  Forecast: {!TotalForecast}
+  Brief Scope: {!BriefScope}
+  Notes: {!Notes}
+  Contact Info: {!ContactInfo}
+  Suggested PM: {!SuggestedPM} -->

@@ -1,0 +1,379 @@
+<!--
+  @File Name          : afterHoursJobLWC.html
+  @Description        : 
+  @Author             : sean.gray@atirestoration.com
+  @Group              : 
+  @Last Modified By   : sean.gray@atirestoration.com
+  @Last Modified On   : 3/4/2020, 9:04:10 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/3/2020   sean.gray@atirestoration.com     Initial Version
+-->
+<template>
+    
+    <template if:true={ModalScreen}>
+        <template if:true={PageStateReady}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                
+                <div class="slds-modal__container">
+                    <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
+                    
+                    <!-- modal header start -->
+                    <!-- <header class="slds-modal__header">
+                
+                    </header> -->
+    <!-- <div class="slds-scrollable_y" style="height:120rem;width: 100%;"> -->
+        <template if:true={loading}>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+    <div class="slds-box slds-theme_shade">
+       <!-- <div class="slds-align_absolute-center"> -->
+            
+    <br>
+    
+        <!-- <template if:true={PageStateReady}> -->
+            <!-- <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-7"> -->
+                    
+    <lightning-input label="Job Name" value={JobName} class="jobFormControl Labels1" required onchange={JobNameChange}></lightning-input>
+<!-- </div> -->
+    <!-- <div class="slds-col slds-size_1-of-7"> -->
+    <lightning-input onkeyup={OfficeChange}
+                placeholder='Search for Office.. ' label="Office"  onchange={ClearOffice} required value={OfficeValue} type="search" class="jobFormControl Labels1"></lightning-input>
+      
+        <template if:true={Offices}>
+            <table
+                class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+                <thead>
+                    <tr class="slds-text-heading_label">
+                        <th scope="col">
+                            <div title="Customers">Offices</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={Offices} for:item="Office">
+                        <tr key={Office.Id}>
+                            <th scope="row">
+                                <b>
+                                    <lightning-button variant="base" label={Office.Name}
+                                        value={Office} title="Base action"
+                                        onclick={populateOfficeField}
+                                        class="slds-m-left_x-small jobButton"></lightning-button>
+                                </b>
+                                <br>
+                                <!-- <lightning-formatted-text value={ContactAccount.Name} label={ContactAccount.Name}>
+                                                        
+                                                    </lightning-formatted-text>
+             -->
+                                <!-- <lightning-formatted-address street={Property.Address_Line_1__c}
+                                                        city={Property.City__c} country='US' province={Property.State__c}
+                                                        postal-code={Property.Zip__c} disabled={inputDisabled}>
+                                                    </lightning-formatted-address> -->
+                                <!-- <lightning-input disabled={inputDisabled} label={Property.Name} value={Property.Name}></lightning-input> -->
+                            </th>
+
+                        </tr>
+
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        
+                
+    <!-- <label class="Labels spacing pushDown required1" for="textarea-id-01"> Office</label> -->
+    <!-- <div class="slds-col slds-size_1-of-7"> -->
+        <lightning-combobox name="progress"
+                        label="Division"
+                        value={Division}
+                        placeholder="-Select-"
+                        options={DivisionPicklistValues}
+                        onchange={DivisionChange}
+                        class="Labels1 jobFormControl"
+                        required
+                        >
+                        </lightning-combobox>
+                        <!-- <select class="slds-select" name = "optionSelect" onchange={changeHandler} >
+                            <option value="OPTION A">OPTION A</option>
+                            <option value="OPTION B">OPTION B</option>
+                        </select>  -->
+                        <template if:true={DivisionEs}>
+                       
+                        <lightning-combobox name="progress"
+                           label="ES Job Type"
+                           value={EsJobType}
+                           placeholder="-Select-"
+                           options={EsJobTypePicklistValues}
+                           onchange={EsJobTypeChange}
+                           class="jobFormControl Labels1"
+                           disabled={EMS}
+                           required={DivisionEs}
+                            >
+        </lightning-combobox>
+    </template>
+
+        <lightning-input onkeyup={MajorEventChange}
+    
+    label="Major Event" placeholder='Search..'  onchange={ClearMajorEvent} value={MajorEventValue} type="search" class="jobFormControl spacing Labels1"></lightning-input>
+ 
+<template if:true={MajorEvents}>
+ <table
+     class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+     
+     <tbody>
+         <template for:each={MajorEvents} for:item="MajorEvent">
+             <tr key={MajorEvent.Id}>
+                 <th scope="row">
+                     <b>
+                         <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:priority" size="small"></lightning-icon>
+                         <lightning-button variant="base" label={MajorEvent.Name}
+                             value={MajorEvent} title="Major Event"
+                             onclick={populateMajorEventField}
+                             class="slds-m-left_x-small jobButton">
+                             <lightning-icon class="icon1" icon-name="standard:priority" size="small"></lightning-icon></lightning-button>
+                     </b>
+                     <br>
+          
+                 </th>
+
+             </tr>
+
+         </template>
+     </tbody>
+ </table>
+</template>   
+    
+    
+        <!-- class="spacing jobFormControl center"
+        dropdown-alignment=auto  -->
+        <!-- <div class="slds-col slds-size_1-of-7"> -->
+            <lightning-input onkeyup={ProjectDirectorChange}
+            
+        label="Project Director"   placeholder='Search..' onchange={ClearProjectDirector} value={ProjectDirectorValue} type="search" class="jobFormControl spacing Labels1"></lightning-input>
+       
+   <template if:true={ProjectDirectors}>
+       <table
+           class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout tabletop">
+           
+           <tbody>
+               <template for:each={ProjectDirectors} for:item="ProjectDirector">
+                   <tr key={ProjectDirector.Id}>
+                       <th scope="row">
+                           <b>
+                               <lightning-icon class="icon1" style="margin-bottom: -8px;" icon-name="standard:user" size="small"></lightning-icon>
+                               <lightning-button variant="base" label={ProjectDirector.Name}
+                                   value={ProjectDirector} title="Project Director"
+                                   onclick={populateProjectDirectorField}
+                                   class="slds-m-left_x-small jobButton">
+                                   <lightning-icon class="icon1" icon-name="standard:account" size="small"></lightning-icon></lightning-button>
+                           </b>
+                           <br>
+                
+                       </th>
+
+                   </tr>
+
+               </template>
+           </tbody>
+       </table>
+   </template>
+                        
+    
+<!-- </div> -->
+     <br>
+<!--       
+<div class="slds-col slds-size_1-of-2"> -->
+    <lightning-input-address
+    data-id="AddressLookup"
+    address-label="Search Address"
+    street-label="Project Site Street"
+    city-label="Project Site City"
+    country-label="Project Site Country"
+    province-label="Project Site State"
+    postal-code-label="Project Site Zipcode"
+    street={Street}
+    city={City}
+    country={Country}
+    province={State}
+    postal-code={Zipcode}
+    show-address-lookup
+    class=""
+    required 
+     >
+</lightning-input-address>
+<!-- </div> -->
+<!-- <div class="slds-col slds-size_1-of-7"> -->
+<lightning-input label="Address Line 2" value={AddressLine2}  class="" onchange={AddressLine2Change}></lightning-input>
+<!-- </div> -->
+
+<!-- 
+    <div class="slds-col slds-size_1-of-2"> -->
+      <br>  
+<lightning-button label="Fill Out Contact Info" variant="brand" class="" onclick={openContactInfoModal}></lightning-button>
+<lightning-textarea label="Customer and Contact Info"  value={ContactInfo} required class="jobFormControl" onchange={ContactInfoChange}></lightning-textarea>
+    <!-- </div> -->
+    
+    <br>
+<!-- <div class="slds-col slds-size_1-of-2">  -->
+<lightning-button label="Fill Out Description" variant="brand" class="" required onclick={openDescriptionModal}></lightning-button>
+<lightning-textarea label="Description" value={Description} class="jobFormControl" required onchange={DescriptionChange}></lightning-textarea>
+
+
+
+
+
+
+
+<!-- </template> -->
+<!-- </div> -->
+</div>
+
+
+
+
+
+
+
+
+        
+    
+
+       
+
+        
+        <div class="slds-p-around_medium lgc-bg-inverse element">
+        <lightning-button-group class="slds-align_absolute-center">
+        <lightning-button label="Save" variant="brand" onclick={Save}></lightning-button>
+        <lightning-button label="Cancel" onclick={Cancel}></lightning-button>
+        </lightning-button-group>
+    
+</div>
+</div>  
+</div> 
+                                 
+                     
+</section>
+
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+</template>
+
+
+    <template if:true={newDescription}>
+                   
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                
+                <div class="slds-modal__container">
+                    
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeDescriptionModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate biggerText">Customer and Contact Info
+                        </h2>
+                    </header>
+                    <!-- modal body start -->
+                    <div class="slds-box slds-theme_shade">
+                        <!-- <div class="slds-grid"> -->
+                        <!-- <div class="slds-col slds-size_1-of-2"> -->
+                            <lightning-helptext content="Provide the name, company (if any), email address, and phone number for the customer and the project site contact, if different."></lightning-helptext>
+                        <lightning-input label="Name" value={ContactName} onchange={ContactNameChange} ></lightning-input>
+                        <lightning-input label="Company" onchange={CompanyChange} value={Company}></lightning-input>
+                        <lightning-input type="Email" label="Email" onchange={EmailChange} value={Email}></lightning-input>
+                        <lightning-input label="Phone Number" onchange={PhoneNumberChange} value={PhoneNumber}></lightning-input>
+                        <lightning-helptext content="For example, Adjuster, Tenant, Property Owner"></lightning-helptext>
+                        <lightning-textarea label="Role/Additional Information" onchange={AdditionalInformationChange} value={AdditionalInformation} ></lightning-textarea>
+                        
+                        
+                    <!-- </div> -->
+                        <!-- <div class="slds-col slds-size_1-of-2"> -->
+                        <!-- <lightning-input label="Damaged Materials: (e.g. Flooring, Drywall, Exterior, Ceiling, Roof, Possessions/Contents)" value={DamagedMaterials} onchange={DamagedMaterialsChange}></lightning-input>
+                        <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} value={FlooringType}></lightning-input>
+                        <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
+                        <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} value={GateCode}></lightning-combobox>
+                        <lightning-combobox label="Is this related to the Coronavirus? (Y/N)" options={optionsYesNo} onchange={CoronavirusChange} value={Coronavirus}></lightning-combobox>
+                        <lightning-combobox label="Are you requiring same-day dispatch? (Y/N)" options={optionsYesNo} onchange={SameDayDispatchChange} value={SameDayDispatch}></lightning-combobox> -->
+
+                   
+                        <br>
+                                 <lightning-button-group>
+                                     <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={SaveDescription}></lightning-button>
+                                     <lightning-button label="Cancel" class="Buttonspacing" onclick={closeDescriptionModal}></lightning-button>
+                                 </lightning-button-group>
+        
+                    </div>
+                 </div>   
+                                 
+                     
+        </section>
+    
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <template if:true={newDescriptionTwo}>
+                   
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-04" aria-modal="true"
+                    aria-describedby="modal-content-id-4" class="slds-modal slds-fade-in-open">
+                    
+                    <div class="slds-modal__container">
+                        
+                        <!-- modal header start -->
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeDescriptionModal}>
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small"></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-08" class="slds-text-heading_medium slds-hyphenate biggerText">Description
+                            </h2>
+                        </header>
+                        <!-- modal body start -->
+                        <div class="slds-box slds-theme_shade">
+                            <!-- <div class="slds-grid"> -->
+                            <!-- <div class="slds-col slds-size_1-of-2"> -->
+                                <lightning-helptext content="Provide a description of the loss and job and any additional information such as Insurance (provider, policy #, claim # ), Lead Source, existing contract or PO #, etc."></lightning-helptext>
+                            <lightning-input label="Description of Loss" value={DescriptionOfLoss} onchange={DescriptionOfLossChange} ></lightning-input>
+                            <lightning-input label="Insurance Provider" onchange={InsuranceProviderChange} value={InsuranceProvider}></lightning-input>
+                            <lightning-input label="Claim #" onchange={ClaimChange} value={Claim}></lightning-input>
+                            <lightning-input label="Policy #" onchange={PolicyChange} value={Policy}></lightning-input>
+                            <lightning-helptext content="For example, Alacrity, Contractor connection, Public Adjuster, Property Management"></lightning-helptext>
+                            <lightning-input label="Lead Source" onchange={LeadSourceChange} value={LeadSource}></lightning-input>
+                            <lightning-textarea label="Additional Information" onchange={AdditionalInformationTwoChange} value={AdditionalInformationTwo} ></lightning-textarea>
+                            
+                            
+                        <!-- </div> -->
+                            <!-- <div class="slds-col slds-size_1-of-2"> -->
+                            <!-- <lightning-input label="Damaged Materials: (e.g. Flooring, Drywall, Exterior, Ceiling, Roof, Possessions/Contents)" value={DamagedMaterials} onchange={DamagedMaterialsChange}></lightning-input>
+                            <lightning-input label="Flooring Type: (e.g. Carpet, Wood, Tile)" onchange={FlooringTypeChange} value={FlooringType}></lightning-input>
+                            <lightning-combobox label="Is power shut-off in the building? (Y/N)" options={optionsYesNo} onchange={PowerShutOffChange} value={PowerShutOff}></lightning-combobox>
+                            <lightning-combobox label="Is there a gate code? (Y/N)" options={optionsYesNo} onchange={GateCodeChange} value={GateCode}></lightning-combobox>
+                            <lightning-combobox label="Is this related to the Coronavirus? (Y/N)" options={optionsYesNo} onchange={CoronavirusChange} value={Coronavirus}></lightning-combobox>
+                            <lightning-combobox label="Are you requiring same-day dispatch? (Y/N)" options={optionsYesNo} onchange={SameDayDispatchChange} value={SameDayDispatch}></lightning-combobox> -->
+    
+                       
+                            <br>
+                                     <lightning-button-group>
+                                         <lightning-button label="Save" icon-name="utility:save" variant="brand" onclick={SaveDescriptionTwo}></lightning-button>
+                                         <lightning-button label="Cancel" class="Buttonspacing" onclick={closeDescriptionModalTwo}></lightning-button>
+                                     </lightning-button-group>
+            
+                        </div>
+                        
+                                     
+                        </div>
+            </section>
+        
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+       
+
+</template>

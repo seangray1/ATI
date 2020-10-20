@@ -1,0 +1,48 @@
+.loading{position: fixed; width: 100%; height: 100%; z-index: 10000000; top: 0; bottom: 0; left: 0; right: 0;}
+.InnerWrap{width:100%; display:inline-block; height:100%;}
+.BudgetWrap, .BLIWrap{width:100%; display:inline-block; background:#fff;}
+.BLIWrap{margin-top:20px; padding-bottom: 15px;}
+.FixedFooter{position: relative; width:100%; display: inline-block; margin-bottom: 50px;}
+.FixedFooterBtn{display: inline-block; background:#fff; display: inline-block; width: 100%; padding: 10px 0; text-align: center; border-top: 1px solid #b0c4df; border-bottom: 1px solid #b0c4df;}
+.BudgetInerTitle{background:#e5e5e5; padding:10px 23px; font-size:14px; color:#000; font-weight:600; margin-bottom:5px;}
+.ContentWrap{padding:10px 10px; display:inline-block; width: 100%; }
+.TotalHeading{font-size:14px; font-weight:bold; width:100%; display:inline-block; border-bottom:1px solid #ccc; margin: 7px 16px 12px 16px;color: #000;}
+.AllTotalSection{width:100%; display: inline-block; background:#104473; color:#fff;}
+.BLIBtns{display:inline-block; width:100%; padding:5px 20px 8px 14px;}
+table.TBLBLIList tr.TBLBLIListTR{display:block; width: 100%;}
+table.TBLBLIList td.TBLBLIListTD{ float:left; width:100%;}
+.hide {display: none;}
+
+.applyLeftPadding {padding-left: 15px; display:inline-block;}
+table tr.ChildRow{background:#ecf9ff;}
+table.TblTreeView{table-layout: fixed; position: relative; border-collapse: collapse; }
+.TblTreeView td{ vertical-align: top; padding:5px 4px; border:none; font-size:12px;}
+.TblTreeView thead td{font-weight: bold; border-top:1px solid #ededed; background:#fff; border-bottom:1px solid #ededed; word-wrap: break-word; white-space: break-spaces;vertical-align: middle;  
+    position: sticky; box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); z-index:3;
+    top: 0;}
+table.TblTreeView td.HiddenId{display: none;}
+
+table.TblTreeView td:nth-child(1){width:25px; text-align: center;} /*** Action Btns ***/
+table.TblTreeView td:nth-child(2){width:25px; text-align: center;} /*** Action Btns ***/
+table.TblTreeView thead td:nth-child(3){width:100px;} /*** Trade ***/
+table.TblTreeView thead td:nth-child(4){width:98px;} /*** SubCode ***/
+table.TblTreeView thead td:nth-child(5){width:80px;} /*** Revenue ***/
+table.TblTreeView thead td:nth-child(6){width:75px;} /*** Target ***/
+table.TblTreeView thead td:nth-child(7){width:48px;} /*** O/P% ***/
+table.TblTreeView thead td:nth-child(8){width:65px;} /*** GP %	 ***/
+table.TblTreeView thead td:nth-child(9){width:80px;} /*** Subcontract ***/
+table.TblTreeView thead td:nth-child(10){width:80px;} /*** Subcontract Bid ***/
+table.TblTreeView thead td:nth-child(11){width:65px;}/*** In House Hours	 ***/ 
+table.TblTreeView thead td:nth-child(12){width:87px;} /*** In House Rate ***/
+table.TblTreeView thead td:nth-child(13){width:87px;} /*** In House Total ***/
+table.TblTreeView thead td:nth-child(14){width:80px;} /*** Materials ***/
+table.TblTreeView thead td:nth-child(15){width:80px;} /*** Equipment ***/
+table.TblTreeView thead td:nth-child(16){width:80px;} /*** Other Cost ***/
+table.TblTreeView thead td:nth-child(17){width:80px;} /*** Actual Costs ***/
+table.TblTreeView thead td:nth-child(18){width:80px;} /*** Actual Costs BL ***/
+table.TblTreeView thead td:nth-child(19){width:120px;} 
+
+.DeleteConfrm{margin-right: 10px;}
+.AddPopup .slds-button_neutral{ display:none;}
+.DesToolTipCont{display:none;}
+.ShowDescToolTip .DesToolTipCont{display: block;}

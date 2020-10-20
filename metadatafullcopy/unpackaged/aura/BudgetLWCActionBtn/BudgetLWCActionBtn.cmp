@@ -1,0 +1,5 @@
+<aura:component implements="lightning:actionOverride,force:appHostable,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable"  access="global" >
+    <aura:attribute name="jobId" type="Object"/>
+    <aura:handler name="init" value="{! this }" action="{!c.init}"/>
+    <c:budgetLWC recordId="{!v.recordId}" jobId="{!v.jobId}" />
+</aura:component>

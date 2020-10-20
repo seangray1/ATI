@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Allows for triggers to be turned on or off</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>AccountGenerateCustomerNumber__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When an Account is updated and does not have a customer number, create a new one based on existing Accounts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When an Account is updated and does not have a customer number, create a new one based on existing Accounts</inlineHelpText>
+        <label>Account: Generate Customer Number</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AccountSyncToTimberline__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Synchronizes account data with Timberline</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Synchronizes account data with Timberline</inlineHelpText>
+        <label>Account: Sync to Timberline</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Forecast_Sync_to_Timberline__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Forecast : Refresh from Timberline</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceAutomaticInvoiceNumber__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Invoice: Automatic Invoice Number</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceLineItemAutoCreation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>InvoiceLineItem: AutoCreation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceLineItemAutomaticNaming__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>InvoiceLineItem: AutomaticNaming</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceLineItemAutomaticOrder__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Invoice Line Item Automatic Order</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceSyncToTimberline__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Invoice: Sync To Timberline</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceTaxGroupSetUp__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Invoice Tax Group Set Up</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JobCopyPMToOwner__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Copes the value in the Project Manager field to the Owner record for Jobs</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Copes the value in the Project Manager field to the Owner record for Jobs</inlineHelpText>
+        <label>Job: Copy PM to Owner</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JobOpportunitySync__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When a Job is updated, synchronizes job data to an associated Opportunity, attempting to create a new one if one does not yet exist.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When a Job is updated, synchronizes job data to an associated Opportunity, attempting to create a new one if one does not yet exist.</inlineHelpText>
+        <label>Job: Opportunity Sync</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JobSetJobNumber__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Sets the Job number for any jobs that do not have it set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sets the Job number for any jobs that do not have it set.</inlineHelpText>
+        <label>Job: Set Job Number</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JobSyncToTimberline__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Synchronizes Job Data with Timberline</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Synchronizes Job Data with Timberline</inlineHelpText>
+        <label>Job: Sync to Timberline</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Job_Number_Sequence_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Job: Job Number Sequence Group</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LeadPMLeadSync__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When a Lead is updated, synchronizes Lead data with a PM Lead record, creating a new one if necessary.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When a Lead is updated, synchronizes Lead data with a PM Lead record, creating a new one if necessary.</inlineHelpText>
+        <label>Lead: PM Lead Sync</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OpportunityJobSync__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When an Opportunity is updated, takes Opportunity data and synchronizes it to a Job record, creating a new one if one does not exist.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When an Opportunity is updated, takes Opportunity data and synchronizes it to a Job record, creating a new one if one does not exist.</inlineHelpText>
+        <label>Opportunity: Job Sync</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PMLeadCalculateJobNumber__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When PM Leads are updated, calculates the job number.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When PM Leads are updated, calculates the job number.</inlineHelpText>
+        <label>PM Lead: Calculate Job Number</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PMLeadConversion__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When the &quot;Is Converted&quot; checkbox is checked, runs the PM Lead through the conversion process.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When the &quot;Is Converted&quot; checkbox is checked, runs the PM Lead through the conversion process.</inlineHelpText>
+        <label>PM Lead: Conversion</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PMLeadLeadSync__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When a PM Lead is updated, synchronizes PM Lead data with a Lead record, creating a new one if necessary.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When a PM Lead is updated, synchronizes PM Lead data with a Lead record, creating a new one if necessary.</inlineHelpText>
+        <label>PM Lead: Lead Sync</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TaskTaskSync__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Synchronizes tasks between PM Leads and Leads</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Synchronizes tasks between PM Leads and Leads</inlineHelpText>
+        <label>Task: Task Sync</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TaxGroupRefreshFromTimberline__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Allows for the trigger to run which handles</description>
+        <externalId>false</externalId>
+        <label>Tax Group: Refresh From Timberline</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TaxGroupSetName__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Sets the name of the Tax Group to the corresponding Timberline ID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sets the name of the Tax Group to the corresponding Timberline ID</inlineHelpText>
+        <label>Tax Group: Set Name</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Trigger Status</label>
+    <visibility>Public</visibility>
+</CustomObject>

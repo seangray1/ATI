@@ -112,7 +112,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Existing_Business_Type_Population</fullName>
-        <description>If Last Job Date &lt;= 18 months, change Type field to &#39;Existing Business&#39;</description>
+        <description>If Last Job Date &lt;= 18 months, change Type field to &apos;Existing Business&apos;</description>
         <field>Job_Type__c</field>
         <literalValue>Existing Business</literalValue>
         <name>Existing Business Type Population</name>
@@ -141,7 +141,7 @@
     </fieldUpdates>
     <fieldUpdates>
         <fullName>New_Business_Type_Date</fullName>
-        <description>Populate New Business Type Date to today when this workflow fires, in order to automatically set to &#39;Existing Business&#39; via another workflow after 18 months</description>
+        <description>Populate New Business Type Date to today when this workflow fires, in order to automatically set to &apos;Existing Business&apos; via another workflow after 18 months</description>
         <field>New_Business_Type_Date__c</field>
         <formula>TODAY()</formula>
         <name>New Business Type Date</name>
@@ -232,7 +232,7 @@
         <fields>Timberline_Customer_Number__c</fields>
         <fields>Type</fields>
         <includeSessionId>true</includeSessionId>
-        <integrationUser>jitterbit@atirestoration.com</integrationUser>
+        <integrationUser>csadmin@ameri-tech.com</integrationUser>
         <name>Jitterbit Account OBM</name>
         <protected>false</protected>
         <useDeadLetterQueue>false</useDeadLetterQueue>
@@ -339,7 +339,7 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
-        <description>If Last Job Date = 18 months, change Type field to &#39;Existing Business&#39;</description>
+        <description>If Last Job Date = 18 months, change Type field to &apos;Existing Business&apos;</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>

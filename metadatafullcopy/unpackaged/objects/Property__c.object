@@ -1,0 +1,1829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Property_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Property_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Address_Last_Verified__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Last Verified</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Address_Line_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Line 1</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_Line_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Line 2</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_Return_Code__c</fullName>
+        <description>Used for a return value from the address
+verification. Return values are: Confirmed,
+Not Confirmed, Confirmed - By Dropping
+Secondary Info, Confirmed - Missing
+Secondary Info, or Not Submitted</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for a return value from the address
+verification. Return values are: Confirmed,
+Not Confirmed, Confirmed - By Dropping
+Secondary Info, Confirmed - Missing
+Secondary Info, or Not Submitted</inlineHelpText>
+        <label>Address Return Code</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_Verified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Address Verified</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Alternate Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CleanStreet__c</fullName>
+        <externalId>false</externalId>
+        <label>CleanStreet</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>County__c</fullName>
+        <externalId>false</externalId>
+        <label>County</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deductible__c</fullName>
+        <externalId>false</externalId>
+        <label>Deductible</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fixed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Fixed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Full_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Address_Line_1__c  + &apos; &apos; + City__c  + &apos; &apos;+  State__c  +&apos; &apos;+ Zip__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Full Address</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Google_Verified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Google Verified</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Job_Address_Line_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Address Line 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Address_Line_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Address Line 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Job City</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Class__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Class</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Commercial</fullName>
+                    <default>false</default>
+                    <label>Commercial</label>
+                </value>
+                <value>
+                    <fullName>Educational - Private</fullName>
+                    <default>false</default>
+                    <label>Educational - Private</label>
+                </value>
+                <value>
+                    <fullName>Educational - Public</fullName>
+                    <default>false</default>
+                    <label>Educational - Public</label>
+                </value>
+                <value>
+                    <fullName>GSA</fullName>
+                    <default>false</default>
+                    <label>GSA</label>
+                </value>
+                <value>
+                    <fullName>Healthcare</fullName>
+                    <default>false</default>
+                    <label>Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Hospitality</fullName>
+                    <default>false</default>
+                    <label>Hospitality</label>
+                </value>
+                <value>
+                    <fullName>Manufacturing</fullName>
+                    <default>false</default>
+                    <label>Manufacturing</label>
+                </value>
+                <value>
+                    <fullName>Multi-Family</fullName>
+                    <default>false</default>
+                    <label>Multi-Family</label>
+                </value>
+                <value>
+                    <fullName>Municipality/ Gov&apos;t</fullName>
+                    <default>false</default>
+                    <label>Municipality/ Gov&apos;t</label>
+                </value>
+                <value>
+                    <fullName>Religious</fullName>
+                    <default>false</default>
+                    <label>Religious</label>
+                </value>
+                <value>
+                    <fullName>Residential</fullName>
+                    <default>false</default>
+                    <label>Residential</label>
+                </value>
+                <value>
+                    <fullName>Retail</fullName>
+                    <default>false</default>
+                    <label>Retail</label>
+                </value>
+                <value>
+                    <fullName>Educational</fullName>
+                    <default>false</default>
+                    <label>Educational</label>
+                </value>
+                <value>
+                    <fullName>Health Science</fullName>
+                    <default>false</default>
+                    <label>Health Science</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Job_County__c</fullName>
+        <externalId>false</externalId>
+        <label>Job County</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Job State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Zip__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Zip</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastUpdate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>LastUpdate</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lead_RRP_Apply__c</fullName>
+        <externalId>false</externalId>
+        <label>Lead RRP Apply?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <displayLocationInDecimal>false</displayLocationInDecimal>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Location</type>
+    </fields>
+    <fields>
+        <fullName>Market_Class__c</fullName>
+        <externalId>false</externalId>
+        <label>Market Class</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Residential</fullName>
+                    <default>false</default>
+                    <label>Residential</label>
+                </value>
+                <value>
+                    <fullName>Non-Residential</fullName>
+                    <default>false</default>
+                    <label>Non-Residential</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Market_Segment_Sub_Class__c</fullName>
+        <externalId>false</externalId>
+        <label>Market Segment Sub Class</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Market_Segment__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>K-12</fullName>
+                    <default>false</default>
+                    <label>K-12</label>
+                </value>
+                <value>
+                    <fullName>Higher Education</fullName>
+                    <default>false</default>
+                    <label>Higher Education</label>
+                </value>
+                <value>
+                    <fullName>Border Patrol</fullName>
+                    <default>false</default>
+                    <label>Border Patrol</label>
+                </value>
+                <value>
+                    <fullName>Bureau of Land Management</fullName>
+                    <default>false</default>
+                    <label>Bureau of Land Management</label>
+                </value>
+                <value>
+                    <fullName>Central Intelligence Agency (CIA)</fullName>
+                    <default>false</default>
+                    <label>Central Intelligence Agency (CIA)</label>
+                </value>
+                <value>
+                    <fullName>General Services Admin (GSA)</fullName>
+                    <default>false</default>
+                    <label>General Services Admin (GSA)</label>
+                </value>
+                <value>
+                    <fullName>Department of Agriculture (USDA)</fullName>
+                    <default>false</default>
+                    <label>Department of Agriculture (USDA)</label>
+                </value>
+                <value>
+                    <fullName>Department of Commerce</fullName>
+                    <default>false</default>
+                    <label>Department of Commerce</label>
+                </value>
+                <value>
+                    <fullName>Department of Defense (DOD)</fullName>
+                    <default>false</default>
+                    <label>Department of Defense (DOD)</label>
+                </value>
+                <value>
+                    <fullName>Army</fullName>
+                    <default>false</default>
+                    <label>Army</label>
+                </value>
+                <value>
+                    <fullName>Navy</fullName>
+                    <default>false</default>
+                    <label>Navy</label>
+                </value>
+                <value>
+                    <fullName>Air Force</fullName>
+                    <default>false</default>
+                    <label>Air Force</label>
+                </value>
+                <value>
+                    <fullName>Marine Corps</fullName>
+                    <default>false</default>
+                    <label>Marine Corps</label>
+                </value>
+                <value>
+                    <fullName>Coast Guard</fullName>
+                    <default>false</default>
+                    <label>Coast Guard</label>
+                </value>
+                <value>
+                    <fullName>Department of Education</fullName>
+                    <default>false</default>
+                    <label>Department of Education</label>
+                </value>
+                <value>
+                    <fullName>Department of Energy</fullName>
+                    <default>false</default>
+                    <label>Department of Energy</label>
+                </value>
+                <value>
+                    <fullName>Department of Health &amp; Human Services</fullName>
+                    <default>false</default>
+                    <label>Department of Health &amp; Human Services</label>
+                </value>
+                <value>
+                    <fullName>Department of Homeland Security (DHS)</fullName>
+                    <default>false</default>
+                    <label>Department of Homeland Security (DHS)</label>
+                </value>
+                <value>
+                    <fullName>Department of Housing and Urban Development</fullName>
+                    <default>false</default>
+                    <label>Department of Housing and Urban Development</label>
+                </value>
+                <value>
+                    <fullName>Department of Justice (DOJ)</fullName>
+                    <default>false</default>
+                    <label>Department of Justice (DOJ)</label>
+                </value>
+                <value>
+                    <fullName>Department of Labor (DOL)</fullName>
+                    <default>false</default>
+                    <label>Department of Labor (DOL)</label>
+                </value>
+                <value>
+                    <fullName>Department of State (DOS)</fullName>
+                    <default>false</default>
+                    <label>Department of State (DOS)</label>
+                </value>
+                <value>
+                    <fullName>Department of the Interior</fullName>
+                    <default>false</default>
+                    <label>Department of the Interior</label>
+                </value>
+                <value>
+                    <fullName>Department of the Treasury</fullName>
+                    <default>false</default>
+                    <label>Department of the Treasury</label>
+                </value>
+                <value>
+                    <fullName>Department of Transportation</fullName>
+                    <default>false</default>
+                    <label>Department of Transportation</label>
+                </value>
+                <value>
+                    <fullName>Department of Veterans Affairs (VA)</fullName>
+                    <default>false</default>
+                    <label>Department of Veterans Affairs (VA)</label>
+                </value>
+                <value>
+                    <fullName>Federal Bureau of Investigation (FBI)</fullName>
+                    <default>false</default>
+                    <label>Federal Bureau of Investigation (FBI)</label>
+                </value>
+                <value>
+                    <fullName>Fish and Wildlife Service</fullName>
+                    <default>false</default>
+                    <label>Fish and Wildlife Service</label>
+                </value>
+                <value>
+                    <fullName>National Guard</fullName>
+                    <default>false</default>
+                    <label>National Guard</label>
+                </value>
+                <value>
+                    <fullName>National Park Service</fullName>
+                    <default>false</default>
+                    <label>National Park Service</label>
+                </value>
+                <value>
+                    <fullName>United States Postal Service (USPS)</fullName>
+                    <default>false</default>
+                    <label>United States Postal Service (USPS)</label>
+                </value>
+                <value>
+                    <fullName>Hospital</fullName>
+                    <default>false</default>
+                    <label>Hospital</label>
+                </value>
+                <value>
+                    <fullName>Assisted Living / Hospice</fullName>
+                    <default>false</default>
+                    <label>Assisted Living / Hospice</label>
+                </value>
+                <value>
+                    <fullName>Medical Office</fullName>
+                    <default>false</default>
+                    <label>Medical Office</label>
+                </value>
+                <value>
+                    <fullName>Pharma/Lab</fullName>
+                    <default>false</default>
+                    <label>Pharma/Lab</label>
+                </value>
+                <value>
+                    <fullName>Animal / Medical / Veterinary</fullName>
+                    <default>false</default>
+                    <label>Animal / Medical / Veterinary</label>
+                </value>
+                <value>
+                    <fullName>Hotel / Motel / Resort / Lodge</fullName>
+                    <default>false</default>
+                    <label>Hotel / Motel / Resort / Lodge</label>
+                </value>
+                <value>
+                    <fullName>Sports &amp; Entertainment</fullName>
+                    <default>false</default>
+                    <label>Sports &amp; Entertainment</label>
+                </value>
+                <value>
+                    <fullName>Casino / Gaming</fullName>
+                    <default>false</default>
+                    <label>Casino / Gaming</label>
+                </value>
+                <value>
+                    <fullName>Restaurant / Bar</fullName>
+                    <default>false</default>
+                    <label>Restaurant / Bar</label>
+                </value>
+                <value>
+                    <fullName>Office</fullName>
+                    <default>false</default>
+                    <label>Office</label>
+                </value>
+                <value>
+                    <fullName>Manufacturing</fullName>
+                    <default>false</default>
+                    <label>Manufacturing</label>
+                </value>
+                <value>
+                    <fullName>Agriculture</fullName>
+                    <default>false</default>
+                    <label>Agriculture</label>
+                </value>
+                <value>
+                    <fullName>Warehouse / Distribution</fullName>
+                    <default>false</default>
+                    <label>Warehouse / Distribution</label>
+                </value>
+                <value>
+                    <fullName>Utilities</fullName>
+                    <default>false</default>
+                    <label>Utilities</label>
+                </value>
+                <value>
+                    <fullName>Self Storage</fullName>
+                    <default>false</default>
+                    <label>Self Storage</label>
+                </value>
+                <value>
+                    <fullName>Religion</fullName>
+                    <default>false</default>
+                    <label>Religion</label>
+                </value>
+                <value>
+                    <fullName>Transportation</fullName>
+                    <default>false</default>
+                    <label>Transportation</label>
+                </value>
+                <value>
+                    <fullName>Apartments</fullName>
+                    <default>false</default>
+                    <label>Apartments</label>
+                </value>
+                <value>
+                    <fullName>Condo / HOA / POA</fullName>
+                    <default>false</default>
+                    <label>Condo / HOA / POA</label>
+                </value>
+                <value>
+                    <fullName>Mall</fullName>
+                    <default>false</default>
+                    <label>Mall</label>
+                </value>
+                <value>
+                    <fullName>Store Front</fullName>
+                    <default>false</default>
+                    <label>Store Front</label>
+                </value>
+                <value>
+                    <fullName>Grocery / Liquor</fullName>
+                    <default>false</default>
+                    <label>Grocery / Liquor</label>
+                </value>
+                <value>
+                    <fullName>Big Box Store</fullName>
+                    <default>false</default>
+                    <label>Big Box Store</label>
+                </value>
+                <value>
+                    <fullName>Financial</fullName>
+                    <default>false</default>
+                    <label>Financial</label>
+                </value>
+                <value>
+                    <fullName>Airport</fullName>
+                    <default>false</default>
+                    <label>Airport</label>
+                </value>
+                <value>
+                    <fullName>City</fullName>
+                    <default>false</default>
+                    <label>City</label>
+                </value>
+                <value>
+                    <fullName>County</fullName>
+                    <default>false</default>
+                    <label>County</label>
+                </value>
+                <value>
+                    <fullName>State</fullName>
+                    <default>false</default>
+                    <label>State</label>
+                </value>
+                <value>
+                    <fullName>Prison</fullName>
+                    <default>false</default>
+                    <label>Prison</label>
+                </value>
+                <value>
+                    <fullName>Police / Sheriff / Fire Department</fullName>
+                    <default>false</default>
+                    <label>Police / Sheriff / Fire Department</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Utilities</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <valueName>Airport</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <valueName>City</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <valueName>County</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <valueName>State</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <valueName>Prison</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <valueName>Police / Sheriff / Fire Department</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>State/Municipal</controllingFieldValue>
+                <controllingFieldValue>Education</controllingFieldValue>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <controllingFieldValue>Healthcare</controllingFieldValue>
+                <controllingFieldValue>Hospitality</controllingFieldValue>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <controllingFieldValue>Multi Family</controllingFieldValue>
+                <controllingFieldValue>Retail</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Education</controllingFieldValue>
+                <valueName>K-12</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Education</controllingFieldValue>
+                <valueName>Higher Education</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Border Patrol</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Bureau of Land Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Central Intelligence Agency (CIA)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>General Services Admin (GSA)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Agriculture (USDA)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Commerce</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Defense (DOD)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Army</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Navy</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Air Force</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Marine Corps</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Coast Guard</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Education</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Energy</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Health &amp; Human Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Homeland Security (DHS)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Housing and Urban Development</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Justice (DOJ)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Labor (DOL)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of State (DOS)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of the Interior</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of the Treasury</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Transportation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Department of Veterans Affairs (VA)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Federal Bureau of Investigation (FBI)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>Fish and Wildlife Service</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>National Guard</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>National Park Service</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Federal Government</controllingFieldValue>
+                <valueName>United States Postal Service (USPS)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Healthcare</controllingFieldValue>
+                <valueName>Hospital</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Healthcare</controllingFieldValue>
+                <valueName>Assisted Living / Hospice</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Healthcare</controllingFieldValue>
+                <valueName>Medical Office</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Healthcare</controllingFieldValue>
+                <valueName>Pharma/Lab</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Healthcare</controllingFieldValue>
+                <valueName>Animal / Medical / Veterinary</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Hospitality</controllingFieldValue>
+                <valueName>Hotel / Motel / Resort / Lodge</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Hospitality</controllingFieldValue>
+                <valueName>Sports &amp; Entertainment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Hospitality</controllingFieldValue>
+                <valueName>Casino / Gaming</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Hospitality</controllingFieldValue>
+                <valueName>Restaurant / Bar</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Office</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Manufacturing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Agriculture</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Warehouse / Distribution</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Self Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Religion</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Industrial &amp; Commercial</controllingFieldValue>
+                <valueName>Transportation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Multi Family</controllingFieldValue>
+                <valueName>Apartments</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Multi Family</controllingFieldValue>
+                <valueName>Condo / HOA / POA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Retail</controllingFieldValue>
+                <valueName>Mall</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Retail</controllingFieldValue>
+                <valueName>Store Front</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Retail</controllingFieldValue>
+                <valueName>Grocery / Liquor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Retail</controllingFieldValue>
+                <valueName>Big Box Store</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Retail</controllingFieldValue>
+                <valueName>Financial</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Market_Segment__c</fullName>
+        <externalId>false</externalId>
+        <label>Market Segment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Market_Class__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Program (MRP)</fullName>
+                    <default>false</default>
+                    <label>Program (MRP)</label>
+                </value>
+                <value>
+                    <fullName>Non-Program</fullName>
+                    <default>false</default>
+                    <label>Non-Program</label>
+                </value>
+                <value>
+                    <fullName>HNW</fullName>
+                    <default>false</default>
+                    <label>HNW</label>
+                </value>
+                <value>
+                    <fullName>Education</fullName>
+                    <default>false</default>
+                    <label>Education</label>
+                </value>
+                <value>
+                    <fullName>Federal Government</fullName>
+                    <default>false</default>
+                    <label>Federal Government</label>
+                </value>
+                <value>
+                    <fullName>Healthcare</fullName>
+                    <default>false</default>
+                    <label>Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Hospitality</fullName>
+                    <default>false</default>
+                    <label>Hospitality</label>
+                </value>
+                <value>
+                    <fullName>Industrial &amp; Commercial</fullName>
+                    <default>false</default>
+                    <label>Industrial &amp; Commercial</label>
+                </value>
+                <value>
+                    <fullName>Multi Family</fullName>
+                    <default>false</default>
+                    <label>Multi Family</label>
+                </value>
+                <value>
+                    <fullName>Retail</fullName>
+                    <default>false</default>
+                    <label>Retail</label>
+                </value>
+                <value>
+                    <fullName>State/Municipal</fullName>
+                    <default>false</default>
+                    <label>State/Municipal</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Residential</controllingFieldValue>
+                <valueName>Program (MRP)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Residential</controllingFieldValue>
+                <valueName>Non-Program</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Residential</controllingFieldValue>
+                <valueName>HNW</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Education</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Federal Government</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Healthcare</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Hospitality</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Industrial &amp; Commercial</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Multi Family</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>Retail</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Non-Residential</controllingFieldValue>
+                <valueName>State/Municipal</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Policy__c</fullName>
+        <externalId>false</externalId>
+        <label>Policy #</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Residential</fullName>
+                    <default>false</default>
+                    <label>Residential</label>
+                </value>
+                <value>
+                    <fullName>Multi-Family</fullName>
+                    <default>false</default>
+                    <label>Multi-Family</label>
+                </value>
+                <value>
+                    <fullName>Commercial</fullName>
+                    <default>false</default>
+                    <label>Commercial</label>
+                </value>
+                <value>
+                    <fullName>Retail</fullName>
+                    <default>false</default>
+                    <label>Retail</label>
+                </value>
+                <value>
+                    <fullName>Healthcare</fullName>
+                    <default>false</default>
+                    <label>Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Hospitality</fullName>
+                    <default>false</default>
+                    <label>Hospitality</label>
+                </value>
+                <value>
+                    <fullName>Manufacturing</fullName>
+                    <default>false</default>
+                    <label>Manufacturing</label>
+                </value>
+                <value>
+                    <fullName>Municipality/ Gov&apos;t</fullName>
+                    <default>false</default>
+                    <label>Municipality/ Gov&apos;t</label>
+                </value>
+                <value>
+                    <fullName>GSA</fullName>
+                    <default>false</default>
+                    <label>GSA</label>
+                </value>
+                <value>
+                    <fullName>Religious</fullName>
+                    <default>false</default>
+                    <label>Religious</label>
+                </value>
+                <value>
+                    <fullName>Educational</fullName>
+                    <default>false</default>
+                    <label>Educational</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Street__c</fullName>
+        <externalId>false</externalId>
+        <label>Street</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TestAddress__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>TestAddress</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Year_Structure_Built__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Structure Built</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_Taken__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Taken</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zip_Line_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Zip Line 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zip__c</fullName>
+        <externalId>false</externalId>
+        <label>Zip</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Property</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Alternate_Name__c</columns>
+        <columns>Address_Line_1__c</columns>
+        <columns>City__c</columns>
+        <columns>State__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Property_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Job_Class__c</field>
+            <operation>equals</operation>
+            <value>Educational - Private,Educational - Public</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Property Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Properties</pluralLabel>
+    <recordTypes>
+        <fullName>Property</fullName>
+        <active>true</active>
+        <label>Property</label>
+        <picklistValues>
+            <picklist>Job_Class__c</picklist>
+            <values>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Educational</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Educational - Private</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Educational - Public</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GSA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Science</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multi-Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Municipality%2F Gov%27t</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Religious</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lead_RRP_Apply__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Market_Class__c</picklist>
+            <values>
+                <fullName>Non-Residential</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Market_Segment_Sub_Class__c</picklist>
+            <values>
+                <fullName>Agriculture</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Air Force</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Airport</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Animal %2F Medical %2F Veterinary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Apartments</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Army</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assisted Living %2F Hospice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Big Box Store</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Border Patrol</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bureau of Land Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Casino %2F Gaming</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Central Intelligence Agency %28CIA%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>City</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coast Guard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Condo %2F HOA %2F POA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>County</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Agriculture %28USDA%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Commerce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Defense %28DOD%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Energy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Health %26 Human Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Homeland Security %28DHS%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Housing and Urban Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Justice %28DOJ%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Labor %28DOL%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of State %28DOS%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Transportation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of Veterans Affairs %28VA%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of the Interior</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Department of the Treasury</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Federal Bureau of Investigation %28FBI%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fish and Wildlife Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General Services Admin %28GSA%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Grocery %2F Liquor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Higher Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospital</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hotel %2F Motel %2F Resort %2F Lodge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>K-12</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marine Corps</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical Office</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>National Guard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>National Park Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Navy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Office</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pharma%2FLab</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Police %2F Sheriff %2F Fire Department</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Prison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Religion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Restaurant %2F Bar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sports %26 Entertainment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>State</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Store Front</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>United States Postal Service %28USPS%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warehouse %2F Distribution</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Market_Segment__c</picklist>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Federal Government</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HNW</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Industrial %26 Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multi Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program %28MRP%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>State%2FMunicipal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Property_Type__c</picklist>
+            <values>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Educational</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GSA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multi-Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Municipality%2F Gov%27t</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Religious</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <listViewButtons>New_Property_Account</listViewButtons>
+        <searchResultsCustomButtons>New_Property_Account</searchResultsCustomButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New_Property_Account</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Property + Account</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/lightning/n/Property_Account_Form?0.source=alohaHeader</url>
+    </webLinks>
+</CustomObject>

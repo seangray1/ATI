@@ -1,0 +1,20 @@
+<template>
+     <label>Comments:</label>
+     <textarea class="slds-textarea" id="Comments" onkeyup={handleFormInputChange} name="Comments" rows="6" cols="50">
+        
+    </textarea>
+    <div if:true={loading}>
+        <div class="Spinner">
+         <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+     </div>
+     </div>
+     <br>
+     <br>
+    
+    <div class="slds-button-group">
+        <button type="button" onclick={submit} class="slds-button slds-button_brand">Submit</button>
+        <button type="button" onclick={cancel} class="slds-button slds-button_neutral">Cancel</button>
+        
+      </div>
+  
+</template>

@@ -7,10 +7,6 @@
         <recipients>
             <type>owner</type>
         </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Lead_Templates/LEAD_Standard</template>
     </alerts>
@@ -28,10 +24,6 @@
         </recipients>
         <recipients>
             <recipient>frank.islas@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -499,10 +491,6 @@
         </recipients>
         <recipients>
             <recipient>frank.islas@atirestoration.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>nat.lee@atirestoration.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>donotreply@atirestoration.com</senderAddress>

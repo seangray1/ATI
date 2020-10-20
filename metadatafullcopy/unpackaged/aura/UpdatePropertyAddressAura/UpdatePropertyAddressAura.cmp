@@ -1,0 +1,4 @@
+<aura:component controller="NewJobController" implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
+      
+<c:propertyUpdateLWC recordId = "{!v.recordId}" onclosePage="{!c.refreshView}"/>
+</aura:component>

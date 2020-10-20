@@ -44,301 +44,21 @@ public without sharing class NewJobController {
         
     }
     
-@AuraEnabled
-public static String ApproveSelectedItems(String ItemsToApproveReject, String Comments, String Decision, string processId)
-{
-    try 
-    {
-        system.debug('Items before ' + ItemsToApproveReject);
-        
-        Set<Id> pInstanceWorkitems = new Set<Id>();
-        List<Approval.ProcessWorkitemRequest> allReq = new List<Approval.ProcessWorkitemRequest>();
-        //JSONWrapper projectWrap = (JSONWrapper)JSON.deserialize(ProjectJSON, JSONWrapper.class);
-        Integer count = 0;
-        if(string.isEmpty(processId))
-        {
-            ItemListToApproveReject itemstoapproverejectlist = (ItemListToApproveReject)JSON.deserialize(ItemsToApproveReject, ItemListToApproveReject.class);
-            system.debug('Items to Approve reject ' + itemstoapproverejectlist);
-            Id qId = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject, Comments, Decision));
-            return '200';
-        }
-        else
-        {
-                Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
-                req2.setComments(Comments);
-                req2.setAction(Decision); //to approve use 'Approve'
-                req2.setWorkitemId(processId);
-                system.debug('req 2 ' + req2);
-                allReq.add(req2);
-        Approval.ProcessResult[] result2 =  Approval.process(allReq);
-        return '200';
-    }
-    } catch (Exception e) 
-    {
-        return e.getMessage();
-    }
-    
-}
-    @AuraEnabled
-    public static List<ItemToApprove> GetAccountData(String objectName){
-        system.debug('object name is ' + objectName);
-        Set<Id> userSet = new Set<Id>();
-        Set<Id> ProcessInstanceId = new Set<Id>();
-        Map<Id, ProcessInstance> processInstanceMap = new Map<Id, ProcessInstance>();
-        Map<Id, ProcessInstance> processcContactInstanceMap = new Map<Id, ProcessInstance>();
-        Map<Id, ProcessInstanceWorkitem> processJobMap = new Map<Id, ProcessInstanceWorkitem>();
-        Map<Id, ProcessInstance> processMJobMap = new Map<Id, ProcessInstance>();
-        Map<Id, ProcessInstance> processContactMap = new Map<Id, ProcessInstance>();
-        Map<Id, ProcessInstanceWorkitem> processuserMap = new Map<Id, ProcessInstanceWorkitem>();
-        Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
-        Map<Id, Contact> contactMap = new Map<Id,Contact>();
-        Map<Id, String> processuserMap1 = new Map<Id, string>();
-        List<ATI_Job__c> mjoblist = new List<ATI_Job__c>();
-        List<Contact> contactlist = new List<Contact>();
-        
-        Set<Id> contactIds = new Set<Id>();
-        Set<Id> mjobids = new Set<Id>();
-        List<ProcessInstanceWorkitem> piwi = [Select Id, ProcessInstanceId, CreatedById, ActorId FROM ProcessInstanceWorkitem Where ActorId =: userInfo.getUserId()];
-        system.debug('Approvals include ' + piwi);
-    //   if(objectName == 'Master Job')
-    //   {   
-        for(ProcessInstanceWorkitem p : piwi)
-        {
-            processJobMap.put(p.ProcessInstanceId, p);
-            userset.add(p.CreatedById);
-            processUserMap.put(p.CreatedById, p);
-            ProcessInstanceId.add(p.ProcessInstanceId);
-        }
-        List<user> usersList = [Select Id, Name FROM User Where Id=:userSet];
-        for(user u : usersList)
-        {
-            processUserMap1.put(u.Id, u.Name);
-        }
-        List<ProcessInstance> processInstanceList = [Select Id, targetObjectId, CreatedById FROM ProcessInstance Where Id =: ProcessInstanceId];
-        system.debug('Approvals include ' + processInstanceList);
-        for(ProcessInstance p : processInstanceList)
-        {
-            if(objectName == 'Contact')
-            {
-            if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Contact')
-            {
-                processcContactInstanceMap.put(p.Id, p);
-                processContactMap.put(p.targetObjectId, p);
-                
-                contactIds.add(p.targetObjectId);
-            }
-        }
-        if(objectName == 'Master Job')
-            {
-            if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
-            {
-                processInstanceMap.put(p.Id, p);
-                processMJobMap.put(p.targetObjectId, p);
-                
-                mjobids.add(p.targetObjectId);
-            }
-        }
-        }
 
-        
-        system.debug('mjob ids ' + mjobids);
-        if(objectName == 'Master Job')
-        {
-             mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, 
-            Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
-            
-            for(ATI_Job__c job : mjoblist)
-            {
-                system.debug('job is ' + job);
-                mjobMap.put(job.Master_Job__c, job);
-            }
-        }
-        if(objectName == 'Contact')
-        {
-            system.debug('Contact Ids are  '+ contactIds);
-            contactMap.putAll([Select Id, Name FROM Contact Where Id =:contactIds]);
-            system.debug('Contact map contains  '+ contactMap);
-            // for(Contact c : contactlist)
-            // {
-            //     system.debug('Contact is ' + c);
-            //     .put(Id, job);
-            // }
-        }
-        List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
-        // system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        // ItemToApprove ia = new ItemToApprove();
-        // ia.processId = 'Test';
-        // ItemsToApproveClass.items.add(ia);
-        // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
-        //system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        if(objectName == 'Master Job')
-        {
-            for(ProcessInstance p : processInstanceMap.values())
-            {
-                ItemToApprove i = new ItemToApprove();
-                i.processId = processJobMap.get(p.Id).Id;
-                i.processinstanceId = p.Id;
-                i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
-                system.debug('i is ' + i );
-                if(p.TargetObjectId != null && mjobMap.containsKey(p.targetObjectId))
-                {
-                i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
-                i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
-                i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
-                i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
-                i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
-                i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
-                i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
-                i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
-                }
-                system.debug('i is ' + i );
-
-                ItemsToApproveClass.add(i);
-            }
-        }
-        if(objectName == 'Contact')
-        {
-            for(ProcessInstance p : processcContactInstanceMap.values())
-            {
-                ItemToApprove i = new ItemToApprove();
-                i.processId = processJobMap.get(p.Id).Id;
-                system.debug('Process Id is ' + i.processId + ' jobmap' + processJobMap.get(p.Id));
-                i.processinstanceId = p.Id;
-                i.createdByName = processuserMap1.get(processcContactInstanceMap.get(p.Id).createdById);
-                system.debug('i is ' + i );
-                
-                i.Contact = contactMap.get(p.targetObjectId).Name;
-                i.ContactId = p.TargetObjectId;
-                system.debug('i is ' + i );
-
-                ItemsToApproveClass.add(i);
-            }
-        }
-        system.debug('ItemsToApproveClass is ' + ItemsToApproveClass);
-        system.debug('Jobs Class is ' + mjoblist);
-        
-        return ItemsToApproveClass;
-    }
-    // if(objectName == 'All')
-    //   {   
-    //     for(ProcessInstanceWorkitem p : piwi)
-    //     {
-    //         processJobMap.put(p.ProcessInstanceId, p);
-    //         userset.add(p.CreatedById);
-    //         processUserMap.put(p.CreatedById, p);
-    //         ProcessInstanceId.add(p.ProcessInstanceId);
-    //     }
-    //     List<user> usersList = [Select Id, Name FROM User Where Id=:userSet];
-    //     for(user u : usersList)
-    //     {
-    //         processUserMap1.put(u.Id, u.Name);
-    //     }
-    //     List<ProcessInstance> processInstanceList = [Select Id, targetObjectId FROM ProcessInstance Where Id =: ProcessInstanceId];
-    //     for(ProcessInstance p : processInstanceList)
-    //     {
-    //         // if(p.targetobjectId.getSObjectType().getDescribe().getName() == 'Master_Job__c')
-    //         // {
-    //             processInstanceMap.put(p.Id, p);
-    //             processMJobMap.put(p.targetObjectId, p);
-                
-    //             // mjobids.add(p.targetObjectId);
-    //         // }
-    //     }
-    //     // Map<Id, ATI_Job__c> mjobMap = new Map<Id,ATI_Job__c>();
-    //     // system.debug('mjob ids ' + mjobids);
-    //     // List<ATI_Job__c> mjoblist = [Select Id, Name, Contact__c, Contact__r.Name, Account__c, Account__r.Name, Referred_By__c, Referred_By__r.Name, Master_Job__c, Master_Job__r.Name FROM ATI_Job__c Where Master_Job__c =: mjobids];
-    //     // for(ATI_Job__c job : mjoblist)
-    //     // {
-    //     //     system.debug('job is ' + job);
-    //     //     mjobMap.put(job.Master_Job__c, job);
-    //     // }
-    //     List<ItemToapprove> ItemsToApproveClass = new List<ItemToapprove>();
-    //     // system.debug('Items To Approve Class ' + ItemsToApproveClass);
-    //     // ItemToApprove ia = new ItemToApprove();
-    //     // ia.processId = 'Test';
-    //     // ItemsToApproveClass.items.add(ia);
-    //     // system.debug('Items To Approve Class ' + ItemsToApproveClass.items);
-    //     //system.debug('Items To Approve Class ' + ItemsToApproveClass);
-        
-    //     for(ProcessInstance p : processInstanceMap.values())
-    //     {
-    //         ItemToApprove i = new ItemToApprove();
-    //         i.processId = processJobMap.get(p.Id).Id;
-    //         i.processinstanceId = p.Id;
-    //         i.createdByName = processuserMap1.get(processJobMap.get(p.Id).createdById);
-    //         i.ObjectName =  p.TargetObjectId;
-          
-    //         system.debug('i is ' + i );
-    //         // i.MasterJob = mjobMap.get(p.targetObjectId).Master_Job__r.Name;
-    //         // i.MasterJobId = mjobMap.get(p.targetObjectId).Master_Job__c;
-    //         // i.Account = mjobMap.get(p.targetObjectId).Account__r.Name;
-    //         // i.AccountId = mjobMap.get(p.targetObjectId).Account__c;
-    //         // i.Contact = mjobMap.get(p.targetObjectId).Contact__r.Name;
-    //         // i.ContactId = mjobMap.get(p.targetObjectId).Contact__c;
-    //         // i.ReferredBy = mjobMap.get(p.targetObjectId).Referred_By__r.Name;
-    //         // i.ReferredById = mjobMap.get(p.targetObjectId).Referred_By__c;
-    //         system.debug('i is ' + i );
-
-    //         ItemsToApproveClass.add(i);
-    //     }
-        
-    //     return ItemsToApproveClass;
-    // }
-    // List<ItemToApprove> ita = new list<ItemToApprove>();
-    // return ita;
-
-
-    
-    
-//    @AuraEnabled
-//     public class JSONWrapper{
-//         public List<ItemToApprove> items;
-//     }
-    public class ItemListToApproveReject
-    {
-    @AuraEnabled
-    public List<ItemToApprove> ItemsToApproveReject {get;set;}
-    }
-    public class ItemToApprove{
-        @AuraEnabled
-        public string processId {get;set;}
-        @AuraEnabled
-        public string processinstanceId {get;set;}
-        @AuraEnabled
-        public string createdByName {get;set;}
-        @AuraEnabled
-        public string MasterJob {get;set;}
-        @AuraEnabled
-        public string MasterJobId {get;set;}
-        @AuraEnabled
-        public string Account {get;set;}
-        @AuraEnabled
-        public string AccountId {get;set;}
-        @AuraEnabled
-        public string Contact {get;set;}
-        @AuraEnabled
-        public string ContactId {get;set;}
-        @AuraEnabled
-        public string ReferredBy {get;set;}
-        @AuraEnabled
-        public string ReferredById {get;set;}
-        @AuraEnabled
-        public string ObjectName {get;set;}
-        @AuraEnabled
-        public string id {get;set;}
-    }
     @AuraEnabled
     public static string UpdateProperty(string recordId, string Street,string City,string State,string Zip, string Country){
         try {
             PropertyAddresses propAddress = GoogleCallout(Street, City, Zip, State);
-            Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);
+            Property__c prop = new Property__c(Id = recordId, Address_Line_1__c = propAddress.Street, Latitude__c = propAddress.lat, Longitude__c = propAddress.lng, City__c = propAddress.City, Zip__c = propAddress.Zipcode, State__c = propAddress.State, County__c = propAddress.county);
             update prop;
-            List<ATI_Job__c> jobs = [Select ID, Project_Site_Address__c, Project_Site_CIty__c, Project_Site_State__c, Project_Site_Zipcode__c FROM ATI_Job__c WHere Property_Id__c =: prop.Id];
+            List<ATI_Job__c> jobs = [Select ID, Project_Site_Address__c, SFMapsJobLongitude__c, SFMapsJobLatitude__c, Project_Site_CIty__c, Project_Site_State__c, Project_Site_Zipcode__c FROM ATI_Job__c WHere Property_Id__c =: prop.Id];
             for(ATI_Job__c job: jobs){
                 job.Project_Site_Address__c = propAddress.Street;
                 job.Project_Site_City__c = propAddress.City;
                 job.Project_Site_State__c = propAddress.State;
                 job.Project_Site_Zipcode__c = propAddress.Zipcode;
+                job.SFMapsJobLongitude__c = propAddress.lng;
+                job.SFMapsJobLatitude__c = propAddress.lat;
                 job.County__c = propAddress.county;
             }
             if(!jobs.isEmpty()){
@@ -490,565 +210,7 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
     @AuraEnabled 
     public static list<Account_Roles__c> CheckId6(string propId){
         List<Account_Roles__c> a = [Select Id, Name, Roles__c, Contact_ID__c, Multiple_Roles__c, Address__c, Text__c, Account_ID__c FROM Account_Roles__c Where Property_ID__c =: propId];
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        for(Account_Roles__c ar : a){
-            ar.Text__c = ar.Roles__c;
-        }
-        
-
-        system.debug('Prop Id + ' + propId);
-        system.debug('Contact ID is ' + a);
+       
         return a;
 
     }
@@ -1311,6 +473,8 @@ public static String ApproveSelectedItems(String ItemsToApproveReject, String Co
             prop.Zip__c = propAddress.Zipcode;
             prop.Country__c = Property.Country;
             prop.State__c = propAddress.State;
+            prop.Latitude__c = propAddress.lat;
+            prop.Longitude__c = propAddress.lng;
             // prop.Address_Line_2__c = Property.AddressLine2;
             prop.Address_Line_1__c = propAddress.Street;
             prop.County__c = propAddress.county;
@@ -1391,7 +555,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
             Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
             Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = system.now(),
-            Date_Time_Taken__c = system.now());
+            Date_Time_Taken__c = system.now(), SFMapsJobLatitude__c =propAddress.lat, SFMapsJobLongitude__c = propAddress.lng);
             system.debug('Job info is ' + job);
             if(!account.isempty())
             {
@@ -1852,6 +1016,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 prop.Zip__c = propAddress.Zipcode;
                 prop.Country__c = Property.Country;
                 prop.State__c = propAddress.State;
+                prop.Latitude__c = propAddress.lat;
+                prop.Longitude__c = propAddress.lng;
                 // prop.Address_Line_2__c = Property.AddressLine2;
                 prop.Name = 'Test';
                 // prop.Address_Line_1__c = Property.Street + ', ' + Property.State + ', ' + Property.City + ' ' + Property.Zip;
@@ -1868,7 +1034,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 insert prop;  
                 
             }else{
-                prop = [Select Street__c, City__c, County__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
+                prop = [Select Street__c, City__c, County__c, Zip__c, State__c, Address_Line_1__c, Address_Line_2__c, Latitude__c, Longitude__c FROM Property__c Where Id =: Property.PropertyId LIMIT 1];
             }
             Id mJobId;
             
@@ -1999,7 +1165,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             Date_Of_loss__c = jobWrap.DateOfLoss, Cont_P_O_Client_Job__c = jobWrap.ClientJob, Project_Manager__c = jobWrap.ProjectDirector, Taken_By__c = jobWrap.TakenBy,
             Referred_By__c = Referred, Account__c = PrimaryAccount, Contact__c = PrimaryContact, Project_Site_Contact_Account__c = ProjectSiteContactAccount, 
             Project_Site_Contact_Name__c = ProjectSiteContactContact, county__c = propAddress.county, Project_Site_Address__c = prop.Address_Line_1__c, Project_Site_Address_2__c = Property.AddressLine2,
-            Project_Site_City__c = prop.City__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
+            Project_Site_City__c = prop.City__c, SFMapsJobLatitude__c =prop.Latitude__c, SFMapsJobLongitude__c = prop.Longitude__c, Project_Site_State__c = prop.State__c, Project_Site_Zipcode__c = prop.Zip__c, Year_Structure_Built__c = YearBuilt, Major_Event__c = jobWrap.MajorEvent);
             // List<ATI_Job__c> jobsas = [Select Id from ATI_Job__c where Id =: 'a4asd2f3asdfasd'];
             // jobsas[0].name = 'test';
            
@@ -2135,7 +1301,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     //     update mJob;
     // }
 
-    private static PropertyAddresses GoogleCallout(String Street, String City, String Zipcode, String State)
+    public static PropertyAddresses GoogleCallout(String Street, String City, String Zipcode, String State)
     {
     string county;
     string street1;
@@ -2153,7 +1319,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     EncodingUtil.urlEncode(address, 'UTF-8')+'&sensor=false');
     req.setMethod('GET');
     req.setTimeout(60000);
-    if(!Test.isRunningTest())
+    if(!Test.isRunningTest() || Street == 'TestMethod')
     {
         HttpResponse res = h.send(req);
         system.debug('Response is ' + res.getBody());
@@ -2178,6 +1344,28 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                     street1 = ad.short_name;
                 }
                 if(ad.types[0] == 'locality')
+                {
+                    if(ad.short_name.length() <= 3)
+                    {
+                        localityCity = ad.long_name;
+                    }
+                    else
+                    {
+                    localityCity = ad.short_name;
+                    }
+                }
+                if(ad.types[0] == 'lat')
+                {
+                    if(ad.short_name.length() <= 3)
+                    {
+                        localityCity = ad.long_name;
+                    }
+                    else
+                    {
+                    localityCity = ad.short_name;
+                    }
+                }
+                if(ad.types[0] == 'lng')
                 {
                     if(ad.short_name.length() <= 3)
                     {
@@ -2219,7 +1407,10 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 //  system.debug('Postal # is  ' + postalcode);
                 }
                 
-            }  
+            }
+            // system.debug(' Lat is ' + a.geometry.location.lat);
+            propertyAddress.lat = a.geometry.location.lat;
+            propertyAddress.lng = a.geometry.location.lng;
         }
         if(streetnumber != null)
         {
@@ -2254,6 +1445,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         public string Zipcode {get;set;}
         public string State {get;set;}
         public string County {get;set;}
+        public Decimal lat {get;set;}
+        public Decimal lng {get;set;}
     }
     public class ContactId {
         public Id ContactId {get;set;}
@@ -2282,6 +1475,8 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
         public String State {get;set;}
         public String Country {get;set;}
         public String Zip {get;set;}
+        public Decimal lat {get;set;}
+        public Decimal lng {get;set;}
         public String PropertyType {get;set;}
         public String AddressLine2 {get;set;}
         public String AlternateName {get;set;}
@@ -2292,11 +1487,19 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     }
     public class results{
         public list<address_components> address_components{get;set;}
+        public geometry geometry{get;set;}
     }
     public class address_components{
         public String long_name {get;set;}
         public String short_name {get;set;}
         public list<String> types {get;set;}
+    }
+    public class geometry{
+        public location location{get;set;}
+    }
+    public class location{
+        public decimal lat{get;set;}
+        public decimal lng{get;set;}
     }
    
 
