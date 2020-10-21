@@ -1,3 +1,4 @@
 <aura:component implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
-    <c:createOpportunityFromLead recordId="{!v.recordId}" onClose="{!c.closeForm}" onrefreshRecord="{!c.refreshView}"/>
+    
+<c:createOpportunityFromLead recordId="{!v.recordId}" onClose="{!c.closeForm}" onrefreshRecord="{!c.refreshView}"/>
 </aura:component>	

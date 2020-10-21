@@ -1,6 +1,6 @@
 public class AccountRoleTriggerHandler {
 
-    public Static Void InsertCampaignJunction(List < Account_Roles__c > accRoles1) {
+    public static void InsertCampaignJunction(List < Account_Roles__c > accRoles1) {
 
     List < Account_Roles__c > accRoles = new List < Account_Roles__c > ([Select id, Name, Contact_ID__c,Master_Job_ID__c, Master_Job_ID__r.Date_Time_Taken__c from Account_Roles__c where id =: accRoles1  ]);
         
@@ -91,7 +91,7 @@ public class AccountRoleTriggerHandler {
     }
 
 }
-    public Static Void UpdateCampaignJunction(List < Account_Roles__c > accRolesNew, map<id, Account_Roles__c> oldAccRolesMap) {
+    public static void UpdateCampaignJunction(List < Account_Roles__c > accRolesNew, map<id, Account_Roles__c> oldAccRolesMap) {
 
 	List < Account_Roles__c > accRoles1 = new List < Account_Roles__c > ([Select id, Name, Contact_ID__c,Master_Job_ID__c, Master_Job_ID__r.Date_Time_Taken__c from Account_Roles__c where id =: accRolesNew  ]);        
     List < CampaignMember > campaignMembers = new List < CampaignMember > ();
@@ -201,7 +201,7 @@ public class AccountRoleTriggerHandler {
     
     
     
-    public Static Void DeleteCampaignJunction(List < Account_Roles__c > accRoles) {
+    public static void DeleteCampaignJunction(List < Account_Roles__c > accRoles) {
 
         List < Campaign_Junction__c > RectobeDeleted = new List < Campaign_Junction__c > ([Select id from Campaign_Junction__c
             where Account_Roles__c in: accRoles
@@ -212,5 +212,52 @@ public class AccountRoleTriggerHandler {
             database.delete(RectobeDeleted);
         }
     }
-
+//Checks account name if it contains a certain text, it will mark Send PRelim on job to No
+    public static void UpdateJobSendPrelim(List<Account_Roles__c> accRoles, Map<Id,Account_Roles__c> oldAccRolesMap)
+    {
+        Set<Id> JobIdSet = new Set<Id>();
+        Map<Id,Account_Roles__c> JobMapToUpdate = new Map<Id,Account_Roles__c>();
+        for(Account_Roles__c a : accRoles)
+        {
+            
+            if(a.Account_Name_Lookup__c != null && a.Master_Job_ID__c != null && (a.Account_Name_Lookup__c.contains('Vixxo') || a.Account_Name_Lookup__c.contains('Total Property Management') || 
+            a.Account_Name_Lookup__c.contains('Facility Source') || a.Account_Name_Lookup__c.contains('Farmers Insurance')))
+            {
+                if(Trigger.isInsert)
+                {
+                    JobIdSet.add(a.Master_Job_ID__c);
+                    // ATI_Job__c job = new ATI_Job__c(Id = a.Master_Job_ID__c, Send_Prelim__c = 'No');
+                    JobMapToUpdate.put(a.Master_Job_ID__c, a);
+                }
+                if(Trigger.isUpdate && a.Account_Name_Lookup__c != oldAccRolesMap.get(a.Id).Account_Name_Lookup__c)
+                {
+                    JobIdSet.add(a.Master_Job_ID__c);
+                    // ATI_Job__c job = new ATI_Job__c(Id = a.Master_Job_ID__c, Send_Prelim__c = 'No');
+                    JobMapToUpdate.put(a.Master_Job_ID__c, a);
+                } 
+            }
+        }
+        if(!JobMapToUpdate.isEmpty())
+        {
+            Map<Id,ATI_Job__c> JobMap = new Map<Id,ATI_Job__c>([SELECT Id, Send_Prelim__c,Lead_source__c 
+                                    FROM ATI_Job__c 
+                                    WHERE Id=:JobIdSet AND Send_Prelim__c = null]);
+            if(!JobMap.isEmpty())
+            {
+                for(ATI_Job__c job : JobMap.values())
+                {
+                    if((JobMapToUpdate.get(job.Id).Account_Name_Lookup__c.contains('Farmers Insurance') && job.Lead_Source__c.contains('Program')))
+                    {
+                        job.Send_Prelim__c = 'No';
+                    }
+                    if(!JobMapToUpdate.get(job.Id).Account_Name_Lookup__c.contains('Farmers Insurance'))
+                    {
+                        job.Send_Prelim__c = 'No';
+                    }
+                    
+                }
+                update JobMap.values();
+            }
+        }
+    }
 }

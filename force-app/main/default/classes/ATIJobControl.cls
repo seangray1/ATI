@@ -394,7 +394,11 @@ public without sharing class ATIJobControl {
                                                       j.Office__c,
                                                       j.Division__c,
                                                       sequenceStr);
-            j.Name = j.Job_Number__c+ ' | '+j.Job_Name__c;
+            if(j.Job_Name__c.length() > 30)
+            {
+                j.Job_Name__c = j.Job_Name__c.left(30);
+            }
+            j.Name = j.Job_Number__c+ ' | '+    j.Job_Name__c;
             if(Trigger.isUpdate)
             {
                 j.Job_Prev_number__c = oldJobMap.get(j.Id).Job_Prev_number__c;

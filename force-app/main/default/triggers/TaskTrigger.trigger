@@ -23,10 +23,6 @@ after update, before delete, before insert, before update) {
     
     if(trigger.isbefore && trigger.isInsert)
     {
-    List<account> a1=[Select id from account where Id =:trigger.new[0].WhatId and MSA_Activity_ID__c != ''];
-    if(a1.size()>0)
-        {
-            trigger.new[0].Id.addError('You cannot able to create MSA/ERA Task while previous MSA/ERA Approval is Pending');
-        }
+        TaskTriggerUtility.beforeInsert(trigger.new);
     }
 }

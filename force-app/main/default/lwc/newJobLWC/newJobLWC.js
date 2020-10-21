@@ -36,6 +36,7 @@ import SearchCustomers from "@salesforce/apex/NewJobController.GetCustomers";
 import SearchContactAccounts from "@salesforce/apex/NewJobController.GetContactAccounts";
 import SearchOffices from "@salesforce/apex/NewJobController.GetOffices";
 import GetMasterJobs from "@salesforce/apex/NewJobController.GetMasterJobs";
+import GetRelatedMasterJob from "@salesforce/apex/NewJobController.GetRelatedMasterJob";
 import GetJobInfo from "@salesforce/apex/NewJobController.GetJobInfo";
 import checkId from "@salesforce/apex/NewJobController.CheckId";
 import CreateNewJob from "@salesforce/apex/NewJobController.CreateNewJob";
@@ -323,6 +324,12 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
   @track focusClicked = false;
   ContactTypeValues;
   AccountTypeValues;
+  RelatedMasterJobStatic;
+  RelatedMasterJobLink;
+  RelatedJobLink = false;
+  RelatedJobClaim = false;
+  RelatedJobDateOfLoss = false;
+  JobRequestJob;
 
   // @wire(getRecord, {
   //     recordId: UserId,
@@ -468,7 +475,14 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         let jobresults = result;
         this.JobTemp = result;
         this.MasterJobId = jobresults.Master_Job__c;
+        let relatedMasterJob;
         console.log('MasterJob Id from ConnectedCallback is ' + this.MasterJobId);
+        console.log('Related Master Job' + jobresults.Related_Master_Job__c); 
+        GetRelatedMasterJob({recordId : jobresults.Related_Master_Job__c}).then(result => {
+          relatedMasterJob = result;
+          console.log(JSON.stringify(relatedMasterJob)); 
+        
+        
         GetPropertyInfo({
           City: jobresults.Project_Site_City__c,
           Address: jobresults.Project_Site_Address__c,
@@ -530,14 +544,32 @@ export default class NewJobLWC extends NavigationMixin(LightningElement) {
         this.DateOfLoss = jobresults.Date_of_Loss__c;
         this.JobName = jobresults.Job_Name__c;
         this.Division = jobresults.Division__c;
+        this.JobRequestJob = jobresults;
         
-        
-
-        this.ContactInfoAndDescription =
+        console.log('Before check ' + JSON.stringify(relatedMasterJob));
+        console.log('Before check ' + relatedMasterJob.length);
+        if(relatedMasterJob.Name !== 'NotGood')
+        {
+          this.RelatedJobLink = true;
+          this.RelatedMasterJobLink = "/"+ relatedMasterJob.Id;
+          this.RelatedMasterJobStatic = relatedMasterJob;
+          if(relatedMasterJob.Claim__c !== undefined)
+          {
+            this.RelatedJobClaim = true;
+          }
+          if(relatedMasterJob.Date_of_Loss__c !== undefined)
+          {
+            this.RelatedJobDateOfLoss = true;
+          }
+        }
+        console.log('Afterhoursform being called true ');
+          this.ContactInfoAndDescription = 
           jobresults.Contact_Info__c + "\n" + "\n" + jobresults.Description__c;
           this.Afterhoursform = true;
-        console.log(jobresults.Contact_Info__c);
-        console.log(this.ContactInfoAndDescription);
+        // console.log(jobresults.Contact_Info__c);
+      
+        
+        })
       });
     }
     if(this.TypeOfJobEntry === 'NewJobEntry'){

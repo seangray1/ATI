@@ -14,12 +14,17 @@ import DIVISION_FIELD from "@salesforce/schema/ATI_Job__c.Division__c";
 import LEADSOURCE_FIELD from "@salesforce/schema/ATI_Job__c.Lead_Source__c";
 import ESJOBTYPE_FIELD from "@salesforce/schema/ATI_Job__c.ES_Job_Type__c";
 
+
 const DELAY = 600;
 var Street, City, State, ZipCode, Country;
 export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) {
     LeadSourcePicklistValues;
     EsJobTypePicklistValues;
     DivisionPicklistValues;
+    fileName;
+    FilesChanged = false;
+    @track Files = [];
+    FilesTest = [];
     @wire(getPicklistValues, {
         recordTypeId: "0120g000000l3yMAAQ",
         fieldApiName: DIVISION_FIELD
@@ -58,13 +63,20 @@ export default class AfterHoursJobLWC extends NavigationMixin(LightningElement) 
       }
  //   = "Name:"+  '\n' + "Company:" + '\n' + 'Email:' + '\n' + 'Phone Number:' + '\n' + 'Additional Information:';Description of Loss:"+  '\n' + "Insurance Provider:" + '\n' + 'Claim #:' + '\n' + 'Policy #:'+
 //'\n' + 'Lead Source:' + '\n' + 'Additional Information:'
-JobName; Office; Offices; Division; AddressLine2;loading = false; Comments;Description;OfficeValue;OfficeId;
+JobName; Office; Offices; Division; AddressLine2;loading = false; Comments=null;Description=null;OfficeValue;OfficeId;
 DivisionEs = false; EsJobType; PageStateReady = false; ContactInfo;@track MajorEvents;@track MajorEventValue; @track MajorEventId; @track MajorEventSelected = false;
 ProjectDirectorValue = "";ProjectDirectors;ProjectDirectorId; ProjectDirectorSelected = false;
-ContactName='';Email='';PhoneNumber='';Company='';AdditionalInformation='';@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
-DescriptionOfLoss='';InsuranceProvider='';Claim='';Policy='';LeadSource='';AdditionalInformationTwo='';@track newDescriptionTwo = false;@track ModalScreen = true;
+ContactName=null;Email=null;PhoneNumber;Company=null;AdditionalInformation=null;@track newDescription = false;@track Street = '';@track City = '';@track State = '';@track Zipcode = '';@track Country = '';
+DescriptionOfLoss=null;InsuranceProvider=null;Claim=null;Policy=null;LeadSource=null;AdditionalInformationTwo=null;@track newDescriptionTwo = false;@track ModalScreen = true;
 @track Desktop = false; @track Mobile = false;@track OfficeOptions=[{}];FieldsDisabled = false;RelatedJob="";
 @api recordId;
+@track isLoading = false;
+    MAX_FILE_SIZE = 5000000; //Max file size 5.0 MB
+    filesUploaded = [];
+    file;
+    fileContents;
+    fileReader;
+    content;
 value = 'inProgress';
       @track state = {
           progress: this.value,
@@ -72,11 +84,38 @@ value = 'inProgress';
           progressDisabled: ''
       };
   
-  
-  
-      handleChange12(event) {
-          this.state[event.target.name] = event.detail.value;
-      }
+handleRemove(e){
+        console.log('Handle remove ' ,e);
+        let index;
+        for(var i = 0;i<this.Files;i++)
+        {
+            if(this.Files[i].Title === e.target.name)
+            {
+                index = i;
+            }
+        }
+        this.Files.splice(index - 1, 1);
+    }
+handleFilesChange(event){
+    if (event.target.files.length > 0) {
+        let files = [];
+        for(var i=0; i< event.target.files.length; i++){
+            let file = event.target.files[i];
+            let reader = new FileReader();
+            reader.onload = e => {
+                let base64 = 'base64,';
+                let content = reader.result.indexOf(base64) + base64.length;
+                let fileContents = reader.result.substring(content);
+                console.log('Files before ',this.Files);
+                this.Files.push({PathOnClient: file.name, Title: file.name, VersionData: fileContents});
+                console.log('Files after ',this.Files);
+                this.FilesChanged = true;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
 DescriptionOfLossChange(e){
     this.DescriptionOfLoss = e.detail.value;
 }
@@ -145,19 +184,85 @@ closeDescriptionModalTwo1(){
     this.ModalScreen = true;
 }
 SaveDescription1(){
-    this.ContactInfo = "Name: "+ this.ContactName +  '\n' + "Company: "+ this.Company + '\n' + 'Email: '+ this.Email + '\n' + 'Phone Number: ' + this.PhoneNumber + '\n' + 'Additional Information: '+ this.AdditionalInformation;
-    this.newDescription= false;
-    this.ModalScreen = true;
+    // this.ContactInfo = "Name: "+ this.ContactName +  '\n' + "Company: "+ this.Company + '\n' + 'Email: '+ this.Email + '\n' + 'Phone Number: ' + this.PhoneNumber + '\n' + 'Additional Information: '+ this.AdditionalInformation;
+    const input = [...this.template.querySelectorAll('.contactFormControl')]
+        .reduce((validSoFar, inputCmp) => {
+                    inputCmp.reportValidity();
+                    return validSoFar && inputCmp.checkValidity();
+        }, true);
+    if(!input)
+    {
+        this.ContactInfo = "Name: "+ this.ContactName +  '\n';
+        if(this.Company != null)
+        {
+            this.ContactInfo = this.ContactInfo +"Company: "+ this.Company  + '\n';
+        }
+        if(this.Email != null)
+        {
+            this.ContactInfo = this.ContactInfo + 'Email: '+ this.Email  + '\n';
+        }
+        if(this.PhoneNumber != null)
+        {
+            this.ContactInfo = this.ContactInfo + 'Phone Number: ' + this.PhoneNumber + '\n';
+        }
+        if(this.AdditionalInformation != null)
+        {
+            this.ContactInfo = this.ContactInfo + 'Additional Information: '+ this.AdditionalInformation;
+        }
+        this.newDescription= false;
+        this.ModalScreen = true;
+    }
 }
 SaveDescriptionTwo1(){
-    this.Description = "Description of Loss: "+ this.DescriptionOfLoss +  '\n' + "Insurance Provider: "+ this.InsuranceProvider + '\n' + 'Claim #: '+ this.Claim + '\n' + 'Policy #: ' + this.Policy + '\n' + 'Lead Source: ' + this.LeadSource + '\n' + 'Additional Information: '+ this.AdditionalInformationTwo;
+    const input = [...this.template.querySelectorAll('.descriptionFormControl')]
+        .reduce((validSoFar, inputCmp) => {
+                    inputCmp.reportValidity();
+                    return validSoFar && inputCmp.checkValidity();
+        }, true);
+    if(!input)
+    {
+
+    this.Description = "Description of Loss: "+ this.DescriptionOfLoss +  '\n';
+    if(this.InsuranceProvider != null)
+    {
+        this.Description = this.Description + "Insurance Provider: "+ this.InsuranceProvider + '\n';
+    }
+    if(this.Claim != null)
+    {
+        this.Description = this.Description +'Claim #: '+ this.Claim  + '\n';
+    }
+    if(this.Policy != null)
+    {
+        this.Description = this.Description + 'Policy #: ' + this.Policy  + '\n';
+    }
+    if(this.LeadSource != null)
+    {
+        this.Description = this.Description + 'Lead Source: ' + this.LeadSource + '\n';
+    }
+    if(this.AdditionalInformationTwo != null)
+    {
+        this.Description = this.Description + 'Additional Information: '+ this.AdditionalInformationTwo ;
+    }
+    // this.Description = !this.InsuranceProvider ?? this.Description + "Insurance Provider: "+ this.InsuranceProvider + '\n';
+    // this.Description = !this.Claim ?? this.Description + 'Claim #: '+ this.Claim + '\n';
+    // this.Description = !this.Policy ?? this.Description + 'Policy #: ' + this.Policy + '\n';
+    // this.Description = !this.LeadSource ?? this.Description + 'Lead Source: ' + this.LeadSource + '\n';
+    // this.Description = !this.AdditionalInformationTwo ?? this.Description + 'Additional Information: '+ this.AdditionalInformationTwo + '\n';
+    // "Insurance Provider: "+ this.InsuranceProvider + '\n' + 'Claim #: '+ this.Claim + '\n' + 'Policy #: ' + this.Policy + '\n' + 'Lead Source: ' + this.LeadSource + '\n' + 'Additional Information: '+ this.AdditionalInformationTwo;
     this.newDescriptionTwo= false;
     this.ModalScreen = true;
+    }
 }
 openDescriptionModal1(){
     const address = this.template.querySelector('[data-id="AddressLookup"]');
+    const relatedJob = this.template.querySelector('[data-id="RelatedJob"]');
+    if(relatedJob === undefined)
+    {
+        relatedJob.value = null;
+    }
             // const isValid = address.checkValidity();
             //  if(isValid) {
+                this.RelatedJob = relatedJob.value;
                 this.Street = address.street;
                 this.City = address.city;
                 this.State = address.province;
@@ -171,6 +276,14 @@ openContactInfoModal1(){
     const address = this.template.querySelector('[data-id="AddressLookup"]');
             // const isValid = address.checkValidity();
             //  if(isValid) {
+    const relatedJob = this.template.querySelector('[data-id="RelatedJob"]');
+    if(relatedJob === undefined)
+    {
+        relatedJob.value = null;
+    }
+            // const isValid = address.checkValidity();
+            //  if(isValid) {
+                this.RelatedJob = relatedJob.value;
                 this.Street = address.street;
                 this.City = address.city;
                 this.State = address.province;
@@ -184,6 +297,8 @@ openContactInfoModal1(){
 connectedCallback(){
     console.log('Browser is ' + FORM_FACTOR);
     console.log('before form factor');
+    this.Files.shift();
+    this.FilesTest.shift();
     if(FORM_FACTOR === 'Large'){
             this.Desktop = true; 
             console.log('inside Desktop one');  
@@ -203,6 +318,7 @@ connectedCallback(){
                 this.OfficeValue = result.Office2__r.Name;
                 this.JobName = result.Job_Name__c;
                 this.MajorEventId = result.Major_Event__c;
+                this.RelatedJob = result.Id;
                 if(this.MajorEventId !== undefined &&
                     this.MajorEventId !== null &&
                     this.MajorEventId !== ""){
@@ -414,8 +530,11 @@ Save(){
         }
         else
         {
-            console.log('Saving Job with related job');
+            
+                    
+                    
         const relatedJob = this.template.querySelector('[data-id="RelatedJob"]');
+        console.log('Saving Job with related job' + relatedJob.value);
         const address = this.template.querySelector('[data-id="AddressLookup"]');
             // const isValid = address.checkValidity();
             //   if(isValid) {
@@ -428,8 +547,13 @@ Save(){
                 Country = address.country;
                 this.loading = true;
                 console.log('Sending TO apex');
+                if(relatedJob === undefined)
+                {
+                    relatedJob.value = null;
+                }
                 AfterHoursJobCreation({JobName:this.JobName, Division:this.Division, EsJobType:this.EsJobType, Office:this.OfficeId, Street:Street, State:State, City:City, 
-                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description, MajorEvent:this.MajorEventId, ProjectDirector:this.ProjectDirectorId, recordId:this.recordId, RelatedJob:RelatedJob}).then(result => {
+                ZipCode:ZipCode, Country:Country, AddressLine2:this.AddressLine2, ContactInfo:this.ContactInfo, Description:this.Description, MajorEvent:this.MajorEventId, ProjectDirector:this.ProjectDirectorId, recordId:this.recordId, RelatedJob:relatedJob.value,
+                Files:this.Files}).then(result => {
                 let data = result;
                 console.log('Result returned');
                 

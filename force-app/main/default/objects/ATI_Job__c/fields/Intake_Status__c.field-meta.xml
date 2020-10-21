@@ -32,6 +32,16 @@
                 <default>false</default>
                 <label>Cloned - Completed/Reviewed</label>
             </value>
+            <value>
+                <fullName>Contact Center - Created</fullName>
+                <default>false</default>
+                <label>Contact Center - Created</label>
+            </value>
+            <value>
+                <fullName>Contact Center - Approved</fullName>
+                <default>false</default>
+                <label>Contact Center - Approved</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

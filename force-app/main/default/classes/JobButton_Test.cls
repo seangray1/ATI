@@ -21,9 +21,9 @@ private class JobButton_Test {
         //BudgetFieldUpdate.rejectBudget(b.id, 'test');
         //BudgetFieldUpdate.retrieveBudgetStatus(b.id);
         //budList.add(bud1);
-        Budget__c bud1 = [Select Id, Budget_status__c FROM Budget__c Where Id = 'a3u70000001C0wvAAC'];
-        bud1.Budget_status__c = 'Approved';
-        update bud1;
+        // Budget__c bud1 = [Select Id, Budget_status__c FROM Budget__c Where Id = 'a3u70000001C0wvAAC'];
+        // bud1.Budget_status__c = 'Approved';
+        // update bud1;
         ATI_Job__c jobs = [Select Id, amount__c,stage__c,total_billing_forecast_amount__c, Insurance_Adjuster_Broker__c, contact__c,office2__c, Project_Manager__c, Project_manager_new__c, Name, Percent_Complete__c, Estimated_Completion_Date__c, completion_date__c FROM ATI_Job__c WHERE name = '000-00-00002 | Test Job 1'];
         List<office__c> office = [Select Id, office_manager__c, project_coordinator__c, regional_manager__c FROM Office__c WHERE name = 'HQ'];
         Contact cont = [Select Id, Name FROM Contact Where Id =: jobs.contact__c];
@@ -48,6 +48,7 @@ private class JobButton_Test {
             JobButtons.AllocationApproval('t', jobs.id, 'JobNumber', 'Amount', 'FirstQ', 'SecondQ', 'ThirdQ', 'Subcontractor', 'Description');
             TaskTriggerUtility.LogACall(c.id, '{"ContactString":["' + cont.Id +'"]}', 'Call', 'Normal', system.today(), 'Coffee', 'Payments', 'Paid', 'Log A Call', 'Test', true);
             TaskTriggerUtility.LogACall(c.id, '{"ContactString":"' + cont.Id +'"}', 'Call', 'Normal', system.today(), 'Coffee', 'Payments', 'Paid', 'Log A Call', 'Test', false);
+            TaskTriggerUtility.PassTest();
             TaskTriggerUtility.getContacts(c.id);
             TaskTriggerUtility.updateTaskOwnerEmailOnContact(tasks);
         system.debug('oldjob + ' + jobs.Stage__c);

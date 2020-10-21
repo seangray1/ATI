@@ -1,0 +1,197 @@
+<template>
+    
+    <template if:true={PageStateReady}>
+       
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+                
+                <div class="slds-modal__container">
+                    <div class="slds-scrollable_y" style="height:120rem;width: 100%;">
+                    
+                    <!-- modal header start -->
+                    <!-- <div class="modal-header slds-modal__header empty slds-modal__header--empty">
+                         <button class="slds-button slds-button_icon slds-modal__close closeIcon slds-button_icon-bare slds-button_icon-inverse" type="button" title="Close this window" data-aura-rendered-by="3578:0"><lightning-primitive-icon data-aura-rendered-by="3579:0" ><svg  focusable="false" data-key="close" aria-hidden="true" class="slds-button__icon slds-button__icon_large slds-button_icon-inverse"><use  xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg?cache=9.36.1#close"></use></svg></lightning-primitive-icon><span class="slds-assistive-text" data-aura-rendered-by="3581:0">Close this window</span></button> -->
+                    <!--  -->
+                    <header class="slds-modal__header slds-theme_shade">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeDescriptionModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate biggerText">New Opportunity
+                        </h2>
+                    </header>
+                    <!-- <header class="slds-text-align_center slds-p-top--large slds-p-horizontal_medium slds-p-bottom_medium slds-text-heading_medium" >New BD Opportunity</header> -->
+    <!-- <div class="slds-scrollable_y" style="height:120rem;width: 100%;"> -->
+        <template if:true={loading}>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+        
+       <!-- <div class="slds-align_absolute-center"> -->
+         <div class="modal-body scrollable slds-modal__content slds-p-around--medium" data-scoped-scroll="true">
+
+            <div class="actionBody">
+        <lightning-record-edit-form  object-api-name="Opportunity" onsuccess={HandleOpportunitySuccess} onsubmit={HandleOnSubmit} record-type-id={recordtypeid} onerror={HandleOpportunityError}>
+            <lightning-messages></lightning-messages>
+            <h3 class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="1373:2639;a"><span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="1375:2639;a">Opportunity Information</span></h3>
+                <div class="slds-grid slds-wrap">
+
+                    
+                            <div class="slds-col--padded slds-size--1-of-2">
+                            
+                                        <lightning-input-field variant="label-stacked"  field-name="Name"  ></lightning-input-field>
+                                    
+                                        <lightning-input-field variant="label-stacked" field-name="AccountId" ></lightning-input-field>
+                                        <lightning-input-field variant="label-stacked" field-name="CloseDate" ></lightning-input-field>
+                                        <lightning-input-field variant="label-stacked" field-name="Description" ></lightning-input-field>
+                                        
+                                    
+
+                            </div>
+                            <div class="slds-col--padded slds-size--1-of-2">
+                                <lightning-input-field variant="label-stacked"  field-name="Probability"  ></lightning-input-field>
+                                    
+                                <lightning-input-field variant="label-stacked" field-name="StageName"  ></lightning-input-field>
+                                <lightning-input-field variant="label-stacked" field-name="Rating__c" ></lightning-input-field>
+                                </div>
+                        
+                 
+                
+                </div>
+                <h3 class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="1373:2639;a"><span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="1375:2639;a">Contact Information</span></h3>
+                <div class="slds-grid slds-wrap">
+
+                    
+                    <div class="slds-col--padded slds-size--1-of-2">
+                    
+                                <lightning-input-field variant="label-stacked"  field-name="Title__c"  ></lightning-input-field>
+                            
+                                <lightning-input-field variant="label-stacked" field-name="Phone__c" ></lightning-input-field>
+                                
+                                <!-- <lightning-input-field variant="label-stacked" field-name="Description" ></lightning-input-field> -->
+                                
+                            
+
+                    </div>
+                    <div class="slds-col--padded slds-size--1-of-2">
+                        <lightning-input-field variant="label-stacked" field-name="Email__c" ></lightning-input-field>
+                        <lightning-input-field variant="label-stacked" field-name="Project_Manager__c" ></lightning-input-field>
+
+                            
+                       
+                        </div>
+                
+         
+        
+                 </div>
+                 <h3 class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="1373:2639;a"><span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="1375:2639;a">Address Information</span></h3>
+                <div class="slds-grid slds-wrap">
+
+                    
+                    <!-- <div class="slds-col--padded slds-size--1-of-2">
+                    
+                                <lightning-input-field variant="label-stacked"  field-name="Title__c"  ></lightning-input-field>
+                            
+                                <lightning-input-field variant="label-stacked" field-name="Phone__c" ></lightning-input-field>
+                                
+                                
+                            
+
+                    </div>
+                    <div class="slds-col--padded slds-size--1-of-2">
+                        <lightning-input-field variant="label-stacked" field-name="Email__c" ></lightning-input-field>
+                            
+                       
+                        </div>
+                 -->
+                 <lightning-input-address
+                                    data-id="AddressLookup"
+                                    address-label="Search Address"
+                                    street-label="Street"
+                                    city-label="City"
+                                    country-label="Country"
+                                    province-label="State"
+                                    postal-code-label="PostalCode"
+                                    street=""
+                                    city=""
+                                    country="US"
+                                    province=""
+                                    postal-code=""
+                                    show-address-lookup
+                                    required
+                                    class="contactFormControl" 
+                                    read-only
+                                     ></lightning-input-address>
+        
+                 </div>
+                 <h3 class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="1373:2639;a"><span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="1375:2639;a">Job Information</span></h3>
+                <div class="slds-grid slds-wrap">
+
+                    
+                    <div class="slds-col--padded slds-size--1-of-2">
+                    
+                                <lightning-input-field variant="label-stacked"  field-name="Office2__c"></lightning-input-field>
+                            
+                                <lightning-input-field variant="label-stacked" field-name="Division__c" ></lightning-input-field>
+                                <lightning-input-field variant="label-stacked" field-name="Amount__c" ></lightning-input-field>
+                                
+                                <!-- <lightning-input-field variant="label-stacked" field-name="Description" ></lightning-input-field> -->
+                                
+                            
+
+                    </div>
+                    <div class="slds-col--padded slds-size--1-of-2">
+                        <lightning-input-field variant="label-stacked" field-name="Major_Event__c" ></lightning-input-field>
+                        <lightning-input-field variant="label-stacked" field-name="Lead_Source__c" ></lightning-input-field>
+                            
+                       
+                        </div>
+                
+         
+        
+                 </div>
+                 <footer style="padding-top: 10px;">
+                     <lightning-button-group class="slds-align_absolute-center">
+                        <lightning-button label = "Create" type="submit" name="Insert" variant ="brand"></lightning-button>
+                        <lightning-button label = "Cancel"></lightning-button>
+                     </lightning-button-group>
+                 </footer>
+                 
+                 <!-- <footer style="border-top: black;border-top-width: 5px;">
+                    <div style="width: 100%; text-align: center;">
+                      <button style="padding: 3px 40px; margin-right: 20px;" class="slds-button slds-button_brand" onclick={ThirdScreen}>
+                        Next
+                      </button>
+                      <button style="padding: 3px 40px;" class="slds-button slds-button_neutral" onclick={Back}>
+                        Cancel
+                      </button>
+                    </div>
+                  </footer> -->
+                 <!-- <div class="button-container slds-text-align_right forceRecordEditActions">
+                    <div class="button-container-inner slds-float_right ">
+                       
+                    </div>
+                    </div> -->
+        </lightning-record-edit-form>
+  
+
+   <!-- <div class="inlineFooter" data-aura-rendered-by="48:2566;a"><div class="button-container slds-text-align_right forceRecordEditActions" data-aura-rendered-by="33:2566;a" data-aura-class="forceRecordEditActions"><div class="actionsContainer" data-aura-rendered-by="34:2566;a"><div class="pageError hideEl" data-aura-rendered-by="35:2566;a"><div class="pageErrorIcon" data-aura-rendered-by="36:2566;a"><button class="slds-button slds-button--neutral pageErrorIconButton uiButton" aria-live="off" type="button" title="Error" data-aura-rendered-by="40:2566;a" data-aura-class="uiButton">render facet: 41:2566;arender facet: 43:2566;a<lightning-icon class="slds-icon-utility-warning slds-icon_container" data-data-rendering-service-uid="832" data-aura-rendered-by="38:2566;a"><span class="slds-assistive-text">Error</span></lightning-icon></button></div></div>render facet: 45:2566;a<div class="button-container-inner slds-float_right" data-aura-rendered-by="46:2566;a">render facet: 4804:0<button class="slds-button slds-button--neutral uiButton--neutral uiButton forceActionButton" aria-live="off" type="button" title="Cancel" data-aura-rendered-by="4797:0" data-aura-class="uiButton forceActionButton">render facet: 4798:0<span class=" label bBody" dir="ltr" data-aura-rendered-by="4800:0">Cancel</span>render facet: 4795:0</button>render facet: 4820:0<button class="slds-button slds-button--neutral uiButton--neutral uiButton forceActionButton" aria-live="off" type="button" title="Save &amp; New" data-aura-rendered-by="4813:0" data-aura-class="uiButton forceActionButton">render facet: 4814:0<span class=" label bBody" dir="ltr" data-aura-rendered-by="4816:0">Save &amp; New</span>render facet: 4811:0</button>render facet: 4836:0<button class="slds-button slds-button--neutral uiButton--brand uiButton forceActionButton" aria-live="off" type="button" title="Save" data-aura-rendered-by="4829:0" data-aura-class="uiButton forceActionButton">render facet: 4830:0<span class=" label bBody" dir="ltr" data-aura-rendered-by="4832:0">Save</span>render facet: 4827:0</button></div></div></div></div> -->
+</div>  
+</div>  
+</div>
+    </div>
+    </div>
+    </section>
+
+    </template>
+    
+
+
+
+              
+               
+            
+</template>

@@ -2,15 +2,15 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>JOB_NCLS_Cannot_be_Stage_Won_wo_Apprvl</fullName>
     <active>true</active>
-    <description>Can&#39;t set a stage to Won if a approval does not exist, only on NCLS job.</description>
-    <errorConditionFormula>($Profile.Name &lt;&gt; &#39;System Administrator&#39; &amp;&amp; Complex_Loss__c = TRUE &amp;&amp; ISPICKVAL(Stage__c, &#39;Won&#39;) &amp;&amp;
+    <description>Can&apos;t set a stage to Won if a approval does not exist, only on NCLS job.</description>
+    <errorConditionFormula>($Profile.Name &lt;&gt; &apos;System Administrator&apos; &amp;&amp; $Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos; &amp;&amp; Complex_Loss__c = TRUE &amp;&amp; ISPICKVAL(Stage__c, &apos;Won&apos;) &amp;&amp;
 
-(NOT(ISPICKVAL ( Division__c, &#39;Emergency Svces&#39;)) || 
-NOT(ISPICKVAL ( Division__c, &#39;Catastrophes&#39;)) ||
-NOT(ISPICKVAL ( Estimate_Type__c, &#39;T&amp;M&#39;)))
+(NOT(ISPICKVAL ( Division__c, &apos;Emergency Svces&apos;)) || 
+NOT(ISPICKVAL ( Division__c, &apos;Catastrophes&apos;)) ||
+NOT(ISPICKVAL ( Estimate_Type__c, &apos;T&amp;M&apos;)))
 
-&amp;&amp; if(NOT(ISPICKVAL ( Division__c, &#39;Emergency Svces&#39;)) &amp;&amp; NOT(ISPICKVAL ( Division__c, &#39;Catastrophes&#39;)) 
-&amp;&amp; NOT(ISPICKVAL ( Estimate_Type__c, &#39;T&amp;M&#39;)),
+&amp;&amp; if(NOT(ISPICKVAL ( Division__c, &apos;Emergency Svces&apos;)) &amp;&amp; NOT(ISPICKVAL ( Division__c, &apos;Catastrophes&apos;)) 
+&amp;&amp; NOT(ISPICKVAL ( Estimate_Type__c, &apos;T&amp;M&apos;)),
 ISBLANK(Last_NCLS_Approval_Date_and_Time__c), NOT(ISBLANK(Last_NCLS_Approval_Date_and_Time__c))))</errorConditionFormula>
     <errorMessage>Please submit this job for Complex Loss approval before setting stage to Won.</errorMessage>
 </ValidationRule>

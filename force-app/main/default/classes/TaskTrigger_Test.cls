@@ -79,6 +79,7 @@ private class TaskTrigger_Test {
             Task task = new Task( type = TaskTriggerUtility.TASK_TYPE_LUNCH_AND_LEARN, WhoId = newCont.Id, Subject = 'testing');
             
             insert task;  
+           
                                                                                     
             try{
                 task.Subject = 'subject update';
@@ -149,6 +150,9 @@ private class TaskTrigger_Test {
                                                                                  'ManagerId' => Userinfo.getUserId()})[0]){
               List<Ati_Job__c> jobss = new List<Ati_Job__c>([Select Id FROM ATI_Job__c]);
             Task task = new Task( type = 'Project Note', WhatId = Jobss[0].Id, Subject = 'testing', description = 'Test' );
+            // Task task1 = new Task( type = 'MSA/ERA', WhatId = lstAccounts[1].Id, Subject = 'testing', Description = 'Test');
+            
+            // insert task1;  
             
             try{
                 Database.SaveResult result = Database.insert(task);    

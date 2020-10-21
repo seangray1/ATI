@@ -255,12 +255,28 @@ public without sharing class NewJobController {
         Office2__c,  Office2__r.Name, Project_Manager__c, Project_Manager__r.name, Major_Event__c, Major_Event__r.Name, Market_Class__c, Market_Segment__c,
         Market_Segment_Sub_Class__c, Account_Executive_1__c, Account_Executive_2__c, PN_Request_Date__c,
         PN_Amount__c, ML_amount__c, PN_Recording_Number__c, ML_Recording_Number__c, National_Account__c,
-        ML_Request_Date__c,ML_Release_Recording_Date__c, 
+        ML_Request_Date__c,ML_Release_Recording_Date__c, Related_Master_Job__c,
         Send_Prelim_Last_Modified_Date_Time__c, Send_Prelim_Last_Modified_By__c,
         ML_Recording_Date__c, National_Project_Manager__c
          FROM ATI_Job__c Where Id =: recordId];
         return job;
     }
+    @AuraEnabled 
+    public static Master_Job__c GetRelatedMasterJob(string recordId){
+        if(recordId != null)
+        {
+        Master_Job__c mj = [Select Id, Name, Major_Event__c, Major_Event__r.Name, Stage__c, Property__c, Cont_P_O_Client_Job__c, 
+        Claim__c, Office2__c, Office2__r.Name, Policy__c, Date_of_Loss__c, Deductible__c, Description_of_Loss__c,Lead_Source__c, 
+        Multiple_Divisions__c  FROM Master_Job__c Where Id =: recordId];
+        return mj;
+        }
+        else{
+            Master_Job__c mj = new Master_Job__c(Name='NotGood');
+            return mj;
+        }
+        
+    }
+    
     @AuraEnabled
     public static string GetUserInfo(){
         id id1 = UserInfo.getProfileId();
@@ -529,9 +545,8 @@ public without sharing class NewJobController {
     }  
 @AuraEnabled
 public static String AfterHoursJobCreation(String JobName, String Division, String EsJobType, Id Office, String Street, String State, String City, String ZipCode, String Country,
-String AddressLine2, String ContactInfo, String Description, String MajorEvent, String ProjectDirector, String recordId, String RelatedJob)
+String AddressLine2, String ContactInfo, String Description, String MajorEvent, String ProjectDirector, String recordId, String RelatedJob, List<Map<String, Object>> Files)
 {
-
     PropertyAddresses propAddress = GoogleCallout(Street,  City, Zipcode, State);
     system.debug('Related job is ' + RelatedJob);
     Savepoint sp = Database.setSavepoint();
@@ -557,7 +572,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
             {
                relatedMJ = [select id from Master_Job__c where Id =: jo[0].Master_Job__c];
             }
-            //date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
+            // date_time_approved__c = datetime.now(),    changed 4/14/20 since Nat wanted it removed for reporting purporses
             ATI_Job__c job = new ATI_Job__c(Name = 'Test Job 1',  Job_Name__c = JobName, Es_Job_Type__c= EsJobType, Stage__c = 'Qualification', Taken_By__c = userId,
             Office2__c = Office, Master_Job__c = mj.id, recordtypeId = recordtypeid, Division__c = Division, Description__c = Description, Project_Site_Address__c = propAddress.Street, Project_Site_Address_2__c = AddressLine2,
             Project_Site_City__c = propAddress.City, Project_Site_State__c = propAddress.State, Date_Time_approved__c = system.now(), Project_Site_Zipcode__c = propAddress.ZipCode, Contact_Info__c = ContactInfo, County__c = propAddress.county, CloseDate__c = date.today().adddays(5), Major_Event__c = MajorEvent, Intake_Status__c = 'Business Requested', Project_Manager__c = ProjectDirector, Date_Time_Submitted__c = system.now(),
@@ -574,6 +589,41 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 job.Project_site_Contact_Account__c = account[0].id;
             } 
             insert job;
+            if(!Files.isEmpty())
+            {
+                List<ContentVersion> relatedDocuments = new List<ContentVersion>();
+                for (Map<String, Object> file : files) {
+                    String fileJson = JSON.serialize(file);
+                    relatedFile relatedDocument = (relatedFile) JSON.deserialize(fileJson, relatedFile.class);
+                    ContentVersion contentVersionFile = new ContentVersion();
+                    contentVersionFile.PathOnClient = relatedDocument.PathOnClient;
+                    contentVersionFile.Title = relatedDocument.Title;
+                    contentVersionFile.VersionData = relatedDocument.VersionData;
+                    contentVersionFile.FirstPublishLocationId = job.Id;
+                    relatedDocuments.add(contentVersionFile);
+                }
+                Database.saveResult[] srFiles = Database.insert(relatedDocuments);
+                for (Database.SaveResult saveResult : srFiles) 
+                {
+                    system.debug('Is success? ' + saveResult.isSuccess());
+                }
+                // List<ContentVersion> cvs = new List<ContentVersion>();
+                // for(integer i = 0;i<base64Data.size();i++)
+                // {
+                //     base64Data = EncodingUtil.urlDecode6(base4Data[i], 'UTF-8');
+                
+                //     // inserting file
+                //     ContentVersion cv = new ContentVersion();
+                //     cv.Title = strFileName[i];
+                //     cv.PathOnClient = '/' + strFileName[i];
+                //     cv.FirstPublishLocationId = job.Id;
+                //     cv.VersionData = EncodingUtil.base64Decode(base4Data[i]);
+                //     cv.IsMajorVersion = true;
+                //     cvs.add(cv);
+                // }
+                // insert cvs;
+            }
+            
             return job.id;
         }
 
@@ -1196,6 +1246,7 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 system.debug('Job date of loss is ' + job.Date_of_loss__c + ' jobwrap dol is ' + jobWrap.DateOfLoss);
             if(JobEntryType == 'NewJobEntry')
             {
+                job.Intake_Status__c = 'Contact Center - Created';
                 job.Name = jobWrap.JobName;
                 job.Stage__c = 'Qualification';
                 if(MjobExisting.Name != null)
@@ -1501,6 +1552,11 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
     }
     public class AccountIds{
         public Id Account {get;set;}
+    }
+    public class relatedFile {
+        public String PathOnClient;
+        public String Title;
+        public Blob VersionData;
     }
     public class PropertyWrapper{
         public Id PropertyId {get;set;}

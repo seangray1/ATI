@@ -61,8 +61,9 @@ public without sharing class BudgetLWCController {
 
     // TO Upsert BLI -- By DemandBlue
     @AuraEnabled
-    public static String UpdateBLI(List<Budget_Line_Item__c> UpdateBLIList){
+    public static String UpdateBLI(List<Budget_Line_Item__c> UpdateBLIList, String OverheadProfit){
         system.debug('!!!!!!!!!!!!!!!!'+UpdateBLIList);
+        system.debug('OverheadProfit ' + OverheadProfit);
         String status='';
         if(!UpdateBLIList.isEmpty()){
             try{
@@ -72,38 +73,73 @@ public without sharing class BudgetLWCController {
                 
                 system.debug('BL List ' + UpdateBLIList[0]);
                 system.debug('BL List ' + UpdateBLIList[0].Id);
-                Budget_Line_Item__c b1i = [SELECT Id,Allocation_Percentage__c, Budget__c, Revenue__c, X10_10_Allocation__c 
+                Budget_Line_Item__c b1i = [SELECT Id,Allocation_Percentage__c, Budget__c, Revenue__c, X10_10_Allocation__c, Is_Parent__c 
                 FROM Budget_Line_Item__c 
                 WHERE Id =: UpdateBLIList[0].Id];
-                List<Budget_Line_Item__c> b1 = [SELECT Id,Allocation_Percentage__c,  Revenue__c, X10_10_Allocation__c, Selector__c 
+                List<Budget_Line_Item__c> b1 = [SELECT Id,Allocation_Percentage__c,  Revenue__c, X10_10_Allocation__c, Selector__c, Is_Parent__c 
                 FROM Budget_Line_Item__c 
                 WHERE Budget__c =: b1i.Budget__c];
                 system.debug(b1);
-                Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c
+                Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c, Allocation_Percentage__c
                 FROM Budget__c
                 WHERE Id =:b1i.Budget__c];
+                system.debug(bud);
                 
                 // system.debug('B1 is ' + b1);
                 // system.debug('B1 is ' + b1.Budget__c);
                 if(bud.Budget_LineItem_Status__c == null)
                 {
-                
+                    Decimal AllocationPercentage;
                     bud.Id = b1i.Budget__c;
                     bud.Overhead__c = 0;
                     bud.Profit__c = 0;
+                        if(OverheadProfit == '5/5')  {
+                            AllocationPercentage = .05;		
+                        }	
+                        else if(OverheadProfit == '6/6'){
+                            AllocationPercentage = .06;		
+                        }	
+                        else if(OverheadProfit == '7/7') {
+                            AllocationPercentage = .07;		
+                        }	
+                        else if(OverheadProfit == '8/8'){
+                            AllocationPercentage = .08;		
+                        }	
+                        else if(OverheadProfit == '9/9') {
+                            AllocationPercentage = .09;		
+                        }	
+                        else if(OverheadProfit == '10/10') {
+                            AllocationPercentage = .1;
+                            system.debug('Alocation percent10 ' + AllocationPercentage);		
+                        }	
+                        else if(OverheadProfit == '10/5') {
+                            AllocationPercentage = .075;		
+                        }		
+                        else if(OverheadProfit == '') {
+                            AllocationPercentage = 0;		
+                        }
+                    system.debug('Alocation percent ' + AllocationPercentage);
                     for(Budget_Line_Item__c b : b1)
                     {
                         // if(bud.Overhead__c == null || bud.Profit__c == null)
                         // {
                             
                         // }
-                        if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
+                        if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Revenue__c != 0 && b.Selector__c == null)
                         {
-
+                            if(AllocationPercentage != null)
+                            {
+                                bud.Overhead__c += b.Revenue__c * AllocationPercentage;
+                                bud.Profit__c += b.Revenue__c * AllocationPercentage;
+                            }else {
+                                bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
+                                bud.Profit__c += b.Revenue__c *b.Allocation_Percentage__c;
+                            }
+                            system.debug('Revenue' + b.Revenue__c);
                             system.debug('Allocation Percentage is ' + b.Allocation_Percentage__c);
+                            system.debug('New Allocation Percentage is ' + AllocationPercentage);
                             
-                            bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
-                            bud.Profit__c += b.Revenue__c * b.Allocation_Percentage__c;
+                            
                             system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
                         }    
                     }

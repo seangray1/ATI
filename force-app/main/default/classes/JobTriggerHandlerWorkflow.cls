@@ -178,6 +178,11 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 job.Intake_Status__c = 'Cloned - Completed/Reviewed';
                 
                 }
+                if(job.RecordTypeId != oldJob.RecordTypeId && job.Intake_Status__c == 'Contact Center - Created')
+                {
+                job.Intake_Status__c = 'Contact Center - Approved';
+                
+                }
                 if(job.recordtypeId == approvedRecordTypeId &&(job.name !=  oldJob.Name || job.recordtypeId != oldJob.recordtypeid)) 
                 {
                     string test1 = job.name.replace('|','');

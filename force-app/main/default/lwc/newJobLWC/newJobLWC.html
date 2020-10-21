@@ -123,15 +123,37 @@
             
 
                 <div if:true={Afterhoursform}>
-    <textarea disabled style="width:20%;
-    height:40%;
-    background:#16325C;
-    color:#FFF;
-    padding:5px 2px;
-    text-align:left;
-    top:0;
-    position:absolute; 
-    right:0;">{ContactInfoAndDescription}</textarea>
+    <div class="box">
+        <div if:true={RelatedJobLink}>
+        <p>Master Job: <a href={RelatedMasterJobLink} target="_blank">{RelatedMasterJobStatic.Name}</a></p>
+        </div>
+        <div style="display: inline;">
+        <div if:true={RelatedJobClaim}>Claim #: {RelatedMasterJobStatic.Claim__c}</div>
+        <div if:true={RelatedJobDateOfLoss}>Date of Loss: {RelatedMasterJobStatic.Date_of_Loss__c}</div>
+        </div>
+        <br>
+        
+        
+       
+        
+        
+    </div>
+    <textarea disabled class="nooutline" style="border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: hidden;
+        background-color: #eee;
+        width:20%;
+        height:40%;
+        background-color: #e7f3fe;
+        
+        padding:5px 2px;
+        text-align:left;
+        top:70px;
+        position:absolute; 
+        right:0;">{ContactInfoAndDescription}</textarea>
+    
+                    
     
 
 </div>

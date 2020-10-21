@@ -1,0 +1,22 @@
+<template>
+        <lightning-record-edit-form  object-api-name="Account" onsuccess={HandleOpportunitySuccess} onsubmit={HandleOnSubmit} onerror={HandleOpportunityError}>
+            <template if:true={APIfields}>
+            <template for:each={APIfields} for:item="APIfield">
+                <template if:true={APIfield}>
+                    <div key={APIfield.key} class="slds-col--padded slds-size--1-of-6">
+                                <lightning-input-field variant="label-stacked" name={APIfield.APIName} field-name={APIfield.APIName} value={APIfield.value}></lightning-input-field>            
+                    </div>
+                </template>
+            </template>
+        </template>
+        </lightning-record-edit-form>
+
+
+
+
+
+
+
+            <lightning-messages></lightning-messages>
+            
+</template>

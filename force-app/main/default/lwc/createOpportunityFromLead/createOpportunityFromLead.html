@@ -25,6 +25,58 @@
         </div>
       </div>
     </template>
+    <template if:true={AddressValidation}>
+      <div class="slds-box slds-theme_shade">
+        <div class="slds-var-m-around_medium">
+          <p style="
+              width: 100%;
+              font-size: 20px;
+              text-align: center;
+              margin: 45px 0 20px 0;
+            ">
+            Enter an Address
+          </p>
+        </div>
+          <br />
+        <lightning-input-address
+        data-id="AddressLookup"
+        address-label="Search Address"
+        street-label="Street"
+        city-label="City"
+        country-label="Country"
+        province-label="State"
+        postal-code-label="Zipcode"
+        street={Street}
+        city={City}
+        country={Country}
+        province={State}
+        postal-code={Zipcode}
+        read-only
+        show-address-lookup
+        class=""
+        required 
+         >
+    </lightning-input-address>
+    <!-- </div> -->
+    <!-- <div class="slds-col slds-size_1-of-7"> -->
+    <lightning-input label="Address Line 2" value={AddressLine2}  class="" onchange={AddressLine2Change}></lightning-input>
+            
+        
+        <br />
+            <footer>
+            <div style="width: 100%; text-align: center;">
+              <button style="padding: 3px 40px; margin-right: 20px;" class="slds-button slds-button_brand" onclick={ThirdScreen}>
+                Next
+              </button>
+              <button style="padding: 3px 40px;" class="slds-button slds-button_neutral" onclick={Back}>
+                Cancel
+              </button>
+            </div>
+          </footer>
+            
+          </div>
+        
+      </template>
       <template if:true={LeadSelection}>
         <div class="slds-box slds-theme_shade">
             <div class="slds-m-around_medium">
@@ -34,11 +86,12 @@
                   text-align: center;
                   
                 ">
-                Select the leads that are related to this Opportunity
+                Select the Leads and Contacts that are related to this Opportunity
               </p>
               </div>
               
               <br />
+              <div style="display: inline-flex;">
               <div class="row">
                 <div class="col-rp-12">
                     
@@ -71,6 +124,7 @@
                                                                             variant="label-hidden"
                                                                             >
                                                                         </lightning-input-field>
+                                                                       
                                                                     
                                                                     </lightning-record-edit-form>
                                                                    </div>
@@ -97,11 +151,74 @@
                         </table>
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col-rp-12">
+                      
+                          <table class="outer">
+                              <tbody>
+                                  <tr>
+                                      <td class="left-col">
+  
+                                          <table class="table getContacts everything">
+                                              <thead>
+                                                  <tr>
+                                                     
+                                                      <th> Contact</th>
+                                                      <th class="getContacts"></th>
+                                                  </tr>
+                                              </thead>
+  
+                                              <tbody>
+                                                  
+                                                  <template for:each={Contacts} for:item="ld">
+                                                      <tr key={ld.num}>
+                                                          <td class="slds-col slds-size_1-of-2">
+                                                              <div class="rowPadding">
+                                                                      <lightning-record-edit-form
+                                                                          object-api-name="LightningRecordEditFormObject__c">
+                                                                          <lightning-input-field
+                                                                              value={ld.Contact__c}
+                                                                              field-name="Contact__c"
+                                                                              class="form-control ContactId everything"
+                                                                              variant="label-hidden"
+                                                                              >
+                                                                          </lightning-input-field>
+                                                                         
+                                                                      
+                                                                      </lightning-record-edit-form>
+                                                                     </div>
+                                                               
+                                                          </td>
+                                                         
+                                                          
+                                                     
+                                                  <td class="AddActRoles">
+                                                      
+                                                 <lightning-button label='' class="delete-icon DeleteAR"
+                                                 title="Delete" variant="destructive"
+                                                 onclick={DeleteARRow} icon-name="action:delete">
+                                             </lightning-button>
+                                              </td>
+                                                      </tr>
+                                                  </template>
+                                              
+                                              </tbody>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+        </div>
               <!-- <table>
                 <lightning-record-edit-form object-api-name="Lead"></lightning-record-edit-form>
               </table> -->
               <br/>
-              <lightning-button label='Add More' icon-name="utility:add" help-text="Click to add additional Leads" variant="brand" onclick={addRow}></lightning-button>
+              <lightning-button-group>
+              <lightning-button label='Add Lead' icon-name="utility:add" help-text="Click to add additional Leads" variant="brand" onclick={addRow}></lightning-button>
+              <lightning-button label='Add Contact' icon-name="utility:add" help-text="Click to add additional Leads" style="padding-left: 5px;" variant="brand" onclick={addContactRow}></lightning-button>
+            </lightning-button-group>
               
 
             <br>
@@ -110,7 +227,7 @@
               <!-- <div style="width: 100%; text-align: center;"> -->
                 <lightning-button-group class="slds-align_absolute-center">
                     <lightning-button label='Create' icon-name="utility:save" disabled={submitClicked} onclick={Send} variant="brand"></lightning-button>
-                    <lightning-button label='Cancel' class="Buttonspacing" onclick={Cancel} ></lightning-button>
+                    <lightning-button label='Cancel' class="Buttonspacing" onclick={Back} ></lightning-button>
                     </lightning-button-group>
                 <!-- <button style="padding: 3px 40px; margin-right: 20px;" class="slds-button slds-button_brand" onclick={Send}>
                   Create

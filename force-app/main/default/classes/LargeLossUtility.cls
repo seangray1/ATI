@@ -398,7 +398,7 @@ public without sharing class LargeLossUtility {
         List<Financial__c> financial = [SELECT Id, Job_to_date_work_billed__c, Job_to_Date_Costs__c, Job_To_Date_GP_Percent__c, Gross_Profit__c
                                 FROM Financial__c
                                 WHERE ATI_Job__c =: recordId LIMIT 1];
-        List<Budget__c> bud = [SELECT Id, Budget_Status__c, Rejected_Reason__c, Total_Budget_Goal__c, Allocation_Percentage__c
+        List<Budget__c> bud = [SELECT Id, Budget_Status__c, Rejected_Reason__c, Total_Budget_Goal__c, Allocation_Percentage__c, Allocations__c
                         FROM Budget__c
                         WHERE ATI_Job__c =: recordId
                         ORDER BY createdDate DESC LIMIT 1];
@@ -450,7 +450,20 @@ public without sharing class LargeLossUtility {
             largeloss.Budget_Status__c = bud[0].Budget_Status__c;
             largeloss.Rejected_Reason__c = bud[0].Rejected_Reason__c;
             largeloss.Total_Budget_Goal__c = bud[0].Total_Budget_Goal__c;
-            largeloss.Allocation_Percent__c = bud[0].Allocation_Percentage__c;
+            String budgetAllocationString = bud[0].Allocations__c;
+            Decimal allocationPercentage = Decimal.valueOf(budgetAllocationString);
+            // switch on budgetAllocationString
+            // {
+            //     when '5' + '/5' { allocationPercentage = .05;}
+            //     when '6' + '/6' { allocationPercentage = .06;}
+            //     when '7' +'/7' { allocationPercentage = .07;}
+            //     when '8' +'/8' { allocationPercentage = .08;}
+            //     when '9' +'/9' { allocationPercentage = .09;}
+            //     when '10' +'/10' { allocationPercentage = .1;}
+            //     when '10'+' /5' { allocationPercentage = .75;}
+                
+            // }
+            largeloss.Allocation_Percent__c = allocationPercentage;
         }
         if(!forecastFullAmount.isEmpty())
         {

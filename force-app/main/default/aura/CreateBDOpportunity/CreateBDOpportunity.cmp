@@ -1,0 +1,4 @@
+<aura:component implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />    
+<c:newOpportunityLWC/>
+</aura:component>	

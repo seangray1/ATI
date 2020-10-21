@@ -10,6 +10,7 @@
   1.0    3/3/2020   sean.gray@atirestoration.com     Initial Version
 -->
 <template>
+    
     <!-- <div class="slds-scrollable_y" style="height:120rem;width: 100%;"> -->
         <template if:true={Mobile}>
         <template if:true={loading}>
@@ -160,7 +161,7 @@
        </table>
    </template>  
    <lightning-record-edit-form object-api-name="LightningRecordEditFormObject__c">
-    <label style="color:rgb(62,62,60); font-size:.75rem;display:inline-block;padding-right:.5rem;padding-top:.25rem;margin-bottom:.125rem;">Related Job (If Applicable)</label>
+    <label style="color:rgb(62,62,60); font-size:.75rem;display:inline-block;padding-right:.5rem;padding-top:.25rem;margin-bottom:.125rem;">Related Job (If Applicable)<lightning-helptext content="Select a related Job if it is at the same Property and for the same loss."></lightning-helptext></label>
     <lightning-input-field field-name="Job__c" variant="label-hidden" onchange={RelatedJobChange} class="JobClass" data-id="RelatedJob" value={RelatedJob}></lightning-input-field>
 </lightning-record-edit-form> 
         <lightning-input-address
@@ -359,6 +360,21 @@
                         <div class="slds-col slds-size_1-of-7"> -->
                             
             <lightning-input label="Job Name" value={JobName} class="jobFormControl Labels1" required onchange={JobNameChange}></lightning-input>
+            
+            <lightning-input onchange={handleFilesChange} type="file" name="uploadFile" label="Attachment/File" multiple accept="image/png,image/jpg,image/jpeg, .pdf, .doc, .txt, .docx"></lightning-input>
+            <!-- <div class="slds-text-body_small slds-text-color_error">{fileName}</div> -->
+            <template if:true={FilesChanged}>
+            <template for:each={Files} for:item="file">
+                <tr key={file.Title}>
+                <th>
+                    <lightning-pill name={file.Title} onremove={handleRemove} label={file.Title}>
+                        <lightning-icon icon-name="utility:file" variant="circle"  alternative-text="File"></lightning-icon>
+                    </lightning-pill>
+                </th>
+            </tr>
+            </template>
+        </template>
+            
         <!-- </div> -->
             <!-- <div class="slds-col slds-size_1-of-7"> -->
             <lightning-input onkeyup={OfficeChange}
@@ -497,8 +513,8 @@
         <!-- </div> -->
              
              <lightning-record-edit-form object-api-name="LightningRecordEditFormObject__c">
-                <label style="color:rgb(62,62,60); font-size:.75rem;display:inline-block;padding-right:.5rem;padding-top:.25rem;margin-bottom:.125rem;">Related Job (If Applicable)</label>
-                <lightning-input-field field-name="Job__c" variant="label-hidden" onchange={RelatedJobChange} class="JobClass" data-id="RelatedJob" value={RelatedJob}></lightning-input-field>
+                <label style="color:rgb(62,62,60); font-size:.75rem;display:inline-block;padding-right:.5rem;padding-top:.25rem;margin-bottom:.125rem;">Related Job (If Applicable) <lightning-helptext content="Select a related Job if it is at the same Property and for the same loss."></lightning-helptext></label> 
+                <lightning-input-field field-name="Job__c" variant="label-hidden"  class="JobClass" data-id="RelatedJob" value={RelatedJob}></lightning-input-field>
             </lightning-record-edit-form>
             <br>
         <!--       
@@ -531,14 +547,19 @@
         <!-- 
             <div class="slds-col slds-size_1-of-2"> -->
               <br>  
-        <lightning-button label="Fill Out Contact Info" variant="brand" class="" onclick={openContactInfoModal1}></lightning-button>
-        <lightning-textarea label="Customer and Contact Info"  value={ContactInfo} required class="jobFormControl" onchange={ContactInfoChange}></lightning-textarea>
+        <lightning-button label="Fill Out Contact Info" variant="brand" class="" onclick={openContactInfoModal1}>
+            
+        </lightning-button>
+        <lightning-helptext content="Click the Fill out Contact Info to enter the information"></lightning-helptext>    
+        
+        <lightning-textarea label="Customer and Contact Info"  value={ContactInfo} disabled required class="jobFormControl" onchange={ContactInfoChange}></lightning-textarea>
             <!-- </div> -->
             
             <br>
         <!-- <div class="slds-col slds-size_1-of-2">  -->
         <lightning-button label="Fill Out Description" variant="brand" class="" required onclick={openDescriptionModal1}></lightning-button>
-        <lightning-textarea label="Description" value={Description} class="jobFormControl" required onchange={DescriptionChange}></lightning-textarea>
+        <lightning-helptext content="Click the Fill out Contact Info to enter the information"></lightning-helptext>  
+        <lightning-textarea label="Description" value={Description} class="jobFormControl" disabled required onchange={DescriptionChange}></lightning-textarea>
         
         
         
@@ -604,12 +625,12 @@
                                 <!-- <div class="slds-grid"> -->
                                 <!-- <div class="slds-col slds-size_1-of-2"> -->
                                     <lightning-helptext content="Provide the name, company (if any), email address, and phone number for the customer and the project site contact, if different."></lightning-helptext>
-                                <lightning-input label="Name" value={ContactName} onchange={ContactNameChange} ></lightning-input>
+                                <lightning-input label="Name" value={ContactName} class="contactFormControl" required onchange={ContactNameChange} ></lightning-input>
                                 <lightning-input label="Company" onchange={CompanyChange} value={Company}></lightning-input>
-                                <lightning-input type="Email" label="Email" onchange={EmailChange} value={Email}></lightning-input>
-                                <lightning-input label="Phone Number" onchange={PhoneNumberChange} value={PhoneNumber}></lightning-input>
-                                <lightning-helptext content="For example, Adjuster, Tenant, Property Owner"></lightning-helptext>
-                                <lightning-textarea label="Role/Additional Information" onchange={AdditionalInformationChange} value={AdditionalInformation} ></lightning-textarea>
+                                <lightning-input type="Email" label="Email" onchange={EmailChange} value={Email} ></lightning-input>
+                                <lightning-input label="Phone Number" onchange={PhoneNumberChange} class="contactFormControl" required value={PhoneNumber}></lightning-input>
+                                <!-- <lightning-helptext content="For example, Adjuster, Tenant, Property Owner"></lightning-helptext> -->
+                                <lightning-textarea field-level-help="For example, Adjuster, Tenant, Property Owner" label="Role/Additional Information" onchange={AdditionalInformationChange} value={AdditionalInformation} ></lightning-textarea>
                                 
                                 
                             <!-- </div> -->
@@ -646,7 +667,7 @@
                                 <!-- modal header start -->
                                 <header class="slds-modal__header">
                                     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-                                        title="Close" onclick={closeDescriptionModal1}>
+                                        title="Close" onclick={closeDescriptionModalTwo1}>
                                         <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
                                             size="small"></lightning-icon>
                                         <span class="slds-assistive-text">Close</span>
@@ -659,12 +680,12 @@
                                     <!-- <div class="slds-grid"> -->
                                     <!-- <div class="slds-col slds-size_1-of-2"> -->
                                         <lightning-helptext content="Provide a description of the loss and job and any additional information such as Insurance (provider, policy #, claim # ), Lead Source, existing contract or PO #, etc."></lightning-helptext>
-                                    <lightning-input label="Description of Loss" value={DescriptionOfLoss} onchange={DescriptionOfLossChange} ></lightning-input>
+                                    <lightning-input label="Description of Loss" class="descriptionFormControl" required  value={DescriptionOfLoss} onchange={DescriptionOfLossChange} ></lightning-input>
                                     <lightning-input label="Insurance Provider" onchange={InsuranceProviderChange} value={InsuranceProvider}></lightning-input>
-                                    <lightning-input label="Claim #" onchange={ClaimChange} value={Claim}></lightning-input>
+                                    <lightning-input label="Claim #" required class="descriptionFormControl" onchange={ClaimChange} value={Claim}></lightning-input>
                                     <lightning-input label="Policy #" onchange={PolicyChange} value={Policy}></lightning-input>
-                                    <lightning-helptext content="For example, Alacrity, Contractor connection, Public Adjuster, Property Management"></lightning-helptext>
-                                    <lightning-input label="Lead Source" onchange={LeadSourceChange} value={LeadSource}></lightning-input>
+                                    
+                                    <lightning-input label="Lead Source" required class="descriptionFormControl" field-level-help="For example, Alacrity, Contractor connection, Public Adjuster, Property Management" onchange={LeadSourceChange} value={LeadSource}></lightning-input>
                                     
                                         
                                        

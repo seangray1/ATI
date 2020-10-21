@@ -1,20 +1,122 @@
 <template>
-     <label>Comments:</label>
-     <textarea class="slds-textarea" id="Comments" onkeyup={handleFormInputChange} name="Comments" rows="6" cols="50">
-        
-    </textarea>
-    <div if:true={loading}>
-        <div class="Spinner">
-         <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
-     </div>
-     </div>
-     <br>
-     <br>
-    
-    <div class="slds-button-group">
-        <button type="button" onclick={submit} class="slds-button slds-button_brand">Submit</button>
-        <button type="button" onclick={cancel} class="slds-button slds-button_neutral">Cancel</button>
-        
+  <header class="slds-modal__header">
+    <h2
+      class="title slds-text-heading--medium slds-hyphenate"
+      id="title_2124:0"
+      data-aura-rendered-by="2144:0"
+    >
+      Submit for Approval
+    </h2>
+  </header>
+  <div
+    class="actionContent runtime_approval_processActionContent"
+    data-aura-rendered-by="2094:0"
+    data-aura-class="runtime_approval_processActionContent"
+  >
+    <div data-aura-rendered-by="2095:0">
+      <!--render facet: 2096:0--><!--render facet: 2097:0-->
+      <div class="commentContainer" data-aura-rendered-by="2099:0">
+        <div
+          data-aura-rendered-by="2167:0"
+          class="uiInput uiInputTextArea uiInput--default uiInput--textarea"
+          data-aura-class="uiInput uiInputTextArea uiInput--default uiInput--textarea"
+        >
+          <label
+            class="uiLabel-top form-element__label uiLabel"
+            for="2100:0"
+            data-aura-rendered-by="2162:0"
+            data-aura-class="uiLabel"
+            ><span class="" data-aura-rendered-by="2163:0">Comments</span
+            ><!--render facet: 2165:0--><!--render facet: 2166:0--></label
+          ><textarea
+            class="inputTextArea cuf-messageTextArea textarea"
+            id="Comments"
+            onkeyup={handleFormInputChange}
+            name="Comments"
+            cols="20"
+            rows="10"
+            aria-describedby=""
+            role="textbox"
+            placeholder=""
+            
+            data-aura-rendered-by="2104:0"
+            data-interactive-lib-uid="6"
+          ></textarea>
+        </div>
+        <!--render facet: 2107:0-->
       </div>
+    </div>
+  </div>
+  <footer class="slds-modal__footer">
+    <button
+      class="slds-button slds-button--neutral modal-button-left cancelButton uiButton"
+      aria-live="off"
+      type="button"
+      onclick={cancel}
+      data-aura-rendered-by="2118:0"
+      data-aura-class="uiButton"
+    >
+      <!--render facet: 2119:0--><span
+        class="label bBody"
+        dir="ltr"
+        data-aura-rendered-by="2121:0"
+        >Cancel</span
+      ><!--render facet: 2123:0-->
+    </button>
+    <button
+      class="slds-button slds-button--neutral modal-button-left actionButton uiButton--default uiButton--brand uiButton"
+      aria-live="off"
+      type="button"
+      data-aura-rendered-by="2110:0"
+      data-aura-class="uiButton--default uiButton--brand uiButton"
+      onclick={submit}
+    >
+      <!--render facet: 2111:0--><span
+        class="label bBody"
+        dir="ltr"
+        data-aura-rendered-by="2113:0"
+        >Submit</span
+      ><!--render facet: 2115:0-->
+    </button>
+  </footer>
+  <!-- <textarea
+    class="slds-textarea"
+    id="Comments"
+    onkeyup={handleFormInputChange}
+    name="Comments"
+    rows="6"
+    cols="50"
+  >
+  </textarea>
   
+  </div>
+  <br />
+  <br />
+
+  <div class="slds-button-group">
+    <button
+      type="button"
+      onclick={submit}
+      class="slds-button slds-button_brand"
+    >
+      Submit
+    </button>
+    <button
+      type="button"
+      onclick={cancel}
+      class="slds-button slds-button_neutral"
+    >
+      Cancel
+    </button>
+  </div> -->
+  <div if:true={loading}>
+    <div class="Spinner">
+      <lightning-spinner
+        alternative-text="Loading"
+        size="medium"
+        variant="brand"
+      ></lightning-spinner>
+      </div>
+
+    </div>
 </template>

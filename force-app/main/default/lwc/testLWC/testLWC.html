@@ -1,0 +1,17 @@
+<template>
+    Testing
+
+    <lightning-input onchange={handleFilesChange} type="file" name="uploadFile" label="Attachment/File" multiple accept="image/png,image/jpg,image/jpeg, .pdf, .doc, .txt, .docx"></lightning-input>
+    <!-- <div class="slds-text-body_small slds-text-color_error">{fileName}</div> -->
+    <template if:true={FilesChanged}>
+    <template for:each={Files} for:item="file">
+        <tr key={file.Title}>
+            <th>
+                <lightning-pill name={file.Title} onremove={handleRemove} label={file.Title}>
+                    <lightning-icon icon-name="utility:file" variant="circle"  alternative-text="File"></lightning-icon>
+                </lightning-pill>
+    </th>
+    </tr> 
+    </template>
+</template>
+</template>

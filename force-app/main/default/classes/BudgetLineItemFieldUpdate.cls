@@ -30,9 +30,11 @@ public without sharing class BudgetLineItemFieldUpdate {
                        TradeValue = bp;
                     }
                 }
+                system.debug('Before Trade: '+TradeValue);
                 if(String.isNotBlank(TradeValue)){
-                b.Trade_Option__c  = TradeValue;
-                b.Trade__c = TradeValue;
+                    system.debug('TradePick: '+TradeValue);
+                    b.Trade_Option__c  = TradeValue;
+                    b.Trade__c = TradeValue;
                 }
             }
         }
@@ -70,8 +72,9 @@ public without sharing class BudgetLineItemFieldUpdate {
                 system.debug('Received ID--------> '+d.Id);
             }
         for (Id IterateBudgetId : BudgetMap.keySet()){ //Main Budget Map Loop
+            AllBudgetLI=new list<Budget_Line_Item__c>();
             AllBudgetLI = BudgetMap.get(IterateBudgetId);
-        } //EOF Main Budget Map Loop
+        
         
         if(OldLineItemsMap != null){
         for(Budget_Line_Item__c d: LineItems){
@@ -120,16 +123,22 @@ public without sharing class BudgetLineItemFieldUpdate {
             Decimal NewPRevenue =0; Decimal LineItemPRevenue =0; Decimal EachLineItemPRevenue =0;
             Decimal NewPEquipment =0; Decimal LineItemPEquipment =0; Decimal EachLineItemPEquipment =0;
             Decimal NewPInhouseHours =0; Decimal LineItemPInhouseHours =0; Decimal EachLineItemPInhouseHours =0;
-            Decimal NewPMaterials =0; Decimal LineItemPMaterials =0; Decimal EachLineItemPMaterials =0;            
+            Decimal NewPMaterials =0; Decimal LineItemPMaterials =0; Decimal EachLineItemPMaterials =0; Decimal NewSubContractBid =0;           
             Decimal NewPInHouseRate =0; Decimal LineItemPInHouseRate =0; Decimal EachLineItemPInHouseRate =0;
             Decimal NewPGP =0; Decimal LineItemPGP =0; Decimal EachLineItemPGP =0;
             Decimal NewPOtherCost =0; Decimal LineItemPOtherCost =0; Decimal EachLineItemPOtherCost =0;
             Decimal InHouseCal =0;Decimal GPCal = 0;
+            Decimal NewActualCostBL = 0;
             List<Budget_Line_Item__c> ArrayValtoRemov = new List<Budget_Line_Item__c>();
             List<Budget_Line_Item__c> ArrayValtoKeep = new List<Budget_Line_Item__c>();
             Budget_Line_Item__c UpsertBLIData = new Budget_Line_Item__c();
 
             for(integer j=0;j<AllBudgetLI.size();j++) { //J Loop
+                system.debug('%%%%%%%%%'+LineItems[i].Trade__c);
+                system.debug('**********'+AllBudgetLI[j].Trade__c);
+                system.debug('$$$$$$$$$$'+AllBudgetLI[j].Is_sub_Parent__c);
+                system.debug('&&&&&&&&&&'+LineItems[i].Is_sub_Parent__c);
+                system.debug('^^^^^^^^^^'+LineItems[i].Bypass_Calculation__c);
                  //BOF of Parent Calcuation
                  if(LineItems[i].Trade__c == AllBudgetLI[j].Trade__c && AllBudgetLI[j].Is_sub_Parent__c && LineItems[i].Is_sub_Parent__c && !LineItems[i].Bypass_Calculation__c){
                     NewPTrade = LineItems[i].Trade__c;
@@ -149,12 +158,20 @@ public without sharing class BudgetLineItemFieldUpdate {
                         NewPInhouseHours = NewPInhouseHours + AllBudgetLI[j].In_House_Hours__c;
                     }
 
+                    //SubContractBid
+                    if(AllBudgetLI[j].Subcontractor_bid__c!=null && AllBudgetLI[j].Is_sub_Parent__c){
+                        NewSubContractBid = NewSubContractBid + AllBudgetLI[j].Subcontractor_bid__c;
+                    }
 
                     //Materials
                     if(AllBudgetLI[j].Materials__c!=null && AllBudgetLI[j].Is_sub_Parent__c){
                         NewPMaterials = NewPMaterials + AllBudgetLI[j].Materials__c;
                     }
                     
+                    //Actual Cost BL
+                    if(AllBudgetLI[j].Actual_Costs_BL__c!=null && AllBudgetLI[j].Is_sub_Parent__c){
+                        NewActualCostBL = NewActualCostBL + AllBudgetLI[j].Actual_Costs_BL__c;
+                    }
                     
 
                     //InHouseRate
@@ -210,6 +227,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                 }
                 system.debug('UpsertId: '+NewPBLIId);
             } //EOF J Loop
+        
             //Remove from List
             for(Budget_Line_Item__c d: ArrayValtoKeep){
                 system.debug('Keep Id: '+d.Id);
@@ -229,14 +247,19 @@ public without sharing class BudgetLineItemFieldUpdate {
                         System.debug('Inside Final IFFFF to update');
               Budget_Line_Item__c oldValues = OldLineItemsMap.get(LineItems[i].ID);                     
 
-                      UpsertBLIData.Trade__c = NewPTrade;
+                      //UpsertBLIData.Trade__c = NewPTrade;
+                            UpsertBLIData.Trade__c = LineItems[i].Trade__c;
                             UpsertBLIData.Selector__c = '';
                             UpsertBLIData.Revenue__c = NewPRevenue;
                             UpsertBLIData.Budget__c = LineItems[i].Budget__c;
+                            UpsertBLIData.Trade_Option__c = LineItems[i].Trade_Option__c;
                             UpsertBLIData.Is_Parent__c = true;                       
-                            UpsertBLIData.DonotDelete__c = true;
-                        	UpsertBLIData.Bypass_Calculation__c = false;
+                            UpsertBLIData.DonotDelete__c = LineItems[i].From_Xact__c;
+                            UpsertBLIData.Bypass_Calculation__c = false;
                             UpsertBLIData.Id = NewPBLIId;
+                            if(LineItems[i].Subcontractor_bid__c != oldValues.Subcontractor_bid__c) {
+                                UpsertBLIData.Subcontractor_bid__c = NewSubContractBid.setscale(2);
+                            }
                             if(LineItems[i].In_House_Hours__c != oldValues.In_House_Hours__c) {
                                 UpsertBLIData.In_House_Hours__c = NewPInhouseHours.round();
                             }
@@ -255,41 +278,52 @@ public without sharing class BudgetLineItemFieldUpdate {
                             if(LineItems[i].Other_Costs__c != oldValues.Other_Costs__c) {
                                     UpsertBLIData.Other_Costs__c = NewPOtherCost.setscale(2);
                                 }    
-                        
+                            //UpsertBLIData.Actual_Costs_BL__c = LineItems[i].Actual_Costs__c;
+                            UpsertBLIData.Actual_Costs_BL__c = NewActualCostBL;
+
+                            UpsertBLIData.In_House_Total_BL__c = LineItems[i].In_House_Total__c;
                         
                         UpsertBLIList.add(UpsertBLIData);
                     }
                 else{
                     System.debug('Inside Final else to update');
-                        UpsertBLIData.Trade__c = NewPTrade;
+                        //UpsertBLIData.Trade__c = NewPTrade;
+                        UpsertBLIData.Trade__c = LineItems[i].Trade__c;
+                        UpsertBLIData.Trade_Option__c = LineItems[i].Trade_Option__c;
                             UpsertBLIData.Selector__c = '';
                             UpsertBLIData.Revenue__c = NewPRevenue;
                             UpsertBLIData.Equipment__c = NewPEquipment.setscale(2);
                             UpsertBLIData.Materials__c = NewPMaterials.setscale(2);
-                            UpsertBLIData.In_House_Hours__c = NewPInhouseHours.round();
+                            UpsertBLIData.Subcontractor_bid__c = NewSubContractBid.setscale(2);
+                            UpsertBLIData.In_House_Hours__c = NewPInhouseHours.setscale(2);
                             UpsertBLIData.In_House_Rate__c = NewPInHouseRate.setscale(2);
                             UpsertBLIData.GP__c = NewPGP.setscale(2);
                             UpsertBLIData.Other_Costs__c = NewPOtherCost.setscale(2);
                             UpsertBLIData.Budget__c = LineItems[i].Budget__c;
-                    		UpsertBLIData.X10_10_Allocation__c = LineItems[i].X10_10_Allocation__c;
+                            UpsertBLIData.X10_10_Allocation__c = LineItems[i].X10_10_Allocation__c;
                             UpsertBLIData.Is_Parent__c = true;
-                    		UpsertBLIData.Bypass_Calculation__c = false;
-                        UpsertBLIData.DonotDelete__c = true;        
-                        UpsertBLIData.Id = NewPBLIId;
+                            UpsertBLIData.Bypass_Calculation__c = false;
+                            UpsertBLIData.DonotDelete__c = true;        
+                            UpsertBLIData.Id = NewPBLIId;
+                            UpsertBLIData.Actual_Costs_BL__c = NewActualCostBL;
+
+                            UpsertBLIData.In_House_Total_BL__c = LineItems[i].In_House_Total__c;
+                            
                             UpsertBLIList.add(UpsertBLIData);
                 }
             }
         } //EOF I Loop
+    } //EOF Main Budget Map Loop
         system.debug('Upsert List: '+UpsertBLIList);
         List<Budget_Line_Item__c> UpdatenewLineitems = new List<Budget_Line_Item__c>();
         //Upsert list.
         if(BypassCalculationList.size()>0){
             for(Id BLIID : BypassCalculationList){
                 Budget_Line_Item__c BLI = new Budget_Line_Item__c();
-    			BLI.Id = BLIID;
+                BLI.Id = BLIID;
                 BLI.Bypass_Calculation__c = false;
-            	UpdatenewLineitems.add(BLI);
-    		}
+                UpdatenewLineitems.add(BLI);
+            }
         }
         if(UpdatenewLineitems.size()>0){
             upsert(UpdatenewLineitems);
@@ -308,13 +342,14 @@ public without sharing class BudgetLineItemFieldUpdate {
         List<Budget_Line_Item__c> UpsertBLIList = new List<Budget_Line_Item__c>();
         List<Budget_Line_Item__c> AllBudgetLI = new List<Budget_Line_Item__c>();
         for (Id IterateBudgetId : BudgetMap.keySet()){ //Main Budget Map Loop
+            AllBudgetLI = new List<Budget_Line_Item__c>();
             AllBudgetLI = BudgetMap.get(IterateBudgetId);
-        } //EOF Main Budget Map Loo
+        
           system.debug('AllBudget size: '+AllBudgetLI.size()+' Data: '+AllBudgetLI);  
         for(integer i=0;i<LineItems.size();i++) { //I Loop
             String NewSPTrade =''; String NewSPSelector =''; Id NewSPBLIId =null;
             Decimal NewSPRevenue =0; Decimal LineItemSPRevenue =0; Decimal EachLineItemSPRevenue =0;
-            Decimal NewSPInhouseHours =0; Decimal LineItemSPInhouseHours =0; Decimal EachLineItemSPInhouseHours =0;
+            Decimal NewSPInhouseHours =0; Decimal LineItemSPInhouseHours =0; Decimal EachLineItemSPInhouseHours =0; Decimal NewSubContractBid =0;
             Decimal NewSPMaterial =0; Decimal LineItemSPMaterial =0; Decimal EachLineItemSPMaterial =0;
             Decimal NewSPEquipment =0; Decimal LineItemSPEquipment =0; Decimal EachLineItemSPEquipment =0;
             Decimal NewSPInHouseRate =0; Decimal LineItemSPInHouseRate =0; Decimal EachLineItemSPInHouseRate =0; Decimal InHouseCal =0;
@@ -350,7 +385,12 @@ public without sharing class BudgetLineItemFieldUpdate {
                     } else{
                         NewSPRevenue = NewSPRevenue + EachLineItemSPRevenue;
                     }*/
-                    
+
+                    //SubContract Bid
+                    if(AllBudgetLI[j].Subcontractor_bid__c!=null){
+                        NewSubContractBid = NewSubContractBid + AllBudgetLI[j].Subcontractor_bid__c;
+                    }
+
                     //InhouseHours
                     if(AllBudgetLI[j].In_House_Hours__c!=null){
                         NewSPInhouseHours = NewSPInhouseHours + AllBudgetLI[j].In_House_Hours__c;
@@ -515,6 +555,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                 UpsertBLIData.Selector__c = NewSPSelector;
                 UpsertBLIData.Revenue__c = NewSPRevenue;
                 UpsertBLIData.Materials__c = NewSPMaterial.setscale(2);
+                UpsertBLIData.Subcontractor_bid__c = NewSubContractBid.setscale(2);
                 UpsertBLIData.In_House_Hours__c = NewSPInhouseHours.setscale(2);
                 UpsertBLIData.Equipment__c = NewSPEquipment.setscale(2);
                 UpsertBLIData.In_House_Rate__c = NewSPInHouseRate.setscale(2);
@@ -530,7 +571,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                 UpsertBLIData.Actual_Costs_BL__c = LineItems[i].Actual_Costs__c;
                 UpsertBLIData.In_House_Hours_BL__c = LineItems[i].In_House_Hours_BL__c;
                 UpsertBLIData.In_House_Rate_BL__c = LineItems[i].In_House_Rate_BL__c;
-                UpsertBLIData.In_House_Total_BL__c = LineItems[i].In_House_Total_BL__c;
+                UpsertBLIData.In_House_Total_BL__c = LineItems[i].In_House_Total__c;
                 UpsertBLIData.Materials_BL__c = LineItems[i].Materials_BL__c;
                 UpsertBLIData.Other_Costs_BL__c = LineItems[i].Other_Costs_BL__c;
 
@@ -541,7 +582,7 @@ public without sharing class BudgetLineItemFieldUpdate {
             }
             
         } //EOF I Loop
-        
+    } //EOF Main Budget Map Loo    
         system.debug('Upsert Size:'+UpsertBLIList.size()+'Upsert SP List: '+UpsertBLIList);
         //Upsert list.
         if(UpsertBLIList.size()>0){
@@ -590,7 +631,7 @@ public without sharing class BudgetLineItemFieldUpdate {
         }
         
         List < Id > AllBudget = new List < Id > (BudgetIds);
-        AllLineItems = [Select Id,Name,X10_10_Allocation__c,Budget__c,Revenue__c,Trade__c,Is_Parent__c,Is_sub_Parent__c,Selector__c,GP__c,In_House_Hours__c,In_House_Rate__c,Materials__c,Other_Costs__c,Equipment__c,From_Xact__c,Bypass_Calculation__c,Actual_Costs__c from Budget_Line_Item__c where Budget__c =: BudgetIds];
+        AllLineItems = [Select Id,Name,X10_10_Allocation__c,Budget__c,Revenue__c,Trade__c,Is_Parent__c,Is_sub_Parent__c,Selector__c,GP__c,In_House_Hours__c,In_House_Rate__c,Materials__c,Other_Costs__c,Equipment__c,From_Xact__c,Bypass_Calculation__c,Actual_Costs__c,Actual_Costs_BL__c,In_House_Total__c,Subcontractor_bid__c from Budget_Line_Item__c where Budget__c =: BudgetIds];
                 
         for (integer i=0; i < AllBudget.size(); i++) {
             List < Budget_Line_Item__c > BudgetWiseLineItem = new List < Budget_Line_Item__c > ();    
@@ -616,7 +657,7 @@ public without sharing class BudgetLineItemFieldUpdate {
         List<Budget_Line_Item__c> AllBudgetLI = new List<Budget_Line_Item__c>();    
         for (Id IterateBudgetId : BudgetMap.keySet()){ //Main Budget Map Loop
             AllBudgetLI = BudgetMap.get(IterateBudgetId);
-        } //EOF Main Budget Map Loop
+        
         for(integer i=0;i<LineItems.size();i++) { //I Loop
             Budget_Line_Item__c oldValues = OldLineItemsMap.get(LineItems[i].ID);
             Integer [] ArrayValtoRemov = new List<Integer>();
@@ -645,6 +686,10 @@ public without sharing class BudgetLineItemFieldUpdate {
                     //Material for child
                     if(LineItems[i].Materials__c!=null && (LineItems[i].Materials__c != oldValues.Materials__c)){
                     UpdateBLIData.Materials__c = ((ChildRevenue / ParentRevenue)*LineItems[i].Materials__c).setscale(2);     
+                    }
+                    //Sub Contact Bid
+                    if(LineItems[i].Subcontractor_bid__c!=null && (LineItems[i].Subcontractor_bid__c != oldValues.Subcontractor_bid__c)){
+                        UpdateBLIData.Subcontractor_bid__c = ((ChildRevenue / ParentRevenue)*LineItems[i].Subcontractor_bid__c).setscale(2);     
                     }
                     //InHouseHours for child
                     if(LineItems[i].In_House_Hours__c!=null && (LineItems[i].In_House_Hours__c != oldValues.In_House_Hours__c)){
@@ -678,6 +723,7 @@ public without sharing class BudgetLineItemFieldUpdate {
             
             
         } //EOF I Loop
+    } //EOF Main Budget Map Loop
         system.debug('UpdateBLIList List: '+UpdateBLIList);
         
         List<Budget_Line_Item__c> UpdatenewLineitems = new List<Budget_Line_Item__c>();
@@ -686,9 +732,9 @@ public without sharing class BudgetLineItemFieldUpdate {
             for(Id d: BypassCalculationList){
                Budget_Line_Item__c BLI = new Budget_Line_Item__c();
                 BLI.Id = d;
-    			BLI.Bypass_Calculation__c = false;
+                BLI.Bypass_Calculation__c = false;
             UpdatenewLineitems.add(BLI);
-    		}
+            }
         }
         if(UpdatenewLineitems.size()>0){
             upsert(UpdatenewLineitems);
@@ -708,7 +754,7 @@ public without sharing class BudgetLineItemFieldUpdate {
         List<Budget_Line_Item__c> DeleteParentLineItem = new List<Budget_Line_Item__c>();
         for (Id IterateBudgetId : BudgetMap.keySet()){ //Main Budget Map Loop
             AllBudgetLI = BudgetMap.get(IterateBudgetId);
-        } //EOF Main Budget Map Loop
+        
         for(integer i=0;i<LineItems.size();i++) {
             Boolean AddTradeItemOnce = true;
         for(integer j=0;j<AllBudgetLI.size();j++) {           
@@ -731,6 +777,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                 }
             }
         }
+    } //EOF Main Budget Map Loop
         System.debug('LineItemNew------>'+LineItemsNew);
         System.debug('DeleteParentLineItem------>'+DeleteParentLineItem);
         
@@ -745,12 +792,12 @@ public without sharing class BudgetLineItemFieldUpdate {
     public static void UncheckBypass(List<Budget_Line_Item__c> LineItems,Map<Id,Budget_Line_Item__c> OldLineItemsMap){
     List<Budget_Line_Item__c> UpdatenewLineitems = new List<Budget_Line_Item__c>();
         for(Budget_Line_Item__c d: LineItems){        
-    	d.Bypass_Calculation__c = false;
+        d.Bypass_Calculation__c = false;
             UpdatenewLineitems.add(d);
     }
         if(UpdatenewLineitems.size()> 0){
         update UpdatenewLineitems;
-    	}
+        }
     }
 
     public static void UpdateOverheadProfit(List<Budget_Line_Item__c> budlines, Map<Id,Budget_Line_Item__c> oldBudLines)

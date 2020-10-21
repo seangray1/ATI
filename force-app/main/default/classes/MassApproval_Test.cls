@@ -99,6 +99,7 @@ public with sharing class MassApproval_Test {
             DynamicApprovalController.ApproveSelectedItems(ItemsToApproveReject, 'Test', 'Approve', p1.Id);
             DynamicApprovalController.GetAccountData('Master Job');
             DynamicApprovalController.GetAccountData('Contact');
+            DynamicApprovalController.GetGroupInfo();
             string ItemsToApproveReject2 = '{"ItemsToApproveReject":[{"AccountName1":"EZ Realty & Property Mgmt","ContactName1":"tests agas","MasterJobName1":"123 Sesame St Kings Park NY &#124; 2020-06-26","ReferredBy1":"tests agas","processId":"'+ p12.Id + '","processinstanceId":"' + p3.Id + '","id":1,"MasterJob":"/' + masterjob[1].Id+ '","CreatedBy":"Sean Gray","AccountName":"/0010g00001bQoykAAC","ContactName":"/0030R000012jxB1QAI","ReferredBy":"/0030R000012jxB1QAI"}]}';
             Id queue = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject2, 'Test', 'Approve'));
             Id queue1 = System.enqueueJob(new ApproveSelectedItemsQueueable(ItemsToApproveReject, 'Test', 'Approve'));

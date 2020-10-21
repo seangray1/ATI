@@ -42,6 +42,7 @@ trigger ATIJobTrigger on ATI_Job__c (before insert, before update,
                                                     JobTriggerHandler.handleAfterInsertOnly();
                                                     //TriggerFlagController.flag = false;
                                                     efs__.EgnyteSyncQueueTrigger.onAfterInsert();
+                                                    // TriggerFlagController.flag = false;
                                                     
                                                 }}
                                              if(TriggerFlagController.flag == true) {

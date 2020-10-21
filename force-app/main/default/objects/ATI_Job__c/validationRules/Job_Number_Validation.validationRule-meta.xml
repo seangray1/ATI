@@ -6,14 +6,14 @@
     <errorConditionFormula>AND( 
 ISCHANGED(Job_Number__c), 
 NOT(ISNULL( Last_Successful_Timberline_Update__c )), 
-NOT($User.Alias == &#39;cneuhaus&#39;), 
-NOT($User.Alias == &#39;rdevo&#39;),
-NOT($User.Alias == &#39;vwund&#39;),
-NOT($User.Alias == &#39;kdavis&#39;),
-NOT($User.Alias == &#39;Nlee&#39;),
-NOT($User.Alias == &#39;sftest&#39;),
-NOT($User.Alias == &#39;JMourani&#39;),
-NOT($User.Alias == &#39;sgray&#39;)
+NOT($User.Alias == &apos;cneuhaus&apos;), 
+NOT($User.Alias == &apos;rdevo&apos;),
+NOT($User.Alias == &apos;vwund&apos;),
+NOT($User.Alias == &apos;kdavis&apos;),
+NOT($User.Alias == &apos;Nlee&apos;),
+NOT($User.Alias == &apos;sftest&apos;),
+NOT($User.Alias == &apos;JMourani&apos;),
+NOT($User.Alias == &apos;&apos;)
 )</errorConditionFormula>
     <errorMessage>Changing this job number is not allowed because the job has already been synced to Timberline. 
 
