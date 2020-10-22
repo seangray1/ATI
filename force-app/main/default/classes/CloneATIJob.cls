@@ -14,7 +14,7 @@ public class CloneATIJob {
    @AuraEnabled
     public static string CloneJobRecord(String recordId, Boolean related){
         ATI_Job__c job = [SELECT Id, name, Job_Name__c,Job_Number__c, Account__c, Contact__c, Customer__c, Lead_Source__c,
-                         Description__c, Job_Class__c, Project_Site_Contact_Name__c,Contact_Information__c, Project_Manager__c, 
+                         Description__c, Job_Class__c, Project_Site_Contact_Name__c, Project_Manager__c, 
                          Branch_Manager__c, Project_Site_Contact_Account__c, Office2__c, Stage__c, Taken_By__c, Project_type__c,
                          Referred_by__c, CloseDate__c,Probability__c, County__c, City_of_LA__c, Project_Site_Address_2__c, 
                          Project_site_address__c, Project_site_city__c, Project_site_state__c, Project_site_zipcode__c, Year_Structure_built__c,
@@ -41,7 +41,7 @@ public class CloneATIJob {
             
         }
         Id unapprovedRecordTypeId = Schema.SObjectType.ATI_Job__c.getRecordTypeInfosByName().get('New Job (Not Approved)').getRecordTypeId();
-        ATI_Job__c newJob = new ATI_Job__c (Name = job.name, recordTypeId = unapprovedRecordTypeId, Job_Name__c = job.Job_Name__c, Job_Number__c= job.Job_Number__c, Account__c = job.Account__c, Contact__c = job.Contact__c,
+        ATI_Job__c newJob = new ATI_Job__c (Master_Job__c = 'a8G0R0000009d7rUAA', Name = job.name, recordTypeId = unapprovedRecordTypeId, Job_Name__c = job.Job_Name__c, Job_Number__c= job.Job_Number__c, Account__c = job.Account__c, Contact__c = job.Contact__c,
         Customer__c = job.Customer__c, Lead_Source__c =job.Lead_Source__c, Description__c = Description, Job_Class__c = job.Job_Class__c, Project_Site_Contact_Name__c = job.Project_Site_Contact_Name__c,  
         Branch_Manager__c = job.Branch_Manager__c, Project_Site_Contact_Account__c = job.Project_Site_Contact_Account__c, Office2__c = Office, Stage__c = 'Qualification', Taken_By__c = job.Taken_By__c, Project_type__c = job.Project_type__c,
         Referred_by__c = job.Referred_by__c, CloseDate__c = closedate, County__c = job.County__c, City_of_LA__c = job.City_of_LA__c, Project_Site_Address_2__c = job.Project_Site_Address_2__c, 

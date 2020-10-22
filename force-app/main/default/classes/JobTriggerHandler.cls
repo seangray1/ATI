@@ -117,9 +117,7 @@ public without sharing class JobTriggerHandler {
         Health_Science_Operations_Manager__c, Lead_Operations_Manager__c, Marketing_Operations_Manager__c,
         Microbial_Operations_Manager__c, Operations_Manager__c, Regional_Manager__c, Structure_Contents_Branch_Manager__c,
         Technical_Services_Operations_Manager__c, Evp_1__c FROM Office__c]);
-        
-        JobTriggerHandlerWorkflow.AssignProjectRoles(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap, oi);
-        JobTriggerHandlerWorkflow.StageChanged(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
+    
         
         
         if (cfg.JobSetJobNumber__c && Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
@@ -136,6 +134,9 @@ public without sharing class JobTriggerHandler {
             
             System.debug(Logginglevel.INFO, 'Trigger: Running ATIJobControl.setGLAccountPrefix...');
             ATIJobControl.setGLAccountPrefix(Trigger.new);
+                
+        JobTriggerHandlerWorkflow.AssignProjectRoles(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap, oi);
+        JobTriggerHandlerWorkflow.StageChanged(Trigger.new, (map<Id,ATI_Job__c>)Trigger.newMap, (map<Id,ATI_Job__c>)Trigger.oldMap);
             
         }
         

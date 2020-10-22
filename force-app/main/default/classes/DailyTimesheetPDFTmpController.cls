@@ -20,8 +20,9 @@ public class DailyTimesheetPDFTmpController {
 
     public DailyTimesheetPDFTmpController() {
     
-    ID timesheetID= ApexPages.currentPage().getParameters().get('id');
+    ID timesheetID= ApexPages.currentPage().getParameters().get('dt__id');
     List<daily_timesheet__c> timesheetDetailList = [SELECT DailyTimsheetRecord__c,EndDate__c,Final__c,Id,Job__c,Job__r.Job_Name__c,Job__r.Job_Number__c,Location__c,Name,Shift__c,StartDate__c FROM Daily_Timesheet__c where Id =: timesheetID];
+    system.debug('Timesheetdetail list in VF is ' + timesheetDetailList);
         string jsonstring = timesheetDetailList[0].DailyTimsheetRecord__c;
         location = timesheetDetailList[0].Location__c;
         StartDate = timesheetDetailList[0].StartDate__c;
@@ -189,20 +190,36 @@ public class DailyTimesheetPDFTmpController {
     public void attach()
     {
         
-    ID timesheetID= ApexPages.currentPage().getParameters().get('id');
+    ID timesheetID= ApexPages.currentPage().getParameters().get('dt__id');
     List<daily_timesheet__c> timesheetDetailedList = [SELECT DailyTimsheetRecord__c,EndDate__c,Final__c,Id,Job__c,Location__c,Name,Shift__c,StartDate__c FROM Daily_Timesheet__c where Id =: timesheetID];
     
      PageReference mypage = Page.DailyTimesheetPDFpageTemplate;
-	 mypage.getParameters().put('id',timesheetDetailedList[0].id);
+	 mypage.getParameters().put('dt__id',timesheetDetailedList[0].id);
 	 mypage.setRedirect(true);
 	 blob b = mypage.getContentAsPDF();
 	 Attachment mydoc = new Attachment();
 	 mydoc.body = b;
-	 mydoc.Name=timesheetDetailedList[0].Name + Datetime.now();
+	 mydoc.Name=timesheetDetailedList[0].Name + Datetime.now() + '.pdf';
 	 mydoc.ContentType = '.pdf';
      mydoc.ParentId = timesheetDetailedList[0].job__c;
       
-	 insert mydoc;
+     insert mydoc;
+     
+     system.debug('Pdf attachments body is ' + mydoc.body);
+     ContentVersion conVer = new ContentVersion();
+     conVer.PathOnClient = '/' + mydoc.name; // The files name, extension is very important here which will help the file in preview.
+     conVer.Title = mydoc.name; // Display name of the files
+     conVer.VersionData = mydoc.body; // converting your binary string to Blog
+     insert conVer;
+     ContentVersion testContent = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :conVer.Id];
+     system.debug('test content is ' + testContent);
+     ContentDocumentLink cDe = new ContentDocumentLink();
+     cDe.ContentDocumentId = testContent.ContentDocumentId;
+     cDe.LinkedEntityId = timesheetDetailedList[0].job__c; // you can use objectId,GroupId etc
+     cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
+     cDe.Visibility = 'AllUsers';
+     insert cDe;
+     delete mydoc;
     }
        
 }

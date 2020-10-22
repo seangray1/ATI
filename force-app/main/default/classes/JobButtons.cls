@@ -34,7 +34,11 @@ public without sharing class JobButtons {
     }
     @AuraEnabled
     public static String createTaskProjectNote(Decimal percent, String recordId, String ownerId, String workCompleted, String workStarted, Date completionDate, String insured, String supplement, String repairComments){
+        try {
+            
+        
         ATI_Job__c job = [Select Id, office2__c, Project_Manager__c, Project_manager_new__c, lead_source__c, Name, Percent_Complete__c, Estimated_Completion_Date_Per_PD__c FROM ATI_Job__c WHERE Id =: recordId];
+        // Project_Note_Office_Email__c, 
         List<office__c> office = [Select Id, office_manager__c, project_coordinator__c, project_admin_two__c FROM Office__c WHERE id =:job.office2__c];
         system.debug('Working + ' + ownerId);
         string comments = '\n' + 'Project Note: ' + job.name +'\n' + '\n' + '\n' + 'Percent of Job Complete: ' + percent + '%' + '\n' +'\n' + 'Work/Trades started/completed since last week: ' + workCompleted + '\n' +'\n' + 'Work to be started this week: '+ workStarted + '\n' + '\n' +'Estimated completion date Per PM: '+ completionDate + '\n' + '\n' +'Has Insured/Member completed all selections? Y/N:' + insured + '\n' +'\n' + 'Potential Supplement?Y/N: '+ supplement + '\n' +'\n' + 'Repair Update Comments: ' + repairComments;
@@ -77,6 +81,13 @@ public without sharing class JobButtons {
         feedItemInput.body = messageBodyInput;
         feedItemInput.feedElementType = ConnectApi.FeedElementType.FeedItem;
         feedItemInput.subjectId = recordId;
+
+        // Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        // email.setToAddresses(new String[] { office[0].Project_Note_Office_Email__c });
+        // email.setSubject('Project Note');
+        // email.setHtmlBody(comments);
+        // Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ email });
+
         if(Test.isRunningTest()){return 'success';}
         else{
         ConnectApi.FeedElement feedElement = ConnectApi.ChatterFeeds.postFeedElement(Network.getNetworkId(), feedItemInput);
@@ -86,6 +97,12 @@ public without sharing class JobButtons {
         // update job;
         return 'Success';
         }
+    } catch (Exception e) {
+        system.debug(e.getStackTraceString()  + e);
+        Log__c log = new Log__c(Name = 'Project Note ' + system.now(), jobid__c = recordId, Message__c = e.getMessage());
+        insert log;
+         return e.getMessage();   
+    }
 //insert feedElement;
 
        
@@ -100,7 +117,7 @@ public without sharing class JobButtons {
     @AuraEnabled
     public static string PMAssignmentQuery(String recordId){
         
-        ATI_Job__c job = [Select Id, Account__r.Name, lead_source__c, amount__c,total_billing_forecast_amount__c, Insurance_Adjuster_Broker__c, contact__c,office2__c, Project_Manager__c, Project_manager_new__c, Name, Percent_Complete__c, Estimated_Completion_Date__c, completion_date__c FROM ATI_Job__c WHERE Id =: recordId];
+        ATI_Job__c job = [Select Id, Account__r.Name,Insurance_Company__r.Name, lead_source__c, amount__c,total_billing_forecast_amount__c, Insurance_Adjuster_Broker__c, contact__c,office2__c, Project_Manager__c, Project_manager_new__c, Name, Percent_Complete__c, Estimated_Completion_Date__c, completion_date__c FROM ATI_Job__c WHERE Id =: recordId];
         List<office__c> office = [Select Id, office_manager__c, project_coordinator__c, regional_manager__c FROM Office__c WHERE id =:job.office2__c];
         //List<Contact> cont = [Select Name FROM Contact Where Id =: job.contact__c];
         // Contact ins = new Contact();
@@ -115,7 +132,7 @@ public without sharing class JobButtons {
         }
         String PMAssignmentResults;
         // if(!ins.isEmpty()){
-        PMAssignmentResults = '{"Insurance":"'+ job.Account__r.Name + ' ' + job.lead_source__c +'", "Fees":"'+bu.Total_Program_Fees_New__c+'","Allocation":"'+ bu.Total_Allocations__c +'", "Price":"'+ job.amount__c +'", "Budget":"'+ bu.Total_Budget_Goal__c +'", "Forecast":"'+ job.total_billing_forecast_Amount__c +'"}';  
+        PMAssignmentResults = '{"Insurance":"'+ job.Insurance_Company__r.Name + ' ' + job.lead_source__c +'", "Fees":"'+bu.Total_Program_Fees_New__c+'","Allocation":"'+ bu.Total_Allocations__c +'", "Price":"'+ job.amount__c +'", "Budget":"'+ bu.Total_Budget_Goal__c +'", "Forecast":"'+ job.total_billing_forecast_Amount__c +'"}';  
         // }else{
         // PMAssignmentResults = '{"Insurance":"'+ 'Null' +'", "Fees":"'+bud[0].Total_Program_Fees_New__c+'","Allocation":"'+ bud[0].Total_Allocations__c +'", "Price":"'+ job.amount__c +'", "Budget":"'+ bud[0].Total_Budget_Goal__c +'", "Forecast":"'+ job.total_billing_forecast_Amount__c +'"}';
         // }
@@ -130,15 +147,15 @@ public without sharing class JobButtons {
     @AuraEnabled
     public static string PMAssignmentChatter(Date startDate, String recordId, String ownerId, Date completionDate,  String notes, String briefScope,String ContactId, String ProjectManagerId){
         try {
-        system.debug('StartDate ' + startDate + ' Record Id ' + recordId);
+            system.debug('StartDate ' + startDate + ' Record Id ' + recordId);
         
-         Contact contactName = new Contact();
+            Contact contactName = new Contact();
          if(ContactId != null){
          contactName = [Select Name, mobilephone FROM Contact Where Id =: ContactId];
          }
         User pm = [Select Name FROM User WHere Id =: projectManagerId];
-         
-        ATI_Job__c job = [Select Id, amount__c,total_billing_forecast_amount__c,Account__r.Name, Lead_Source__c, contact__c,office2__c, Project_Manager__c, Project_manager_new__c, Name, Percent_Complete__c, Estimated_Completion_Date_Per_PD__c, completion_date__c FROM ATI_Job__c WHERE Id =: recordId];
+        
+        ATI_Job__c job = [Select Id, amount__c,total_billing_forecast_amount__c,Account__r.Name, Lead_Source__c, contact__c,office2__c, Project_Manager__c, Insurance_Company__c, Insurance_Company__r.Name, Project_manager_new__c, Name, Percent_Complete__c, Estimated_Completion_Date_Per_PD__c, completion_date__c FROM ATI_Job__c WHERE Id =: recordId];
         List<office__c> office = [Select Id, office_manager__c, project_coordinator__c, branch_manager__c FROM Office__c WHERE id =:job.office2__c];
         //  Contact ins = new Contact();
         //  if(job.Insurance_Adjuster_Broker__c != null){
@@ -153,7 +170,7 @@ public without sharing class JobButtons {
         String contactUrl = URL.getSalesforceBaseUrl().toExternalForm() + '/' + ContactId;
         //if(!bud.isempty()){
         //string comments = '\n' + 'PM Assignment: ' + job.name +'\n' + '\n' + '\n' + 'Insurance Carrier/TPA: ' + ins.name +'\n' + 'Fees: ' + bu.Total_Program_Fees_New__c + '\n' + 'Allocation: '+ bu.Total_Allocations__c + '\n'  +'Price: '+ job.amount__c + '\n'  +'Budget: ' + bu.Total_Budget_Goal__c + '\n' + 'Contract Start Date: '+ startDate + '\n' + 'Contract Completion Date: ' + completionDate + '\n' + 'Forecast: '+ job.total_billing_forecast_Amount__c +'\n' + 'Brief Scope: '+briefScope+'\n' + 'Notes: '+notes +'\n' + 'ContactInfo: '+contactInfo+'\n' + 'Suggested PM: ' + projectManager; 
-        string comments = '\n' + 'PM Assignment: ' + job.name +'\n' + '\n' + '\n' + 'Insurance Carrier/TPA: ' + job.Account__r.Name + ' ' + job.lead_source__c  +'\n' + 'Fees: ' + bu.Total_Program_Fees_New__c + '\n' + 'Allocation: '+ bu.Total_Allocations__c + '\n'  +'Price: '+ job.amount__c + '\n'  +'Budget: ' + bu.Total_Budget_Goal__c + '\n' + 'Contract Start Date: '+ startDate + '\n' + 'Contract Completion Date: ' + completionDate + '\n' + 'Forecast: '+ job.total_billing_forecast_Amount__c +'\n' + 'Brief Scope: '+briefScope+'\n' + 'Notes: '+notes +'\n' + 'ContactInfo: '+ contactName.Name +  '\n' + 'Suggested PM: ' + pm.Name;
+        string comments = '\n' + 'PM Assignment: ' + job.name +'\n' + '\n' + '\n' + 'Insurance Carrier/TPA: ' + job.Insurance_Company__r.Name + ' ' + job.lead_source__c  +'\n' + 'Fees: ' + bu.Total_Program_Fees_New__c + '\n' + 'Allocation: '+ bu.Total_Allocations__c + '\n'  +'Price: '+ job.amount__c + '\n'  +'Budget: ' + bu.Total_Budget_Goal__c + '\n' + 'Contract Start Date: '+ startDate + '\n' + 'Contract Completion Date: ' + completionDate + '\n' + 'Forecast: '+ job.total_billing_forecast_Amount__c +'\n' + 'Brief Scope: '+briefScope+'\n' + 'Notes: '+notes +'\n' + 'ContactInfo: '+ contactName.Name +  '\n' + 'Suggested PM: ' + pm.Name;
         
         //Task t = new Task( Type = 'Project Note', ActivityDate = system.today(), Description = comments, OwnerId = ownerId, Priority = 'Low', Status='Completed', Subject = 'Project Note', WhatId = recordId);
         //insert t;
@@ -197,7 +214,7 @@ public without sharing class JobButtons {
         // Submit on behalf of a specific submitter
         req1.setSubmitterId(UserInfo.getUserId());
         // Submit the record to specific process and skip the criteria evaluation
-        req1.setProcessDefinitionNameOrId('PMAssignmentApproval');
+        req1.setProcessDefinitionNameOrId('PMAssignmentApproval1');
         req1.setSkipEntryCriteria(true);
         // Submit the approval request for the account
         Approval.ProcessResult result = Approval.process(req1);
@@ -248,18 +265,14 @@ public without sharing class JobButtons {
         return cs;
     }
     @AuraEnabled
-    public static String CaseChatterTaskCreation(Id recordId, String subject, String description){
-        
-            
-       
+    public static String CaseChatterTaskCreation(Id recordId, String subject, String description)
+    {
         Id caseOwner = UserInfo.getUserId();
         List<case> cases = [Select Id FROM CASE WHERE ATI_Job__c =: recordId ORDER BY createdDate DESC LIMIT 1];
         system.debug('Cases ' + cases);
         String fullRecordURL = URL.getSalesforceBaseUrl().toExternalForm() + '/' + cases[0].id;
         String fullRecordURLJOB = URL.getSalesforceBaseUrl().toExternalForm() + '/' + recordId;
-        
         string descriptionPlus = 'A new case has been opened for the Job: ' + fullRecordURLJOB+  '\n' +'Case Link: '+ fullRecordURL + '\n' + '\n' +description;
-
         Task t = new Task( Type = 'Log a Call', ActivityDate = system.today(), Description = descriptionPlus, OwnerId = caseOwner, Priority = 'Low', Status='Completed', Subject = subject, WhatId = recordId);
         insert t;
         ATI_Job__c job = [Select Id, Project_Manager__c, Project_manager_new__c, Name FROM ATI_Job__c WHERE Id =: recordId];
@@ -366,24 +379,24 @@ public without sharing class JobButtons {
         }
         
     }
-    @AuraEnabled
-    public static string LargeLossApprovalSubmission(string recordId) {
-try {
-    approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest(); 
-    req1.setComments('Submitting request for approval');
-    req1.setObjectId(recordId);
-    req1.setSubmitterId(UserInfo.getUserId());
-    req1.setProcessDefinitionNameOrId('Complex_Loss');
-    req1.setSkipEntryCriteria(true);
-    // Submit the approval request for the account
-    Approval.ProcessResult result = Approval.process(req1);
-    Approval.UnlockResult unlockedResults = Approval.unlock(recordId, false);
-    return 'success';
-} catch (Exception e) {
-    return e.getMessage();
-}
+//     @AuraEnabled
+//     public static string LargeLossApprovalSubmission(string recordId) {
+// try {
+//     approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest(); 
+//     req1.setComments('Submitting request for approval');
+//     req1.setObjectId(recordId);
+//     req1.setSubmitterId(UserInfo.getUserId());
+//     req1.setProcessDefinitionNameOrId('Complex_Loss');
+//     req1.setSkipEntryCriteria(true);
+//     // Submit the approval request for the account
+//     Approval.ProcessResult result = Approval.process(req1);
+//     Approval.UnlockResult unlockedResults = Approval.unlock(recordId, false);
+//     return 'success';
+// } catch (Exception e) {
+//     return e.getMessage();
+// }
         
-    }
+//     }
 
     
 }

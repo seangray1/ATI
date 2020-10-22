@@ -216,10 +216,10 @@ public class AccountRoleTriggerHandler {
     public static void UpdateJobSendPrelim(List<Account_Roles__c> accRoles, Map<Id,Account_Roles__c> oldAccRolesMap)
     {
         Set<Id> JobIdSet = new Set<Id>();
-        // Map<Id,ATI_Job__c> JobMapToUpdate = new Map<Id,ATI_Job__c>();
+        Map<Id,Account_Roles__c> JobMapToUpdate = new Map<Id,Account_Roles__c>();
         for(Account_Roles__c a : accRoles)
         {
-            system.debug('Account Role Name and account name is ' + a.Account_Name_Lookup__c + '  ' + a.Master_Job_ID__c);
+            
             if(a.Account_Name_Lookup__c != null && a.Master_Job_ID__c != null && (a.Account_Name_Lookup__c.contains('Vixxo') || a.Account_Name_Lookup__c.contains('Total Property Management') || 
             a.Account_Name_Lookup__c.contains('Facility Source') || a.Account_Name_Lookup__c.contains('Farmers Insurance')))
             {
@@ -227,26 +227,34 @@ public class AccountRoleTriggerHandler {
                 {
                     JobIdSet.add(a.Master_Job_ID__c);
                     // ATI_Job__c job = new ATI_Job__c(Id = a.Master_Job_ID__c, Send_Prelim__c = 'No');
-                    // JobMapToUpdate.put(job.Id, job);
+                    JobMapToUpdate.put(a.Master_Job_ID__c, a);
                 }
                 if(Trigger.isUpdate && a.Account_Name_Lookup__c != oldAccRolesMap.get(a.Id).Account_Name_Lookup__c)
                 {
                     JobIdSet.add(a.Master_Job_ID__c);
                     // ATI_Job__c job = new ATI_Job__c(Id = a.Master_Job_ID__c, Send_Prelim__c = 'No');
-                    // JobMapToUpdate.put(job.Id, job);
+                    JobMapToUpdate.put(a.Master_Job_ID__c, a);
                 } 
             }
         }
-        if(!JobIdSet.isEmpty())
+        if(!JobMapToUpdate.isEmpty())
         {
-            Map<Id,ATI_Job__c> JobMap = new Map<Id,ATI_Job__c>([SELECT Id, Send_Prelim__c 
+            Map<Id,ATI_Job__c> JobMap = new Map<Id,ATI_Job__c>([SELECT Id, Send_Prelim__c,Lead_source__c 
                                     FROM ATI_Job__c 
-                                    WHERE Lead_Source__c LIKE 'Program%' AND Id=:JobIdSet AND Send_Prelim__c = null]);
+                                    WHERE Id=:JobIdSet AND Send_Prelim__c = null]);
             if(!JobMap.isEmpty())
             {
                 for(ATI_Job__c job : JobMap.values())
                 {
-                    job.Send_Prelim__c = 'No';
+                    if((JobMapToUpdate.get(job.Id).Account_Name_Lookup__c.contains('Farmers Insurance') && job.Lead_Source__c.contains('Program')))
+                    {
+                        job.Send_Prelim__c = 'No';
+                    }
+                    if(!JobMapToUpdate.get(job.Id).Account_Name_Lookup__c.contains('Farmers Insurance'))
+                    {
+                        job.Send_Prelim__c = 'No';
+                    }
+                    
                 }
                 update JobMap.values();
             }

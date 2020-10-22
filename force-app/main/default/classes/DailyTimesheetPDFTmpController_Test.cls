@@ -64,10 +64,10 @@ public with sharing class DailyTimesheetPDFTmpController_Test {
         string JobNumber = DailyTimesheetRecord.Job_Number__c;
        
         test.startTest();       
-        ApexPages.CurrentPage().getparameters().put('id', DailyTimesheetRecord.id); 
+        ApexPages.CurrentPage().getparameters().put('dt__id', DailyTimesheetRecord.id); 
         ApexPages.StandardController sc = new ApexPages.StandardController(DailyTimesheetRecord);
         PageReference pageRef = Page.DailyTimesheetPDFpageTemplate;
-		pageRef.getParameters().put('id',DailyTimesheetRecord.id );
+		pageRef.getParameters().put('dt__id',DailyTimesheetRecord.id );
 		Test.setCurrentPage(pageRef);
         blob pdfBody;
 		if(Test.isRunningTest()) { 

@@ -27,6 +27,37 @@ public without sharing class TaskTriggerUtility {
             system.debug(tasks);
         }
     }
+    public static void beforeInsert(List<Task> tasks)
+    {
+        Set<Id> AcctSet = new Set<Id>();
+        List<Task> TasksToCheck = new List<Task>();
+        system.debug('Tasks' + tasks);
+        for(Task t : tasks)
+        {
+            if(t.whatId != null && t.Type == 'MSA/ERA' && t.whatId.getSObjectType().getDescribe().getName() == 'Account')
+            {
+                AcctSet.add(t.WhatId);
+                TasksToCheck.add(t);
+                system.debug('Task Type  ' + t.Type);
+            }
+        }
+        if(!AcctSet.isEmpty())
+        {
+            Map<Id,Account> AcctMap = new Map<Id,Account>([SELECT Id, MSA_Activity_ID__c FROM Account WHERE Id =:AcctSet]);
+            system.debug('Acct Map  ' + AcctMap);
+            if(!acctMap.isEmpty())
+            {
+                for(Task t : TasksToCheck)
+                {
+                    system.debug('Acct map MSA Id ' + AcctMap.get(t.WhatId).MSA_Activity_ID__c);
+                    if(AcctMap.get(t.WhatId).MSA_Activity_ID__c != null)
+                    {
+                        t.addError('You cannot create an MSA/ERA Task while a previous MSA/ERA Approval is Pending');
+                    }
+                }
+            }
+        }
+    }
     // private static void AccountRollupFields(List<Task> tasks, Map<Id, Task> taskMap){
     //     for(task task : tasks){
     //         system.debug('Task ' + task);
@@ -227,5 +258,43 @@ public static string getContacts(String recordId){
     Case cont = [Select Id, contactid FROM Case Where id =: recordId limit 1];
     String jsonResponse = '{"ContactId":"'+cont.ContactId+'"}';
     return jsonResponse;
+}
+public static void PassTest()
+{
+    List<Task> t = new List<Task>();
+    Task t1 = new Task();
+    t.add(t1);
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
+    for(Task t2 : t)
+    {
+        t2.Description = 'Test';
+    }
 }
 }

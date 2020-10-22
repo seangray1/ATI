@@ -213,7 +213,7 @@ Static Void AccountTriggerFunctionalityTest(){
        job1.name = 'Test';
        job1.Job_Name__c = 'Job Test';
        job1.Office2__c = office.id;
-       job1.Lead_Source__c = 'Advertising and Publications';
+       job1.Lead_Source__c = 'Program Lead';
        job1.Stage__c = 'Qualification';
        job1.Project_Site_Address__c = '665 S 300 E';
        job1.Project_Site_City__c = 'LasVegas';

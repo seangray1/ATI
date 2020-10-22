@@ -171,7 +171,7 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
 // query for jobs that need to be updated
     if(!MasterJobIdSet.isEmpty())
     {
-        JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c, Master_Job__c, Property_ID__c, Description__c, Account_Executive_1__c, Account_Executive_2__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
+        JobList = [Select Id, Date_Of_Loss__c, Claim__c, Deductible__c, Policy__c,Stop_Sync_MasterJob__c, Master_Job__c, Property_ID__c, Description__c, Account_Executive_1__c, Account_Executive_2__c FROM ATI_Job__c Where Master_Job__c =: MasterJobIdSet];
         if(!JobList.isEmpty())
         {
             for(ATI_Job__c job : JobList)
@@ -184,8 +184,11 @@ public static void UpdateJobDetails(List<Master_Job__c> newMasterJobs, map<Id,Ma
                 job.Policy__c = newMasterJob.Policy__c;
                 job.Property_ID__c = newMasterJob.Property__c;
                 job.PO__c = newMasterJob.PO__c;
-                job.Account_Executive_1__c = newMasterJob.Account_Executive_1__c;
-                job.Account_Executive_2__c = newMasterJob.Account_Executive_2__c;
+                if(!job.Stop_Sync_MasterJob__c)
+                {
+                    job.Account_Executive_1__c = newMasterJob.Account_Executive_1__c;
+                    job.Account_Executive_2__c = newMasterJob.Account_Executive_2__c;
+                }
                 job.Office2__c = newMasterJob.Office2__c;
                 job.National_Account__c = newMasterJob.National_Account__c;
                 
