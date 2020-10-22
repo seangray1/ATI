@@ -20,8 +20,8 @@ public class BudgetCloneController_Test {
         newBudget.X3_Program_Fees__c = '3';
         insert newBudget;
               
-        lineitem = TestDataUtil.createLineItem(10, true, new Map<String, String>{'budget__c' => budget.Id} );
-        for( Integer i=0; i< 10; i++ ){
+        lineitem = TestDataUtil.createLineItem(1, true, new Map<String, String>{'budget__c' => budget.Id} );
+        for( Integer i=0; i< 1; i++ ){
             Budget_Line_Item__c item = lineitem[i];
 
         }
@@ -51,13 +51,13 @@ public class BudgetCloneController_Test {
                                                                        'BillingCountry' => 'USA',
                                                                        'BillingPostalCode' => '1234',
                                                                        'BillingState' => 'CA' } );
-        jobs = TestDataUtil.createJob(10, true, new Map<String, String>{'account__c' => accounts[0].Id} );
+        jobs = TestDataUtil.createJob(1, true, new Map<String, String>{'account__c' => accounts[0].Id} );
      
-        List<RecordType> rtypes = [SELECT Id FROM RecordType WHERE SObjectType ='ATI_Job__c' AND DeveloperName = 'Job_Approved'];
-        for( Integer i=0; i< 10; i++ ){
+        // List<RecordType> rtypes = [SELECT Id FROM RecordType WHERE SObjectType ='ATI_Job__c' AND DeveloperName = 'Job_Approved'];
+        for( Integer i=0; i< 1; i++ ){
             ATI_Job__c job = jobs[i];
             job.id = jobs[i].id;
-            job.RecordTypeId = rtypes[0].Id;
+            // job.RecordTypeId = rtypes[0].Id;
 
         }
         update jobs;

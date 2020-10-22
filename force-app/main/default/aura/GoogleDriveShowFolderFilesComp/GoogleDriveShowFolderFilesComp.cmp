@@ -1,0 +1,128 @@
+<!--*******************************************************************************************
+    * @author           Suman
+    * @version          1.0 
+    * @date             10-AUG-2020
+    * @Status           In-Progress
+    * @Componnet Name   GoogleDriveShowFolderFilesComp
+    * @description      This component is being used to display the folders/files present in a folder on the screen.	
+    *********************************************************************************************
+     Version     Date      Team          Comments
+    *********************************************************************************************
+    * 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+    *********************************************************************************************-->
+<aura:component controller='GoogleDriveIntegrationCompController'>
+    <aura:attribute name="folderFilesList" type="List"/><!--folder/file details list to be shown on screen-->
+    <aura:attribute name="selectedRowList" type="String[]"/><!--Rows selected-->
+    <aura:attribute name="selectedRowDetailsMap" type="Map"/><!--Map to store selected file/folder details-->
+    
+    <aura:attribute name="GDriveLink" type="String" /><!-- GDrive Link for Share Comp -->
+    <aura:attribute name="SharingGLinkFileName" type="String" /><!-- GDrive FileName for Share Comp -->
+    <aura:attribute name="ShareOptions" type="boolean" default="false"/><!-- GDrive Show Share options Comp -->    
+    <aura:attribute name="DisableShare" type="boolean" default="false"/>
+    <aura:attribute name="EnableLocation" type="boolean" default="false"/>
+    
+    
+    <!-- Spinner & Error attributes -->
+    <aura:attribute name="spinner" type="Boolean" default="FALSE"/>
+    <!--<aura:attribute name="isCurrentFolderReadOnly" type="Boolean"/>-->
+    
+    <!--Event to pass sub-folder's GD Id to the parent component -->
+    <aura:registerEvent name="LoadSubFolderContentEvent" type="c:PassSubFolderDetailEvent"/>
+    <!--Event to pass selected row's GD Id to the parent component -->
+    <aura:registerEvent name="UpdateSelectedRowListEvent" type="c:PassSelRowDetailEvent"/>
+    
+    <p class="slds-text-heading_small">
+        <aura:if isTrue="{!equals(v.folderFilesList.length,0)}">
+            <div class="emptyFolderDiv">
+                <br/><br/><br/><br/>
+                <img src="{!$Resource.GDI_EmptyFolderImage}" class="emptyFolder"/><br/>
+                Folder is empty.
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!equals(v.folderFilesList[0],'Wait')}">
+                    <aura:set attribute="else">
+                        <table class="folderlist">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Item Name</th>
+                                    <th>Size</th>
+                                    <th>Date Modified</th>
+                                    <th>Updated By</th>
+                                    <aura:if isTrue="{!v.EnableLocation}">
+                                        <th>Location</th>
+                                    </aura:if> 
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.folderFilesList}" var="item" indexVar="key">
+                                    <aura:if isTrue="{!v.spinner}">
+                                        <div aura:id="spinnerId" class="slds-spinner_container">
+                                            <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                                                <span class="slds-assistive-text">Loading...</span>
+                                                <div class="slds-spinner__dot-a"></div>
+                                                <div class="slds-spinner__dot-b"></div>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                    <tr>
+                                        <td >
+                                            <lightning:input type="checkbox" label="" name="{!item.googleDriveId}" onchange="{!c.updateSelectedRowsList}"/>
+                                        </td>
+                                        <td>
+                                            <aura:if isTrue="{!item.isFolder}">
+                                                <div class="slds-align_absolute-left" onclick = "{!c.openSubFolder}" title = "{!item.name}" id="{!item.googleDriveId}" >
+                                                    <img src="{!item.iconLink}"/>
+                                                    &nbsp;{!item.name}
+                                                </div>
+                                                <!--<lightning:button variant="bare" label="{!item.name}" name="{!item.googleDriveId}" iconName="doctype:folder" iconPosition="left" onclick="{! c.openSubFolder}"/>-->
+                                                <aura:set attribute="else">
+                                                    <div class="slds-align_absolute-left" onclick = "{!c.openFile}" title = "{!item.name}" id="{!item.viewLink}" >
+                                                        <img src="{!item.iconLink}"/>
+                                                        &nbsp;{!item.name}
+                                                    </div>
+                                                </aura:set>
+                                            </aura:if>
+                                        </td>
+                                        <td>
+                                            {!item.size}
+                                        </td>
+                                        <td>
+                                            {!item.modifiedDate}
+                                        </td>
+                                        <td>
+                                            <!--<aura:if isTrue="{!equals(item.modifiedBySFUserName,'')}">
+                                                {!item.lastModifiedBy}
+                                                <aura:set attribute="else">
+                                                    {!item.modifiedBySFUserName}
+                                                </aura:set>
+                                            </aura:if>-->
+                                            {!item.lastModifiedBy}
+                                        </td>
+                                        <aura:if isTrue="{!v.EnableLocation}">
+                                        <td>
+                                            <div class="slds-align_absolute-left" onclick = "" title = "{!item.filePath}" id="{!item.filePath}" >
+                                     			{!item.filePath}
+                                                </div>
+                                        </td>
+                                        </aura:if>
+                                        <td>
+                                            <div class="ShowShare">
+                                                <!-- <c:GoogleDriveShareComp GDriveLink="{!item.viewLink}"  /> -->
+                                                <lightning:button class="ShareBtn" variant="brand" label="Share" title="Share" name="{!item.viewLink}" value="{!item.name}" iconName="utility:socialshare" disabled="{!v.DisableShare}" onclick="{! c.handleShare }"/>
+                                            </div> 
+                                        </td>
+                                    </tr> 
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                        <aura:if isTrue="{!v.ShareOptions}">
+                        	<c:GoogleDriveShareComp GDriveLink="{!v.GDriveLink}" SharingGLinkFileName="{!v.SharingGLinkFileName}" ShareOptions="{!v.ShareOptions}"  /> <!-- For Sharing Popup -->
+                        </aura:if>
+                   </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>        
+    </p>
+</aura:component>

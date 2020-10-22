@@ -1,0 +1,160 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             10-AUG-2020
+* @Status           In-Progress
+* @Componnet Name   GoogleDriveIntegratonComp
+* @description      This component will have child components for- Showing folder/files list, Search, Share, Download, Upload, Folder/file creation etc.	
+*********************************************************************************************
+ Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+*********************************************************************************************-->
+<aura:component controller='GoogleDriveIntegrationCompController' implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="folderFilesList" type="List"/><!--folder/file details list to be shown on screen-->
+    <aura:attribute name="navPathDetailsMap" type="Map"/><!--Map to show links to parent folders-->
+    <aura:attribute name="parentRecFolderGDId" type="String"/><!-- Job/Acc main folder Google Drive Ref Id -->
+    <aura:attribute name="currentFolderGDId" type="String"/><!-- Current open folder's Google Drive Ref Id -->
+    <aura:attribute name="currentFolderName" type="String"/><!-- Current open folder's name -->
+    <aura:attribute name="userId" type="String"/><!-- Logged in user's SF Id -->
+    <aura:attribute name="selectedRowList" type="String[]"/><!--Rows selected in 'GoogleDriveShowFolderFilesComp'-->
+    <aura:attribute name="selectedRowDetailsMap" type="Map"/><!--Map to store selected file/folder details-->
+    <!--<aura:attribute name="readOnlyFolderList" type="List"/>-->
+    
+    <!-- Spinner & Boolean attributes -->
+    <aura:attribute name="spinner" type="Boolean" default="FALSE"/>
+    <aura:attribute name="showSpinnerInFolderListComp" type="Boolean" default="FALSE"/>
+    <aura:attribute name="showFolderFileListComp" type="Boolean" default="FALSE"/>
+    <aura:attribute name="showSearchComp" type="Boolean" default="FALSE"/>
+    <aura:attribute name="disableNotAvailableButtonsOnRowSelect" type="boolean" default="false"/>
+    <aura:attribute name="DisableShare" type="boolean" default="false"/>
+    <aura:attribute name="EnableLocation" type="boolean" default="false" />
+    <!--<aura:attribute name="isCurrentFolderReadOnly" type="Boolean"/>-->
+    
+    <!--Get folder/file details for the current record(Job/Account/Opp) -->
+    <aura:handler name="init" value="{!this}" action="{!c.initializeComponents}"/>
+    
+    <!--Handler to display sub-folders/files when a folder is clicked -->
+    <aura:handler name="LoadSubFolderContentEvent" event="c:PassSubFolderDetailEvent" action="{!c.loadSubFolderContentsOnFolderClick}" />    
+    <!--Handler to update 'selectedRowList' when row is selcted/deselected -->
+    <aura:handler name="UpdateSelectedRowListEvent" event="c:PassSelRowDetailEvent" action="{!c.updateSelectedRowsList}" />    
+    <!--Handler to display sub-folders/files when the parent folder link  is clicked in navigation path displayed at top-->
+    <aura:handler name="LoadFolderContentForNavPathClickEvent" event="c:PassSubFolderDetailEvent" action="{!c.loadSubFolderContentsOnNavPathClick}" />    
+    <!--Handler to re-load current open folder when new folder is created -->
+    <aura:handler name="ReloadCurrentFolderContents" event="c:PassSubFolderDetailEvent" action="{!c.reloadCurrentFolderContentsAfterFolderFileCreation}" />    
+    <!--Handler to open the file in Google drive when new file is created -->
+    <aura:handler name="OpenNewFileInGoogleDrive" event="c:PassNewCreatedFileDetailEvent" action="{!c.redirectToGoogleDriveForFileEdit}" />    
+    <!--Handler to re-load current open folder when files are uploaded -->
+    <aura:handler name="RefreshCurrentFolderContent" event="c:PassSubFolderDetailEvent" action="{!c.reloadCurrentFolderContentsAfterFolderFileCreation}" />    
+    <!--Handler to re-load current open folder when files are uploaded -->
+    <!--<aura:handler name="UpdateCurrentFolderContentsAfterDelete" event="c:PassSelRowDetailEvent" action="{!c.removeDeletedFileFolderFromList}" /> -->   
+    
+    <div class="main-container">
+        
+        <p class="slds-text-heading_small">
+            
+            <table class="MainDriveWrap">
+                <aura:if isTrue="{!v.showSearchComp}">
+                    <tr>
+                            <td class="border-line" colspan="5">                                
+                                <p>
+                                    <c:GoogleDriveNavPathComp currentFolderGDId ="{!v.currentFolderGDId}" navPathDetailsMap ="{!v.navPathDetailsMap}" spinner ="{!v.showSpinnerInFolderListComp}" enableRefreshButton="false"/>
+                                </p>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="border-line">
+                            <p>
+                                <aura:if isTrue="{!v.spinner}">
+                                    <div aura:id="spinnerId" class="slds-spinner_container">
+                                        <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                                            <span class="slds-assistive-text">Loading...</span>
+                                            <div class="slds-spinner__dot-a"></div>
+                                            <div class="slds-spinner__dot-b"></div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                                <c:GoogleDriveSearchFolderFileComp parentRecFolderGDId ="{!v.parentRecFolderGDId}" currentFolderGDId ="{!v.currentFolderGDId}" showSearchComp="{!v.showSearchComp}" folderFilesList ="{!v.folderFilesList}" />
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>                                                
+                            <p>
+                                <div class="tbllist">
+                                    
+                                    <c:GoogleDriveShowFolderFilesComp folderFilesList ="{!v.folderFilesList}" spinner ="{!v.showSpinnerInFolderListComp}" EnableLocation="true"/>
+                                </div>                            
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <aura:set attribute="else">
+                        <tr>
+                            <td class="border-line" colspan="5">                                
+                                <p>
+                                    <aura:if isTrue="{!v.spinner}">
+                                        <div aura:id="spinnerId" class="slds-spinner_container">
+                                            <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                                                <span class="slds-assistive-text">Loading...</span>
+                                                <div class="slds-spinner__dot-a"></div>
+                                                <div class="slds-spinner__dot-b"></div>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                    <c:GoogleDriveNavPathComp currentFolderGDId ="{!v.currentFolderGDId}" navPathDetailsMap ="{!v.navPathDetailsMap}" spinner ="{!v.showSpinnerInFolderListComp}" enableRefreshButton="true"/>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='width: 70px'>
+                                <p><br/>
+                                    <c:GoogleDriveNewFolderFileComp recordId ="{!v.recordId}" sObjectName ="{!v.sObjectName}" currentFolderGDId ="{!v.currentFolderGDId}" isNewButtonDisabled ="{!v.disableNotAvailableButtonsOnRowSelect}"/>
+                                    
+                                </p>
+                            </td>
+                            <td style='width: 80px'>
+                                <p><br/>
+                                    <!--<aura:if isTrue="{!equals(v.sObjectName, 'Account')}">-->
+                                    <c:GoogleDriveUploadComp userId ="{!v.userId}" recordId ="{!v.recordId}" currentFolderGDId ="{!v.currentFolderGDId}" navPathDetailsMap ="{!v.navPathDetailsMap}" isUploadButtonDisabled ="{!v.disableNotAvailableButtonsOnRowSelect}"/>
+                                    <!--</aura:if>-->
+                                </p>
+                            </td>
+                            <td style='width: 96px'>
+                                <p><br/>
+                                    <!--<aura:if isTrue="{!equals(v.sObjectName, 'Account')}">-->
+                                    <c:GoogleDriveDeleteComp recordId ="{!v.recordId}" selectedRowList ="{!v.selectedRowList}" isDeleteButtonEnabled ="{!v.disableNotAvailableButtonsOnRowSelect}"/>
+                                    <!--</aura:if>-->
+                                </p>
+                            </td>
+                            <td>
+                                <p><br/>
+                                    <!--<aura:if isTrue="{!equals(v.sObjectName, 'Account')}">-->
+                                    <c:GoogleDriveDownloadComp selectedRowDetailsMap ="{!v.selectedRowDetailsMap}" recordId ="{!v.recordId}" sObjectName ="{!v.sObjectName}" currentFolderName ="{!v.currentFolderName}" isDownloadButtonEnabled ="{!v.disableNotAvailableButtonsOnRowSelect}"/>
+                                    <!--</aura:if>-->
+                                </p>
+                            </td>
+                            <td style='width: 100px'>
+                                <p>
+                                    <lightning:input type="search" name="searchKey" label="" aura:id="searchKey" placeholder="" onfocus="{!c.showSearchScreen}"/> 
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">                                                
+                                <p>
+                                    <div class="tbllist">
+                                        <aura:if isTrue="{!v.showFolderFileListComp}">
+                                            <c:GoogleDriveShowFolderFilesComp folderFilesList ="{!v.folderFilesList}" spinner ="{!v.showSpinnerInFolderListComp}" selectedRowList ="{!v.selectedRowList}" selectedRowDetailsMap ="{!v.selectedRowDetailsMap}" DisableShare ="{!v.DisableShare}" EnableLocation="false"/>
+                                        </aura:if>
+                                    </div>                            
+                                </p>
+                            </td>
+                        </tr>
+                    </aura:set>
+                </aura:if>
+                
+            </table>    
+        </p>
+    </div>
+</aura:component>

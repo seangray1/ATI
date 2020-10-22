@@ -11,16 +11,7 @@ export default class TestLWC extends LightningElement {
     @track Files = [];
 
     handleRemove(e){
-        console.log('Handle remove ' ,e);
-        let index;
-        for(var i = 0;i<this.Files;i++)
-        {
-            if(this.Files[i].Title === e.target.name)
-            {
-                index = i;
-            }
-        }
-        this.Files.splice(index - 1, 1);
+        console.log('Handle remove ' + e);
     }
     handleClick(e){
         console.log('Handle remove ' + JSON.stringify(e));

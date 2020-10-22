@@ -1,0 +1,83 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             28-AUG-2020
+* @Status           In-Progress
+* @Componnet Name   GoogleDriveUploadComp
+* @description      This component is being used to upload files.	
+*********************************************************************************************
+ Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+*********************************************************************************************-->
+<aura:component controller='GoogleDriveIntegrationCompController'>
+    <aura:attribute name="userId" type="String"/><!-- Logged in user's SF Id -->
+    <aura:attribute name="navPathDetailsMap" type="Map"/><!--Map to show links to parent folders-->
+    <aura:attribute name="currentFolderGDId" type="String"/><!-- Current open folder's Google Drive Ref Id -->
+    <aura:attribute name="recordId" type="String"/>
+    
+    <!-- Spinner & Boolean attributes -->
+    <aura:attribute name="spinner" type="Boolean" default="FALSE"/>
+    <aura:attribute name="isUploadModalOpen" type="boolean" default="false"/>
+	<aura:attribute name="isUploadButtonDisabled" type="boolean" default="false"/>	
+    <!--<aura:attribute name="isCurrentFolderReadOnly" type="Boolean"/>-->
+    
+    <!--Event to refresh current open folders view once new folder is created -->
+    <aura:registerEvent name="RefreshCurrentFolderContent" type="c:PassSubFolderDetailEvent"/>
+    
+    
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <lightning:button label="Upload" title="Upload" onclick="{!c.openUploadModalPopup}" class="btnitem slds-m-left_x-small" disabled="{!or(v.isUploadButtonDisabled, equals(v.currentFolderGDId,undefined))}"/>
+    
+    <!-- Modal pop up to capture new folder name-->
+    <aura:if isTrue="{!v.isUploadModalOpen}">
+        <!-- Modal/Popup Box starts here-->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Upload</h2>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>
+                        Upload files to <br/><br/>
+                        <aura:iteration items="{!v.navPathDetailsMap}" var="item" indexVar="key">
+                            <span class="folderPath">
+                                /<aura:text value="{!item.value}" ></aura:text>
+                            </span>
+                        </aura:iteration>
+                        <div><br/>You can select more than one file at a time.</div>
+                        <br/><br/>
+                    </p>
+                    <p>
+                        <lightning:fileUpload label="Upload"
+                                              name="fileUploader"
+                                              multiple="true"
+                                              accept=""
+                                              recordId="{!v.userId}"
+                                              onuploadfinished="{!c.handleUploadFinished}" />
+                    </p>
+                </div>
+                <!--Modal/Popup Box Footer Starts here-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeUploadModalPopup }"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!-- Modal pop up to capture new folder name  end-->
+    
+</aura:component>

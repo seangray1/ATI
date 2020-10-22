@@ -14,8 +14,8 @@ public class BudgetController_Test {
         insert budget;
         
               
-        lineitem = TestDataUtil.createLineItem(10, true, new Map<String, String>{'budget__c' => budget.Id} );
-        for( Integer i=0; i< 10; i++ ){
+        lineitem = TestDataUtil.createLineItem(3, true, new Map<String, String>{'budget__c' => budget.Id} );
+        for( Integer i=0; i< 3; i++ ){
             Budget_Line_Item__c item = lineitem[i];
 
         }
@@ -48,10 +48,10 @@ public class BudgetController_Test {
                                                                        'BillingCountry' => 'USA',
                                                                        'BillingPostalCode' => '1234',
                                                                        'BillingState' => 'CA' } );
-        jobs = TestDataUtil.createJob(10, true, new Map<String, String>{'account__c' => accounts[0].Id} );
+        jobs = TestDataUtil.createJob(3, true, new Map<String, String>{'account__c' => accounts[0].Id} );
      
         List<RecordType> rtypes = [SELECT Id FROM RecordType WHERE SObjectType ='ATI_Job__c' AND DeveloperName = 'Job_Approved'];
-        for( Integer i=0; i< 10; i++ ){
+        for( Integer i=0; i< 3; i++ ){
             ATI_Job__c job = jobs[i];
             job.id = jobs[i].id;
             job.RecordTypeId = rtypes[0].Id;

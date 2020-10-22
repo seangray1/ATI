@@ -4,24 +4,25 @@
 import { LightningElement, wire,api,track} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { publish, createMessageContext, releaseMessageContext } from 'lightning/messageService';
+//import { publish, createMessageContext, releaseMessageContext } from 'lightning/messageService';
 import { deleteRecord, updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import getAPINamesFromMetadata from '@salesforce/apex/BudgetLWCController.getAPINamesFromMetadata';
 import getTradeOptionPickValues from '@salesforce/apex/BudgetLWCController.getTradeOptionPickValues';
 import RetrieveBudgetLineItems from '@salesforce/apex/BudgetLWCController.RetrieveBudgetLineItems';
+import UpdateSalesTax from '@salesforce/apex/BudgetLWCController.UpdateSalesTax';
 import RetrieveBudget from '@salesforce/apex/BudgetLWCController.RetrieveBudget';
 import deleteBLI from '@salesforce/apex/BudgetLWCController.deleteBLI';
 import RetrieveJob from '@salesforce/apex/BudgetLWCController.RetrieveJob';
-import GetBudgetLineItemData from '@salesforce/apex/BudgetLWCController.GetBudgetLineItemData';
+//import GetBudgetLineItemData from '@salesforce/apex/BudgetLWCController.GetBudgetLineItemData';
 import UpdateBLI from '@salesforce/apex/BudgetLWCController.UpdateBLI';
 
 import UpdateOnlyBLI from '@salesforce/apex/BudgetLWCController.UpdateOnlyBLI';
 import LWCBudgetOverrideStyle from '@salesforce/resourceUrl/LWCBudgetOverrideStyle';
 import BLIReportId from '@salesforce/label/c.LWC_BLI_Report_ID';
 
-import { getRecordUi } from 'lightning/uiRecordApi';
+//import { getRecordUi } from 'lightning/uiRecordApi';
 
 
 export default class BudgetLWC extends NavigationMixin(LightningElement) {
@@ -36,7 +37,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
     @api BLINewFields =['Trade_Option__c', 'Selector__c','Revenue__c','X10_10_Allocation__c','GP__c','Subcontractor__c','Subcontractor_bid__c','In_House_Hours__c','In_House_Rate__c','Materials__c','Equipment__c','Other_Costs__c','Item_Description__c'];
     _wiredResult; _wiredJobResult; _ApiWiredResult; @track SaveBtnLabel;
     @track IsBudgetNew = false; @api JobStartDate; @api JobEstimatedCompletionDate; @api JobRegionalManger; @api JobProjectDirecor; @api JobProjectManager; @track NewBLIData=[]; @track hasChanged=false;
-    label = {BLIReportId}; @api IsImported = false;
+    label = {BLIReportId}; @api IsImported = false;@track SalesTax = 0;
     //FoR BLI Tree Grid
     parentId = null; levelsDeep = 0; depthChildrenCountMap = new Map(); datarestrucuted = false; @track FormattedBLIData;
     // FOR BLI Tree Grid
@@ -47,6 +48,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
         if(this.recordId!=null){
             this.AllowBLISection=true;
             this.SaveBtnLabel = 'Save & Exit';
+            
         } else{
             //this.GenerateNewBLIList();
             this.SaveBtnLabel = 'Next';
@@ -200,7 +202,11 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
 
                 // }
                 
-                else { this.isLoading = false; }
+                else {
+                    this.datarestrucuted=false;
+                    refreshApex(this._wiredResult); 
+                    this.isLoading = false; 
+                }
 
             }).catch(error => {
                 console.log('Errod d: '+JSON.stringify(error));
@@ -321,7 +327,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
             fields.Trade__c=fields.Trade_Option__c;
 
             if(fields.Revenue__c==null){
-                fields.Revenue__c=0;
+                fields.Revenue__c=0.00;
             }
             if(fields.GP__c==null){
                 fields.GP__c=0;
@@ -363,98 +369,11 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
 
     }
 
-    /*AddBLIFromPopup(event){
-        event.preventDefault();
-        this.isLoading = true;
-        const fields = event.detail.fields;
-        fields.Budget__c = this.recordId;
-        var Trade = fields.Trade__c.toUpperCase();
-        console.log('Trade: '+Trade);
-        var Selector = fields.Selector__c;
-        console.log('Sele: '+Selector);
-        var ValidationMessage = '';
-        
-        if(fields.Trade_Option__c==null || fields.Trade_Option__c==''){
-            ValidationMessage = 'Trade Option is required'; 
-        } else if(this.FormattedBLIData!=null){
-            fields.trade
-            console.log('Len:'+this.FormattedBLIData);
-            if(this.FormattedBLIData.length>0){
-                for(let m=0; m<this.FormattedBLIData.length; m++){
-                    if((this.FormattedBLIData[m].Trade__c).toUpperCase()===Trade && (Selector!=null || Selector!='') && this.FormattedBLIData[m].Selector__c===Selector){
-                        //console.log('INside If');
-                        ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';
-                    } else if((this.FormattedBLIData[m].Trade__c).toUpperCase()===Trade && (Selector==null || Selector=='')){
-                        ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';
-                    }   
-                    console.log('Vmdg: '+ValidationMessage)
-                    if(this.TradeOptionVal.length>0){
-                        //console.log('Inside Tradopt check: '+this.TradeOptionVal);
-                        for(let k=0; k<this.TradeOptionVal.length; k++){
-                            //console.log('Tval '+this.TradeOptionVal[k]);
-                            let TradeOpt = this.TradeOptionVal[k].toUpperCase();
-                            let TradeLopOpt = this.FormattedBLIData[m].Trade__c.toUpperCase();
-                            
-                            if(TradeOpt.includes(Trade)){
-
-                                if((this.FormattedBLIData[m].Trade__c).toUpperCase()===TradeOpt && (Selector!=null || Selector!='') && this.FormattedBLIData[m].Selector__c===Selector){
-                                    //console.log('INside If');
-                                    ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';
-                                } else if((this.FormattedBLIData[m].Trade__c).toUpperCase()===TradeOpt && (Selector==null || Selector=='')){
-                                    ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';
-                                }   
-
-                            }
-
-                            // if(TradeOpt.includes(Trade) && (Selector!=null || Selector!='') && this.FormattedBLIData[m].Selector__c===Selector){
-                            //     console.log('Inside If'+TradeOpt+' -'+TradeLopOpt+' Coun:'+m);
-                            //     console.log('Inside If'+this.FormattedBLIData[m].Selector__c);
-                            //     //console.log('Inside If: '+FormattedBLIData[m].Selector__c+' -Enter: '+Selector);
-                            //     ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';
-                            // }  else if(TradeOpt.includes(Trade) && (Selector==null || Selector=='')){
-                            //     console.log('Inside Else If');
-                            //     //console.log('Inside If: '+FormattedBLIData[m].Selector__c+' -Enter: '+Selector);
-                            //     ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';
-                            // } 
-
-                        }
-                        // this.TradeOptionVal.forEach(function(element){
-                        //     if(element.includes(this.FormattedBLIData[m].Trade__c)){
-                        //         ValidationMessage = 'Duplicate of Trade/Selector is not allow, Please update in the exisiting Line Item.';   
-                        //     }
-                        // });
-                    }
-                    
-                }
-            }
-        }
-        //console.log('ValMsg: '+ValidationMessage);
-        if(ValidationMessage==''){
-            if(Selector=='' || Selector==null){
-                fields.Is_Parent__c = true; 
-                fields.Is_sub_Parent__c = false;
-            } else{
-                fields.Is_sub_Parent__c = true;
-                fields.Is_Parent__c = false;
-            }
-            console.log('B4submit: '+JSON.stringify(fields));
-            this.template.querySelector('lightning-record-form.AddNewBLIForm').submit(fields);
-            
-        } else {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error Inserting record',
-                    message: ValidationMessage,
-                    variant: 'error',
-                }),
-            );
-        }
-    } */
-
-    GenerateBLIItems(){
+   GenerateBLIItems(){
         console.log('Inside GenrateBLI Structure: '+this.datarestrucuted);
         if(!this.datarestrucuted){
-			this.FormattedBLIData = [];
+            this.FormattedBLIData = [];
+            console.log('B4 Formated BLI: '+this.BLIList);
 			this.restructureData(this.BLIList);
 			//console.log('GenrateBLI Structure: '+JSON.stringify(this.FormattedBLIData));
 			this.datarestrucuted = true;
@@ -498,7 +417,7 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
 			}
         });
         //this.ToRetainExpandCollapsePosition();
-        //console.log('Data: '+JSON.stringify(this.FormattedBLIData));
+        console.log('Formated Data: '+JSON.stringify(this.FormattedBLIData));
     }
 
     showOrHideChildrenRows(event){
@@ -673,8 +592,40 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
             console.log('Old BLI Data: '+this.OldBLIData);
             console.log('Old Deleted BLI: '+this.OldBLIDeletedData);
             //console.log(this.OldBudgetData[0]);
-            let recordToUpdate ={fields:this.OldBudgetData[0]};
-            console.log('dd '+JSON.stringify(recordToUpdate));
+            
+            var BudgetObj = JSON.parse(JSON.stringify(this.OldBudgetData));
+            BudgetObj = BudgetObj.map((obj) => {
+                if(!obj.Allocation_Overhead__c){
+                    obj.Allocation_Overhead__c=null;
+                }
+                if(!obj.Allocations__c){
+                    obj.Allocations__c=null;
+                }
+                if(!obj.X3_Program_Fees__c){
+                    obj.X3_Program_Fees__c=null;
+                }
+                if(!obj.GP_Goal__c){
+                    obj.GP_Goal__c=null;
+                }
+                if(!obj.Overhead__c){
+                    obj.Overhead__c=null;
+                }
+                if(!obj.Profit__c){
+                    obj.Profit__c=null;
+                }
+                if(!obj.Sales_Tax__c){
+                    obj.Sales_Tax__c=null;
+                }
+                return obj;
+            });
+            // BudgetObj.map((obj) =>{
+            //     if(!obj.Subcontractor__c){
+            //         obj.Subcontractor__c=null;
+            //     }
+            // });    
+
+            let recordToUpdate ={fields:BudgetObj[0]};
+            console.log('dd: '+JSON.stringify(BudgetObj));
             updateRecord(recordToUpdate).then(() => {
 
                 if(this.NewlyAddedBLIData){
@@ -688,6 +639,27 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                             this.OldBLIToUpdate=[];
                             var BLIObj = JSON.parse(JSON.stringify(this.OldBLIData));
                             BLIObj.map((obj) =>{
+                                if(!obj.Subcontractor__c){
+                                    obj.Subcontractor__c=null;
+                                }
+                                if(!obj.Subcontractor_bid__c){
+                                    obj.Subcontractor_bid__c=0;
+                                }
+                                if(!obj.In_House_Hours__c){
+                                    obj.In_House_Hours__c=0;
+                                }
+                                if(!obj.In_House_Rate__c){
+                                    obj.In_House_Rate__c=0;
+                                }
+                                if(!obj.Materials__c){
+                                    obj.Materials__c=0;
+                                }
+                                if(!obj.Equipment__c){
+                                    obj.Equipment__c=0;
+                                }
+                                if(!obj.Other_Costs__c){
+                                    obj.Other_Costs__c=0;
+                                }
                                 obj.Bypass_Calculation__c=true;
                                 this.OldBLIToUpdate.push(obj);
                             });
@@ -1094,7 +1066,27 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
             this.hasChanged = true;
         //}
     }
-
+    handleTotalsChange(e)
+    {
+        var evntValue = e.target.value;
+        let SalesTax = this.SalesTax;
+        this.SalesTax = e.target.value;
+        if(this.SalesTax != SalesTax)
+        {
+            this.isLoading = true;
+            if(evntValue === undefined || evntValue === null || evntValue === '')
+            {
+                evntValue = 0;
+            }
+            console.log('evntValue is ' + evntValue);
+            UpdateSalesTax({BudgetId:this.recordId, SalesTax:evntValue}).then(result => {
+                refreshApex(this._wiredResult);
+                this.refreshBudgetValues();
+                this.isLoading = false;
+            });
+        }
+        
+    }
     handleFormInputChange(event){
         //event.preventDefault();
         //console.log('!ParentNode: '+event.target.dataset.targetId);
@@ -1115,10 +1107,10 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                 var value = element.value;
                 if(key!='Is_sub_Parent__c' && key!='Is_Parent__c'){
                     obj[key]=value;
-                    if(element.name=='Trade_Option__c'){
+                    /*if(element.name=='Trade_Option__c'){
                         //TradeOptVal = element.value;
                         obj.Trade__c = element.value;
-                    }
+                    }*/
                     if(element.name=='X10_10_Allocation__c'){
                         obj.X10_10_Allocation__c =element.checked;
                     }
@@ -1221,9 +1213,24 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
     wiredRetrieveBudget(result){
         console.log('res' +JSON.stringify(result));
         if(result.data){
+            console.log('Sales tax ' + result.data[0].Sales_Tax__c);
+            if(result.data[0].Sales_Tax__c)
+            {
+                console.log('Test is sales tax passes');
+                this.SalesTax = result.data[0].Sales_Tax__c;
+            }
+            
             this.OldBudgetData = result.data;
             console.log('Old Budget Data: '+JSON.stringify(this.OldBudgetData[0]));
             if(this.OldBudgetData[0].Budget_LineItem_Status__c){
+                if(this.APIfields!=null){
+                    this.APIfields = this.APIfields.map((obj) => {
+                        if(obj.APIName=='Allocation_Overhead__c'){
+                            obj.Enable = true;
+                        }
+                        return obj;
+                    });
+                }
                 this.IsImported = true;
             }
         } else if(result.error) {
@@ -1287,8 +1294,17 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                                 } else {
                                     objChild.IsDesc = false;
                                 }
-                                objChild.Revenue__c = DataList[j].Revenue__c;
-                                objChild.Budget_Goal__c = DataList[j].Budget_Goal__c;
+                                if(DataList[j].Revenue__c!=null){
+                                    objChild.Revenue__c = parseFloat(DataList[j].Revenue__c).toFixed(2);
+                                } else {
+                                    objChild.Revenue__c = parseFloat(0).toFixed(2);
+                                }
+                                if(DataList[j].Budget_Goal__c!=null){
+                                    objChild.Budget_Goal__c = parseFloat(DataList[j].Budget_Goal__c).toFixed(2);
+                                } else {
+                                    objChild.Budget_Goal__c = parseFloat(0).toFixed(2);
+                                }
+                                
                                 objChild.X10_10_Allocation__c = DataList[j].X10_10_Allocation__c;
                                 if(DataList[j].GP__c!=null){
                                     objChild.GP__c = parseFloat(DataList[j].GP__c).toFixed(2);
@@ -1299,37 +1315,37 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                                 if(DataList[j].Subcontractor_bid__c!=null){
                                     objChild.Subcontractor_bid__c = parseFloat(DataList[j].Subcontractor_bid__c).toFixed(2);
                                 } else{
-                                    objChild.Subcontractor_bid__c = DataList[j].Subcontractor_bid__c;
+                                    objChild.Subcontractor_bid__c = parseFloat(0).toFixed(2);
                                 }
                                 if(DataList[j].In_House_Hours__c!=null){
-                                    objChild.In_House_Hours__c = parseFloat(DataList[j].In_House_Hours__c).toFixed(0);
+                                    objChild.In_House_Hours__c = parseFloat(DataList[j].In_House_Hours__c).toFixed(2);
                                 } else{
-                                    objChild.In_House_Hours__c = DataList[j].In_House_Hours__c;
+                                    objChild.In_House_Hours__c = parseFloat(0).toFixed(2);
                                 }
                                 //objChild.In_House_Rate__c = parseFloat(DataList[j].In_House_Rate__c).toFixed(2);
                                 if(DataList[j].In_House_Rate__c!=null){
                                     objChild.In_House_Rate__c = parseFloat(DataList[j].In_House_Rate__c).toFixed(2);
                                 } else{
-                                    objChild.In_House_Rate__c = DataList[j].In_House_Rate__c;
+                                    objChild.In_House_Rate__c = parseFloat(0).toFixed(2);
                                 }
                                 objChild.In_House_Total__c = DataList[j].In_House_Total__c;
                                 //objChild.Materials__c = parseFloat(DataList[j].Materials__c).toFixed(2);
                                 if(DataList[j].Materials__c!=null){
                                     objChild.Materials__c = parseFloat(DataList[j].Materials__c).toFixed(2);
                                 } else{
-                                    objChild.Materials__c = DataList[j].Materials__c;
+                                    objChild.Materials__c = parseFloat(0).toFixed(2);
                                 }
                                 //objChild.Equipment__c = parseFloat(DataList[j].Equipment__c).toFixed(2);
                                 if(DataList[j].Equipment__c!=null){
                                     objChild.Equipment__c = parseFloat(DataList[j].Equipment__c).toFixed(2);
                                 } else{
-                                    objChild.Equipment__c = DataList[j].Equipment__c;
+                                    objChild.Equipment__c = parseFloat(0).toFixed(2);
                                 }
                                 //objChild.Other_Costs__c = parseFloat(DataList[j].Other_Costs__c).toFixed(2);
                                 if(DataList[j].Other_Costs__c!=null){
                                     objChild.Other_Costs__c = parseFloat(DataList[j].Other_Costs__c).toFixed(2);
                                 } else{
-                                    objChild.Other_Costs__c = DataList[j].Other_Costs__c;
+                                    objChild.Other_Costs__c = parseFloat(0).toFixed(2);
                                 }
                                 objChild.Actual_Costs__c = DataList[j].Actual_Costs__c;
                                 //objChild.Actual_Costs_BL__c = DataList[j].Actual_Costs_BL__c;
@@ -1355,52 +1371,60 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                         } else {
                             objParent.IsDesc = false;
                         }
-                        objParent.Revenue__c = DataList[i].Revenue__c;
-                        objParent.Budget_Goal__c = DataList[i].Budget_Goal__c;
+                        if(DataList[i].Revenue__c!=null){
+                            objParent.Revenue__c = parseFloat(DataList[i].Revenue__c).toFixed(2);
+                        } else{
+                            objParent.Revenue__c = parseFloat(0).toFixed(2);
+                        }
+                        if(DataList[i].Budget_Goal__c!=null){
+                            objParent.Budget_Goal__c = parseFloat(DataList[i].Budget_Goal__c).toFixed(2);
+                        } else {
+                            objParent.Budget_Goal__c = parseFloat(0).toFixed(2);
+                        }
                         objParent.X10_10_Allocation__c = DataList[i].X10_10_Allocation__c;
                         //objParent.GP__c = parseFloat(DataList[i].GP__c).toFixed(2);
                         if(DataList[i].GP__c!=null){
                             objParent.GP__c = parseFloat(DataList[i].GP__c).toFixed(2);
                         } else{
-                            objParent.GP__c = DataList[i].GP__c;
+                            objParent.GP__c = parseFloat(0).toFixed(2);
                         }
                         objParent.Subcontractor__c = DataList[i].Subcontractor__c;
                         //objParent.Subcontractor_bid__c = DataList[i].Subcontractor_bid__c;
                         if(DataList[i].Subcontractor_bid__c!=null){
                             objParent.Subcontractor_bid__c = parseFloat(DataList[i].Subcontractor_bid__c).toFixed(2);
                         } else{
-                            objParent.Subcontractor_bid__c = DataList[i].Subcontractor_bid__c;
+                            objParent.Subcontractor_bid__c = parseFloat(0).toFixed(2);
                         }
                         //objParent.In_House_Hours__c = parseFloat(DataList[i].In_House_Hours__c).toFixed(0);
                         if(DataList[i].In_House_Hours__c!=null){
-                            objParent.In_House_Hours__c = parseFloat(DataList[i].In_House_Hours__c).toFixed(0);
+                            objParent.In_House_Hours__c = parseFloat(DataList[i].In_House_Hours__c).toFixed(2);
                         } else{
-                            objParent.In_House_Hours__c = DataList[i].In_House_Hours__c;
+                            objParent.In_House_Hours__c = parseFloat(0).toFixed(2);
                         }
                         //objParent.In_House_Rate__c = parseFloat(DataList[i].In_House_Rate__c).toFixed(2);
                         if(DataList[i].In_House_Rate__c!=null){
                             objParent.In_House_Rate__c = parseFloat(DataList[i].In_House_Rate__c).toFixed(2);
                         } else{
-                            objParent.In_House_Rate__c = DataList[i].In_House_Rate__c;
+                            objParent.In_House_Rate__c = parseFloat(0).toFixed(2);
                         }
                         objParent.In_House_Total__c = DataList[i].In_House_Total__c;
                         //objParent.Materials__c = parseFloat(DataList[i].Materials__c).toFixed(2);
                         if(DataList[i].Materials__c!=null){
                             objParent.Materials__c = parseFloat(DataList[i].Materials__c).toFixed(2);
                         } else{
-                            objParent.Materials__c = DataList[i].Materials__c;
+                            objParent.Materials__c = parseFloat(0).toFixed(2);
                         }
                         //objParent.Equipment__c = parseFloat(DataList[i].Equipment__c).toFixed(2);
                         if(DataList[i].Equipment__c!=null){
                             objParent.Equipment__c = parseFloat(DataList[i].Equipment__c).toFixed(2);
                         } else{
-                            objParent.Equipment__c = DataList[i].Equipment__c;
+                            objParent.Equipment__c = parseFloat(0).toFixed(2);
                         }
                         //objParent.Other_Costs__c = parseFloat(DataList[i].Other_Costs__c).toFixed(2);
                         if(DataList[i].Other_Costs__c!=null){
                             objParent.Other_Costs__c = parseFloat(DataList[i].Other_Costs__c).toFixed(2);
                         } else{
-                            objParent.Other_Costs__c = DataList[i].Other_Costs__c;
+                            objParent.Other_Costs__c = parseFloat(0).toFixed(2);
                         }
                         objParent.Actual_Costs__c = DataList[i].Actual_Costs__c;
                         //objParent.Actual_Costs_BL__c = DataList[i].Actual_Costs_BL__c;
@@ -1448,15 +1472,14 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
         }
         console.log('Trade val:'+this.TradeOptionVal);
     }
-
-    
+   
     //Get all Budget API details
     @wire(getAPINamesFromMetadata)
     //wiredgetAPINamesFromMetadata({ error, data }) { 
     wiredgetAPINamesFromMetadata(result) { 
         var objData ={};
         var DataList; 
-        var EnableAPIList = ['Allocations__c', 'X3_Program_Fees__c', 'GP_Goal__c', 'Sales_Tax__c', 'Overhead_Profit_Sales_Tax__c','ATI_Job__c', 'Allocation_Overhead__c'];
+        var EnableAPIList = ['Allocations__c', 'X3_Program_Fees__c', 'GP_Goal__c', 'Sales_Tax__c', 'Overhead_Profit_Sales_Tax__c','ATI_Job__c', 'Allocation_Overhead__c', 'Tax_Exempt__c'];
         this._ApiWiredResult = result;
         if(result.data){
             DataList =result.data;
@@ -1485,8 +1508,12 @@ export default class BudgetLWC extends NavigationMixin(LightningElement) {
                                 if(objData.APIName=='Project_Manager__c' && this.JobProjectManager && this.IsBudgetNew==true){
                                     objData.value = this.JobProjectManager;
                                 }
-                                if(objData.APIName=='GP_Goal__c' || objData.APIName=='Allocation_Overhead__c' || objData.APIName=='Allocations__c' || objData.APIName=='X3_Program_Fees__c'){
+                                if(objData.APIName=='GP_Goal__c' || objData.APIName=='Allocation_Overhead__c' || objData.APIName=='Allocations__c' || objData.APIName=='X3_Program_Fees__c' || objData.APIName=='Tax_Exempt__c' ||  objData.APIName=='Overhead_Profit_Sales_Tax__c'){
                                     objData.changevnt = true;
+                                }
+                                if(objData.APIName === 'Sales_Tax__c')
+                                {
+                                    objData.onBlurEvent = true;
                                 }
                                 if(DataList[i].LWC_Section__c=='Budget Info'){
                                     objData.BudgetSection = true;

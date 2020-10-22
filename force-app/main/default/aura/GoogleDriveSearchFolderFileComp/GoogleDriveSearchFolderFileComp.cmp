@@ -1,0 +1,155 @@
+<aura:component controller='GoogleDriveIntegrationCompController' implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" >
+	<aura:attribute name="folderFilesList" type="List"/><!--folder/file details list to be shown on screen-->
+    <aura:attribute name="navPathDetailsMap" type="Map"/><!--Map to show links to parent folders-->
+    <aura:attribute name="currentFolderGDId" type="String"/><!-- Current open folder's Google Drive Ref Id -->
+    <aura:attribute name="parentRecFolderGDId" type="String"/>
+	
+	<aura:attribute name="accounts" type="List" />
+    <aura:attribute name="key" type="String" />
+    <!-- Spinner & Boolean attributes -->
+    <aura:attribute name="spinner" type="Boolean" default="FALSE"/>
+    <aura:attribute name="EnableLocation" type="boolean" default="false" />
+    <aura:attribute name="showSearchComp" type="Boolean"/>
+    <aura:attribute name="CustomDatePickPopup" type="boolean" default="false"/>
+    
+    <aura:attribute name="TimeStartDate" type="Date" default="" />
+    <aura:attribute name="TimeEndDate" type="Date" default="" />
+    
+    <aura:registerEvent name="RefreshCurrentFolderContent" type="c:PassSubFolderDetailEvent"/>
+    
+    
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <div class="slds-text-align_left SearchWrap">
+    	<lightning:buttonIcon class="BackBtn" iconName="utility:chevronleft" variant="brand" alternativeText="Back" title="Back" onclick="{!c.ShowMainComponent}"/>
+    	<lightning:input class="SearchInput" type="search" name="searchKey" label="" aura:id="searchKey" placeholder="Search" />
+        <lightning:button class="SearchBtn" label="Search" iconName="utility:search" iconPosition="left"  variant="brand" onclick="{!c.searchKeyChange}" />
+        <!-- <lightning:buttonIcon class="SearchBtn" iconName="utility:search" variant="brand" alternativeText="Search" title="Search" onclick="{!c.searchKeyChange}" />-->
+	</div>
+    
+    <div class="slds-text-align_left SearchFilter">
+        
+        <lightning:buttonMenu class="SearchFilterMnus" name= "Locationmenu" aura:id="Locationmenu" value="Any Location" label="Any Location" onselect="{! c.handleLocMenu }">
+            <lightning:menuItem aura:id="LocmenuItems" label="Any Location" value="Any Location" checked="false" />
+            <lightning:menuItem aura:id="LocmenuItems" label="Current Folder" value="Current Folder" checked="false" />
+        </lightning:buttonMenu>
+        
+        <!--<lightning:select aura:id="location" name="location" label="Location">
+            <option value="Any">Any Location</option>
+            <option value="Current Folder">Current Folder</option>
+        </lightning:select> -->
+    	
+        <lightning:buttonMenu class="SearchFilterMnus" aura:id="Filemenu" value="ANY" label="Any type" onselect="{! c.handleFileMenu }">
+            <lightning:menuItem aura:id="FilemenuItems" label="Any type" value="ANY" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Files" value="Files" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Folders" value="Folders" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="PDF" value="PDF" checked="false" />
+        	<lightning:menuItem aura:id="FilemenuItems" label="Documents" value="Document" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Spreadsheets" value="Spreadsheet" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Presentations" value="Presentation" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Images" value="Images" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Videos / Audio" value="Audio/Video" checked="false" />
+            <lightning:menuItem aura:id="FilemenuItems" label="Text / Others" value="Others" checked="false" />
+        </lightning:buttonMenu>
+        
+        <!--<lightning:select aura:id="ftype" name="ftype" label="Type">
+            <option value="Any">Any type</option>
+            <option value="Files">Files</option>
+            <option value="Folders">Folders</option>
+            <option value="PDF">PDF</option>
+            <option value="WORD">WORD</option>
+            <option value="EXCEL">EXCEL</option>
+            <option value="POWER_POINT">POWER_POINT</option>
+            <option value="JPG">JPG</option>
+            <option value="PNG">PNG</option>
+            <option value="CSV">CSV</option>
+            <option value="JSON">JSON</option>
+            <option value="TEXT">TEXT</option>
+            <option value="HTML">HTML</option>
+            <option value="ZIP">ZIP</option>
+            <option value="RTF">RTF</option>
+            <option value="SVG">SVG</option>
+        </lightning:select> -->
+        
+        
+        <lightning:buttonMenu class="SearchFilterMnus" aura:id="Timemenu" value="ANY" label="Any time" onselect="{! c.handleTimeMenu }">
+            <lightning:menuItem aura:id="TimemenuItems" label="Any time" value="ANY" checked="true" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Last 24 hours" value="Last 24 hours" checked="false" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Last week" value="Last week" checked="false" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Last month" value="Last month" checked="false" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Last 3 months" value="Last 3 months" checked="false" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Last 6 months" value="Last 6 months" checked="false" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Last 12 months" value="Last 12 months" checked="false" />
+            <lightning:menuItem aura:id="TimemenuItems" label="Custom" value="Custom" checked="false" />
+        </lightning:buttonMenu>
+        
+        <!--<lightning:select aura:id="ModifiedDate" name="ModifiedDate" label="ModifiedDate">
+            <option value="Any">Any time</option>
+            <option value="Last 24 hours">Last 24 hours</option>
+            <option value="Last week">Last week</option>
+            <option value="Last month">Last month</option>
+            <option value="Last 3 months">Last 3 months</option>
+            <option value="Last 6 months">Last 6 months</option>
+            <option value="Last 12 months">Last 12 months</option>
+            <option value="Custom">Custom</option>
+        </lightning:select> -->
+        
+    </div>
+    
+	
+    
+    <!--Custom Dates Popup --> 
+    <div class="slds">
+    <aura:if isTrue="{!v.CustomDatePickPopup}">
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_small slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Pick Your Custom Dates</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:messages aura:id="OppMessage" />
+                    <p>
+                        <div class="CustomDates">
+                            <lightning:input class="CustomInputStartDate" aura:id="CustomInputStartDate" type="date" name="StartDate" label="Start Date" />
+                            <lightning:input class="CustomInputEndDate" aura:id="CustomInputEndDate" type="date" name="EndDate" label="End Date" />
+                        </div>
+                    </p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <center>
+                    <lightning:button variant="neutral" 
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModel }"/>
+                    <lightning:button variant="brand" 
+                                      label="Go"
+                                      title="Go"
+                                      onclick="{! c.SubmitCustomDates }"/>
+                    </center>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        
+        <!--###### MODAL BOX Part END Here ######-->
+        
+    </aura:if>
+        </div>
+
+
+
+</aura:component>

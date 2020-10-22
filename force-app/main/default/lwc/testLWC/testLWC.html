@@ -7,7 +7,7 @@
     <template for:each={Files} for:item="file">
         <tr key={file.Title}>
             <th>
-                <lightning-pill name={file.Title} onremove={handleRemove} label={file.Title}>
+                <lightning-pill onremove={handleRemove} label={file.Title}>
                     <lightning-icon icon-name="utility:file" variant="circle"  alternative-text="File"></lightning-icon>
                 </lightning-pill>
     </th>

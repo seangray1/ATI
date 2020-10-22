@@ -1,5 +1,5 @@
 public class CheckRecursiveOnBLIUpdate {
-	private static boolean run = true;
+	@testvisible private static boolean run = true;
     public static boolean runOnce(){
         if(run){
             run=false;

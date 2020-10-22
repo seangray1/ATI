@@ -1,0 +1,16 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             02-SEP-2020
+* @Status           In-Progress
+* @Componnet Name   PassSelRowDetailEvent
+* @description      	
+*********************************************************************************************
+ Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Sep 2020    Suman        Initial Creation(JIRA AR-653)
+*********************************************************************************************-->
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="selectedRowList" type="String[]"/>
+    <aura:attribute name="selectedRowDetailsMap" type="Map"/>
+</aura:event>

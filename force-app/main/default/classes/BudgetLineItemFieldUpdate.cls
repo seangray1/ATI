@@ -26,7 +26,7 @@ public without sharing class BudgetLineItemFieldUpdate {
             if(String.isNotBlank(b.Trade__c)){
                 String SearchValue = b.Trade__c;
                 for(string bp: TradePickValue){
-                    if(bp.contains(SearchValue.toUpperCase())){
+                    if(bp.startsWithIgnoreCase(SearchValue.toUpperCase())){
                        TradeValue = bp;
                     }
                 }
@@ -254,7 +254,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                             UpsertBLIData.Budget__c = LineItems[i].Budget__c;
                             UpsertBLIData.Trade_Option__c = LineItems[i].Trade_Option__c;
                             UpsertBLIData.Is_Parent__c = true;                       
-                            UpsertBLIData.DonotDelete__c = LineItems[i].From_Xact__c;
+                            UpsertBLIData.DonotDelete__c = true;
                             UpsertBLIData.Bypass_Calculation__c = false;
                             UpsertBLIData.Id = NewPBLIId;
                             if(LineItems[i].Subcontractor_bid__c != oldValues.Subcontractor_bid__c) {
@@ -828,30 +828,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                 update bud;
             }
         }
-        if(Trigger.isInsert && budlines.size() < 2)
-        {
-            Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c
-            FROM Budget__c
-            WHERE Id =:budlines[0].Budget__c];
-            List<Budget_Line_Item__c> budLineItems = [SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c
-            FROM Budget_Line_Item__c
-            WHERE Budget__c =: budlines[0].Budget__c];
-            if(bud.Budget_LineItem_Status__c == null)
-            {
-                bud.Overhead__c = 0;
-                bud.Profit__c = 0;
-                for(Budget_Line_Item__c b : budLineItems)
-                {
-                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
-                    {
-                        bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
-                        bud.Profit__c += b.Revenue__c * b.Allocation_Percentage__c;
-                        system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
-                    }    
-                }
-                update bud;
-            }
-        }    
+       
     }
     
 

@@ -38,7 +38,23 @@
                             <template for:each={APIfields} for:item="APIfield">
                                 <template if:true={APIfield.TotalSection}>
                                     <div key={APIfield.key} class="slds-col--padded slds-size--1-of-6">
-                                        <lightning-input-field variant="label-stacked" disabled={APIfield.Enable} field-name={APIfield.APIName} value={APIfield.value}></lightning-input-field> 
+                                        <template if:false={APIfield.Enable}>
+                                            <template if:true={APIfield.changevnt}>
+                                                <lightning-input-field variant="label-stacked" name={APIfield.APIName} field-name={APIfield.APIName} value={APIfield.value} onchange={OnChangeBudgetFields}></lightning-input-field>
+                                            </template>
+                                            <template if:false={APIfield.changevnt}>
+                                                <template if:false={APIfield.onBlurEvent}>
+                                                <lightning-input-field variant="label-stacked" field-name={APIfield.APIName} value={APIfield.value} ></lightning-input-field>
+                                            </template>
+                                            </template>
+                                        </template>
+                                        <template if:true={APIfield.Enable}>
+                                            <lightning-input-field variant="label-stacked" field-name={APIfield.APIName} value={APIfield.value} disabled></lightning-input-field>
+                                        </template> 
+                                        <template if:true={APIfield.onBlurEvent}>
+                                            <lightning-input field-name={APIfield.APIName} type="number" formatter="currency" value={SalesTax} variant="label-stacked" class="salesTax" label="Sales Tax" name="Sales_Tax__c"  data-target-id={APIfield.APIName}  onblur={handleTotalsChange}></lightning-input></td>
+                                        </template>
+                                        <!-- <lightning-input-field variant="label-stacked" disabled={APIfield.Enable} field-name={APIfield.APIName} value={APIfield.value}></lightning-input-field>  -->
                                     </div>
                                 </template>
                             </template>
@@ -94,7 +110,12 @@
                         <td>Equipment</td>
                         <td>Other Costs</td>
                         <td>Actual Costs</td>
-                        <td>Actual Costs BL</td>
+                        <template if:false={IsImported}>
+                            <td class="HiddenId">Actual Costs BL</td>
+                        </template>
+                        <template if:true={IsImported}>
+                            <td>Actual Costs BL</td>
+                        </template>
                         <td class="HiddenId"></td>
                         <td class="HiddenId"></td>
                         <td class="HiddenId"></td>
@@ -118,7 +139,8 @@
                                     </td>
                                     <td>
                                             <span class={rowData.nameStyle}>
-                                            <lightning-input field-name="Trade_Option__c" value={rowData.Trade_Option__c} class="ToggleEditFields" variant="label-hidden" name="Trade_Option__c" required data-target-id={rowData.Id} disabled ></lightning-input></span>
+                                            <lightning-input field-name="Trade_Option__c" value={rowData.Trade_Option__c}  class="ToggleEditFields" variant="label-hidden" name="Trade_Option__c" required data-target-id={rowData.Id} disabled ></lightning-input></span>
+                                            <!-- <lightning-helptext content={rowData.Trade_Option__c}></lightning-helptext> -->
 
                                     </td>
         
@@ -176,8 +198,14 @@
                                     <td><lightning-input field-name="Other_Costs__c" value={rowData.Other_Costs__c} variant="label-hidden" name="Other_Costs__c"  data-target-id={rowData.Id} onchange={handleOnFocusIn} onblur={handleFormInputChange}></lightning-input></td>
                                 
                                     <td><lightning-input field-name="Actual_Costs__c" value={rowData.Actual_Costs__c} variant="label-hidden" name="Actual_Costs__c" data-target-id={rowData.Id} disabled ></lightning-input></td>
-                                
-                                    <td><lightning-input field-name="Actual_Costs_BL__c" disabled="True" value={rowData.Actual_Costs_BL__c} variant="label-hidden" name="Actual_Costs_BL__c"  data-target-id={rowData.Id} ></lightning-input></td>                        
+                                    
+                                    <template if:false={IsImported}>
+                                        <td class="HiddenId"><lightning-input field-name="Actual_Costs_BL__c" disabled="True" value={rowData.Actual_Costs_BL__c} variant="label-hidden" name="Actual_Costs_BL__c"  data-target-id={rowData.Id} ></lightning-input></td>
+                                    </template>
+                                    <template if:true={IsImported}>
+                                        <td><lightning-input field-name="Actual_Costs_BL__c" disabled="True" value={rowData.Actual_Costs_BL__c} variant="label-hidden" name="Actual_Costs_BL__c"  data-target-id={rowData.Id} ></lightning-input></td>
+                                    </template>
+                                                            
                                     
                                     <td class="HiddenId"><lightning-input field-name="Id" value={rowData.Id} variant="label-hidden" name="Id" disabled  data-target-id={rowData.Id}></lightning-input></td> 
 

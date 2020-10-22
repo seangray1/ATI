@@ -257,7 +257,7 @@ public without sharing class BudgetFieldUpdate {
             if(!String.isBlank(string.valueOf(b.Sales_Tax__c)) && b.Exclude_Tax_From_Total__c == 'No' && b.Overhead_Profit_Sales_Tax__c == true){
                 system.debug('hitting this' + b.Sales_Tax__c + '      allocation percentage ' + b.Allocation_percentage__c);
             //Integer salesPercentage = (((b.Sales_Tax__c) - b.Sales_Tax__c / b.Allocations_Percentage__c) * 2) + b.Sales_Tax__c;
-            b.sales_tax_percent__c = ((b.Sales_Tax__c - (b.Sales_Tax__c / (b.Allocation_Percentage__c/100))) * 2) + b.Sales_Tax__c;
+            b.sales_tax_percent__c = (b.Sales_Tax__c * (b.Allocation_Percentage__c* 2)) + b.Sales_Tax__c;
             //(B.Sales_Tax__c * (b.Allocation_Percentage__c * 2)) + B.Sales_Tax__c;
             system.debug('SalestaxPercent ' + b.sales_tax_percent__c);
           

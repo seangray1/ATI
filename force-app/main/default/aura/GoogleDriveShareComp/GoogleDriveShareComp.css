@@ -1,0 +1,6 @@
+.THIS .GroupFields lightning-input {width:70%; display:inline-block;}
+.THIS .GroupFields lightning-input label{float: left;}
+.THIS .EmailInputsWrap {text-align:left; width:90%;font-size:12px;}
+.THIS .GroupFields{font-size:12px;}
+.THIS .EmailBtn{margin-top:13px; width:25%;}
+.THIS .EmailContent textarea{height:100px;}

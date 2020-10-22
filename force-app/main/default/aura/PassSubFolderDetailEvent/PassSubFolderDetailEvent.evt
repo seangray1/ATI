@@ -1,0 +1,16 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             10-AUG-2020
+* @Status           In-Progress
+* @Componnet Name   PassSubFolderDetailEvent
+* @description      	
+*********************************************************************************************
+ Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+*********************************************************************************************-->
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="folderGDId" type="String"/>
+    <aura:attribute name="folderName" type="String"/>
+</aura:event>

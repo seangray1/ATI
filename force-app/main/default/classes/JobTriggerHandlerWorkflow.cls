@@ -272,11 +272,11 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             if(Trigger.isUpdate)
             {
                 if((job.Division__c == 'Consulting' || job.Division__c == 'Contents' || job.Division__c == 'Marketing' || 
-                        (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies')) || 
-                        job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal'
+                        (job.Account__c != null && AcctMap.get(job.Account__c).Name.contains('American Technologies'))  || job.Market_Segment__c == 'Federal Government' || job.Market_Segment__c == 'State/Municipal'
                          || job.Estimate_Only__c == true || (Job.Stage__c != oldJob.Stage__c && job.Stage__c == 'Lost')|| 
                          (job.National_Account__c != null && (nAcctMap.get(job.National_Account__c).Name.contains('Vixxo') || 
-                         nAcctMap.get(job.National_Account__c).Name.contains('Facility Source')))) && 
+                         nAcctMap.get(job.National_Account__c).Name.contains('Facility Source') ||  nAcctMap.get(job.National_Account__c).Name.contains('Total Property Management')
+                         ||  nAcctMap.get(job.National_Account__c).Name.contains('Farmers Insurance')))) &&
                         job.Send_Prelim__c == null)
                 {
                     job.Send_Prelim__c = 'No';
@@ -361,7 +361,8 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                         job.Market_Segment__c == 'Education' || job.Market_Segment__c == 'Federal Government' || 
                         job.Market_Segment__c == 'State/Municipal' || job.Estimate_Only__c == true || 
                         (job.National_Account__c != null && (nAcctMap.get(job.National_Account__c).Name.contains('Vixxo') || 
-                        nAcctMap.get(job.National_Account__c).Name.contains('Facility Source')))) && 
+                        nAcctMap.get(job.National_Account__c).Name.contains('Facility Source') ||  nAcctMap.get(job.National_Account__c).Name.contains('Total Property Management')
+                        ||  nAcctMap.get(job.National_Account__c).Name.contains('Farmers Insurance')))) && 
                         job.Send_Prelim__c == null)
                 {
                     job.Send_Prelim__c = 'No';

@@ -1,0 +1,69 @@
+.THIS .buttonDisabled
+ {
+ Cursor:text !important; Text-Decoration: None !important; 
+ } 
+.THIS .folderlist{ 
+    font-size: 12px;
+    margin:10px 0;
+    table-layout:fixed;
+}
+.THIS table.folderlist th{
+    color:#093f6d;
+    font-weight:bold;
+    border-top:1px solid #e6e6e6;
+    border-bottom:1px solid #e6e6e6;
+    padding: 5px;
+    white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+} 
+.THIS table.folderlist td{
+    padding: 8px 5px; 
+    color:#505050;
+    /* word-break: break-word; */
+    vertical-align:middle;
+    white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+.THIS table.folderlist tbody tr:nth-child(even) td{background:#f3faff;}
+.THIS table.folderlist tbody tr:hover td{background:#b4dff1;}
+.THIS table.folderlist th:first-child, .THIS table.folderlist td:first-child {
+    padding-left:14px; width:5%;
+}
+.THIS table.folderlist thead tr th:nth-child(2){width:25%;}
+.THIS table.folderlist thead tr th:nth-child(3){width:12%;}
+.THIS table.folderlist thead tr th:nth-child(4){width:18%;}
+.THIS table.folderlist thead tr th:nth-child(5){width:20%;}
+.THIS table.folderlist thead tr th:last-child{width:8%;}
+.THIS table.folderlist tbody tr td:nth-child(2), .THIS table.folderlist tbody tr td:nth-child(1) lightning-input label.slds-checkbox__label{cursor:pointer;}
+.THIS table.folderlist tbody tr td:nth-child(1) lightning-input label.slds-checkbox__label{display:inline-block;}
+.THIS table.folderlist td:last-child{padding-right:10px;}
+
+.THIS .emptyFolder{ 
+    max-width: 10%;
+}
+
+.THIS .emptyFolderDiv{ 
+    text-align: center;
+}
+
+.THIS .slds-align_absolute-left{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.THIS .ShowShare{display:none;}
+.THIS table.folderlist tbody tr:hover .ShowShare{display:block;}
+
+.THIS .ShareBtn{ font-size:12px; padding:5px; height:20px;}
+.THIS .ShareBtn svg{width:10px;}
+
+@media (min-width:0px) and (max-width:767px){
+    .THIS table.folderlist thead tr th:first-child{width:11%;}
+    .THIS table.folderlist thead tr th:nth-child(2){width:25%;}
+	.THIS table.folderlist thead tr th:nth-child(3){width:13%;}
+	.THIS table.folderlist thead tr th:nth-child(4){width:20%;}
+	.THIS table.folderlist thead tr th:nth-child(5){width:20%;} 
+    .THIS table.folderlist td:first-child {padding-left:12px;}
+}

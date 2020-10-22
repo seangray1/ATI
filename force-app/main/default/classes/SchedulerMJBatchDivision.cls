@@ -15,4 +15,3 @@ global class SchedulerMJBatchDivision implements Schedulable {
         
      }
 }
-

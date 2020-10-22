@@ -1,0 +1,11 @@
+.THIS table.MainDriveWrap td{vertical-align:top;}
+.THIS .folderPath{font-weight:700;}
+.THIS .border-line{border-bottom: 1px solid #d6d6d6;padding-bottom: 8px;}
+/* Table Height */
+.THIS .tbllist{height:450px;overflow-y:auto;}
+/*.THIS table.MainDriveWrap td:nth-child(1){ width:20%;}*/
+
+.THIS .btnitem{
+    padding: 0 12px;
+    font-size: 14px;
+}

@@ -1,0 +1,139 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             10-AUG-2020
+* @Status           In-Progress
+* @Componnet Name   GoogleDriveNewFolderFileComp
+* @description      This component is being used to display the buttons to create New folder, Google docs, MS docs.	
+*********************************************************************************************
+ Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+*********************************************************************************************-->
+<aura:component controller='GoogleDriveIntegrationCompController' implements="force:hasSObjectName,force:hasRecordId">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="sObjectName" type="String"/>
+    
+    <aura:attribute name="currentFolderGDId" type="String"/>
+    <aura:attribute name="isCreateFolderModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="isCreateFileModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="newFolderName" type="String" default="New Folder"/>
+    <aura:attribute name="newFileName" type="String" default="Untitled File"/>
+    <aura:attribute name="newFileType" type="String"/>
+    <aura:attribute name="isNewButtonDisabled" type="boolean" default="false"/>
+    <!--<aura:attribute name="isCurrentFolderReadOnly" type="Boolean"/>-->
+    
+    <!-- Spinner & Error attributes -->
+    <aura:attribute name="spinner" type="Boolean" default="FALSE"/>
+    <aura:attribute name="showError" type="Boolean" required="true" description="" default="false" access="private" />
+    <aura:attribute name="errorMessage" type="String" required="false" description="" access="private" />
+    
+    <!--Event to refresh current open folders view once new folder is created -->
+    <aura:registerEvent name="ReloadCurrentFolderContents" type="c:PassSubFolderDetailEvent"/>
+    <!--Event to redirect user to Google drive once new file is created -->
+    <aura:registerEvent name="OpenNewFileInGoogleDrive" type="c:PassNewCreatedFileDetailEvent"/>
+    
+    <!-- New creation buttons start-->
+    <!--<div class="slds-m-vertical_small">-->
+        <aura:if isTrue="{!v.spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading...</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+        <div class="container lgc-bg" label="New">
+    		<lightning:buttonMenu alternativeText="New" label="New" onselect = "{! c.handleFolderFileCreation}" disabled="{!or(v.isNewButtonDisabled, equals(v.currentFolderGDId,undefined))}">
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/FolderIcon.png'}" class="listicon"/><lightning:menuItem value="folder" label="Folder"/>
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/GDocIcon.png'}" class="listicon"/><lightning:menuItem value="googleDoc" label="Google Doc"/>
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/GSheetIcon.png'}" class="listicon"/><lightning:menuItem value="googleSheet" label="Google Sheet" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/GSlideIcon.png'}" class="listicon"/><lightning:menuItem value="googleSlide" label="Google Slides" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/WordIcon.png'}" class="listicon"/><lightning:menuItem value="msDoc" label="Word Document" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/ExcelIcon.png'}" class="listicon"/><lightning:menuItem value="msExcel" label="Excel Spreadsheet" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/PPTIcon.png'}" class="listicon"/><lightning:menuItem value="msPowerpoint" label="PowerPoint Presentation" />
+            </lightning:buttonMenu>
+            
+        </div>
+    <!--</div>-->
+    
+    <!-- New creation buttons end-->
+    
+    <!-- Modal pop up to capture new folder name-->
+    <aura:if isTrue="{!v.isCreateFolderModalOpen}">
+        <!-- Modal/Popup Box starts here-->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Folder</h2>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div>
+                        <label>Name</label>
+                        <lightning:input name="folderName" value="{! v.newFolderName }" placeholder="Untitled Folder"/>
+                        <aura:renderIf isTrue="{!v.showError}">
+                            <div id="error" class="error">
+                                <ui:outputRichText value="{!v.errorMessage}" />
+                            </div>
+                        </aura:renderIf>
+                    </div>
+                </div>
+                <!--Modal/Popup Box Footer Starts here-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeCreateFolderModal }"/>
+                    <lightning:button variant="brand"
+                                      label="Create"
+                                      title="Create"
+                                      onclick="{!c.createNewFolder}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!-- Modal pop up to capture new folder name  end-->
+    
+    <!-- Modal pop up to capture new file name-->
+    <aura:if isTrue="{!v.isCreateFileModalOpen}">
+        <!-- Modal/Popup Box starts here-->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New File</h2>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div>
+                        <label>Name</label>
+                        <lightning:input name="fileName" value="{! v.newFileName }" placeholder="Untitled File"/>
+                        <aura:renderIf isTrue="{!v.showError}">
+                            <div id="error" class="error">
+                                <ui:outputRichText value="{!v.errorMessage}" />
+                            </div>
+                        </aura:renderIf>
+                    </div>
+                </div>
+                <!--Modal/Popup Box Footer Starts here-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeCreateFileModal }"/>
+                    <lightning:button variant="brand"
+                                      label="Create"
+                                      title="Create"
+                                      onclick="{!c.createNewFile}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!-- Modal pop up to capture new file name  end-->
+    
+</aura:component>

@@ -1,0 +1,16 @@
+.THIS .folderPath:hover {
+    text-decoration: underline;
+}
+
+.THIS .slds-button:hover{
+    text-decoration: underline;
+}
+
+.THIS .slds-button {
+    font-weight:700!important;
+}
+.THIS .refreshButton{
+    max-width: 30px;
+    float: right;
+    
+}

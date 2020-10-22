@@ -3,7 +3,7 @@ public without sharing class BudgetLWCController {
     @AuraEnabled(cacheable=true)
     public static List<Budget__c> RetrieveBudget(Id budgetId) 
     {
-        List<Budget__c> budgetRecord = [Select Id,Allocation_Overhead__c,Budget_LineItem_Status__c,Allocations__c,X3_Program_Fees__c,GP_Goal__c,Overhead__c,Profit__c,Sales_Tax__c,Overhead_Profit_Sales_Tax__c FROM Budget__c Where Id =: budgetId];
+        List<Budget__c> budgetRecord = [Select Id,Allocation_Overhead__c,Budget_LineItem_Status__c,Allocations__c,X3_Program_Fees__c,GP_Goal__c,Overhead__c,Profit__c,Sales_Tax__c,Overhead_Profit_Sales_Tax__c,Tax_Exempt__c FROM Budget__c Where Id =: budgetId];
         return budgetRecord;
     }
 
@@ -59,6 +59,14 @@ public without sharing class BudgetLWCController {
         return TradePickValue;
     }
 
+    // TO Update Sales Tax -- Sean Gray
+    @AuraEnabled
+    public static String UpdateSalesTax(Id BudgetId, Decimal SalesTax){
+        system.debug('Budget Id ' + BudgetId + ' Sales Tax ' + SalesTax);
+        Budget__c b = new Budget__c(Id = BudgetId, Sales_Tax__c = SalesTax);
+        update b;
+        return b.Id;
+    }
     // TO Upsert BLI -- By DemandBlue
     @AuraEnabled
     public static String UpdateBLI(List<Budget_Line_Item__c> UpdateBLIList, String OverheadProfit){

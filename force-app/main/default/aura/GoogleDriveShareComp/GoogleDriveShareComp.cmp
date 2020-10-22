@@ -1,0 +1,55 @@
+<aura:component controller = 'GoogleDriveSendLinkMail' access="global" implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="GDriveLink" type="String" /><!-- GDrive Link for Share Comp -->
+     <aura:attribute name="SharingGLinkFileName" type="String" /><!-- GDrive FileName for Share Comp -->
+    <aura:attribute name="ShareOptions" type="boolean" />
+    <aura:attribute name="emailContent" type="String" />
+    <aura:attribute name="emailSubject" type="String" />
+    <aura:attribute name="toEmail" type="String" />
+    
+    <!--<p class="slds-text-heading_small">
+     <lightning:button class="ShareBtn" variant="brand" label="Share" title="Share" iconName="utility:socialshare" onclick="{! c.handleShare }"/>
+    </p> -->
+    
+    
+    
+    <div class="slds">
+        <div role="dialog" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header ">
+                    <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModel }" alternativeText="close" variant="bare-inverse" class="slds-modal__close"/>
+                    <h1 class="slds-text-heading--medium">Sharing Options</h1>
+                </div>
+                
+                <div class="slds-modal__content slds-p-around--medium">
+                    <center>
+                        <lightning:tabset selectedTabId="CopyLink">
+                            <lightning:tab label="Copy Link" id="CopyLink">
+                                <div class="GroupFields">
+                                    <lightning:input type="input" label="Shared Link" value="{!v.GDriveLink}" name="input5" disabled="true" />
+                                    <lightning:button label="Copy" variant="brand" iconName="utility:link" onclick="{!c.CoptyToClipBoard}" />
+                                </div>
+                            </lightning:tab>
+                            <lightning:tab label="Email Link" id="EmailLink">
+                                <div class="EmailInputsWrap">
+                                    <lightning:input aura:id="EmailForm" class="emailForm" label="To: " type="text" name="toEmail" value="{!v.toEmail}"
+                                                     required="true" messageWhenPatternMismatch="Please enter a valid email or valid emails separated by a semi-colon"
+                                                     pattern="^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*;\s*|\s*$))*$" />
+                                    <lightning:input aura:id="EmailSubject" label="Subject" type="text" name="EmaiSubject" value="{!v.emailSubject}" required="true" />
+                                    <lightning:textarea class="EmailContent" aura:id="EmailContent" name="EmailContent" label="Content" value="{!v.emailContent}" required="true" />
+                                    <lightning:button label="Send" class="EmailBtn" variant="brand" onclick="{!c.SendEmail}" />
+                                </div>
+                            </lightning:tab>
+                        </lightning:tabset>
+                    </center>                        
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button--brand" onclick="{!c.closeModel}">Close</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </div>        
+    
+    
+</aura:component>

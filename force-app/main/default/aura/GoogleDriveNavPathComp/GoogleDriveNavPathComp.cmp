@@ -1,0 +1,62 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             10-AUG-2020
+* @Status           In-Progress
+* @Componnet Name   GoogleDriveNavPathComp
+* @description      This component is being used to display the links for all parent folders of the folder open on the screen.	
+*********************************************************************************************
+ Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+*********************************************************************************************-->
+<aura:component controller='GoogleDriveIntegrationCompController'>
+    <aura:attribute name="navPathDetailsMap" type="Map"/><!--Map to show links to parent folders-->
+    <aura:attribute name="currentFolderGDId" type="String"/><!-- Current open folder's Google Drive Ref Id -->
+    <!-- Spinner & Error attributes -->
+    <aura:attribute name="spinner" type="Boolean" default="FALSE"/>
+	<aura:attribute name="enableRefreshButton" type="boolean" default="true"/>	
+    
+    <!--Event to pass sub-folder's(folder link clicked) GD Id to the parent component -->
+    <aura:registerEvent name="LoadFolderContentForNavPathClickEvent" type="c:PassSubFolderDetailEvent"/>
+    <aura:registerEvent name="RefreshCurrentFolderContent" type="c:PassSubFolderDetailEvent"/>    
+    
+    <div class="slds-clearfix">
+        <div class="slds-float_left">
+            <aura:iteration items="{!v.navPathDetailsMap}" var="item" indexVar="key">
+                <aura:if isTrue="{!v.spinner}">
+                    <div aura:id="spinnerId" class="slds-spinner_container">
+                        <div class="slds-spinner--brand  slds-spinner slds-spinner--medium slds-is-relative" role="alert">
+                            <span class="slds-assistive-text">Loading...</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!equals(v.currentFolderGDId,item.key)}">
+                    <span class="folderPath">
+                        /&nbsp;<aura:text value="{!item.value}" ></aura:text>
+                    </span>
+                    <aura:set attribute="else">
+                        <span class="folderPath">
+                            /<lightning:button variant="base" label="{!item.value}" title="{!item.value}" onclick="{!c.openFolder}" value="{!item.key}" class="slds-m-left_x-small"/>
+                        </span>
+                    </aura:set>
+                </aura:if>
+                
+            </aura:iteration>
+            
+        </div>
+        
+        <div class="slds-float_right">
+            <aura:if isTrue="{!and(not(equals(v.currentFolderGDId,undefined)),v.enableRefreshButton)}">
+                <a href="" onclick="{!c.reloadCurrentFolderContents}">
+                    <img src="{!$Resource.GDI_NewButtonIcons+ '/RefreshIcon.png'}" align="right"  class="refreshButton" title="Refresh"/>
+                    <!--<lightning:icon iconName="utility:refresh" alternativeText="Refresh" title="Refresh" class="refreshButton"/>-->
+                </a>
+            </aura:if>
+        </div>
+    </div>
+    
+    
+</aura:component>
