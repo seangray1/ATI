@@ -71,12 +71,12 @@ List<User> userList, Boolean DoInsert)
         j.Project_Manager_New__c = userList[1].Id;
         if(i < 12)
         {
-            if(pickListValuesList[i] == 'Construction'){
-                j.Division__c = 'Asbestos';
-            }
-            else{
+            // if(pickListValuesList[i] == 'Construction'){
+            //     j.Division__c = 'Asbestos';
+            // }
+            // else{
                 j.Division__c = pickListValuesList[i]; 
-            }    
+            // }    
         }
         else
         {

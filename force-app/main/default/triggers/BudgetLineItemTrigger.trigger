@@ -40,7 +40,7 @@ trigger BudgetLineItemTrigger on Budget_Line_Item__c (before insert, before upda
             }
             if(Trigger.isInsert)
             {
-                // BudgetLineItemFieldUpdate.UpdateOverheadProfit(trigger.new, null);
+                BudgetLineItemFieldUpdate.UpdateOverheadProfit(trigger.new, null);
             }
             
         }
