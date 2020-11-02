@@ -6,6 +6,7 @@ trigger BudgetLineItemTrigger on Budget_Line_Item__c (before insert, before upda
         
         if (Trigger.isBefore && (Trigger.isUpdate || Trigger.isInsert)){
             BudgetLineItemFieldUpdate.LineItemFieldUpdate(trigger.new);
+            // BudgetLineItemFieldUpdate.UpdateBudgetGoalAmount(trigger.new);
             //BudgetLineItemFieldUpdate.CreateSubparentforEstimateItem(trigger.new);
         }
         

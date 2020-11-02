@@ -8,5 +8,5 @@
     <masterLabel>Clone</masterLabel>
     <openType>replace</openType>
     <protected>false</protected>
-    <url>/{!ATI_Job__c.Id}/e?{!ATI_Job__c.RecordType}=&#39;New_Job_Not_Approved&#39;&amp;{!ATI_Job__c.Division__c}=&quot;&quot;&amp;{!ATI_Job__c.Job_Number_Sequence__c}=&quot;&quot;&amp;{!ATI_Job__c.Job_Number_Sequence_Group__c}=&quot;&quot;&amp;{!ATI_Job__c.Job_Number__c}=&quot;H&quot;&amp;=&quot;&quot;&amp;{!ATI_Job__c.Project_Manager__c}=&quot;&quot;&amp;{!ATI_Job__c.Date_Time_Taken__c}={!NOW()}&amp;{!ATI_Job__c.CloseDate__c}={!TODAY()}&amp;clone=1;retURL=%2F{!ATI_Job__c.Id}</url>
+    <url>/{!ATI_Job__c.Id}/e?{!ATI_Job__c.RecordType}=&apos;New_Job_Not_Approved&apos;&amp;{!ATI_Job__c.Division__c}=&quot;&quot;&amp;{!ATI_Job__c.Job_Number_Sequence__c}=&quot;&quot;&amp;{!ATI_Job__c.Job_Number_Sequence_Group__c}=&quot;&quot;&amp;{!ATI_Job__c.Job_Number__c}=&quot;H&quot;&amp;=&quot;&quot;&amp;{!ATI_Job__c.Project_Manager__c}=&quot;&quot;&amp;{!ATI_Job__c.Date_Time_Taken__c}={!NOW()}&amp;{!ATI_Job__c.CloseDate__c}={!TODAY()}&amp;clone=1;retURL=%2F{!ATI_Job__c.Id}</url>
 </WebLink>

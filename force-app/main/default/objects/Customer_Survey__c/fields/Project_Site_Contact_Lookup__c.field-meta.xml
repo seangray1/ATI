@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Project_Site_Contact_Lookup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>Project Site Contact lookup field populated via Process Builder flow &#39;Project Site Contact Population onto Customer Survey&#39; from associated Job record, in order to send them an email alert thanking them for their participation in an ATI survey.</description>
+    <description>Project Site Contact lookup field populated via Process Builder flow &apos;Project Site Contact Population onto Customer Survey&apos; from associated Job record, in order to send them an email alert thanking them for their participation in an ATI survey.</description>
     <externalId>false</externalId>
     <label>Project Site Contact</label>
     <referenceTo>Contact</referenceTo>

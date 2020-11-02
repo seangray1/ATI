@@ -167,7 +167,7 @@
                 <leftValueReference>myVariable_current.Job_Class__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Municipality/ Gov&#39;t</stringValue>
+                    <stringValue>Municipality/ Gov&apos;t</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -448,7 +448,7 @@
                 <leftValueReference>myVariable_old.Job_Class__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Municipality/ Gov&#39;t</stringValue>
+                    <stringValue>Municipality/ Gov&apos;t</stringValue>
                 </rightValue>
             </conditions>
             <conditions>

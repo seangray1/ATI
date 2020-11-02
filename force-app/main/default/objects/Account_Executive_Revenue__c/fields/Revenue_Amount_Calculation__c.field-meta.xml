@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Revenue_Amount_Calculation__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(Type__c == &#39;Account Executive 1&#39;, 
+    <formula>IF(Type__c == &apos;Account Executive 1&apos;, 
 Billing_Forecast__r.Revenue_Amount__c / Billing_Forecast__r.Account_Executive_Count__c, Billing_Forecast__r.Revenue_Amount__c / 2)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Revenue Amount</label>

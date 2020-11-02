@@ -43,9 +43,9 @@
                 <label>Deductible Issues</label>
             </value>
             <value>
-                <fullName>Adjuster&#39;s Contractor</fullName>
+                <fullName>Adjuster&apos;s Contractor</fullName>
                 <default>false</default>
-                <label>Adjuster&#39;s Contractor</label>
+                <label>Adjuster&apos;s Contractor</label>
             </value>
             <value>
                 <fullName>Scheduling Conflict</fullName>

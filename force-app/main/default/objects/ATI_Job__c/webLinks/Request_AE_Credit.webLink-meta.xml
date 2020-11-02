@@ -7,5 +7,5 @@
     <masterLabel>Request AE Credit</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>if ((Modal.confirm &amp;&amp; Modal.confirm(&#39;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&#39;)) || (!Modal.confirm &amp;&amp; window.confirm(&#39;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&#39;))) navigateToUrl(&#39;/apex/SubmitForApproval?id={!ATI_Job__c.Id}&amp;lock=0&#39;);</url>
+    <url>if ((Modal.confirm &amp;&amp; Modal.confirm(&apos;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&apos;)) || (!Modal.confirm &amp;&amp; window.confirm(&apos;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&apos;))) navigateToUrl(&apos;/apex/SubmitForApproval?id={!ATI_Job__c.Id}&amp;lock=0&apos;);</url>
 </WebLink>

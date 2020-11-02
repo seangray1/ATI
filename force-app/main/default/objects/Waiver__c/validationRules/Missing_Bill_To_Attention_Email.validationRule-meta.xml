@@ -6,5 +6,5 @@
     <errorConditionFormula>AND (Bill_To_Attention__r.Email=&quot;&quot;, 
 ISPICKVAL (Delivery_Method__c,&quot;Email&quot;), 
 RecordType.DeveloperName=&quot;Waiver&quot;)</errorConditionFormula>
-    <errorMessage>Contact in Bill To Attention is missing an email. Please change the Delivery Method to &#39;Mail&#39; or add an email address to the Bill To Attention contact record.</errorMessage>
+    <errorMessage>Contact in Bill To Attention is missing an email. Please change the Delivery Method to &apos;Mail&apos; or add an email address to the Bill To Attention contact record.</errorMessage>
 </ValidationRule>

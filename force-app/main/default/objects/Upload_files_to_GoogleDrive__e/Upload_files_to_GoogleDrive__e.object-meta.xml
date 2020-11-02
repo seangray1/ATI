@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This event will contain the details about which files and where these files are to be uploaded in Google Drive.</description>
+    <eventType>HighVolume</eventType>
+    <label>Upload Files to GoogleDrive</label>
+    <pluralLabel>Upload Files to GoogleDrive</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

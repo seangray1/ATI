@@ -3,7 +3,7 @@
     <fullName>Name_Other_Required</fullName>
     <active>true</active>
     <description>Make sure that other is entered when needed.</description>
-    <errorConditionFormula>AND(ISPICKVAL(PickListName__c  , &#39;Other&#39;),  ISBLANK(Other__c  ))</errorConditionFormula>
+    <errorConditionFormula>AND(ISPICKVAL(PickListName__c  , &apos;Other&apos;),  ISBLANK(Other__c  ))</errorConditionFormula>
     <errorDisplayField>Other__c</errorDisplayField>
     <errorMessage>You need to enter a value, when the &quot;Other&quot; option is selected on the name field.</errorMessage>
 </ValidationRule>

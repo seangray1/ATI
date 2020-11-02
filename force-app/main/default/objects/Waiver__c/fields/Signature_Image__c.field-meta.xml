@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Signature_Image__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(NOT(ISBLANK(User_Signature__r.Signature_Image_URL__c)),IMAGE( User_Signature__r.Signature_Image_URL__c, User_Signature__c, 80, 200), &#39;&#39;)</formula>
+    <formula>IF(NOT(ISBLANK(User_Signature__r.Signature_Image_URL__c)),IMAGE( User_Signature__r.Signature_Image_URL__c, User_Signature__c, 80, 200), &apos;&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Signature Image</label>
     <required>false</required>

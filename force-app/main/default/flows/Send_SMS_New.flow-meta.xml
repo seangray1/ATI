@@ -437,7 +437,7 @@ ISCHANGED([Opportunity].SMS_Template__c) &amp;&amp;
 
 NOT(ISNULL([Opportunity].SMS_Template__c)) &amp;&amp;
 
-[Opportunity].SMS_Template__c &lt;&gt; &#39;a6O0g000000kAoNEAU&#39;</stringValue>
+[Opportunity].SMS_Template__c &lt;&gt; &apos;a6O0g000000kAoNEAU&apos;</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1</name>
@@ -453,7 +453,7 @@ ISCHANGED({!myVariable_current.SMS_Template__c}) &amp;&amp;
 
 NOT(ISNULL({!myVariable_current.SMS_Template__c})) &amp;&amp;
 
-{!myVariable_current.SMS_Template__c} &lt;&gt; &#39;a6O0g000000kAoNEAU&#39;</expression>
+{!myVariable_current.SMS_Template__c} &lt;&gt; &apos;a6O0g000000kAoNEAU&apos;</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -467,7 +467,7 @@ this is soon to be obsoleted by use of the survey object
 
 ---------------------------------------------------------------------------------------------------------------------------------------*/
 
-[Opportunity].SMS_Template__c = &#39;a6O0g000000kAoNEAU&#39; &amp;&amp;
+[Opportunity].SMS_Template__c = &apos;a6O0g000000kAoNEAU&apos; &amp;&amp;
 ISCHANGED([Opportunity].SMS_Template__c) </stringValue>
             </value>
         </processMetadataValues>
@@ -481,7 +481,7 @@ this is soon to be obsoleted by use of the survey object
 
 ---------------------------------------------------------------------------------------------------------------------------------------*/
 
-{!myVariable_current.SMS_Template__c} = &#39;a6O0g000000kAoNEAU&#39; &amp;&amp;
+{!myVariable_current.SMS_Template__c} = &apos;a6O0g000000kAoNEAU&apos; &amp;&amp;
 ISCHANGED({!myVariable_current.SMS_Template__c})</expression>
     </formulas>
     <interviewLabel>Send_SMS_New-1_InterviewLabel</interviewLabel>

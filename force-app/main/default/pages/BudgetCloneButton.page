@@ -51,11 +51,14 @@
                 <apex:inputField value="{!Budget__c.Estimated_Completion_Date__c}"/>  
                 <apex:inputField value="{!Budget__c.Project_Director__c}"/>
                 <apex:inputfield value="{!Budget__c.Allocations__c}">
-                    <apex:outputField value="{!Budget__c.Overhead__c}"/>
-                <apex:outputField value="{!Budget__c.Profit__c}"/>
+
+                
                 <apex:outputField value="{!Budget__c.Sales_Tax_Percent__c}"/>
                     <apex:actionSupport event="onchange" rerender="allocation"/>
-                </apex:inputfield>                
+                </apex:inputfield>    
+                <apex:outputField value="{!Budget__c.Overhead__c}"/>
+                <apex:outputtext value=""/>
+                <apex:outputField value="{!Budget__c.Profit__c}"/>            
                 <apex:inputField value="{!Budget__c.Allocation_Overhead__c}"/>
                 <apex:inputField value="{!Budget__c.Project_Manager__c}"/>
                 <apex:inputfield value="{!Budget__c.X3_Program_Fees__c}"/>

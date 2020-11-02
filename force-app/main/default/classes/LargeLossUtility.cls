@@ -239,12 +239,12 @@ public without sharing class LargeLossUtility {
                 recordsToInsert.add(l);
                 
                 jobids.add(largeloss.job__c);
-                if(String.isEmpty(largeloss.previous_review__c))
-                {
+                // if(String.isEmpty(largeloss.previous_review__c))
+                // {
                     
                     ATI_Job__c job = new ATI_Job__c(Id = largeloss.job__c, Large_Loss_Status__c = largeloss.status__c);
                     jobsToUpdate.add(job);
-                }
+                // }
                 
             }
             ATI_Job__c jobStageCheck = [Select Id, Stage__c FROM ATI_Job__c WHERE Id =:jobids limit 1];

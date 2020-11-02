@@ -3,9 +3,9 @@
     <fullName>Sales_Tax__c</fullName>
     <externalId>false</externalId>
     <label>Sales Tax</label>
-    <precision>11</precision>
+    <precision>14</precision>
     <required>false</required>
-    <scale>2</scale>
+    <scale>5</scale>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

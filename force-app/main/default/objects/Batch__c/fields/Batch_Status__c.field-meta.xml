@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Batch_Status__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Batch status from Timberline. Initially the batch status will be &#39;New&#39;. Once the batch is sent to Timberline, the status will be updated to Sync Successful/Sync Failed based on the response from Timberline.</inlineHelpText>
+    <inlineHelpText>Batch status from Timberline. Initially the batch status will be &apos;New&apos;. Once the batch is sent to Timberline, the status will be updated to Sync Successful/Sync Failed based on the response from Timberline.</inlineHelpText>
     <label>Batch Status</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

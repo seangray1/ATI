@@ -4,8 +4,8 @@
     <externalId>false</externalId>
     <formula>IF(
     NOT(ISBLANK( NLLS_Review_Date__c)),
-    (NLLS_Review_Date__c - NLLS_Creation_Date__c),
-    NOW() - NLLS_Creation_Date__c
+    (NLLS_Review_Date__c - NLL_Creation_Date__c),
+    NOW() - NLL_Creation_Date__c
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Days Pending</label>

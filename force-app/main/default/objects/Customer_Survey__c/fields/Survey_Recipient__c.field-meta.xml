@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Survey_Recipient__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>Additional recipients that need to be emailed the survey responses via the &#39;New Survey Notification&#39; workflow—This field is populated via code.</description>
+    <description>Additional recipients that need to be emailed the survey responses via the &apos;New Survey Notification&apos; workflow—This field is populated via code.</description>
     <externalId>false</externalId>
     <label>Survey Recipient</label>
     <referenceTo>User</referenceTo>

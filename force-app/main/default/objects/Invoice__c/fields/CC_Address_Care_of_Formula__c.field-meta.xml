@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <formula>CC_Address_Care_of_lookup__r.Billing_Street__c  &amp;  BR()&amp;
 CC_Address_Care_of_lookup__r.Billing_City__c &amp; 
-IF(ISBLANK(CC_Address_Care_of_lookup__r.Billing_Street__c), &#39; &#39;, &#39;, &#39;) &amp; 
+IF(ISBLANK(CC_Address_Care_of_lookup__r.Billing_Street__c), &apos; &apos;, &apos;, &apos;) &amp; 
 CC_Address_Care_of_lookup__r.Billing_State__c &amp;&quot; &quot;&amp;  
 CC_Address_Care_of_lookup__r.Billing_Zipcode__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

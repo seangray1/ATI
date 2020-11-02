@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Egnyte_Path__c</fullName>
     <externalId>false</externalId>
-    <formula>&#39;Salesforce.com/ATI_Jobs/Jobs&#39;</formula>
+    <formula>&apos;Salesforce.com/ATI_Jobs/Jobs&apos;</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Egnyte Path</label>
     <required>false</required>

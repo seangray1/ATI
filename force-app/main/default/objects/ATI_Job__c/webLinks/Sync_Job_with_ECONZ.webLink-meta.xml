@@ -10,7 +10,7 @@
     <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)}  
 {!REQUIRESCRIPT(&quot;/soap/ajax/10.0/apex.js&quot;)}  
 
-//alert(&#39;{!ATI_Job__c.Stage__c}&#39;);
+//alert(&apos;{!ATI_Job__c.Stage__c}&apos;);
 if(&quot;{!ATI_Job__c.Stage__c}&quot; != &quot;Won&quot; &amp;&amp; &quot;{!ATI_Job__c.Stage__c}&quot; != &quot;Complete&quot;){ 
 alert(&quot;Only Jons Won or Complete are Synced with EConz.&quot;); 
 } 

@@ -192,45 +192,45 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
-        <expression>({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1_pmetrule</name>
         <dataType>Boolean</dataType>
-        <expression>({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL({!myVariable_old.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ISPICKVAL({!myVariable_old.Intake_Status__c}, &quot;Business Requested&quot;) &amp;&amp; ISNEW()</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Reviewed/Completed&quot;) </stringValue>
+                <stringValue>($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ISPICKVAL([ATI_Job__c].Intake_Status__c, &quot;Reviewed/Completed&quot;) </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_3</name>
         <dataType>Boolean</dataType>
-        <expression>({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Reviewed/Completed&quot;)</expression>
+        <expression>({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;) &amp;&amp; ISPICKVAL({!myVariable_current.Intake_Status__c}, &quot;Reviewed/Completed&quot;)</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>ISNEW() &amp;&amp; ISBLANK(TEXT([ATI_Job__c].Intake_Status__c)) &amp;&amp; ($Profile.Name &lt;&gt; &#39;Restricted Process Execution&#39;)</stringValue>
+                <stringValue>ISNEW() &amp;&amp; ISBLANK(TEXT([ATI_Job__c].Intake_Status__c)) &amp;&amp; ($Profile.Name &lt;&gt; &apos;Restricted Process Execution&apos;)</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_5</name>
         <dataType>Boolean</dataType>
-        <expression>ISNEW() &amp;&amp; ISBLANK(TEXT({!myVariable_current.Intake_Status__c})) &amp;&amp; ({!$Profile.Name} &lt;&gt; &#39;Restricted Process Execution&#39;)</expression>
+        <expression>ISNEW() &amp;&amp; ISBLANK(TEXT({!myVariable_current.Intake_Status__c})) &amp;&amp; ({!$Profile.Name} &lt;&gt; &apos;Restricted Process Execution&apos;)</expression>
     </formulas>
     <interviewLabel>Job_Intake_Alert-3_InterviewLabel</interviewLabel>
     <label>JOB - New Job Alerts</label>

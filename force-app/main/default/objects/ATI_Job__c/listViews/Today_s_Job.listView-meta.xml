@@ -21,5 +21,5 @@
         <operation>equals</operation>
         <value>TODAY</value>
     </filters>
-    <label>Today&#39;s Job</label>
+    <label>Today&apos;s Job</label>
 </ListView>

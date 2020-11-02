@@ -49,9 +49,9 @@
                 <label>Community College</label>
             </value>
             <value>
-                <fullName>Condo&#39;s</fullName>
+                <fullName>Condo&apos;s</fullName>
                 <default>false</default>
-                <label>Condo&#39;s</label>
+                <label>Condo&apos;s</label>
             </value>
             <value>
                 <fullName>Convention Center</fullName>
@@ -346,7 +346,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Multi-Family</controllingFieldValue>
-            <valueName>Condo&#39;s</valueName>
+            <valueName>Condo&apos;s</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Multi-Family</controllingFieldValue>

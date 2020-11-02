@@ -187,7 +187,7 @@
 
 If all previous attempts at finding a record failed ( via SFID, or Invitee Email ): then we need to create a record.
 
-We will always create a Lead when we couldn&#39;t find a record.</description>
+We will always create a Lead when we couldn&apos;t find a record.</description>
         <name>Do_we_have_a_Record</name>
         <label>Do we have a Record?</label>
         <locationX>1494</locationX>
@@ -224,7 +224,7 @@ We will always create a Lead when we couldn&#39;t find a record.</description>
 
 In the last step, we attempted to overwrite the OwnerId with the id of the user whose email matches the publisher.
 
-So at this point, we hope to have an owner defined.  If we don&#39;t we&#39;ll have to look up the system admin.</description>
+So at this point, we hope to have an owner defined.  If we don&apos;t we&apos;ll have to look up the system admin.</description>
         <name>Event_Owner</name>
         <label>Event Owner?</label>
         <locationX>1094</locationX>
@@ -376,9 +376,9 @@ So at this point, we hope to have an owner defined.  If we don&#39;t we&#39;ll h
         </rules>
     </decisions>
     <decisions>
-        <description>If we cannot find the system admin profile, we cannot find the system admin.  And if we&#39;re at this point in the logic, we have no other owner.
+        <description>If we cannot find the system admin profile, we cannot find the system admin.  And if we&apos;re at this point in the logic, we have no other owner.
 
-So there&#39;s no path forward if the profile is not found.</description>
+So there&apos;s no path forward if the profile is not found.</description>
         <name>Profile_Found</name>
         <label>Profile Found?</label>
         <locationX>1227</locationX>
@@ -426,7 +426,7 @@ So there&#39;s no path forward if the profile is not found.</description>
         </rules>
     </decisions>
     <decisions>
-        <description>So there&#39;s no path forward if the system admin is not found.</description>
+        <description>So there&apos;s no path forward if the system admin is not found.</description>
         <name>User_Found</name>
         <label>User Found?</label>
         <locationX>1230</locationX>

@@ -168,7 +168,30 @@ public without sharing class BudgetFieldUpdate {
         }
     }
     
-    
+    public static void UpdateBudgetLineItemGoalAmount(List<Budget__c> buds, Map<Id,Budget__c> oldBuds)
+    {
+        List<Budget__c> BudLineItemsToQuery = new List<Budget__c>();
+        for(Budget__c b : buds)
+        {
+            Budget__c oldBud = oldBuds.get(b.Id);
+            system.debug('New GP ' + b.GP_Goal__c + ' Old GP ' + oldBud.GP_Goal__c);
+            if(b.Allocation_Overhead__c != oldBud.Allocation_Overhead__c || b.X3_Program_Fees__c != oldBud.X3_Program_Fees__c
+            || b.Allocations__c != oldBud.Allocations__c)
+            // || b.GP_Goal__c != oldBud.GP_Goal__c
+            {
+                BudLineItemsToQuery.add(b);
+            }
+        }
+        if(!BudLineItemsToQuery.isEmpty())
+        {
+            List<Budget_Line_Item__c> budLineItems = [Select Id, Budget_Goal__c, Budget_Goal_Amount__c FROM Budget_Line_Item__c WHERE Budget__c =: BudLineItemsToQuery];
+            for(Budget_Line_Item__c b : budLineItems)
+            {
+                b.Budget_Goal_Amount__c = b.Budget_Goal__c;
+            }
+            update budLineItems;
+        }
+    }
      @future
      public static void futureUpdateFinancialGP(Set<Id> jobIds, Map<Id,String> jobIdGP)
      {

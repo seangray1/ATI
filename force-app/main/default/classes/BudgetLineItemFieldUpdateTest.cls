@@ -47,13 +47,13 @@ public class BudgetLineItemFieldUpdateTest {
         
         Budget__c bud = new Budget__c(Name = 'Test Budget',ATI_Job__c = job.id);
         insert bud;
-        
+        test.startTest();
         Budget_Line_Item__c bli = new Budget_Line_Item__c(Budget__c = bud.id,Trade__c = 'FRM',Item_Description__c = '#2 &amp; better');
         bli.X10_10_Allocation__c = true;
         bli.Revenue__c = 30.0;
         bli.Selector__c = null;
         insert bli;
-        
+        test.stopTest();
         CheckRecursiveOnBLIUpdate.run = true;
         update bli; 
         budLineMap.put(bli.id,bli);
@@ -76,7 +76,7 @@ public class BudgetLineItemFieldUpdateTest {
         
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Number__c = '1111-00',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id );
         insert job;
-        
+        test.startTest();
         Budget__c bud = new Budget__c(Name = 'Test Budget',ATI_Job__c = job.id);
         insert bud;
         
@@ -93,7 +93,7 @@ public class BudgetLineItemFieldUpdateTest {
         bli.Other_Costs__c = 70.0;
         
         insert bli;
-        
+        test.stopTest();
         Map<Id,Budget_Line_Item__c> budLineItemMap = new Map<id,Budget_Line_Item__c>();
         budLineItemMap.put(bli.id,bli);
         
@@ -134,7 +134,7 @@ public class BudgetLineItemFieldUpdateTest {
         
         Budget__c bud = new Budget__c(Name = 'Test Budget',ATI_Job__c = job.id);
         insert bud;
-        
+        test.startTest();
         Budget_Line_Item__c bli = new Budget_Line_Item__c(Budget__c = bud.id,Trade__c = 'FRM FRAMING & ROUGH CARPENTRY',Item_Description__c = '#2 &amp; better');
         bli.X10_10_Allocation__c = true;
         bli.Revenue__c = 30.0;
@@ -148,7 +148,7 @@ public class BudgetLineItemFieldUpdateTest {
         bli.Other_Costs__c = 70.0;
         
         insert bli;
-        
+		test.stopTest();        
         Map<Id,Budget_Line_Item__c> budLineItemMap = new Map<id,Budget_Line_Item__c>();
         budLineItemMap.put(bli.id,bli);
         

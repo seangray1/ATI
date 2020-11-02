@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Xact_Sync_NonProgram_Only</fullName>
+    <active>true</active>
+    <errorConditionFormula>XACT_Sync__c = TRUE &amp;&amp; CONTAINS(TEXT(Lead_Source__c), &quot;Program&quot;)</errorConditionFormula>
+    <errorDisplayField>XACT_Sync__c</errorDisplayField>
+    <errorMessage>Sync can only enabled for Non-Program Jobs</errorMessage>
+</ValidationRule>

@@ -4,6 +4,11 @@
     <externalId>false</externalId>
     <label>Total In-House Total</label>
     <summarizedField>Budget_Line_Item__c.In_House_Total__c</summarizedField>
+    <summaryFilterItems>
+        <field>Budget_Line_Item__c.Is_Parent__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
     <summaryForeignKey>Budget_Line_Item__c.Budget__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>

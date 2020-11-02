@@ -3,7 +3,7 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <inlineHelpText>Enter &#39;Not Applicable&#39; if no contact is required.</inlineHelpText>
+    <inlineHelpText>Enter &apos;Not Applicable&apos; if no contact is required.</inlineHelpText>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Expense Line Items</relationshipLabel>

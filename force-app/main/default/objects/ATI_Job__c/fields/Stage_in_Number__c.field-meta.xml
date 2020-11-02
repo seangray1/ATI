@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Stage_in_Number__c</fullName>
     <externalId>false</externalId>
-    <formula>IF((ISPICKVAL(Stage__c ,&#39;Won &#39;)),1,0)</formula>
+    <formula>IF((ISPICKVAL(Stage__c ,&apos;Won &apos;)),1,0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Stage in Number</label>
     <precision>18</precision>

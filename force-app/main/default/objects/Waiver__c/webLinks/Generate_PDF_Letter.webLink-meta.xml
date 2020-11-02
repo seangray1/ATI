@@ -30,5 +30,5 @@
 &amp;MFTS0=Final__c
 &amp;MFTSValue0=True
 &amp;AttachmentParentId={!Waiver__c.ATI_JobId__c }
-&amp;OFN={Template.Label}{!&#39;_&#39; +  Waiver__c.Invoice__c  + &#39;_&#39; +  TEXT(YEAR(TODAY())) + &#39;-&#39; + TEXT(MONTH(TODAY())) + &#39;-&#39; + TEXT(DAY(TODAY())) }</url>
+&amp;OFN={Template.Label}{!&apos;_&apos; +  Waiver__c.Invoice__c  + &apos;_&apos; +  TEXT(YEAR(TODAY())) + &apos;-&apos; + TEXT(MONTH(TODAY())) + &apos;-&apos; + TEXT(DAY(TODAY())) }</url>
 </WebLink>

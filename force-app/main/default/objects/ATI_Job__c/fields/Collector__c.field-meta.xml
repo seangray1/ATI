@@ -3,13 +3,13 @@
     <fullName>Collector__c</fullName>
     <description>Collector from Project Managers User record</description>
     <externalId>false</externalId>
-    <formula>IF(AND( ISPICKVAL( Lead_Source__c , &#39;National Account (ERA, Contract, Etc)&#39;), Default_Collector__c &lt;&gt; TRUE) , &#39;Cassandra O`Neill&#39;, 
+    <formula>IF(AND( ISPICKVAL( Lead_Source__c , &apos;National Account (ERA, Contract, Etc)&apos;), Default_Collector__c &lt;&gt; TRUE) , &apos;Cassandra O`Neill&apos;, 
 IF(AND( Default_Collector__c &lt;&gt; TRUE, OR 
-(ISPICKVAL( Lead_Source__c , &#39;Program - Lionsbridge&#39;),
-ISPICKVAL( Lead_Source__c , &#39;Program - Alacrity Services&#39;),
-ISPICKVAL( Lead_Source__c , &#39;Program - Alacrity Consumer Services&#39;)
+(ISPICKVAL( Lead_Source__c , &apos;Program - Lionsbridge&apos;),
+ISPICKVAL( Lead_Source__c , &apos;Program - Alacrity Services&apos;),
+ISPICKVAL( Lead_Source__c , &apos;Program - Alacrity Consumer Services&apos;)
 )
-), &#39;Alicia Sierra&#39;, 
+), &apos;Alicia Sierra&apos;, 
 IF (Default_Collector__c = TRUE, Project_Manager__r.Collector__r.FirstName &amp; &quot; &quot; &amp; Project_Manager__r.Collector__r.LastName , Project_Manager__r.Collector__r.FirstName &amp; &quot; &quot; &amp; Project_Manager__r.Collector__r.LastName ) ))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Collector</label>

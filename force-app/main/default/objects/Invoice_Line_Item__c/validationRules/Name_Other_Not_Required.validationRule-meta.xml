@@ -3,7 +3,7 @@
     <fullName>Name_Other_Not_Required</fullName>
     <active>true</active>
     <description>Make sure that other is not entered when not required.</description>
-    <errorConditionFormula>AND(NOT(ISPICKVAL(PickListName__c  , &#39;Other&#39;)),  NOT(ISBLANK(Other__c  )))</errorConditionFormula>
+    <errorConditionFormula>AND(NOT(ISPICKVAL(PickListName__c  , &apos;Other&apos;)),  NOT(ISBLANK(Other__c  )))</errorConditionFormula>
     <errorDisplayField>Other__c</errorDisplayField>
     <errorMessage>You must not enter a value, when there is a name selected.</errorMessage>
 </ValidationRule>

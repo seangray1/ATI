@@ -190,7 +190,7 @@ SaveDescription1(){
                     inputCmp.reportValidity();
                     return validSoFar && inputCmp.checkValidity();
         }, true);
-    if(!input)
+    if(input)
     {
         this.ContactInfo = "Name: "+ this.ContactName +  '\n';
         if(this.Company != null)
@@ -219,7 +219,7 @@ SaveDescriptionTwo1(){
                     inputCmp.reportValidity();
                     return validSoFar && inputCmp.checkValidity();
         }, true);
-    if(!input)
+    if(input)
     {
 
     this.Description = "Description of Loss: "+ this.DescriptionOfLoss +  '\n';

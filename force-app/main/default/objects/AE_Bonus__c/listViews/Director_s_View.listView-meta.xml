@@ -23,7 +23,7 @@
         <operation>greaterOrEqual</operation>
         <value>THIS_YEAR</value>
     </filters>
-    <label>Director&#39;s View</label>
+    <label>Director&apos;s View</label>
     <sharedTo>
         <role>Director_of_Business_Development_Central</role>
         <role>Director_of_Business_Development_Eastern</role>

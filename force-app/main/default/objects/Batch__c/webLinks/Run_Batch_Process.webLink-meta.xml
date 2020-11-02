@@ -14,9 +14,9 @@
 
 var result = sforce.apex.execute(&quot;MRExecuteBatchClass&quot;, &quot;executeBatchClass&quot;,{}); 
 
-var pathArray = location.href.split( &#39;/&#39; ); 
+var pathArray = location.href.split( &apos;/&apos; ); 
 var protocol = pathArray[0]; 
 var host = pathArray[2]; 
-var url = protocol + &#39;//&#39; + host + &#39;/a4T&#39;; 
+var url = protocol + &apos;//&apos; + host + &apos;/a4T&apos;; 
 window.location.href = url;</url>
 </WebLink>

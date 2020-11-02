@@ -7,5 +7,5 @@
     NOT($Setup.InvoiceSettings__c.Can_Modify_Final_Invoices__c),
     NOT(ISNEW()),
     PRIORVALUE(Is_Final__c) == True )</errorConditionFormula>
-    <errorMessage>This invoice has been marked as &#39;Final&#39; and cannot be modified</errorMessage>
+    <errorMessage>This invoice has been marked as &apos;Final&apos; and cannot be modified</errorMessage>
 </ValidationRule>

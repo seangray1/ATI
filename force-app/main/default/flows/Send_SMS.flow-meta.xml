@@ -572,7 +572,7 @@ ISCHANGED([ATI_Job__c].SMS_Template__c) &amp;&amp;
 
 NOT(ISNULL([ATI_Job__c].SMS_Template__c)) &amp;&amp; 
 
-[ATI_Job__c].SMS_Template__c &lt;&gt; &#39;a6O0g000000kAoNEAU&#39; &amp;&amp;
+[ATI_Job__c].SMS_Template__c &lt;&gt; &apos;a6O0g000000kAoNEAU&apos; &amp;&amp;
 
 ($Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)
 
@@ -592,7 +592,7 @@ ISCHANGED({!myVariable_current.SMS_Template__c}) &amp;&amp;
 
 NOT(ISNULL({!myVariable_current.SMS_Template__c})) &amp;&amp; 
 
-{!myVariable_current.SMS_Template__c} &lt;&gt; &#39;a6O0g000000kAoNEAU&#39; &amp;&amp;
+{!myVariable_current.SMS_Template__c} &lt;&gt; &apos;a6O0g000000kAoNEAU&apos; &amp;&amp;
 
 ({!$Profile.Name} &lt;&gt; &quot;Restricted Process Execution&quot;)</expression>
     </formulas>
@@ -608,7 +608,7 @@ this is soon to be obsoleted by use of the survey object
 
 ---------------------------------------------------------------------------------------------------------------------------------------*/
 
-[ATI_Job__c].SMS_Template__c = &#39;a6O0g000000kAoNEAU&#39; &amp;&amp;
+[ATI_Job__c].SMS_Template__c = &apos;a6O0g000000kAoNEAU&apos; &amp;&amp;
 ISCHANGED([ATI_Job__c].SMS_Template__c) &amp;&amp;
 
 ($Profile.Name &lt;&gt; &quot;Restricted Process Execution&quot;)
@@ -626,7 +626,7 @@ this is soon to be obsoleted by use of the survey object
 
 ---------------------------------------------------------------------------------------------------------------------------------------*/
 
-{!myVariable_current.SMS_Template__c} = &#39;a6O0g000000kAoNEAU&#39; &amp;&amp;
+{!myVariable_current.SMS_Template__c} = &apos;a6O0g000000kAoNEAU&apos; &amp;&amp;
 ISCHANGED({!myVariable_current.SMS_Template__c}) &amp;&amp;
 
 ({!$Profile.Name} &lt;&gt; &quot;Restricted Process Execution&quot;)</expression>

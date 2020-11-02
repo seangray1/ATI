@@ -8,9 +8,9 @@
 Year_Billed__c =  TEXT(YEAR(today())),
 
 CASE(Quarter_Billed__c,
-&#39;Q1&#39;, Date(year(today()),3,31), 
-&#39;Q2&#39;, Date(year(today()),6,30),
-&#39;Q3&#39;,Date(year(today()),9,30),
+&apos;Q1&apos;, Date(year(today()),3,31), 
+&apos;Q2&apos;, Date(year(today()),6,30),
+&apos;Q3&apos;,Date(year(today()),9,30),
 Date(year(today()),12,31)),
 
 Date(0000, 0, 0))</formula>

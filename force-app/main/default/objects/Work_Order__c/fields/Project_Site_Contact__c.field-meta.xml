@@ -3,7 +3,7 @@
     <fullName>Project_Site_Contact__c</fullName>
     <description>Formula field to populate the Project Site Contact Name from the Job record</description>
     <externalId>false</externalId>
-    <formula>ATI_Job__r.Project_Site_Contact_Name__r.FirstName &amp; &#39; &#39; &amp;  ATI_Job__r.Project_Site_Contact_Name__r.LastName</formula>
+    <formula>ATI_Job__r.Project_Site_Contact_Name__r.FirstName &amp; &apos; &apos; &amp;  ATI_Job__r.Project_Site_Contact_Name__r.LastName</formula>
     <label>Project Site Contact</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

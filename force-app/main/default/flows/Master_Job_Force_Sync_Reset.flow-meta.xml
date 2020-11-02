@@ -52,7 +52,7 @@
             <label>Master Job Reset Checkbox</label>
         </rules>
     </decisions>
-    <interviewLabel>Master_Job_Force_Sync_Reset-1_InterviewLabel</interviewLabel>
+    <interviewLabel>Master_Job_Force_Sync_Reset-2_InterviewLabel</interviewLabel>
     <label>Master Job Force Sync Reset</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -160,7 +160,7 @@
         <object>Master_Job__c</object>
     </recordUpdates>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

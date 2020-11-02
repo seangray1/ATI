@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Pending_LL_Reviews</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Days_Pending__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Job__c</columns>
+    <columns>Project_Director__c</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Job_to_Date_Costs__c</columns>
+    <columns>Job_to_Date_Work_Billed__c</columns>
+    <columns>Job_To_Date_GP_Percent__c</columns>
+    <columns>Amount__c</columns>
+    <columns>Total_Billing_Forecast__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Pending</value>
+    </filters>
+    <label>All Pending LL Reviews</label>
+    <sharedTo>
+        <group>Large_Loss_Management_Team</group>
+    </sharedTo>
+</ListView>

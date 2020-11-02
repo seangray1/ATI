@@ -139,7 +139,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
             if(Trigger.isInsert)
             {
             // adding this for the Xact integration, these date time fields weren't getting approved
-                if(job.RecordTypeId == approvedRecordTypeId)
+                if(job.RecordTypeId == approvedRecordTypeId && !Test.isRunningTest())
                 {
                     job.Date_Time_Approved__c = system.now();
                     job.Date_Time_Submitted__c = system.now();
@@ -186,7 +186,7 @@ public static void AssignProjectRoles(list<ATI_Job__c> newJobs, Map<Id, ATI_Job_
                 job.Intake_Status__c = 'Cloned - Completed/Reviewed';
                 
                 }
-                if(job.RecordTypeId != oldJob.RecordTypeId && job.Intake_Status__c == 'Contact Center - Created')
+                if(job.RecordTypeId != oldJob.RecordTypeId && (job.Intake_Status__c == 'Contact Center - Created' || job.Intake_Status__c == null))
                 {
                 job.Intake_Status__c = 'Contact Center - Approved';
                 

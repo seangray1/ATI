@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CC_Address_careOf__c</fullName>
     <externalId>false</externalId>
-    <formula>CC_CareOf__r.BillingStreet &amp; IF(OR(ISBLANK(CC_CareOf__r.BillingStreet), ISBLANK(CC_CareOf__r.BillingCity)), &#39; &#39;, &#39;, &#39;) &amp; CC_CareOf__r.BillingCity &amp;  IF(OR(ISBLANK(CC_CareOf__r.BillingCity), ISBLANK(CC_CareOf__r.BillingState)), &#39; &#39;, &#39;, &#39;)  &amp; CC_CareOf__r.BillingState &amp;&quot; &quot;&amp; CC_CareOf__r.BillingPostalCode</formula>
+    <formula>CC_CareOf__r.BillingStreet &amp; IF(OR(ISBLANK(CC_CareOf__r.BillingStreet), ISBLANK(CC_CareOf__r.BillingCity)), &apos; &apos;, &apos;, &apos;) &amp; CC_CareOf__r.BillingCity &amp;  IF(OR(ISBLANK(CC_CareOf__r.BillingCity), ISBLANK(CC_CareOf__r.BillingState)), &apos; &apos;, &apos;, &apos;)  &amp; CC_CareOf__r.BillingState &amp;&quot; &quot;&amp; CC_CareOf__r.BillingPostalCode</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>CC Address</label>
     <required>false</required>

@@ -191,23 +191,23 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>&#39;Net Due: $&#39;  &amp; TEXT([Invoice__c].Net_Due__c) &amp; &#39; by &#39; &amp; TEXT([Invoice__c].Due_Date_New__c ) &amp; &#39;.&#39;</stringValue>
+                <stringValue>&apos;Net Due: $&apos;  &amp; TEXT([Invoice__c].Net_Due__c) &amp; &apos; by &apos; &amp; TEXT([Invoice__c].Due_Date_New__c ) &amp; &apos;.&apos;</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_3_myRule_1_A1_4802087259</name>
         <dataType>String</dataType>
-        <expression>&#39;Net Due: $&#39;  &amp; TEXT({!myVariable_current.Net_Due__c}) &amp; &#39; by &#39; &amp; TEXT({!myVariable_current.Due_Date_New__c} ) &amp; &#39;.&#39;</expression>
+        <expression>&apos;Net Due: $&apos;  &amp; TEXT({!myVariable_current.Net_Due__c}) &amp; &apos; by &apos; &amp; TEXT({!myVariable_current.Due_Date_New__c} ) &amp; &apos;.&apos;</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>&#39;Collection -&#39; &amp;  [Invoice__c].Name </stringValue>
+                <stringValue>&apos;Collection -&apos; &amp;  [Invoice__c].Name </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_4_myRule_1_A1_3536942967</name>
         <dataType>String</dataType>
-        <expression>&#39;Collection -&#39; &amp;  {!myVariable_current.Name}</expression>
+        <expression>&apos;Collection -&apos; &amp;  {!myVariable_current.Name}</expression>
     </formulas>
     <interviewLabel>Collections_Case-3_InterviewLabel</interviewLabel>
     <label>Collections Cases</label>

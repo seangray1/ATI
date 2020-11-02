@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This will contain the list of file extensions and MIME type for which files can be uploaded to Google Drive via lightning comp and &quot;Files&quot; related list.</description>
+    <label>GoogleDriveUploadMIMETypeConfigSetting</label>
+    <pluralLabel>GoogleDriveUploadMIMETypeConfigSettings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

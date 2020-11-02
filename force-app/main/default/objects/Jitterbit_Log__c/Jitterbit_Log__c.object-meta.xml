@@ -152,12 +152,12 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <label>Jitterbit Log</label>
+    <label>API Log</label>
     <nameField>
-        <label>Jitterbit Log Name</label>
+        <label>API Log Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Jitterbit Logs</pluralLabel>
+    <pluralLabel>API Logs</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

@@ -3,9 +3,9 @@
     <fullName>In_House_Hours__c</fullName>
     <externalId>false</externalId>
     <label>In-House Hours</label>
-    <precision>5</precision>
+    <precision>7</precision>
     <required>false</required>
-    <scale>0</scale>
+    <scale>2</scale>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

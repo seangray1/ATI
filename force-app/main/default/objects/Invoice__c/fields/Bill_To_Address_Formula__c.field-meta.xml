@@ -3,8 +3,8 @@
     <fullName>Bill_To_Address_Formula__c</fullName>
     <description>Formula field to populate Bill To Address onto the Invoice from Billing Address object.</description>
     <externalId>false</externalId>
-    <formula>Bill_To_Address3__r.Billing_Street__c &amp; IF(ISBLANK( Bill_To_Address3__r.Billing_City__c ), &#39;&#39;, BR()) &amp;  
-Bill_To_Address3__r.Billing_City__c &amp; IF(ISBLANK( Bill_To_Address3__r.Billing_City__c ), &#39;&#39;, &#39;, &#39;)  &amp;  Bill_To_Address3__r.Billing_State__c &amp; &#39; &#39; &amp;  Bill_To_Address3__r.Billing_Zipcode__c</formula>
+    <formula>Bill_To_Address3__r.Billing_Street__c &amp; IF(ISBLANK( Bill_To_Address3__r.Billing_City__c ), &apos;&apos;, BR()) &amp;  
+Bill_To_Address3__r.Billing_City__c &amp; IF(ISBLANK( Bill_To_Address3__r.Billing_City__c ), &apos;&apos;, &apos;, &apos;)  &amp;  Bill_To_Address3__r.Billing_State__c &amp; &apos; &apos; &amp;  Bill_To_Address3__r.Billing_Zipcode__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Bill To Address</label>
     <required>false</required>

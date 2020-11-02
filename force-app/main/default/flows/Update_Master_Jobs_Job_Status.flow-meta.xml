@@ -109,7 +109,7 @@ ISNEW() || ISCHANGED({!myVariable_current.Stage__c} ) ,
 NOT(ISBLANK({!myVariable_current.Master_Job__c}))
 )</expression>
     </formulas>
-    <interviewLabel>Update_Master_Jobs_Job_Status-6_InterviewLabel</interviewLabel>
+    <interviewLabel>Update_Master_Jobs_Job_Status-7_InterviewLabel</interviewLabel>
     <label>Update Master Jobs Job Status</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -137,7 +137,7 @@ NOT(ISBLANK({!myVariable_current.Master_Job__c}))
     </processMetadataValues>
     <processType>Workflow</processType>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

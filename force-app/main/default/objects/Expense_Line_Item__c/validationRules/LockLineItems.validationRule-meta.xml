@@ -4,8 +4,8 @@
     <active>true</active>
     <description>Prevents users from editing once the Expense record is approved</description>
     <errorConditionFormula>AND(
-(ISPICKVAL( Expense__r.Status__c , &#39;Approved&#39;) || ISPICKVAL( Expense__r.Status__c , &#39;Submitted&#39;)),
-NOT($Profile.Name  == &#39;System Administrator&#39;)
+(ISPICKVAL( Expense__r.Status__c , &apos;Approved&apos;) || ISPICKVAL( Expense__r.Status__c , &apos;Submitted&apos;)),
+NOT($Profile.Name  == &apos;System Administrator&apos;)
 )</errorConditionFormula>
     <errorMessage>Expense has been approved. Line items cannot be created or edited.</errorMessage>
 </ValidationRule>

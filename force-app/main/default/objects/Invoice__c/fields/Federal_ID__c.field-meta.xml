@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Federal_ID__c</fullName>
-    <defaultValue>&#39;33-0352215&#39;</defaultValue>
+    <defaultValue>&apos;33-0352215&apos;</defaultValue>
     <externalId>false</externalId>
     <label>Federal ID</label>
     <length>16</length>

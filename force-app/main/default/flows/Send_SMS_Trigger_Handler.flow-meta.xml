@@ -137,10 +137,10 @@ Param3: Template Id
 Param4: Optional Outgoing Phone Number if blank uses default
 Carefully note the placement of the commas
 ***********************************************************************/
-TRIM([Triggered_SMS_Handler__c].RecordId__c) &amp; &#39;,&#39; &amp;
-[Triggered_SMS_Handler__c].MobileNumber__c &amp; &#39;,&#39; &amp;
-TRIM([Triggered_SMS_Handler__c].Template__c) &amp; &#39;,&#39; &amp;
-&#39;18004009353&#39;</stringValue>
+TRIM([Triggered_SMS_Handler__c].RecordId__c) &amp; &apos;,&apos; &amp;
+[Triggered_SMS_Handler__c].MobileNumber__c &amp; &apos;,&apos; &amp;
+TRIM([Triggered_SMS_Handler__c].Template__c) &amp; &apos;,&apos; &amp;
+&apos;18004009353&apos;</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_2_myRule_1_A1_6792603654</name>
@@ -153,10 +153,10 @@ Param3: Template Id
 Param4: Optional Outgoing Phone Number if blank uses default
 Carefully note the placement of the commas
 ***********************************************************************/
-TRIM({!myVariable_current.RecordId__c}) &amp; &#39;,&#39; &amp;
-{!myVariable_current.MobileNumber__c} &amp; &#39;,&#39; &amp;
-TRIM({!myVariable_current.Template__c}) &amp; &#39;,&#39; &amp;
-&#39;18004009353&#39;</expression>
+TRIM({!myVariable_current.RecordId__c}) &amp; &apos;,&apos; &amp;
+{!myVariable_current.MobileNumber__c} &amp; &apos;,&apos; &amp;
+TRIM({!myVariable_current.Template__c}) &amp; &apos;,&apos; &amp;
+&apos;18004009353&apos;</expression>
     </formulas>
     <interviewLabel>Send_SMS_Trigger_Handler-12_InterviewLabel</interviewLabel>
     <label>Send SMS Trigger Handler</label>

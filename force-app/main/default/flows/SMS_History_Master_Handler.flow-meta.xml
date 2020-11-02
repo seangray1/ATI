@@ -435,7 +435,7 @@
             <connector>
                 <targetReference>myRule_5_A1</targetReference>
             </connector>
-            <label>50% complete &#39;NO&#39; response</label>
+            <label>50% complete &apos;NO&apos; response</label>
         </rules>
     </decisions>
     <decisions>
@@ -497,7 +497,7 @@
             <connector>
                 <targetReference>myRule_9_A1</targetReference>
             </connector>
-            <label>50% complete &#39;YES&#39; response</label>
+            <label>50% complete &apos;YES&apos; response</label>
         </rules>
     </decisions>
     <description>Sets incoming template from previous outbound template</description>
@@ -511,13 +511,13 @@ Template ID a6O0g000000kAoIEAU = Job 50% Complete
 ****************************************************************************************************/
 
 
-[tdc_tsw__Message__c].Name = &#39;Incoming&#39; &amp;&amp;
+[tdc_tsw__Message__c].Name = &apos;Incoming&apos; &amp;&amp;
 
 NOT(ISNULL([tdc_tsw__Message__c].ATI_Job__c)) &amp;&amp;
 
-[tdc_tsw__Message__c].tdc_tsw__SMS_Template__c = &#39;a6O0g000000kAoIEAU&#39; &amp;&amp;
+[tdc_tsw__Message__c].tdc_tsw__SMS_Template__c = &apos;a6O0g000000kAoIEAU&apos; &amp;&amp;
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;NO&#39; &amp;&amp;
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;NO&apos; &amp;&amp;
 
 [tdc_tsw__Message__c].ATI_Job__c.Project_Site_Contact_Name__c.tdc_tsw__SMS_Opt_out__c = FALSE</stringValue>
             </value>
@@ -530,13 +530,13 @@ Template ID a6O0g000000kAoIEAU = Job 50% Complete
 ****************************************************************************************************/
 
 
-{!myVariable_current.Name} = &#39;Incoming&#39; &amp;&amp;
+{!myVariable_current.Name} = &apos;Incoming&apos; &amp;&amp;
 
 NOT(ISNULL({!myVariable_current.ATI_Job__c})) &amp;&amp;
 
-{!myVariable_current.tdc_tsw__SMS_Template__c} = &#39;a6O0g000000kAoIEAU&#39; &amp;&amp;
+{!myVariable_current.tdc_tsw__SMS_Template__c} = &apos;a6O0g000000kAoIEAU&apos; &amp;&amp;
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;NO&#39; &amp;&amp;
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;NO&apos; &amp;&amp;
 
 {!myVariable_current.ATI_Job__r.Project_Site_Contact_Name__r.tdc_tsw__SMS_Opt_out__c} = FALSE</expression>
     </formulas>
@@ -550,25 +550,25 @@ Question ID a6f0g000000x3CiAAI = Job Survey
 ****************************************************************************************************/
 
 
-[tdc_tsw__Message__c].Name = &#39;Incoming&#39; &amp;&amp;
+[tdc_tsw__Message__c].Name = &apos;Incoming&apos; &amp;&amp;
 
 NOT(ISNULL([tdc_tsw__Message__c].ATI_Job__c )) &amp;&amp;
 
-[tdc_tsw__Message__c].tdc_tsw__Question__c  = &#39;a6f0g000000x3CiAAI&#39; &amp;&amp;
+[tdc_tsw__Message__c].tdc_tsw__Question__c  = &apos;a6f0g000000x3CiAAI&apos; &amp;&amp;
 
 OR
 
-(TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;0&#39;,
+(TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;0&apos;,
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;1&#39;,
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;1&apos;,
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;2&#39;,
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;2&apos;,
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;3&#39;,
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;3&apos;,
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;4&#39;,
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;4&apos;,
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;5&#39;)
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;5&apos;)
 </stringValue>
             </value>
         </processMetadataValues>
@@ -580,25 +580,25 @@ Question ID a6f0g000000x3CiAAI = Job Survey
 ****************************************************************************************************/
 
 
-{!myVariable_current.Name} = &#39;Incoming&#39; &amp;&amp;
+{!myVariable_current.Name} = &apos;Incoming&apos; &amp;&amp;
 
 NOT(ISNULL({!myVariable_current.ATI_Job__c} )) &amp;&amp;
 
-{!myVariable_current.tdc_tsw__Question__c}  = &#39;a6f0g000000x3CiAAI&#39; &amp;&amp;
+{!myVariable_current.tdc_tsw__Question__c}  = &apos;a6f0g000000x3CiAAI&apos; &amp;&amp;
 
 OR
 
-(TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;0&#39;,
+(TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;0&apos;,
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;1&#39;,
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;1&apos;,
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;2&#39;,
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;2&apos;,
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;3&#39;,
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;3&apos;,
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;4&#39;,
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;4&apos;,
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;5&#39;)</expression>
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;5&apos;)</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -610,13 +610,13 @@ Template ID a6O0g000000kAoIEAU = Job 50% Complete
 ****************************************************************************************************/
 
 
-[tdc_tsw__Message__c].Name = &#39;Incoming&#39; &amp;&amp;
+[tdc_tsw__Message__c].Name = &apos;Incoming&apos; &amp;&amp;
 
 NOT(ISNULL([tdc_tsw__Message__c].ATI_Job__c)) &amp;&amp;
 
-[tdc_tsw__Message__c].tdc_tsw__SMS_Template__c = &#39;a6O0g000000kAoIEAU&#39; &amp;&amp;
+[tdc_tsw__Message__c].tdc_tsw__SMS_Template__c = &apos;a6O0g000000kAoIEAU&apos; &amp;&amp;
 
-TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &#39;YES&#39; &amp;&amp;
+TRIM(UPPER([tdc_tsw__Message__c].tdc_tsw__Message_Text_New__c)) = &apos;YES&apos; &amp;&amp;
 
 [tdc_tsw__Message__c].ATI_Job__c.Project_Site_Contact_Name__c.tdc_tsw__SMS_Opt_out__c = FALSE</stringValue>
             </value>
@@ -629,13 +629,13 @@ Template ID a6O0g000000kAoIEAU = Job 50% Complete
 ****************************************************************************************************/
 
 
-{!myVariable_current.Name} = &#39;Incoming&#39; &amp;&amp;
+{!myVariable_current.Name} = &apos;Incoming&apos; &amp;&amp;
 
 NOT(ISNULL({!myVariable_current.ATI_Job__c})) &amp;&amp;
 
-{!myVariable_current.tdc_tsw__SMS_Template__c} = &#39;a6O0g000000kAoIEAU&#39; &amp;&amp;
+{!myVariable_current.tdc_tsw__SMS_Template__c} = &apos;a6O0g000000kAoIEAU&apos; &amp;&amp;
 
-TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &#39;YES&#39; &amp;&amp;
+TRIM(UPPER({!myVariable_current.tdc_tsw__Message_Text_New__c})) = &apos;YES&apos; &amp;&amp;
 
 {!myVariable_current.ATI_Job__r.Project_Site_Contact_Name__r.tdc_tsw__SMS_Opt_out__c} = FALSE</expression>
     </formulas>

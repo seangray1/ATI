@@ -4,14 +4,14 @@
     <active>true</active>
     <description>Complex Loss cannot be unchecked once it has been checked.</description>
     <errorConditionFormula>AND(
-$Profile.Name &lt;&gt; &#39;System Administrator&#39;, 
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;, 
 Complex_Loss__c = FALSE,
 ISCHANGED ( Complex_Loss__c ),
 OR(
-ISPICKVAL(Stage__c, &#39;Won&#39;),
-ISPICKVAL(Stage__c, &#39;Lost&#39;),
-ISPICKVAL(Stage__c, &#39;Work Complete&#39;),
-ISPICKVAL(Stage__c, &#39;Billing Complete&#39;),
+ISPICKVAL(Stage__c, &apos;Won&apos;),
+ISPICKVAL(Stage__c, &apos;Lost&apos;),
+ISPICKVAL(Stage__c, &apos;Work Complete&apos;),
+ISPICKVAL(Stage__c, &apos;Billing Complete&apos;),
 NOT(ISBLANK(Last_NCLS_Approval_Date_and_Time__c))
 )
 )</errorConditionFormula>

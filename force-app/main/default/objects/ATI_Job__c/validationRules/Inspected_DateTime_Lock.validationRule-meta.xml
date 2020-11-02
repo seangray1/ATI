@@ -2,78 +2,78 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Inspected_DateTime_Lock</fullName>
     <active>true</active>
-    <errorConditionFormula>(((NOT(ISBLANK(PRIORVALUE(Inspected__c))) 
-&amp;&amp; (ISBLANK(Inspected__c) || PRIORVALUE(Inspected__c)  &lt;&gt;  Inspected__c  )) 
+    <errorConditionFormula>(((NOT(ISBLANK(PRIORVALUE(Inspected__c)))
+&amp;&amp; (ISBLANK(Inspected__c) || PRIORVALUE(Inspected__c) &lt;&gt; Inspected__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Inspected__c)) &amp;&amp;
-Inspected__c   &lt;=  (NOW()-  (1/1440))
+Inspected__c &lt;= (NOW()- (1/1440))
 ))
 ||
-((NOT(ISBLANK(PRIORVALUE(Customer_Contacted__c))) 
-&amp;&amp; (ISBLANK(Customer_Contacted__c) || PRIORVALUE(Customer_Contacted__c)  &lt;&gt;  Customer_Contacted__c  )) 
+((NOT(ISBLANK(PRIORVALUE(Customer_Contacted__c)))
+&amp;&amp; (ISBLANK(Customer_Contacted__c) || PRIORVALUE(Customer_Contacted__c) &lt;&gt; Customer_Contacted__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Customer_Contacted__c)) &amp;&amp;
-Customer_Contacted__c   &lt;=  (NOW() -  (1/1440))
+Customer_Contacted__c &lt;= (NOW() - (1/1440))
 ))
 ||
-((NOT(ISBLANK(PRIORVALUE(Target_Start_Date__c))) 
-&amp;&amp; (ISBLANK(Target_Start_Date__c) || PRIORVALUE(Target_Start_Date__c)  &lt;&gt;  Target_Start_Date__c  )) 
+((NOT(ISBLANK(PRIORVALUE(Target_Start_Date__c)))
+&amp;&amp; (ISBLANK(Target_Start_Date__c) || PRIORVALUE(Target_Start_Date__c) &lt;&gt; Target_Start_Date__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Target_Start_Date__c)) &amp;&amp;
-Target_Start_Date__c   &lt;=  (NOW()-  (1/1440))
+Target_Start_Date__c &lt;= (NOW()- (1/1440))
 ))
 ||
-((NOT(ISBLANK(PRIORVALUE(Target_Job_Completion_Date__c))) 
-&amp;&amp; (ISBLANK(Target_Job_Completion_Date__c) || PRIORVALUE(Target_Job_Completion_Date__c)  &lt;&gt;  Target_Job_Completion_Date__c  )) 
+((NOT(ISBLANK(PRIORVALUE(Target_Job_Completion_Date__c)))
+&amp;&amp; (ISBLANK(Target_Job_Completion_Date__c) || PRIORVALUE(Target_Job_Completion_Date__c) &lt;&gt; Target_Job_Completion_Date__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Target_Job_Completion_Date__c)) &amp;&amp;
-Target_Job_Completion_Date__c   &lt;=  (NOW()-  (1/1440))
+Target_Job_Completion_Date__c &lt;= (NOW()- (1/1440))
 ))
 
 ||
 
-((NOT(ISBLANK(PRIORVALUE(Actual_Start_Date__c))) 
-&amp;&amp; (ISBLANK(Actual_Start_Date__c) || PRIORVALUE(Actual_Start_Date__c)  &lt;&gt;  Actual_Start_Date__c  )) 
+((NOT(ISBLANK(PRIORVALUE(Actual_Start_Date__c)))
+&amp;&amp; (ISBLANK(Actual_Start_Date__c) || PRIORVALUE(Actual_Start_Date__c) &lt;&gt; Actual_Start_Date__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Actual_Start_Date__c)) &amp;&amp;
-Actual_Start_Date__c   &lt;=  (NOW()-  (1/1440))
+Actual_Start_Date__c &lt;= (NOW()- (1/1440))
 ))
 
 ||
-((NOT(ISBLANK(PRIORVALUE(Actual_Job_Completion_Date__c))) 
-&amp;&amp; (ISBLANK(Actual_Job_Completion_Date__c) || PRIORVALUE(Actual_Job_Completion_Date__c)  &lt;&gt;  Actual_Job_Completion_Date__c  )) 
+((NOT(ISBLANK(PRIORVALUE(Actual_Job_Completion_Date__c)))
+&amp;&amp; (ISBLANK(Actual_Job_Completion_Date__c) || PRIORVALUE(Actual_Job_Completion_Date__c) &lt;&gt; Actual_Job_Completion_Date__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Actual_Job_Completion_Date__c)) &amp;&amp;
-Actual_Job_Completion_Date__c   &lt;=  (NOW()-  (1/1440))
+Actual_Job_Completion_Date__c &lt;= (NOW()- (1/1440))
 ))
 
 ||
 
-((NOT(ISBLANK(PRIORVALUE(Job_Not_Sold__c))) 
-&amp;&amp; (ISBLANK(Job_Not_Sold__c) || PRIORVALUE(Job_Not_Sold__c)  &lt;&gt;  Job_Not_Sold__c  )) 
+((NOT(ISBLANK(PRIORVALUE(Job_Not_Sold__c)))
+&amp;&amp; (ISBLANK(Job_Not_Sold__c) || PRIORVALUE(Job_Not_Sold__c) &lt;&gt; Job_Not_Sold__c ))
 
 ||
 
 (ISBLANK(PRIORVALUE(Job_Not_Sold__c)) &amp;&amp;
-Job_Not_Sold__c   &lt;=  (NOW()-  (1/1440))
+Job_Not_Sold__c &lt;= (NOW()- (1/1440))
 ))
 )
-&amp;&amp; 
+&amp;&amp;
 
 ($Profile.Name != &apos;System Administator&apos;
-&amp;&amp;
+||
 $Profile.Name != &apos;Restricted Process Execution&apos;)</errorConditionFormula>
     <errorMessage>Control Point fields cannot be back-dated and cannot be changed once entered.</errorMessage>
 </ValidationRule>

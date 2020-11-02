@@ -152,10 +152,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                 system.debug('&&&&&&&&&&'+LineItems[i].Is_sub_Parent__c);
                 system.debug('^^^^^^^^^^'+LineItems[i].Bypass_Calculation__c);
                  //BOF of Parent Calcuation
-                 if(LineItems[i].Trade__c == AllBudgetLI[j].Trade__c){
-                    if(AllBudgetLI[j].Is_sub_Parent__c && LineItems[i].Is_sub_Parent__c && !LineItems[i].Bypass_Calculation__c)
-                    {
-                    
+                 if(LineItems[i].Trade__c == AllBudgetLI[j].Trade__c && AllBudgetLI[j].Is_sub_Parent__c && LineItems[i].Is_sub_Parent__c && !LineItems[i].Bypass_Calculation__c){
                     NewPTrade = LineItems[i].Trade__c;
                     //Revenue
                     if(AllBudgetLI[j].Revenue__c!=null && AllBudgetLI[j].Is_sub_Parent__c){
@@ -190,6 +187,7 @@ public without sharing class BudgetLineItemFieldUpdate {
                     
 
                     //InHouseRate
+                    /*
                     System.debug('FIRST--NewPInHouseRate------'+NewPInHouseRate);
                     if(AllBudgetLI[j].In_House_Rate__c!=null && AllBudgetLI[j].Is_sub_Parent__c && AllBudgetLI[j].Revenue__c!=null){
                         InHouseCal = InHouseCal + (AllBudgetLI[j].In_House_Rate__c * AllBudgetLI[j].Revenue__c);
@@ -197,6 +195,18 @@ public without sharing class BudgetLineItemFieldUpdate {
                         if(InHouseCal!=0){
                             NewPInHouseRate = InHouseCal/NewPRevenue;
                             System.debug('NewPRevenue---------->'+NewPRevenue);
+                            System.debug('InHouseCal---------->'+InHouseCal);
+                        }
+                    }
+                    System.debug('Final Rate Value------->'+NewPInHouseRate);
+                     */
+                     //After new change requested -- 202 to 211 -- Updated by Demandblue
+                     if(AllBudgetLI[j].In_House_Rate__c!=null && AllBudgetLI[j].Is_sub_Parent__c && AllBudgetLI[j].In_House_Hours__c!=null){
+                        InHouseCal = InHouseCal + (AllBudgetLI[j].In_House_Rate__c * AllBudgetLI[j].In_House_Hours__c);
+                        System.debug('OtherChildRate------'+AllBudgetLI[j].In_House_Rate__c);                        
+                        if(InHouseCal!=0){
+                            NewPInHouseRate = InHouseCal/NewPInhouseHours;
+                            System.debug('NewPInhouseHours---------->'+NewPInhouseHours);
                             System.debug('InHouseCal---------->'+InHouseCal);
                         }
                     }
@@ -230,7 +240,6 @@ public without sharing class BudgetLineItemFieldUpdate {
                     
 
                     ArrayValtoRemov.add(AllBudgetLI[j]);
-                }
                 } //EOF of Parent Calcuation
                 else if (LineItems[i].Bypass_Calculation__c){
                     BypassCalculationList.add(LineItems[i].id);
@@ -285,11 +294,17 @@ public without sharing class BudgetLineItemFieldUpdate {
                             if(LineItems[i].Materials__c != oldValues.Materials__c) {
                                     UpsertBLIData.Materials__c = NewPMaterials.setscale(2);
                                 }
-                            if(LineItems[i].In_House_Rate__c != oldValues.In_House_Rate__c) {
+                            if((LineItems[i].In_House_Rate__c != oldValues.In_House_Rate__c)|| (LineItems[i].In_House_Hours__c != oldValues.In_House_Hours__c)) {
                                     UpsertBLIData.In_House_Rate__c = NewPInHouseRate.setscale(2);
                                     system.debug('In house rate full ' + UpsertBLIData.In_House_Rate_Full__c);
                                 	UpsertBLIData.In_House_Rate_Full__c = NewPInHouseRate;
-                                }
+                                } 
+                            if(NewPInHouseRate!=0){
+                                UpsertBLIData.In_House_Rate_Full__c = NewPInHouseRate;
+                            } else {
+                                UpsertBLIData.In_House_Rate_Full__c = LineItems[i].In_House_Rate__c;
+                            }
+                        	
                             if(LineItems[i].GP__c != oldValues.GP__c) {
                                     UpsertBLIData.GP__c = NewPGP.setscale(2);
                                 }
@@ -487,7 +502,8 @@ public without sharing class BudgetLineItemFieldUpdate {
                         } else{
                             InHouseCal = (InHouseCal + AllBudgetLI[j].In_House_Rate__c);
                             if(InHouseCal!=0){
-                                NewSPInHouseRate = InHouseCal/NewSPRevenue;
+                                //NewSPInHouseRate = InHouseCal/NewSPRevenue; After new change -- based on Revenue to Hours
+                                NewSPInHouseRate = InHouseCal/NewSPInhouseHours;
                             }
                         }
                     }
@@ -652,7 +668,7 @@ public without sharing class BudgetLineItemFieldUpdate {
         }
         
         List < Id > AllBudget = new List < Id > (BudgetIds);
-        AllLineItems = [Select Id,Name,X10_10_Allocation__c,Budget__c,Revenue__c,Trade__c,Is_Parent__c,Is_sub_Parent__c,Selector__c,GP__c,In_House_Hours__c,In_House_Rate_Full__c,In_House_Rate__c,Materials__c,Other_Costs__c,Equipment__c,From_Xact__c,Bypass_Calculation__c,Actual_Costs__c,Actual_Costs_BL__c,In_House_Total__c,Subcontractor_bid__c from Budget_Line_Item__c where Budget__c =: BudgetIds];
+        AllLineItems = [Select Id,Name,X10_10_Allocation__c,Budget__c,Revenue__c,Trade__c,Trade_Option__c,Is_Parent__c,Is_sub_Parent__c,Selector__c,GP__c,In_House_Hours__c,In_House_Rate_Full__c,In_House_Rate__c,Materials__c,Other_Costs__c,Equipment__c,From_Xact__c,Bypass_Calculation__c,Actual_Costs__c,Actual_Costs_BL__c,In_House_Total__c,Subcontractor_bid__c from Budget_Line_Item__c where Budget__c =: BudgetIds];
                 
         for (integer i=0; i < AllBudget.size(); i++) {
             List < Budget_Line_Item__c > BudgetWiseLineItem = new List < Budget_Line_Item__c > ();    
@@ -723,10 +739,14 @@ public without sharing class BudgetLineItemFieldUpdate {
                     if((LineItems[i].GP__c != oldValues.GP__c)){
                     UpdateBLIData.GP__c = LineItems[i].GP__c.setscale(2);
                     }
-                    if((LineItems[i].In_House_Rate__c != oldValues.In_House_Rate__c)){
-                    UpdateBLIData.In_House_Rate__c = LineItems[i].In_House_Rate__c.setscale(2);
+                    /*if((LineItems[i].In_House_Rate__c != oldValues.In_House_Rate__c)){
+                        UpdateBLIData.In_House_Rate__c = LineItems[i].In_House_Rate__c.setscale(2);
+                        UpdateBLIData.In_House_Rate_Full__c = LineItems[i].In_House_Rate__c;
+                    }*/
+                    UpdateBLIData.In_House_Rate__c = LineItems[i].In_House_Rate__c.setscale(2); // Added by Demandblue after new change
                     UpdateBLIData.In_House_Rate_Full__c = LineItems[i].In_House_Rate__c;
-                    }
+                    
+                    
                     
                     UpdateBLIList.add(UpdateBLIData);
                     ArrayValtoRemov.add(j);
@@ -821,50 +841,31 @@ public without sharing class BudgetLineItemFieldUpdate {
         update UpdatenewLineitems;
         }
     }
-
+    // public static void UpdateBudgetGoalAmount(List<Budget_Line_Item__c> budlines)
+    // {
+    //     for(Budget_Line_Item__c b : budlines)
+    //     {
+    //         b.Budget_Goal_Amount__c = b.Budget_Goal__c;
+    //         b.Allocation_Amount__c = b.Allocations__c;
+    //     }
+    // }
     public static void UpdateOverheadProfit(List<Budget_Line_Item__c> budlines, Map<Id,Budget_Line_Item__c> oldBudLines)
     {
-        
+        //Updating Budget Goal Amount and Allocation AMount for the budget line item, was a workflow rule, now it is before update/insert
         if(Trigger.isDelete && budlines.size() < 2)
         {
   
-            Budget__c bud = [SELECT Id, Overhead__c, Profit__c, Budget_lineItem_Status__c
+            Budget__c bud = [SELECT Id, Allocation_Percentage__c, Overhead__c, Profit__c, Budget_lineItem_Status__c,
+            (SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c,DonotDelete__c FROM Budget_Line_Items__r)
             FROM Budget__c
             WHERE Id =:budlines[0].Budget__c];
-            List<Budget_Line_Item__c> budLineItems = [SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c
-            FROM Budget_Line_Item__c
-            WHERE Budget__c =: budlines[0].Budget__c];
             if(bud.Budget_LineItem_Status__c == null)
             {
                 bud.Overhead__c = 0;
                 bud.Profit__c = 0;
-                for(Budget_Line_Item__c b : budLineItems)
+                for(Budget_Line_Item__c b :  bud.Budget_Line_Items__r)
                 {
-                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
-                    {
-                        bud.Overhead__c += b.Revenue__c * b.Allocation_Percentage__c;
-                        bud.Profit__c += b.Revenue__c * b.Allocation_Percentage__c;
-                        system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
-                    }    
-                }
-                update bud;
-            }
-        }
-        if(Trigger.isInsert && budlines.size() < 2)
-        {
-            Budget__c bud = [SELECT Id, Allocation_Percentage__c, Overhead__c, Profit__c, Budget_lineItem_Status__c
-            FROM Budget__c
-            WHERE Id =:budlines[0].Budget__c];
-            List<Budget_Line_Item__c> budLineItems = [SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c
-            FROM Budget_Line_Item__c
-            WHERE Budget__c =: budlines[0].Budget__c];
-            if(bud.Budget_LineItem_Status__c == null)
-            {
-                bud.Overhead__c = 0;
-                bud.Profit__c = 0;
-                for(Budget_Line_Item__c b : budLineItems)
-                {
-                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Selector__c == null)
+                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Revenue__c != 0 && b.DonotDelete__c == false)
                     {
                         bud.Overhead__c += b.Revenue__c * bud.Allocation_Percentage__c;
                         bud.Profit__c += b.Revenue__c * bud.Allocation_Percentage__c;
@@ -873,6 +874,32 @@ public without sharing class BudgetLineItemFieldUpdate {
                 }
                 update bud;
             }
+        }
+        if(Trigger.isInsert && budlines.size() < 2)
+        {
+            Budget__c bud = [SELECT Id, Allocation_Percentage__c, Overhead__c, Profit__c, Budget_lineItem_Status__c,
+            (SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c,DonotDelete__c FROM Budget_Line_Items__r)
+            FROM Budget__c
+            WHERE Id =:budlines[0].Budget__c];
+            // List<Budget_Line_Item__c> budLineItems = [SELECT Id, Revenue__c,Selector__c, X10_10_Allocation__c, Allocation_Percentage__c
+            // FROM Budget_Line_Item__c
+            // WHERE Budget__c =: budlines[0].Budget__c];
+            if(bud.Budget_LineItem_Status__c == null)
+            {
+                bud.Overhead__c = 0;
+                bud.Profit__c = 0;
+                for(Budget_Line_Item__c b : bud.Budget_Line_Items__r)
+                {
+                    if(b.X10_10_Allocation__c == true && b.Revenue__c != null && b.Revenue__c != 0 && b.DonotDelete__c == false)
+                    {
+                        bud.Overhead__c += b.Revenue__c * bud.Allocation_Percentage__c;
+                        bud.Profit__c += b.Revenue__c * bud.Allocation_Percentage__c;
+                        system.debug('Overhead is ' + bud.Overhead__c + '  Profit ' + bud.Profit__c);
+                    }    
+                }
+                update bud;
+            }
+
         }    
     }
     

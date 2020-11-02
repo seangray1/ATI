@@ -9,14 +9,14 @@ NOT(ISCHANGED(AE_1_Bonus__c)),
 NOT(ISCHANGED(AE_2_Bonus__c)),
 
 OR(
-NOT(ISPICKVAL(PRIORVALUE(Status__c), &#39;In Process&#39;)), NOT(ISPICKVAL(Status__c, &#39;In Process&#39;)) 
+NOT(ISPICKVAL(PRIORVALUE(Status__c), &apos;In Process&apos;)), NOT(ISPICKVAL(Status__c, &apos;In Process&apos;)) 
 ),
 
-NOT(AND(ISPICKVAL(PRIORVALUE(Status__c), &#39;In Process&#39;),ISPICKVAL(Status__c, &#39;Ready for Billing&#39;))),
+NOT(AND(ISPICKVAL(PRIORVALUE(Status__c), &apos;In Process&apos;),ISPICKVAL(Status__c, &apos;Ready for Billing&apos;))),
 
 NOT($Profile.Name = &quot;System Administrator&quot;), 
 NOT($Profile.Name = &quot;Accounting&quot;)
 
 )</errorConditionFormula>
-    <errorMessage>Invoices can only be edited while they are &#39;In Process&#39;. Please contact accounting with any questions.</errorMessage>
+    <errorMessage>Invoices can only be edited while they are &apos;In Process&apos;. Please contact accounting with any questions.</errorMessage>
 </ValidationRule>

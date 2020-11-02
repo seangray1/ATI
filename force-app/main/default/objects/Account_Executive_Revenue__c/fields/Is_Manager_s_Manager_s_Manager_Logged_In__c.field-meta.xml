@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>IF( Account_Executive__r.Manager.Manager.ManagerId = $User.Id,True,False)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Is Manager&#39;s Manager&#39;s Manager Logged In</label>
+    <label>Is Manager&apos;s Manager&apos;s Manager Logged In</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

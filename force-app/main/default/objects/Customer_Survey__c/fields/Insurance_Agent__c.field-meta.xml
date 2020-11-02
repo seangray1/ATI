@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Insurance_Agent__c</fullName>
-    <description>Survey Question 14. Do you recall the name and contact information of your insurance agent who sold you your insurance policy? If you&#39;re able to provide this information, American Technologies, Inc. will make a donation to the American Red Cross Disaster Relief Fund.</description>
+    <description>Survey Question 14. Do you recall the name and contact information of your insurance agent who sold you your insurance policy? If you&apos;re able to provide this information, American Technologies, Inc. will make a donation to the American Red Cross Disaster Relief Fund.</description>
     <externalId>false</externalId>
     <label>Insurance Agent</label>
     <required>false</required>

@@ -4,5 +4,5 @@
     <active>true</active>
     <description>Stop job stage from being changed once the stage is set to Billing Complete and current user is not a System Administrator</description>
     <errorConditionFormula>ISCHANGED(Stage__c) &amp;&amp; TEXT(PRIORVALUE(Stage__c)) =&quot;Billing Complete&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;System Administrator&quot;</errorConditionFormula>
-    <errorMessage>The stage can&#39;t be changed once it has been set to Billing Complete.</errorMessage>
+    <errorMessage>The stage can&apos;t be changed once it has been set to Billing Complete.</errorMessage>
 </ValidationRule>

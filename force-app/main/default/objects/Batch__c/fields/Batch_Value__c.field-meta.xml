@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Batch_Value__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>SUM of &#39;Batch value&#39; from all the related Material Req batches</inlineHelpText>
+    <inlineHelpText>SUM of &apos;Batch value&apos; from all the related Material Req batches</inlineHelpText>
     <label>Batch Value</label>
     <summarizedField>Material_Req_Batch__c.Batch_Value__c</summarizedField>
     <summaryForeignKey>Material_Req_Batch__c.Batch__c</summaryForeignKey>

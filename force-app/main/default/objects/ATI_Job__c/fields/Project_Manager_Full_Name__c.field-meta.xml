@@ -3,7 +3,7 @@
     <fullName>Project_Manager_Full_Name__c</fullName>
     <externalId>false</externalId>
     <formula>Project_Manager__r.FirstName &amp;&quot; &quot;&amp; Project_Manager__r.LastName</formula>
-    <label>Project Director&#39;s Full Name</label>
+    <label>Project Director&apos;s Full Name</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

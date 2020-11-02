@@ -32,6 +32,7 @@ trigger BudgetTrigger on Budget__c ( before insert, before update,after insert,a
         }
         if (Trigger.isAfter && Trigger.isUpdate){
             BudgetFieldUpdate.UpdateFinancialGP(Trigger.new, Trigger.oldMap);
+            BudgetFieldUpdate.UpdateBudgetLineItemGoalAmount(Trigger.new, Trigger.oldMap);
             BudgetFieldUpdate.deleteBudgetLineItems(Trigger.new, Trigger.oldMap);
         }
     }

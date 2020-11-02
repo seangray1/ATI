@@ -23,10 +23,13 @@ public class BudgetCloneController {
          //assign them the new ID
          //add them to the list
          for (Budget_Line_Item__c LI : [Select Id, Name, Actual_Costs__c, Allocations__c, Budget__c, Burden__c, Program_Fees__c, Estimated_Completion_Date__c, Gross_Profit__c, 
-                                         In_House_Hours__c, In_House_Rate__c, In_House_Rate_Full__c, In_House_Total__c, Materials__c, Profit__c, Revenue__c, Start_Date__c, Budget_Goal__c, Subcontractor__c, Subcontractor_bid__c, 
-                                             Trade__c, Trade_Option__c, OrderNumber__c,
-                                             From_Xact__c, is_Parent__c, Bypass_Calculation__c, DonotDelete__c, Equipment_BL__c,Is_sub_Parent__c, Other_Costs_BL__c, Materials_BL__c, Unit__c
-                                              FROM Budget_Line_Item__c WHERE Budget__c = :oldBudget]) {  
+                                        In_House_Hours__c, In_House_Rate__c, In_House_Rate_Full__c, In_House_Total__c, Materials__c, Profit__c, Revenue__c, Start_Date__c, 
+                                        Budget_Goal__c, Budget_Goal_Amount__c, Subcontractor__c, Subcontractor_bid__c, Item_Description__c, Other_Costs__c,Other_Costs_BL__c,Selector__c,
+                                        X10_10_Allocation__c, Activity_Type__c, Actual_Costs_BL__c, Allocation_Amount__c, BlankValue__c,Equipment__c,
+                                        Fees__c, Program_Fee_Amount__c, Quantity__c,
+                                        Trade__c, Trade_Option__c, OrderNumber__c, GP__c,In_House_Hours_BL__c,In_House_Rate_BL__c,In_House_Total_BL__c,
+                                        From_Xact__c, is_Parent__c, Bypass_Calculation__c, DonotDelete__c, Equipment_BL__c,Is_sub_Parent__c, Materials_BL__c, Unit__c
+                                        FROM Budget_Line_Item__c WHERE Budget__c = :oldBudget]) {  
               Budget_Line_Item__c newLI = LI.clone(false);
               newLI.Budget__c = budgetId;
              

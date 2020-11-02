@@ -2,12 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Split_Percent__c</fullName>
     <externalId>false</externalId>
-    <formula>IF( AND( ( AE1_Bonus__c != &#39;&#39;),( AE2_Bonus__c != &#39;&#39;)), 
+    <formula>IF( AND( ( AE1_Bonus__c != &apos;&apos;),( AE2_Bonus__c != &apos;&apos;)), 
 0.5, 
 IF( 
 OR( 
-AND(( AE1_Bonus__c == &#39;&#39; ), ( AE2_Bonus__c != &#39;&#39;)), 
-AND(( AE1_Bonus__c != &#39;&#39;), ( AE2_Bonus__c == &#39;&#39;))), 
+AND(( AE1_Bonus__c == &apos;&apos; ), ( AE2_Bonus__c != &apos;&apos;)), 
+AND(( AE1_Bonus__c != &apos;&apos;), ( AE2_Bonus__c == &apos;&apos;))), 
 1, 
 0) 
 )</formula>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ATI_Contact__c</fullName>
-    <description>Email Address of an individual or distribution list for the team that is coordinating ATI&#39;s response, if any.</description>
+    <description>Email Address of an individual or distribution list for the team that is coordinating ATI&apos;s response, if any.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Email Address of an individual or distribution list for the team that is coordinating ATI&#39;s response, if any.</inlineHelpText>
+    <inlineHelpText>Email Address of an individual or distribution list for the team that is coordinating ATI&apos;s response, if any.</inlineHelpText>
     <label>ATI Contact</label>
     <required>false</required>
     <trackFeedHistory>true</trackFeedHistory>

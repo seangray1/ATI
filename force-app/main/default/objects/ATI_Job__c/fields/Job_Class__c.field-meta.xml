@@ -53,9 +53,9 @@
                 <label>Multi-Family</label>
             </value>
             <value>
-                <fullName>Municipality/ Gov&#39;t</fullName>
+                <fullName>Municipality/ Gov&apos;t</fullName>
                 <default>false</default>
-                <label>Municipality/ Gov&#39;t</label>
+                <label>Municipality/ Gov&apos;t</label>
             </value>
             <value>
                 <fullName>Religious</fullName>
