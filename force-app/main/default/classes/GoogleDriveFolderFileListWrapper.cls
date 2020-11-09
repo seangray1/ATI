@@ -26,6 +26,7 @@ public class GoogleDriveFolderFileListWrapper {
     }
     public List<Result> result;
     public String parentId;
+    public String webViewLink;
     
     public class Owners {
         public String displayName;
@@ -52,6 +53,7 @@ public class GoogleDriveFolderFileListWrapper {
         public String size;
         public String webContentLink;
         public String description;
+        
     }
     
     

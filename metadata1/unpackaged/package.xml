@@ -4,14 +4,11 @@
     
     
    
-    <types>
-        <members>*</members>
-        <name>LightningComponentBundle</name>
-    </types>
+  
       
     <types>
         <members>*</members>
-        <name>ApexClass</name>
+        <name>CustomObject</name>
     </types>
  
     

@@ -1284,28 +1284,14 @@ String AddressLine2, String ContactInfo, String Description, String MajorEvent, 
                 if(ExistingMasterJob == false)
                 {
                     // job.Account_Executive_1__c = AEContactToUse;
-                    if(masterJob.Account_Executive_1__c != null)
-                    {
-                        job.Account_Executive_1__c = masterJob.Account_Executive_1__c;
-                    }
-                    if(masterJob.Account_Executive_2__c != null)
-                    {
-                        job.Account_Executive_2__c = masterJob.Account_Executive_2__c;
-                    }
-                    
-                    
+                    job.Account_Executive_1__c = masterJob.Account_Executive_1__c;
+                    job.Account_Executive_2__c = masterJob.Account_Executive_2__c;
                    
                 }
                 if(ExistingMasterJob == true)
                 {
-                    if(MjobExisting.Account_Executive_1__c != null)
-                    {
-                        job.Account_Executive_1__c = MjobExisting.Account_Executive_1__c;
-                    }
-                    if(MjobExisting.Account_Executive_2__c != null)
-                    {
-                        job.Account_Executive_2__c = MjobExisting.Account_Executive_2__c;
-                    }
+                    job.Account_Executive_1__c = MjobExisting.Account_Executive_1__c;
+                    job.Account_Executive_2__c = MjobExisting.Account_Executive_2__c;
                     job.Date_of_loss__c = MjobExisting.Date_of_loss__c;
                     job.Deductible__c = MjobExisting.Deductible__c;
                     job.National_Account__c = MjobExisting.National_Account__c;

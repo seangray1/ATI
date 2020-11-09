@@ -1,0 +1,23 @@
+<template>
+    <h3 class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="1373:2639;a"><span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="1375:2639;a">Address Information</span></h3>
+                <div class="slds-grid slds-wrap">
+                 <lightning-input-address
+                                    data-id="AddressLookup"
+                                    address-label="Search Address"
+                                    street-label="Street"
+                                    city-label="City"
+                                    country-label="Country"
+                                    province-label="State"
+                                    postal-code-label="PostalCode"
+                                    street=""
+                                    city=""
+                                    country="US"
+                                    province=""
+                                    postal-code=""
+                                    show-address-lookup
+                                    required
+                                    class="addressClass" 
+                                    read-only
+                                     ></lightning-input-address>
+                 </div>
+</template>

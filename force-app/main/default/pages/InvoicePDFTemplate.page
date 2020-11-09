@@ -68,7 +68,7 @@
             <tr>
                 <td style="width:3.5in; height:1.5in; text-align:left;"> <!-- Letterhead space -->
                     <apex:outputPanel layout="none" rendered="{!params.displayLetterhead}"> 
-                        <img src="{!$Resource.ATILogoMediumColor}" style="height:1.5in;" />
+                        <img src="{!$Resource.ATInewLogoHQ}"  />
                     </apex:outputPanel>
                 </td>
                 <td style="vertical-align:top; padding-top:0.5in; width:2.25in">
@@ -124,7 +124,7 @@
                 <tr>
                     <td colspan="3" style="text-align:center">
                         <apex:outputPanel rendered="{!params.displayLetterhead}">
-                            <span style="color:#333; font-size:2em; font-weight:bold;">PLEASE REMIT ALL PAYMENTS TO CORPORATE OFFICE</span>
+                            <span style="color:#333; font-size:1.5em; font-weight:bold;">Please Remit All Payments to ATI Restoration, LLC at the Address Below:</span>
                         </apex:outputPanel>
                     </td>
                 </tr>

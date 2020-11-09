@@ -32,4 +32,3 @@ public class BatchToUpdateBudgetLineItemsTest {
         Database.executeBatch(c);
     }
     }
-

@@ -8,6 +8,10 @@
         <members>*</members>
         <name>LightningComponentBundle</name>
     </types>
+     <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
 
     <version>47.0</version>
 </Package>

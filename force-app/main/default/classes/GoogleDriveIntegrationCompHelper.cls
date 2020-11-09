@@ -4,14 +4,24 @@
 * @date             12-AUG-2020
 * @Status           In-Progress
 * @Class Name       GoogleDriveIntegrationCompHelper
-* @description      This apex class will be the helper class for - GoogleDriveIntegrationCompController.	
+* @description      This apex class will be the helper class for - GoogleDriveIntegrationCompController.    
 *********************************************************************************************
 Version     Date      Team          Comments
 *********************************************************************************************
-* 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
+* 1         Aug 2020    Suman        Initial Creation(JIRA AR-653)
 *********************************************************************************************/
-public class GoogleDriveIntegrationCompHelper {
+public with sharing class GoogleDriveIntegrationCompHelper {
     public class MulesoftAPIException extends Exception {} 
+    
+    @TestVisible 
+    static Google_Drive_Integration_Configurations__mdt googleDriveConfigDetails { 
+        get {
+            if (null == googleDriveConfigDetails && 
+                Schema.sObjectType.Google_Drive_Integration_Configurations__mdt.fields.Access_token__c.isAccessible())
+                googleDriveConfigDetails = [SELECT Access_token__c FROM Google_Drive_Integration_Configurations__mdt LIMIT 1];
+            return googleDriveConfigDetails;
+        } set; 
+    }
     
     @TestVisible 
     static List<GoogleDriveUploadMIMETypeConfigSetting__mdt> mimeTypeConfigDetails { 
@@ -49,7 +59,7 @@ public class GoogleDriveIntegrationCompHelper {
                         if(item.Group__c == mimeTypeConfigList[i].Group__c && !MimeStringconcatenate.contains(mimeTypeConfigList[i].MIME_Type__c)){
                             MimeStringconcatenate = MimeStringconcatenate + mimeTypeConfigList[i].MIME_Type__c + ',';
                         }
-            			//mimeTypeConfigList.remove(i);
+                        //mimeTypeConfigList.remove(i);
                     }
                     SearchmimeTypeMap.put(item.Group__c, MimeStringconcatenate.removeEnd(','));
                 }
@@ -61,7 +71,7 @@ public class GoogleDriveIntegrationCompHelper {
     
     public static String getSearchMimeTypeForFile(String fileType, String fileExtension){ 
         String mimeType = GDI_Constants.STRING_EMPTY;
-        if(null == SearchmimeTypeMap && SearchmimeTypeMap.size() == 0)     
+        if(null == SearchmimeTypeMap && SearchmimeTypeMap.isEmpty())     
             return mimeType;
         system.debug('fileType----------->'+fileType);
         mimeType = SearchmimeTypeMap.get(fileType);
@@ -74,8 +84,8 @@ public class GoogleDriveIntegrationCompHelper {
         return mimeType;
     }
     
-    public static Map<String,List<GoogleDriveSubFolderFileDetail>> getFolderFileDetailsFromGoogleDrive(String googleDriveFolderRef, String recordId, List<String> hiddenFolderList){
-        Map<String, List<GoogleDriveSubFolderFileDetail>> folderFileMap = new Map<String, List<GoogleDriveSubFolderFileDetail>>();
+    public static List<GoogleDriveSubFolderFileDetail> getFolderFileDetailsFromGoogleDrive(String googleDriveFolderRef, String recordId, List<String> hiddenFolderList){
+        List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
         System.debug('******* Inside ListFolder API function - ' + googleDriveFolderRef);
         String body = GDI_Constants.STRING_EMPTY;
         JSONGenerator gen = JSON.createGenerator(true);
@@ -98,34 +108,31 @@ public class GoogleDriveIntegrationCompHelper {
         }
         GoogleDriveFolderFileListWrapper obj = GoogleDriveFolderFileListWrapper.parse(str);
         
-        List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
         for(integer i=0; i<obj.Result.size(); i++){
             if(hiddenFolderList.contains(obj.Result[i].name))
                 continue;
             
-            folderFileList.add(convertWrapperToRequiredFormat(obj.Result[i]));
+            folderFileList.add(convertWrapperToRequiredFormat(obj.Result[i], obj.parentId, obj.webViewLink));
         }
-            
-        folderFileMap.put(obj.parentId, folderFileList);
         
-        return folderFileMap;
+        return folderFileList;
     }
     
-    public static Map<String,List<GoogleDriveSubFolderFileDetail>> getFolderFileDetailsFromGoogleDriveForExistingRecs(String folderPath, String folderName, String mainSFFolderGoogleDriveRef, String recordId, List<String> hiddenFolderList){
-        Map<String, List<GoogleDriveSubFolderFileDetail>> folderFileMap = new Map<String, List<GoogleDriveSubFolderFileDetail>>();
-        
+    public static List<GoogleDriveSubFolderFileDetail> getFolderFileDetailsFromGoogleDriveForExistingRecs(String folderPath, String folderName, String mainSFFolderGoogleDriveRef, String recordId, List<String> hiddenFolderList){
+        List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
         String body = GDI_Constants.STRING_EMPTY;
         JSONGenerator gen = JSON.createGenerator(true);
         gen.writeStartObject();
-        gen.writeStringField(GDI_Constants.LISTFOLDER_ROOTID, mainSFFolderGoogleDriveRef);
+        gen.writeStringField(GDI_Constants.LISTFOLDER_ROOTID, mainSFFolderGoogleDriveRef); 
         gen.writeStringField(GDI_Constants.LISTFOLDER_ROOTPATH, folderPath + '/' + folderName);
         gen.writeEndObject();
         body = gen.getAsString();
-		
+        System.debug('******* Body ListFolder API function - ' + body);
         HttpResponse res1;
         res1 = ListFolderAPI(body);
         
         String str=res1.getbody();
+        System.debug('******* Result ListFolder API function - ' + str);
         Integer Status = res1.getStatusCode();
         if(Status != 200 && Status != 201){
             GoogleDriveIntegrationAPILogData logData = new GoogleDriveIntegrationAPILogData(GDI_Constants.APIERROR_LISTFOLDER + GDI_Constants.STRING_SPACE + GDI_Constants.APIERROR_MESSAGE + Status,
@@ -135,16 +142,26 @@ public class GoogleDriveIntegrationCompHelper {
         
         GoogleDriveFolderFileListWrapper obj = GoogleDriveFolderFileListWrapper.parse(str);
         
-        List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
         for(integer i=0; i<obj.Result.size(); i++){
             if(hiddenFolderList.contains(obj.Result[i].name))
                 continue;
-            folderFileList.add(convertWrapperToRequiredFormat(obj.Result[i]));
+            folderFileList.add(convertWrapperToRequiredFormat(obj.Result[i], obj.parentId, obj.webViewLink));
         }
-            
-        folderFileMap.put(obj.parentId, folderFileList);
         
-        return folderFileMap;
+        if(String.isEmpty(obj.parentId))
+            throw new MulesoftAPIException(GDI_Constants.ERROR_LISTFOLDER_NOFOLDERFOUND); 
+        else
+            updateParentRecDetails(recordId,obj.parentId, obj.webViewLink);
+        
+        return folderFileList;
+    }
+    
+    private static void updateParentRecDetails(String recordId, String googleDriveFolderRef, String googleDriveFolderLink){
+        Id idToUpdate = Id.valueOf(recordId);
+        SObject recordToUpdate = idToUpdate.getSObjectType().newSObject(idToUpdate);
+        recordToUpdate.put('Google_Drive_Folder_Ref__c', googleDriveFolderRef);
+        recordToUpdate.put('Google_Drive_Link__c', googleDriveFolderLink);
+        update recordToUpdate;
     }
     
     @TestVisible
@@ -158,6 +175,9 @@ public class GoogleDriveIntegrationCompHelper {
         req1.setEndpoint(GDI_Constants.ENDPOINTURL + GDI_Constants.API_LISTFOLDER);
         req1.setmethod(GDI_Constants.HTTPREQMETHOD_POST);
         req1.setHeader('Content-Type', GDI_Constants.CONTENTTYPE_JSON); 
+        if(null == googleDriveConfigDetails || String.isBlank(googleDriveConfigDetails.Access_token__c))
+            throw new MulesoftAPIException(GDI_Constants.ERROR_ACCESSTOKEN_NOTFOUND); 
+        req1.setHeader('x-authorization-token', googleDriveConfigDetails.Access_token__c);
         req1.setTimeout(20000);
         req1.setbody(body);
         
@@ -207,6 +227,9 @@ public class GoogleDriveIntegrationCompHelper {
         req1.setEndpoint(GDI_Constants.ENDPOINTURL + GDI_Constants.API_CREATE);
         req1.setmethod(GDI_Constants.HTTPREQMETHOD_POST);
         req1.setHeader('Content-Type', GDI_Constants.CONTENTTYPE_JSON); 
+        if(null == googleDriveConfigDetails || String.isBlank(googleDriveConfigDetails.Access_token__c))
+            throw new MulesoftAPIException(GDI_Constants.ERROR_ACCESSTOKEN_NOTFOUND); 
+        req1.setHeader('x-authorization-token', googleDriveConfigDetails.Access_token__c);
         req1.setTimeout(20000);
         req1.setbody(Body);
         
@@ -247,6 +270,9 @@ public class GoogleDriveIntegrationCompHelper {
         req1.setEndpoint(GDI_Constants.ENDPOINTURL + GDI_Constants.API_DELETE);
         req1.setmethod(GDI_Constants.HTTPREQMETHOD_DELETE);
         req1.setHeader('Content-Type', GDI_Constants.CONTENTTYPE_JSON); 
+        if(null == googleDriveConfigDetails || String.isBlank(googleDriveConfigDetails.Access_token__c))
+            throw new MulesoftAPIException(GDI_Constants.ERROR_ACCESSTOKEN_NOTFOUND); 
+        req1.setHeader('x-authorization-token', googleDriveConfigDetails.Access_token__c);
         req1.setTimeout(20000);
         req1.setbody(Body);
         HttpResponse res1;
@@ -255,65 +281,8 @@ public class GoogleDriveIntegrationCompHelper {
         return res1;
     }
     
-    public static String downloadFolderFileInGoogleDrive(String rootId, String parentGoogleRef, String downloadFolderName,Map<String,List<String>> selectedFolderFiles, Boolean includeSubfolders, String recordId){
-        String Body = GDI_Constants.STRING_EMPTY;
-        JSONGenerator gen = JSON.createGenerator(true);
-        gen.writeStartObject();
-        gen.writeStringField(GDI_Constants.LISTFOLDER_ROOTID, rootId);
-        //gen.writeStringField(GDI_Constants.DOWNLOAD_JOBNAME, recordName);
-        gen.writeStringField(GDI_Constants.DOWNLOAD_ZIPFOLDERNAME, downloadFolderName);
-        gen.writeStringField(GDI_Constants.CREATE_PARENTID, parentGoogleRef);
-        gen.writeStringField(GDI_Constants.DOWNLOAD_INCLUDESUBFOLDER, String.valueOf(includeSubfolders));
-        
-        gen.writeFieldName(GDI_Constants.DOWNLOAD_FILES);
-        gen.writeStartArray();
-        for(String fileGoogleRef : selectedFolderFiles.keySet()){
-            gen.writeStartObject();
-            gen.writeStringField(GDI_Constants.LISTFOLDER_ID, fileGoogleRef);
-            gen.writeStringField(GDI_Constants.CREATE_NAME, selectedFolderFiles.get(fileGoogleRef).get(0));
-            gen.writeStringField(GDI_Constants.CREATE_MIMETYPE, selectedFolderFiles.get(fileGoogleRef).get(1));
-            gen.writeEndObject();    
-        }
-        gen.writeEndArray();
-        gen.writeEndObject();
-        
-        Body = gen.getAsString();     
-        System.debug('$$$$$$$ Download Request - ' + Body);
-        HttpResponse res1;
-        res1 = DownloadAPI(Body);
-        String str=res1.getbody();
-        Integer Status = res1.getStatusCode();
-        if(Status != 200 && Status != 201){
-             GoogleDriveIntegrationAPILogData logData = new GoogleDriveIntegrationAPILogData(GDI_Constants.APIERROR_DOWNLOAD + GDI_Constants.STRING_SPACE + GDI_Constants.APIERROR_MESSAGE + Status,
-                recordId, parentGoogleRef, Status, str, GDI_Constants.APILOGOPERATION_CREATE, body);
-            throw new MulesoftAPIException(JSON.serialize(logData));
-        }
-            
-        String downloadLink = GDI_Constants.STRING_EMPTY;
-        //Extract link from response
-        Map<String,String> result = (Map<String,String>) System.JSON.deserialize(str, Map<String,String>.class);
-        downloadLink = result.get((new List<String>(result.keySet()))[0]);
-        
-        return downloadLink;
-    }
-    
-    private static HttpResponse DownloadAPI(String Body) {
-        if(String.isBlank(Body))
-            throw new MulesoftAPIException(GDI_Constants.APIERROR_BODYISEMPTY); 
-        Http http = new Http();
-        HttpRequest req1 = new HttpRequest();
-        req1.setEndpoint(GDI_Constants.ENDPOINTURL + GDI_Constants.API_DOWNLOAD);
-        req1.setmethod(GDI_Constants.HTTPREQMETHOD_POST);
-        req1.setHeader('Content-Type', GDI_Constants.CONTENTTYPE_JSON); 
-        req1.setTimeout(60000);
-        req1.setbody(Body);
-        HttpResponse res1;
-        res1 = http.send(req1);
-        return res1;
-    }
-    
     @TestVisible
-    private static GoogleDriveSubFolderFileDetail convertWrapperToRequiredFormat(GoogleDriveFolderFileListWrapper.Result result){
+    private static GoogleDriveSubFolderFileDetail convertWrapperToRequiredFormat(GoogleDriveFolderFileListWrapper.Result result, String parentId, String googleDriveLink){
         GoogleDriveSubFolderFileDetail folderFileDetail;
         
         boolean isFolder = false;
@@ -340,13 +309,13 @@ public class GoogleDriveIntegrationCompHelper {
         String ownerDisplayName = GDI_Constants.STRING_EMPTY;
         String parentItem = GDI_Constants.STRING_EMPTY;
         String description = GDI_Constants.STRING_EMPTY;
-        if(null != result.Owners && result.Owners.size() == 0)
+        if(null != result.Owners && result.Owners.isEmpty())
             ownerDisplayName = result.Owners[0].displayName;
-        if(null != result.parents && result.parents.size() == 0)
+        if(null != result.parents && result.parents.isEmpty())
             parentItem = result.parents.get(0);
         if(!String.isBlank(result.description))
             description = result.description;
-        folderFileDetail = new GoogleDriveSubFolderFileDetail(result.id, isFolder, result.filePath, result.name, result.fileExtension==null?GDI_Constants.STRING_EMPTY:result.fileExtension, result.iconLink, ownerDisplayName, lastModifiedByUser, result.webViewLink==null?result.mimeType:result.webViewLink, result.webContentLink==null?GDI_Constants.STRING_EMPTY:result.webContentLink,ModifiedDateString, size, result.mimeType==null?GDI_Constants.STRING_EMPTY:result.mimeType, parentItem, description);
+        folderFileDetail = new GoogleDriveSubFolderFileDetail(result.id, isFolder, result.filePath, result.name, result.fileExtension==null?GDI_Constants.STRING_EMPTY:result.fileExtension, result.iconLink, ownerDisplayName, lastModifiedByUser, result.webViewLink==null?result.mimeType:result.webViewLink, result.webContentLink==null?GDI_Constants.STRING_EMPTY:result.webContentLink,ModifiedDateString, size, result.mimeType==null?GDI_Constants.STRING_EMPTY:result.mimeType, parentItem, description, String.isBlank(parentId)?GDI_Constants.STRING_EMPTY:parentId, String.isBlank(googleDriveLink)?GDI_Constants.STRING_EMPTY:googleDriveLink);
         
         return folderFileDetail;
     }
@@ -376,21 +345,20 @@ public class GoogleDriveIntegrationCompHelper {
             lastModifiedByUser = result.LastModifyingUser.displayName;
         
         String ownerDisplayName = GDI_Constants.STRING_EMPTY;
-        String parentItem = GDI_Constants.STRING_EMPTY;
         String description = GDI_Constants.STRING_EMPTY;
-        if(null != result.Owners && result.Owners.size() == 0)
+        if(null != result.Owners && result.Owners.isEmpty())
             ownerDisplayName = result.Owners[0].displayName;
         if(!String.isBlank(result.description))
             description = result.description;
         
-        folderFileDetail = new GoogleDriveSubFolderFileDetail(result.id, isFolder, result.filePath, result.name, result.fileExtension==null? GDI_Constants.STRING_EMPTY:result.fileExtension , result.iconLink==null? GDI_Constants.STRING_EMPTY:result.iconLink, ownerDisplayName, lastModifiedByUser, result.webViewLink==null? GDI_Constants.STRING_EMPTY:result.webViewLink, result.webContentLink==null? GDI_Constants.STRING_EMPTY:result.webContentLink, ModifiedDateString, size, result.mimeType==null? GDI_Constants.STRING_EMPTY:result.mimeType, GDI_Constants.STRING_EMPTY,description);
+        folderFileDetail = new GoogleDriveSubFolderFileDetail(result.id, isFolder, result.filePath, result.name, result.fileExtension==null? GDI_Constants.STRING_EMPTY:result.fileExtension , result.iconLink==null? GDI_Constants.STRING_EMPTY:result.iconLink, ownerDisplayName, lastModifiedByUser, result.webViewLink==null? GDI_Constants.STRING_EMPTY:result.webViewLink, result.webContentLink==null? GDI_Constants.STRING_EMPTY:result.webContentLink, ModifiedDateString, size, result.mimeType==null? GDI_Constants.STRING_EMPTY:result.mimeType, GDI_Constants.STRING_EMPTY,description, GDI_Constants.STRING_EMPTY, GDI_Constants.STRING_EMPTY);
         
         return folderFileDetail;
     }
     
     public static String getMimeTypeForFile(String fileType, String fileExtension){ 
         String mimeType = GDI_Constants.STRING_EMPTY;
-        if(null == mimeTypeMap && mimeTypeMap.size() == 0)     
+        if(null == mimeTypeMap && mimeTypeMap.isEmpty())     
             return mimeType;
         mimeType = mimeTypeMap.get(fileType);
         
@@ -404,9 +372,9 @@ public class GoogleDriveIntegrationCompHelper {
     }
     
     public static List<GoogleDriveSubFolderFileDetail> getSearchResultListFromGoogleDrive(String searchKey, String googleDriveFolderRef, String fileType, String ModifiedDateFilterType, String StartDate, String EndDate){
-    	List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
+        List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
         String Body = GDI_Constants.STRING_EMPTY;
-		String mimeType = GDI_Constants.STRING_EMPTY;
+        String mimeType = GDI_Constants.STRING_EMPTY;
 
         JSONGenerator gen = JSON.createGenerator(true);
         gen.writeStartObject();
@@ -415,11 +383,11 @@ public class GoogleDriveIntegrationCompHelper {
         gen.writeStringField(GDI_Constants.LISTFOLDER_ID, googleDriveFolderRef);
 
         if(fileType != GDI_Constants.STRING_ANYTYPE){
-        	mimeType = getSearchMimeTypeForFile(fileType , null);
+            mimeType = getSearchMimeTypeForFile(fileType , null);
 
-        	if(mimeType != GDI_Constants.STRING_EMPTY){
-        		gen.writeStringField(GDI_Constants.CREATE_MIMETYPE, mimeType);
-        	}
+            if(mimeType != GDI_Constants.STRING_EMPTY){
+                gen.writeStringField(GDI_Constants.CREATE_MIMETYPE, mimeType);
+            }
         }
         if(ModifiedDateFilterType != GDI_Constants.STRING_ANYTYPE){
             if(EndDate != null && StartDate != null){
@@ -427,7 +395,7 @@ public class GoogleDriveIntegrationCompHelper {
                     gen.writeStringField(GDI_Constants.SEARCH_MODIFIEDTO, EndDate);
             }
         }
-		//gen.writeStringField(GDI_Constants.CREATE_MODIFIEDBY, UserInfo.getName()+ GDI_Constants.STRING_SQUAREBRACKETSTART +UserInfo.getUserEmail() + GDI_Constants.STRING_SQUAREBRACKETEND);
+        //gen.writeStringField(GDI_Constants.CREATE_MODIFIEDBY, UserInfo.getName()+ GDI_Constants.STRING_SQUAREBRACKETSTART +UserInfo.getUserEmail() + GDI_Constants.STRING_SQUAREBRACKETEND);
         
         gen.writeEndObject();
         Body = gen.getAsString(); 
@@ -439,13 +407,13 @@ public class GoogleDriveIntegrationCompHelper {
         Integer Status = res1.getStatusCode();
         if(Status != 200 && Status != 201){
                  GoogleDriveIntegrationAPILogData logData = new GoogleDriveIntegrationAPILogData(GDI_Constants.APIERROR_SEARCH + GDI_Constants.STRING_SPACE + GDI_Constants.APIERROR_MESSAGE + Status,
-                GDI_Constants.STRING_EMPTY, googleDriveFolderRef, Status, str, GDI_Constants.APILOGOPERATION_CREATE, body);
+                GDI_Constants.STRING_EMPTY, googleDriveFolderRef, Status, str, GDI_Constants.APILOGOPERATION_SEARCH, body);
             throw new MulesoftAPIException(JSON.serialize(logData)); 
         }
         
         GoogleDriveFolderFileListWrapper obj = GoogleDriveFolderFileListWrapper.parse(str);
         for(integer i=0; i<obj.Result.size(); i++)
-            folderFileList.add(convertWrapperToRequiredFormat(obj.Result[i]));
+            folderFileList.add(convertWrapperToRequiredFormat(obj.Result[i], GDI_Constants.STRING_EMPTY, GDI_Constants.STRING_EMPTY));
         
         return folderFileList;
     }
@@ -461,6 +429,9 @@ public class GoogleDriveIntegrationCompHelper {
         req1.setEndpoint(GDI_Constants.ENDPOINTURL + GDI_Constants.API_SEARCH);
         req1.setmethod(GDI_Constants.HTTPREQMETHOD_POST);
         req1.setHeader('Content-Type', GDI_Constants.CONTENTTYPE_JSON); 
+        if(null == googleDriveConfigDetails || String.isBlank(googleDriveConfigDetails.Access_token__c))
+            throw new MulesoftAPIException(GDI_Constants.ERROR_ACCESSTOKEN_NOTFOUND); 
+        req1.setHeader('x-authorization-token', googleDriveConfigDetails.Access_token__c);
         req1.setTimeout(120000);
         req1.setbody(Body);
         
@@ -479,6 +450,66 @@ public class GoogleDriveIntegrationCompHelper {
     }
     
     /*
+    public static String downloadFolderFileInGoogleDrive(String rootId, String parentGoogleRef, String downloadFolderName,Map<String,List<String>> selectedFolderFiles, Boolean includeSubfolders, String recordId){
+        String Body = GDI_Constants.STRING_EMPTY;
+        JSONGenerator gen = JSON.createGenerator(true);
+        gen.writeStartObject();
+        gen.writeStringField(GDI_Constants.LISTFOLDER_ROOTID, rootId);
+        //gen.writeStringField(GDI_Constants.DOWNLOAD_JOBNAME, recordName);
+        gen.writeStringField(GDI_Constants.DOWNLOAD_ZIPFOLDERNAME, downloadFolderName);
+        gen.writeStringField(GDI_Constants.CREATE_PARENTID, parentGoogleRef);
+        gen.writeStringField(GDI_Constants.DOWNLOAD_INCLUDESUBFOLDER, String.valueOf(includeSubfolders));
+        
+        gen.writeFieldName(GDI_Constants.DOWNLOAD_FILES);
+        gen.writeStartArray();
+        for(String fileGoogleRef : selectedFolderFiles.keySet()){
+            gen.writeStartObject();
+            gen.writeStringField(GDI_Constants.LISTFOLDER_ID, fileGoogleRef);
+            gen.writeStringField(GDI_Constants.CREATE_NAME, selectedFolderFiles.get(fileGoogleRef).get(0));
+            gen.writeStringField(GDI_Constants.CREATE_MIMETYPE, selectedFolderFiles.get(fileGoogleRef).get(1));
+            gen.writeEndObject();    
+        }
+        gen.writeEndArray();
+        gen.writeEndObject();
+        
+        Body = gen.getAsString();        
+        HttpResponse res1;
+        res1 = DownloadAPI(Body);
+        String str=res1.getbody();
+        Integer Status = res1.getStatusCode();
+        if(Status != 200 && Status != 201){
+             GoogleDriveIntegrationAPILogData logData = new GoogleDriveIntegrationAPILogData(GDI_Constants.APIERROR_DOWNLOAD + GDI_Constants.STRING_SPACE + GDI_Constants.APIERROR_MESSAGE + Status,
+                recordId, parentGoogleRef, Status, str, GDI_Constants.APILOGOPERATION_DOWNLOAD, body);
+            throw new MulesoftAPIException(JSON.serialize(logData));
+        }
+            
+        String downloadLink = GDI_Constants.STRING_EMPTY;
+        //Extract link from response
+        Map<String,String> result = (Map<String,String>) System.JSON.deserialize(str, Map<String,String>.class);
+        downloadLink = result.get((new List<String>(result.keySet()))[0]);
+        
+        return downloadLink;
+    }
+    
+    private static HttpResponse DownloadAPI(String Body) {
+        if(String.isBlank(Body))
+            throw new MulesoftAPIException(GDI_Constants.APIERROR_BODYISEMPTY); 
+        Http http = new Http();
+        HttpRequest req1 = new HttpRequest();
+        req1.setEndpoint(GDI_Constants.ENDPOINTURL + GDI_Constants.API_DOWNLOAD);
+        req1.setmethod(GDI_Constants.HTTPREQMETHOD_POST);
+        req1.setHeader('Content-Type', GDI_Constants.CONTENTTYPE_JSON); 
+        if(null == googleDriveConfigDetails || String.isBlank(googleDriveConfigDetails.Access_token__c))
+            throw new MulesoftAPIException(GDI_Constants.ERROR_ACCESSTOKEN_NOTFOUND); 
+        req1.setHeader('x-authorization-token', googleDriveConfigDetails.Access_token__c);
+        req1.setTimeout(60000);
+        req1.setbody(Body);
+        HttpResponse res1;
+        res1 = http.send(req1);
+        return res1;
+    }
+
+
     public static List<String> getTotalSizeAndNoOfFiles(String parentGoogleRef,Map<String,List<String>> selectedFolderFiles, String recordId){
         System.debug('*******Inside getTotalSizeAndNoOfFiles()**********');
         String Body = GDI_Constants.STRING_EMPTY;
@@ -503,7 +534,7 @@ public class GoogleDriveIntegrationCompHelper {
         System.debug('*****************'+ str);
         if(Status != 200 && Status != 201){
             //GoogleDriveIntegrationAPILogHelper.addEntryToAPILog(recordId, parentGoogleRef, body, Status, str, GDI_Constants.APILOGOPERATION_CREATE);
-        	throw new MulesoftAPIException(GDI_Constants.APIERROR_DOWNLOAD + GDI_Constants.STRING_SPACE + GDI_Constants.APIERROR_MESSAGE + Status);
+            throw new MulesoftAPIException(GDI_Constants.APIERROR_DOWNLOAD + GDI_Constants.STRING_SPACE + GDI_Constants.APIERROR_MESSAGE + Status);
         }
         
         GoogleDriveFolderInfoWrapper wrapper = new GoogleDriveFolderInfoWrapper();

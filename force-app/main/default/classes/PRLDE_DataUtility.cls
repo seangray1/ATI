@@ -437,11 +437,7 @@ global with sharing class PRLDE_DataUtility
     
     public static List<MRLocation__c> FetchMRLocations(Set<Id> OffIdSet,List<String> DivList)
     {
-        List<MRLocation__c> MRLocations = 
-        [SELECT Id,Name,IsDefault__c,Office__c,Office__r.Id,Office__r.Name,Division__c,Locationcode__c,Locationcode__r.name,Locationcode__r.description__C 
-        FROM MRLocation__c 
-        WHERE Office__c IN:OffIdSet OR Division__c IN: DivList];
-        return MRLocations;
+        return [select Id,Name,IsDefault__c,Office__c,Office__r.Id,Office__r.Name,Division__c,Locationcode__c,Locationcode__r.name,Locationcode__r.description__C from MRLocation__c where Office__c IN:OffIdSet OR Division__c IN: DivList];
     }
     /// <OBJECTIVE>
     /// Fetch all the Location Codes. 

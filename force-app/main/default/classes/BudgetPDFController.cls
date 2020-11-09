@@ -59,7 +59,15 @@ public class BudgetPDFController{
         budget = (Budget__c) Database.query('SELECT '+fields+' FROM Budget__c WHERE (Id = :budgetId) ORDER BY CreatedDate DESC LIMIT 1');
         
         // Retrieve all of the relevant line items
-        lineItems = [SELECT  Id, Name, Actual_Costs__c, Allocations__c, Budget__c, Burden__c, Budget_Goal_Amount__c, Program_Fees__c, Estimated_Completion_Date__c, Gross_Profit__c, In_House_Hours__c, In_House_Rate__c, In_House_Total__c, Materials__c, Profit__c, Revenue__c, Start_Date__c, Budget_Goal__c, Subcontractor__c, Subcontractor_bid__c, Trade__c, Trade_Option__c FROM Budget_Line_Item__c WHERE Budget__c = :budget.Id order by CreatedDate ASC ];
+        lineItems = [SELECT  Id, Name, Actual_Costs__c, Allocations__c, Budget__c, Burden__c, Selector__c, Budget_Goal_Amount__c, Program_Fees__c, Estimated_Completion_Date__c, Gross_Profit__c, In_House_Hours__c, In_House_Rate__c, In_House_Total__c, Materials__c, Profit__c, Revenue__c, Start_Date__c, Budget_Goal__c, Subcontractor__c, Subcontractor_bid__c, Trade__c, Trade_Option__c FROM Budget_Line_Item__c WHERE Budget__c = :budget.Id order by Trade__c ASC ];
+        for(Budget_Line_Item__c b : lineItems)
+        {
+            if(b.Selector__c != null)
+            {
+                b.Trade__c = b.Trade__c + ' - ' + b.Selector__c;
+            }
+            
+        }
         
         System.debug('BudgetPDFController: Generating budget for '+budget);
         

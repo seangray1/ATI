@@ -9,7 +9,7 @@ private class JobTriggerHandlerWorkflowTest {
         Map <String, Schema.RecordTypeInfo> jobRecordTypeMap = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName;
         Id notApprovedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('New Job (Not Approved)').RecordTypeId;
         Id approvedId = Schema.SObjectType.ATI_job__c.RecordTypeInfosByName.get('Job (Approved)').RecordTypeId;
-        Integer NumToInsert = 10;
+        Integer NumToInsert = 3;
         
         ObjectInserts ObjectData = TestDataUtil.createObjects(NumToInsert, false);
         List<ATI_Job__c> jobs = ObjectData.jobList;
