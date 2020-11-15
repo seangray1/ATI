@@ -26,6 +26,11 @@
                 <default>false</default>
                 <label>Opportunity</label>
             </value>
+            <value>
+                <fullName>Contact</fullName>
+                <default>false</default>
+                <label>Contact</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -1,0 +1,59 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             21-Oct-2020
+* @Status           In-Progress
+* @Class Name       sharinPixLookupComp
+* @description      This lwc can be used to add lookup to the screen.
+                    This is a child comp for lwc - sharinPixMoveImagesBetweenJobs.	
+*********************************************************************************************
+Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Oct 2020    Suman        Initial Creation(JIRA AR-694)
+*********************************************************************************************-->
+<template>		
+    <div>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    <div id="box" class={boxClass} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <!-- Input search text field for Lookup-->
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                            role="none">
+                            <div class="slds-p-top_none">
+                                <lightning-input class={inputClass} type="search" id="searchText" value={searchTerm}
+                                    label={fieldLabel} onclick={handleClick} onblur={onBlur} onchange={onChange}
+                                    autocomplete="off" placeholder={searchPlaceholder} variant="label-hidden">
+                                </lightning-input>
+                            </div>
+                        </div>
+                        <!-- Search result for Lookup-->
+                        <div id="listbox-id-1"
+                            class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <div if:true={isLoading} class="slds-m-around_small">
+                                    <div class="slds-is-relative">
+                                        <lightning-spinner alternative-text="Loading..." variant="brand">
+                                        </lightning-spinner>
+                                    </div>
+                                </div>
+                                <template for:each={records} for:item="record">
+                                    <li key={record.Id} onclick={onSelect} data-id={record.Id} role="presentation"
+                                        data-name={record.Name} title={record.Name}>
+                                        <span class="slds-lookup__item-action slds-lookup__item-action--label"
+                                            role="option">
+                                            <lightning-icon class="slds-icon slds-icon--small slds-icon-text-default"
+                                                icon-name={iconName} alternative-text={objName} size="small">
+                                            </lightning-icon>
+                                            <span class="slds-truncate">{record.Name}</span>
+                                        </span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

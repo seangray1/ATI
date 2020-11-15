@@ -3,7 +3,7 @@
     <fullName>Superintendent__c</fullName>
     <description>Evaluates Salesforce Project Manager (new) and 2 supervisor fields to decide which is to be synced to Sage 300 Project Manager.</description>
     <externalId>false</externalId>
-    <formula>IF (NOT(ISBLANK(Project_Manager_new__c)), Project_Manager_new__r.LastName &amp; &#39;, &#39; &amp;  Project_Manager_new__r.FirstName,
+    <formula>IF (NOT(ISBLANK(Project_Manager_new__c)), Project_Manager_new__r.LastName &amp; &apos;, &apos; &amp;  Project_Manager_new__r.FirstName,
 IF (TEXT(Env_Contents_Supervisor__c) &lt;&gt; &quot;&quot;, TEXT(Env_Contents_Supervisor__c), 
 IF (Other_Supervisor__c &lt;&gt; &quot;&quot;, Other_Supervisor__c, &quot;&quot;)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

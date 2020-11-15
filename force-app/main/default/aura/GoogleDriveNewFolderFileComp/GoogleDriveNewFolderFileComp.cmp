@@ -10,7 +10,7 @@
 *********************************************************************************************
 * 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
 *********************************************************************************************-->
-<aura:component controller='GoogleDriveIntegrationCompController' implements="force:hasSObjectName,force:hasRecordId">
+<aura:component controller="GoogleDriveIntegrationCompController" implements="force:hasSObjectName,force:hasRecordId">
     <aura:attribute name="recordId" type="String"/>
     <aura:attribute name="sObjectName" type="String"/>
     
@@ -46,13 +46,13 @@
         </aura:if>
         <div class="container lgc-bg" label="New">
     		<lightning:buttonMenu alternativeText="New" label="New" onselect = "{! c.handleFolderFileCreation}" disabled="{!or(v.isNewButtonDisabled, equals(v.currentFolderGDId,undefined))}">
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/FolderIcon.png'}" class="listicon"/><lightning:menuItem value="folder" label="Folder"/>
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/GDocIcon.png'}" class="listicon"/><lightning:menuItem value="googleDoc" label="Google Doc"/>
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/GSheetIcon.png'}" class="listicon"/><lightning:menuItem value="googleSheet" label="Google Sheet" />
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/GSlideIcon.png'}" class="listicon"/><lightning:menuItem value="googleSlide" label="Google Slides" />
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/WordIcon.png'}" class="listicon"/><lightning:menuItem value="msDoc" label="Word Document" />
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/ExcelIcon.png'}" class="listicon"/><lightning:menuItem value="msExcel" label="Excel Spreadsheet" />
-                <img src="{!$Resource.GDI_NewButtonIcons+ '/PPTIcon.png'}" class="listicon"/><lightning:menuItem value="msPowerpoint" label="PowerPoint Presentation" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/FolderIcon.png'}" width="26" height="34" alt="folder" class="listicon"/><lightning:menuItem value="folder" label="Folder"/>
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/GDocIcon.png'}" width="24" height="32" alt= "googledoc" class="listicon"/><lightning:menuItem value="googleDoc" label="Google Doc"/>
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/GSheetIcon.png'}" width="24" height="32" alt="googlesheet" class="listicon"/><lightning:menuItem value="googleSheet" label="Google Sheet" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/GSlideIcon.png'}" width="24" height="32" alt="googleslide" class="listicon"/><lightning:menuItem value="googleSlide" label="Google Slides" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/WordIcon.png'}" width="24" height="32" alt="msword" class="listicon"/><lightning:menuItem value="msDoc" label="Word Document" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/ExcelIcon.png'}" width="24" height="32" alt="msexcel" class="listicon"/><lightning:menuItem value="msExcel" label="Excel Spreadsheet" />
+                <img src="{!$Resource.GDI_NewButtonIcons+ '/PPTIcon.png'}" width="24" height="32" class="listicon"/><lightning:menuItem value="msPowerpoint" label="PowerPoint Presentation" />
             </lightning:buttonMenu>
             
         </div>

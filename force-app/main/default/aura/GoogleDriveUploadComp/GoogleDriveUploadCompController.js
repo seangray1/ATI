@@ -5,19 +5,20 @@
     closeUploadModalPopup: function(component, event, helper) {
         component.set("v.isUploadModalOpen", false);
     },
-    
     handleUploadFinished: function (component, event, helper) {
         // Get the list of uploaded files
-        var uploadedFiles = event.getParam("files");
-        var uploadedFileList =[];
-        uploadedFiles.forEach(function (file) { 
-            console.log(file.documentId) 
+        let uploadedFiles = event.getParam("files");
+        let uploadedFileList =[];
+        uploadedFiles.forEach(function (file) {
             uploadedFileList.push(file.documentId);
-        }); 
-        component.set("v.isUploadModalOpen", false);
-        
+        });
         helper.uploadFile(component, uploadedFileList);
+        window.setTimeout(
+            $A.getCallback(function() {
+                component.set("v.isUploadModalOpen", false);
+                
+            }), 10000
+       );
         
     },
-    
 })

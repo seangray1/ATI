@@ -12,7 +12,7 @@
     <columns>Job_to_Date_Costs__c</columns>
     <columns>Project_Manager__c</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
-    <filterScope>Team</filterScope>
+    <filterScope>SalesTeam</filterScope>
     <filters>
         <field>OPPORTUNITY.RECORDTYPE</field>
         <operation>equals</operation>

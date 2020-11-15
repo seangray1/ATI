@@ -1,0 +1,33 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             25-Oct-2020
+* @Status           In-Progress
+* @Class Name       sharinPixDatatableComp
+* @description      This lwc can be used to add datatable to the screen.
+                    This is a child comp for lwc - sharinPixMoveImagesBetweenJobs.	
+*********************************************************************************************
+Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Oct 2020    Suman        Initial Creation(JIRA AR-694)
+*********************************************************************************************-->
+<template>
+    <template if:true={recordList}>
+        
+        <c-sharin-pix-paginator-comp records={recordList} total-records={recordList.length}
+            onpaginatorchange={handlePaginatorChange}>
+        </c-sharin-pix-paginator-comp>
+            <div class="spinner">
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="meduim">
+                    </lightning-spinner>
+                </template>
+            </div>
+        <div class="section-box">
+            <c-sharin-pix-ext-datatable-comp key-field="Id" data={recordsToDisplay} columns={columns} selected-rows={preSelectedRows}
+                onrowselection={handleRowSelection} wrap-text-max-lines="4">
+            </c-sharin-pix-ext-datatable-comp>
+        </div>
+
+    </template>
+</template>

@@ -3,9 +3,10 @@
     <fullName>Folder_Path__c</fullName>
     <externalId>false</externalId>
     <label>Folder Path</label>
-    <length>3000</length>
+    <length>255</length>
+    <required>false</required>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>LongTextArea</type>
-    <visibleLines>3</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

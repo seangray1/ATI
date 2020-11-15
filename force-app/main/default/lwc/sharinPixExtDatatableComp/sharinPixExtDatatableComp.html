@@ -1,0 +1,17 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             28-Oct-2020
+* @Status           In-Progress
+* @Class Name       sharinPixExtDatatableComp
+* @description      This lwc can be used to add datatable to the screen.
+                    This is a child comp for lwc - sharinPixDatatableComp.	
+*********************************************************************************************
+Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Oct 2020    Suman        Initial Creation(JIRA AR-694)
+*********************************************************************************************-->
+<template>
+    <c-sharin-pix-paginator-comp records={recordList} total-records={recordList.length} show-search-box="true"
+            onpaginatorchange={handlePaginatorChange}></c-sharin-pix-paginator-comp>
+</template>

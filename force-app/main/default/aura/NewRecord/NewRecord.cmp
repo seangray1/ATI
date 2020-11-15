@@ -1,0 +1,3 @@
+<aura:component implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId" access="global">
+    <c:newAccountLWC></c:newAccountLWC>
+</aura:component>

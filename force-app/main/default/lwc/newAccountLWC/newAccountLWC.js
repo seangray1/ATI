@@ -1,11 +1,13 @@
 import { LightningElement, track, wire, api } from "lwc";
-import getAPINamesFromMetadata from '@salesforce/apex/NewRecordGetAPINames.getAPINames'; 
+import getAPINamesFromMetadata from '@salesforce/apex/NewRecordGetAPINames.getAPINames';
+import {handleReset} from 'c/recordEditFormActions'; 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { getListUi } from 'lightning/uiListApi';
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
+import * as Utils from 'c/utils';
 
-export default class NewAccountLWC extends LightningElement {
+export default class NewAccountLWC extends NavigationMixin(LightningElement) {
   @track _ApiWiredResult;
   @track APIfields = [];
   sObjectAPIName = 'Account';
@@ -51,56 +53,7 @@ export default class NewAccountLWC extends LightningElement {
                 
                 objData.APIName = DataAPIList[j].trim();
                 console.log('objData ',objData);
-                // if (
-                //   objData.APIName == "ATI_Job__c" &&
-                //   this.jobId != null &&
-                //   this.IsBudgetNew == true
-                // ) {
-                //   objData.value = this.jobId;
-                // }
-                // if (
-                //   objData.APIName == "Regional_Manager__c" &&
-                //   this.JobRegionalManger &&
-                //   this.IsBudgetNew == true
-                // ) {
-                //   objData.value = this.JobRegionalManger;
-                // }
-                // if (
-                //   objData.APIName == "Project_Director__c" &&
-                //   this.JobProjectDirecor &&
-                //   this.IsBudgetNew == true
-                // ) {
-                //   objData.value = this.JobProjectDirecor;
-                // }
-                // if (
-                //   objData.APIName == "Project_Manager__c" &&
-                //   this.JobProjectManager &&
-                //   this.IsBudgetNew == true
-                // ) {
-                //   objData.value = this.JobProjectManager;
-                // }
-                // if (
-                //   objData.APIName == "GP_Goal__c" ||
-                //   objData.APIName == "Allocation_Overhead__c" ||
-                //   objData.APIName == "Allocations__c" ||
-                //   objData.APIName == "X3_Program_Fees__c"
-                // ) {
-                //   objData.changevnt = true;
-                // }
-                // if (DataList[i].LWC_Section__c == "Budget Info") {
-                //   objData.BudgetSection = true;
-                //   objData.TotalSection = false;
-                //   objData.AllTotalSection = false;
-                // } else if (DataList[i].LWC_Section__c == "Totals") {
-                //   objData.BudgetSection = false;
-                //   objData.TotalSection = true;
-                //   objData.AllTotalSection = false;
-                // } else if (DataList[i].LWC_Section__c == "Overall Total") {
-                //   objData.BudgetSection = false;
-                //   objData.TotalSection = false;
-                //   objData.AllTotalSection = true;
-                // }
-                // objData.Section = DataList[i].LWC_Section__c;
+              
                 if (EnableAPIList.includes(objData.APIName)) {
                   objData.Section = true;
                 } else {
@@ -123,5 +76,84 @@ export default class NewAccountLWC extends LightningElement {
         })
       );
     }
+  }
+  handleCancel()
+  {
+    this.handleReset();
+    this[NavigationMixin.Navigate]({
+      type: 'standard__objectPage',
+            attributes: {
+                objectApiName: this.sObjectAPIName,
+                actionName: 'home',
+            },
+    });
+  }
+  inputFields(){
+    return this.template.querySelectorAll(
+      'lightning-input-field');
+  }
+  addressFields(){
+    return this.template.querySelector('[data-id="AddressLookup"]');
+  }
+  handleReset() {
+    const inputFields = this.inputFields();
+    const addressFields = this.addressFields();
+    if(addressFields){
+      addressFields.forEach(field => {
+        field.reset();
+      });
+    }
+    if (inputFields) {
+        inputFields.forEach(field => {
+            field.reset();
+        });
+    }
+  }
+  saveHandler(){
+    console.log('test');
+    // const test = log('test again');
+    // console.logt(test);
+    // log('Saving');
+    // let inputfIeldss = Array.from(
+    //   this.template.querySelectorAll('lightning-input-field')
+    // );
+
+    // let RowCount = inputfIeldss.length;
+
+    // let test = inputfIeldss[0].value;
+    // console.log('test' + JSON.stringify(test));
+      // let ARName = TblRow[k].querySelector('.ARName').value;
+
+      //let ARAddress = TblRow[k].querySelector('.ARAddress').value;
+      
+    const inputFields = this.inputFields();
+    // console.log('fields name is ' + JSON.stringify(inputFields));
+    for(var i = 0; i<inputFields.length;i++){
+      console.log(inputFields[i].value);
+      onsole.log('Input field ' + i + ' ' + inputFields[i]);
+      // console.log(inputFields[i].fieldName);
+    }
+    console.log('inputFIelsd ',inputFields);
+    const addressFields = this.addressFields();
+    console.log('addressFields ',addressFields);
+    console.log('addressfields now ' + addressFields);
+    // const addressIsValid = addressFields.checkValidity();
+    // if(addressIsValid) {
+    //   if(this.sObjectAPIName == 'Account')
+    //   {
+    //     inputFields.BillingStreet = addressFields.street;
+    //   }
+      
+      console.log('fields name is ' + JSON.stringify(inputFields));
+      
+      // fields.Job_Name__c = fields.Name;
+      this.template.querySelector('lightning-record-edit-form').submit(inputFields).then(() => 
+      this._handleSuccess(isComplete)).catch(error => this.setError(error));
+      
+    // }
+    // else{
+    //   this.setError('Unable to save record');
+    // }
+
   }
 }

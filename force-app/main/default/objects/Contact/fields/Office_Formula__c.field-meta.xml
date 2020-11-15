@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fullName>Office_Formula__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( MailingState, 
+&quot;WA&quot;,&quot;Seattle&quot;,  
+&quot;CO&quot;,&quot;Denver&quot;, 
+&quot;FL&quot;,&quot;Tampa&quot;, 
+&quot;IL&quot;,&quot;Chicago&quot;, 
+&quot;MA&quot;,&quot;New England&quot;, 
+&quot;VT&quot;,&quot;New England&quot;, 
+&quot;RI&quot;,&quot;New England&quot;, 
+&quot;PA&quot;,&quot;Philadelphia&quot;, 
+&quot;NJ&quot;,&quot;Philadelphia&quot;, 
+&quot;DE&quot;,&quot;Philadelphia&quot;, 
+&quot;IN&quot;,&quot;Central&quot;,
+&quot;N/A&quot;)
+
+/*
+IF(MailingState=&quot;WA&quot;,&quot;Seattle&quot;,
+
+IF(MailingState=&quot;CO&quot;,&quot;Denver&quot;,
+
+IF( MailingState=&quot;AZ&quot;,&quot;Phoenix&quot;,
+
+IF( (MailingState=&quot;CO&quot; &amp;&amp; ( Mailing_County__c= &quot;Mohave&quot; ||Mailing_County__c= &quot;Coconino&quot; ||Mailing_County__c= &quot;Navajo&quot; ||Mailing_County__c= &quot;Apache&quot; ||Mailing_County__c= &quot;Yavapai&quot; ||Mailing_County__c= &quot;Gila&quot; ||Mailing_County__c= &quot;Maricopa&quot; ||Mailing_County__c= &quot;La Paz&quot; ||Mailing_County__c= &quot;Yuma&quot;))
+,&quot;Denver&quot;,
+
+NULL
+))))
+*/</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Office (Formula)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

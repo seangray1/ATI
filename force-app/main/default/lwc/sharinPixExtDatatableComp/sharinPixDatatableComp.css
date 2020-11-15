@@ -1,0 +1,6 @@
+.dummyClass{color:black;}
+
+.slds-scrollable_y, .slds-scrollable--y{
+		height:350px;
+		overflow-y:scroll;
+}

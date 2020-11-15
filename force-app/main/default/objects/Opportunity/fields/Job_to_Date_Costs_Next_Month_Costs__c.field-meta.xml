@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Job_to_Date_Costs_Next_Month_Costs__c</fullName>
-    <description>Job-to-date costs minus next month&#39;s costs</description>
+    <description>Job-to-date costs minus next month&apos;s costs</description>
     <externalId>false</externalId>
     <formula>Job_to_Date_Costs__c - Next_Month_Costs__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

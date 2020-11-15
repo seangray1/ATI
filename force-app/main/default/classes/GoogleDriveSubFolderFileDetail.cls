@@ -31,6 +31,7 @@ public with sharing class GoogleDriveSubFolderFileDetail {
     //Added for existing recs where Google drive fields are empty
     @AuraEnabled public String parentFolderGDId;
     @AuraEnabled public String parentFolderGDLink;
+    
     @TestVisible 
     static Google_Drive_Integration_Configurations__mdt googleDriveConfigDetails { 
         get {

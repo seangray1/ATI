@@ -1,0 +1,44 @@
+<template>
+  <template if:true={isOpen}>
+    <section role="dialog" tabindex="-1" class={cssClass} onkeyup={innerKeyUpHandler} aria-modal="true"
+      aria-describedby="modal-content-id-1" aria-hidden={isAriaHidden} aria-labelledby="modal-heading-01">
+      <div class="slds-modal__container">
+        <a href="javascript:void(0)" class="firstLink"></a>
+        <template if:true={title}>
+          <header class="slds-modal__header" onclick={innerClickHandler}>
+            <button title="Close" onclick={handleCancel} class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+              <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+              </svg>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{title}</h2>
+
+            <template if:true={tagline}>
+              <p class="slds-m-top_x-small">{tagline}</p>
+            </template>
+          </header>
+        </template>
+
+        <div id="modal-content-id-1" onclick={innerClickHandler} tabindex="-1" class="slds-modal__content slds-p-around_medium">
+          <slot name="modalContent"></slot>
+        </div>
+
+        <footer class="slds-modal__footer" onclick={innerClickHandler}>
+          <template if:true={cancelLabel}>
+            <button class="slds-button slds-button_neutral cancel" onclick={handleCancel}>{cancelLabel}</button>
+          </template>
+          <template if:true={saveHandler}>
+            <button class="slds-button slds-button_brand save" onclick={saveHandler}>{saveLabel}</button>
+          </template>
+          <template if:true={save2Handler}>
+            <button class="slds-button slds-button_brand save2" onclick={save2Handler}>{save2Label}</button>
+          </template>
+
+          <a href="javascript:void(0)" class="lastLink"></a>
+        </footer>
+      </div>
+    </section>
+  </template>
+</template>

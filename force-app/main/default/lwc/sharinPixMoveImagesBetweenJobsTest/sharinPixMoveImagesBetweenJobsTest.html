@@ -1,0 +1,154 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             21-Oct-2020
+* @Status           In-Progress
+* @Class Name       sharinPixMoveImagesBetweenJobs
+* @description      This is the lwc for SharinPix Move images CR.	
+*********************************************************************************************
+Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Oct 2020    Suman        Initial Creation(JIRA AR-694)
+*********************************************************************************************-->
+<template>
+    <lightning-card title="SharinPix Image Move" icon-name="custom:custom24">
+
+        <div class="slds-m-around_medium">
+            <div class="container">
+                <!-- Search criteria screen start -->
+                <div class="slds-m-bottom_small">
+                    <table class="tblinputs">
+                        <tbody>
+                            <tr>
+                                <td width="10%">
+                                    <label>User</label>
+                                </td>
+                                <td>
+                                    <div class="slds-p-right_x-small">
+                                        <c-sharin-pix-lookup-comp obj-name="User" search-placeholder="Search User"
+                                            field-label="User" icon-name="custom:custom24"
+                                            onlookupselected={handleUserSelection}>
+                                        </c-sharin-pix-lookup-comp>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label>Uploaded Date</label>
+                                </td>
+                                <td>
+                                    <div class="slds-p-right_x-small">
+                                        <lightning-input type="date" name="startDate" variant="label-hidden"
+                                            value={startDate} onchange={handleStartDateChange} placeholder="From">
+                                        </lightning-input>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="slds-p-right_x-small">
+                                        <lightning-input type="date" name="input2" variant="label-hidden"
+                                            value={endDate} onchange={handleEndDateChange} placeholder="To">
+                                        </lightning-input>
+                                    </div>
+                                </td>
+                                <td>
+                                    <lightning-button variant="brand" onclick={handleSearch} label="Search"
+                                        title="Primary action" class="searchbtn"></lightning-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <template if:true={displayResult}>
+                                <tr>
+                                    <td width="10%">
+                                        <label>Select Job</label>
+                                    </td>
+                                    <td width="35%">
+                                        <div class="slds-p-right_x-small">
+                                            <c-sharin-pix-lookup-comp obj-name="ATI_Job__c"
+                                                search-placeholder="Search Job" field-label="Select Job"
+                                                icon-name="custom:custom24" onlookupselected={handleTargetJobSelection}>
+                                            </c-sharin-pix-lookup-comp>
+                                        </div>
+                                    </td>
+                                    <td colspan="2">
+                                        <lightning-button variant="brand" label="Move Image" title="Primary action"
+                                            onclick={handleImagesMove}></lightning-button>
+                                    </td>
+                                    <td class="txtright">
+                                        <label>View Type</label>
+                                    </td>
+                                    <td width="31.5%">
+                                        <lightning-combobox name="viewType" variant="label-hidden"
+                                            value={selectedViewType} placeholder="Select View" options={viewOptions}
+                                            onchange={handleViewChange}>
+                                        </lightning-combobox>
+                                    </td>
+
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Search criteria screen end -->
+
+                <!-- Search Result screen start -->
+                <div class="spinner">
+                    <template if:true={isLoading}>
+                        <lightning-spinner alternative-text="Loading" variant="brand" size="meduim">
+                        </lightning-spinner>
+                    </template>
+                </div>
+                <template if:true={displayResult}>
+                    <!--
+                <div class="slds-grid slds-wrap page-top slds-m-vertical_x-small">
+                    <div class="slds-col slds-size_2-of-6">
+                        <div class="slds-p-right_x-small">
+                            <c-sharin-pix-lookup-comp obj-name="ATI_Job__c" search-placeholder="Search Job"
+                                field-label="Select Job" icon-name="custom:custom24"
+                                onlookupselected={handleTargetJobSelection}>
+                            </c-sharin-pix-lookup-comp>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-7">
+                        <lightning-button variant="brand" label="Move Image" title="Primary action"
+                            onclick={handleImagesMove}></lightning-button>
+                    </div>
+                </div>-->
+
+
+
+
+                    <!--SharinPix Image Result display start-->
+
+                    <template if:true={isThumbnailViewSel}>
+                        <c-sharin-pix-thumbnail-view-comp-Test sharin-pix-image-list={sharinPixImageList}
+                            onpagechange={handlePageChangeOnView}
+                            onimageselectedformove={handleImageSelectionOnThumbnailView}
+                            onallimageselectedformove={handleSelectAllOnThumbnailView}>
+                        </c-sharin-pix-thumbnail-view-comp-Test>
+                    </template>
+                    <template if:true={isDetailViewSel}>
+                        <c-sharin-pix-datatable-comp record-list={sharinPixImageList} columns={columns}
+                            onrowsselectedformove={handleRowSelectionOnDetailView}
+                            onpagechange={handlePageChangeOnView}>
+                        </c-sharin-pix-datatable-comp>
+                    </template>
+                    <!--SharinPix Image Result display end-->
+                    <lightning-card></lightning-card>
+                    <lightning-card></lightning-card>
+                    <lightning-card></lightning-card>
+                    <lightning-card></lightning-card>
+                </template>
+
+                <!--No results found screen start-->
+                <template if:false={displayResult}>
+                    <lightning-card>
+                        {emptyResultMessage}
+                    </lightning-card>
+                </template>
+                <!--No results found screen end-->
+                <!-- Search Result screen end -->
+            </div>
+        </div>
+    </lightning-card>
+</template>

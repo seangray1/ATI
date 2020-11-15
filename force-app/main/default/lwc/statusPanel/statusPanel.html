@@ -1,0 +1,32 @@
+<template>
+  <template if:true={infoMessages.length}>
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info slds-m-bottom_x-small">
+      <lightning-icon icon-name="utility:info" variant="inverse" class="slds-p-right_x-small" alternative-text="Information"></lightning-icon>
+      <h2>
+        <template for:each={infoMessages} for:item="m">
+          <p key={m} class="info-message">{m}</p>
+        </template>
+      </h2>
+    </div>
+  </template>
+  <template if:true={warningMessages.length}>
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning slds-m-bottom_x-small">
+      <lightning-icon icon-name="utility:warning" variant="inverse" class="slds-p-right_x-small" alternative-text="Warning"></lightning-icon>
+      <h2>
+        <template for:each={warningMessages} for:item="m">
+          <p key={m} class="warning-message">{m}</p>
+        </template>
+      </h2>
+    </div>
+  </template>
+  <template if:true={errorMessages.length}>
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_x-small">
+      <lightning-icon icon-name="utility:error" variant="inverse" class="slds-p-right_x-small" alternative-text="Error"></lightning-icon>
+      <h2>
+        <template for:each={errorMessages} for:item="m">
+          <p key={m} class="error-message">{m}</p>
+        </template>
+      </h2>
+    </div>
+  </template>
+</template>

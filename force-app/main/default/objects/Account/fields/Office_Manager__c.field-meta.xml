@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Office_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>Office Manager lookup populated via Process Builder flow &#39;Office Manager Population onto Account&#39; used in Account Creation Approval Process</description>
+    <description>Office Manager lookup populated via Process Builder flow &apos;Office Manager Population onto Account&apos; used in Account Creation Approval Process</description>
     <externalId>false</externalId>
     <label>Office Manager</label>
     <referenceTo>Account</referenceTo>

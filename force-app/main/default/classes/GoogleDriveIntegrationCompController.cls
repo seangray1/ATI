@@ -97,8 +97,7 @@ public with sharing class GoogleDriveIntegrationCompController {
         List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
         List<String> hiddenFolderList = new List<String>();
         String SFMainFolderGoogleDriveRef = GDI_Constants.STRING_EMPTY;//To be used for fetching existing job/account record folders
-        
-        if(null == recordId || String.isBlank(sObjectName) || null == objectTemplatesList || objectTemplatesList.isEmpty())
+        if(null == recordId || String.isBlank(sObjectName) || objectTemplatesList.isEmpty())
             return folderFileList;
         
         //Check if the object is part of Google Drive Sync Config, else return empty list
@@ -110,6 +109,7 @@ public with sharing class GoogleDriveIntegrationCompController {
                 break;
             }
         }
+        
         if(!objectExistsInGDSyncConfig)
             throw new GoogleDriveException(GDI_Constants.ERROR_LISTFOLDER_NOCONFIGFOUND);   
         
@@ -119,9 +119,10 @@ public with sharing class GoogleDriveIntegrationCompController {
             hiddenFolderList = hiddenFolderListForAcc;
         else if(sObjectName.equalsIgnoreCase(GDI_Constants.OBJ_OPP))
             hiddenFolderList = hiddenFolderListForOpp;
+        
         try{
             //Get Google drive Ref(or GD Id) for the existing record's main folder
-            sObject currentRecord= Database.query('SELECT Id,Google_Drive_Folder_Ref__c,Google_Drive_Folder_Path__c,Google_Drive_Folder_Name__c, Google_Drive_Link__c FROM ' + sObjectName + ' WHERE Id = :recordId');
+            sObject currentRecord= Database.query('SELECT Id,Google_Drive_Folder_Ref__c,Google_Drive_Folder_Path__c,Google_Drive_Folder_Name__c, Google_Drive_Link__c FROM ' + String.escapeSingleQuotes(sObjectName) + ' WHERE Id = :recordId');
             
             String googleDriveFolderRef = GDI_Constants.STRING_EMPTY;
             //String googleDriveFolderLink = GDI_Constants.STRING_EMPTY;
@@ -132,19 +133,6 @@ public with sharing class GoogleDriveIntegrationCompController {
                     throw new GoogleDriveException(GDI_Constants.ERROR_LISTFOLDER_NOFOLDERPATH);   
                 
                 folderFileList = GoogleDriveIntegrationCompHelper.getFolderFileDetailsFromGoogleDriveForExistingRecs(currentRecord.get('Google_Drive_Folder_Path__c').toString(), currentRecord.get('Google_Drive_Folder_Name__c').toString(), SFMainFolderGoogleDriveRef, recordId, hiddenFolderList);
-                
-                /*
-                googleDriveFolderRef = folderFileList.get(0).parentFolderGDId;
-                googleDriveFolderLink = folderFileList.get(0).parentFolderGDLink;
-                
-                if(String.isEmpty(googleDriveFolderRef))
-                    throw new GoogleDriveException(GDI_Constants.ERROR_LISTFOLDER_NOFOLDERFOUND); 
-                     
-                Id idToUpdate = Id.valueOf(currentRecord.get('Id').toString());
-                SObject recordToUpdate = idToUpdate.getSObjectType().newSObject(idToUpdate);
-                recordToUpdate.put('Google_Drive_Folder_Ref__c', googleDriveFolderRef);
-                recordToUpdate.put('Google_Drive_Link__c', googleDriveFolderLink);
-                update recordToUpdate;*/
             }
             else{
                 googleDriveFolderRef = currentRecord.get('Google_Drive_Folder_Ref__c').toString(); 
@@ -170,7 +158,7 @@ public with sharing class GoogleDriveIntegrationCompController {
             return GDI_Constants.STRING_EMPTY;
         try{
             //Get Google drive Ref(or GD Id) and name for the existing record's main folder
-            sObject currentRecord= Database.query('SELECT Google_Drive_Link__c  FROM ' + sObjectName + ' WHERE Id = :recordId');
+            sObject currentRecord= Database.query('SELECT Google_Drive_Link__c  FROM ' + String.escapeSingleQuotes(sObjectName) + ' WHERE Id = :recordId');
             //If there ais no folder present in Google drive for Job/Account
             if(null == currentRecord.get('Google_Drive_Link__c'))
                 throw new GoogleDriveException(GDI_Constants.ERROR_DRIVELINK_NOTFOUND);   
@@ -467,7 +455,7 @@ public with sharing class GoogleDriveIntegrationCompController {
     
     public static string DateformatforJSON(Date JSONDate){
         
-        String test = string.valueof(JSONDate.year())+'-'+string.valueof(JSONDate.month())+'-'+string.valueof(JSONDate.day());
+        String test = JSONDate.year()+'-'+JSONDate.month()+'-'+JSONDate.day();
         
         return test;
     }
@@ -476,11 +464,19 @@ public with sharing class GoogleDriveIntegrationCompController {
     @AuraEnabled  
     public static void addAPILogInDB(String apiLogData){
         System.debug('***** Inside addAPILogInDB()');
+        System.debug('***** APILogdata ='+apilogData);
         GoogleDriveIntegrationAPILogData apiLog = (GoogleDriveIntegrationAPILogData)JSON.deserialize(apiLogData, GoogleDriveIntegrationAPILogData.class);
         System.debug('****** Inside addAPILogInDB()');
         System.debug(apiLog);
-        
-        GoogleDriveIntegrationCompController.addEntryToAPILog(apiLog.recordId, apiLog.googleDriveRef, apiLog.requestBody, apiLog.mulesoftResponseCode, apiLog.mulesoftResponse, apiLog.operationDetails);
+        try{
+            GoogleDriveIntegrationCompController.addEntryToAPILog(apiLog.recordId, apiLog.googleDriveRef, apiLog.requestBody, apiLog.mulesoftResponseCode, apiLog.mulesoftResponse, apiLog.operationDetails);
+        }catch(Exception e){
+            System.debug('Inside Catch');
+            System.debug('System Exception occurred : ' + e.getTypeName());
+            System.debug(e.getMessage());
+            System.debug(e.getStackTraceString());
+            throw new AuraHandledException(e.getMessage());   
+        }
     } 
     
     private static void addEntryToAPILog(String recordId, String googleDriveRef, String requestBody, Integer mulesoftResponseCode, String mulesoftResponse, String operationDetails){
@@ -491,102 +487,4 @@ public with sharing class GoogleDriveIntegrationCompController {
         System.debug('****** Inside addEntryToAPILog()' + logEntry.Id);
     }
     
-    /********************  Commented as per CSM comments for Sprint 5 Demo*************************/
-    
-    //(Added by Suman) This method is called when user selects files/folders and clicks on 'Download' button
-    /*
-@AuraEnabled    
-public static String getDownloadPageLink(String sObjectName, Id recordId, String downloadFolderName, Map<String,List<String>> selectedFolderFiles, Boolean includeSubFolders){
-String downloadLink = GDI_Constants.STRING_EMPTY;
-
-if(String.isBlank(sObjectName) || null == selectedFolderFiles || selectedFolderFiles.size()==0)
-return downloadLink;
-
-//Find the root id(Parent folder for all SF job/account folders)
-String SFMainFolderGoogleDriveRef = GDI_Constants.STRING_EMPTY;//To be used for fetching existing job/account record folders
-//Check if the object is part of Google Drive Sync Config, else return empty list
-Boolean objectExistsInGDSyncConfig = false;
-for(Google_Drive_Sync_Configuration__c template : objectTemplatesList){
-if(sObjectName.equalsIgnoreCase(template.Object_API_Name__c)){
-objectExistsInGDSyncConfig = true;
-SFMainFolderGoogleDriveRef = template.Parent_Folder_Google_Drive_Ref__c;
-break;
-}
-}
-if(!objectExistsInGDSyncConfig)
-return downloadLink;
-
-try{
-//Get Google drive Ref(or GD Id), Name for the main Job/Account folder
-sObject parentRecord= Database.query('SELECT Id,Google_Drive_Folder_Ref__c,Google_Drive_Folder_Name__c FROM ' + sObjectName + ' WHERE Id = :recordId');
-downloadLink = GoogleDriveIntegrationCompHelper.downloadFolderFileInGoogleDrive(SFMainFolderGoogleDriveRef, parentRecord.get('Google_Drive_Folder_Ref__c').toString(), downloadFolderName, selectedFolderFiles, includeSubFolders,recordId);
-
-}catch(Exception e){
-System.debug('System Exception occurred : ' + e.getTypeName());
-System.debug(e.getMessage());
-System.debug(e.getStackTraceString());
-throw new AuraHandledException(e.getMessage());   
-}
-return downloadLink;
-} */
-    
-    
-    /* 
-//This method is called when user selects files/folders and clicks on 'Download' button.
-@AuraEnabled    
-public static List<String> getNoOfFilesAndTotalSizeForDownload(String sObjectName, Id recordId, Map<String,List<String>> selectedFolderFiles){
-System.debug('***** Inside getNoOfFilesAndTotalSizeForDownload()');
-List<String> downloadDetails = new List<String>();
-
-if(String.isBlank(sObjectName) || null == selectedFolderFiles || selectedFolderFiles.size()==0)
-return downloadDetails;
-
-System.debug('****' + selectedFolderFiles);
-
-try{
-//Get Google drive Ref(or GD Id), Name for the main Job/Account folder
-sObject parentRecord= Database.query('SELECT Id,Google_Drive_Folder_Ref__c FROM ' + sObjectName + ' WHERE Id = :recordId');
-downloadDetails = GoogleDriveIntegrationCompHelper.getTotalSizeAndNoOfFiles(parentRecord.get('Google_Drive_Folder_Ref__c').toString(), selectedFolderFiles,recordId);
-
-}catch(Exception e){
-System.debug('System Exception occurred : ' + e.getTypeName());
-System.debug(e.getMessage());
-System.debug(e.getStackTraceString());
-throw new AuraHandledException(e.getMessage());   
-}
-return downloadDetails;
-}*/
-    
-    /**********Commented as per the requirement change- Read only not needed instead the "Photo" folder shall be hidden ***************/
-    /*This method gives the list of folders which need to be read only in lightning comp
-@AuraEnabled  
-public static List<String> getReadOnlyFolderListFromMetadataConfig(String sObjectName){
-System.debug('***** Inside getReadOnlyFolderListFromMetadataConfig()');
-List<String> folderList = new List<String>();
-if(String.isBlank(sObjectName) || null == googleDriveConfigDetails || null == objectTemplatesList || objectTemplatesList.size() == 0)
-return folderList;
-System.debug('######2' + sObjectName);
-String folderListString = GDI_Constants.STRING_EMPTY;
-try{
-if(sObjectName.equalsIgnoreCase(GDI_Constants.OBJ_JOB))
-folderListString = googleDriveConfigDetails.Read_only_folders__c;
-else if(sObjectName.equalsIgnoreCase(GDI_Constants.OBJ_ACCOUNT))
-folderListString = googleDriveConfigDetails.Read_only_folders_Account__c;
-else if(sObjectName.equalsIgnoreCase(GDI_Constants.OBJ_OPP))
-folderListString = googleDriveConfigDetails.Read_only_folders_Opp__c;
-else
-return folderList;
-System.debug('######1' + folderListString);
-if(String.isBlank(folderListString))
-return folderList;
-
-folderList = folderListString.split(GDI_Constants.STRING_SEMICOLON);
-}catch(Exception e){
-System.debug('System Exception occurred : ' + e.getTypeName());
-System.debug(e.getMessage());
-System.debug(e.getStackTraceString());
-throw new AuraHandledException(e.getMessage());   
-}
-return folderList;
-} */
 }

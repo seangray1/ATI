@@ -1,0 +1,45 @@
+<!--*******************************************************************************************
+* @author           Suman
+* @version          1.0 
+* @date             30-Oct-2020
+* @Status           In-Progress
+* @Class Name       sharinPixDatatableComp
+* @description      This lwc can be used to add thumbnail view to the screen.
+                    This is a child comp for lwc - sharinPixMoveImagesBetweenJobs.	
+*********************************************************************************************
+Version     Date      Team          Comments
+*********************************************************************************************
+* 1      	Oct 2020    Suman        Initial Creation(JIRA AR-694)
+*********************************************************************************************-->
+<template>
+    <template if:true={sharinPixImageList}>
+        <!--
+        <lightning-input label="Select All(Current Page)" type="checkbox" name="selectAllImages"
+            onchange={handleSelectAllChange} data-my-id="selectAllChkBox">
+        </lightning-input>-->
+        <c-sharin-pix-paginator-comp records={sharinPixImageList} total-records={sharinPixImageList.length} show-select-all=true 
+            onpaginatorchange={handlePaginatorChange} onselectallchange={handleSelectAllChange} ></c-sharin-pix-paginator-comp>
+
+        <div class="section-box">
+            <div class="slds-grid slds-wrap slds-gutters_small">
+                <template for:each={recordsToDisplay} for:item="imageItem" for:index="index">
+                    <div key={imageItem} class="slds-col slds-size_1-of-5">
+                        <div class="slds-box">
+                            <lightning-input key={imageItem.Id} label="" type="checkbox"
+                                name={imageItem.sharinpix__ImagePublicId__c} data-value={imageItem.Id}
+                                onchange={handleImageSelChange} data-my-id="rowChkBox"></lightning-input>
+                            <img src={imageItem.sharinpix__ImageURLFull__c} key={imageItem}
+                                style="height: 140px;width:100%;object-fit:cover;"
+                                title={imageItem.sharinpix__FileName__c}>
+                            <p class="slds-m-vertical_x-small slds-text-align_center">{imageItem.sharinpix__FileName__c}
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+    <template if:true={error}>
+        Error
+    </template>
+</template>

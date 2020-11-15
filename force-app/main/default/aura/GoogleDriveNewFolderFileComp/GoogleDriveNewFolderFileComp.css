@@ -1,54 +1,44 @@
 .THIS .error{
-    color:#FF4D55;
+    color: #ff4d55;
     font-size: 12px;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0;
-    margin-bottom: 0;    
+    margin-bottom: 0; 
 }
-
 .THIS .slds-form-element__label:empty{
-    display:none;
+    display: none;
 }
-
 .THIS .slds-modal__header{
-    padding:12px;
+    padding: 12px;
 }
-
 .THIS .slds-modal__content label{
-    font-weight:700;
+    font-weight: 700;
 }
-
-.THIS .slds-text-heading_medium, .THIS .slds-text-heading--medium{    
-    font-size:16px;
+.THIS .slds-text-heading_medium, .THIS .slds-text-heading--medium{
+    font-size: 16px;
 }
-
 .THIS .slds-button_neutral, .THIS .slds-button--neutral, .THIS .slds-button_brand, .THIS .slds-button--brand{
-    padding:0 12px;
-    font-size:14px;
+    padding: 0 12px;
+    font-size: 14px;
 }
 
 .THIS .slds-dropdown-trigger .slds-dropdown{
-    width:220px;
+    width: 220px;
 }
-
 .THIS .listicon{
     float: left;
     padding: 8px 4px;
 }
-
 .THIS .slds-dropdown__item>a{
     padding: 8px 4px;
 }
-
 /* If you are using Accordion 
- * 
+ *
 .THIS .slds-accordion__section{
     padding:0 0 12px 0;
 }
-
 .THIS .slds-button_neutral, .THIS .slds-button--neutral{
     margin:4px;
 }
-
 */

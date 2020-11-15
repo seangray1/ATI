@@ -1,9 +1,33 @@
 .THIS.SearchWrap {
-    display:inline-block; width:100%;
+    display: inline-block; 
+    width: 100%;
 }
-.THIS .BackBtn, .THIS .SearchInput, .THIS .SearchBtn{display:inline-block; margin-right:15px;}
-.THIS .SearchInput{width:65%;}
-.THIS.SearchFilter{display:inline-block; width:100%; padding: 13px 10px 15px 48px;font-size: 12px;}
-.THIS .SearchFilterMnus{padding-right:10px;}
-.THIS .CustomDates{display:inline-block; background: #f3f3f3; width:100%;}
-.THIS .CustomInputStartDate, .THIS .CustomInputEndDate{display:inline-block; font-size:12px; margin: 12px;width: 45%; color: rgb(0 68 135 / 1);}
+.THIS .BackBtn, .THIS .SearchInput, .THIS .SearchBtn{
+    display: inline-block; 
+    margin-right: 15px;
+}
+.THIS .SearchInput{
+    width: 65%;
+}
+.THIS.SearchFilter{
+    display: inline-block; 
+    width: 100%;
+    padding: 13px 10px 15px 48px;
+    font-size: 12px;
+}
+.THIS .SearchFilterMnus{
+    padding-right: 10px;
+}
+.THIS .CustomDates{
+    display: inline-block; 
+    background: #f3f3f3; 
+    width: 100%;
+}
+.THIS .CustomInputStartDate, .THIS .CustomInputEndDate{
+    display: inline-block; 
+    font-size: 12px; 
+    margin: 12px;
+    width: 45%; 
+    color: rgb(0 68 135 / 1);
+}
+.THIS .CustomModalFoot{text-align:center;}

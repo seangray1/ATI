@@ -1134,6 +1134,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Probability__c</picklist>
+        <values>
+            <fullName>Cold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Project_Type__c</picklist>
         <values>
             <fullName>Certified</fullName>
@@ -1145,6 +1160,21 @@
         </values>
         <values>
             <fullName>Union</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating__c</picklist>
+        <values>
+            <fullName>Cold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warm</fullName>
             <default>false</default>
         </values>
     </picklistValues>

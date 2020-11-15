@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XASP_Transaction_ID_Max_Length</fullName>
+    <active>true</active>
+    <description>Transaction ID cannot exceed 7 characters.</description>
+    <errorConditionFormula>LEN(  XASP_Transaction_ID__c  ) &gt; 7</errorConditionFormula>
+    <errorDisplayField>XASP_Transaction_ID__c</errorDisplayField>
+    <errorMessage>Transaction ID cannot exceed 7 characters.</errorMessage>
+</ValidationRule>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Operation_Home_Office_Logic_del__c</fullName>
-    <description>Code for Operations Manager&#39;s Home Office. Used for Reporting purposes.</description>
+    <description>Code for Operations Manager&apos;s Home Office. Used for Reporting purposes.</description>
     <externalId>false</externalId>
     <formula>if( text( Project_Manager_new__r.Office__c ) = text($User.Office__c ),1,0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

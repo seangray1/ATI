@@ -12,7 +12,10 @@ public class GoogleDriveIntegrationAPILogData {
         this.recordId = recordId;
         this.googleDriveRef = googleDriveRef;
         this.mulesoftResponseCode = mulesoftResponseCode;
-        this.mulesoftResponse = mulesoftResponse;
+        if(mulesoftResponse.length() > 32700)
+            this.mulesoftResponse = mulesoftResponse.substring(0, 32700);
+        else
+            this.mulesoftResponse = mulesoftResponse;
         this.operationDetails = operationDetails;
         this.requestBody = requestBody;
     }

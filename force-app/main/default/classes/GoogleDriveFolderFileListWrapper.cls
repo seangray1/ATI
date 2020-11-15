@@ -11,12 +11,6 @@ Version     Date      Team          Comments
 * 1      	Aug 2020    Kevin        Initial Creation(JIRA AR-653)
 *********************************************************************************************/
 public class GoogleDriveFolderFileListWrapper {
-    /*public class ModifiedTime {
-        public Boolean dateOnly;
-        public Integer timeZoneShift;
-        public Long value;
-    }*/
-    
     public class LastModifyingUser {
         public String displayName;
         public String emailAddress;
@@ -43,20 +37,15 @@ public class GoogleDriveFolderFileListWrapper {
         public LastModifyingUser lastModifyingUser;
         public String mimeType;
         public Datetime modifiedTime;
-        //public ModifiedTime modifiedTime;
         public String name;
         public List<Owners> owners;
         public List<String> parents;
         public String webViewLink;
         public String fileExtension;
-        //public Integer size;
         public String size;
         public String webContentLink;
         public String description;
-        
     }
-    
-    
     public static GoogleDriveFolderFileListWrapper parse(String json) {
         return (GoogleDriveFolderFileListWrapper) System.JSON.deserialize(json, GoogleDriveFolderFileListWrapper.class);
     }

@@ -6,7 +6,7 @@
 
 OAuth buttons require additional setup. Please see the Composer Installation Guide for more details.
 
-COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&#39;s behavior. See the Composer Configuration Guide for details.</description>
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Composer Configuration Guide for details.</description>
     <displayType>button</displayType>
     <encodingKey>UTF-8</encodingKey>
     <hasMenubar>false</hasMenubar>

@@ -10,7 +10,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         TestDataUtil.createCustomSettings_TriggerStatus();
         String GDID = GDI_Constants.TEST_GDID;
         List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account', Google_Drive_Folder_Ref__c=GDI_Constants.TEST_GDID);
+        Account acc = new account(Name = 'Test Account', Google_Drive_Folder_Ref__c=GDI_Constants.TEST_GDID);
         insert acc;
         //Google_Drive_Sync_Configuration__c
         Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
@@ -93,7 +93,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         
         Test.stopTest();
     }
-	
+    
     @isTest
     static void testListFolderAndCreateAPI(){
         List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
@@ -102,7 +102,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         TestDataUtil.createCustomSettings_TriggerStatus();
         String GDID = GDI_Constants.TEST_GDID;
         List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
+        Account acc = new account(Name = 'Test Account');
         insert acc;
         //Google_Drive_Sync_Configuration__c
         Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
@@ -125,25 +125,25 @@ public class GoogleDriveIntegrationCompControllerTest {
         
         //1.1 Get Sub folders/files list
         folderFileList = GoogleDriveIntegrationCompController.getSubFolderFilesList(job.id, GDI_Constants.OBJ_JOB, GDID);
-		System.assertEquals(36, folderFileList.size());  
+        System.assertEquals(36, folderFileList.size());  
         folderFileList = GoogleDriveIntegrationCompController.getSubFolderFilesList(acc.id, GDI_Constants.OBJ_ACCOUNT, GDID);
-		System.assertEquals(36, folderFileList.size());  
+        System.assertEquals(36, folderFileList.size());  
         
         //1.2 Get Sub folders/files list when rec id is null
         folderFileList = GoogleDriveIntegrationCompController.getSubFolderFilesList(job.Id, '', GDID);
-		System.assertEquals(0, folderFileList.size());  
+        System.assertEquals(0, folderFileList.size());  
         
         //2.1
         newfolderFileDetails = GoogleDriveIntegrationCompController.createNewFolderInGoogleDrive(GDI_Constants.OBJ_JOB, job.id, GDID, 'Foldername');
-    	System.assertEquals('TestingforTestclass', newfolderFileDetails.name);
+        System.assertEquals('TestingforTestclass', newfolderFileDetails.name);
         
         //2.2
         newfolderFileDetails = GoogleDriveIntegrationCompController.createNewFolderInGoogleDrive('', job.id, GDID, 'Foldername');
-    	System.assert(null == newfolderFileDetails);
+        System.assert(null == newfolderFileDetails);
         
         //3.1
         newfolderFileDetails = GoogleDriveIntegrationCompController.createNewFileInGoogleDrive(GDI_Constants.OBJ_JOB, job.id, GDID, 'googleDoc','Test Doc');
-       System.assertEquals('TestingforTestclass', newfolderFileDetails.name);
+        System.assertEquals('TestingforTestclass', newfolderFileDetails.name);
         
         //3.2
         newfolderFileDetails = GoogleDriveIntegrationCompController.createNewFileInGoogleDrive(GDI_Constants.OBJ_JOB, job.id, GDID, 'googleSheet', 'Test Sheet');
@@ -180,7 +180,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         TestDataUtil.createCustomSettings_TriggerStatus();
         String GDID = GDI_Constants.TEST_GDID;
         List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
+        Account acc = new account(Name = 'Test Account');
         insert acc;
         //Google_Drive_Sync_Configuration__c
         Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
@@ -204,59 +204,59 @@ public class GoogleDriveIntegrationCompControllerTest {
         GoogleDriveIntegrationCompController.deleteSelectedFolderFiles('["1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k"]', job.Id);
         //1.2
         GoogleDriveIntegrationCompController.deleteSelectedFolderFiles('',job.Id);
-		
+        
         Test.stopTest();
     }
     /*
-    @isTest
-    static void testDownloadAPI(){
-        //List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
-        //GoogleDriveSubFolderFileDetail newfolderFileDetails;
-        //Map<String, String> navPathMap = new Map<String, String>();
-        TestDataUtil.createCustomSettings_TriggerStatus();
-        String GDID = GDI_Constants.TEST_GDID;
-        List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
-        insert acc;
-        //Google_Drive_Sync_Configuration__c
-        Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
-        insert gdsc;
-        
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id,Google_Drive_Folder_Ref__c='1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k' );
-        insert job; 
-        
-        Test.startTest();
-        MultiStaticResourceCalloutMock multimock = new MultiStaticResourceCalloutMock();
-        multimock.setStaticResource(GDI_Constants.ENDPOINTURL+GDI_Constants.API_LISTFOLDER, 'GoogleDriveListAPIMock');
-        multimock.setStaticResource(GDI_Constants.ENDPOINTURL+GDI_Constants.API_DOWNLOAD, 'GoogleDriveDownloadAPIMock');
-        
-        multimock.setStatusCode(200);
-        multimock.setHeader('Content-Type', 'application/json');
-        
-        // Set the mock callout mode
-        Test.setMock(HttpCalloutMock.class, multimock);
-        
-        Map<String,List<String>> selectedFolderFiles = new Map<String,List<String>>();
-        List<String> fileFolderDetails = new List<String>();
-        fileFolderDetails.add('Test 123');
-        fileFolderDetails.add('application/pdf');
-        fileFolderDetails.add('true');
-        selectedFolderFiles.put('1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',fileFolderDetails);
-        
-        //1.1 Get Sub folders/files list
-        String downloadLink = GoogleDriveIntegrationCompController.getDownloadPageLink(GDI_Constants.OBJ_JOB, job.Id, 'Test' ,selectedFolderFiles, true);
-        System.assertEquals('https://drive.google.com/file/d/185KcN7BM40ETvd7blI8uScEI83a7xWaD/view?usp=sharing', downloadLink);
-        
-        //1.2
-        String downloadLink1 = GoogleDriveIntegrationCompController.getDownloadPageLink('', job.Id,'Test' ,selectedFolderFiles, true);
-        System.assertEquals('', downloadLink1);
-        
-        //1.3
-        String downloadLink2 = GoogleDriveIntegrationCompController.getDownloadPageLink('DBTest', job.Id,'Test' ,selectedFolderFiles, true);
-        System.assertEquals('', downloadLink2);
-		
-        Test.stopTest();
-    }*/
+@isTest
+static void testDownloadAPI(){
+//List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
+//GoogleDriveSubFolderFileDetail newfolderFileDetails;
+//Map<String, String> navPathMap = new Map<String, String>();
+TestDataUtil.createCustomSettings_TriggerStatus();
+String GDID = GDI_Constants.TEST_GDID;
+List<user> users = TestDataUtil.createUsersNew(2, true);
+Account acc = new account(Name = 'Test Account');
+insert acc;
+//Google_Drive_Sync_Configuration__c
+Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
+insert gdsc;
+
+ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id,Google_Drive_Folder_Ref__c='1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k' );
+insert job; 
+
+Test.startTest();
+MultiStaticResourceCalloutMock multimock = new MultiStaticResourceCalloutMock();
+multimock.setStaticResource(GDI_Constants.ENDPOINTURL+GDI_Constants.API_LISTFOLDER, 'GoogleDriveListAPIMock');
+multimock.setStaticResource(GDI_Constants.ENDPOINTURL+GDI_Constants.API_DOWNLOAD, 'GoogleDriveDownloadAPIMock');
+
+multimock.setStatusCode(200);
+multimock.setHeader('Content-Type', 'application/json');
+
+// Set the mock callout mode
+Test.setMock(HttpCalloutMock.class, multimock);
+
+Map<String,List<String>> selectedFolderFiles = new Map<String,List<String>>();
+List<String> fileFolderDetails = new List<String>();
+fileFolderDetails.add('Test 123');
+fileFolderDetails.add('application/pdf');
+fileFolderDetails.add('true');
+selectedFolderFiles.put('1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',fileFolderDetails);
+
+//1.1 Get Sub folders/files list
+String downloadLink = GoogleDriveIntegrationCompController.getDownloadPageLink(GDI_Constants.OBJ_JOB, job.Id, 'Test' ,selectedFolderFiles, true);
+System.assertEquals('https://drive.google.com/file/d/185KcN7BM40ETvd7blI8uScEI83a7xWaD/view?usp=sharing', downloadLink);
+
+//1.2
+String downloadLink1 = GoogleDriveIntegrationCompController.getDownloadPageLink('', job.Id,'Test' ,selectedFolderFiles, true);
+System.assertEquals('', downloadLink1);
+
+//1.3
+String downloadLink2 = GoogleDriveIntegrationCompController.getDownloadPageLink('DBTest', job.Id,'Test' ,selectedFolderFiles, true);
+System.assertEquals('', downloadLink2);
+
+Test.stopTest();
+}*/
     
     @isTest
     static void testUploadAPI(){
@@ -266,7 +266,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         TestDataUtil.createCustomSettings_TriggerStatus();
         String GDID = GDI_Constants.TEST_GDID;
         List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
+        Account acc = new account(Name = 'Test Account');
         insert acc;
         //Google_Drive_Sync_Configuration__c
         Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
@@ -285,7 +285,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         
         ContentVersion uploadedFile = [SELECT ContentDocumentId FROM ContentVersion WHERE ID=:contentVersionInsert.Id];
         
-       	String files = '["' + uploadedFile.ContentDocumentId +'"]';
+        String files = '["' + uploadedFile.ContentDocumentId +'"]';
         
         //1.1 Create platfrom event
         GoogleDriveIntegrationCompController.uploadFilesToGoogleDrive(job.Id,'1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',files);
@@ -409,7 +409,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         
         ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id, Google_Drive_Folder_Ref__c=GDI_Constants.TEST_GDID);
         insert job; 
-         ATI_Job__c job_old = new ATI_Job__c(Name = 'Test Job 1',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id);
+        ATI_Job__c job_old = new ATI_Job__c(Name = 'Test Job 1',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id);
         insert job_old; 
         
         String Body = '';
@@ -446,7 +446,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         TestDataUtil.createCustomSettings_TriggerStatus();
         String GDID = GDI_Constants.TEST_GDID;
         List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
+        Account acc = new account(Name = 'Test Account');
         insert acc;
         //Google_Drive_Sync_Configuration__c
         Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
@@ -479,7 +479,7 @@ public class GoogleDriveIntegrationCompControllerTest {
         TestDataUtil.createCustomSettings_TriggerStatus();
         String GDID = GDI_Constants.TEST_GDID;
         List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
+        Account acc = new account(Name = 'Test Account');
         insert acc;
         //Google_Drive_Sync_Configuration__c
         Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
@@ -507,46 +507,14 @@ public class GoogleDriveIntegrationCompControllerTest {
         Test.stopTest();
     }
     
-    /*
     @isTest
-    static void testDownloadAPIFailure(){
-        TestDataUtil.createCustomSettings_TriggerStatus();
-        String GDID = GDI_Constants.TEST_GDID;
-        List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
-        insert acc;
-        //Google_Drive_Sync_Configuration__c
-        Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
-        insert gdsc;
-        
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id,Google_Drive_Folder_Ref__c='1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k' );
-        insert job; 
-        
+    static void testaddAPILogInDB(){
+        String apiLogData = '{"uiMessage":"Folder contents could not be retrieved from Google Drive. Mulesoft response code - 500","recordId":"123456a12345","operationDetails":"ListFolder API","mulesoftResponseCode":500,"mulesoftResponse":"Error"}';
         Test.startTest();
-        MultiStaticResourceCalloutMock multimock = new MultiStaticResourceCalloutMock();
-        multimock.setStaticResource(GDI_Constants.ENDPOINTURL+GDI_Constants.API_DOWNLOAD, 'GoogleDriveDownloadAPIMock');
-        
-        multimock.setStatusCode(500);
-        multimock.setHeader('Content-Type', 'application/json');
-        
-        // Set the mock callout mode
-        Test.setMock(HttpCalloutMock.class, multimock);
-        
-        Map<String,List<String>> selectedFolderFiles = new Map<String,List<String>>();
-        List<String> fileFolderDetails = new List<String>();
-        fileFolderDetails.add('Test 123');
-        fileFolderDetails.add('application/pdf');
-        fileFolderDetails.add('true');
-        selectedFolderFiles.put('1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',fileFolderDetails);
-        
-        try{
-            String downloadLink = GoogleDriveIntegrationCompController.getDownloadPageLink(GDI_Constants.OBJ_JOB, job.Id, 'Test' ,selectedFolderFiles, true);
-        }catch(Exception e){
-            System.assert(e.getMessage().contains('Script-thrown exception')); 
-        }
-        
+        GoogleDriveIntegrationCompController.addAPILogInDB(apiLogData);
         Test.stopTest();
-    }*/
+    }
+
     
     @isTest
     static void testSearchAPIFailure(){
@@ -580,69 +548,110 @@ public class GoogleDriveIntegrationCompControllerTest {
         System.assertEquals(null, returnedDate);
     }
     
+        /*
+@isTest
+static void testDownloadAPIFailure(){
+TestDataUtil.createCustomSettings_TriggerStatus();
+String GDID = GDI_Constants.TEST_GDID;
+List<user> users = TestDataUtil.createUsersNew(2, true);
+Account acc = new account(Name = 'Test Account');
+insert acc;
+//Google_Drive_Sync_Configuration__c
+Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = GDI_Constants.OBJ_JOB, Active__c = true, Upload_files_attachments__c= true, Folder_Name_for_Files__c='Google Docs,Notes & Attachments');
+insert gdsc;
+
+ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id,Google_Drive_Folder_Ref__c='1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k' );
+insert job; 
+
+Test.startTest();
+MultiStaticResourceCalloutMock multimock = new MultiStaticResourceCalloutMock();
+multimock.setStaticResource(GDI_Constants.ENDPOINTURL+GDI_Constants.API_DOWNLOAD, 'GoogleDriveDownloadAPIMock');
+
+multimock.setStatusCode(500);
+multimock.setHeader('Content-Type', 'application/json');
+
+// Set the mock callout mode
+Test.setMock(HttpCalloutMock.class, multimock);
+
+Map<String,List<String>> selectedFolderFiles = new Map<String,List<String>>();
+List<String> fileFolderDetails = new List<String>();
+fileFolderDetails.add('Test 123');
+fileFolderDetails.add('application/pdf');
+fileFolderDetails.add('true');
+selectedFolderFiles.put('1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',fileFolderDetails);
+
+try{
+String downloadLink = GoogleDriveIntegrationCompController.getDownloadPageLink(GDI_Constants.OBJ_JOB, job.Id, 'Test' ,selectedFolderFiles, true);
+}catch(Exception e){
+System.assert(e.getMessage().contains('Script-thrown exception')); 
+}
+
+Test.stopTest();
+}*/
+    
     /*
-    @isTest
-    static void testGetReadOnlyFolderListFromMetadataConfig(){
-        //Google_Drive_Sync_Configuration__c
-        Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = 'ATI_Job__c', Active__c = true);
-        insert gdsc;
-        
-        Google_Drive_Integration_Configurations__mdt googleDriveConfigDetails = [SELECT Read_only_folders__c,Read_only_folders_Account__c,Read_only_folders_Opp__c FROM Google_Drive_Integration_Configurations__mdt LIMIT 1]; 
-        
-        List<String> folderList = GoogleDriveIntegrationCompController.getReadOnlyFolderListFromMetadataConfig('ATI_Job__c');
-        System.assertEquals(googleDriveConfigDetails.Read_only_folders__c.split(GDI_Constants.STRING_SEMICOLON), folderList);
-        
-        List<String> folderList1 = GoogleDriveIntegrationCompController.getReadOnlyFolderListFromMetadataConfig('Account');
-        System.assertEquals(googleDriveConfigDetails.Read_only_folders_Account__c.split(GDI_Constants.STRING_SEMICOLON), folderList1);
-        
-        List<String> folderList2 = GoogleDriveIntegrationCompController.getReadOnlyFolderListFromMetadataConfig('Opportunity');
-        System.assertEquals(googleDriveConfigDetails.Read_only_folders_Opp__c.split(GDI_Constants.STRING_SEMICOLON), folderList2);
-    }*/
+@isTest
+static void testGetReadOnlyFolderListFromMetadataConfig(){
+//Google_Drive_Sync_Configuration__c
+Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = 'ATI_Job__c', Active__c = true);
+insert gdsc;
+
+Google_Drive_Integration_Configurations__mdt googleDriveConfigDetails = [SELECT Read_only_folders__c,Read_only_folders_Account__c,Read_only_folders_Opp__c FROM Google_Drive_Integration_Configurations__mdt LIMIT 1]; 
+
+List<String> folderList = GoogleDriveIntegrationCompController.getReadOnlyFolderListFromMetadataConfig('ATI_Job__c');
+System.assertEquals(googleDriveConfigDetails.Read_only_folders__c.split(GDI_Constants.STRING_SEMICOLON), folderList);
+
+List<String> folderList1 = GoogleDriveIntegrationCompController.getReadOnlyFolderListFromMetadataConfig('Account');
+System.assertEquals(googleDriveConfigDetails.Read_only_folders_Account__c.split(GDI_Constants.STRING_SEMICOLON), folderList1);
+
+List<String> folderList2 = GoogleDriveIntegrationCompController.getReadOnlyFolderListFromMetadataConfig('Opportunity');
+System.assertEquals(googleDriveConfigDetails.Read_only_folders_Opp__c.split(GDI_Constants.STRING_SEMICOLON), folderList2);
+}*/
     /*
-    @isTest
-    static void testGetFolderInfoAPI(){
-        //List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
-        //GoogleDriveSubFolderFileDetail newfolderFileDetails;
-        //Map<String, String> navPathMap = new Map<String, String>();
-        TestDataUtil.createCustomSettings_TriggerStatus();
-        String GDID = GDI_Constants.TEST_GDID;
-        List<user> users = TestDataUtil.createUsersNew(2, true);
-         Account acc = new account(Name = 'Test Account');
-        insert acc;
-        //Google_Drive_Sync_Configuration__c
-        Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = 'ATI_Job__c', Active__c = true);
-        insert gdsc;
-        
-        ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id,Google_Drive_Folder_Ref__c='1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k' );
-        insert job; 
-        
-        Test.startTest();
-        MultiStaticResourceCalloutMock multimock = new MultiStaticResourceCalloutMock();
-        multimock.setStaticResource('callout:MulesoftGDriveIntegration/ListFolder', 'GoogleDriveListAPIMock');
-        multimock.setStaticResource('callout:MulesoftGDriveIntegration/'+GDI_Constants.API_FOLDERINFO, 'GoogleDriveGetFolderInfoAPIMock');
-        
-        multimock.setStatusCode(200);
-        multimock.setHeader('Content-Type', 'application/json');
-        
-        // Set the mock callout mode
-        Test.setMock(HttpCalloutMock.class, multimock);
-        
-        Map<String,List<String>> selectedFolderFiles = new Map<String,List<String>>();
-        List<String> fileFolderDetails = new List<String>();
-        fileFolderDetails.add('Test 123');
-        fileFolderDetails.add('application/pdf');
-        fileFolderDetails.add('true');
-        selectedFolderFiles.put('1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',fileFolderDetails);
-        
-        //1.1 
-        List<String> downloadDetails = GoogleDriveIntegrationCompController.getNoOfFilesAndTotalSizeForDownload('ATI_Job__c', job.Id,selectedFolderFiles);
-        System.assertEquals('5 files', downloadDetails.get(0));
-        System.assertEquals('8 MB', downloadDetails.get(1));
-        
-        //1.2
-        List<String> downloadDetails2 = GoogleDriveIntegrationCompController.getNoOfFilesAndTotalSizeForDownload('', job.Id,selectedFolderFiles);
-        System.assertEquals(0, downloadDetails2.size());
-		
-        Test.stopTest();
-    }*/
+@isTest
+static void testGetFolderInfoAPI(){
+//List<GoogleDriveSubFolderFileDetail> folderFileList = new List<GoogleDriveSubFolderFileDetail>();
+//GoogleDriveSubFolderFileDetail newfolderFileDetails;
+//Map<String, String> navPathMap = new Map<String, String>();
+TestDataUtil.createCustomSettings_TriggerStatus();
+String GDID = GDI_Constants.TEST_GDID;
+List<user> users = TestDataUtil.createUsersNew(2, true);
+Account acc = new account(Name = 'Test Account');
+insert acc;
+//Google_Drive_Sync_Configuration__c
+Google_Drive_Sync_Configuration__c gdsc = new Google_Drive_Sync_Configuration__c(Name = 'Job', Object_API_Name__c = 'ATI_Job__c', Active__c = true);
+insert gdsc;
+
+ATI_Job__c job = new ATI_Job__c(Name = 'Test Job',Job_Name__c = 'Test Job',Stage__c = 'Qualification',XACT_File_Reopened__c = TRUE,Project_Manager__c =users[0].id,Google_Drive_Folder_Ref__c='1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k' );
+insert job; 
+
+Test.startTest();
+MultiStaticResourceCalloutMock multimock = new MultiStaticResourceCalloutMock();
+multimock.setStaticResource('callout:MulesoftGDriveIntegration/ListFolder', 'GoogleDriveListAPIMock');
+multimock.setStaticResource('callout:MulesoftGDriveIntegration/'+GDI_Constants.API_FOLDERINFO, 'GoogleDriveGetFolderInfoAPIMock');
+
+multimock.setStatusCode(200);
+multimock.setHeader('Content-Type', 'application/json');
+
+// Set the mock callout mode
+Test.setMock(HttpCalloutMock.class, multimock);
+
+Map<String,List<String>> selectedFolderFiles = new Map<String,List<String>>();
+List<String> fileFolderDetails = new List<String>();
+fileFolderDetails.add('Test 123');
+fileFolderDetails.add('application/pdf');
+fileFolderDetails.add('true');
+selectedFolderFiles.put('1EKOV5c8orKRbz_Hiso_uDwMPU6MXoS0k',fileFolderDetails);
+
+//1.1 
+List<String> downloadDetails = GoogleDriveIntegrationCompController.getNoOfFilesAndTotalSizeForDownload('ATI_Job__c', job.Id,selectedFolderFiles);
+System.assertEquals('5 files', downloadDetails.get(0));
+System.assertEquals('8 MB', downloadDetails.get(1));
+
+//1.2
+List<String> downloadDetails2 = GoogleDriveIntegrationCompController.getNoOfFilesAndTotalSizeForDownload('', job.Id,selectedFolderFiles);
+System.assertEquals(0, downloadDetails2.size());
+
+Test.stopTest();
+}*/
 }

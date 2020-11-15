@@ -10,7 +10,7 @@
     *********************************************************************************************
     * 1      	Sep 2020    Suman        Initial Creation(JIRA AR-653)
     *********************************************************************************************-->
-<aura:component controller='GoogleDriveIntegrationCompController' implements="force:hasSObjectName,force:hasRecordId" access="global">
+<aura:component controller="GoogleDriveIntegrationCompController" implements="force:hasSObjectName,force:hasRecordId" access="global">
     <aura:attribute name="selectedRowList" type="List"/>
     <aura:attribute name="isDeleteButtonEnabled" type="Boolean" default="FALSE"/>
     <!--<aura:attribute name="isCurrentFolderReadOnly" type="Boolean"/>-->
@@ -50,7 +50,7 @@
                 <!--Modal/Popup Box Body Starts here-->
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                     <div>
-                        <label>Are you sure you want to delete the selected folder(s)/files(s)</label>
+                        <label>Are you sure you want to delete the selected folder(s)/files(s) ?</label>
                     </div>
                 </div>
                 <!--Modal/Popup Box Footer Starts here-->

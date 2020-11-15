@@ -1,4 +1,4 @@
-<aura:component controller='GoogleDriveIntegrationCompController' implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" >
+<aura:component controller="GoogleDriveIntegrationCompController" >
 	<aura:attribute name="folderFilesList" type="List"/><!--folder/file details list to be shown on screen-->
     <aura:attribute name="navPathDetailsMap" type="Map"/><!--Map to show links to parent folders-->
     <aura:attribute name="currentFolderGDId" type="String"/><!-- Current open folder's Google Drive Ref Id -->
@@ -129,8 +129,8 @@
                         </div>
                     </p>
                 </div>
-                <footer class="slds-modal__footer">
-                    <center>
+                <footer class="slds-modal__footer CustomModalFoot">
+                    
                     <lightning:button variant="neutral" 
                                       label="Cancel"
                                       title="Cancel"
@@ -139,7 +139,7 @@
                                       label="Go"
                                       title="Go"
                                       onclick="{! c.SubmitCustomDates }"/>
-                    </center>
+                    
                 </footer>
             </div>
         </section>

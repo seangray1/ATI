@@ -3,7 +3,7 @@
     <fullName>CRMG_EmailAtt__Thread_Id__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <formula>&#39;ref:&#39;&amp;LEFT($Organization.Id,4)&amp;LEFT(RIGHT($Organization.Id,7),4)&amp;&#39;.&#39;&amp;LEFT(Id,4)&amp;LEFT(RIGHT(Id,8),5)&amp;&#39;:ref&#39;</formula>
+    <formula>&apos;ref:&apos;&amp;LEFT($Organization.Id,4)&amp;LEFT(RIGHT($Organization.Id,7),4)&amp;&apos;.&apos;&amp;LEFT(Id,4)&amp;LEFT(RIGHT(Id,8),5)&amp;&apos;:ref&apos;</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Thread ID</label>
     <required>false</required>

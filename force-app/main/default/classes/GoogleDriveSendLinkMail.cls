@@ -1,4 +1,4 @@
-public class GoogleDriveSendLinkMail {
+public with sharing class GoogleDriveSendLinkMail {
     
     @AuraEnabled
     public static void sendEmail(String toAddresses, String Subject, String htmlBody){

@@ -1,0 +1,5 @@
+.slds-modal__content {
+  max-height: 30rem;
+  overflow: auto;
+  /* overflow: initial; needed for combobox display? */
+}

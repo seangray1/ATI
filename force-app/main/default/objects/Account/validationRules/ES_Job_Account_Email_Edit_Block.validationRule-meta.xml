@@ -7,7 +7,7 @@
 
  IsPersonAccount = TRUE, 
 
-  Id = &#39;0010g00001bRgPo&#39; ,
+  Id = &apos;0010g00001bRgPo&apos; ,
 
  ISCHANGED (PersonEmail ))</errorConditionFormula>
     <errorMessage>The ES Job Account Email cannot be changed. Please first update the Project Site account on the job.</errorMessage>

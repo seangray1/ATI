@@ -12,5 +12,15 @@
     <columns>Destination_System__c</columns>
     <columns>Response__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>Upload</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Failure</value>
+    </filters>
     <label>All</label>
 </ListView>

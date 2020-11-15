@@ -12,7 +12,7 @@
 
 
 try { 
-if(&#39;{!$Profile.Name}&#39;  == &#39;System Administrator&#39; || &#39;{!$Profile.Name}&#39;  == &#39;Customer Service Specialist&#39;)
+if(&apos;{!$Profile.Name}&apos;  == &apos;System Administrator&apos; || &apos;{!$Profile.Name}&apos;  == &apos;Customer Service Specialist&apos;)
 {
 sforce.apex.execute(&quot;SendSurvey&quot;,&quot;SmartEmail&quot;,{Opty:&quot;{!Opportunity.Id}&quot;}); 
 alert(&quot;Survey Sent&quot;); 

@@ -8,7 +8,7 @@
     <columns>Estimate_Submitted_Date__c</columns>
     <columns>OPPORTUNITY.PROBABILITY</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
-    <filterScope>Team</filterScope>
+    <filterScope>SalesTeam</filterScope>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>equals</operation>
@@ -24,7 +24,7 @@
         <operation>notEqual</operation>
         <value>Marketing</value>
     </filters>
-    <label>*My Team&#39;s Opportunities</label>
+    <label>*My Team&apos;s Opportunities</label>
     <sharedTo>
         <role>Operations_Chicago</role>
         <role>Operations_Corporate</role>

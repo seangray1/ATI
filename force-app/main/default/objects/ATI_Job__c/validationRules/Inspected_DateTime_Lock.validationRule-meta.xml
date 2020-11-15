@@ -2,7 +2,11 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Inspected_DateTime_Lock</fullName>
     <active>true</active>
-    <errorConditionFormula>(((NOT(ISBLANK(PRIORVALUE(Inspected__c)))
+    <errorConditionFormula>ISBLANK( XASP_Transaction_ID__c )
+
+&amp;&amp;
+
+(((NOT(ISBLANK(PRIORVALUE(Inspected__c)))
 &amp;&amp; (ISBLANK(Inspected__c) || PRIORVALUE(Inspected__c) &lt;&gt; Inspected__c ))
 
 ||
@@ -72,8 +76,8 @@ Job_Not_Sold__c &lt;= (NOW()- (1/1440))
 )
 &amp;&amp;
 
-($Profile.Name != &apos;System Administator&apos;
-||
+($Profile.Name != &apos;System Administrator&apos;
+&amp;&amp;
 $Profile.Name != &apos;Restricted Process Execution&apos;)</errorConditionFormula>
-    <errorMessage>Control Point fields cannot be back-dated and cannot be changed once entered.</errorMessage>
+    <errorMessage>XASP Transaction ID must be populated and Control Point fields cannot be back-dated and cannot be changed once entered.</errorMessage>
 </ValidationRule>

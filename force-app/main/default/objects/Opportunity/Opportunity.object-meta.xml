@@ -86,16 +86,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <content>NewJob</content>
+        <content>NewOpportunity</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>true</skipRecordTypeSelect>
         <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <content>NewJobBeta</content>
-        <skipRecordTypeSelect>true</skipRecordTypeSelect>
-        <type>Visualforce</type>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>

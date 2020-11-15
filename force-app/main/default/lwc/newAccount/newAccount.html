@@ -1,0 +1,10 @@
+<template>
+    <c-dialog title="New Account" save-handler={handleSave} save2-handler={handleMarkAsComplete}>
+        <div slot="modalContent">
+          <c-status-panel infos={info} warnings={warning} errors={error}></c-status-panel>
+          <!-- <c-new-account-lwc></c-new-account-lwc> -->
+            </div>
+      </c-dialog>
+    
+      <!-- <c-spinner-lwc if:true={isBusy}></c-spinner-lwc> -->
+</template>

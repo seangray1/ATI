@@ -5,6 +5,8 @@
     <externalId>false</externalId>
     <inlineHelpText>Part of the National Response Services.</inlineHelpText>
     <label>NRS</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

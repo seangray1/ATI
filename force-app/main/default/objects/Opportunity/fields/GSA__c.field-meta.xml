@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>GSA__c</fullName>
     <defaultValue>false</defaultValue>
-    <description>Government Service Administration - Per Jeff Moor&#39;s request.</description>
+    <description>Government Service Administration - Per Jeff Moor&apos;s request.</description>
     <externalId>false</externalId>
     <inlineHelpText>Government Service Administration</inlineHelpText>
     <label>GSA</label>

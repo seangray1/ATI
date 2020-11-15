@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Has_national_account__c</fullName>
     <externalId>false</externalId>
-    <formula>IF (OR(National_Account__c != &#39;&#39;, National_Account__c != NULL), TRUE, FALSE)</formula>
+    <formula>IF (OR(National_Account__c != &apos;&apos;, National_Account__c != NULL), TRUE, FALSE)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Has national account</label>
     <trackHistory>false</trackHistory>

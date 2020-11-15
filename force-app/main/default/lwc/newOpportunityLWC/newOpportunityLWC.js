@@ -63,6 +63,7 @@ export default class NewOpportunityLWC extends NavigationMixin(LightningElement)
         let fields = event.detail.fields;
         
         console.log('FIelds ' + JSON.stringify(fields));
+        console.log('FIelds ',fields);
 
         const address = this.template.querySelector('[data-id="AddressLookup"]');
             const isValid = address.checkValidity();

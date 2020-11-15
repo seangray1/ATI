@@ -1,4 +1,4 @@
-<aura:component controller = 'GoogleDriveSendLinkMail' access="global" implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" >
+<aura:component controller = "GoogleDriveSendLinkMail" access="global"  >
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="GDriveLink" type="String" /><!-- GDrive Link for Share Comp -->
      <aura:attribute name="SharingGLinkFileName" type="String" /><!-- GDrive FileName for Share Comp -->
@@ -21,12 +21,12 @@
                     <h1 class="slds-text-heading--medium">Sharing Options</h1>
                 </div>
                 
-                <div class="slds-modal__content slds-p-around--medium">
-                    <center>
+                <div class="slds-modal__content slds-p-around--medium CustomSldsBody">
+                    
                         <lightning:tabset selectedTabId="CopyLink">
                             <lightning:tab label="Copy Link" id="CopyLink">
                                 <div class="GroupFields">
-                                    <lightning:input type="input" label="Shared Link" value="{!v.GDriveLink}" name="input5" disabled="true" />
+                                    <lightning:input type="input" class="CopyLinkInput" label="Shared Link" value="{!v.GDriveLink}" name="input5" disabled="true" />
                                     <lightning:button label="Copy" variant="brand" iconName="utility:link" onclick="{!c.CoptyToClipBoard}" />
                                 </div>
                             </lightning:tab>
@@ -41,7 +41,7 @@
                                 </div>
                             </lightning:tab>
                         </lightning:tabset>
-                    </center>                        
+                                          
                 </div>
                 <div class="slds-modal__footer">
                     <button class="slds-button slds-button--brand" onclick="{!c.closeModel}">Close</button>

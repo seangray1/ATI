@@ -12,7 +12,7 @@
     <columns>Receivable_Balance__c</columns>
     <columns>JTD_Profit__c</columns>
     <columns>Send_Prelim__c</columns>
-    <filterScope>Team</filterScope>
+    <filterScope>SalesTeam</filterScope>
     <filters>
         <field>OPPORTUNITY.RECORDTYPE</field>
         <operation>equals</operation>

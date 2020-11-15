@@ -71,6 +71,7 @@ public class GDI_Constants {
     
     public static final String LISTFOLDER_ID = 'id';
     public static final String LISTFOLDER_ROOTID = 'rootId';
+    public static final String LISTFOLDER_DRIVE = 'drive';
     public static final String LISTFOLDER_ROOTPATH = 'rootPath';
     public static final String CREATE_NAME = 'name';
     public static final String CREATE_MIMETYPE = 'mimeType';

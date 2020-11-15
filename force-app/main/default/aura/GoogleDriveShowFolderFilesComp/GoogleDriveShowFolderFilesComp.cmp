@@ -10,7 +10,7 @@
     *********************************************************************************************
     * 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
     *********************************************************************************************-->
-<aura:component controller='GoogleDriveIntegrationCompController'>
+<aura:component controller="GoogleDriveIntegrationCompController">
     <aura:attribute name="folderFilesList" type="List"/><!--folder/file details list to be shown on screen-->
     <aura:attribute name="selectedRowList" type="String[]"/><!--Rows selected-->
     <aura:attribute name="selectedRowDetailsMap" type="Map"/><!--Map to store selected file/folder details-->
@@ -35,7 +35,7 @@
         <aura:if isTrue="{!equals(v.folderFilesList.length,0)}">
             <div class="emptyFolderDiv">
                 <br/><br/><br/><br/>
-                <img src="{!$Resource.GDI_EmptyFolderImage}" class="emptyFolder"/><br/>
+                <img src="{!$Resource.GDI_EmptyFolderImage}" width="84" height="84" alt="empty" class="emptyFolder"/><br/>
                 Folder is empty.
             </div>
             <aura:set attribute="else">
@@ -66,20 +66,20 @@
                                             </div>
                                         </div>
                                     </aura:if>
-                                    <tr>
+                                    <tr class="folderListTblBodyRow">
                                         <td >
-                                            <lightning:input type="checkbox" label="" name="{!item.googleDriveId}" onchange="{!c.updateSelectedRowsList}"/>
+                                            <lightning:input type="checkbox" class="MultiSelectCheckbox" label="" name="{!item.googleDriveId}" onchange="{!c.updateSelectedRowsList}"/>
                                         </td>
                                         <td>
                                             <aura:if isTrue="{!item.isFolder}">
                                                 <div class="slds-align_absolute-left" onclick = "{!c.openSubFolder}" title = "{!item.name}" id="{!item.googleDriveId}" >
-                                                    <img src="{!item.iconLink}"/>
+                                                    <img src="{!item.iconLink}" width="16" height="16" alt="link"/>
                                                     &nbsp;{!item.name}
                                                 </div>
                                                 <!--<lightning:button variant="bare" label="{!item.name}" name="{!item.googleDriveId}" iconName="doctype:folder" iconPosition="left" onclick="{! c.openSubFolder}"/>-->
                                                 <aura:set attribute="else">
                                                     <div class="slds-align_absolute-left" onclick = "{!c.openFile}" title = "{!item.name}" id="{!item.viewLink}" >
-                                                        <img src="{!item.iconLink}"/>
+                                                        <img src="{!item.iconLink}" width="16" height="16" alt="link"/>
                                                         &nbsp;{!item.name}
                                                     </div>
                                                 </aura:set>
@@ -110,7 +110,9 @@
                                         <td>
                                             <div class="ShowShare">
                                                 <!-- <c:GoogleDriveShareComp GDriveLink="{!item.viewLink}"  /> -->
-                                                <lightning:button class="ShareBtn" variant="brand" label="Share" title="Share" name="{!item.viewLink}" value="{!item.name}" iconName="utility:socialshare" disabled="{!v.DisableShare}" onclick="{! c.handleShare }"/>
+                                                <lightning:button class="ShareBtn" variant="brand" label="Share" title="Share" 
+                                                                  name="{!item.viewLink}" value="{!item.name}" iconName="utility:socialshare" 
+                                                                  disabled="{!v.DisableShare}" onclick="{! c.handleShare }"/>
                                             </div> 
                                         </td>
                                     </tr> 
@@ -118,7 +120,7 @@
                             </tbody>
                         </table>
                         <aura:if isTrue="{!v.ShareOptions}">
-                        	<c:GoogleDriveShareComp GDriveLink="{!v.GDriveLink}" SharingGLinkFileName="{!v.SharingGLinkFileName}" ShareOptions="{!v.ShareOptions}"  /> <!-- For Sharing Popup -->
+                        	<c:GoogleDriveShareComp GDriveLink="{!v.GDriveLink}" SharingGLinkFileName="{!v.SharingGLinkFileName}" ShareOptions="{!v.ShareOptions}"  /> 
                         </aura:if>
                    </aura:set>
                 </aura:if>

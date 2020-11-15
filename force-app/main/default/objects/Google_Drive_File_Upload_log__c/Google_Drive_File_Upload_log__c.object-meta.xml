@@ -152,14 +152,14 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <label>Google Drive File Upload log</label>
+    <label>Google Drive File Upload Log</label>
     <nameField>
         <displayFormat>LN-{0000}</displayFormat>
         <label>File Upload Log Number</label>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Google Drive File Upload logs</pluralLabel>
+    <pluralLabel>Google Drive File Upload Logs</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

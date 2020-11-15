@@ -1,0 +1,32 @@
+.img-with-text {
+    text-align: justify;
+}
+
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
+}
+
+.container{
+		width:80%;
+		margin:0 auto;
+}
+
+.searchbtn .slds-button_brand{
+		margin-top:20px!important;
+		width:100%!important;
+}
+
+.page-middle{
+		width:18.5%;
+		margin:0 auto;
+}
+
+.txtright{
+		padding-right:15px;
+		text-align:right;
+}
+
+.tblinputs>tbody>tr:first-child>td{
+	padding-bottom:10px;
+}

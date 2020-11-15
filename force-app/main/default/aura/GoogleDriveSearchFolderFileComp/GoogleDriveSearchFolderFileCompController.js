@@ -3,48 +3,41 @@
         console.log(component.get('v.currentFolderGDId'));
         console.log(component.get('v.parentRecFolderGDId'));
         component.set('v.spinner',true);
-        var searchKey = component.find("searchKey").get("v.value");
-        var Location = component.find("Locationmenu").get('v.value');
-        var googleDriveFolderRef;
-        var TimeStartDateParam = null;
-        var TimeEndDateParam = null;
-        if(searchKey == ''){
-            var toastEvent = $A.get("e.force:showToast");
-            toastEvent.setParams({
-                "type":"error",
-                "title": "Error!",
-                "message": 'Enter a valid key search text'
-            });
-            toastEvent.fire();   
-            component.set('v.spinner',false);
+        let searchKey = component.find("searchKey").get("v.value");
+        let Location = component.find("Locationmenu").get('v.value');
+        let googleDriveFolderRef;
+        let TimeStartDateParam = null;
+        let TimeEndDateParam = null;
+        if(searchKey === ''){
+            searchKey = '*';
         }
-        else{
-            if(Location == 'Any Location'){
+        //     let toastEvent = $A.get("e.force:showToast");
+        //     toastEvent.setParams({
+        //         "type":"error",
+        //         "title": "Error!",
+        //         "message": 'Enter a valid key search text'
+        //     });
+        //     toastEvent.fire();
+        //     component.set('v.spinner',false);
+        // }
+        // else{
+            if(Location === 'Any Location'){
                 googleDriveFolderRef = component.get('v.parentRecFolderGDId');
             }
             else{
                 googleDriveFolderRef = component.get('v.currentFolderGDId');
             }
-            
-            var mimeType = component.find("Filemenu").get('v.value');
-            var ModifiedType = component.find("Timemenu").get('v.value');
-            
-            var TimeStartDate = component.get('v.TimeStartDate');
-            var TimeEndDate = component.get('v.TimeEndDate');
-            
-            if(TimeStartDate != ''){
+            let mimeType = component.find("Filemenu").get('v.value');
+            let ModifiedType = component.find("Timemenu").get('v.value');
+            let TimeStartDate = component.get('v.TimeStartDate');
+            let TimeEndDate = component.get('v.TimeEndDate');
+            if(TimeStartDate !== ''){
                 TimeStartDateParam = TimeStartDate;
-            }else{
-                TimeStartDateParam = null;
             }
-            if(TimeEndDate != ''){
+            if(TimeEndDate !== ''){
                 TimeEndDateParam = TimeEndDate;
-            }else{
-                TimeEndDateParam = null;
             }
-            
-            //alert(searchKey+Location+googleDriveFolderRef+mimeType+ModifiedType+TimeStartDateParam+TimeEndDateParam);
-            var action = component.get("c.getSearchResultList");
+            let action = component.get("c.getSearchResultList");
             action.setParams({
                 "searchKey": searchKey,
                 "googleDriveFolderRef": googleDriveFolderRef,
@@ -54,16 +47,15 @@
                 "EndDate": TimeEndDateParam
             });
             action.setCallback(this, function(response) {
-                var state = response.getState();
-                if(state == 'SUCCESS') {
-                    var folderFileList = response.getReturnValue();
-                    console.log(folderFileList);
+                let state = response.getState();
+                if(state === 'SUCCESS') {
+                    let folderFileList = response.getReturnValue();
                     component.set('v.folderFilesList', folderFileList);
                     component.set('v.spinner',false);
                 }
                 else if (response.getState() === "ERROR") {
-                    var errorMessage='';
-                    var errors = response.getError();
+                    let errorMessage='';
+                    let errors = response.getError();
                     if(errors[0].message.includes("uiMessage")){
                         let errorData = JSON.parse(errors[0].message);
                         errorMessage = errorData.uiMessage;
@@ -72,8 +64,7 @@
                     else {
                         errorMessage = errors[0].message;
                     }
-                    
-                    var toastEvent = $A.get("e.force:showToast");
+                    let toastEvent = $A.get("e.force:showToast");
                     toastEvent.setParams({
                         "type":"error",
                         "title": "Error!",
@@ -85,26 +76,22 @@
                 }
             });
             $A.enqueueAction(action);
-        }
+        // }
     },
     reloadCurrentFolderContents : function(component) {
-        var reloadCurrentFolderContentsEvent = component.getEvent("ReloadCurrentFolderContents");
+        let reloadCurrentFolderContentsEvent = component.getEvent("ReloadCurrentFolderContents");
         reloadCurrentFolderContentsEvent.fire();
     },
     addErrorLogInAPILogObject : function(component, apiLogData) {
-        var action = component.get('c.addAPILogInDB');
+        let action = component.get('c.addAPILogInDB');
         action.setParams({
-            "apiLogData" : JSON.stringify(apiLogData) 
+            "apiLogData" : JSON.stringify(apiLogData)
         });
         action.setCallback(this,function(response){
-            var state = response.getState();
-            if(state == 'SUCCESS') {
-                var result = response.getReturnValue();
-                console.log('API log added.');
-            }
-            else if (response.getState() === "ERROR") {
-                var errors = response.getError();
-                var toastEvent = $A.get("e.force:showToast");
+            let state = response.getState();
+            if (response.getState() === "ERROR") {
+                let errors = response.getError();
+                let toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "type":"error",
                     "title": "Error!",
@@ -116,16 +103,15 @@
         $A.enqueueAction(action);
     },
     ShowMainComponent: function (component, event, helper){
-        var reloadCurrentFolderContentsEvent = component.getEvent("RefreshCurrentFolderContent");
+        let reloadCurrentFolderContentsEvent = component.getEvent("RefreshCurrentFolderContent");
         reloadCurrentFolderContentsEvent.fire();
         component.set('v.showSearchComp', false);
     },
     
     handleFileMenu: function (component, event, helper){
-        var Label = event.detail.menuItem.get("v.label");
-        var selectedMenuItemValue = event.getParam("value");
-        //alert(Label);
-        var menuItems = component.find("FilemenuItems");
+        let Label = event.detail.menuItem.get("v.label");
+        let selectedMenuItemValue = event.getParam("value");
+        let menuItems = component.find("FilemenuItems");
         menuItems.forEach(function (menuItem) {
             if (menuItem.get("v.checked")) {
                 menuItem.set("v.checked", false);
@@ -139,16 +125,15 @@
     },
     
     handleLocMenu: function (component,event,helper){
-        var Label = event.detail.menuItem.get("v.label");
-        var selectedMenuItemValue = event.getParam("value");
-        //alert(selectedMenuItemValue);
-        var menuItems = component.find("LocmenuItems");
+        let Label = event.detail.menuItem.get("v.label");
+        let selectedMenuItemValue = event.getParam("value");
+        let menuItems = component.find("LocmenuItems");
         menuItems.forEach(function (menuItem) {
             if (menuItem.get("v.checked")) {
                 menuItem.set("v.checked", false);
             }
             if (menuItem.get("v.value") === selectedMenuItemValue) {
-                menuItem.set("v.checked", true);
+                menuItem.set("v.checked", true); 
             }
         });
         component.find('Locationmenu').set('v.label', Label);
@@ -156,16 +141,14 @@
     },
     
     handleTimeMenu: function (component,event,helper){
-        var Label = event.detail.menuItem.get("v.label");
-        var selectedMenuItemValue = event.getParam("value");
-        var menuItems = component.find("TimemenuItems");
-        
+        let Label = event.detail.menuItem.get("v.label");
+        let selectedMenuItemValue = event.getParam("value");
+        let menuItems = component.find("TimemenuItems");
         component.set('v.TimeStartDate','');
         component.set('v.TimeEndDate','');
-        
         menuItems.forEach(function (menuItem) {
             if (menuItem.get("v.checked")) {
-                menuItem.set("v.checked", false);
+                menuItem.set("v.checked",false);
             }
             if (menuItem.get("v.value") === selectedMenuItemValue) {
                 menuItem.set("v.checked", true);
@@ -173,35 +156,31 @@
         });
         component.find('Timemenu').set('v.label', Label);
         component.find('Timemenu').set('v.value', selectedMenuItemValue);
-        if(selectedMenuItemValue=='Custom'){
-            component.set('v.CustomDatePickPopup', true);
+        if(selectedMenuItemValue === 'Custom'){
+            component.set('v.CustomDatePickPopup',true);
         }
     },
-    
     closeModel: function (component,event,helper){
         component.set('v.CustomDatePickPopup', false);
-        
         component.find('Timemenu').set('v.value', 'ANY');
-        var menuItems = component.find("TimemenuItems");
+        let menuItems = component.find("TimemenuItems");
         menuItems.forEach(function (menuItem) {
             if (menuItem.get("v.checked")) {
                 menuItem.set("v.checked", false);
             }
             if (menuItem.get("v.value") === 'ANY') {
                 menuItem.set("v.checked", true);
-                var LblName = menuItem.get('v.label');
+                let LblName = menuItem.get('v.label');
                 component.find('Timemenu').set('v.label', LblName);
             }
         });
     },
-    
     SubmitCustomDates: function (component,event,helper){
-        var StartDate = component.find('CustomInputStartDate').get('v.value');
-        var EndDate = component.find('CustomInputEndDate').get('v.value');
-        console.log('sd: '+StartDate);
-        if(StartDate===''){
+        let StartDate = component.find('CustomInputStartDate').get('v.value');
+        let EndDate = component.find('CustomInputEndDate').get('v.value');
+        if(StartDate === ''){
             component.find('OppMessage').setError('Enter a valid Start Date.');
-        } else if(EndDate===''){
+        } else if(EndDate === ''){
             component.find('OppMessage').setError('Enter a valid End Date.');
         } else if(StartDate>EndDate){
             component.find('OppMessage').setError('Start Date should be less than End Date.');
@@ -209,10 +188,9 @@
             component.find('OppMessage').setError('');
             component.set('v.TimeStartDate',StartDate);
             component.set('v.TimeEndDate',EndDate);
-            var CustomLbl = 'Custom ('+StartDate+'-'+EndDate+')';
+            let CustomLbl = 'Custom ('+StartDate+'-'+EndDate+')';
             component.find('Timemenu').set('v.label', CustomLbl);
             component.set('v.CustomDatePickPopup', false);
         }
     }
-    
 })

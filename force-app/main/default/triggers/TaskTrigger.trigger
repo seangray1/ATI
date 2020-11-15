@@ -23,6 +23,7 @@ after update, before delete, before insert, before update) {
     
     if(trigger.isbefore && trigger.isInsert)
     {
+        TaskTriggerValidation.ValidateXactTask(trigger.new);
         TaskTriggerUtility.beforeInsert(trigger.new);
     }
 }

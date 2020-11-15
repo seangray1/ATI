@@ -6,7 +6,7 @@
     <errorConditionFormula>$Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; 
 ISCHANGED(Job_Number__c) &amp;&amp; 
 NOT(ISNULL( Last_Successful_Timberline_Update__c )) &amp;&amp; 
-$User.Id &lt;&gt; &#39;00570000003lVit&#39; &amp;&amp; $User.Id &lt;&gt; &#39;00570000004cjRd&#39; &amp;&amp; $User.Id &lt;&gt; &#39;00570000001bzZS&#39;</errorConditionFormula>
+$User.Id &lt;&gt; &apos;00570000003lVit&apos; &amp;&amp; $User.Id &lt;&gt; &apos;00570000004cjRd&apos; &amp;&amp; $User.Id &lt;&gt; &apos;00570000001bzZS&apos;</errorConditionFormula>
     <errorDisplayField>Job_Number__c</errorDisplayField>
     <errorMessage>Changing this job number is not allowed because the job has already been synced to Timberline. Please contact Charlotte Neuhaus to make this change.</errorMessage>
 </ValidationRule>

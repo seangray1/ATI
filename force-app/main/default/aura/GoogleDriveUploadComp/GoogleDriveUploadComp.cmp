@@ -10,7 +10,7 @@
 *********************************************************************************************
 * 1      	Aug 2020    Suman        Initial Creation(JIRA AR-653)
 *********************************************************************************************-->
-<aura:component controller='GoogleDriveIntegrationCompController'>
+<aura:component controller="GoogleDriveIntegrationCompController">
     <aura:attribute name="userId" type="String"/><!-- Logged in user's SF Id -->
     <aura:attribute name="navPathDetailsMap" type="Map"/><!--Map to show links to parent folders-->
     <aura:attribute name="currentFolderGDId" type="String"/><!-- Current open folder's Google Drive Ref Id -->
@@ -55,7 +55,8 @@
                                 /<aura:text value="{!item.value}" ></aura:text>
                             </span>
                         </aura:iteration>
-                        <div><br/>You can select more than one file at a time.</div>
+                        <div><br/>You can select more than one file at a time.
+                            <br/>Files larger than 2GB cannot be uploaded here. Please upload larger files directly to Google Drive.</div>
                         <br/><br/>
                     </p>
                     <p>

@@ -1,0 +1,13 @@
+.FullWrap .slds-form-element__label{font-weight: 400; color: #666666; font-size:12px;}
+.FullWrap .AllTotalSection .slds-form-element__label{color:#fff;}
+.FullWrap .slds-input{height:25px; min-height:25px; padding:0 6px;}
+.BLIBtns .slds-button_brand, .BLIBtns .slds-button--brand{ padding:0 8px; font-size:12px;}
+.FullWrap .slds-input[readonly]{font-size:12px; border: 1px solid #dddbda;}
+.FullWrap .slds-input[disabled]{font-size:12px; border: 1px solid #dddbda;background: #ecebea}
+.FullWrap .AllTotalSection .slds-input[readonly]{font-weight:bold; border:none; background:transparent; padding:0;}
+table.TblTreeView textarea{height:30px; resize:none;}
+.deleteIcon svg{fill: #d61111; cursor:pointer;}
+.ExpandIcon svg{fill:#009cdb; cursor:pointer;}
+.editIcon svg{cursor:pointer;}
+.FullWrap .slds-combobox_container .slds-input{padding-right:25px;}
+.FullWrap .BLIWrap table.TblTreeView .slds-dropdown{top:25px!important; max-height: 108px; overflow-y: auto;}

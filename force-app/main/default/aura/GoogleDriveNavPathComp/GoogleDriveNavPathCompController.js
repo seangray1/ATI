@@ -1,30 +1,40 @@
 ({
     openFolder : function(component, event, helper) {
-        component.set("v.spinner", true); 
-        
-        var sourceField; 
+        component.set("v.spinner", true);
+        let sourceField;
         if(event.getSource){
-            sourceField = event.getSource(); 
+            sourceField = event.getSource();
         }
-        var folderName = sourceField.get('v.label');
-        var folderRef = sourceField.get('v.value');
-        
-        var showFolderContentForNavPathClickEvent = component.getEvent("LoadFolderContentForNavPathClickEvent");
+        let folderName;
+        let folderRef;
+        if(sourceField.get('v.label') !== null){
+           folderName = sourceField.get('v.label');
+        }
+        if(sourceField.get('v.value') !== null){
+           folderRef = sourceField.get('v.value');
+        }
+        let showFolderContentForNavPathClickEvent = component.getEvent("LoadFolderContentForNavPathClickEvent");
         showFolderContentForNavPathClickEvent.setParams({
             "folderGDId" : folderRef,
             "folderName" : folderName
         });
         showFolderContentForNavPathClickEvent.fire();
-        
         window.setTimeout(
             $A.getCallback(function() {
-                component.set("v.spinner", false); 
+                component.set("v.spinner", false);
             }), 1000
         );
     },
-    
     reloadCurrentFolderContents : function(component) {
-        var reloadCurrentFolderContentsEvent = component.getEvent("RefreshCurrentFolderContent");
+        let reloadCurrentFolderContentsEvent = component.getEvent("RefreshCurrentFolderContent");
         reloadCurrentFolderContentsEvent.fire();
+    },
+    openJobInGoogleDrive : function(component, event, helper) {
+        let googleDriveLink = component.get("v.googleDriveLinkForRec");
+        let urlEvent = $A.get("e.force:navigateToURL");
+        urlEvent.setParams({
+            "url": googleDriveLink
+        });
+        urlEvent.fire();
     },
 })

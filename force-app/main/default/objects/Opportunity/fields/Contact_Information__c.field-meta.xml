@@ -10,7 +10,7 @@ Contact__r.Email),
 (Contact__r.MailingStreet +&quot;, &quot;+ Contact__r.MailingCity +&quot;, &quot;+ Contact__r.MailingState +&quot; &quot;+ Contact__r.MailingPostalCode &amp; BR() &amp;
 Contact__r.Phone +&quot; Work &quot; &amp; BR() &amp;  Contact__r.MobilePhone +&quot; Mobile &quot; &amp; BR() &amp;
 Contact__r.Email)))</formula>
-    <inlineHelpText>Information is carried over from Contact&#39;s Mailing Address.</inlineHelpText>
+    <inlineHelpText>Information is carried over from Contact&apos;s Mailing Address.</inlineHelpText>
     <label>Contact Information</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
